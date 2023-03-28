@@ -1,0 +1,36 @@
+query get_footer_menu     (
+    $page: Int = 1, 
+    $size: Int = 10,
+    $keyword: String
+) {
+    items: records(
+        page: $page
+        per_page: $size
+        filter: {
+            table: { value: "modules/website/main_menu" }
+            deleted_at: { exists: false }
+            properties: [
+                { name: "enabled", value_boolean: true }
+                { name: "label", contains: $keyword }
+                { name: "link", not_value: "/products" }
+                { name: "parent_menu", exists: false }
+            ]
+        }
+        sort: [
+            { properties: { name: "order", order: ASC } }
+        ]
+    ) {
+        total_entries
+        total_pages
+        per_page
+        current_page
+        results {
+            id
+            updated_at
+            created_at
+            # properties
+            label: property(name: "label")
+            link: property(name: "link")
+        }
+    }
+}

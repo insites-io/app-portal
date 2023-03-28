@@ -1,0 +1,19 @@
+query get_localisation {
+    items: records(
+        per_page: 1,
+        filter: {
+            table: { value: "modules/insites_core/insites_localisation" }
+        }
+        sort: { updated_at: { order: DESC } }
+    ) {
+        total_entries
+        total_pages
+        has_next_page
+        has_previous_page
+        results {
+            id
+            updated_at
+            properties
+        }
+    }
+}

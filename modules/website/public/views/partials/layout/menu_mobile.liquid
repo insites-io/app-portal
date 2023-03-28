@@ -1,0 +1,83 @@
+{%- comment -%}
+    Mobile Menu
+{%- endcomment -%}
+
+{%- if context.environment == "staging" -%}
+<!-- start partial: modules/website/content/layout/mobile-menu  -->
+{%- endif -%}
+
+{% liquid
+    assign page = 1
+    assign size = 20
+    graphql data = 'modules/website/content/get_main_menu', page: page, size: size
+%}
+
+<ins-drawer no-padding
+    id="mobile-menu" 
+    show-header=false
+    position="right">
+    <div>
+        <ul class="vertical menu">
+        {%- for item in data.items.results -%}
+            {%- if item.link == 'products' and context.modules.ecommerce.name != blank -%}
+                {%- comment -%}E-commerce mobile menu item{%- endcomment -%}
+                {%- include 'modules/ecommerce/menu/mobile', item: item -%}
+            {%- else -%}
+                {%- graphql sub_data = 'modules/website/content/get_sub_menu', 
+                parent_menu: item.id -%}
+                {%- if sub_data.items.total_entries > 0 -%}
+                    <li>
+                        <ins-accordion menu>
+                            <ins-accordion-item data-test="main-menu-mobile-{{item.label | downcase | parameterize}}" heading="{{ item.label }}" {% if item.link contains context.params.slug %} active {% endif %} link="{{ item.link }}">
+                            {%- for sub_item in sub_data.items.results -%}
+                            <ins-accordion-link label="{{ sub_item.label }}" {% if context.params.slug2 == sub_item.link %} class="active" {% endif %} 
+                            link="{{ item.link }}{{sub_item.link}}" data-test="sub-menu-mobile-{{sub_item.label | downcase | parameterize}}" link-target="_self">
+                            </ins-accordion-link>
+                            {%- endfor -%}
+                            </ins-accordion-item>
+                        </ins-accordion>
+                    </li>
+                {%- else -%}
+                    <li>
+                        <a href="{{ item.link }}" data-test="main-menu-mobile-{{item.label | downcase | parameterize}}" {% if item.link contains context.params.slug %}class="active"{%- endif -%}>
+                            {{ item.label }}
+                        </a>
+                    </li>
+                {%- endif -%}
+
+            {%- endif -%}
+        {%- endfor -%}
+        
+        {%- if context.modules.ecommerce.name != blank -%}
+            {%- comment -%} E-Commerce mobile sign in and cart partial {%- endcomment -%}
+            {%- include 'modules/ecommerce/menu/mobile_header' -%}
+        {%- endif -%}
+
+        {%- if context.exports.global.loc_1_phone -%}
+            <li class="small">
+                {%- comment -%}
+                    IF the phone number is a '1800', or no country code, etc.. just remove regex 
+                    Data needs to be standard. If it will contain the country code, or not.
+                {%- endcomment -%}
+                {%- assign contact_no = context.exports.global.loc_1_phone | replace_regex: '[+() ]', '' | prepend: '+' -%}
+                <a class="font-color-link navigation-cta" href="tel:{{ contact_no }}" data-test="phone-link-mobile">
+                    <i class="icon-phone1"></i>
+                    +{{ context.exports.global.loc_1_phone | replace: "+", '' }}
+                </a>
+            </li>
+        {%- endif -%}
+        {%- if context.exports.global.company_email_1 -%}
+            <li class="small">
+                <a class="font-color-link navigation-cta" href="mailto:{{ context.exports.global.company_email_1 }}" data-test="email-link-mobile">
+                    <i class="icon-mail1"></i>
+                    <span>{{ context.exports.global.company_email_1 }}</span>
+                </a>
+            </li>
+        {%- endif -%}
+        </ul>
+    </div>
+</ins-drawer>
+
+{%- if context.environment == "staging" -%}
+<!-- end partial: modules/website/content/layout/mobile-menu  -->
+{%- endif -%}

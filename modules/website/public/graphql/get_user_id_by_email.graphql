@@ -1,0 +1,16 @@
+query get_user_id_by_email($email: String!) {
+  items: users(
+    per_page: 1, 
+    page: 1,
+    filter: {
+        deleted_at: { exists: false }
+        email: { value: $email } 
+    }
+  ) {
+    total_entries
+    results {
+      id
+      email
+    }
+  }
+}

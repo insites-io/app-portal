@@ -1,0 +1,74 @@
+---
+slug: thank-you
+layout: modules/website/system_pages
+# enable_profiler: true
+max_deep_level: 1
+metadata: {
+    "status": "published",
+    "page_type": "system", ## content, system or endpoint
+    "og:url": "",
+    "og:type": "",
+    "og:image": "",
+    "og:title": "Thank you | Insites",
+    "og:description": "Thank you | Insites",
+    "og:site_name": "",
+    "meta_title": "Thank you | Insites",
+    "page_title": "Thank you | Insites",
+    "meta_description": "Thank you | Insites",
+    "canonical_url": "",
+    "search_engine_visibility": false,
+    "sitemap_enabled": false,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "99", ## secondary order (ASC)
+    "sitemap_changefreq": "never"
+}
+dynamic_cache:
+  layout: |-
+    {%- comment -%}Set layout cache depending if E-commerce module is present{%- endcomment -%}
+    {%- if context.modules.ecommerce.name != blank -%}
+    false
+    {%- else -%}
+    true
+    {%- endif -%}
+  key: |-
+    {%- parse_json models -%}
+    [
+      {%- if context.modules.ecommerce.name == blank -%} "modules/website/main_menu", {%- endif -%}
+      "modules/website/page_header",
+      "modules/insites_core/insites_system_fields",
+      "modules/insites_site_manager/insites_global_content"
+    ]
+    {%- endparse_json -%}
+    {%- include "modules/website/generate_cache_key", models: models -%}
+---
+
+{%- comment -%}
+Default 'success / thank you' page
+Design & content changes per project as needed
+{%- endcomment -%}
+
+{%- if context.environment == "staging" -%}
+<!-- start page: thank you page  -->
+{%- endif -%}
+
+<div class="thank-you">
+    <div class="spacer x-large"></div>
+        <div class="grid-x grid-padding-x text-center">
+            <div class="large-12 medium-12 small-12 cell">
+
+                <div class="thank-you-img spacer">
+                    <i class="icon-number-of-checks"></i>
+                </div>
+
+                <h2 class="heading-2">Thank You!</h2>
+                <div class="spacer"></div>
+                <p>Your enquiry has been received.</p>
+
+            </div>
+        </div>
+    <div class="spacer x-large"></div>
+</div>
+
+{%- if context.environment == "staging" -%}
+<!-- end page: thank you page  -->
+{%- endif -%}

@@ -1,0 +1,45 @@
+query get_clients(
+    $page: Int = 1, 
+    $size: Int = 10,
+    $keyword: String
+) {
+    items: records(
+        page: $page
+        per_page: $size
+        filter: {
+            table: { value: "modules/website/clients" }
+            deleted_at: { exists: false }
+            properties: [
+                { name: "enabled", value_boolean: true }
+                { name: "title", contains: $keyword }
+            ]
+        }
+        sort: [
+            { properties: { name: "order", order: ASC } }
+        ]
+    ) {
+        total_entries
+        total_pages
+        per_page
+        current_page
+        results {
+            id
+            updated_at
+            created_at
+            # properties
+
+            title: property(name: "title")
+            enabled: property_boolean(name: "enabled")
+            link: property(name: "link")
+            order: property(name: "order")
+
+            # Images
+            image: property_upload(name: "image") {
+                url
+                file_name
+                extension
+                versions
+            }
+        }
+    }
+}

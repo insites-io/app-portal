@@ -1,0 +1,89 @@
+{% liquid
+    graphql carousel_data = "modules/website/content/get_services", size: size
+    assign current_date =  "today" | date: "%Y-%m-%d"
+
+    assign perPage = 3
+    assign pagination = "true"
+    assign buttons = "false"
+
+    if context.device.device_type == "tablet"
+        assign perPage = 2
+        assign pagination = "false"
+        assign buttons = "true"
+    elsif context.device.device_type == "smartphone"
+        assign perPage = 1
+        assign pagination = "false"
+        assign buttons = "true"
+    endif
+%}
+
+{%- if carousel_data.items.total_entries > 0 -%}
+<div class="wrapper">
+    <div class="grid-container homepage-v2-carousel">
+        <div class="grid-x grid-padding-x align-middle">
+            <div class="cell small-12 text-center">
+                <h2>We’re thrilled you want to try Insites!</h2>
+                <div class="spacer"></div>
+                <p>To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.<br> Once you've exhausted the fun in this document, you should check out:</p>
+                <div class="spacer"></div>
+            </div>
+            <div class="cell small-12 text-center">
+
+                <ins-carousel loop
+                    layout="1" 
+                    per-page="{{ perPage }}"
+                    bind-to="homepage-carousel"
+                    transition="700"
+                    duration="5000" 
+                    no-pagination="{{ pagination }}"
+                    no-carousel-button="{{ buttons }}"
+                    data-test="homepage-carousel">
+                    <div id="homepage-carousel">                        
+                        {%- for item in carousel_data.items.results -%}
+                            {%- comment -%} Check if the date is okay,  {%- endcomment -%}
+                            {% liquid
+                                assign valid_start_date = false
+                                assign valid_end_date = false
+                                if item.start_date <= current_date or item.start_date == blank
+                                    assign valid_start_date = true
+                                endif
+                                if item.end_date > current_date or item.end_date == blank
+                                    assign valid_end_date = true
+                                endif
+                            %}                                                    
+                            
+                            {%- if valid_start_date and valid_end_date -%}
+                                <div class="slide-container" data-test="slider-container-{{item.name | downcase | parameterize}}">
+
+                                    {%- if item.link != blank -%}
+                                    <a href="{{ item.link }}" data-test="slider-link-{{item.name | downcase | parameterize}}">
+                                    {%- endif -%}
+                                       
+                                    <div class="img-wrap">
+                                        <div style="display: none;">aaa {{ item.image.versions['Carousel'] }} </div>
+                                        {%- if item.image.versions['Carousel'] -%}
+                                            <img src="{{ item.image.versions['Carousel'] | replace: ' ', '%20' }}" alt="{{ item.name }}" loading="lazy">
+                                        {%- else -%}
+                                            {% include 'modules/website/content/placeholder-image', size: 'medium' %}
+                                        {%- endif -%}
+                                    </div>
+                                    <div class="spacer"></div>
+                                    <div>
+                                        <p class="heading-4">{{ item.name }}</p>
+                                    </div>
+
+                                    {%- if item.link != blank -%}
+                                    </a>
+                                    {%- endif -%}
+
+                                </div>
+                            {%- endif -%}
+
+                        {%- endfor -%}
+                    </div>
+                </ins-carousel>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endif -%}

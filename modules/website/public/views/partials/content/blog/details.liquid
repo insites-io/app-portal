@@ -1,0 +1,169 @@
+---
+metadata: {
+    "slug2": "{{ context.exports.data.item.slug }}",
+    "og:url": "{{ context.exports.data.item.slug }}",
+    "og:type": "",
+    "og:image": '{{ context.exports.data.item.image.version["OG-Image-1200x630"] }}',
+    "og:title": "{{ context.exports.data.item.post_title }}",
+    "og:description": "{{ context.exports.data.item.meta_description }}",
+    "og:site_name": "",
+    "page_title": "{{ context.exports.data.item.post_title }}",
+    "meta_title": "{{ context.exports.data.item.meta_title }}",
+    "meta_description": "{{ context.exports.data.item.meta_description }}",
+    "canonical_url": "",
+    "search_engine_visibility": true,
+    "sitemap": true,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "99", ## secondary order (ASC)
+    "sitemap_changefreq": "monthly",
+    ##
+    ## Metadata `database_name` and `layouts` values is used 
+    ## to connect this partial / content block to the Insites Database Layouts
+    ## `layouts` values should only be "list" or "details"
+    ##
+    "database_name": "modules/website/blog",
+    "layout": "details"
+}
+---
+
+{%- comment -%}
+Blog: Details view
+{%- endcomment -%}{%- assign item = context.exports.data.item -%}
+
+{%- comment -%} Default values {%- endcomment -%}
+{%- liquid
+    assign date_now = 'today' | to_time
+    assign item_status = item.status | downcase
+    assign is_displayed = false
+    assign is_admin = false
+-%}
+
+{%- comment -%} Checking if is_admin {%- endcomment -%}
+{%- liquid
+    graphql data = 'modules/insites_core/sessions/current_user'
+    if data.current_user.administrator.is_enabled == true or data.current_user.administrator.is_enabled == "true"
+        assign is_admin = true
+    endif
+-%}
+
+{%- comment -%} Checking if detail can be display {%- endcomment -%}
+{%- liquid
+    if item_status == 'published' and date_now >= item.published_date
+        assign is_displayed = true
+    elsif item_status == 'published' and date_now <= item.published_date and is_admin
+        assign is_displayed = true
+    elsif item_status == 'draft' and is_admin
+        assign is_displayed = true
+    elsif item_status == 'draft' and context.params.preview == 'true'
+        assign is_displayed = true  
+    elsif date_now <= item.published_date and context.params.preview == 'true'
+        assign is_displayed = true   
+    endif
+-%}
+
+{%- comment -%} Used for checking if page has OG Image (if not, use the default OG Image) {%- endcomment -%}
+{%- liquid
+    content_for 'has_og_image'
+        echo context.exports.data.item.image.version["OG-Image-1200x630"]
+    endcontent_for    
+-%}
+
+
+{%- if context.environment == "staging" -%}
+  <!-- start partial: Blog details page  -->
+{%- endif -%}
+
+{%- if is_displayed -%}
+  <div class="wrapper">
+    <div class="blog grid-container main-container" data-test="page-blog-detail">
+      <div class="spacer xxxx-large"></div>
+
+      {% include 'modules/website/content/layout/go-back-nav', label: "Back to Blog List" %}
+
+      <article class="blog-post grid-x">
+        <div class="large-12 cell">
+          <div class="blog-heading spacer x-large">
+            {%- if context.exports.data.item.category -%}
+              {%- liquid 
+                    assign category = context.exports.data.item.category | downcase
+                        case category
+                            when 'code'
+                                assign color = '#24BE8D'
+                                assign background = '#24be8d1a'
+                            when 'design'
+                                assign color = '#1e86e3'
+                                assign background = '#116ec31a'
+                            when 'health'
+                                assign color = '#2BBAD9'
+                                assign background = '#2bbad91a'
+                            when 'seo'
+                                assign color = '#FFA639'
+                                assign background = '#ffa6391a'
+                        endcase
+                -%}
+              <ins-tag
+                class="uppercase"
+                icon="icon-tag1"
+                font-color="{{ color }}"
+                background-color="{{ background }}"
+                label="{{ context.exports.data.item.category }}"></ins-tag>
+              <div class="spacer small"></div>
+            {%- endif -%}
+            <h1>{{ context.exports.data.item.post_title }}</h1>
+            <div class="spacer small"></div>
+            <p class="subhead-2 font-color-sub">
+              Published on {{ context.exports.data.item.published_date | date: '%b %d, %Y' }} by {{ context.exports.data.item.author }}
+            </p>
+          </div>
+
+          {% comment %} 
+          Blog post image: 
+          - code below uses blog list & moble images.
+          {% endcomment %}
+
+          <div class="blog-img">
+            {%- comment -%} Desktop Image {%- endcomment -%}
+            <div class="hide-for-small-only">
+              {%- if context.exports.data.item.image.version['Desktop'] -%}
+                <img
+                  src="{{ context.exports.data.item.image.version['Desktop'] | replace: ' ', '%20' }}"
+                  alt="{{ context.exports.data.item.short_text }}"
+                  loading="lazy">
+              {%- else -%}
+                {% include 'modules/website/content/placeholder-image', size: 'large' %}
+              {%- endif -%}
+            </div>
+            {%- comment -%} Mobile Image {%- endcomment -%}
+            <div class="show-for-small-only">
+              {%- if context.exports.data.item.image.version['Mobile'] -%}
+                <img
+                  src="{{ context.exports.data.item.image.version['Mobile'] | replace: ' ', '%20' }}"
+                  alt="{{ context.exports.data.item.short_text }}"
+                  loading="lazy">
+              {%- else -%}
+                {% include 'modules/website/content/placeholder-image', size: 'medium' %}
+              {%- endif -%}
+            </div>
+            <div class="spacer xxxx-large"></div>
+          </div>
+
+          <div class="blog-content dynamic-content inner-wrap">
+            {{ context.exports.data.item.content_block_1 }}
+            {%- if context.exports.data.item.content_block_2 -%}
+              <div class="spacer"></div>
+              {{ context.exports.data.item.content_block_2 }}
+            {%- endif -%}
+          </div>
+        </div>
+      </article>
+      <div class="spacer section"></div>
+    </div>
+  </div>
+  <hr>
+{%- else -%}
+  {% redirect_to '/404' %}
+{%- endif -%}
+
+{%- if context.environment == "staging" -%}
+  <!-- end partial: Blog details page  -->
+{%- endif -%}

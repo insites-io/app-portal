@@ -1,0 +1,36 @@
+query get_branding {
+    items: records(
+      	page: 1,
+        per_page: 10,
+        filter: {
+            table: {
+                value: "modules/insites_settings_and_branding/insites_site_settings"
+            }
+        }
+        sort: {
+            updated_at: {
+                order: DESC
+            }
+        }
+    ) {
+        total_entries
+        total_pages
+        has_next_page
+        has_previous_page
+        results {
+            id
+            updated_at
+            # properties
+            email_name: property(name: "email_name")
+            mail_from: property(name: "mail_from")
+            reply_to: property(name: "reply_to")
+
+            branding_logo: image(name: "branding_logo") {
+                original: url(version: "transformed")
+            }
+            branding_favicon: image(name: "branding_favicon") {
+                original: url(version: "transformed")
+            }
+        }
+    }
+} 

@@ -1,0 +1,38 @@
+mutation create_crm_contact(
+    $email: String, 
+    $first_name: String, 
+    $last_name: String,
+    $mobile_phone_country_code: String,
+    $mobile_phone_number: String
+) {
+  items: user_create(
+    user: {
+      first_name: $first_name, 
+      last_name: $last_name, 
+      email: $email,
+        profiles: [
+        {
+          name: "modules/insites_core/insites_customer",
+          values: {
+            properties: [
+              { name: "is_enabled", value_boolean: true }
+            ]
+          }
+        },
+        {
+          name: "modules/insites_core/insites_contact_number",
+          values: {
+            properties: [
+              { name: "mobile_phone_country_code", value: $mobile_phone_country_code }
+              { name: "mobile_phone_number", value: $mobile_phone_number }
+            ]
+          }
+        }
+      ]
+    }
+  )
+  {
+    id
+    email
+  }
+}

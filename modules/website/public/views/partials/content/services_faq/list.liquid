@@ -1,0 +1,24 @@
+
+{%- comment -%}
+Services FAQ: List using ins-accordion
+{%- endcomment -%}
+
+{%- graphql faq = "modules/website/content/get_services_faq", 
+    page: 1,
+    size: 50 -%}
+
+{%- if faq.items.total_entries > 0 -%}
+<ins-accordion data-test="service-detail-faq-container">  
+    {%- for faq in faq.items.results -%}
+        <ins-accordion-item 
+            class="faq-item"
+            heading="{{ faq.title }}"
+            data-test="service-detail-faq-item-{{ forloop.index0 }}" 
+            {% if forloop.first %} active {% endif %}>
+            <div class="faq-content">
+            {{ faq.content | html_safe }}
+            </div>
+        </ins-accordion-item>
+    {%- endfor -%}
+</ins-accordion>
+{%- endif -%}

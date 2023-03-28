@@ -1,0 +1,8 @@
+
+{%- comment -%}
+Technical footer:
+Contains all the scripts imported right before the </body> tag
+{%- endcomment -%}
+
+<link rel="preload" as="script" href="{{ 'modules/website/scripts/app.js' | asset_url }}" >
+<script src="{{ 'modules/website/scripts/app.js' | asset_url }}"></script>

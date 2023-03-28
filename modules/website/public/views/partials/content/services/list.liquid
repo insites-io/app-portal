@@ -1,0 +1,92 @@
+---
+metadata: {
+    "og:url": "",
+    "og:type": "",
+    "og:image": "",
+    "og:title": "Services | Insites",
+    "og:description": "Services | Insites",
+    "og:site_name": "",
+    "page_title": "Services | Insites",
+    "meta_title": "Services | Insites",
+    "meta_description": "Services | Insites",
+    "canonical_url": "",
+    "search_engine_visibility": true,
+    "sitemap": true,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "99", ## secondary order (ASC)
+    "sitemap_changefreq": "never",
+    ##
+    ## Metadata `database_name` and `layouts` values is used 
+    ## to connect this partial / content block to the Insites Database Layouts
+    ## `layouts` values should only be "list" or "details"
+    ##
+    "database_name": "modules/website/services",
+    "layout": "list"
+}
+---
+
+{%- comment -%}
+Products and Services: List view
+{%- endcomment -%}
+
+{%- if context.environment == "staging" -%}
+<!-- end partial: Products & services list page  -->
+{%- endif -%}
+
+{%- comment -%}Add this partial to add a page title header (https://cbo.d.pr/4m3NV6){%- endcomment -%}
+{%- include 'modules/website/content/layout/page-header' -%}
+{%- if show_spacer_start != false -%}
+<div class="spacer section"></div>
+{%- endif -%}
+<div class="wrapper">
+    <div class="services grid-container main-container" data-test="page-service-list">
+        
+        <div class="service-list grid-x grid-padding-x grid-padding-y gutter-medium align-strech" data-equalizer>
+            {% liquid
+                assign page = 1
+                assign size = 9
+                graphql data = "modules/website/content/get_services", page: page, size: size 
+            %}
+
+            {%- if data.items.results -%}
+                {%- for item in data.items.results -%}
+                    <div class="large-4 medium-6 small-12 cell align-stretch">
+
+                    {% liquid 
+                        if item.slug == '/contact-us'
+                            assign link = item.slug
+                        else
+                            assign parent_slug = context.params.slug | default: "services"
+                            assign link = '/' | append: parent_slug | append: '/' | append: item.slug
+                        endif
+                    %}
+                    
+                    {%- if link and link != '' -%}
+                        <a href="{{ link }}" rel="noreferrer" data-test="service-card-link-{{item.name | downcase | parameterize}}">
+                    {%- endif -%}
+                            <ins-card steady data-test="service-card-{{item.name | downcase | parameterize}}">
+                                <div class="content">
+                                    <h3 class="name">{{ item.name }}</h3>
+                                    <div class="spacer x-large"></div>
+                                    <div class="short-description">{{ item.description | truncate: 180, ' ...' }}</div>
+                                    <div class="spacer xxx-large"></div>
+                                    <span class="button-default color-main">
+                                        LEARN MORE &nbsp;<i class="icon-angle-right"></i>
+                                    </span>
+                                </div>
+                            </ins-card>
+                    {%- if link and link != '' -%}
+                        </a>
+                    {%- endif -%}
+                    </div>
+                {%- endfor -%}
+            {%- endif -%}
+        </div>
+        <div class="spacer section"></div>
+
+    </div>
+</div>
+
+{%- if context.environment == "staging" -%}
+<!-- end partial: Products & services list page  -->
+{%- endif -%}
