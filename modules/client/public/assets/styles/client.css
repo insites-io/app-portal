@@ -1,0 +1,110 @@
+:root {
+    /* Brand colors */
+    --color-main: #116EC3;
+    --color-sub1: #8C1EE3;
+    --color-sub2: #E3361E;
+    /* Buttons & Links */
+    --color-main-hover: #0964B8;
+    --color-sub1-hover: #7E16D0;
+    --color-sub2-hover: #D32F19;
+    --color-main-hover-light: rgba(17, 110, 195, 0.1);
+    --color-sub1-hover-light: rgba(126, 22, 208, 0.1);
+    --color-sub2-hover-light: rgba(211, 47, 25, 0.1);
+    /* Support/Notification Colors */
+    --success: #37B68F;
+    --error: #FF3366;
+    --warning: #FFA639;
+    /* Support/Notification Colors Hover*/
+    --success-hover: #2B8D6F;
+    --error-hover: #FF0040;
+    --warning-hover: #FF8F05;
+    /* Support/Notification Colors Hover Light*/
+    --success-hover-light: rgba(55, 182, 143, 0.1);
+    --error-hover-light: rgba(255, 51, 102, 0.1);
+    --warning-hover-light: rgba(255, 166, 57, 0.1);
+    /* Font colors */
+    --font-color-head: #2B2B2B;
+    --font-color-sub: #323232;
+    --font-color-body: #595959;
+    --font-color-link: #1A0DAB;
+    --font-color-visited: #660099;
+    --font-color-inv: #FFFFFF;
+    /* UI Colors */
+    --color-ui-01: #FFFFFF;
+    --color-ui-02: #FAFBFC;
+    --color-ui-03: #F2F4F8;
+    --color-ui-04: #E4E6EC;
+    --color-ui-05: #8C94A4;
+    --color-ui-06: #2C3148;
+    --color-ui-07: #1E86E3;
+    --color-ui-08: #FFFFFF1A;
+    /* Gradiant Background */
+    --color-gradiant1: linear-gradient(90deg, #1E4AA2 0%, #1B78CC 100%);
+    --color-gradiant2: linear-gradient(90deg, #8C1EE3 0%, #C71EE3 100%);
+    --color-gradiant3: linear-gradient(90deg, #E3351E 0%, #F07B26 100%);
+    /* Font family */
+    --font-family-01: 'Lato', sans-serif;
+    /* usually on heading */
+    --font-family-02: 'Lato', sans-serif;
+    /* usually on sub-heading */
+    --font-family-03: 'Cabin', sans-serif;
+}
+
+.blocks-sc-2col-10 h3 {
+    line-height: 29px
+}
+
+.blocks-sc-2col-10 .accordion-section-holder {
+    background-color: var(--color-ui-02);
+    padding-left: 24px;
+    padding-right: 24px
+}
+
+.blocks-sc-2col-10 .ins-accordion-item,
+.blocks-sc-2col-10 .ins-accordion-link,
+.blocks-sc-2col-10 .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,.blocks-sc-2col-10 .ins-accordion-item_content .ins-accordion-link,.blocks-sc-2col-10 .ins-accordion-item_header>.inner-head {
+    background-color: var(--color-ui-02);
+}
+
+.blocks-sc-2col-10 .ins-accordion-item_content .ins-accordion-link {
+    border-bottom: unset
+}
+
+.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item .inner-head span,.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
+    color: var(--font-color-sub);
+}
+
+.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link:hover {
+    text-decoration: none
+}
+
+.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item .inner-head {
+    padding: 12px 14px;
+    padding-left: 0
+}
+
+.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item .inner-head span,.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
+    font-size: var(--typography-small,.875rem);
+    font-family: var(--font-family-01,sans-serif);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px
+}
+
+.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item .inner-head,
+.blocks-sc-2col-10 .ins-accordion-link,
+.blocks-sc-2col-10 .ins-accordion.menu ins-accordion-item:first-of-type .ins-accordion-item_header {
+    border: 0;
+}
+
+.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item .inner-head:hover,
+.blocks-sc-2col-10 .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
+.blocks-sc-2col-10 .ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover {
+  background-color: unset;
+}
+
+.ins-accordion-link_link{
+    padding: 12px 0px;
+    font-weight:400;
+    color: var(--font-color-sub);
+}

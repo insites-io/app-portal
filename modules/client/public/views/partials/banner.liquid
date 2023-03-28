@@ -1,0 +1,52 @@
+{%- comment -%}
+    Homepage slider partial / content block
+    - size controls the pagination (how many slides to show)
+    - ie. {% include 'modules/website/content/layout/homepage-slider', size: 10 %}
+{%- endcomment -%}
+
+{%- graphql data = "modules/client/get_banner", size: size -%}
+
+<div class="homepage-banner-wrap">
+    <ins-carousel no-carousel-button loop
+        layout="1" 
+        bind-to="homepage-banner"
+        transition="700"
+        duration="5000"
+        data-test="homepage-slider">
+        <div id="homepage-banner">
+            {%- if data.items.results -%}
+                {%- for item in data.items.results -%}
+                    <div class="slide-container" >
+                        {%- comment -%}Slide Image{%- endcomment -%}
+                        {%- if item.image.versions['Desktop'] -%}
+                        <div class="img-wrap">
+                            <img src="{{ item.image.versions['Desktop'] | replace: ' ', '%20' }}" alt="{{ item.main_text }}" 
+                                class="hide-for-small-only" loading="lazy">                           
+                        </div>
+                        {%- endif -%}
+                        
+                        {%- comment -%}Slide Text{%- endcomment -%}
+                        <div class="slide-content wrapper vertical-align-middle">
+                            <div class="grid-x grid-container">
+                                <div class="large-10 medium-10 small-10 large-offset-1 medium-offset-1 small-offset-1 cell">
+                                    <h1 class="heading heading-1">{{ item.main_text }}</h1>
+                                    <div class="spacer"></div>
+                                    <p>{{ item.sub_text }}</p>
+                                    {%- if item.button_link and item.button_link != '' -%}
+                                        <div class="spacer large"></div>
+                                        <a href="{{ item.button_link }}" >
+                                            <ins-button solid
+                                                label="{{item.button_label}}">
+                                            </ins-button>
+                                        </a>
+                                    {%- endif -%}
+                                </div>
+                                <div class="large-1 medium-1 small-1 cell"></div>
+                            </div>
+                        </div>
+                    </div>
+                {%- endfor -%}
+            {%- endif -%}
+        </div>
+    </ins-carousel>
+</div>

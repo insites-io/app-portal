@@ -1,0 +1,109 @@
+{%- comment -%}
+By adding the global content to the top of the layout
+It can be accessed in the includes without calling the GraphQL again
+It IS NOT accessable in {{content_for_layout}} which includes the specific page
+{%- endcomment -%}
+{%- include "modules/website/data/global_content" -%}
+{%- assign global = context.exports.global -%}
+
+{%- comment -%} Used by the fragment cache in the layout {%- endcomment -%}
+{%- include "modules/website/layout_fragment_cache_key" -%}
+
+{%- comment -%}
+The `homepage` layout is dedicated layout for homepage only.
+{%- endcomment -%}
+<!doctype html>
+<html class="no-js" lang="en">
+{%- if context.environment == "staging" -%}
+<!-- start layout: homepage  -->
+{%- endif -%}
+
+<head>
+    {%- comment -%}
+    We try to limit assets that are part of the head / technical head to
+    minimize page size & improve page performance.
+
+    Assets like 'Google Map API', should only be referenced as needed.
+    - Managed on the 'page / layout' level
+    {%- endcomment -%}
+    {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
+    {% include 'modules/website/layout/head' %}
+    <link rel="stylesheet" href="{{ 'modules/client/styles/client.min.css' | asset_url }}" >
+</head>
+
+<body>
+    <div class="main-wrap">
+        {%- if context.current_user and context.modules.ecommerce.name != blank -%}
+        {% include 'modules/website/layout/header' %}
+        {%- else -%}
+        {%- capture header_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-header" }} {%- endcapture -%}
+        {%- cache header_key -%}
+        {% include 'modules/website/layout/header' %}
+        {%- endcache -%}
+        {%- endif -%}
+
+
+        {%- comment -%} Carousel - Slider {%- endcomment -%}
+        {%- include 'modules/client/banner', size: 10 -%}
+
+
+        <div class="blocks-sc-2col-10 wrapper bg-color-ui-01">
+            <div class="grid-container">
+                <div class="spacer x-large"></div>
+                <div class="grid-x gutter-medium grid-padding-x">
+                    <div class="large-4 medium-5 small-12 cell">
+                        <div class="spacer xxx-large show-for-small-only"></div>
+                        <!-- accordion section holder -->
+                        <div class="accordion-section-holder">
+                            <div class="spacer"></div>
+                            <div class="description">
+                                <!-- accordion -->
+                                <ins-accordion-link label="Overview" link="/web-components/v2-accordion"></ins-accordion-link>
+
+                                <ins-accordion menu>                    
+                                    <ins-accordion-item heading="My Forms" open-icon="icon-plus"
+                                        close-icon="icon-minus">
+                                        <ins-accordion-link label="Only Label" link="/web-components/v2-accordion">
+                                        </ins-accordion-link>
+                                    </ins-accordion-item>                                                                             
+                                </ins-accordion>
+
+                                <ins-accordion-link label="My Documents" link="/web-components/v2-accordion"></ins-accordion-link>
+                                <ins-accordion-link label="My Details" link="/web-components/v2-accordion"></ins-accordion-link>
+                                <ins-accordion-link label="My Company Details" link="/web-components/v2-accordion"></ins-accordion-link>
+                                <ins-accordion-link label="Feedback" link="/web-components/v2-accordion"></ins-accordion-link>
+                                <ins-accordion-link label="Payment Methods" link="/web-components/v2-accordion"></ins-accordion-link>
+                                <ins-accordion-link label="Pay a Bill" link="/web-components/v2-accordion"></ins-accordion-link>
+                                <!-- /accordion -->
+                            </div>
+                            <div class="spacer"></div>
+                        </div>
+                        <!-- /accordion section holder -->
+                    </div>
+                    <div class="large-8 medium-7 small-12 cell">
+
+                        {{ content_for_layout }}
+                    </div>
+                </div>
+                <div class="spacer x-large"></div>
+            </div>
+        </div>
+
+
+
+        {%- capture foot_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-footer_section"}} {%- endcapture -%}
+        {%- cache foot_key -%}
+        {%- comment -%} Subscription Form {%- endcomment -%}
+        {%- include_form "modules/website/subscribe" -%}
+    </div>
+
+    {% include 'modules/website/layout/footer' %}
+    {% include 'modules/website/layout/foot' %}
+    {%- endcache -%}
+
+</body>
+{%- if context.environment == "staging" -%}
+<!-- end layout: homepage  -->
+{%- endif -%}
+
+</html>

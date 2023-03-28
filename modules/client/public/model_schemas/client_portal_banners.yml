@@ -1,0 +1,85 @@
+name: modules/client/client_portal_banners
+metadata:
+  label: "Client Portal - Banners"
+  groups: [{"id":"4f777c91-70f9-4e79-83ef-97b24e1fb245","name":"Banner Settings","weight":0},{"id":"0ea18da5-38d5-41fc-be66-1f91cad23b99","name":"Banner Content","weight":1}]
+  is_enabled: true
+properties:
+- name: button_label
+  type: string
+  metadata:
+    type: "text"
+    label: "Button Label"
+    weight: 4
+    group_id: "0ea18da5-38d5-41fc-be66-1f91cad23b99"
+    is_header: false
+    is_required: false
+- name: button_link
+  type: string
+  metadata:
+    type: "text"
+    label: "Button Link"
+    weight: 5
+    group_id: "0ea18da5-38d5-41fc-be66-1f91cad23b99"
+    is_header: false
+    is_required: false
+- name: enabled
+  type: boolean
+  metadata:
+    type: "toggle"
+    label: "Enabled"
+    weight: 0
+    group_id: "4f777c91-70f9-4e79-83ef-97b24e1fb245"
+    is_header: true
+- name: image
+  type: upload
+  metadata:
+    type: "media_image"
+    label: "Image"
+    weight: 6
+    group_id: "0ea18da5-38d5-41fc-be66-1f91cad23b99"
+    is_required: true
+  options:
+    acl: public
+    versions:
+      - name: Desktop
+        output:
+          quality: 100
+        resize:
+          fit: cover
+          width: 1440
+          height: 460
+          position: center
+          without_enlargement: false
+        manipulate:
+          flatten: "#000000"
+          greyscale: false
+    cache_control: ""
+    content_disposition: inline
+- name: main_text
+  type: string
+  metadata:
+    type: "text"
+    label: "Main Text"
+    weight: 2
+    group_id: "0ea18da5-38d5-41fc-be66-1f91cad23b99"
+    is_header: true
+    is_required: true
+    is_searchable: true
+- name: sort_order
+  type: integer
+  metadata:
+    type: "number"
+    label: "Sort Order"
+    weight: 1
+    group_id: "4f777c91-70f9-4e79-83ef-97b24e1fb245"
+    is_header: false
+    is_required: false
+- name: sub_text
+  type: string
+  metadata:
+    type: "text"
+    label: "Sub Text"
+    weight: 3
+    group_id: "0ea18da5-38d5-41fc-be66-1f91cad23b99"
+    is_header: false
+    is_required: false
