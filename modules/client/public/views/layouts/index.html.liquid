@@ -42,24 +42,17 @@ The `homepage` layout is dedicated layout for homepage only.
         {%- endcache -%}
         {%- endif -%}
 
-
         {%- comment -%} Carousel - Slider {%- endcomment -%}
         {%- include 'modules/client/banner', size: 10 -%}
 
-
-        <div class="blocks-sc-2col-10 wrapper bg-color-ui-01">
+        <div class="wrapper">
             <div class="grid-container">
-                <div class="spacer x-large"></div>
                 <div class="grid-x gutter-medium grid-padding-x">
-                    <div class="large-4 medium-5 small-12 cell">
-                        <div class="spacer xxx-large show-for-small-only"></div>
-                        <!-- accordion section holder -->
+                    <div class="large-3 medium-5 small-12 cell bg-color-ui-02">
+                        <div class="spacer xxxx-large"></div>
                         <div class="accordion-section-holder">
-                            <div class="spacer"></div>
-                            <div class="description">
-                                <!-- accordion -->
+                            <div class="description">                            
                                 <ins-accordion-link label="Overview" link="/web-components/v2-accordion"></ins-accordion-link>
-
                                 <ins-accordion menu>                    
                                     <ins-accordion-item heading="My Forms" open-icon="icon-plus"
                                         close-icon="icon-minus">
@@ -67,30 +60,25 @@ The `homepage` layout is dedicated layout for homepage only.
                                         </ins-accordion-link>
                                     </ins-accordion-item>                                                                             
                                 </ins-accordion>
-
                                 <ins-accordion-link label="My Documents" link="/web-components/v2-accordion"></ins-accordion-link>
                                 <ins-accordion-link label="My Details" link="/web-components/v2-accordion"></ins-accordion-link>
                                 <ins-accordion-link label="My Company Details" link="/web-components/v2-accordion"></ins-accordion-link>
                                 <ins-accordion-link label="Feedback" link="/web-components/v2-accordion"></ins-accordion-link>
                                 <ins-accordion-link label="Payment Methods" link="/web-components/v2-accordion"></ins-accordion-link>
                                 <ins-accordion-link label="Pay a Bill" link="/web-components/v2-accordion"></ins-accordion-link>
-                                <!-- /accordion -->
                             </div>
                             <div class="spacer"></div>
                         </div>
-                        <!-- /accordion section holder -->
                     </div>
-                    <div class="large-8 medium-7 small-12 cell">
-
+                    <div class="large-9 medium-7 small-12 cell bg-color-ui-01">
+                        <div class="spacer xxxx-large"></div>
                         {{ content_for_layout }}
                     </div>
                 </div>
                 <div class="spacer x-large"></div>
             </div>
         </div>
-
-
-
+        
         {%- capture foot_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-footer_section"}} {%- endcapture -%}
         {%- cache foot_key -%}
         {%- comment -%} Subscription Form {%- endcomment -%}
