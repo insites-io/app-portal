@@ -1,0 +1,541 @@
+---
+name: questionnaires
+resource: modules/client/questionnaire
+resource_owner: anyone
+redirect_to: /thank-you
+#spam_protection:
+#   recaptcha_v2:
+#fields:
+#callback_actions: >    
+---
+
+
+{%- parse_json form -%}
+{
+"fields": {
+        "properties": {
+            "validation": {
+                "errors": [],
+                "rules": null
+            },
+            "have_you_heard": {
+                "name": "form[properties_attributes][have_you_heard]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            },
+            "howd_you_learn": {
+                "name": "form[properties_attributes][howd_you_learn]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            },
+            "reason_for_visit": {
+                "name": "form[properties_attributes][reason_for_visit]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            },
+            "personal_email": {
+                "name": "form[properties_attributes][personal_email]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            },
+            "primary_phone": {
+                "name": "form[properties_attributes][primary_phone]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {}
+                },
+                "property_options": null
+            },
+            "previous_job": {
+                "name": "form[properties_attributes][previous_job]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {}
+                },
+                "property_options": null
+            },
+            "service_of_interest": {
+                "name": "form[properties_attributes][service_of_interest][]",
+                "value": [],
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            },
+            "attach_documents": {
+                "name": "form[properties_attributes][attach_documents]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {}
+                },
+                "property_options": null
+            },
+            "contact_name": {
+                "name": "form[properties_attributes][contact_name]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            },
+            "contact_number": {
+                "name": "form[properties_attributes][contact_number]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            },
+            "update_site": {
+                "name": "form[properties_attributes][update_site]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            },
+            "notes": {
+                "name": "form[properties_attributes][notes]",
+                "value": null,
+                "validation": {
+                    "errors": [],
+                    "rules": {}
+                },
+                "property_options": null
+            },
+            "agreement": {
+                "name": "form[properties_attributes][agreement][]",
+                "value": [],
+                "validation": {
+                    "errors": [],
+                    "rules": {
+                        "presence": true
+                    }
+                },
+                "property_options": null
+            }
+        },
+        "id": {
+            "name": "form[id]",
+            "value": null
+        }
+    },
+    "metadata": {
+        "label": "Questionnaires",
+        "form_steps": true,
+        "properties": {
+            "notes": {
+                "label": "Is there anything else you'd like to tell us?",
+                "weight": 11,
+                "is_enabled": true,
+                "ui_element": "text",
+                "placeholder": "Notes",
+                "two_columns": false,
+                "attribute_type": "string"
+            },
+            "agreement": {
+                "label": "I understand and agree",
+                "weight": 12,
+                "is_enabled": true,
+                "ui_element": "input_multiple",
+                "two_columns": false,
+                "attribute_type": "array"
+            },
+            "update_site": {
+                "label": "Would you like us to update your site or would you like to be responsible for updates?",
+                "weight": 10,
+                "is_enabled": true,
+                "ui_element": "text",
+                "two_columns": false,
+                "attribute_type": "string"
+            },
+            "contact_name": {
+                "label": "Name of the Contact Person",
+                "weight": 8,
+                "is_enabled": true,
+                "ui_element": "text",
+                "placeholder": "Name of the Contact Person",
+                "two_columns": true,
+                "attribute_type": "string"
+            },
+            "previous_job": {
+                "label": "Why did you leave your previous job?",
+                "weight": 5,
+                "is_enabled": true,
+                "ui_element": "text",
+                "two_columns": false,
+                "attribute_type": "string"
+            },
+            "primary_phone": {
+                "label": "Primary Phone",
+                "weight": 4,
+                "is_enabled": true,
+                "ui_element": "text",
+                "placeholder": "Telephone Number",
+                "two_columns": true,
+                "attribute_type": "string"
+            },
+            "contact_number": {
+                "label": "Contact Number",
+                "weight": 9,
+                "is_enabled": true,
+                "ui_element": "text",
+                "placeholder": "Telephone Number",
+                "two_columns": false,
+                "attribute_type": "string"
+            },
+            "have_you_heard": {
+                "label": "Have you ever heard about Insites?",
+                "weight": 0,
+                "is_enabled": true,
+                "ui_element": "text",
+                "two_columns": false,
+                "attribute_type": "string"
+            },
+            "howd_you_learn": {
+                "label": "How did you learn about Insites?",
+                "weight": 1,
+                "is_enabled": true,
+                "ui_element": "text",
+                "two_columns": true,
+                "attribute_type": "string"
+            },
+            "personal_email": {
+                "label": "Personal Email",
+                "weight": 3,
+                "is_enabled": true,
+                "ui_element": "text",
+                "placeholder": "Personal Email",
+                "two_columns": false,
+                "attribute_type": "string"
+            },
+            "attach_documents": {
+                "label": "Attach Documents",
+                "weight": 7,
+                "is_enabled": true,
+                "ui_element": "media_file",
+                "auto_upload": false,
+                "two_columns": false,
+                "attribute_type": "upload"
+            },
+            "reason_for_visit": {
+                "label": "What is the main reason you visit our website?",
+                "weight": 2,
+                "is_enabled": true,
+                "ui_element": "text",
+                "two_columns": true,
+                "attribute_type": "string"
+            },
+            "service_of_interest": {
+                "label": "Which of our services are you interested in?",
+                "weight": 6,
+                "is_enabled": true,
+                "ui_element": "input_multiple",
+                "two_columns": false,
+                "attribute_type": "array"
+            }
+        }
+    }
+}
+{%- endparse_json -%}
+
+{%- form html-class: 'insites-form insites-form-code' html-novalidate: 'novalidate' html-data-form: 'modules/client/questionnaire' -%}
+
+    <div class="insites-form-grid">
+    
+    <div class="form-groups-tab">
+        <div class="form-tab" data-group-id="a0d922fb-3269-4417-999d-6543f36785aa" active style="width: 33.33%;">
+            <div data-group-id="a0d922fb-3269-4417-999d-6543f36785aa" class="form-checkbox"></div>
+            <div class="form-group-name">General</div>
+        </div>
+        <div class="form-tab" data-group-id="51a431b3-a1ec-4907-a541-4ab7d9d968c2" style="width: 33.33%;">
+            <div data-group-id="51a431b3-a1ec-4907-a541-4ab7d9d968c2" class="form-checkbox"></div>
+            <div class="form-group-name">Additional Details</div>
+        </div>
+        <div class="form-tab" data-group-id="cdf25c4d-40f9-45f6-9f6c-3052e98c0108" style="width: 33.33%;">
+            <div data-group-id="cdf25c4d-40f9-45f6-9f6c-3052e98c0108" class="form-checkbox"></div>
+            <div class="form-group-name">Confirmation</div>
+        </div>
+    </div>
+    
+    <!-- Form Group: General -->
+    <div class="form-group" data-group-id="a0d922fb-3269-4417-999d-6543f36785aa" active>
+        <!-- Field: Have you ever heard about Insites? -->
+        <div class="{%- if form.metadata.properties.have_you_heard.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'have_you_heard' -%}"
+                name="{{ form.fields.properties.have_you_heard.name }}"
+                value="{{ form.fields.properties.have_you_heard.value }}"
+                error-message="{{ form.errors['properties.have_you_heard'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'have_you_heard' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'have_you_heard' -%}
+                {%- if form.errors['properties.have_you_heard'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'have_you_heard' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'have_you_heard' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: How did you learn about Insites? -->
+        <div class="{%- if form.metadata.properties.howd_you_learn.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'howd_you_learn' -%}"
+                name="{{ form.fields.properties.howd_you_learn.name }}"
+                value="{{ form.fields.properties.howd_you_learn.value }}"
+                error-message="{{ form.errors['properties.howd_you_learn'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'howd_you_learn' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'howd_you_learn' -%}
+                {%- if form.errors['properties.howd_you_learn'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'howd_you_learn' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'howd_you_learn' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: What is the main reason you visit our website?  -->
+        <div class="{%- if form.metadata.properties.reason_for_visit.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'reason_for_visit' -%}"
+                name="{{ form.fields.properties.reason_for_visit.name }}"
+                value="{{ form.fields.properties.reason_for_visit.value }}"
+                error-message="{{ form.errors['properties.reason_for_visit'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'reason_for_visit' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'reason_for_visit' -%}
+                {%- if form.errors['properties.reason_for_visit'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'reason_for_visit' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'reason_for_visit' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: Personal Email -->
+        <div class="{%- if form.metadata.properties.personal_email.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'personal_email' -%}"
+                name="{{ form.fields.properties.personal_email.name }}"
+                value="{{ form.fields.properties.personal_email.value }}"
+                error-message="{{ form.errors['properties.personal_email'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'personal_email' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'personal_email' -%}
+                {%- if form.errors['properties.personal_email'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'personal_email' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'personal_email' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: Primary Phone -->
+        <div class="{%- if form.metadata.properties.primary_phone.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'primary_phone' -%}"
+                name="{{ form.fields.properties.primary_phone.name }}"
+                value="{{ form.fields.properties.primary_phone.value }}"
+                error-message="{{ form.errors['properties.primary_phone'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'primary_phone' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'primary_phone' -%}
+                {%- if form.errors['properties.primary_phone'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'primary_phone' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'primary_phone' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: Why did you leave your previous job? -->
+        <div class="{%- if form.metadata.properties.previous_job.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'previous_job' -%}"
+                name="{{ form.fields.properties.previous_job.name }}"
+                value="{{ form.fields.properties.previous_job.value }}"
+                error-message="{{ form.errors['properties.previous_job'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'previous_job' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'previous_job' -%}
+                {%- if form.errors['properties.previous_job'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'previous_job' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'previous_job' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: Which of our services are you interested in? -->
+        <div class="{%- if form.metadata.properties.service_of_interest.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input-multiple 
+                data-type="array"
+                data-ui="input_multiple"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'service_of_interest' -%}"
+                name="{{ form.fields.properties.service_of_interest.name }}"
+                value="{{ form.fields.properties.service_of_interest.value }}"
+                error-message="{{ form.errors['properties.service_of_interest'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'service_of_interest' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'service_of_interest' -%}
+                {%- if form.errors['properties.service_of_interest'] != nil -%} has-error {%- endif -%}></ins-input-multiple>
+        </div>
+    
+        <!-- Field: Attach Documents -->
+        <div class="{%- if form.metadata.properties.attach_documents.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input-file
+                data-multiple="false"
+                data-name="{{ form.fields.properties.attach_documents.name }}"
+                data-type="upload"
+                data-ui="media_file"
+                data-prop="attach_documents"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'attach_documents' -%}"
+                accepted-files=""
+                capture=""
+                error-message="{{ form.errors['properties.attach_documents'] }}"
+                {%- include 'modules/insites_database/form_code/validation/file', form: form, name: 'attach_documents' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'attach_documents' -%}
+                {%- if form.errors['properties.attach_documents'] != nil -%} has-error {%- endif -%}>
+            </ins-input-file>
+        </div>
+    </div>
+    
+    <!-- Form Group: Additional Details -->
+    <div class="form-group" data-group-id="51a431b3-a1ec-4907-a541-4ab7d9d968c2">
+        <!-- Field: Name of the Contact Person -->
+        <div class="{%- if form.metadata.properties.contact_name.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'contact_name' -%}"
+                name="{{ form.fields.properties.contact_name.name }}"
+                value="{{ form.fields.properties.contact_name.value }}"
+                error-message="{{ form.errors['properties.contact_name'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'contact_name' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'contact_name' -%}
+                {%- if form.errors['properties.contact_name'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'contact_name' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'contact_name' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: Contact Number -->
+        <div class="{%- if form.metadata.properties.contact_number.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'contact_number' -%}"
+                name="{{ form.fields.properties.contact_number.name }}"
+                value="{{ form.fields.properties.contact_number.value }}"
+                error-message="{{ form.errors['properties.contact_number'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'contact_number' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'contact_number' -%}
+                {%- if form.errors['properties.contact_number'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'contact_number' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'contact_number' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: Would you like us to update your site or would you like to be responsible for updates?  -->
+        <div class="{%- if form.metadata.properties.update_site.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'update_site' -%}"
+                name="{{ form.fields.properties.update_site.name }}"
+                value="{{ form.fields.properties.update_site.value }}"
+                error-message="{{ form.errors['properties.update_site'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'update_site' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'update_site' -%}
+                {%- if form.errors['properties.update_site'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'update_site' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'update_site' -%}>
+            </ins-input>
+        </div>
+    
+        <!-- Field: Is there anything else you'd like to tell us?  -->
+        <div class="{%- if form.metadata.properties.notes.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'notes' -%}"
+                name="{{ form.fields.properties.notes.name }}"
+                value="{{ form.fields.properties.notes.value }}"
+                error-message="{{ form.errors['properties.notes'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'notes' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'notes' -%}
+                {%- if form.errors['properties.notes'] != nil -%} has-error {%- endif -%} 
+                {%- include 'modules/insites_database/form_code/validation/type', form: form, name: 'notes' -%} 
+                {%- include 'modules/insites_database/form_code/validation/length', form: form, name: 'notes' -%}>
+            </ins-input>
+        </div>
+    </div>
+    
+    <!-- Form Group: Confirmation -->
+    <div class="form-group" data-group-id="cdf25c4d-40f9-45f6-9f6c-3052e98c0108">
+        <!-- Field: I understand and agree -->
+        <div class="{%- if form.metadata.properties.agreement.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-input-multiple 
+                data-type="array"
+                data-ui="input_multiple"
+                label="{%- include 'modules/insites_database/form_code/label', form: form, name: 'agreement' -%}"
+                name="{{ form.fields.properties.agreement.name }}"
+                value="{{ form.fields.properties.agreement.value }}"
+                error-message="{{ form.errors['properties.agreement'] }}"
+                {%- include 'modules/insites_database/form_code/placeholder', form: form, name: 'agreement' -%}
+                {%- include 'modules/insites_database/form_code/validation/required', form: form, name: 'agreement' -%}
+                {%- if form.errors['properties.agreement'] != nil -%} has-error {%- endif -%}></ins-input-multiple>
+        </div>
+    </div>
+    
+    </div>
+    
+    <div class="insites-form-grid">
+        <div class="insites-form-buttons column-1 text-right">
+            <ins-button type="button" onclick="InsitesFormProcessor.back()" label="BACK" class="form-group-button form-back" outlined></ins-button>
+            <ins-button type="button" onclick="InsitesFormProcessor.next()" label="NEXT" class="form-group-button form-next" style="display: inline;" solid></ins-button>
+            <ins-button type="submit" label="SAVE & NEXT" class="form-group-button form-submit" solid></ins-button>
+        </div>
+    </div>
+    
+    {%- endform -%}
+    
+    <script id="modules/ins_database/questionnaires">
+	InsitesFormProcessor.setFormProps("modules/ins_database/questionnaires", "modules/client/questionnaire", {"validation":{"errors":[],"rules":null},"have_you_heard":{"name":"form[properties_attributes][have_you_heard]","value":null,"validation":{"errors":[],"rules":{"presence":true}},"property_options":null},"howd_you_learn":{"name":"form[properties_attributes][howd_you_learn]","value":null,"validation":{"errors":[],"rules":{"presence":true}},"property_options":null},"reason_for_visit":{"name":"form[properties_attributes][reason_for_visit]","value":null,"validation":{"errors":[],"rules":{"presence":true}},"property_options":null},"personal_email":{"name":"form[properties_attributes][personal_email]","value":null,"validation":{"errors":[],"rules":{"presence":true}},"property_options":null},"primary_phone":{"name":"form[properties_attributes][primary_phone]","value":null,"validation":{"errors":[],"rules":{}},"property_options":null},"previous_job":{"name":"form[properties_attributes][previous_job]","value":null,"validation":{"errors":[],"rules":{}},"property_options":null},"service_of_interest":{"name":"form[properties_attributes][service_of_interest][]","value":[],"validation":{"errors":[],"rules":{"presence":true}},"property_options":null},"attach_documents":{"name":"form[properties_attributes][attach_documents]","value":null,"validation":{"errors":[],"rules":{}},"property_options":null},"contact_name":{"name":"form[properties_attributes][contact_name]","value":null,"validation":{"errors":[],"rules":{"presence":true}},"property_options":null},"contact_number":{"name":"form[properties_attributes][contact_number]","value":null,"validation":{"errors":[],"rules":{"presence":true}},"property_options":null},"update_site":{"name":"form[properties_attributes][update_site]","value":null,"validation":{"errors":[],"rules":{"presence":true}},"property_options":null},"notes":{"name":"form[properties_attributes][notes]","value":null,"validation":{"errors":[],"rules":{}},"property_options":null},"agreement":{"name":"form[properties_attributes][agreement][]","value":[],"validation":{"errors":[],"rules":{"presence":true}},"property_options":null}}, [{"id":"a0d922fb-3269-4417-999d-6543f36785aa","name":"General","fields":[{"name":"have_you_heard","weight":0,"group_id":"a0d922fb-3269-4417-999d-6543f36785aa"},{"name":"howd_you_learn","weight":1,"group_id":"a0d922fb-3269-4417-999d-6543f36785aa"},{"name":"reason_for_visit","weight":2,"group_id":"a0d922fb-3269-4417-999d-6543f36785aa"},{"name":"personal_email","weight":3,"group_id":"a0d922fb-3269-4417-999d-6543f36785aa"},{"name":"primary_phone","weight":4,"group_id":"a0d922fb-3269-4417-999d-6543f36785aa"},{"name":"previous_job","weight":5,"group_id":"a0d922fb-3269-4417-999d-6543f36785aa"},{"name":"service_of_interest","weight":6,"group_id":"a0d922fb-3269-4417-999d-6543f36785aa"},{"name":"attach_documents","weight":7,"group_id":"a0d922fb-3269-4417-999d-6543f36785aa"}],"weight":0},{"id":"51a431b3-a1ec-4907-a541-4ab7d9d968c2","name":"Additional Details","fields":[{"name":"contact_name","weight":8,"group_id":"51a431b3-a1ec-4907-a541-4ab7d9d968c2"},{"name":"contact_number","weight":9,"group_id":"51a431b3-a1ec-4907-a541-4ab7d9d968c2"},{"name":"update_site","weight":10,"group_id":"51a431b3-a1ec-4907-a541-4ab7d9d968c2"},{"name":"notes","weight":11,"group_id":"51a431b3-a1ec-4907-a541-4ab7d9d968c2"}],"weight":1},{"id":"cdf25c4d-40f9-45f6-9f6c-3052e98c0108","name":"Confirmation","fields":[{"name":"agreement","weight":12,"group_id":"cdf25c4d-40f9-45f6-9f6c-3052e98c0108"}],"weight":2}], true);
+</script>
+
+    {%- log form, type: 'Test form codebase:' -%}

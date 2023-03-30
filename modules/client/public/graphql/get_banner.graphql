@@ -30,7 +30,7 @@ query get_banner(
             main_text: property(name: "main_text")
             sub_text: property(name: "sub_text")
             button_link: property(name: "button_link")
-            button_label: property(name: "button_label")                       
+            button_label: property(name: "button_label")  
 
             ## Images
             image: property_upload(name: "image") {

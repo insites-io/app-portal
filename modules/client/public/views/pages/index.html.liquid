@@ -41,11 +41,17 @@ dynamic_cache:
     ]
     {%- endparse_json -%}
     {%- include "modules/website/generate_cache_key", models: models -%}
+    {%- if context.device.device_type == 'smartphone' -%}
+        smartphone
+    {%- else -%}
+        desktop
+    {%- endif -%}
 ---
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
 {%- endif -%}
 
+<div class="questionnaire">
 {%- if context.params.test == '1' -%}
   <h2 class="heading-2">My Incomplete Forms</h2>
   <div class="spacer"></div>
@@ -54,10 +60,9 @@ dynamic_cache:
 
     {%- for i in (1..4) -%}
       <div class="large-4 medium-6 small-12 cell align-stretch">
-        <div style="height:100%;">        
 
           <ins-card >
-            <div class="content" style="height:100%;">
+            <div class="content">
               <div class="text-wrap">
                 <div class="grid-x">
                   <div class="large-8 cell"><i class="icon-calendar"></i> <span class="date">January 11, 2023</span></div>                  
@@ -65,18 +70,18 @@ dynamic_cache:
                 </div> 
                 
                 <h3 class="heading-3">2021</h3>
+                <div class="spacer xx-small"></div>
                 <p>Questionnaire</p>
+                <div class="spacer"></div>
               </div>
-              <a href="" ><ins-button size="smal" label="VIEW/EDIT"></ins-button></a>
-              <a href="" ><ins-button label="DOWNLOAD"></ins-button></a>
+              <div class="spacer small"></div>
+              <a href="" ><ins-button size="small" label="VIEW/EDIT"></ins-button></a>
+              <a href="" ><ins-button size="small" label="DOWNLOAD"></ins-button></a>
             </div>            
           </ins-card>
 
-        </div>
       </div>
     {%- endfor -%}
-
-
 
     </div>
   </div>
@@ -90,6 +95,7 @@ dynamic_cache:
     <div class="spacer xxx-large"></div>
   </div>
 {%- endif -%}
+</div>
 
 
 {%- if context.environment == "staging" -%}

@@ -1,11 +1,6 @@
-{%- comment -%}
-    Homepage slider partial / content block
-    - size controls the pagination (how many slides to show)
-    - ie. {% include 'modules/website/content/layout/homepage-slider', size: 10 %}
-{%- endcomment -%}
+{%- graphql data = "modules/client/get_banner", size: 10 | dig: "items","results" -%}
 
-{%- graphql data = "modules/client/get_banner", size: size -%}
-
+{%- if data.size > 0 -%}
 <div class="homepage-banner-wrap">
     <ins-carousel no-carousel-button loop
         layout="1" 
@@ -14,13 +9,13 @@
         duration="5000"
         data-test="homepage-slider">
         <div id="homepage-banner">
-            {%- if data.items.results -%}
-                {%- for item in data.items.results -%}
+
+                {%- for item in data -%}
                     <div class="slide-container" >
                         {%- comment -%}Slide Image{%- endcomment -%}
-                        {%- if item.image.versions['Desktop'] -%}
+                        {%- if item.image.url -%}
                         <div class="img-wrap">
-                            <img src="{{ item.image.versions['Desktop'] | replace: ' ', '%20' }}" alt="{{ item.main_text }}" 
+                            <img src="{{ item.image.url | replace: ' ', '%20' }}" alt="{{ item.main_text }}" 
                                 class="hide-for-small-only" loading="lazy">                           
                         </div>
                         {%- endif -%}
@@ -28,7 +23,7 @@
                         {%- comment -%}Slide Text{%- endcomment -%}
                         <div class="slide-content wrapper vertical-align-middle">
                             <div class="grid-x grid-container">
-                                <div class="large-10 medium-10 small-10 large-offset-1 medium-offset-1 small-offset-1 cell">
+                                <div class="large-6 large-offset-1 medium-12 small-12 cell">
                                     <h1 class="heading heading-1">{{ item.main_text }}</h1>
                                     <div class="spacer"></div>
                                     <p>{{ item.sub_text }}</p>
@@ -46,7 +41,8 @@
                         </div>
                     </div>
                 {%- endfor -%}
-            {%- endif -%}
+            
         </div>
     </ins-carousel>
 </div>
+{%- endif -%}
