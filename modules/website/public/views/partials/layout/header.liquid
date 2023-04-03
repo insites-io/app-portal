@@ -2,53 +2,42 @@
 <!-- start partial:layout/header  -->
 {%- endif -%}
 
-
-<header class="header" data-test="main-header" id="main-header" style="display: block; position: fixed; z-index: 9999; background: #FFF; width: 100%;
-    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
-    <div class="wrapper">
-        <div class="header-top-bar grid-container grid-x">
-            <div class="large-3 medium-4 small-9 cell">
-                <a href="/" data-test="logo-link">
-                    <img class="logo" src="{{ context.exports.global.company_logo.original }}" 
-                        alt="{{ context.exports.global.company_slogan }}" loading="lazy">
-                </a>
-            </div>
-            <div class="large-1 medium-0 small-0"></div>
-            <div class="show-for-large large-8 medium-8 small-12 cell align-right vertical-align-middle">
-                <div>
-                {%- comment -%}
-                    IF the phone number is a '1800', or no country code, etc.. just remove regex 
-                    Data needs to be standard. If it will contain the country code, or not.
-                {%- endcomment -%}
-                {%- assign contact_no = context.exports.global.loc_1_phone | replace_regex: '[+() ]', '' | prepend: '+' -%}
-                <a class="navigation-cta color-main" href="tel:{{ contact_no }}" data-test="phone-link">
-                    <i class="icon-phone1"></i>
-                    <span>+{{ context.exports.global.loc_1_phone | replace: "+", ''}}</span>
-                </a>
-                <a class="navigation-cta color-main" href="mailto:{{ context.exports.global.company_email_1 }}" data-test="email-link">
-                    <i class="icon-mail1"></i>
-                    <span>{{ context.exports.global.company_email_1 }}</span>
-                </a>
-                
-                {%- if context.modules.ecommerce != blank -%}
-                    {%- comment -%} E-Commerce sign in and cart partial {%- endcomment -%}
-                    {%- include 'modules/ecommerce/menu/header' -%}
-                {%- endif -%}
-                </div>
-            </div>
-            <div class="hide-for-large mobile-menu-toggle large-0 medium-8 small-3 cell vertical-align-middle align-right">
-                <div id="mobile-menu-btn" class="icon-menu-1"></div>
-            </div>
-        </div>
+<header class="navigation-04 header" data-test="main-header" id="main-header">
+  <div class="wrapper">
+    <div class="header-top-bar grid-container grid-x align-middle">
+      <div class="large-2 medium-3 small-9 cell">
+        <a>
+          <img class="logo" src="{{ 'modules/website/images/ins-logo.png' | asset_url }} " alt="logo" />
+        </a>
+      </div>
+      <div class="large-1 medium-3 small-0"></div>
+      <div class="show-for-large large-9 medium-6 small-12 cell text-right">
+        <div class="header-links">
+          <a class="color-main" class="color-font-head" href="/about-us">
+            About us
+          </a>
+          <a class="color-main" class="color-font-head" href="/services">
+            Services
+          </a>
+          <a class="color-main" class="color-font-head" href="/faq">
+            FAQ
+          </a>
+          <a class="color-main" class="color-font-head">
+            News
+          </a> 
+          <a class="color-main" class="color-font-head">
+            Contact
+          </a>       
+        </div>  
+        <ins-button class="hide-for-small-only" solid label="Go To Website">
+        </ins-button>
+      </div>
+      <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-3 cell vertical-align-middle align-right">
+        <div id="mobile-menu-btn" class="icon-menu-1"></div>
+      </div>
     </div>
-        {%- comment -%}Header main menu navigation{%- endcomment -%}
-        {% include 'modules/website/layout/menu_main' %}
-    
+  </div>
 </header>
-<div id="head-filler">
-    <div class="filler show-for-large desktop" style="height:162px;"></div>
-    <div class="filler hide-for-large mobile" style="height:106px;"></div>
-</div>
 
 
 {%- if context.environment == "staging" -%}

@@ -5,7 +5,9 @@ Project Assets - Holds app css and js
 
 {%- if context.environment == "staging" -%}
     <link rel="preload" as="style" href="{{ 'modules/website/styles/app.css' | asset_url }}" >
-    <link rel="stylesheet" href="{{ 'modules/website/styles/app.css' | asset_url }}" >
+    <link rel="stylesheet" href="{{ 'modules/website/styles/app.css' | asset_url }}" > 
+    <link rel="preload" as="style" href="{{ 'modules/website/styles/custom.css' | asset_url }}" >
+    <link rel="stylesheet" href="{{ 'modules/website/styles/custom.css' | asset_url }}" >
     {% if context.modules.ecommerce != blank %}
     <link rel="preload" as="style" href="{{ 'modules/ecommerce/styles/style-ecommerce.css' | asset_url }}" >
     <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/style-ecommerce.css' | asset_url }}" >
