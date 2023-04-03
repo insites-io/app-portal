@@ -149,6 +149,18 @@ ins-card .content {
     font-size: 12px;
 }
 
+
+/* Insites Form */
+.insites-form.insites-form-code {
+    margin-top: initial !important;
+    margin-bottom: initial !important;
+}
+
+.insites-form.insites-form-code .insites-form-grid {
+    margin-left: initial !important;
+    margin-right: initial !important;
+}
+
 /*************************/
 /*     Client Portal     */
 /*************************/

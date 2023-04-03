@@ -52,12 +52,10 @@ metadata: {
 {%- endif -%}
 
 
-{%- include 'modules/insites_database/insites_functions/insites_database_form_scripts' -%}
+{%- include 'modules/client/insites_database_form_scripts' -%}
 
 <div class="questionnaire">
-    {% comment %} {%- include_form 'modules/ins_database/questionnaires' -%} {% endcomment %}
-    {%- include_form 'modules/client/questionnaires' -%}
-    {% comment %} {%- include 'modules/client/forms/questionnaires2' -%} {% endcomment %}
+    questionnaires
 </div>
 
 

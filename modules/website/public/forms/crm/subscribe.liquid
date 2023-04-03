@@ -3,8 +3,8 @@ name: subscribe
 resource: modules/website/subscriptions
 resource_owner: anyone
 redirect_to: /subscribe-success
-spam_protection:
-   recaptcha_v2:
+# spam_protection:
+#    recaptcha_v2:
 fields:
   properties:
     email:
@@ -56,13 +56,13 @@ callback_actions: >
               </div>
               <div class="cell">
                 {%- comment -%} IF your form / instance have recaptcha enabled, uncommment this code {%- endcomment -%}
-                <div
+                {% comment %} <div
                   id="recaptcha-v2-wrapper"
                   class="large-6 medium-6 small-12 cell form-field-wrapper"
                   data-test="subscribe-recaptcha-container">
                   {% spam_protection "recaptcha_v2" %}
                   <div class="ins-form-error"></div>
-                </div>
+                </div> {% endcomment %}
                 <div class="spacer small"></div>
               </div>
             </div>

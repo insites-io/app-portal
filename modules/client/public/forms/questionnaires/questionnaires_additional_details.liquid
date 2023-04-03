@@ -1,0 +1,142 @@
+---
+name: questionnaires_additional_details
+resource: modules/client/questionnaires
+resource_owner: anyone
+redirect_to: /client-portal/questionnaires-confirmation/{{form.id}}
+fields:
+  properties:
+    contact_name:
+      validation:
+        presence: true
+    contact_number:
+      validation:
+        presence: true
+    update_site:
+      validation:
+        presence: true
+    notes:
+#callback_actions: >
+---
+
+{%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}
+{%- assign groups = database_info.metadata.groups | sort_by: "weight" -%}
+{%- assign fields = database_info.properties -%}
+{%- assign form = form | add_hash_key: "metadata", fields -%}
+
+{%- form html-class: 'insites-form insites-form-code' html-novalidate: 'novalidate' html-data-form: 'modules/client/questionnaires' -%}
+
+    <div class="insites-form-grid">
+    
+    <div class="form-groups-tab">        
+        <ins-steps clickable id="insStepsClickEl" style="width: 100%;">
+            <ins-step description="General" complete id="step-general"></ins-step>
+            <ins-step description="Additional Details" active ></ins-step>
+            <ins-step description="Confirmation" disabled></ins-step>
+        </ins-steps>
+    </div>
+    
+    <!-- Form Group: Additional Details -->
+    <div class="form-group" data-group-id="{{groups[1].id}}" active>
+        <!-- Field: Name of the Contact Person -->
+        <div class="column-1">
+            <ins-input 
+                data-type="string"
+                data-ui="text"
+                label="{%- include 'modules/client/insites_database/label', form: form, name: 'contact_name' -%}"
+                name="{{ form.fields.properties.contact_name.name }}"
+                value="{{ form.fields.properties.contact_name.value }}"
+                error-message="{{ form.errors['properties.contact_name'] }}"
+                
+                {%- if form.errors['properties.contact_name'] != nil -%} has-error {%- endif -%} 
+                >
+            </ins-input>
+        </div>
+    
+        <!-- Field: Contact Number -->
+        <div class="column-1">
+            <ins-input-tel
+                no-areacode 
+                id="contact_number"
+                data-type="string"
+                data-ui="phone"
+                label="{%- include 'modules/client/insites_database/label', form: form, name: 'contact_number' -%}"
+                name="{{ form.fields.properties.contact_number.name }}"
+                phonenum-value="{{ form.fields.properties.contact_number.value }}"
+                error-message="{{ form.errors['properties.contact_number'] }}"
+                
+                {%- if form.errors['properties.contact_number'] != nil -%} has-error {%- endif -%}>
+            </ins-input-tel>
+        </div>
+    
+        <!-- Field: Would you like us to update your site or would you like to be responsible for updates?  -->
+        <div class="{%- if form.metadata.properties.update_site.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <div class="list-field-wrap" 
+                data-type="string"
+                data-ui="list_radio" 
+                data-name="{{ form.fields.properties.update_site.name }}"
+                {%- if form.errors['properties.update_site'] != nil -%} has-error="true" {%- endif -%}>
+                <label class="list-field_label">{%- include 'modules/client/insites_database/label', form: form, name: 'update_site' -%}</label>
+                <div class="list-radio-options">
+                    <ins-radio
+                        label="Yes" value="Yes"
+                        name="{{ form.fields.properties.update_site.name }}"
+                        {% if form.fields.properties.update_site.value == 'Yes' %}checked{% endif %}>
+                    </ins-radio>
+                    <ins-radio
+                        label="No" value="No"
+                        name="{{ form.fields.properties.update_site.name }}"
+                        {% if form.fields.properties.update_site.value == 'No' %}checked{% endif %}>
+                    </ins-radio>
+                </div>
+                <p class="list-field_error">{{ form.errors['properties.update_site'] }}</p>
+            </div>
+        </div>
+    
+        <!-- Field: Is there anything else you'd like to tell us?  -->
+        <div class="{%- if form.metadata.properties.notes.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <ins-textarea 
+                
+                data-type="string"
+                data-ui="multi_line"
+                label="{%- include 'modules/client/insites_database/label', form: form, name: 'notes' -%}"
+                name="{{ form.fields.properties.notes.name }}"
+                value="{{ form.fields.properties.notes.value }}"
+                error-message="{{ form.errors['properties.notes'] }}"
+                
+                {%- if form.errors['properties.notes'] != nil -%} has-error {%- endif -%}>
+            </ins-textarea>
+        </div>
+    </div>
+        
+    </div>
+    
+    <div class="insites-form-grid">
+        <div class="insites-form-buttons column-1 text-right">            
+            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" class="form-group-button form-back" style="display: inline;"></ins-button></a>
+            <a href="/client-portal/questionnaires-general/{{context.params.slug3}}"><ins-button type="button" label="BACK" class="form-group-button form-back" outlined style="display: inline;"></ins-button></a>
+            <ins-button type="submit" label="NEXT" class="form-group-button form-submit" solid style="display: inline;"></ins-button>
+        </div>
+    </div>
+    
+{%- endform -%}
+        
+<script id="modules/client/questionnaires">
+    InsitesFormProcessor.setFormProps("modules/client/questionnaires", "modules/client/questionnaires", {{ form.fields.properties }}, "", true);
+</script>
+
+<script>
+    // Update `countryCode` and `phonenum-value` attribute of the telephone
+    let contact_number = document.getElementById('contact_number');
+    contact_number.addEventListener('didLoad', function(e){    
+        let countryCode = {{ form.fields.properties.contact_number.value | split: ' ' | default: '[]' }};
+        contact_number.setCountryCode(countryCode[0]);
+        contact_number.setAttribute('phonenum-value', countryCode[1]);
+    });
+
+    //Clickable Steps    
+    function prevForm(event){
+        let prevFormURL = "/client-portal/questionnaires-general/{{context.params.slug3}}";
+        window.location=prevFormURL;
+    }    
+    insStepsClickEl.addEventListener('insClick', this.prevForm);    
+</script>

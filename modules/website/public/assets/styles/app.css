@@ -1010,6 +1010,24 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
     color: var(--error);
 }
 
+/* Override insites-form .column for Insites Telephone */
+.insites-form.insites-form-code .insites-form-grid ins-input-tel .ins-input-tel-wrap .column-1,
+.insites-form.insites-form-code .insites-form-grid ins-input-tel .column-2 {
+    width: auto;
+}
+
+.insites-form .insites-form-grid ins-input-tel .column-1:not(.insites-form.insites-form-grid.col-container.column-1) {
+    width: auto;
+}
+
+.insites-form.insites-form-code ins-input-tel .column-1:not(.insites-form.insites-form-code.insites-form-grid.col-container.column-1) {
+    margin: 0px;
+}
+
+.insites-form.insites-form-code ins-input-tel .column-2:not(.insites-form.insites-form-code.insites-form-grid.col-container.column-2) {
+    margin: 0px 8px 9px;
+}
+
 /**********[GENERAL / Utilitities]**********/
 /*-- Font Colors ----*/
 .color-main,
@@ -2396,8 +2414,8 @@ Contact Us
 
 
 .ins-input-tel-wrap .iti .iti__flag-container .iti__selected-flag {
-    min-height: 39px;
-    padding: 5px 8px;
+    padding: 10px 8px;
+    line-height: 20px;
 }
 
 

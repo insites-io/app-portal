@@ -1,0 +1,82 @@
+---
+name: questionnaires_confirmation
+resource: modules/client/questionnaires
+resource_owner: anyone
+redirect_to: /client-portal/questionnaires
+fields:
+  properties:
+    agreement:
+      validation:
+        presence: true
+#callback_actions: >
+---
+
+{%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}
+{%- assign groups = database_info.metadata.groups | sort_by: "weight" -%}
+{%- assign fields = database_info.properties -%}
+{%- assign form = form | add_hash_key: "metadata", fields -%}
+
+{%- form html-class: 'insites-form insites-form-code' html-novalidate: 'novalidate' html-data-form: 'modules/client/questionnaires' -%}
+
+    <div class="insites-form-grid">
+    
+    <div class="form-groups-tab">        
+        <ins-steps clickable id="insStepsClickEl" style="width: 100%;">
+            <ins-step description="General" complete ></ins-step>
+            <ins-step description="Additional Details" complete ></ins-step>
+            <ins-step description="Confirmation" active></ins-step>
+        </ins-steps>
+    </div>
+    
+    <!-- Form Group: Confirmation -->
+    <div class="form-group" data-group-id="{{groups[2].id}}" active>
+
+        <div class="column-1">
+            <h2 class="heading-2">Confirmation</h2>
+	    </div>
+
+        <div class="spacer x-large"></div>
+
+        <div>
+            This Insites Service Level Agreement ("SLA") is a policy governing the use of the Included Services (listed below) and applies separately to each account using the Included Services. In the event of a conflict between the terms of this SLA and the Insites Terms of Service or other agreement with us governing your use of our Services (the "Agreement"), the terms and conditions of this SLA apply, but only to the extent of such conflict. Capitalised terms used herein but not defined herein shall have the meanings set forth in the Agreement.This SLA applies to site instances that are on a billing plan that is paid for, ie: not free. SLA for Staging, QA, Development and other services that are not paid for, will not be covered by this SLA, unless a paid billing plan is applied to those environments.
+        </div>
+
+        <div class="spacer large"></div>
+
+        <!-- Field: I understand and agree -->
+        <div class="{%- if form.metadata.properties.agreement.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+            <div class="list-checkbox" 
+                data-type="array" 
+                data-ui="list_checkbox"  
+                data-name="{{ form.fields.properties.agreement.name }}"
+                {%- if form.errors['properties.agreement'] != nil -%} has-error="true" {%- endif -%}>
+                <label class="list-checkbox_label"></label>
+                <div class="list-checkbox-options">
+                    <ins-checkbox
+                        label="I understand and agree" value="I understand and agree" 
+                        name="{{ form.fields.properties.agreement.name }}"
+                        {%- if form.fields.properties.agreement.value contains 'I understand and agree' -%} checked {%- endif -%}>
+                    </ins-checkbox>
+                </div>
+                <p class="list-checkbox_error">{{ form.errors['properties.agreement'] }}</p>
+            </div>
+        </div>
+    </div>
+        
+    </div>
+
+    <div class="spacer x-large"></div>
+    
+    <div class="insites-form-grid">
+        <div class="insites-form-buttons column-1 text-right">    
+            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" class="form-group-button form-back" style="display: inline;"></ins-button></a>
+            <a href="/client-portal/questionnaires-additional-details/{{context.params.slug3}}"><ins-button type="button" label="BACK" class="form-group-button form-back" outlined style="display: inline;"></ins-button></a>
+            <ins-button type="submit" label="SUBMIT" class="form-group-button form-submit" solid style="display: inline;"></ins-button>
+        </div>
+    </div>
+    
+{%- endform -%}
+        
+<script id="modules/client/questionnaires">
+    InsitesFormProcessor.setFormProps("modules/client/questionnaires", "modules/client/questionnaires", {{ form.fields.properties }}, "", true);
+</script>
