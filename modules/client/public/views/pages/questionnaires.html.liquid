@@ -55,7 +55,52 @@ metadata: {
 {%- include 'modules/client/insites_database_form_scripts' -%}
 
 <div class="questionnaire">
-    questionnaires
+    <div class="box">
+        <p>Hello and welcome to our questionnaire!</p>
+        <br>
+        <p>We appreciate your participation in helping us gather important information and insights. The purpose of this questionnaire is to better understand your opinions, experiences, and preferences regarding a particular topic.</p>
+    </div>
+
+    <div class="spacer xxx-large"></div>
+    
+    <div class="grid-x">
+        <div class="cell large-5">
+            <ins-button 
+                label="New Questionnaire" 
+                icon="icon-plus" 
+                solid 
+                color="blue" 
+                size="normal" 
+                options="2023, 2022">
+            </ins-button>
+        </div>
+        <div class="cell large-6 large-offset-1">
+            <ins-input 
+                placeholder="Search by Year"
+                icon="icon-search-1">
+            </ins-input>
+        </div>                
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x grid-padding-y">
+
+        {%- graphql data = "modules/client/get_questionnaires", user_id: context.current_user.id, size: 6 | dig: "items","results" -%}
+
+        {%- for item in data -%}
+        <div class="large-4 medium-6 small-12 cell align-stretch">
+            {%- include "modules/client/questionnaires-card", item -%}
+        </div>
+        {%- endfor -%}
+
+        </div>
+
+        
+
+    </div>
+
 </div>
 
 

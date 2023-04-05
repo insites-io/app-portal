@@ -19,7 +19,6 @@ fields:
 ---
 
 {%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}
-{%- assign groups = database_info.metadata.groups | sort_by: "weight" -%}
 {%- assign fields = database_info.properties -%}
 {%- assign form = form | add_hash_key: "metadata", fields -%}
 
@@ -28,15 +27,18 @@ fields:
     <div class="insites-form-grid">
     
     <div class="form-groups-tab">        
-        <ins-steps clickable id="insStepsClickEl" style="width: 100%;">
-            <ins-step description="General" complete id="step-general"></ins-step>
-            <ins-step description="Additional Details" active ></ins-step>
-            <ins-step description="Confirmation" disabled></ins-step>
-        </ins-steps>
+        {% include "modules/client/questionnaires-steps" %}
     </div>
     
     <!-- Form Group: Additional Details -->
-    <div class="form-group" data-group-id="{{groups[1].id}}" active>
+    <div class="form-group" active>
+
+        <div class="column-1">
+            <div class="spacer large"></div>
+            <h2 class="heading-2">Additional Details</h2>
+            <div class="spacer small"></div>
+	    </div>
+
         <!-- Field: Name of the Contact Person -->
         <div class="column-1">
             <ins-input 
@@ -112,9 +114,9 @@ fields:
     
     <div class="insites-form-grid">
         <div class="insites-form-buttons column-1 text-right">            
-            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" class="form-group-button form-back" style="display: inline;"></ins-button></a>
-            <a href="/client-portal/questionnaires-general/{{context.params.slug3}}"><ins-button type="button" label="BACK" class="form-group-button form-back" outlined style="display: inline;"></ins-button></a>
-            <ins-button type="submit" label="NEXT" class="form-group-button form-submit" solid style="display: inline;"></ins-button>
+            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1"></ins-button></a>
+            <a href="/client-portal/questionnaires-general/{{context.params.slug3}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
+            <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" solid ></ins-button>
         </div>
     </div>
     
@@ -129,14 +131,9 @@ fields:
     let contact_number = document.getElementById('contact_number');
     contact_number.addEventListener('didLoad', function(e){    
         let countryCode = {{ form.fields.properties.contact_number.value | split: ' ' | default: '[]' }};
-        contact_number.setCountryCode(countryCode[0]);
-        contact_number.setAttribute('phonenum-value', countryCode[1]);
-    });
-
-    //Clickable Steps    
-    function prevForm(event){
-        let prevFormURL = "/client-portal/questionnaires-general/{{context.params.slug3}}";
-        window.location=prevFormURL;
-    }    
-    insStepsClickEl.addEventListener('insClick', this.prevForm);    
+        if (Array.isArray(countryCode) && countryCode.length == 2){
+            contact_number.setCountryCode(countryCode[0]);
+            contact_number.setAttribute('phonenum-value', countryCode[1]);
+        }
+    });   
 </script>

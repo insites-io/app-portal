@@ -1,0 +1,25 @@
+{%-liquid
+    if item.agreement[0] == "I understand and agree"
+        assign status = "Completed"
+    else 
+        assign status = "Draft"
+    endif
+-%}
+<ins-card >
+    <div class="content">
+    <div class="text-wrap">
+        <div class="grid-x">
+        <div class="large-8 cell"><i class="icon-calendar"></i> <span class="date">{{ item.updated_at | date: '%B %d, %Y' | default: "January 11, 2023" }}</span></div>                  
+        <div class="large-4 cell align-right vertical-align-middle"><ins-tag label="{{status}}" class="{{status}}"></ins-tag></div>                  
+        </div> 
+        
+        <h3 class="heading-3">{{item.year}}</h3>
+        <div class="spacer xx-small"></div>
+        {%- if showName %} <p>Questionnaire</p> {%- endif %}
+        <div class="spacer"></div>
+    </div>
+    <div class="spacer small"></div>
+    <a href="" ><ins-button size="small" label="VIEW/EDIT"></ins-button></a>
+    <a href="" ><ins-button size="small" label="DOWNLOAD"></ins-button></a>
+    </div>            
+</ins-card>

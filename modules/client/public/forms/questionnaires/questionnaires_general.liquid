@@ -54,20 +54,18 @@ callback_actions: |-
 
     <div class="insites-form-grid">
     
-        <div class="form-groups-tab">        
-            <ins-steps clickable id="insStepsClickEl" style="width: 100%;">
-                <ins-step description="General" active ></ins-step>
-                <ins-step description="Additional Details" disabled ></ins-step>
-                <ins-step description="Confirmation" disabled></ins-step>
-            </ins-steps>
-        </div>
+    <div class="form-groups-tab">        
+        {% include "modules/client/questionnaires-steps" %}
+    </div>    
 
     
     <!-- Form Group: General -->
     <div class="form-group" active>
 
         <div class="column-1">
+            <div class="spacer large"></div>
             <h2 class="heading-2">General Information</h2>
+            <div class="spacer small"></div>
 	    </div>
 
         <!-- Field: Have you ever heard about Insites? -->
@@ -231,10 +229,10 @@ callback_actions: |-
     
     </div>
     
-    <div class="insites-form-grid">
+    <div class="insites-form-grid grid-x">        
         <div class="insites-form-buttons column-1 text-right">
-            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" class="form-group-button form-back" style="display: inline;"></ins-button></a>
-            <ins-button type="submit" label="SAVE & NEXT" class="form-group-button form-submit" solid style="display: inline;"></ins-button>
+            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1"></ins-button></a>
+            <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" solid ></ins-button>
         </div>
     </div>
     
@@ -248,8 +246,10 @@ callback_actions: |-
     // Update `countryCode` and `phonenum-value` attribute of the telephone
     let primary_phone = document.getElementById('primary_phone');
     primary_phone.addEventListener('didLoad', function(e){            
-        let countryCode = {{ form.fields.properties.primary_phone.value | split: ' ' | default: '[]' }};
-        primary_phone.setCountryCode(countryCode[0]);
-        primary_phone.setAttribute('phonenum-value', countryCode[1]);
+        let countryCode = {{ form.fields.properties.primary_phone.value | split: ' ' | default: '[]' }};        
+        if (Array.isArray(countryCode) && countryCode.length == 2){
+            primary_phone.setCountryCode(countryCode[0]);
+            primary_phone.setAttribute('phonenum-value', countryCode[1]);
+        }
     });    
 </script>

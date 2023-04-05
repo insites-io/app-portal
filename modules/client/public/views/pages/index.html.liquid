@@ -51,35 +51,19 @@ dynamic_cache:
 <!-- start page: overview  -->
 {%- endif -%}
 
+{%- graphql data = "modules/client/get_questionnaires", user_id: context.current_user.id, not_agreement: "I understand and agree", size: 6 | dig: "items","results" -%}
+
 <div class="questionnaire">
-{%- if context.params.test == '1' -%}
+{%- if data.size > 0 -%}
   <h2 class="heading-2">My Incomplete Forms</h2>
   <div class="spacer"></div>
   <div class="grid-container">
     <div class="grid-x grid-padding-x grid-padding-y">
 
-    {%- for i in (1..4) -%}
+    
+    {%- for item in data -%}
       <div class="large-4 medium-6 small-12 cell align-stretch">
-
-          <ins-card >
-            <div class="content">
-              <div class="text-wrap">
-                <div class="grid-x">
-                  <div class="large-8 cell"><i class="icon-calendar"></i> <span class="date">January 11, 2023</span></div>                  
-                  <div class="large-4 cell align-right vertical-align-middle"><ins-tag label="Draft" class="'draft"></ins-tag></div>                  
-                </div> 
-                
-                <h3 class="heading-3">2021</h3>
-                <div class="spacer xx-small"></div>
-                <p>Questionnaire</p>
-                <div class="spacer"></div>
-              </div>
-              <div class="spacer small"></div>
-              <a href="" ><ins-button size="small" label="VIEW/EDIT"></ins-button></a>
-              <a href="" ><ins-button size="small" label="DOWNLOAD"></ins-button></a>
-            </div>            
-          </ins-card>
-
+          {%- include "modules/client/questionnaires-card", showName: true, item -%}
       </div>
     {%- endfor -%}
 

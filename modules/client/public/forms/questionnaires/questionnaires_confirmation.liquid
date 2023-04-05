@@ -16,35 +16,31 @@ fields:
 {%- assign fields = database_info.properties -%}
 {%- assign form = form | add_hash_key: "metadata", fields -%}
 
+{% comment %} html-onSubmit: "return quoteFormScript.validations.validateForm(event)" {% endcomment %}
+
 {%- form html-class: 'insites-form insites-form-code' html-novalidate: 'novalidate' html-data-form: 'modules/client/questionnaires' -%}
 
     <div class="insites-form-grid">
     
     <div class="form-groups-tab">        
-        <ins-steps clickable id="insStepsClickEl" style="width: 100%;">
-            <ins-step description="General" complete ></ins-step>
-            <ins-step description="Additional Details" complete ></ins-step>
-            <ins-step description="Confirmation" active></ins-step>
-        </ins-steps>
+        {% include "modules/client/questionnaires-steps" %}
     </div>
     
     <!-- Form Group: Confirmation -->
     <div class="form-group" data-group-id="{{groups[2].id}}" active>
 
         <div class="column-1">
+            <div class="spacer large"></div>
             <h2 class="heading-2">Confirmation</h2>
+            <div class="spacer small"></div>
 	    </div>
 
-        <div class="spacer x-large"></div>
-
-        <div>
+        <div class="column-1">
             This Insites Service Level Agreement ("SLA") is a policy governing the use of the Included Services (listed below) and applies separately to each account using the Included Services. In the event of a conflict between the terms of this SLA and the Insites Terms of Service or other agreement with us governing your use of our Services (the "Agreement"), the terms and conditions of this SLA apply, but only to the extent of such conflict. Capitalised terms used herein but not defined herein shall have the meanings set forth in the Agreement.This SLA applies to site instances that are on a billing plan that is paid for, ie: not free. SLA for Staging, QA, Development and other services that are not paid for, will not be covered by this SLA, unless a paid billing plan is applied to those environments.
-        </div>
-
-        <div class="spacer large"></div>
+        </div>        
 
         <!-- Field: I understand and agree -->
-        <div class="{%- if form.metadata.properties.agreement.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+        <div class="column-1">
             <div class="list-checkbox" 
                 data-type="array" 
                 data-ui="list_checkbox"  
@@ -53,6 +49,7 @@ fields:
                 <label class="list-checkbox_label"></label>
                 <div class="list-checkbox-options">
                     <ins-checkbox
+                        id="agreement"
                         label="I understand and agree" value="I understand and agree" 
                         name="{{ form.fields.properties.agreement.name }}"
                         {%- if form.fields.properties.agreement.value contains 'I understand and agree' -%} checked {%- endif -%}>
@@ -69,13 +66,81 @@ fields:
     
     <div class="insites-form-grid">
         <div class="insites-form-buttons column-1 text-right">    
-            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" class="form-group-button form-back" style="display: inline;"></ins-button></a>
-            <a href="/client-portal/questionnaires-additional-details/{{context.params.slug3}}"><ins-button type="button" label="BACK" class="form-group-button form-back" outlined style="display: inline;"></ins-button></a>
-            <ins-button type="submit" label="SUBMIT" class="form-group-button form-submit" solid style="display: inline;"></ins-button>
+            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1" ></ins-button></a>
+            <a href="/client-portal/questionnaires-additional-details/{{context.params.slug3}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>            
+            {% comment %} 
+            <ins-button label="SUBMIT" solid id="openModalBtn" style="display: inline;" ></ins-button>            
+            <input type="submit" value="test"> 
+            {% endcomment %}
+            <ins-button type="submit" label="SUBMIT" solid icon="icon-check-2" ></ins-button>
         </div>
     </div>
     
 {%- endform -%}
+
+<ins-modal 
+  id="modal"
+  with-backdrop 
+  confirmation value="DATA"
+  width="400px" 
+  height="auto"  
+  no-button
+  prevent-click-outside>
+
+  <div id="myModalContent" class="text-center">    
+    <div class="warning"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168.33 168.33"><defs></defs><title>warning</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M84.16,0a84.16,84.16,0,1,0,84.16,84.16A84.26,84.26,0,0,0,84.16,0Zm0,162.33a78.16,78.16,0,1,1,78.16-78.16A78.25,78.25,0,0,1,84.16,162.33ZM87.6,98.86,89,50.27H79.31l1.42,48.58Zm-3.44,8.2a6.28,6.28,0,0,0,0,12.55c3.64,0,6-2.73,6-6.28S87.81,107.05,84.16,107.05Z"></path></g></g></svg></div>
+    <div class="spacer"></div>
+    <h3 class="heading-3">Submit Questionnaire</h3>
+    <div class="spacer"></div>
+    <p>Once submitted, the form cannot be edited.</p>  
+    <div class="spacer"></div>
+    <ins-button type="submit" label="CANCEL" outlined icon="icon-close-1" onclick="modal.close()" ></ins-button>
+    <ins-button type="submit" label="SUBMIT" solid icon="icon-check-2" onclick="form.submit()"></ins-button>
+  </div>
+
+</ins-modal>
+
+<script>
+  var modal = document.getElementById('modal');
+  var openModalBtn = document.getElementById('openModalBtn');
+  openModalBtn.addEventListener('insClick', () => {
+    modal.open();
+  });
+
+
+  let form2 = document.querySelector('form');
+  
+  let test = document.getElementById('test');
+// Eventlistener can be another event and on another DOM object this is just an example
+form2.addEventListener('submit', function (event) {
+    // Only needed if event is submit, otherwise this line can be skipped 
+    
+    
+    let agree = document.querySelector('#agreement input');
+    console.log(agree);
+
+    console.log("entered");
+    console.log(agree.checkValidity());
+    console.log(agree.reportValidity());
+
+    // This is the important part, test if form is valid
+    if (form2.checkValidity() === false){
+        // This is the magic function that displays the validation errors to the user
+          
+        console.log(form2.reportValidity());
+        return; 
+    }else
+    {
+        return false;
+    }
+
+    event.preventDefault();
+    return false;
+
+    // Code if all fields are valid; continue form submit or make Ajax call.
+})
+
+</script>
         
 <script id="modules/client/questionnaires">
     InsitesFormProcessor.setFormProps("modules/client/questionnaires", "modules/client/questionnaires", {{ form.fields.properties }}, "", true);

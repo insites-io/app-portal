@@ -1,0 +1,50 @@
+
+{%- liquid
+
+    graphql data = "modules/client/get_questionnaires", id: {{context.params.slug3}} | dig: "items","results" | first
+
+    if context.params.slug2 == "questionnaires-general"
+        assign statusGeneral = "active"
+        assign statusAdditional = "disabled"
+        assign statusConfirmation = "disabled"
+        if context.params.slug3
+            if data.contact_name
+                assign statusAdditional = "complete"
+            endif
+            if data.agreement[0] == "I understand and agree"
+                assign statusConfirmation = "complete"
+            endif
+        endif
+    elsif context.params.slug2 == "questionnaires-additional-details"
+        assign statusGeneral = "complete"
+        assign statusAdditional = "active"
+        assign statusConfirmation = "disabled"
+        if context.params.slug3
+            if data.agreement[0] == "I understand and agree"
+                assign statusConfirmation = "complete"
+            endif
+        endif
+    elsif context.params.slug2 == "questionnaires-confirmation"
+        assign statusGeneral = "complete"
+        assign statusAdditional = "complete"
+        assign statusConfirmation = "active"
+    endif
+
+-%}
+
+<div class="form-groups-tab">        
+    <ins-steps clickable id="insStepsClickEl" style="width: 100%;">
+        <ins-step description="General" {{statusGeneral}} link="/client-portal/questionnaires-general/{{context.params.slug3}}"></ins-step>
+        <ins-step description="Additional Details" {{statusAdditional}} link="/client-portal/questionnaires-additional-details/{{context.params.slug3}}"></ins-step>
+        <ins-step description="Confirmation" {{statusConfirmation}} link="/client-portal/questionnaires-confirmation/{{context.params.slug3}}"></ins-step>
+    </ins-steps>
+</div>
+
+<script>
+    //Clickable Steps    
+    function prevForm(event){
+        let link = event.detail.currentStep.getAttribute('link');
+        window.location=link;               
+    }    
+    insStepsClickEl.addEventListener('insClick', this.prevForm);    
+</script>
