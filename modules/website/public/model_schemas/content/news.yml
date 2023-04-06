@@ -1,0 +1,162 @@
+name: news
+metadata:
+  label: "news"
+  groups: [{"id":"56f7a9d5-9144-4ccb-bb3a-1faff1ca1844","name":"system field","weight":0},{"id":"528dbffa-3d2f-4ccb-b95e-a23ae7432c0e","name":"SEO Settings","weight":1},{"id":"37d87a39-cdf7-4da0-b857-1faec3f4339a","name":"Article Details","weight":2},{"id":"2432e12d-518f-4e3d-8cb6-e16a9cfe506c","name":"Article Content","weight":3}]
+  is_archived: false
+properties:
+- name: author
+  type: string
+  metadata:
+    label: "Author"
+    weight: 11
+    group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
+    ui_element: "input"
+    is_required: false
+    is_sortable: true
+    is_searchable: true
+    is_shown_in_table: true
+- name: content
+  type: string
+  metadata:
+    label: "Content"
+    weight: 15
+    group_id: "2432e12d-518f-4e3d-8cb6-e16a9cfe506c"
+    ui_element: "html"
+    is_required: false
+- name: created_at
+  type: string
+  metadata:
+    label: "Created At"
+    weight: 1
+    group_id: "56f7a9d5-9144-4ccb-bb3a-1faff1ca1844"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: deleted_at
+  type: string
+  metadata:
+    label: "Deleted At"
+    weight: 3
+    group_id: "56f7a9d5-9144-4ccb-bb3a-1faff1ca1844"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: id
+  type: string
+  metadata:
+    label: "ID"
+    weight: 0
+    group_id: "56f7a9d5-9144-4ccb-bb3a-1faff1ca1844"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: list_view_image
+  type: upload
+  metadata:
+    label: "List View Image"
+    weight: 13
+    group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
+    ui_element: "media_image"
+    is_required: false
+  options:
+    acl: public
+    cache_control: ""
+    content_disposition: inline
+- name: list_view_text
+  type: string
+  metadata:
+    label: "List View Text"
+    weight: 12
+    group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: main_image
+  type: upload
+  metadata:
+    label: "Main Image"
+    weight: 14
+    group_id: "2432e12d-518f-4e3d-8cb6-e16a9cfe506c"
+    ui_element: "media_image"
+    is_required: false
+  options:
+    acl: public
+    cache_control: ""
+    content_disposition: inline
+- name: meta_description
+  type: string
+  metadata:
+    label: "Meta Description"
+    weight: 5
+    group_id: "528dbffa-3d2f-4ccb-b95e-a23ae7432c0e"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: meta_title
+  type: string
+  metadata:
+    label: "Meta Title"
+    weight: 4
+    group_id: "528dbffa-3d2f-4ccb-b95e-a23ae7432c0e"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: published_date
+  type: date
+  metadata:
+    label: "Published Date"
+    weight: 9
+    group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
+    ui_element: "date"
+    is_required: false
+    is_sortable: true
+    is_shown_in_table: true
+- name: slug
+  type: string
+  metadata:
+    label: "Slug"
+    weight: 8
+    group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
+    ui_element: "input"
+    is_required: true
+    is_shown_in_table: false
+- name: status
+  type: boolean
+  metadata:
+    label: "Status"
+    weight: 6
+    group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
+    ui_element: "toggle"
+    is_sortable: true
+    is_shown_in_table: true
+- name: tag
+  type: string
+  metadata:
+    label: "Tag"
+    weight: 10
+    options: ["Tag 1","Tag 2","Tag 3"]
+    group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
+    ui_element: "select"
+    is_required: false
+    is_sortable: true
+    is_shown_in_table: true
+- name: title
+  type: string
+  metadata:
+    label: "Title"
+    weight: 7
+    group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
+    ui_element: "input"
+    is_required: true
+    is_sortable: true
+    is_searchable: true
+    is_shown_in_table: true
+- name: updated_at
+  type: string
+  metadata:
+    label: "Updated At"
+    weight: 2
+    group_id: "56f7a9d5-9144-4ccb-bb3a-1faff1ca1844"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false

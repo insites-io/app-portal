@@ -1,8 +1,69 @@
-<section class="section-content-2">
+<!-- STATIC: SECTION CONTENT 1 -->
+<section class="section-content-1">
+    <div class="frame">
+        <div class="blocks-sc-2col-02 wrapper bg-color-ui-01">
+        <div class="spacer xxxx-large"></div>
+        <div class="about-us grid-container" data-test="page-about-us">
+            <div class="grid-x align-middle">
+                {% if test_device == 'smartphone' %}
+
+                <div class="small-12">
+                    <h2>Beautiful, centralised client portal.</h2>
+                    <div class="spacer"></div>
+                    <p>You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
+                </div> 
+
+                <div class="spacer xxxx-large"></div>
+                <div class="small-12" style="background-image: url({{ 'modules/website/images/home/vector0.png' | asset_url }}) ;">
+                    <div class="spacer xxxx-large"></div>
+                    <img style="width: 80%" src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
+                    <img style="width: 60%; margin-top: -100px; margin-left: 150px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
+                </div>
+
+                {% elsif test_device == "tablet" %}
+                    <div class="large-6 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
+                        <h2>Beautiful, centralised client portal.</h2>
+                        <div class="spacer"></div>
+                        <p>You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
+                    </div>
+    
+                    <div class="large-5 large-offset-1 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell" style="background-image: url({{ 'modules/website/images/home/vector0.png' | asset_url }}) ;">
+                        <img style="width: 80%" src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
+                        <img style="width: 60%; margin-top: -100px; margin-left: 120px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
+                    </div>
+                {% elsif test_device == 'desktop' %}
+                    <div class="large-6 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
+                        <h2>Beautiful, centralised client portal.</h2>
+                        <div class="spacer"></div>
+                        <p>You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
+                    </div>
+    
+                    <div class="large-5 large-offset-1 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell" style="background-image: url({{ 'modules/website/images/home/vector0.png' | asset_url }}) ;">
+                        <img src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
+                        <img style="margin-top: -200px; margin-left: 275px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="spacer xxx-large"></div>
+        </div>
+    </div>
+</section>
+
+<!-- STATIC: SINGLE ROW IMAGE -->
+<section class="single-row-section">
+    <img src="{{ 'modules/website/images/home/single-row-img.png' | asset_url }} "/>
+</section>
+
+<!-- STATIC: OVERLAP SECTION -->
+<section class="overlap-section">
   <div class="blocks-sc-3col-01 wrapper bg-color-ui-01">
+    <div class="spacer xxx-large"></div>
     <div class="custom-center">
       <h1 class="title-section-content-2 ">We’re thrilled you want to try Insites!</h1>
+      <div class="spacer x-large"></div>
       <p class="subtitle-section-content-2">The benefits of a client portal are numerous. They can help streamline communication between companies and clients, and make it easier for both parties to access the information they need.</p>
+      <div class="spacer x-large"></div>
     </div>
     
     <div class="grid-container" data-test="section-content-01">
@@ -113,4 +174,5 @@
         </div>
     </div>
   </div>
-  </section>
+</section>
+

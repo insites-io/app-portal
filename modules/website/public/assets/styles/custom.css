@@ -1,5 +1,3 @@
-/* HOMEPAGE */
-
 /* NAV */
 .navigation-04 {
     display: block; 
@@ -68,23 +66,58 @@
     z-index: 99999;
   }
 
-/* CUSTOM CSS */
+
+/*////////HERO BANNER///////*/
+/*////////HERO BANNER///////*/
+/*////////HERO BANNER///////*/
+
+  .hero-title{
+    background: #436CF2;
+    color: #fff;
+  }
+  
+  .hero-title h1{
+    height: 48px;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 120%;
+    color: #FFFFFF;
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+    padding: 0px 10px;
+  }
+
+/*////////HERO BANNER///////*/
+/*////////HERO BANNER///////*/
+/*////////HERO BANNER///////*/
+
+
+/*////////HOME///////*/
+/*////////HOME///////*/
+/*////////HOME///////*/
+
 .carousel-holder,
 .section-testimonials{
   text-align: center;
 }
 
-/* section-content-1 */
-.section-content-1{
-/*  
-  width: 1437px;
-  height: 855px;
-  flex: none;
-  order: 2;
-  flex-grow: 0;
-  z-index: 2;
-*/
+.slide-content{
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }
+
+.cusTitle{
+  font-size: 40px;
+  line-height: 120%;
+}
+
+.cusLongText{
+  padding: 0 200px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #fff;
+} 
 
 /* single-row-section */
 .single-row-section img{
@@ -92,125 +125,74 @@
   /* Group 64 */
 }
 
-.overlap-section-home{
-  width: 1441px;
-  height: 1445px;
-  flex: none;
-  order: 3;
-  flex-grow: 0;
-  z-index: 3;
-}
-
-/* section content */
-.section-content-2{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 80px 40px;
-  gap: 80px;
-  position: absolute;
-  width: 1240px;
-  height: 989px;
-  left: 100px;
-  top: 2000px;
-  background: #FFFFFF;
-  border-radius: 24px 24px 0px 0px;
-}
-
-.custom-center{
-  text-align: center;
-}
-
-.title-section-content-2{
-  padding: 0px 40px 0px 40px
-}
-.subtitle-section-content-2{
-  padding: 20px 40px 40px 40px;
-  font-size: 16px
-}
-
-.section-content-3{
-  padding: 40px 104px 128px;
-  gap: 80px;
-  height: 218px;
-}
-
-.section-content-4-card{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 79px;
-  height: 400px;
-  background: #436CF2;
-  color: #FFFFFF;
-  border-radius: 24px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}
-
-.section-content-4{
-  margin: 0px 0px 60px 0px;
-  color: var(--font-color-inv);
-}
-
-.section-content-4 p{
-  color: #fff;
-  font-size: 16px;
-}
-.section-content-4 h3{
-  color: #fff;
-}
-.section-testimonials h5,
-.section-testimonials h6{
-  color: #fff;
-}
-
-.hero-title{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0px 120px;
-  width: -webkit-fill-available;
-  height: 160px;
-  background: #436CF2;
-  color: #fff;
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-}
-
-.hero-title h1{
-  height: 48px;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 120%;
-  color: #FFFFFF;
-  flex: none;
-  order: 2;
-  flex-grow: 0;
-}
-
-/* ABOUT US */
-
-
-
-.about-us-single-row-section img{
-  width: -webkit-fill-available;
-}
-
-.about-us-support{
-  padding: 80px 40px 128px;
-  background: #436CF2;
+/* overlap */
+.overlap-section{
+  border: white 20px solid;
   border-radius: 24px;
   margin: 0px 100px;
   position: relative;
   margin-top: -150px;
 }
 
+.custom-center{
+  text-align: center;
+}
 
+/* SECTION 3 */
+.blocks-sc-3col-07 h3 {
+  line-height: 29px;
+}
+
+.custGridContainer{
+  background-color: #436cf2;
+  border-radius: 35px;
+  padding: 0 50px!important;
+}
+
+.card-section p,
+.card-section h3,
+.card-section h5,
+.card-section h6{
+  color: #fff;
+}
+
+/*////////HOME///////*/
+/*////////HOME///////*/
+/*////////HOME///////*/
+
+/*////////ABOUT US///////*/
+/*////////ABOUT US///////*/
+/*////////ABOUT US///////*/
+
+.about-us-single-row-section img{
+  width: -webkit-fill-available;
+}
+
+.service-list .ins-card-wrap {
+  padding: 35px;
+ }
+
+ .ourTeamCardHolder{
+  background-color: #000;
+  color: white;
+  margin-top: -5px;
+  z-index: 1;
+  position: relative;
+  left: 0px; 
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+ }
+
+ .ourTeamImg{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+ }
+ 
+ .our-team-desc{
+  padding: 0px 150px;
+ }
 
 .desc-holder{
   padding: 100px 260px;
@@ -244,6 +226,14 @@
   font-weight: 800;
 }
 
+.newsTitle{
+  position: relative;
+  display: inline-block;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 58px; /* (Number of lines you want visible) * (line-height) */
+  line-height: 1.2em;
+}
 
 /* sc-3col-02 */
 .blocks-sc-3col-02.wrapper {
@@ -535,3 +525,146 @@ SERVICES
   line-height: 16px;
   font-weight: 400;
 }
+
+/********* MEDIA QUERIES **********/
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 767px) {
+  .homepage-banner-wrap .ins-carousel .ins-carousel_paginations{
+    text-align: center;
+    padding-left: 0px;
+  }
+
+  .cusTitle{
+    font-size: 18px;
+    line-height: 120%;
+  }
+  
+  .cusLongText{
+    padding: 0 20px;
+    font-size: 11px;
+    color: #fff;
+  }
+
+  .overlap-section{
+    border: white 10px solid;
+    border-radius: 24px;
+    margin: 0px 20px;
+    position: relative;
+    margin-top: -50px;
+  }
+
+  .custCard{
+    background: #436CF2;
+    border-radius: 24px;
+    margin: 0px 20px;
+    position: relative;
+    margin-top: -50px;
+  }
+
+  .title-overlap-section{
+    font-size: 24px;
+  }
+
+  .subtitle-overlap-section{
+    font-size: 14px;
+  }
+
+  .testimonialText{
+    font-size: 14px;
+  }
+  .testimonialMessage{
+    font-size: 18px;
+  }
+  .testimonialName{
+    font-size: 14px;
+  }
+
+  .testimonialLocation{
+    font-size: 12px;
+  }
+
+  .check-icon{
+    width: 10%;
+    text-align: center;
+  }
+
+  .our-team-desc{
+    padding: 0px 15px;
+   }
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .cusTitle{
+    font-size: 26px;
+    line-height: 120%;
+  }
+  
+  .cusLongText{
+    padding: 0 50px;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #fff;
+  }  
+  
+  .overlap-section{
+    border: white 10px solid;
+    border-radius: 24px;
+    margin: 0px 20px;
+    position: relative;
+    margin-top: -70px;
+  }
+
+  .custCard{
+    background: #436CF2;
+    border-radius: 24px;
+    margin: 0px 20px;
+    position: relative;
+    margin-top: -70px;
+  }
+
+  .check-icon{
+    width: 10%;
+    text-align: center;
+  }
+} 
+
+/* Large devices (laptops/desktops, 1025px and up) */
+@media only screen and (min-width: 1025px) {
+  .cusTitle{
+    font-size: 40px;
+    line-height: 120%;
+  }
+  
+  .cusLongText{
+    padding: 0 200px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #fff;
+  } 
+
+  /* overlap */
+  .overlap-section{
+    border: white 20px solid;
+    border-radius: 24px;
+    margin: 0px 100px;
+    position: relative;
+    margin-top: -150px;
+  }
+
+  .custCard{
+    background: #436CF2;
+    border-radius: 20px;
+    position: relative;
+    margin-top: -150px;
+  }
+
+  .check-icon{
+    width: 20%;
+    text-align: center;
+  }
+} 
+

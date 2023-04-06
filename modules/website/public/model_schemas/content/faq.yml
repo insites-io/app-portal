@@ -1,0 +1,82 @@
+name: faq
+metadata:
+  label: "faq"
+  groups: [{"id":"5d955a4d-904b-4761-9855-0ad6f8d6200c","name":"system field","weight":0},{"id":"0aba0268-a2bf-40c3-962e-4ada9a8e0fd5","name":"FAQ Content","weight":1}]
+  is_archived: false
+properties:
+- name: answer
+  type: string
+  metadata:
+    label: "Answer"
+    weight: 6
+    group_id: "0aba0268-a2bf-40c3-962e-4ada9a8e0fd5"
+    ui_element: "multi_line"
+    is_required: true
+- name: category
+  type: string
+  metadata:
+    label: "category"
+    weight: 4
+    options: ["FAQ Topic 1","FAQ Topic 2","FAQ Topic 3","FAQ Topic 4"]
+    group_id: "0aba0268-a2bf-40c3-962e-4ada9a8e0fd5"
+    ui_element: "select"
+    is_required: true
+    is_sortable: true
+    is_searchable: true
+    is_shown_in_table: true
+- name: created_at
+  type: string
+  metadata:
+    label: "Created At"
+    weight: 1
+    group_id: "5d955a4d-904b-4761-9855-0ad6f8d6200c"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: deleted_at
+  type: string
+  metadata:
+    label: "Deleted At"
+    weight: 3
+    group_id: "5d955a4d-904b-4761-9855-0ad6f8d6200c"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: id
+  type: string
+  metadata:
+    label: "ID"
+    weight: 0
+    group_id: "5d955a4d-904b-4761-9855-0ad6f8d6200c"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: question
+  type: string
+  metadata:
+    label: "Question"
+    weight: 5
+    group_id: "0aba0268-a2bf-40c3-962e-4ada9a8e0fd5"
+    ui_element: "input"
+    is_required: true
+    is_sortable: true
+    is_searchable: true
+    is_shown_in_table: true
+- name: sort_order
+  type: integer
+  metadata:
+    label: "Sort Order"
+    weight: 7
+    group_id: "0aba0268-a2bf-40c3-962e-4ada9a8e0fd5"
+    ui_element: "number"
+    is_required: false
+    is_shown_in_table: false
+- name: updated_at
+  type: string
+  metadata:
+    label: "Updated At"
+    weight: 2
+    group_id: "5d955a4d-904b-4761-9855-0ad6f8d6200c"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false

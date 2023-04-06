@@ -26,19 +26,36 @@ query get_services(
             id
             updated_at
             created_at
-            # properties
-
-            enabled: property_boolean(name: "enabled")
-            start_date: property(name: "start_date")
-            end_date: property(name: "end_date")
-
-            name: property(name: "name")
+            # Details
             slug: property(name: "slug")
-            description: property(name: "description")
-            link: property(name: "link")
-
-            # Images
-            image: property_upload(name: "image") {
+          	service_name: property(name: "service_name")
+						list_view_text: property(name: "list_view_text")
+						list_view_image: property_upload(name: "list_view_image") {
+                url
+                file_name
+                extension
+                versions
+            }
+          	#Headings
+          	sub_heading_1:property(name: "sub_heading_1")
+          	content_block_1:property(name: "content_block_1")
+						image_1: property_upload(name: "image_1") {
+                url
+                file_name
+                extension
+                versions
+            }
+          	sub_heading_2:property(name: "sub_heading_2")
+          	content_block_2:property(name: "content_block_2")
+						image_2: property_upload(name: "image_2") {
+                url
+                file_name
+                extension
+                versions
+            }
+            sub_heading_3:property(name: "sub_heading_3")
+          	content_block_3:property(name: "content_block_3")
+						image_3: property_upload(name: "image_3") {
                 url
                 file_name
                 extension

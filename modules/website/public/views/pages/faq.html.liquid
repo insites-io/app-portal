@@ -2,6 +2,10 @@
 slug: faq
 layout: modules/website/default
 ---
-    
+ {% comment %} connect services to graphql {% endcomment %}
+{%- graphql get_faq = 'modules/website/content/get_faq' -%}
+{% comment %} assign var to fetch the result {% endcomment %}
+{%- assign res_faq = get_faq | dig: 'items', 'results' -%}
+   
 {% include 'modules/website/content/hero-title' %} 
 {% include 'modules/website/content/faq/faq' %}
