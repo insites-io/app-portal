@@ -4,7 +4,6 @@
 
     assign google_key_first = google_key.items.results | first
 %}
-
     {%- if context.environment == "staging" -%}
         {% comment %} Insert code for staging Google key {% endcomment %}
         {%- if google_key.items.results.size > 0 -%}

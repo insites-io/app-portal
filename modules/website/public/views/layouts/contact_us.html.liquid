@@ -1,0 +1,189 @@
+{%- comment -%}
+By adding the global content to the top of the layout
+It can be accessed in the includes without calling the GraphQL again
+It IS NOT accessable in {{content_for_layout}} which includes the specific page
+{%- endcomment -%}
+{%- include "modules/website/data/global_content" -%}
+{%- assign global = context.exports.global -%}
+
+{%- comment -%} Used by the fragment cache in the layout {%- endcomment -%}
+{%- include "modules/website/layout_fragment_cache_key" -%}
+
+{%- comment -%}
+Contact Us layout
+{%- endcomment -%}
+<!doctype html>
+<html class="no-js" lang="en">
+{%- if context.environment == "staging" -%}
+<!-- start layout: contact-us  -->
+{%- endif -%}
+
+<head>
+    {%- comment -%}
+    We try to limit assets that are part of the head / technical head to
+    minimize page size & improve page performance.
+
+    Assets like 'Google Map API', should only be referenced as needed.
+    - Managed on the 'page / layout' level
+    {%- endcomment -%}
+    {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
+    {%- cache head_key -%}
+    {% include 'modules/website/layout/head' %}
+    {% include 'modules/website/layout/googlemaps' %}
+    {%- endcache -%}
+</head>
+
+<body>
+    <div class="main-wrap">
+        {% include 'modules/website/layout/header' %} 
+
+        <div class="wrapper">
+            <div class="grid-container">
+                <div class="spacer section"></div>                
+                {%- include 'modules/website/data/global_content' -%}
+
+                <div class="contact-us grid-x grid-padding-x" data-test="page-contact-us">                    
+                    <div class="large-7 medium-6 small-12 cell">
+                        {{ content_for_layout }}
+                    </div>                    
+                    <div class="small-12 cell spacer large show-for-small-only"></div>
+                    <div class="large-4 large-offset-1 medium-5 medium-offset-1 small-12 cell">
+                        {%- graphql google_key = 'modules/website/system/get_system_fields', 
+            key: 'google_maps_api_key' -%}
+                        {%- assign google_key = google_key.items.results | first -%}
+                        {%- comment -%} {%- assign api_key = google_key.value -%} {%- endcomment -%} 
+                        {%- assign api_key = google_key.value -%}
+
+                        <a target="_blank"
+                            href="https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}"
+                            class="color-main" data-test="contact-us-map-link">
+                            {%- include 'modules/website/content/google-map-static' -%}
+                        </a>
+                        {%- comment -%}
+                        <!-- Can be inputted with latitude and longitude -->
+                        {% include 'modules/website/content/google-map-static'
+            logintude: "144.993160", latitude: "-37.827620" %}
+                        {%- endcomment -%}
+                        {% comment %}
+                        href="https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}"
+                        {% endcomment %}
+                        <div class="spacer large"></div>
+
+                        <script>
+                            function mapsSelector() {
+                                if /* if we're on iOS, open in Apple Maps */
+                                    ((navigator.platform.indexOf("iPhone") != -1) ||
+                                    (navigator.platform.indexOf("iPad") != -1) ||
+                                    (navigator.platform.indexOf("iPod") != -1))
+                                    window.open("maps://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}");
+                                else /* else use Google */
+                                    window.open("https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}");
+                            }
+                        </script>
+
+                        {%- comment -%}
+                        <!-- GeoJSON feature not yet supported on INS global contents / data -->
+                        <div id="address-data">{{ context.exports.global.loc_1_address.data | json }}</div>
+                        {%- endcomment -%}
+
+                        <ul class="contact-details no-bullet color-main">
+                            <li class="address-container spacer">
+                                {% if api_key != blank %}
+                                <a target="_blank" class="color-main" onclick="mapsSelector()"
+                                    data-test="contact-us-get-directions">
+                                    {% endif %}
+                                    <i class="icon-map"></i>
+                                    <span
+                                        id="full-address">{{ context.exports.global.loc_1_address_full | default: '-' }}</span>
+                                    {% if api_key != blank %}
+                                </a>
+                                {% endif %}
+                            </li>
+                            {%- if context.exports.global.loc_1_phone -%}
+                            <li class="phone-container spacer">
+                                {%- comment -%}
+                                IF the phone number is a '1800', or no country code, etc.. just remove regex
+                                Data needs to be standard. If it will contain the country code, or not.
+                                {%- endcomment -%}
+                                {%- assign contact_no = context.exports.global.loc_1_phone | replace_regex: '[+() ]', '' | prepend: '+' -%}
+                                <a class="color-main" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
+                                    <i class="icon-phone1"></i>
+                                    +{{ context.exports.global.loc_1_phone | replace: "+", '' }}
+                                </a>
+                            </li>
+                            {%- endif -%}
+                            {%- if context.exports.global.company_email_1 -%}
+                            <li class="email-container">
+                                <a class="color-main" href="mailto:{{ context.exports.global.company_email_1 }}"
+                                    data-test="contact-us-contact-number">
+                                    <i class="icon-mail1"></i>
+                                    {{ context.exports.global.company_email_1 }}
+                                </a>
+                            </li>
+                            {%- endif -%}
+                        </ul>
+
+                        <div class="spacer xxx-large"></div>
+                        <h3>Opening Hours</h3>
+                        <div class="spacer large"></div>
+                        <div class="grid-x opening-hours font-color-head">
+
+                            {%- assign days_name = "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday" | split: "," -%}
+                            {%- assign global_days = "sun,mon,tue,wed,thu,fri,sat" | split: "," -%}
+                            {%- assign current_day = "today" | date: "%A" -%}
+                            {%- comment -%}
+                            {{ "now" | date: "%a, %b %d, %y" }}
+                            {{current_day}}
+                            {%- endcomment -%}
+
+                            {%- for day in global_days -%}
+                            {%- assign key_enable = "loc_1_" | append: day | append: "_enable" -%}
+                            {%- assign key_open = "loc_1_" | append: day | append: "_open" -%}
+                            {%- assign key_close = "loc_1_" | append: day | append: "_close" -%}
+
+                            <div
+                                class="small-12 cell grid-x {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
+                                <div class="small-4 cell">{{ days_name[forloop.index0] }}:</div>
+                                {%- if context.exports.global[key_enable] -%}
+                                <div class="small-8 cell">
+                                    <p>{{ context.exports.global[key_open] | date: "%I:%M %p" }} -
+                                        {{ context.exports.global[key_close] | date: "%I:%M %p" }}</p>
+                                </div>
+                                {%- else -%}
+                                <div class="small-8 cell">
+                                    <p>Closed</p>
+                                </div>
+                                {%- endif -%}
+                            </div>
+                            <div class="small-12 cell spacer x-small"></div>
+                            {%- endfor -%}
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+                <script src="{{ 'modules/website/services/formServices.js' | asset_url }}"></script>
+                <script src="{{ 'modules/website/scripts/forms/contact-us.js' | asset_url }}"></script>
+                <div class="spacer section"></div>
+            </div>
+        </div>
+
+        {%- capture foot_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-footer_section"}}
+        {%- endcapture -%}
+        {%- cache foot_key -%}        
+    </div>
+
+    {% include 'modules/website/layout/footer' %}
+    {% include 'modules/website/layout/foot' %}
+    {%- endcache -%}
+
+</body>
+{%- if context.environment == "staging" -%}
+<!-- end layout: contact-us  -->
+{%- endif -%}
+
+</html>

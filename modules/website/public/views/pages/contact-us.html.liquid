@@ -1,7 +1,21 @@
 ---
 slug: contact-us
-layout: modules/website/default
+layout_name: modules/website/contact_us
 ---
+
+{%- if context.environment == "staging" -%}
+<!-- start page: contact-us  -->
+{%- endif -%}
+
+    <h2 class="spacer">Get in Touch</h2>
+    <p>Contact us about anything related to our company or services.<br>
+        We'll do our best to get back to you as soon as possible.</p>
+    <div class="spacer xx-large"></div>
+    {% comment %} {%- include 'modules/insites_database/insites_functions/insites_database_form_scripts' -%}
+    {%- include_form 'modules/ins_database/contact_us' -%} {% endcomment %}
     
-{% include 'modules/website/content/hero-title' %} 
-{% include 'modules/website/content/contact-us/contact-us' %}
+    {%- include_form 'modules/website/contact_us' -%}
+
+{%- if context.environment == "staging" -%}
+<!-- end page: contact-us  -->
+{%- endif -%}
