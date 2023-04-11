@@ -1,8 +1,14 @@
 {%-liquid
     if item.agreement[0] == "I understand and agree"
         assign status = "Completed"
+        assign viewEditLink = "/client-portal/questionnaires-general-view/" | append: item.id
     else 
         assign status = "Draft"
+        assign viewEditLink = "/client-portal/questionnaires-general/" | append: item.id
+    endif
+
+    if item.attach_documents.url
+        assign downloadLink = 
     endif
 -%}
 <ins-card >
@@ -19,7 +25,12 @@
         <div class="spacer"></div>
     </div>
     <div class="spacer small"></div>
-    <a href="" ><ins-button size="small" label="VIEW/EDIT"></ins-button></a>
-    <a href="" ><ins-button size="small" label="DOWNLOAD"></ins-button></a>
+    <a href="{{viewEditLink}}" ><ins-button size="small" label="VIEW/EDIT"></ins-button></a>
+    
+    {% if item.attach_documents.url %}
+    <a href="{{item.attach_documents.url}}" ><ins-button size="small" label="DOWNLOAD"></ins-button></a>
+    {% else %}
+    <ins-button size="small" label="DOWNLOAD" disabled></ins-button>
+    {% endif %}
     </div>            
 </ins-card>

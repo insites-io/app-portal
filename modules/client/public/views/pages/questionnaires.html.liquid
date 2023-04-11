@@ -21,40 +21,76 @@ metadata: {
     "sitemap_enabled": true,
     "sitemap_priority": "1.0",## primary order (DESC)
     "sitemap_order": "1", ## secondary order (ASC)
-    "sitemap_changefreq": "monthly"
+    "sitemap_changefreq": "monthly",
+    "heading": "Questionnaires"
 }
 # dynamic_cache:
 #   layout: |-
-#     {%- comment -%}Set layout cache depending if E-commerce module is present{%- endcomment -%}
-#     {%- if context.modules.ecommerce.name != blank -%}
-#     false
-#     {%- else -%}
 #     true
-#     {%- endif -%}
 #   key: |-
 #     {%- parse_json models -%}
 #     [
-#       {%- if context.modules.ecommerce.name == blank -%} "modules/website/main_menu", {%- endif -%}
 #       "modules/insites_site_manager/insites_global_content",
 #       "modules/insites_core/insites_system_fields",
-#       "modules/client/client_portal_banners"
+#       "modules/client/questionnaires"
 #     ]
 #     {%- endparse_json -%}
-#     {%- include "modules/website/generate_cache_key", models: models -%}
-#     {%- if context.device.device_type == 'smartphone' -%}
-#         smartphone
-#     {%- else -%}
-#         desktop
-#     {%- endif -%}
+#     {%- include "modules/website/generate_cache_key", models: models -%}    
 ---
+
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
 {%- endif -%}
 
-
 {%- include 'modules/client/insites_database_form_scripts' -%}
 
+{%- comment -%} Pagination and Filters {%- endcomment -%}
+{%  liquid            
+    assign page_num = context.params.page | default: 1 | plus: 0
+    assign per_page = context.params.per_page | default: 6 | plus: 0
+    assign year = context.params.year | default: ""
+%}
+
+{% parse_json filters %}
+{
+    "user_id": "{{context.current_user.id}}",
+    "page": {{page_num}},
+    "size": {{per_page}}      
+    {% if context.params.year and context.params.year != '' %} 
+    ,"year": "{{year}}"
+    {% endif %} 
+}
+{% endparse_json %}
+
+{%- graphql data = "modules/client/questionnaires/get_questionnaires", args: filters | dig: "items" -%}
+
+
+
+{%- comment -%} New Questionnaire Button - Options {%- endcomment -%}
+{%- graphql all_questionnaires = "modules/client/questionnaires/get_all_questionnaires", user_id: context.current_user.id | dig: "items","results" -%}
+
+{%  liquid
+    assign years = all_questionnaires | map: "year" | sort | reverse  
+    assign latest_year = years[0]
+    assign this_year = 'now' | date: '%Y'
+
+    if this_year > latest_year
+        assign year_options = ''
+        for i in (latest_year..this_year)
+            unless forloop.first
+                assign year_options = year_options | append: i 
+                unless forloop.last
+                    assign year_options = year_options | append: ','
+                endunless
+            endunless
+        endfor
+    else
+        assign year_options = 'No forms to complete'
+    endif
+%}
+
 <div class="questionnaire">
+
     <div class="box">
         <p>Hello and welcome to our questionnaire!</p>
         <br>
@@ -66,16 +102,18 @@ metadata: {
     <div class="grid-x">
         <div class="cell large-5">
             <ins-button 
+                id="new-questionnaire"
                 label="New Questionnaire" 
                 icon="icon-plus" 
                 solid 
                 color="blue" 
                 size="normal" 
-                options="2023, 2022">
+                options="{{year_options}}">
             </ins-button>
         </div>
         <div class="cell large-6 large-offset-1">
             <ins-input 
+                id="filter-year"
                 placeholder="Search by Year"
                 icon="icon-search-1">
             </ins-input>
@@ -85,24 +123,49 @@ metadata: {
     <div class="spacer"></div>
 
     <div class="grid-container">
-        <div class="grid-x grid-padding-x grid-padding-y">
 
-        {%- graphql data = "modules/client/get_questionnaires", user_id: context.current_user.id, size: 6 | dig: "items","results" -%}
-
-        {%- for item in data -%}
+        <div class="grid-x grid-padding-x grid-padding-y">                        
+        {%- for item in data.results -%}
         <div class="large-4 medium-6 small-12 cell align-stretch">
             {%- include "modules/client/questionnaires-card", item -%}
         </div>
         {%- endfor -%}
-
         </div>
 
+        <div class="spacer"></div>        
+        {%- include "modules/client/paginations", page_num, per_page -%}
+        <div class="spacer xxxx-large"></div>
         
-
     </div>
 
 </div>
 
+<script>
+    let year = "{{year}}";
+    let keywordInput = document.getElementById("filter-year");
+    if (keywordInput) {
+        keywordInput.addEventListener('insInput', this.keywordInputEvent);
+        keywordInput.addEventListener('insIconClick', this.keywordInputEvent);
+    }
+    function keywordInputEvent(event) {        
+        if (event.detail.keyCode === 13) {            
+            let url = window.location.href.replace("year="+year, "") + "&year="+event.detail.value;
+            window.location = url;
+        }
+    }
+
+    let newQuestionnaire = document.getElementById("new-questionnaire");
+    if (newQuestionnaire) {
+        newQuestionnaire.addEventListener('insClickOption', event => {
+            
+            console.log(event);
+            console.log(event.detail.option);
+            if(event.detail.option != "No forms to complete"){
+                window.location = "/client-portal/questionnaires-general?year="+event.detail.option;
+            }
+        });
+    }
+</script>
 
 {%- if context.environment == "staging" -%}
 <!-- end page: overview  -->

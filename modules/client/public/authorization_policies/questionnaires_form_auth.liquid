@@ -1,25 +1,61 @@
 ---
 name: questionnaires_form_auth
 ---
+{% comment %} 
+    URL cases:
+        Add questionnaires      - /client-portal/questionnaires-general?year=2023
+        Edit questionnaires     - /client-portal/questionnaires-general/123
+                                - /client-portal/questionnaires-additional-details/123
+                                 /client-portal/questionnaires-confirmation/123
+{% endcomment %}
 {%- liquid 
-    graphql data = "modules/client/get_questionnaires", id: {{context.params.slug3}} | dig: "items","results" | first
 
-    if context.params.slug2 == "questionnaires-general"
-        echo true
-    elsif context.params.slug2 != "questionnaires-general" and context.params.slug3        
-        if context.params.slug2 == "questionnaires-additional-details" and data.user_id
-            echo true
-        elsif context.params.slug2 == "questionnaires-confirmation" and data.contact_name
-            echo true
+    if context.params.slug3
+        comment 
+            Edit Questionnaire
+        endcomment
+        graphql data = "modules/client/get_questionnaires", user_id: context.current_user.id, id: context.params.slug3 | dig: "items","results" 
+
+        if data.size > 0
+            comment 
+                Form cannot be edited once completed 
+            endcomment
+            if data[0].agreement[0] == "I understand and agree"
+                echo false
+            else
+                echo true
+            endif
+        else
+            comment 
+                Cannot edit non existing questionnaires
+            endcomment
+            echo false
+        endif
+    elsif context.params.year
+
+        assign current_year = 'now' | date: '%Y'
+        if context.params.year > current_year
+            comment 
+                Do not allow advance questionnaires
+            endcomment
+            echo false
+        else
+            comment 
+                Add Questionnaire
+                - one questionnaire per user per year
+            endcomment
+            graphql data = "modules/client/get_questionnaires", user_id: context.current_user.id, year: context.params.year | dig: "items","results" 
+
+            if data.size > 0
+                comment 
+                    Questionnaires for that user on that given year already exist
+                endcomment
+                echo false
+            else
+                echo true
+            endif
         endif
     else
-        echo false
-    endif
-
-    comment 
-        Form cannot be edited once completed 
-    endcomment
-    if context.params.slug3 and data.agreement[0] == "I understand and agree"
         echo false
     endif
 -%}

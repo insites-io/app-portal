@@ -3,7 +3,7 @@
 
     graphql data = "modules/client/get_questionnaires", id: {{context.params.slug3}} | dig: "items","results" | first
 
-    if context.params.slug2 == "questionnaires-general"
+    if context.params.slug2 == "questionnaires-general" or context.params.slug2 == "questionnaires-general-view"
         assign statusGeneral = "active"
         assign statusAdditional = "disabled"
         assign statusConfirmation = "disabled"
@@ -15,7 +15,7 @@
                 assign statusConfirmation = "complete"
             endif
         endif
-    elsif context.params.slug2 == "questionnaires-additional-details"
+    elsif context.params.slug2 == "questionnaires-additional-details" or context.params.slug2 == "questionnaires-additional-details-view"
         assign statusGeneral = "complete"
         assign statusAdditional = "active"
         assign statusConfirmation = "disabled"
@@ -24,12 +24,13 @@
                 assign statusConfirmation = "complete"
             endif
         endif
-    elsif context.params.slug2 == "questionnaires-confirmation"
+    elsif context.params.slug2 == "questionnaires-confirmation" or context.params.slug2 == "questionnaires-confirmation-view"
         assign statusGeneral = "complete"
         assign statusAdditional = "complete"
         assign statusConfirmation = "active"
     endif
 
+    export data, namespace: 'questionnaires'
 -%}
 
 <div class="form-groups-tab">        

@@ -29,6 +29,10 @@ The `homepage` layout is dedicated layout for homepage only.
     {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
     {% include 'modules/website/layout/head' %}
     <link rel="stylesheet" href="{{ 'modules/client/styles/client.min.css' | asset_url }}" >
+
+    <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
+    <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
+    {%- include 'modules/client/insites_database_form_scripts' -%}
 </head>
 
 <body>
@@ -93,6 +97,12 @@ The `homepage` layout is dedicated layout for homepage only.
 
     {% include 'modules/website/layout/footer' %}
     {% include 'modules/website/layout/foot' %}
+
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="{{ 'modules/website/services/formServices.js' | asset_url }}"></script>
+
     {%- endcache -%}
 
 </body>

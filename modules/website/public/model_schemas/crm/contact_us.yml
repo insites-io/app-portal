@@ -7,29 +7,10 @@ properties:
 - name: document
   type: upload
   metadata:
-    type: "media_file"
     label: "Document"
-    status: "enabled"
-    values: []
     weight: 5
-    group_id: ""
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    ui_element: "media_file"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
   options:
     acl: public
     cache_control: ""

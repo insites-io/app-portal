@@ -220,6 +220,77 @@ ins-checkbox .ins-radio-checkbox label, ins-radio .ins-radio-checkbox label{
 .ins-step.active .ins-step_indicator{
     border-color: var(--color-ui-06);
 }
+
+/* Pagination */
+.paginations ins-select {
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.paginations .ins-select-value-wrap {
+    width: 53px;
+    border: none;
+}
+
+.paginations .ins-select-options-wrap {
+    border-color: var(--color-ui-04);
+    border-bottom: none;
+    z-index: 9999;
+}
+
+.paginations .ins-select-wrap {
+    margin-bottom: 0px;
+}
+
+.paginations .ins-select-wrap.activated .ins-select-options-wrap {
+    border-bottom: solid 1px var(--color-ui-04);
+    border-color: var(--color-ui-04);
+}
+
+.paginations ins-select .ins-select-wrap .ins-select-value-input {
+    padding-right: 0px;
+}
+
+.paginations .ins-select-wrap .ins-select-options-wrap {
+    right: 0px;
+    min-width: 120px;
+}
+
+.paginations .activated .ins-select-options-wrap {
+    border-top: solid 1px var(--color-ui-04);
+}
+
+.paginate>span,
+.paginate>div {
+    display: inline-block;
+    font-family: var(--font-family-03);
+    font-weight: 400;
+    font-size: var(--font-small);
+    line-height: var(--font-small);
+    color: var(--font-color-body);
+}
+
+.paginate button {
+    min-width: initial;
+    width: 25px;
+    height: auto !important;
+    border-radius: 0px;
+    margin-left: 8px;
+    vertical-align: text-bottom;
+    color: var(--font-color-body);
+}
+
+.paginate button.blue:not([disabled]):hover {
+    background-color: var(--color-ui-01);
+}
+
+.paginate button.blue:not([disabled]):hover .btn__icon.action {
+    color: var(--color-main-hover);
+}
+
+.paginate button .btn__label {
+    padding: 0px;
+}
 /*************************/
 /*     Client Portal     */
 /*************************/
@@ -249,6 +320,15 @@ p{
     font-weight: 400;
     line-height: 24px;
     font-size: 16px;
+}
+
+ins-input-tel.hideCountryCode .col-container.column-1{
+    display: none;
+}
+
+ins-input-tel.hideCountryCode .col-container.column-3{
+    width: 100%;
+    margin: initial;
 }
 
 /* Questionnaire */

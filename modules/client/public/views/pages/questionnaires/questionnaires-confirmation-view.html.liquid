@@ -1,5 +1,5 @@
 ---
-slug: client-portal/questionnaires-general-view
+slug: client-portal/questionnaires-confirmation-view
 layout: modules/client/form_layout
 # enable_profiler: true
 searchable: false
@@ -10,12 +10,12 @@ metadata: {
     "og:url": "",
     "og:type": "",
     "og:image": "",
-    "og:title": "Questionnaires - General Information | Insites",
-    "og:description": "Questionnaires - General Information | Insites",
+    "og:title": "Questionnaires - Confirmation | Insites",
+    "og:description": "Questionnaires - Confirmation | Insites",
     "og:site_name": "",
-    "meta_title": "Questionnaires - General Information | Insites",
-    "page_title": "Questionnaires - General Information | Insites",
-    "meta_description": "Questionnaires - General Information | Insites",
+    "meta_title": "Questionnaires - Confirmation | Insites",
+    "page_title": "Questionnaires - Confirmation | Insites",
+    "meta_description": "Questionnaires - Confirmation | Insites",
     "canonical_url": "",
     "search_engine_visibility": true,
     "sitemap_enabled": true,
@@ -69,12 +69,13 @@ metadata: {
           {% include "modules/client/questionnaires-steps" %}
       </div>    
 
-      {% include "modules/client/forms/questionnaires-general-inputs", form %}              
+      {% include "modules/client/forms/questionnaires-confirmation-inputs", form %}              
   </div>
 
   <div class="insites-form-grid grid-x">        
       <div class="insites-form-buttons column-1 text-right">        
-          <a href="/client-portal/questionnaires-additional-details-view/{{context.params.slug3}}"><ins-button type="submit" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></a>
+          <a href="/client-portal/questionnaires-additional-details-view/{{context.params.slug3}}"><ins-button type="submit" label="BACK" icon="icon-arrow-back" outlined ></ins-button></a>
+          <a href="/client-portal/questionnaires"><ins-button type="submit" label="DONE" solid ></ins-button></a>
       </div>
   </div>
 </div>
