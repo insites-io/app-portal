@@ -35,17 +35,7 @@ Contact Us layout
 
 <body>
     <div class="main-wrap">
-        {%- if context.current_user and context.modules.ecommerce.name != blank -%}
-        {% include 'modules/website/layout/header' %}
-        {%- else -%}
-        {%- capture header_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-header" }}
-        {%- endcapture -%}
-        {%- cache header_key -%}
-        {% include 'modules/website/layout/header' %}
-        {%- endcache -%}
-        {%- endif -%}
-
-        {% include 'modules/website/content/layout/page-header' %}
+        {% include 'modules/website/layout/header' %} 
 
         <div class="wrapper">
             <div class="grid-container">
@@ -61,9 +51,9 @@ Contact Us layout
                         {%- graphql google_key = 'modules/website/system/get_system_fields', 
             key: 'google_maps_api_key' -%}
                         {%- assign google_key = google_key.items.results | first -%}
+                        {%- comment -%} {%- assign api_key = google_key.value -%} {%- endcomment -%} 
                         {%- assign api_key = google_key.value -%}
 
-                        {% if api_key != blank %}
                         <a target="_blank"
                             href="https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}"
                             class="color-main" data-test="contact-us-map-link">
@@ -90,7 +80,6 @@ Contact Us layout
                                     window.open("https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}");
                             }
                         </script>
-                        {%- endif -%}
 
                         {%- comment -%}
                         <!-- GeoJSON feature not yet supported on INS global contents / data -->

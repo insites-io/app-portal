@@ -1,0 +1,31 @@
+---
+slug: api/s3-upload
+format: json
+searchable: false
+# enable_profiler: true
+max_deep_level: 2
+metadata: {
+    "status": "published",
+    "page_type": "endpoint", ## content, system or endpoint
+    "og:url": "",
+    "og:type": "",
+    "og:image": "",
+    "og:title": "S3 Upload | Insites",
+    "og:description": "S3 Upload | Insites",
+    "og:site_name": "",
+    "meta_title": "S3 Upload | Insites",
+    "page_title": "S3 Upload | Insites",
+    "meta_description": "S3 Upload | Insites",
+    "canonical_url": "",
+    "search_engine_visibility": false,
+    "sitemap_enabled": false,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "99", ## secondary order (ASC)
+    "sitemap_changefreq": "never"
+}
+---
+
+{%- graphql results = 'modules/client/forms/get_s3_upload' table: context.params.table, property: context.params.property -%}
+{{ results }}
+
+{%- log results, type: 'Test results:' -%}

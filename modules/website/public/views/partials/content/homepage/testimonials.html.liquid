@@ -1,0 +1,34 @@
+{%- graphql get_testimonial = 'modules/website/content/get_testimonial' -%}
+{%- assign res_testimonial = get_testimonial | dig: 'items', 'results' -%}
+
+<section class="section-testimonials">
+    <div class="blocks-hero-01 homepage-banner-wrap">
+        <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner" transition="700" duration="5000"
+          data-test="homepage-slider">
+          <div id="homepage-banner">
+            {% for item in res_testimonial %}
+            <!-- item -->
+            <div class="slide-container" style="background-color: #000;">
+              <div class="img-wrap">
+              </div>
+  
+              <div class="slide-content wrapper vertical-align-middle">
+                <div class="grid-x">
+                  <div class="large-12 medium-12 small-12 cell">
+                    <h5 style="color: white;" class="testimonialText">TESTIMONIALS</h5>
+                    <div class="spacer"></div>
+                    <h1 style="color: white;"  class="testimonialMessage heading heading-1 test_testimonials">{{  item.message  }}</h1>
+                    <div class="spacer"></div>
+                    <h5 style="color: white;"  class="testimonialName">{{ item.full_name }}</h5>
+                    <div class="spacer x-small"></div>
+                    <h6 style="color: white;"  class="testimonialLocation"> {{ item.location }}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /item -->
+          {% endfor %}
+          </div>
+        </ins-carousel>
+    </div>
+</section>

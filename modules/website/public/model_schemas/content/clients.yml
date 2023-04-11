@@ -2,7 +2,7 @@ name: clients
 metadata:
   label: "Clients"
   groups: [{"id":"a00b2714-1f2c-498b-a705-126cb30c6f75","name":"Setting","weight":0},{"id":"91d35c69-2ebf-4fb9-b35b-226dee9667de","name":"Content","weight":1},{"id":"6ae33044-630b-4586-ac5f-7e2da4400ccb","name":"Media","weight":2}]
-  is_enabled: true
+  is_archived: false
 properties:
 - name: enabled
   type: boolean

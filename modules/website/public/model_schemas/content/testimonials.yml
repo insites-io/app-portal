@@ -1,0 +1,104 @@
+name: testimonials
+metadata:
+  label: "testimonials"
+  groups: [{"id":"e4803a3d-299d-4724-af5a-0bf63a322978","name":"system field","weight":0},{"id":"9e96cf3e-c23f-4118-ab5e-f0ed9899ccef","name":"Settings","weight":1},{"id":"53f9c2ff-7458-4834-8f0b-ec25d72828fe","name":"Testimonial Content","weight":2}]
+  is_archived: false
+properties:
+- name: allow_display_on_website
+  type: string
+  metadata:
+    label: "Allow Display on Website"
+    weight: 5
+    options: ["Yes","No"]
+    group_id: "9e96cf3e-c23f-4118-ab5e-f0ed9899ccef"
+    ui_element: "radio"
+    is_required: false
+    is_sortable: true
+    is_shown_in_table: true
+- name: created_at
+  type: string
+  metadata:
+    label: "Created At"
+    weight: 1
+    group_id: "e4803a3d-299d-4724-af5a-0bf63a322978"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: deleted_at
+  type: string
+  metadata:
+    label: "Deleted At"
+    weight: 3
+    group_id: "e4803a3d-299d-4724-af5a-0bf63a322978"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: full_name
+  type: string
+  metadata:
+    label: "Full Name"
+    weight: 7
+    group_id: "53f9c2ff-7458-4834-8f0b-ec25d72828fe"
+    ui_element: "input"
+    is_required: true
+    is_searchable: true
+    is_shown_in_table: true
+- name: id
+  type: string
+  metadata:
+    label: "ID"
+    weight: 0
+    group_id: "e4803a3d-299d-4724-af5a-0bf63a322978"
+    ui_element: "input"
+    is_required: false
+    is_sortable: false
+    is_searchable: false
+    is_shown_in_table: false
+- name: location
+  type: string
+  metadata:
+    label: "Location"
+    weight: 8
+    group_id: "53f9c2ff-7458-4834-8f0b-ec25d72828fe"
+    ui_element: "input"
+    is_required: false
+    is_sortable: true
+    is_searchable: true
+    is_shown_in_table: true
+- name: message
+  type: string
+  metadata:
+    label: "Message"
+    weight: 9
+    group_id: "53f9c2ff-7458-4834-8f0b-ec25d72828fe"
+    ui_element: "multi_line"
+    is_required: true
+- name: show_on_website
+  type: boolean
+  metadata:
+    label: "Show on Website"
+    weight: 6
+    group_id: "9e96cf3e-c23f-4118-ab5e-f0ed9899ccef"
+    ui_element: "toggle"
+    is_sortable: true
+    is_shown_in_table: true
+- name: updated_at
+  type: string
+  metadata:
+    label: "Updated At"
+    weight: 2
+    group_id: "e4803a3d-299d-4724-af5a-0bf63a322978"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: user_id
+  type: string
+  metadata:
+    label: "User ID"
+    weight: 4
+    group_id: "9e96cf3e-c23f-4118-ab5e-f0ed9899ccef"
+    ui_element: "input"
+    is_required: false
+    is_sortable: true
+    is_searchable: true
+    is_shown_in_table: true

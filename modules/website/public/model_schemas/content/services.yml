@@ -1,620 +1,208 @@
-name: modules/website/services
+name: services
 metadata:
-  label: "Services"
-  groups: [{"id":"ec752df9-e702-4932-a2fb-1c6aac6f6a2a","name":"SEO Settings","weight":0},{"id":"e24f0f13-60ac-4f20-be18-30e5c44841a6","name":"Post Settings","weight":1},{"id":"3ec78679-56ee-45af-bd78-d3585d045943","name":"Details","weight":2},{"id":"cfb6d9c8-d3a2-4142-a806-17112548bafa","name":"Media","weight":3}]
-  is_enabled: true
+  label: "services"
+  groups: [{"id":"20a0f99f-4380-41e6-b9ae-bb60d77762e8","name":"system field","weight":0},{"id":"53b96e08-da4b-4e42-a1d9-f7032d0c3c22","name":"SEO Settings","weight":1},{"id":"13abf116-4dbc-430c-ac12-aab2829619ae","name":"Page Settings","weight":2},{"id":"d494e68d-896b-4174-99a2-b4d2f4594a2e","name":"Service Content","weight":3}]
+  is_archived: false
 properties:
 - name: content_block_1
   type: string
   metadata:
-    type: "html"
     label: "Content Block 1"
-    status: "enabled"
-    values: []
-    weight: 9
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    weight: 13
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "html"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
 - name: content_block_2
   type: string
   metadata:
-    type: "html"
     label: "Content Block 2"
-    status: "enabled"
-    values: []
-    weight: 11
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    weight: 16
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "html"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
 - name: content_block_3
   type: string
   metadata:
-    type: "html"
     label: "Content Block 3"
-    status: "enabled"
-    values: []
-    weight: 13
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: content_block_4
-  type: string
-  metadata:
-    type: "html"
-    label: "Content Block 4"
-    status: "enabled"
-    values: []
-    weight: 15
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: content_block_5
-  type: string
-  metadata:
-    type: "html"
-    label: "Content Block 5"
-    status: "enabled"
-    values: []
-    weight: 17
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: content_block_6
-  type: string
-  metadata:
-    type: "html"
-    label: "Content Block 6"
-    status: "enabled"
-    values: []
     weight: 19
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "html"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: description
+- name: created_at
   type: string
   metadata:
-    type: "html"
-    label: "Description"
-    status: "enabled"
-    values: []
-    weight: 7
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: true
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
+    label: "Created At"
+    weight: 1
+    group_id: "20a0f99f-4380-41e6-b9ae-bb60d77762e8"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: deleted_at
+  type: string
+  metadata:
+    label: "Deleted At"
+    weight: 3
+    group_id: "20a0f99f-4380-41e6-b9ae-bb60d77762e8"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
 - name: enabled
   type: boolean
   metadata:
-    type: "toggle"
     label: "Enabled"
-    status: "enabled"
-    values: []
-    weight: 2
-    group_id: "e24f0f13-60ac-4f20-be18-30e5c44841a6"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: "true"
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: image
-  type: upload
-  metadata:
-    type: "media_image"
-    label: "Image"
-    status: "enabled"
-    values: []
-    weight: 20
-    group_id: "cfb6d9c8-d3a2-4142-a806-17112548bafa"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-  options:
-    acl: public
-    versions:
-      - name: Desktop
-        output:
-          quality: 95
-        resize:
-          fit: cover
-          width: 1230
-          height: 425
-          position: center
-          without_enlargement: false
-      - name: Mobile
-        output:
-          quality: 80
-        resize:
-          fit: cover
-          width: 640
-          height: 480
-          position: center
-          without_enlargement: false
-      - name: List-View
-        output:
-          quality: 60
-        resize:
-          fit: cover
-          width: 620
-          height: 365
-          position: center
-          without_enlargement: false
-      - name: OG-Image-1200x630
-        output:
-          quality: 80
-        resize:
-          fit: cover
-          width: 1200
-          height: 630
-          position: center
-          without_enlargement: false
-      - name: OG-Image-600x315
-        output:
-          quality: 80
-        resize:
-          fit: cover
-          width: 600
-          height: 315
-          position: center
-          without_enlargement: false
-      - name: OG-Image-200x200
-        output:
-          quality: 80
-        resize:
-          fit: cover
-          width: 200
-          height: 200
-          position: center
-          without_enlargement: false
-      - name: Carousel
-        output:
-          quality: 80
-        resize:
-          fit: cover
-          width: 750
-          height: 690
-          position: center
-          without_enlargement: false
-    cache_control: ""
-    content_disposition: inline
-- name: link
+    weight: 8
+    group_id: "13abf116-4dbc-430c-ac12-aab2829619ae"
+    ui_element: "toggle"
+    is_sortable: true
+    placeholder: "Enabled, Disabled"
+    is_shown_in_table: true
+- name: id
   type: string
   metadata:
-    type: ""
-    label: "Link"
-    status: "enabled"
-    values: []
-    weight: 6
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    label: "id"
+    weight: 0
+    group_id: "20a0f99f-4380-41e6-b9ae-bb60d77762e8"
+    ui_element: "input"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: "External link to the product"
+    is_shown_in_table: false
+- name: image_1
+  type: upload
+  metadata:
+    label: "Image 1"
+    weight: 14
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "media_image"
+    is_required: false
+  options:
+    acl: public
+    cache_control: ""
+    content_disposition: inline
+- name: image_2
+  type: upload
+  metadata:
+    label: "Image 2"
+    weight: 17
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "media_image"
+    is_required: false
+  options:
+    acl: public
+    cache_control: ""
+    content_disposition: inline
+- name: image_3
+  type: upload
+  metadata:
+    label: "Image 3"
+    weight: 20
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "media_image"
+    is_required: false
+  options:
+    acl: public
+    cache_control: ""
+    content_disposition: inline
+- name: list_view_image
+  type: upload
+  metadata:
+    label: "List View Image"
+    weight: 11
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "media_image"
+    is_required: false
+  options:
+    acl: public
+    cache_control: ""
+    content_disposition: inline
+- name: list_view_text
+  type: string
+  metadata:
+    label: "List View Text"
+    weight: 10
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
 - name: meta_description
   type: string
   metadata:
-    type: ""
     label: "Meta Description"
-    status: "enabled"
-    values: []
-    weight: 1
-    group_id: "ec752df9-e702-4932-a2fb-1c6aac6f6a2a"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    weight: 5
+    group_id: "53b96e08-da4b-4e42-a1d9-f7032d0c3c22"
+    ui_element: "input"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
+    is_shown_in_table: false
 - name: meta_title
   type: string
   metadata:
-    type: ""
     label: "Meta Title"
-    status: "enabled"
-    values: []
-    weight: 0
-    group_id: "ec752df9-e702-4932-a2fb-1c6aac6f6a2a"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    weight: 4
+    group_id: "53b96e08-da4b-4e42-a1d9-f7032d0c3c22"
+    ui_element: "input"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: name
+    is_shown_in_table: false
+- name: service_name
   type: string
   metadata:
-    type: ""
-    label: "Name"
-    status: "enabled"
-    values: []
-    weight: 4
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: true
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    label: "Service Name"
+    weight: 6
+    group_id: "13abf116-4dbc-430c-ac12-aab2829619ae"
+    ui_element: "input"
     is_required: true
     is_sortable: true
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
     is_searchable: true
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: order
-  type: integer
-  metadata:
-    type: "number"
-    label: "Order"
-    status: "enabled"
-    values: []
-    weight: 3
-    group_id: "e24f0f13-60ac-4f20-be18-30e5c44841a6"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: "0"
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: "Sort order in list, arranged in ascending"
+    is_shown_in_table: true
 - name: slug
   type: string
   metadata:
-    type: ""
     label: "Slug"
-    status: "enabled"
-    values: []
-    weight: 5
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    weight: 7
+    group_id: "13abf116-4dbc-430c-ac12-aab2829619ae"
+    ui_element: "input"
+    is_required: true
+    is_shown_in_table: false
+- name: sort_order
+  type: integer
+  metadata:
+    label: "Sort Order"
+    weight: 9
+    group_id: "13abf116-4dbc-430c-ac12-aab2829619ae"
+    ui_element: "number"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: "Internal URL of the product"
+    is_sortable: true
+    is_shown_in_table: true
 - name: sub_heading_1
   type: string
   metadata:
-    type: ""
     label: "Sub Heading 1"
-    status: "enabled"
-    values: []
-    weight: 8
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    weight: 12
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "input"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
+    is_shown_in_table: false
 - name: sub_heading_2
   type: string
   metadata:
-    type: ""
     label: "Sub Heading 2"
-    status: "enabled"
-    values: []
-    weight: 10
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    weight: 15
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "input"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
+    is_shown_in_table: false
 - name: sub_heading_3
   type: string
   metadata:
-    type: ""
     label: "Sub Heading 3"
-    status: "enabled"
-    values: []
-    weight: 12
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: sub_heading_4
-  type: string
-  metadata:
-    type: ""
-    label: "Sub Heading 4"
-    status: "enabled"
-    values: []
-    weight: 14
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: sub_heading_5
-  type: string
-  metadata:
-    type: ""
-    label: "Sub Heading 5"
-    status: "enabled"
-    values: []
-    weight: 16
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
-    is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
-- name: sub_heading_6
-  type: string
-  metadata:
-    type: ""
-    label: "Sub Heading 6"
-    status: "enabled"
-    values: []
     weight: 18
-    group_id: "3ec78679-56ee-45af-bd78-d3585d045943"
-    is_header: false
-    mock_data: ""
-    is_enabled: ""
-    validation: ""
+    group_id: "d494e68d-896b-4174-99a2-b4d2f4594a2e"
+    ui_element: "input"
     is_required: false
-    is_sortable: false
-    placeholder: ""
-    primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
-    reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
+    is_shown_in_table: false
+- name: updated_at
+  type: string
+  metadata:
+    label: "Updated At"
+    weight: 2
+    group_id: "20a0f99f-4380-41e6-b9ae-bb60d77762e8"
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false

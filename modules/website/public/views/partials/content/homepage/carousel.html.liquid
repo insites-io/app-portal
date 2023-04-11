@@ -1,0 +1,42 @@
+{%- graphql hero = 'modules/website/content/get_homepage_slider' -%}
+{%- assign res = hero | dig: 'items', 'results' -%}
+
+<div class="carousel-holder">
+    <div class="blocks-hero-01 homepage-banner-wrap">
+        <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner" transition="700" duration="5000"
+          data-test="homepage-slider">
+          <div id="homepage-banner">
+          {%- for item in res -%}
+            <!-- item -->
+            <div class="slide-container">
+              <div class="img-wrap">
+                <!-- desktop image -->
+                <img
+                  src="{{ item.image.versions.Desktop }}"
+                  alt="" class="hide-for-small-only" />
+                <!-- mobile image -->
+                <img src="{{ item.image.versions.Mobile }}" alt=""
+                  class="show-for-small-only" />
+              </div>         
+              <div class="slide-content wrapper vertical-align-middle">
+                <div class="grid-x">
+                  <div class="large-12 medium-12 small-12 cell">
+                    <h1 class="cusTitle heading heading-1">{{ item.title }}</h1>
+                    <div class="spacer"></div>
+                    <p class="cusLongText">{{ item.long_text }}</p>
+                    <div class="spacer"></div>
+                    <a href='{{ item.link }}' target="_blank">
+                      <ins-button solid label="Learn More">
+                      </ins-button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /item -->
+          {%- endfor -%}
+          
+          </div>
+        </ins-carousel>
+    </div>
+</div>

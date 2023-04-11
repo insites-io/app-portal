@@ -1,0 +1,10 @@
+---
+slug: news
+layout: modules/website/default
+---
+{% comment %} connect services to graphql {% endcomment %}
+{%- graphql get_news = 'modules/website/content/get_news' -%}
+{% comment %} assign var to fetch the result {% endcomment %}
+{%- assign res_news = get_news | dig: 'items', 'results' -%}
+ 
+{% include 'modules/website/content/news/news' %}

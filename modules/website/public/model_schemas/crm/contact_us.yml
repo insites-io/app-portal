@@ -2,7 +2,7 @@ name: contact_us
 metadata:
   label: "Contact Us Form"
   groups: []
-  is_enabled: true
+  is_archived: false
 properties:
 - name: document
   type: upload

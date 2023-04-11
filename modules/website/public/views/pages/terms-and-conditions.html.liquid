@@ -1,367 +1,197 @@
 ---
 slug: terms-and-conditions
-layout_name: modules/website/static
-# enable_profiler: true
-searchable: true
-max_deep_level: 1
-metadata: {
-    "status": "published",
-    "page_type": "content", ## content, system or endpoint
-    "og:url": "",
-    "og:type": "",
-    "og:image": "",
-    "og:title": "Terms and Conditions | Insites",
-    "og:description": "Terms and Conditions | Insites",
-    "og:site_name": "",
-    "meta_title": "Terms and Conditions | Insites",
-    "page_title": "Terms and Conditions | Insites",
-    "meta_description": "Terms and Conditions | Insites",
-    "canonical_url": "",
-    "search_engine_visibility": ture,
-    "sitemap_enabled": ture,
-    "sitemap_priority": "1.0",## primary order (DESC)
-    "sitemap_order": "99", ## secondary order (ASC)
-    "sitemap_changefreq": "yearly"
-}
-dynamic_cache:
-  layout: |-
-    {%- comment -%}Set layout cache depending if E-commerce module is present{%- endcomment -%}
-    {%- if context.modules.ecommerce.name != blank -%}
-    false
-    {%- else -%}
-    true
-    {%- endif -%}
-  key: |-
-    {%- parse_json models -%}
-    [
-      {%- if context.modules.ecommerce.name == blank -%} "modules/website/main_menu", {%- endif -%}
-      "modules/insites_site_manager/insites_global_content",
-      "modules/insites_core/insites_system_fields",
-      "modules/website/page_header"
-    ]
-    {%- endparse_json -%}
-    {%- include "modules/website/generate_cache_key", models: models -%}
+layout_name: modules/website/default
 ---
 
-{% comment %} 
-Terms and Conditions Page
-{% endcomment %}
-{%- include 'modules/website/data/global_content' -%}
-{%- assign global = context.exports.global -%}
+{% include 'modules/website/content/hero-title' %} 
+
+<div class="grid-x" style="padding: 0px 10px">
 
 <div id="terms-of-service" class="legal inner-wrap" data-test="page-terms-and-condition">
-    <!-- prefix -->
-    <div id="tos-prefix">
-        <p>These are the only terms and conditions under which we are willing to 
-        provide services to you. By clicking on your acceptance of these terms 
-        you agree to be bound by them.</p>
-        <div class="spacer"></div>
-
-        <div class="grid-x grid-padding-x grid-padding-y">
-            <div class="large-4 medium-6 small-12 cell">
-                <strong>We are: </strong>
-            </div>
-            <div class="large-8 medium-6 small-12 cell">
-                {{ global.company_name | strip }}
-            </div>
-            <div class="large-4 medium-6 small-12 cell">
-                <strong>Registered Business Number: </strong>
-            </div>
-            <div class="large-8 medium-6 small-12 cell">
-                {{ global.company_id | strip }}
-            </div>
-            <div class="large-4 medium-6 small-12 cell">
-                <strong>Our address is: </strong>
-            </div>
-            <div class="large-8 medium-6 small-12 cell">
-                {{ global.loc_1_address_full | strip }}
-            </div>
-            <div class="large-4 medium-6 small-12 cell">
-                <strong>Our e-mail address is: </strong>
-            </div>
-            <div class="large-8 medium-6 small-12 cell">
-                <a target="_blank" class="body-link" href="mailto:{{ global.company_email_1 | strip }}">
-                    {{ global.company_email_1 | strip }}
-                </a>
-            </div>
-            <div class="large-4 medium-6 small-12 cell">
-                <strong>You are: </strong>
-            </div>
-            <div class="large-8 medium-6 small-12 cell">
-                Anyone who pays us for our services.
-            </div>
-        </div>
-    </div>
-
-    <div class="spacer x-large"></div>
-
+    <div class="spacer xxxx-large"></div>
     <ol>
-        <li> <!-- 1.0 -->
-            <h2>Basis of contract</h2>
-            <ol> <!-- 1.x -->
-                <li>Subject to the terms set out in this document and to your compliance with our Acceptable Use Policy ("AUP") we agree to provide you some or all of the services described on our website ("the Services") at the prices we charge from time to time, such prices also being stated on our web site. We now refer to the prices of services we sell to you as the "Price".</li>
-                <li>The information on our Web site is to be treated in law as an invitation to you to make an offer, and not itself an offer. Accordingly, there is no contract between us until we have accepted you as a client or customer by confirmation by letter or email.</li>
-                <li>We are free to refuse your order or to offer to supply you at a different price or under different conditions.</li>
-                <li>This document forms the basis of the contract between us automatically upon our acceptance.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li> <!-- 2.0 -->
-            <h2 class="spacer">Identification of the service</h2>
-            <p>You acknowledge that:</p>
-            <ol> <!-- 2.x -->
-                <li>You buy as a business and not as a consumer;</li>
-                <li>You understand exactly what is included in the Services;</li>
-                <li>You are satisfied that the Services are suitable and satisfactory for your requirements;</li>
-                <li>In entering into this contract you have not relied on any representation or information from any source except the definition and explanation of the Price and the Services given on our web site.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li> <!-- 3.0 -->
-            <h2 class="spacer">Price increase</h2>
-            <p>The Price is set out on our website. We may increase our prices at any time. We will give you [28 days / months] notice of any increase by email.</p>
-            <div class="spacer"></div>
-        </li>
-        <li> <!-- 4.0 -->
-            <h2>Payment and value added tax</h2>
-            <ol> <!-- 4.x -->
-                <li>You agree to pay the Price [28 days / months] for the Services, together with value added tax at the then current rate. If you can satisfy us that you are resident in a country not liable to value added tax, then we shall not charge it to you.</li>
-                <li>You may pay by credit card or cheque. If you pay by cheque it is your responsibility to make sure cleared funds are in our account by the due date.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li> <!-- 5.0 -->
-            <h2>Late payment surcharge</h2>
-            <ol> <!-- 5.x -->
-                <li>You acknowledge that if any payment for renewal of an agreement is not received in our bank by the first day of each month [or the day on which it is due] we may suspend the Services and / or cancel this agreement.</li>
-                <li>We may choose not to cancel the agreement if you make an additional payment to us to cover the disruption caused by your late payment. This payment is:
-                    <ol> <!-- 5.2.x -->
-                        <li>if you have not paid by the 6th day of the month, the additional payment is A$10;</li>
-                        <li>if you have not paid by the 12th day of the month, the additional payment is A$25;</li>
-                        <li>if you have not paid by the 20th day of the month, your account will be closed and services  will be  discontinued.</li>
-                        <li>In entering into this contract you have not relied on any representation or information from any source except the definition and explanation of the Price and the Services given on our web site.</li>
-                    </ol>
-                </li>
-                <li>If your account is closed by us because you have not made a payment when due or because you have for any reason failed to give us notice of cancellation you now agree to pay us:
-                    <ol> <!-- 5.3.x -->
-                        <li>all of the Price for Services to the end of the month of cancellation, whenever that is;</li>
-                        <li>the Price for one additional month to compensate us for your failure to give notice;</li>
-                        <li>and you agree that these terms are reasonable.</li>
-                    </ol>
-                </li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li> <!-- 6.0 -->
-            <h2>Termination</h2>
-            <ol> <!-- 6.x -->
-                <li>This agreement terminates upon either of us giving the other one month's notice in writing addressed by post to the last known land address or by email to the last known email address of the other of us. For this and all purposes in connection with this agreement, our addresses are as at the head of this document.</li>
-                <li>If your cancellation is to be effective, you must give us full information to enable us to identify:
-                    <ol> <!-- 6.2.x -->
-                        <li>who you are and</li>
-                        <li>that you have proper authority to cancel, and</li>
-                        <li>the Service you wish us to cancel.</li>
-                    </ol>
-                </li>
-                <li>The agreement may also terminate when we terminate it, without notice, on account of your failure to comply with these terms or the AUP.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 7.0 -->
-            <h2 class="spacer">Money refund</h2>
-            <p>You are not entitled to a refund of any fees paid to us:</p>
-            <ol> <!-- 7.x -->
-                <li>If you terminate this agreement earlier than the contracted date, or</li>
-                <li>If we terminate this agreement because you have failed to comply with our up.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 8.0 -->
-            <h2>Interruption to services</h2>
-            <ol> <!-- 8.x -->
-                <li>If it is necessary for us to interrupt the Services, we will give you reasonable notice where this is possible and when we judge the down time is such as to justify telling you.</li>
-                <li>You acknowledge that the Services may also be interrupted for many reasons beyond our control.</li>
-                <li>You agree that we are not liable to you for any loss, foreseeable or not, arising from any interruption to the Services.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 9.0 -->
-            <h2>Transfer of Domain names</h2>
-            <ol> <!-- 9.x -->
-                <li>If we have to transfer your domain name from another web hosting service to ourselves, you understand that:
-                    <ol> <!-- 9.1.x -->
-                        <li>If it is necessary for us to interrupt the Services, we will give you reasonable notice where this is possible and when we judge the down time is such as to justify telling you.</li>
-                        <li>You acknowledge that the Services may also be interrupted for many reasons beyond our control.</li>
-                        <li>You agree that we are not liable to you for any loss, foreseeable or not, arising from any interruption to the Services.</li>
-                    </ol>
-                </li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 10.0 -->
-            <h2 class="spacer">Technical support</h2>
-            <p>We will provide technical support within the areas of our expertise 24 hours a day for seven days a week, except during public holidays. We do not guarantee to provide any particular support nor that the support we provide will be adequate for your requirements. Support will consist in maintenance of the functioning of your server or ours so that your site is live as nearly as possible continuously.</p>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 11.0 -->
-            <h2>SPAM and Unsolicited Commercial Email ("UCE")</h2>
-            <ol> <!-- 11.x -->
-                <li>You agree that you will not:
-                    <ol><!-- 11.1.x -->
-                        <li>use or permit others to use our network to transmit UCE</li>
-                        <li>publish or permit publication of, sites or information that is advertised by UCE from other networks. You agree that if you do so, we may terminate the Services.</li>
-                    </ol>
-                </li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 12.0 -->
-            <h2>Intellectual property ownership</h2>
-            <ol> <!-- 12.x -->
-                <li>Our use of any Intellectual property belonging to us or to any third party as part of the Services shall not operate to transfer any right to you permanently.</li>
-                <li>If we assign to you an Internet Protocol address the right to use that Internet Protocol address shall belong only to us.</li>
-                <li>We reserve the right to change or remove any Internet Protocol number in our sole discretion.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 13.0 -->
-            <h2>Bandwidth and Disk Usage:</h2>
-            <ol> <!-- 13.x -->
-                <li>You agree that bandwidth and disk usage shall not exceed the data usage per month for the Services ordered by you.</li>
-                <li>If your usage exceeds the contractually ordered amount we may in our discretion:
-                    <ol><!-- 13.2.x -->
-                        <li>Increase the Price to the minimum price currently charged by us for the usage you have used; <br>
-                        or</li>
-                        <li>If in our opinion your usage puts at risk the continued service provision to other customers, 
-                        <br>we may terminate service to you.</li>
-                        <p>We shall give you [7 days] notice of our intentions.</p>
-                    </ol>
-                </li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 14.0 -->
-            <h2 class="spacer">Confidentiality</h2>
-            <p>We are both aware that in the course of business, we will each have access to and be entrusted with information in respect of the business and operation of the other and their dealings, transactions and affairs, and/or any and all other proprietary information belonging to the other relating to his business or businesses and/or related affairs, all of which information (written, oral or otherwise) is or may be confidential. Accordingly, you and we hereby undertake for us and every employee or sub-contractor whose services we may use both during and after completion of the Agreement:</p>
-            <ol> <!-- 14.x -->
-                <li>That neither we nor they will divulge to any person whatever or otherwise make use of (and shall use their best endeavours to prevent the publication or disclosure of) any trade secret or confidential information.</li>
-                <li>That both of us shall make all of them aware of the confidentiality of information and the provisions of this paragraph and to take all such steps as shall from time to time be necessary to ensure compliance with these provisions.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 15.0 -->
-            <h2>System and Network Security:</h2>
-            <ol> <!-- 15.x -->
-                <li>You agree that you will not, and you will not allow any other person to, violate or attempt to violate any aspect of the security of our systems.</li>
-                <li>You understand that any such violation is unlawful in many jurisdictions and that any contravention of law may result in criminal prosecution.</li>
-                <li>Examples of violations are:
-                    <ol><!-- 15.3.x -->
-                        <li>accessing data unlawfully or without consent;</li>
-                        <li>attempting to probe, scan or test the vulnerability of a system or network or to breach security or authentication measures;</li>
-                        <li>attempting to interfere with service to any user, host or network, including, without limitation, via means of overloading, "flooding", "mail bombing" or "crashing";</li>
-                        <li>forging any TCP/IP packet header or any part of the header information in any email or newsgroup posting;</li>
-                        <li>taking any action in order to obtain services to which you are not entitled. </li>
-                    </ol>
-                </li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 16.0 -->
-            <h2 class="spacer">Privacy policy exception</h2>
-            <p>You agree that we may disclose your information, including assigned IP numbers, account history, account use, etc. to any judicial or proper legal authority who makes a written request without further consent or notification to you.</p>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 17.0 -->
-            <h2 class="spacer">No duty to monitor</h2>
-            <p>We are under no obligation to monitor or record the activity of any customer for any purpose, nor do we assume any responsibility through our AUP or otherwise to monitor or police Internet-related activities.</p>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 18.0 -->
-            <h2>Violation of AUP</h2>
-            <ol> <!-- 18.x -->
-                <li>You agree at all times to comply with our AUP.</li>
-                <li>If in our absolute discretion we think that you have violated our AUP, we shall notify you of this by email. We may suspend service to you pending further investigation.</li>
-                <li>If within 12 months of the first violation, you commit a second violation whether in a similar or different way then we will terminate part or all of the Services without notice.</li>
-                <li>In any case we may suspend all the Services without notice if we reasonably believe the circumstances justify this to protect others or ourselves or to comply with any law. In making the decision to suspend we are not obliged to consider the cost or damage to you that may be caused by suspension of the Services to you.</li>
-                <li>Money will not be refunded to you in respect of any period during which Services are suspended.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 19.0 -->
-            <h2 class="spacer">Your contact details</h2>
-            <p>You undertake to provide to us your current land address email address fax and telephone numbers as often as they are changed.</p>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 20.0 -->
-            <h2>Limitation of liability</h2>
-            <ol> <!-- 20.x -->
-                <li>We give no warranty in connection with the Services.</li>
-                <li>We do not represent that the Services are suitable for your use.</li>
-                <li>You have not relied on us as "experts" in any area.</li>
-                <li>You agree that in entering into this agreement you have not relied on any representation or other information except the list of services and the prices posted on our website.</li>
-                <li>We accept no responsibility for:
-                    <ol> <!-- 20.5.x -->
-                        <li>any malfunction in hardware provided by you;</li>
-                        <li>any firewall provision not specified in the Services;</li>
-                        <li>any malfunction in any software whether provided by you or by us;</li>
-                        <li>any aspect whatever of the content of your web site.</li>
-                    </ol>
-                </li>
-                <li>You agree that in any circumstances when we may become liable to you, the limit of our liability is the amount you have paid us in the immediately preceding [12-month] period.</li>
-                <li>(for the avoidance of doubt) we shall not be liable to you for loss of profits goodwill or any type of special indirect or consequential loss (including loss or damage suffered by you as a result of an action brought by a third party) even if such loss was reasonably foreseeable or we had been advised of the possibility of your incurring it.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 21.0 -->
-            <h2 class="spacer">Comply with Acceptable Use Policy</h2>
-            <p class="spacer">You agree to comply with the acceptable use policy set out from time to time on our web site or as notified to you from time to time by email.</p>
-            <p>You indemnify us</p>
-            <ol> <!-- 21.x -->
-                <li>You agree to indemnify us against all costs claims and expenses arising directly or indirectly from:
-                    <ol> <!-- 21.1.x -->
-                        <li>your failure to comply with the law of any country;</li>
-                        <li>the posting by you of any content on your web site;</li>
-                        <li>a breach of the intellectual property rights of any person;</li>
-                        <li>the posting by any third party with or without your knowledge of any material on your web site;</li>
-                        <li>any action taken or omitted by any third party in relation to your website;</li>
-                        <li>any use of your web site for a purpose forbidden by this agreement;</li>
-                        <li>and for the purpose of this paragraph you agree that the cost of our management and technical time is properly recoverable and can reasonably be valued at A$60 per hour without further proof.</li>
-                    </ol>
-                </li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 22.0 -->
-            <h2 class="spacer">Force majeure</h2>
-            <p>Neither party shall be liable for any breach of its obligations resulting from causes beyond its reasonable control including fire, natural disaster, war or military hostilities and strikes of its own employees, and in such a situation:</p>
-            <ol> <!-- 22.x -->
-                <li>Each of the parties agrees to give notice immediately to the other upon becoming aware of an event of force majeure such notice to contain details of the circumstances giving rise to it.</li>
-                <li>If a default due to force majeure continues for more than [6 weeks] then the party not in default shall be entitled to terminate this agreement. Neither party shall have any liability to the other in respect of the termination of this agreement as a result of force majeure.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 23.0 -->
-            <h2>Successors to the agreement</h2>
-            <ol> <!-- 23.x -->
-                <li>The benefit and obligations of this agreement shall be binding on any successor in title.</li>
-                <li>Neither party shall be entitled to assign this agreement nor all or any of their rights and obligations hereunder without the prior written consent of the other.</li>
-            </ol>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 24.0 -->
-            <h2 class="spacer">Dispute Resolution</h2>
-            <p>In the event of a dispute arising out of or in connection with this Contract and which has not been resolved following discussions and negotiations between a person or persons appointed or authorised by the Customer and the Web Writers then they undertake to attempt to settle the dispute by engaging in good faith with the other in a process of mediation before commencing arbitration or litigation.</p>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 25.0 -->
-            <h2 class="spacer">Waiver</h2>
-            <p>Failure by us to enforce at any time or for any period any one or more of the terms or conditions of this Contract shall not be a waiver of them or of the right at any time subsequently to enforce all terms and conditions of this Contract.</p>
-            <div class="spacer"></div>
-        </li>
-        <li><!-- 26.0 -->
-            <h2 class="spacer">Jurisdiction</h2>
-            <p>This Contract shall be interpreted according to the Laws of {{ global.loc_1_address.state | strip }} and the parties agree to submit to the exclusive jurisdiction of the {{ global.loc_1_address.state | strip }} courts.</p>
-            <div class="spacer"></div>
-        </li>
+        <h4 class="spacer">1. Basis of contract</h4>
+        <p class="spacer">We agree to provide to you some or all of the services described on our Proposal (“the Services”) with the prices of services we sell to you as the “Price”.</p>
+        <p class="spacer">The information on our Website and Proposal is to be treated in law as an invitation to you to make an offer, and not itself an offer. Accordingly, there is no contract between us until we have accepted you as a client or customer by confirmation by letter or e-mail.</p>
+        <ul class="ul-static">
+            <li class="spacer">We are free to refuse your order or to offer to supply you at a different price or under different conditions.</li>
+            <li class="spacer">This document forms the basis of the contract between us automatically upon our acceptance.</li>
+        </ul>
+        
+        <h4 class="spacer">2. Identification of the Service</h4>
+        <p class="spacer">You acknowledge that:</p>
+        <ul class="ul-static">
+            <li class="spacer">You buy as a business and not as a consumer;</li>
+            <li class="spacer">You understand exactly what is included in the Services;</li>
+            <li class="spacer">You are satisfied that the Services are suitable and satisfactory for your requirements</li>
+            <li class="spacer">In entering into this contract you have not relied on any representation or information from any source except the definition and explanation of the Price and the Services given on our Proposal.</li>
+        </ul>
+        
+        <h4 class="spacer">3. Price increase</h4>
+        <p class="spacer">The Price is set out on our Proposal. We may increase our prices from time to time. We will give you 28 days notice of any increase by email.</p>
+        
+        <h4 class="spacer">4. Payment and value added tax</h4>
+        <ul class="ul-static">
+            <li class="spacer">You agree to pay the Price for the Services, together with value added tax at the then current rate. The current rate of Goods and Services Tax is 10%. If you can satisfy us that you are resident in a country not liable to value added tax, then we shall not charge it to you.</li>
+            <li class="spacer">You may pay by credit card or direct debit. If you pay by direct debit it is your responsibility to make sure sufficient funds are in your account by the due date.</li>
+            <li class="spacer">If you pay by credit card you may be asked to cover the merchant credit card surcharge. VISA/Mastercard = 2.0% American Express = 2.5%.</li>
+        </ul>
+        
+        <h4 class="spacer">5. Late payment surcharge</h4>
+        <p class="spacer">You acknowledge that if any payment for renewal of an agreement is not received in our bank by the first day of each month or the day on which it is due we may suspend the Services and / or cancel this agreement.</p>
+        <p class="spacer">We may choose not to cancel the agreement if you make an additional payment to us to cover the disruption caused by your late payment. This payment is:</p>
+        <ul class="ul-static">
+            <li class="spacer">if you have not paid by the 6th day of the month, or 6 days after the due date, the additional payment is $100;</li>
+
+            <li class="spacer">if you have not paid by the 12th day of the month, or 12 days after the due date, the additional payment is $150;</li>
+
+            <li class="spacer">if you have not paid by the 20th day of the month, or 20 days after the due date, your account may be suspended and services will be blocked.</li>
+        </ul>
+        <p class="spacer">If your account is closed by us because you have not made a payment when due or because you have for any reason failed to give us notice of cancellation you now agree to pay us:</p>
+        <ul class="ul-static">
+            <li class="spacer">all of the Price for Services to the end of the month of cancellation, whenever that is;</li>
+            <li class="spacer">the Price for one additional month to compensate us for your failure to give notice;</li>
+            <li class="spacer">and you agree that these terms are reasonable.</li>
+        </ul>
+
+        <h4 class="spacer">6. Termination</h4>
+        <p class="spacer">This agreement terminates upon either of us giving the other one month’s notice in writing addressed by post to the last known land address or by email to the last known email address of the other of us. For this and all purposes in connection with this agreement, our addresses are as at the head of this document.</p>
+        <p class="spacer">If your cancellation is to be effective, you must give us full information to enable us to identify:</p>
+        <ul class="ul-static">
+            <li class="spacer">who you are and
+            <li class="spacer">that you have proper authority to cancel, and
+            <li class="spacer">the Service you wish us to cancel and
+            <li class="spacer">you have met the minimum 12-month subscription period.
+        </ul>
+        <p class="spacer">The agreement may also terminate when we terminate it, without notice, on account of your failure to comply with these terms.</p>
+
+        <h4 class="spacer">7. Money refund</h4>
+        <p class="spacer">You are not entitled to a refund of any fees paid to us if you terminate this agreement earlier than the contracted date.</p>
+
+        <h4 class="spacer">8. Interruption to services</h4>
+        <p class="spacer">If it is necessary for us to interrupt the Services, we will give you reasonable notice where this is possible and when we judge the down time is such as to justify telling you.</p>
+            
+        <p class="spacer">You acknowledge that the Services may also be interrupted for many reasons beyond our control.</p>
+            
+        <p class="spacer">You agree that we are not liable to you for any loss, foreseeable or not, arising from any interruption to the Services.</p>
+
+        <h4 class="spacer">9. Transfer of Domain names</h4>
+        <p class="spacer">If we have to transfer your domain name from another web hosting service to ourselves, you understand that:</p>
+        <ul class="ul-static">
+            <li class="spacer">we may charge for this service and</li>
+            <li class="spacer">the transfer may take from 1 to 10 days.</li>
+        </ul>
+
+        <h4 class="spacer">10. Technical support</h4>
+        <p class="spacer">We will provide technical support within the areas of our expertise as quick as possible. Any support requests need to be placed in the Support Portal or they may be ignored. We do not guarantee to provide any particular support nor that the support we provide will be adequate for your requirements.</p>
+
+        <h4 class="spacer">11. SPAM and Unsolicited Commercial Email (UCE)</h4>
+        <p class="spacer">You agree that you will not:</p>
+        <ul class="ul-static">
+            <li class="spacer">use or permit others to use our network to transmit UCE</li>
+            <li class="spacer">publish or permit publication of, sites or information that is advertised by UCE from other networks. You agree that if you do so, we may terminate the Services.</li>
+        </ul>
+
+        <h4 class="spacer">12. Intellectual property ownership</h4>
+        <p class="spacer">Our use of any Intellectual property belonging to us or to any third party as part of the Services shall not operate to transfer any right to you permanently.</p>
+    
+        <p class="spacer">We retain the Intellectual property to all work carried out by us and that if you wish to terminate your agreement with us, you will not retain any code, images or scripts that were produced by us unless permission is given in writing.</p>
+    
+        <p class="spacer">We provide managed Marketing services and retain the right to any software/ account/ services that have been setup and/or created by us for the purpose of delivering performance outcomes as defined by the service agreement. Access will be provided to the customer for the duration of the agreed service retainer, with the ability for data extraction to take place prior to any cancellation of services of which access will then be revoked thereafter.</p>
+        
+        <h4 class="spacer">13. Bandwidth and Disk Usage</h4>
+        <p class="spacer">You agree that bandwidth and disk usage shall not exceed the data usage per month for the Services ordered by you.</p>
+        
+        <p class="spacer">If your usage exceeds the contractually ordered amount we may in our discretion, increase the price to the minimum price currently charged by us for the usage you have used.</p>
+        
+        <h4 class="spacer">14. Confidentiality</h4>
+        <p class="spacer">We are both aware that in the course of business, we will each have access to and be entrusted with information in respect of the business and operation of the other and their dealings, transactions and affairs, and/or any and all other proprietary information belonging to the other relating to business or businesses and/or related affairs, all of which information (written, oral or otherwise) is or may be confidential.</p>
+        
+        <p class="spacer">Accordingly, you and we hereby undertake for us and every employee or sub-contractor whose services we may use both during and after completion of the Agreement:</p>
+        
+        <p class="spacer">That neither we nor they will divulge to any person whatever or otherwise make use of (and shall use their best endeavours to prevent the publication or disclosure of) any trade secret or confidential information.</p>
+        
+        <p class="spacer">That both of us shall make all of them aware of the confidentiality of information and the provisions of this paragraph and to take all such steps as shall from time to time be necessary to ensure compliance with these provisions.</p>
+        
+        <h4 class="spacer">15. System and Network Security:</h4>
+        <p class="spacer">You agree that you will not, and you will not allow any other person to, violate or attempt to violate any aspect of the security of our systems.</p>
+
+        <p class="spacer">You understand that any such violation is unlawful in many jurisdictions and that any contravention of law may result in criminal prosecution.</p>
+
+        <p class="spacer">Examples of violations are:</p>
+        
+        <ul class="ul-static">
+            <li class="spacer">accessing data unlawfully or without consent;</li>
+            
+            <li class="spacer">attempting to probe, scan or test the vulnerability of a system or network or to breach security or authentication measures;</li>
+
+            <li class="spacer">attempting to interfere with service to any user, host or network, including, without limitation, via means of overloading, “flooding”, “mail bombing” or “crashing”;</li>
+
+            <li class="spacer">forging any TCP/IP packet header or any part of the header information in any e-mail or newsgroup posting;</li>
+
+            <li class="spacer">taking any action in order to obtain services to which you are not entitled.</li>
+        </ul>
+
+        <h4 class="spacer">16. Privacy policy exception</h4>
+        <p class="spacer">You agree that we may disclose your information including assigned IP numbers, account history, account use, etc. to any judicial or proper legal authority who makes a written request without further consent or notification to you.</p>
+
+        <h4 class="spacer">17. Your contact details</h4>
+        <p class="spacer">You undertake to provide to us your current land address, email address, mobile, fax and telephone numbers as often as they are changed.</p>
+
+        <h4 class="spacer">18. Limitation of liability</h4>
+        <p class="spacer">You agree that in entering into this agreement you have not relied on any representation or other information except the list of services and the prices listed in our Proposal.</p>
+
+        <p class="spacer">We accept no responsibility for:</p>
+        <ul class="ul-static">    
+            <li class="spacer">any malfunction in hardware provided by you;</li>
+            <li class="spacer">any firewall provision not specified in the Services;</li>
+            <li class="spacer">any malfunction in any software whether provided by you or by us;</li>
+            <li class="spacer">any aspect whatever of the content of your websites</li>
+        </ul>
+
+        <p class="spacer">You agree that in any circumstances when we may become liable to you, the limit of our liability is the amount you have paid us in the immediately preceding 12-month period.</p>
+    
+        <p class="spacer">(for the avoidance of doubt) we shall not be liable to you for loss of profits goodwill or any type of special indirect or consequential loss (including loss or damage suffered by you as a result of an action brought by a third party) even if such loss was reasonably foreseeable or we had been advised of the possibility of your incurring it.</p>
+
+        <h4 class="spacer">19. You indemnify us</h4>
+        <p class="spacer">You agree to indemnify us against all costs claims and expense arising directly or indirectly from:</p>
+        
+        <ul class="ul-static">
+            <li class="spacer">your failure to comply with the law of any country;</li>
+            <li class="spacer">the posting by you of any content on your website;</li>
+            <li class="spacer">a breach of the intellectual property rights of any person;</li>
+        </ul>
+        <p class="spacer">the posting by any third party with or without your knowledge of any material on your website;</p>
+
+        <p class="spacer">any action taken or omitted by any third party in relation to your website;</p>
+        <ul class="ul-static">
+            <li class="spacer">any use of your website for a purpose forbidden by this agreement;</li>
+
+            <li class="spacer">and for the purpose of this paragraph you agree that the cost of our management and technical time is properly recoverable and can reasonably be valued at $175ex GST per hour without further proof.</li>
+        </ul>
+        
+        <h4 class="spacer">20. Successors to the agreement</h4>
+        <p class="spacer">The benefit and obligations of this agreement shall be binding on any successor in title.Neither party shall be entitled to assign this agreement nor all or any of their rights and obligations hereunder without the prior written consent of the other.</p>
+
+        <h4 class="spacer">21. Dispute Resolution</h4>
+        <p class="spacer">In the event of a dispute arising out of this Contract and which has not been resolved following discussions and negotiations between a person or persons appointed or authorised by the Customer and Combinate, a business unit of Complete Business Online Pty Ltd, then they undertake to attempt to settle the dispute by engaging in good faith with the other in a process of mediation before commencing arbitration or litigation.</p>
+
+        <h4 class="spacer">22. Waiver</h4>
+        <p class="spacer">Failure by us to enforce at any time or for any period any one or more of the terms or conditions of this Contract shall not be a waiver of them or of the right at any time subsequently to enforce all terms and conditions of this Contract.</p>
+
+        <h4 class="spacer">23. Jurisdiction</h4>
+        <p class="spacer">This Contract shall be interpreted according to the Laws of Australia and the parties agree to submit to the exclusive jurisdiction of Australian courts.</p>
+
+
+        <h4 class="spacer">24. Browsers we support</h4>
+        <p class="spacer">1. We support the following versions of each browsers:</p>
+        <ul>            
+            <li class="spacer">Microsoft Edge Ver. 107+</li>
+            <li class="spacer">Mozilla Firefox Ver. 107+</li>
+            <li class="spacer">Apple Safari Ver. 15+</li>
+            <li class="spacer">Google Chrome Ver. 108+</li>
+        </ul>
+        <p class="spacer">For more information please contact us using the form below.</p>
     </ol>
+    <div class="spacer xxxx-large"></div>
 </div>

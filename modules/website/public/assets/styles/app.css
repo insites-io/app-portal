@@ -24,11 +24,11 @@
     --error-hover-light: rgba(255, 51, 102, 0.1);
     --warning-hover-light: rgba(255, 166, 57, 0.1);
     /* Font colors */
-    --font-color-head: #2B2B2B;
-    --font-color-sub: #404040;
-    --font-color-body: #595959;
-    --font-color-link: #1A0DAB;
-    --font-color-visited: #660099;
+    --font-color-head: #000000;
+    --font-color-sub: #323232;
+    --font-color-body: #575757;
+    --font-color-link: #436CF2;
+    --font-color-visited: #670099;
     --font-color-inv: #FFFFFF;
     /* UI Colors */
     --color-ui-01: #FFFFFF;

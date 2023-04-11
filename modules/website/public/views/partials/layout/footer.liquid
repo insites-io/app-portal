@@ -1,159 +1,144 @@
-{%- if context.environment == "staging" -%}
-<!-- start partial:layout/footer -->
-{%- endif -%}
-
-<footer class="footer">
-<hr>
-    <div class="wrapper">
+<footer class="blocks-footer-05 footer bg-color-ui-01">
+    <div class="spacer xxxx-large"></div>
+    <div class="wrapper top-footer">
         <div class="grid-container">
-            <div id="scroll-to-top-btn" class="scroll-to-top-btn show-for-smll-only">
-                <ins-button solid color="grey" 
-                    id="scroll-to-top"
-                    icon="icon-angle-up" label="">
-                </ins-button>
-            </div>
-            <div class="spacer xx-large show-for-small-only"></div>
-            <div class="spacer xxxx-large hide-for-small-only"></div>
-            <div class="grid-x grid-padding-x">
-                <div class="large-3 medium-6 small-6 cell">
-                {% liquid
-                    assign page = 1
-                    assign size = 10
-                    if context.modules.ecommerce.name != blank
-                        graphql data = 'modules/website/content/get_footer_menu', page: page, size: size
-                    else
-                        graphql data = 'modules/website/content/get_main_menu', page: page, size: size
-                    endif
-
-                    assign max_per_column = data.items.total_entries | divided_by: 2
-                %}
+            <div class="grid-x grid-padding-x gutter-medium">
+                <div class="large-6 medium-6 small-12 cell text-left">
+                    <div class="img-logo img-full">
+                        <img style="width: 20%" src="https://docs.insites.io/assets/images/webblocks/insites-template-logo.png?updated" alt="Sample Logo">
+                    </div>
+                </div>
+                <div class="small-12 cell spacer xxx-large hide-for-medium"></div>
+                <div class="large-2 medium-6 small-12 cell">
                     <ul class="vertical menu">
                         <li>
-                            <a href="/" class="navigation-level-1 font-color-head" data-test="footer-link-home">Home</a><div class="spacer"></div></li>
-                        {%- comment -%}Loop through menu items from 1 to maximum items per column {%- endcomment -%}
-                        {%- if data.items.results -%}
-                            {%- for item in data.items.results -%}
-                                {% liquid
-                                    assign activeClass = ""
-                                    if item.link contains context.params.slug
-                                        assign activeClass = "active"
-                                    endif
-                                %}                                                           
-                                <li><a href="{{ item.link }}" class="navigation-level-1 font-color-head {{activeClass}}" data-test="footer-link-{{item.label | downcase | parameterize}}">{{ item.label }}</a>
-                                {% unless max_per_column ==  forloop.index %}
-                                    <div class="spacer"></div>
-                                {% endunless %}
-                                </li>
-                                {%- if max_per_column == forloop.index -%}
-                                    {% break %}
-                                {%- endif -%}
-                            {%- endfor -%}
-                        {%- endif -%}
-                    </ul>
-                    <div class="spacer x-large hide-for-large"></div>
-                </div>
-                <div class="large-3 medium-6 small-6 cell">
-                    <ul class="vertical menu">
-                        {%- if data.items.results -%}
-                            {%- for item in data.items.results -%}
-                                {%- comment -%}Continue loop for menu{%- endcomment -%}
-                                {%- if forloop.index > max_per_column -%}
-                                {% liquid
-                                    assign activeClass = ""
-                                    if item.link contains context.params.slug
-                                        assign activeClass = "active"
-                                    endif
-                                %}   
-                                <li><a href="{{ item.link }}" class="navigation-level-1 font-color-head {{activeClass}}" data-test="footer-link-{{item.label | downcase | parameterize}}">{{ item.label }}</a>
-                                {% unless forloop.last %}
-                                    <div class="spacer"></div>
-                                {% endunless %}
-                                </li>
-                                {%- endif -%}
-                            {%- endfor -%}
-                        {%- endif -%}
-                    </ul>
-                    <div class="spacer x-large hide-for-large"></div>
-                </div>
-                <div class="large-3 medium-6 small-12 cell">
-                    <span class="navigation-level-1 font-color-head">Address</span>
-                    <div class="spacer small"></div>
-                    <p class="font-normal">{{ context.exports.global.loc_1_address_full }}</p>
-                    <div class="spacer large show-for-small-only"></div>
-                </div>
-                <div class="large-3 medium-6 small-12 cell">
-                    <span class="navigation-level-1 font-color-head">Follow</span>
-                    <div class="spacer small"></div>
-                    <ul class="menu social">
-                    {%- if context.exports.global.facebook_link -%}
-                        <li>
-                            <a href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer"><i class="icon-facebook-stroke"></i></a>
-                        </li>
-                    {%- endif -%}
-                    {%- if context.exports.global.twitter_link -%}
-                        <li>
-                            <a href="{{ context.exports.global.twitter_link }}" data-test="footer-link-twitter" target="_blank" title="twitter" rel="noreferrer"><i class="icon-twitter-stroke"></i></a>
-                        </li>
-                    {%- endif -%}
-                    {%- if context.exports.global.linkedin_link -%}
-                        <li>
-                            <a href="{{ context.exports.global.linkedin_link }}" data-test="footer-link-linkedin" target="_blank" title="linked" rel="noreferrer"><i class="icon-linkedin-stroke"></i></a>
-                        </li>
-                    {%- endif -%}
-                    {%- if context.exports.global.instagram_link -%}
-                        <li>
-                            <a href="{{ context.exports.global.instagram_link }}" data-test="footer-link-instagram" target="_blank" title="instagram" rel="noreferrer"><i class="icon-instagram"></i></a>
-                        </li>
-                    {%- endif -%}
-                    {%- if context.exports.global.youtube_link -%}
-                        <li>
-                            <a href="{{ context.exports.global.youtube_link }}" data-test="footer-link-youtube" target="_blank" title="youtube" rel="noreferrer"><i class="icon-youtube-stroke"></i></a>
-                        </li>
-                    {%- endif -%}
-                    </ul>
-                </div>
-            </div>
-            <div class="spacer xx-large show-for-small-only"></div>
-            <div class="spacer xxxx-large hide-for-small-only"></div>
-        </div>
-    </div>
-
-    <div class="bg-color-main">
-        <div class="wrapper">
-            <div class="grid-container">
-                <div class="spacer"></div>
-                <div class="bottom-footer grid-x align-middle body-small">
-                    <div class="large-6 medium-7 small-12 cell">
-                        <div class="text-center no-bullet inline-list show-for-small-only">
-                            <div><a href="/privacy-policy" data-test="footer-link-mobile-privacy-policy">Privacy Policy</a></div>
+                            <p class="navigation-level-1 color-font-head" data-test="">Quick Links</p>
                             <div class="spacer"></div>
-                            <div><a href="/terms-and-conditions" data-test="footer-link-mobile-terms-condition">Terms and Conditions</a></div>
-                        </div>
-                        <ul class="no-bullet inline-list show-for-medium">
-                            <li><a href="/privacy-policy" data-test="footer-link-privacy-policy">Privacy Policy</a></li>
-                            <li><a href="/terms-and-conditions" data-test="footer-link-terms-condition">Terms and Conditions</a></li>
-                        </ul>
-                    </div>
-                    <div class="large-6 medium-5 small-12 cell medium-text-right text-center">
-                        <div class="spacer large show-for-small-only"></div>
-                        <p class="copyright">
-                            Copyright &copy; {{ 'now' | date: "%Y" }} {{ global.company_name }}. <a href="https://insites.io/" target="_blank" data-test="footer-link-insites">Powered by Insites</a>. 
-                        </p>
-                    </div>
+                        </li>
+                        <li>
+                            <a class="footer-links color-font-head" data-test="" href="/about-us">About</a>
+                            <div class="spacer small"></div>
+                        </li>
+                        <li>
+                            <a class="footer-links color-font-head" data-test="" href="/FAQs">faq</a>
+                            <div class="spacer small"></div>
+                        </li>
+                        <li>
+                            <a class="footer-links color-font-head" data-test="" href="/news">News</a>
+                            <div class="spacer small"></div>
+                        </li>
+                        <li>
+                            <a class="footer-links color-font-head" data-test="" href="/contact-us">Contact</a>
+                            <div class="spacer small"></div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="spacer"></div>
+                <div class="small-12 cell spacer xxx-large hide-for-large"></div>
+                <div class="large-2 medium-6 small-12 cell">
+                    <ul class="vertical menu">
+                        <li>
+                            <a class="navigation-level-1 color-font-head" data-test="">Services</a>
+                            <div class="spacer"></div>
+                        </li>
+                        {% comment %} connect services to graphql {% endcomment %}
+                        {%- graphql get_services = 'modules/website/content/get_services' -%}
+                        {% comment %} assign var to fetch the result {% endcomment %}
+                        {%- assign res_services = get_services | dig: 'items', 'results' -%}
+                        
+                        {% for item in res_services %}
+                          <li>
+                              <a class="footer-links color-font-head" data-test="">{{ item.service_name }}</a>
+                              <div class="spacer small"></div>
+                          </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="small-12 cell spacer xxx-large hide-for-medium"></div>
+                <div class="large-2 medium-6 small-12 cell">
+                  <div class="spacer xxx-large hide-for-large"></div>
+                  <ul class="vertical menu">
+                    <li><a class="navigation-level-1 color-font-head" data-test="">External Links</a>
+                      <div class="spacer"></div>
+                    </li>
+                    <li>
+                      <a class="footer-links color-font-head" data-test="">
+                        <span>Website</span>
+                        <i class="icon-external-link1"></i>
+                      </a>
+                      <div class="spacer small"></div>
+                    </li>
+                    <li>
+                      <a class="footer-links color-font-head" data-test="">
+                        <span>Console</span>
+                        <i class="icon-external-link1"></i>
+                      </a>
+                      <div class="spacer small"></div>
+                    </li>
+                    <li>
+                      <a class="footer-links color-font-head" data-test="">
+                        <span>Resources</span>
+                        <i class="icon-external-link1"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
             </div>
         </div>
     </div>
-    
-    {%- comment -%}
-        Sidebar / Mobile menu
-        - we put this in the 'footer' part of the page to not have 'stutter' on initial page load before CSS kicks in
-    {%- endcomment -%}
-    {% include 'modules/website/layout/menu_mobile' %}
+
+    <div class="spacer xxxx-large show-for-medium"></div>
+    <div class="spacer x-large hide-for-medium"></div>
+
+    <div class="wrapper bottom-footer" >
+        <div class="grid-container">
+            <hr>
+            <div class="spacer"></div>
+            <div class="grid-x align-justify">
+                <div class="large-6 medium-6 small-12 cell medium-text-left text-center grid-x grid-margin-x">
+                    <div class="medium-shrink cell">
+                        <a href="/privacy-policy" target="_blank">Privacy Policy</a>
+                    </div>
+                    <div class="cell spacer show-for-small-only"></div>
+                    <div class="medium-shrink cell">
+                        <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>
+                    </div>
+                </div>
+                <div class="cell spacer show-for-small-only"></div>
+                <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
+                    <div>
+                    <ul class="menu social">
+                        <li>
+                            <a class="footer-links" href="/" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
+                                <i class="icon-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="footer-links" href="/" data-test="" target="_blank" title="" rel="noreferrer">
+                                <i class="icon-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="footer-links" href="/" data-test="" target="_blank" title="" rel="noreferrer">
+                                <i class="icon-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="grid-x">
+                <div class="large-6 medium-6 small-12 cell medium-text-left text-center">
+                    <p style="color: #595959">Copyright © 2023 Insites Template.</p>
+                </div>
+                <div class="small-12 cell spacer show-for-small-only"></div>
+                <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
+                    <p style="color: #595959"> Built by Combinate. Powered by Insites.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spacer"></div>
 </footer>
+{%- include 'modules/website/layout/technical_foot' -%}
 
-
-{%- if context.environment == "staging" -%}
-<!-- end partial:layout/footer -->
-{%- endif -%}

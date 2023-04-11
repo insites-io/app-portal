@@ -1,0 +1,87 @@
+---
+slug: client-portal/questionnaires-general-view
+layout: modules/client/index
+# enable_profiler: true
+searchable: false
+max_deep_level: 3
+metadata: {
+    "status": "published",
+    "page_type": "content", ## content, system or endpoint
+    "og:url": "",
+    "og:type": "",
+    "og:image": "",
+    "og:title": "Questionnaires - General Information | Insites",
+    "og:description": "Questionnaires - General Information | Insites",
+    "og:site_name": "",
+    "meta_title": "Questionnaires - General Information | Insites",
+    "page_title": "Questionnaires - General Information | Insites",
+    "meta_description": "Questionnaires - General Information | Insites",
+    "canonical_url": "",
+    "search_engine_visibility": true,
+    "sitemap_enabled": true,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "1", ## secondary order (ASC)
+    "sitemap_changefreq": "monthly"
+}
+# authorization_policies:
+#   - modules/client/questionnaires_form_auth
+---
+{%- if context.environment == "staging" -%}
+<!-- start page: overview  -->
+{%- endif -%}
+
+
+
+{%- liquid
+    graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first 
+    assign fields = database_info.properties
+
+    graphql data = "modules/client/get_questionnaires", id: {{context.params.slug3}} | dig: "items","results" | first
+-%}
+
+{%- log data, type: 'Test data:' -%}
+
+{%- parse_json form -%}
+{
+  "metadata": {{fields}},
+  "fields": {"properties": {
+      {%- for field in data -%}
+        {% unless field[0] == "attach_documents" %}
+        "{{field[0]}}": {
+            "value": 
+              {% if field[1][0] %}
+                {{field[1]}}
+              {% else %}
+                "{{field[1]}}"
+              {% endif %}
+          } 
+        {%- unless forloop.last -%},{%- endunless forloop.lass -%} 
+        {% endunless %}              
+      {%- endfor -%}
+    }
+  }
+}
+{%- endparse_json -%}
+
+
+<link rel="stylesheet" href="https://components.insites.io/tools/css/InsitesForm.min.css">
+
+<div class="simple_form insites-form insites-form-code">
+  <div class="insites-form-grid">      
+      <div class="form-groups-tab">        
+          {% include "modules/client/questionnaires-steps" %}
+      </div>    
+
+      {% include "modules/client/forms/questionnaires-general-inputs", form %}              
+  </div>
+
+  <div class="insites-form-grid grid-x">        
+      <div class="insites-form-buttons column-1 text-right">        
+          <a href="/client-portal/questionnaires-additional-details-view/{{context.params.slug3}}"><ins-button type="submit" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></a>
+      </div>
+  </div>
+</div>
+
+{%- if context.environment == "staging" -%}
+<!-- end page: overview  -->
+{%- endif -%}
