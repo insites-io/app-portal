@@ -1,0 +1,188 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    {% include 'modules/website/layout/head' %} 
+</head>
+<body>
+    <div class="main-wrap">
+
+    <header class="navigation-01 header" data-test="main-header" id="main-header">
+        <div class="wrapper">
+          <div class="header-top-bar grid-container grid-x align-middle">
+            <div class="large-2 medium-3 small-9 cell">
+              <a class="logo-holder">
+                  <img class="logo" src="https://docs.insites.io/assets/images/webblocks/insites-template-logo.png?updated" alt="logo" />
+              </a>
+            </div>
+            <div class="large-4 medium-3 small-0"></div>
+            <div class="show-for-large large-6 medium-6 small-12 cell text-right">
+              <a class="color-main">
+                <i class="icon-phone1"></i>
+                <span class="phone-email">+1 520 467 4837</span>
+              </a>
+              <a class="color-main">
+                <i class="icon-mail1"></i>
+                <span class="phone-email">template@insites.io</span>
+              </a>
+            </div>
+            <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-3 cell vertical-align-middle align-right">
+              <div id="mobile-menu-btn" class="icon-menu-1"></div>
+            </div>
+          </div>
+        </div>
+        <!-- navigation items -->
+        <div class="nav-bar">
+          <div class="wrapper">
+            <div class="bottom-bar show-for-large">
+              <ul class="menu align-center">
+                <!-- normal list -->
+                <li>
+                  <a>
+                    Why Insites
+                  </a>
+                </li>
+                <!-- /normal list -->
+                
+                <!-- list sub data -->
+                <li>
+                  <ins-dropdown lined label="Build with Insites" link="#">
+                    <ul class="text-left">
+                      <!-- list sub item -->
+                      <li>
+                        <a data-test="sub-menu-subitem">Store Locator App</a>
+                      </li>
+                      <!-- /list sub item -->
+                      <!-- list sub item -->
+                      <li class="has-submenu">
+                        <a>Database Driven Website
+                          <i class="icon-angle-right"></i>
+                        </a>
+      
+                        <!-- child submenu -->
+                        <div class="child-submenu">
+                          <ul class="text-left ins-dropdown_menu-card">
+                            <li>
+                              <a>Benefits</a>
+                            </li>
+                            <li>
+                              <a>Industries</a>
+                            </li>
+                            <li>
+                              <a>Features</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- /child submenu -->
+                      </li>
+                      <!-- /list sub item -->
+                      <!-- list sub item -->
+                      <li>
+                        <a data-test="sub-menu-subitem">Company Team Page</a>
+                      </li>
+                      <!-- /list sub item -->
+                      <!-- list sub item -->
+                      <li>
+                        <a data-test="sub-menu-subitem">Single Customer View</a>
+                      </li>
+                      <!-- /list sub item -->
+                    </ul>
+                  </ins-dropdown>
+                </li>
+                <!-- /list sub data -->
+      
+                <!-- normal list -->
+                <li>
+                  <a>
+                    Partner with Insites
+                  </a>
+                </li>
+                <!-- /normal list -->        
+      
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- /navigation items -->
+      </header>
+      
+      <div class="navigation-01 drawer-holder">
+        <ins-drawer no-padding id="mobile-menu" show-header=false position="right">
+          <div>
+            <ul class="vertical menu">
+              <!-- normal list -->
+              <li class="no-submenu">
+                <a href="/item-1-link">
+                  Why Insites
+                </a>
+              </li>
+              <!-- /normal list -->  
+      
+              <li>
+                <ins-accordion menu>
+                  <ins-accordion-item heading="Build with Insites" link="#" open-icon="icon-plus" close-icon="icon-minus"
+                    class="has-subitems">
+                    <ins-accordion-link label="Store Locator App" link="#">
+                    </ins-accordion-link>
+      
+                    <ins-accordion-link label="Company Team Page" link="#">
+                      <!-- sub -->
+                      <ins-accordion menu>
+                        <ins-accordion-item heading="Database Drive Website" link="#" open-icon="icon-plus" close-icon="icon-minus"
+                          class="has-nested-subitems">
+                          <ins-accordion-link label="Benefits" link="#">
+                          </ins-accordion-link>
+      
+                          <ins-accordion-link label="Industries" link="#">
+                          </ins-accordion-link>
+      
+                          <ins-accordion-link label="Features" link="#">
+                          </ins-accordion-link>
+      
+                        </ins-accordion-item>
+                      </ins-accordion>
+                      <!-- /sub -->
+                    </ins-accordion-link>      
+                    
+                    <ins-accordion-link label="Single Customer View" link="#">
+                    </ins-accordion-link>
+      
+                  </ins-accordion-item>
+                </ins-accordion>
+              </li>
+      
+              <!-- normal list -->
+              <li class="no-submenu">
+                <a href="/item-1-link">
+                  Partner with Insites
+                </a>
+              </li>
+              <!-- /normal list -->        
+      
+              <!-- phone -->
+              <li class="small no-submenu">
+                <a class="color-font-link phone-email" href="tel:617240387322" data-test="phone-link-mobile">
+                  <i class="icon-phone1"></i>
+                  +1 520 467 4837
+                </a>
+              </li>
+              <!-- /phone -->
+              <!-- email -->
+              <li class="small no-submenu">
+                <a class="color-font-link phone-email" href="mailto:email@template.com" data-test="email-link-mobile">
+                  <i class="icon-mail1"></i>
+                  <span>template@insites.io</span>
+                </a>
+              </li>
+              <!-- /email -->
+      
+            </ul>
+          </div>
+        </ins-drawer>
+      </div>
+      {% include 'modules/website/content/homepage/carousel' %} 
+
+    </div>
+    {% include 'modules/website/layout/footer' %}  
+</body>
+</html>

@@ -81,3 +81,78 @@
 {%- if context.environment == "staging" -%}
 <!-- end partial: modules/website/content/layout/mobile-menu  -->
 {%- endif -%}
+
+<div class="navigation-01 drawer-holder">
+  <ins-drawer no-padding id="mobile-menu" show-header=false position="right">
+    <div>
+      <ul class="vertical menu">
+        <!-- normal list -->
+        <li class="no-submenu">
+          <a href="/item-1-link">
+            Why Insites
+          </a>
+        </li>
+        <!-- /normal list -->  
+
+        <li>
+          <ins-accordion menu>
+            <ins-accordion-item heading="Build with Insites" link="#" open-icon="icon-plus" close-icon="icon-minus"
+              class="has-subitems">
+              <ins-accordion-link label="Store Locator App" link="#">
+              </ins-accordion-link>
+
+              <ins-accordion-link label="Company Team Page" link="#">
+                <!-- sub -->
+                <ins-accordion menu>
+                  <ins-accordion-item heading="Database Drive Website" link="#" open-icon="icon-plus" close-icon="icon-minus"
+                    class="has-nested-subitems">
+                    <ins-accordion-link label="Benefits" link="#">
+                    </ins-accordion-link>
+
+                    <ins-accordion-link label="Industries" link="#">
+                    </ins-accordion-link>
+
+                    <ins-accordion-link label="Features" link="#">
+                    </ins-accordion-link>
+
+                  </ins-accordion-item>
+                </ins-accordion>
+                <!-- /sub -->
+              </ins-accordion-link>      
+              
+              <ins-accordion-link label="Single Customer View" link="#">
+              </ins-accordion-link>
+
+            </ins-accordion-item>
+          </ins-accordion>
+        </li>
+
+        <!-- normal list -->
+        <li class="no-submenu">
+          <a href="/item-1-link">
+            Partner with Insites
+          </a>
+        </li>
+        <!-- /normal list -->        
+
+        <!-- phone -->
+        <li class="small no-submenu">
+          <a class="color-font-link phone-email" href="tel:617240387322" data-test="phone-link-mobile">
+            <i class="icon-phone1"></i>
+            +1 520 467 4837
+          </a>
+        </li>
+        <!-- /phone -->
+        <!-- email -->
+        <li class="small no-submenu">
+          <a class="color-font-link phone-email" href="mailto:email@template.com" data-test="email-link-mobile">
+            <i class="icon-mail1"></i>
+            <span>template@insites.io</span>
+          </a>
+        </li>
+        <!-- /email -->
+
+      </ul>
+    </div>
+  </ins-drawer>
+</div>

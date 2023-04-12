@@ -1,6 +1,6 @@
 {% liquid
     assign key = ""
-    graphql google_key = 'modules/website/system/get_system_fields', key: 'google_maps_api_key'
+    graphql google_key = 'modules/website/system/get_google_api'
 
     assign google_key_first = google_key.items.results | first
 %}

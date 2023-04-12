@@ -1,4 +1,4 @@
-{%- graphql google_key = 'modules/website/system/get_system_fields', key: 'google_maps_api_key' -%}
+{%- graphql google_key = 'modules/website/system/get_google_api' -%}
 
 {%- if google_key.items.results.size > 0 -%}
 
@@ -40,7 +40,9 @@ style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightn
     | append: "&zoom=15&size=390x300&maptype=roadmap&" 
     | append: marker_position 
     | append: "&key=" | append: key 
-    | append: "&" | append: map_style -%}
+    | append: "&" | append: map_style
+    | append: "&" | append: "callback=initMap"
+-%}
 
 <div class="google-map-img">
     <img src="{{ full_map_url }}" loading="lazy">
