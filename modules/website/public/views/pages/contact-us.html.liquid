@@ -7,6 +7,12 @@ layout_name: modules/website/contact_us
 <!-- start page: contact-us  -->
 {%- endif -%}
 
+    {% comment %} connect services to graphql {% endcomment %}
+    {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+    {% comment %} assign var to fetch the result {% endcomment %}
+    {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
+    {%- assign res_contact = res_contact | first -%}
+    
     <h2 class="spacer">Get in Touch</h2>
     <p>Contact us about anything related to our company or services.<br>
         We'll do our best to get back to you as soon as possible.</p>

@@ -24,3 +24,7 @@ async function validateForm(event) {
       return false;
   }
 }
+
+function callback(){
+  
+}
