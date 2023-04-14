@@ -7,180 +7,80 @@
 <body>
     <div class="main-wrap">
 
-    <header class="navigation-01 header" data-test="main-header" id="main-header">
-        <div class="wrapper">
-          <div class="header-top-bar grid-container grid-x align-middle">
-            <div class="large-2 medium-3 small-9 cell">
-              <a class="logo-holder">
-                  <img class="logo" src="https://docs.insites.io/assets/images/webblocks/insites-template-logo.png?updated" alt="logo" />
-              </a>
-            </div>
-            <div class="large-4 medium-3 small-0"></div>
-            <div class="show-for-large large-6 medium-6 small-12 cell text-right">
-              <a class="color-main">
-                <i class="icon-phone1"></i>
-                <span class="phone-email">+1 520 467 4837</span>
-              </a>
-              <a class="color-main">
-                <i class="icon-mail1"></i>
-                <span class="phone-email">template@insites.io</span>
-              </a>
-            </div>
-            <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-3 cell vertical-align-middle align-right">
-              <div id="mobile-menu-btn" class="icon-menu-1"></div>
-            </div>
+    <header class="navigation-04 header" data-test="main-header" id="main-header" style="transform: translate3d(0px, 0px, 0px);">
+      <div class="wrapper">
+        <div class="header-top-bar grid-container grid-x align-middle">
+          <div class="large-2 medium-3 small-9 cell">
+            <a href="/">
+              <img class="logo" src="https://uploads.prod01.sydney.platformos.com/instances/535/uploads/images/custom_image/image/1/transformed_CMB-Logo_2x.png" alt="logo">
+            </a>
           </div>
-        </div>
-        <!-- navigation items -->
-        <div class="nav-bar">
-          <div class="wrapper">
-            <div class="bottom-bar show-for-large">
-              <ul class="menu align-center">
-                <!-- normal list -->
-                <li>
-                  <a>
-                    Why Insites
-                  </a>
-                </li>
-                <!-- /normal list -->
-                
-                <!-- list sub data -->
-                <li>
-                  <ins-dropdown lined label="Build with Insites" link="#">
-                    <ul class="text-left">
-                      <!-- list sub item -->
-                      <li>
-                        <a data-test="sub-menu-subitem">Store Locator App</a>
-                      </li>
-                      <!-- /list sub item -->
-                      <!-- list sub item -->
-                      <li class="has-submenu">
-                        <a>Database Driven Website
-                          <i class="icon-angle-right"></i>
-                        </a>
-      
-                        <!-- child submenu -->
-                        <div class="child-submenu">
-                          <ul class="text-left ins-dropdown_menu-card">
-                            <li>
-                              <a>Benefits</a>
-                            </li>
-                            <li>
-                              <a>Industries</a>
-                            </li>
-                            <li>
-                              <a>Features</a>
-                            </li>
-                          </ul>
-                        </div>
-                        <!-- /child submenu -->
-                      </li>
-                      <!-- /list sub item -->
-                      <!-- list sub item -->
-                      <li>
-                        <a data-test="sub-menu-subitem">Company Team Page</a>
-                      </li>
-                      <!-- /list sub item -->
-                      <!-- list sub item -->
-                      <li>
-                        <a data-test="sub-menu-subitem">Single Customer View</a>
-                      </li>
-                      <!-- /list sub item -->
-                    </ul>
-                  </ins-dropdown>
-                </li>
-                <!-- /list sub data -->
-      
-                <!-- normal list -->
-                <li>
-                  <a>
-                    Partner with Insites
-                  </a>
-                </li>
-                <!-- /normal list -->        
-      
+          <div class="large-1 medium-3 small-0"></div>
+          <div class="show-for-large large-9 medium-6 small-12 cell text-right">
+            <div class="header-links">
+              <!-- <a class="color-main" class="color-font-head">
+                Team
+              </a> -->
+              <ul class="main-menu show-for-large">
+      <li>
+        <ins-dropdown label="Teams" link-title="teams" class="hydrated"><!----><div class="ins-dropdown"><div class="ins-dropdown_label"><span>Teams</span><i class="icon-angle-down"></i></div><div class="ins-dropdown_menu"><div class="ins-dropdown_menu-card">
+          <ins-dropdown-item label="Support" link="/support" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/support" target="_self" title="">Support</a></ins-dropdown-item>
+          <ins-dropdown-item label="Sales" link="/sales" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/sales" target="_self" title="">Sales</a></ins-dropdown-item>
+          <ins-dropdown-item label="Developers" link="/developers" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/developers" target="_self" title="">Developers</a></ins-dropdown-item>
+          <ins-dropdown-item label="Delivery" link="/delivery" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/delivery" target="_self" title="">Delivery</a></ins-dropdown-item>
+          <ins-dropdown-item label="Design" link="/design" class="hydrated"><!---->        
+          <a class="ins-dropdown-item" href="/design" target="_self" title="">Design</a></ins-dropdown-item>
+          <!-- <ins-dropdown-item label="Marketing"
+            link="/marketing">        
+          </ins-dropdown-item> -->
+        </div></div></div></ins-dropdown>
+      </li>
+      <li>
+        <ins-dropdown label="Philippines" link="/philippines" link-title="Philippines" class="hydrated"><!----><div class="ins-dropdown"><div class="ins-dropdown_label"><a href="/philippines" target="_self" title="Philippines">Philippines</a><i class="icon-angle-down"></i></div><div class="ins-dropdown_menu"><div class="ins-dropdown_menu-card"><ins-dropdown-item label="HR" link="/philippines/hr" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/philippines/hr" target="_self" title="">HR</a></ins-dropdown-item></div></div></div></ins-dropdown>
+      </li>
+      <li>
+        <ins-dropdown label="Australia" link="/australia" link-title="Australia" class="loc-2-dropdown hydrated"><!----><div class="ins-dropdown"><div class="ins-dropdown_label"><a href="/australia" target="_self" title="Australia">Australia</a><i class="icon-angle-down"></i></div><div class="ins-dropdown_menu"><div class="ins-dropdown_menu-card"><ins-dropdown-item label="HR" link="/australia/hr" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/australia/hr" target="_self" title="">HR</a></ins-dropdown-item></div></div></div></ins-dropdown>
+      </li>
+       <li>
+        <ins-dropdown label="Procedures" link="/procedures" link-title="Procedures" class="hydrated"><!----><div class="ins-dropdown"><div class="ins-dropdown_label"><a href="/procedures" target="_self" title="Procedures">Procedures</a><i class="icon-angle-down"></i></div><div class="ins-dropdown_menu"><div class="ins-dropdown_menu-card"><ins-dropdown-item label="Software Accounts" link="/procedures/software-accounts" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/procedures/software-accounts" target="_self" title="">Software Accounts</a></ins-dropdown-item><ins-dropdown-item label="Company Credit Cards" link="/procedures/company-cc" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/procedures/company-cc" target="_self" title="">Company Credit Cards</a></ins-dropdown-item><ins-dropdown-item label="Internet Access" link="/procedures/internet-access" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/procedures/internet-access" target="_self" title="">Internet Access</a></ins-dropdown-item><ins-dropdown-item label="Covid-19 Return to Work and Remote Working" link="/procedures/covid-19-return-to-work-and-remote-working" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/procedures/covid-19-return-to-work-and-remote-working" target="_self" title="">Covid-19 Return to Work and Remote Working</a></ins-dropdown-item><ins-dropdown-item label="Company Wide" link="/procedures/company-wide" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/procedures/company-wide" target="_self" title="">Company Wide</a></ins-dropdown-item><ins-dropdown-item label="Combinate Corporate Identity" link="/procedures/combinate-corporate-identity" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/procedures/combinate-corporate-identity" target="_self" title="">Combinate Corporate Identity</a></ins-dropdown-item><ins-dropdown-item label="Email Signature" link="/procedures/email-signature" class="hydrated"><!---->
+          <a class="ins-dropdown-item" href="/procedures/email-signature" target="_self" title="">Email Signature</a></ins-dropdown-item></div></div></div></ins-dropdown>
+      </li>
+      <li>
+        <a href="/news">
+          News
+        </a>
+      </li>
+      <li>
+        <a href="/faqs">
+          FAQs
+        </a>
+      </li>
+      <li>
+        <a href="/timeline">
+          Timeline
+        </a>
+      </li>
               </ul>
             </div>
           </div>
-        </div>
-        <!-- /navigation items -->
-      </header>
-      
-      <div class="navigation-01 drawer-holder">
-        <ins-drawer no-padding id="mobile-menu" show-header=false position="right">
-          <div>
-            <ul class="vertical menu">
-              <!-- normal list -->
-              <li class="no-submenu">
-                <a href="/item-1-link">
-                  Why Insites
-                </a>
-              </li>
-              <!-- /normal list -->  
-      
-              <li>
-                <ins-accordion menu>
-                  <ins-accordion-item heading="Build with Insites" link="#" open-icon="icon-plus" close-icon="icon-minus"
-                    class="has-subitems">
-                    <ins-accordion-link label="Store Locator App" link="#">
-                    </ins-accordion-link>
-      
-                    <ins-accordion-link label="Company Team Page" link="#">
-                      <!-- sub -->
-                      <ins-accordion menu>
-                        <ins-accordion-item heading="Database Drive Website" link="#" open-icon="icon-plus" close-icon="icon-minus"
-                          class="has-nested-subitems">
-                          <ins-accordion-link label="Benefits" link="#">
-                          </ins-accordion-link>
-      
-                          <ins-accordion-link label="Industries" link="#">
-                          </ins-accordion-link>
-      
-                          <ins-accordion-link label="Features" link="#">
-                          </ins-accordion-link>
-      
-                        </ins-accordion-item>
-                      </ins-accordion>
-                      <!-- /sub -->
-                    </ins-accordion-link>      
-                    
-                    <ins-accordion-link label="Single Customer View" link="#">
-                    </ins-accordion-link>
-      
-                  </ins-accordion-item>
-                </ins-accordion>
-              </li>
-      
-              <!-- normal list -->
-              <li class="no-submenu">
-                <a href="/item-1-link">
-                  Partner with Insites
-                </a>
-              </li>
-              <!-- /normal list -->        
-      
-              <!-- phone -->
-              <li class="small no-submenu">
-                <a class="color-font-link phone-email" href="tel:617240387322" data-test="phone-link-mobile">
-                  <i class="icon-phone1"></i>
-                  +1 520 467 4837
-                </a>
-              </li>
-              <!-- /phone -->
-              <!-- email -->
-              <li class="small no-submenu">
-                <a class="color-font-link phone-email" href="mailto:email@template.com" data-test="email-link-mobile">
-                  <i class="icon-mail1"></i>
-                  <span>template@insites.io</span>
-                </a>
-              </li>
-              <!-- /email -->
-      
-            </ul>
+          <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-3 cell vertical-align-middle align-right">
+            <div id="mobile-menu-btn" class="icon-menu-1"></div>
           </div>
-        </ins-drawer>
+        </div>
       </div>
-      {% include 'modules/website/content/homepage/carousel' %} 
+    </header>
 
     </div>
     {% include 'modules/website/layout/footer' %}  
