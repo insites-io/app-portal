@@ -29,6 +29,11 @@ System page layout
     {%- cache head_key -%}
     {% include 'modules/website/layout/head' %}
     {%- endcache -%}
+    <link rel="stylesheet" href="{{ 'modules/client/styles/client.min.css' | asset_url }}" >
+
+    <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
+    <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
+    <link rel="stylesheet" href="https://components.insites.io/tools/css/InsitesForm.min.css">  
   </head>
   <body class="system-page flex-container flex-dir-column">
     {%- if context.current_user and context.modules.ecommerce.name != blank -%}
@@ -44,7 +49,7 @@ System page layout
       <div class="system-content grid-container">
         <div class="spacer xxxx-large"></div>
         {{ content_for_layout }}
-        <div class="spacer section"></div>
+        <div class="spacer xxxx-large"></div>
       </div>
     </div>
 
@@ -55,9 +60,10 @@ System page layout
     {%- endcomment -%}
 
     {% include 'modules/website/layout/footer' %}
-    {% include 'modules/website/layout/foot' %}
+        
+    <script src="{{ 'modules/website/scripts/app.js' | asset_url }}"></script>
     {%- endcache -%}
-    
+    here
     </body>
     {%- if context.environment == "staging" -%}
     <!-- end layout:system_page  -->

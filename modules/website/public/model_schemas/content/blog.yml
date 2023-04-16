@@ -2,7 +2,7 @@ name: blog
 metadata:
   label: "Blog"
   groups: [{"id":"c0ef7b7e-8ffe-4f9e-be58-baa0455336ac","name":"SEO Settings","weight":0},{"id":"be89fb50-690b-4392-b56c-011911702dfd","name":"Post Settings","weight":1},{"id":"b8b56f27-9eaa-43a5-b2af-e1b368f6c1ce","name":"Post Content","weight":2},{"id":"14dfaf38-9905-4050-abc4-0f79e56dbf7a","name":"Media","weight":3}]
-  is_enabled: true
+  is_archived: false
 properties:
 - name: author
   type: string

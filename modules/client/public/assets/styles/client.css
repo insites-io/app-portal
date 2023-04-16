@@ -17,6 +17,8 @@
     --font-color-link: #436CF2;
     --font-color-visited: #670099;
     --font-color-inv: #FFFFFF;
+    /* Text colors */
+    --text-3: #595959;
     /* UI Colors */
     --color-ui-01: #FFFFFF;
     --color-ui-02: #F9FAFB;
@@ -28,7 +30,7 @@
     --color-ui-08: #000000;
     --ui-border: #E1E1E1;
     /* Support/Notification Colors */
-    --success: #37B68F; 
+    --success: #37B68F;
     --error: #FF3366;
     --warning: #FFA639;
     /* Support/Notification Colors Hover*/
@@ -150,14 +152,15 @@ ins-card .content {
 }
 
 /* Insites Modal */
-.ins-modal-wrap.show-modal .ins-modal-body{
+.ins-modal-wrap.show-modal .ins-modal-body {
     position: relative;
 }
 
 /* Insites Form */
-.insites-form-grid .form-groups-tab{
-    margin: initial !important ;
+.insites-form-grid .form-groups-tab {
+    margin: initial !important;
 }
+
 .insites-form.insites-form-code {
     margin-top: initial !important;
     margin-bottom: initial !important;
@@ -168,56 +171,66 @@ ins-card .content {
     margin-right: initial !important;
 }
 
-.insites-form .list-checkbox_label, 
+
+ins-checkbox .ins-radio-checkbox{
+    padding-left: 0px;
+}
+
+.insites-form .list-checkbox_label,
 .insites-form .list-field_label,
 .ins-select-wrap .ins-select-label-wrap,
-.ins-form-field-wrap .ins-form-label{
+.ins-form-field-wrap .ins-form-label {
     font-family: var(--font-family-01) !important;
     font-weight: 700 !important;
     font-size: 12px !important;
-    line-height: 16px !important;    
+    line-height: 16px !important;
     color: var(--font-color-head) !important;
 }
 
-.insites-form .list-checkbox_label, 
-.insites-form .list-field_label{
+.insites-form .list-checkbox_label,
+.insites-form .list-field_label {
     margin-bottom: 12px !important;
 }
 
-ins-checkbox .ins-radio-checkbox label, 
+ins-checkbox .ins-radio-checkbox label,
 ins-radio .ins-radio-checkbox label,
-.insites-form .ins-radio.ins-radio-checkbox{
+.insites-form .ins-radio.ins-radio-checkbox {
     margin-bottom: initial !important;
 }
 
-ins-checkbox .ins-radio-checkbox label, ins-radio .ins-radio-checkbox label{
+ins-checkbox .ins-radio-checkbox label,
+ins-radio .ins-radio-checkbox label {
     color: var(--font-color-head);
 }
 
-.ins-radio.ins-radio-checkbox{
+.ins-radio.ins-radio-checkbox {
     display: inline-block;
     margin-right: 40px;
 }
 
 /* Insites Step */
-.ins-step_details{
+.ins-step_details {
     padding: 16px 25px;
 }
-.ins-step_description{
+
+.ins-step_description {
     font-family: var(--font-family-02);
     font-size: 14px;
     line-height: 21px;
     margin-top: 16px;
 }
+
 .ins-step_description,
 .ins-step.active .ins-step_description,
-.ins-step.completed .ins-step_description{
+.ins-step.completed .ins-step_description {
     color: var(--font-color-body);
 }
-.ins-step.active .ins-step_indicator .ins-step_dot{
+
+.ins-step.active .ins-step_indicator .ins-step_dot {
     background: var(--color-ui-06);
 }
-.ins-step.active .ins-step_indicator{
+
+.ins-step.active .ins-step_indicator {
     border-color: var(--color-ui-06);
 }
 
@@ -291,10 +304,14 @@ ins-checkbox .ins-radio-checkbox label, ins-radio .ins-radio-checkbox label{
 .paginate button .btn__label {
     padding: 0px;
 }
+
 /*************************/
 /*     Client Portal     */
 /*************************/
-p{
+a:visited, .body-link:visited{
+    color: var(--color-main);
+}
+p {
     font-family: var(--font-family-02);
     font-size: 16px;
 }
@@ -308,11 +325,11 @@ p{
     fill: var(--warning) !important;
 }
 
-.questionnaire .ins-modal-wrap.show-modal .ins-modal-head.no-heading{
+.questionnaire .ins-modal-wrap.show-modal .ins-modal-head.no-heading {
     display: none;
 }
 
-.questionnaire .ins-modal-wrap.show-modal .ins-modal-body{
+.questionnaire .ins-modal-wrap.show-modal .ins-modal-body {
     padding: 32px;
 }
 
@@ -322,11 +339,11 @@ p{
     font-size: 16px;
 }
 
-ins-input-tel.hideCountryCode .col-container.column-1{
+ins-input-tel.hideCountryCode .col-container.column-1 {
     display: none;
 }
 
-ins-input-tel.hideCountryCode .col-container.column-3{
+ins-input-tel.hideCountryCode .col-container.column-3 {
     width: 100%;
     margin: initial;
 }
@@ -368,7 +385,31 @@ ins-tag.Draft span.ins-tag {
     background: var(--color-ui-03);
     color: var(--font-color-head);
 }
+
 ins-tag.Completed span.ins-tag {
     background: rgba(4, 136, 1, 0.08);
     color: #048801;
+}
+
+.thank-you p{
+ color: var(--text-3);
+}
+
+/* Registration Form */
+.agreement-text {
+    max-height: 349px;
+    overflow-y: scroll;
+    padding: 24px;
+}
+
+/* Modified Scrollbar */
+.scrollbar::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F2F4F8;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 22px;
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
+    background-color: #FFFFFF;
 }

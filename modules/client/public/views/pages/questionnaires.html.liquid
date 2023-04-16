@@ -42,8 +42,6 @@ metadata: {
 <!-- start page: overview  -->
 {%- endif -%}
 
-{%- include 'modules/client/insites_database_form_scripts' -%}
-
 {%- comment -%} Pagination and Filters {%- endcomment -%}
 {%  liquid            
     assign page_num = context.params.page | default: 1 | plus: 0
@@ -127,7 +125,7 @@ metadata: {
         <div class="grid-x grid-padding-x grid-padding-y">                        
         {%- for item in data.results -%}
         <div class="large-4 medium-6 small-12 cell align-stretch">
-            {%- include "modules/client/questionnaires-card", item -%}
+            {%- include "modules/client/questionnaires/questionnaires-card", item -%}
         </div>
         {%- endfor -%}
         </div>
