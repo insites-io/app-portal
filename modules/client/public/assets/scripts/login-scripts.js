@@ -3,10 +3,18 @@ let emailInputInfo =  {
     id: null
 }
 
-const phoneFields = {
+//Personal Details
+const mobileFields = {
     inputTel: document.getElementById('mobile-phone'),
-    mobile_phone: document.getElementById('mobile_phone_number'),
+    number: document.getElementById('mobile_phone_number'),
     country_code: document.getElementById('mobile_phone_country_code')
+}
+
+//Company Details
+const companyMobileFields = {
+    inputTel: document.getElementById('company-mobile-phone'),
+    number: document.getElementById('company_mobile_phone_number'),
+    country_code: document.getElementById('company_mobile_phone_country_code')
 }
 
 let LoginScript = (function () {
@@ -87,27 +95,39 @@ let LoginScript = (function () {
                 }
                 return App.validation.checkInvalidFields(containerEl);
             },
-            async validateForm(event) {
+            async validateForm(event, groupElem) {
                 event ? event.preventDefault(): '';
                 //Get id and element to identify the kind of form submitted
                 let formId = event.target.id;
-                let formElem = document.getElementById(formId);
+                console.log('formId= ' + formId);
+                let formElem = document.getElementById(formId).closest('form'); 
                 // Check what form is being validated...
-                if(formId == 'sign-up-form'){
+                if(formId == 'submit-personal-details' || formId == 'submit-company-details'){
                     //Validation for Sign Up Form
+                    console.log('validate register-form');
                     this.validateTelField();
-                    if(await this.validationForm(formElem)){
-                        let values = await phoneFields.inputTel.getValues();
-                        phoneFields.country_code.value = values.country_code;
-                        phoneFields.mobile_phone.value = values.phone_number;
+                    if(await this.validationForm(groupElem)){
+
+                        if(formId == 'submit-personal-details'){
+                            let values = await mobileFields.inputTel.getValues();
+                            mobileFields.country_code.value = values.country_code;
+                            mobileFields.number.value = values.number;
+                        }else if(formId == 'submit-company-details'){
+                            let values = await companyMobileFields.inputTel.getValues();
+                            companyMobileFields.country_code.value = values.country_code;
+                            companyMobileFields.number.value = values.number;
+                        }
+                        
                         
                         switch(emailInputInfo.status){
                             case 'clean':{ //email is clean
-                                formElem.submit();
+                                //formElem.submit();
+                                return true;
                             }break;
                             case 'update':{ //email 'update'
                                 this.changeFormToAppend(formElem, emailInputInfo.id);
-                                formElem.submit();
+                                //formElem.submit();
+                                return true;
                             }break;
                             case 'error':{ //email is used
                                 let emailElem = document.getElementById('email');
@@ -123,6 +143,7 @@ let LoginScript = (function () {
 
                 } else {
                     //Validation for other forms
+                    console.log('validate else');
                     if(await App.validation.validateForm(formElem)){
                         formElem.submit();
                     }
@@ -130,6 +151,7 @@ let LoginScript = (function () {
             },
             async checkSignUpUserEmail(event){ 
                 // Attached to the eventlistener
+                console.log('checkSignUpUserEmail');
                 let emailInput = document.getElementById('email');
                 let varEmail = document.getElementById('email').value
                 if(App.validation.validateEmail(emailInput)){
@@ -142,6 +164,7 @@ let LoginScript = (function () {
                 }
             },
             checkUserEmail(emailElem, data){
+                console.log('checkUserEmail = ' + data.email_status);
                 if(data.email_status == "invalid"){
                     //Profile in account is already existing (Active / Inactive)
                     emailElem.hasError = true;
@@ -149,7 +172,7 @@ let LoginScript = (function () {
                     this.updateEmailInputInfo('error');
                 } 
                 else if(data.email_status == "no-profile") {
-                    //Profile has no ecommerce profile
+                    //Profile has no profile
                     emailElem.hasError = false;
                     this.updateEmailInputInfo('update', data.email_id);
                 } else {
@@ -171,12 +194,19 @@ let LoginScript = (function () {
             updateEmailInputInfo(status, id = null){
                 emailInputInfo.status = status;
                 emailInputInfo.id = id;
-            }
+            },
+            async test(event){ 
+                console.log('test');
+                // let url = '/api/create_contacts.json?' ;
+                // let response = await apiServices.processRequest('get', url);
+                // console.log(JSON.stringify(response));                
+
+            },
         },
         init: {
             //Initialise form if signup (only applies to sign up)
             initSignUp() {
-                let elem = document.getElementById('sign-up-form');
+                let elem = document.getElementById('register-form');
                 if(elem){
                     let emailInput = document.getElementById('email');
                     emailInput.addEventListener('insBlur', LoginScript.methods.checkSignUpUserEmail);

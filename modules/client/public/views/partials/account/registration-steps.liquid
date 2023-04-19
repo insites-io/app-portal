@@ -1,0 +1,20 @@
+
+{%- liquid
+
+    if context.flash.notice != blank
+        assign statusPersonal = "complete"
+        assign statusCompany = "complete"
+        assign statusConfirmation = "complete"
+        assign statusVerify = "active"
+    endif
+
+-%}
+
+<div class="form-groups-tab">        
+    <ins-steps clickable id="register-stepper" style="width: 100%;">
+        <ins-step id="personal-details" description="Personal Details" {{statusPersonal}} ></ins-step>
+        <ins-step id="company-details" description="Company Details" {{statusCompany}} ></ins-step>
+        <ins-step id="confirmation" description="Confirmation" {{statusConfirmation}} ></ins-step>
+        <ins-step description="Verify" {{statusVerify}} ></ins-step>
+    </ins-steps>
+</div>

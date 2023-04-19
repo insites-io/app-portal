@@ -37,18 +37,22 @@ var apiServices = (function () {
     }
 
     return {
-        updateCartItem: async (payload) => {
-            let url = `/update-cart-api.json`;
-            return await processRequest('post', url, payload);
-        },
-        validateDiscountCode: async (payload) => {
-            let url = `/validate-discount-code.json`;
-            return await processRequest('post', url, payload);
-        },
-        removeDiscountCode: async (id) => {
-            let url = `/remove-discount-code.json`;
-            return await processRequest('post', url, id);
-        },
+        // updateCartItem: async (payload) => {
+        //     let url = `/update-cart-api.json`;
+        //     return await processRequest('post', url, payload);
+        // },
+        // validateDiscountCode: async (payload) => {
+        //     let url = `/validate-discount-code.json`;
+        //     return await processRequest('post', url, payload);
+        // },
+        // removeDiscountCode: async (id) => {
+        //     let url = `/remove-discount-code.json`;
+        //     return await processRequest('post', url, id);
+        // },
+        // createContact: async (payload) => {
+        //     let url = `/core/api/v1/contacts`;
+        //     return await processRequest('post', url, payload);
+        // },
         processRequest: processRequest
     }
 })();

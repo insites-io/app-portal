@@ -25,14 +25,14 @@ metadata: {
 ---
 
 {%- assign email = context.params.email | default: null -%}
-{%- graphql results = "modules/ecommerce/account/check_user_email_signup", email: email | dig: "items" -%}
+{%- graphql results = "modules/client/account/check_user_email_signup", email: email | dig: "items" -%}
 
 {%- assign email_check = '{}' | parse_json -%}
 {%- 
     liquid
     if results.total_entries > 0
         assign item = results | dig: "results" | first
-        assign find_profile = item.profiles | array_find_index: profile_type: "modules/ecommerce/customer"
+        assign find_profile = item.profiles | array_find_index: profile_type: "modules/insites_core/crm_contact"
         if find_profile.size > 0
             assign email_check = email_check | add_hash_key: "email_status", "invalid"
             assign email_check = email_check | add_hash_key: "message", "Email has already been used."

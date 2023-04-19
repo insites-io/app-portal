@@ -82,12 +82,9 @@ let App = (function () {
         // Validation functions
         validation: {
             validateForm(containerEl) {
-                console.log('entered app.js validateForm');
-                //console.log(containerEl);
                 for (let index = 0; index < containerEl.querySelectorAll('[validate]').length; index++) {
                     let field = containerEl.querySelectorAll('[validate]')[index];
                     let type = field.tagName.toLowerCase();
-                    console.log(type);
                     switch (type) {
                         case 'div':
                             this.validateRadio(field);
@@ -157,9 +154,6 @@ let App = (function () {
                 return false;
             },
             validateInput(field) {
-                console.log('entered validateInput ');
-                console.log(JSON.stringify(field));
-
                 field = field.target ? field.target : field;
                 if (!field.value) {
                     InsitesUtil.invalidFieldNotif(field);

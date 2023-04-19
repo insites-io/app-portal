@@ -1,0 +1,37 @@
+---
+to: 'https://{{context.location.host}}/core/api/v1/companies'
+format: http
+enabled: true
+trigger_condition: true
+request_type: POST
+callback: >
+  {% log response, type: 'response object' %}
+  {% assign response_hash = response.body | parse_json %}
+  {% log response_hash, type: 'response body as hash' %} 
+request_headers: >
+    {
+        "Content-Type": "application/json",
+        "Authorization": "instance_92d3be32-b64f-4909-91fe-2db66783f617_Qz26R453IgamR5S7j18aHEheVbgqmV3zycGGc3UyE8c"
+    }
+---
+{%- log "*****************************************************************************", type: 'Test update_contacts:' -%}  
+{%- log form, type: 'Test api form:' -%}
+
+{
+    "id": "{{form.id}}",
+    "company_name": "{{form.company_name}}",
+    "registered_business_number": "{{form.registered_business_number}}",
+    "email_1": "{{form.email_1}}",
+    "phone_1_country_code": "{{form.phone_1_country_code}}",
+    "phone_1_number": "{{form.phone_1_number}}",
+    "addresses": [
+        {
+        "address_1": "{{form.company_address_1}}",
+        "address_2": "{{form.company_address_2}}",
+        "suburb": "{{form.company_suburb}}",
+        "state": "{{form.company_state}}",
+        "country": "{{form.company_country}}",      
+        "default_address": true
+        }
+    ]
+}

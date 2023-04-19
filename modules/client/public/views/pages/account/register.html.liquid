@@ -25,29 +25,39 @@ metadata: {
 }
 ---
     
-{%- if context.flash.notice != blank -%}
- 
-    {%- parse_json messageInfo -%}
-    {
-    "title" : "Account Created",
-    "type": "success",
-    "message": "<p><strong>An email has been sent to the address you provided for verification.</strong></p><p>You can also proceed to <a href='/sign-in' class='color-main'><strong>sign in</strong></a></p>"
-    }
-    {%- endparse_json -%}
-    {%- include 'modules/client/system/form-result', messageInfo: messageInfo -%}
-  
 
-{%- else -%}
 
 <div class="sign-up">
     <h1 class="text-center">Registration</h1>
     <div class="spacer xxx-large"></div>
-    {%- include 'modules/client/forms/registration-steps' -%}
+    {%- include 'modules/client/account/registration-steps' -%}
     <div class="spacer x-large"></div>    
-    {%- include_form 'modules/client/register' -%}
+
+    {%- if context.flash.notice != blank -%}
+
+        <div class="thank-you">
+            <div class="grid-x grid-padding-x text-center">
+                <div class="large-12 medium-12 small-12 cell">
+                    <div class="thank-you-img spacer">
+                        <i class="icon-number-of-checks"></i>
+                    </div>
+                    <h3 class="heading-3">Account Created</h3>
+                    <div class="spacer small"></div>
+                    <p>You can now sign in to the client portal.</p> 
+                    <div class='spacer xxx-large'></div>
+                    <a href='/client-portal/sign-in'><ins-button label='VIew Client Portal' solid ></ins-button></a>
+                </div>
+            </div>
+        </div>
+    
+    {%- else -%}
+
+        {%- include_form 'modules/client/register' -%}
+
+    {%- endif -%}
 </div>
 
-{%- endif -%}
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
@@ -58,3 +68,166 @@ metadata: {
     <script src="{{ 'modules/client/services/apiServices.min.js' | asset_url }}"></script>
     <script src="{{ 'modules/client/scripts/login-scripts.min.js' | asset_url }}"></script>
 {%- endif -%}
+
+<script>
+    const registerStepper = document.getElementById("register-stepper");
+    const registerForm = document.getElementById('register-form');
+    const cancelButton = document.getElementById('cancel-button');
+
+    const backToStep1 = document.getElementById("back-to-step-1");
+    const backToStep2 = document.getElementById("back-to-step-2");
+
+    const step1 = document.getElementById("submit-personal-details");
+    const step2 = document.getElementById("submit-company-details");
+    const step3 = document.getElementById("submit-confirmation");
+    
+    const step1Container = document.getElementById('personal-details-container');
+    const step2Container = document.getElementById('company-details-container');
+    const step3Container = document.getElementById('confirmation-container');
+
+    let Session = (function () {
+    return {
+        events: {
+
+            async signUpHandler(event) { // Platform Seller Sign Up
+                if(registerForm){
+                    event ? event.preventDefault(): ''; // prevent default on submit
+                    let formId = event.target.id;
+                    let formElement = document.getElementById(formId);
+                    let buttonData = event.submitter.parentElement.data;
+
+                    if(buttonData == 'create-account') {
+                        if(await LoginScript.methods.validateForm(event, step1Container)){
+                            createAccountButton.loading = true;
+    
+                            const uploadFields = signUpForm.querySelectorAll('ins-input-file');
+                            if (uploadFields.length) {
+                                await this.uploadHandler(uploadFields); //Handle file uploads
+                            }
+
+                            await this.createStoreSlug();
+
+                            signUpForm.submit();
+                        } else {
+                            Validate.events.notyf('error', "Please check required fields.");
+                            secondStep.hasError = true;
+                        }
+                    }
+                }
+            },
+
+
+            disableSubmitOnEnter() {
+                window.addEventListener('keydown', function(e) {
+                    if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
+                        if (e.target.nodeName == 'INPUT' && e.target.type == 'text') {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                }, true);
+            }
+        }
+    }
+})();
+window.Session = Session;
+
+
+//Disable Submit on 'Enter' in Sign up form
+if(registerForm){
+    Session.events.disableSubmitOnEnter();
+}
+
+    //Stepper
+    if(step1) {
+        step1.addEventListener('insClick', async function(event) {
+            console.log('step1');
+            steps = await registerStepper.getAllSteps();
+            console.log(steps);
+            firstStep = steps[0];
+            secondStep = steps[1];
+            
+            const isValid = await LoginScript.methods.validateForm(event, step1Container); 
+            if(isValid){
+                console.log('Stepper valid');
+                step1Container.classList.add('hide');
+                firstStep.hasError = false;
+                firstStep.removeAttribute("has-error");
+                registerStepper.next();
+                step2Container.classList.remove('hide');
+            } else {
+                console.log('Stepper Not valid');
+                firstStep.hasError = true;
+                firstStep.setAttribute("has-error", true);
+            }
+        });
+    }
+
+    if(step2) {
+        step2.addEventListener('insClick', async function(event) {
+            console.log('step2');
+            steps = await registerStepper.getAllSteps();
+            console.log(steps);
+            firstStep = steps[0];
+            secondStep = steps[1];
+            
+            const isValid = await LoginScript.methods.validateForm(event, step2Container); 
+            if(isValid){
+                console.log('Stepper 2 valid');
+                step2Container.classList.add('hide');
+                secondStep.hasError = false;
+                secondStep.removeAttribute("has-error");
+                registerStepper.next();
+                step3Container.classList.remove('hide');
+            } else {
+                console.log('Stepper Not valid');
+                secondStep.hasError = true;
+                secondStep.setAttribute("has-error", true);
+            }
+        });
+    }
+
+    if(step3) {
+        step3.addEventListener('insClick', async function(event) {
+            console.log('step3');
+            steps = await registerStepper.getAllSteps();
+            console.log(steps);
+            firstStep = steps[0];
+            secondStep = steps[1];
+            thirdStep = steps[2];
+            
+            const isValid = await LoginScript.methods.validateForm(event, step3Container); 
+            if(isValid){
+                console.log('Stepper 3 valid');
+                step3Container.classList.add('hide');
+                thirdStep.hasError = false;
+                thirdStep.removeAttribute("has-error");
+                registerStepper.next();
+                step4Container.classList.remove('hide');
+                registerForm.submit();
+            } else {
+                console.log('Stepper Not valid');
+                thirdStep.hasError = true;
+                thirdStep.setAttribute("has-error", true);
+            }
+        });
+    }
+
+
+    if(backToStep1) {
+        backToStep1.addEventListener('insClick', async function(event) {
+            registerStepper.prev();
+            step1Container.classList.remove('hide');
+            step2Container.classList.add('hide');
+        });
+    }
+
+    if(backToStep2) {
+        backToStep2.addEventListener('insClick', async function(event) {
+            registerStepper.prev();
+            step2Container.classList.remove('hide');
+            step3Container.classList.add('hide');
+        });
+    }
+
+</script>

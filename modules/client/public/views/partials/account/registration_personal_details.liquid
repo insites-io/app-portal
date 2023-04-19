@@ -1,65 +1,11 @@
----
-name: register
-resource: User
-resource_owner: anyone
-flash_alert: Sorry-Signup
-flash_notice: Congratulations-Signup
-redirect_to: register
-fields:
-  email:
-    validation: 
-      presence:
-        message: Please use a valid email address
-      email: 
-        message: Please use a valid email address
-  password:
-    validation: 
-      presence: 
-        message: Invalid Password
-  first_name:
-    validation: 
-      presence: 
-        message: First name is required
-  last_name:
-    validation: 
-      presence: 
-        message: Last name is required
-  profiles:
-    modules/insites_core/crm_contact:
-      properties:
-        mobile_phone_number:
-        mobile_phone_country_code: 
-    # modules/insites_core/crm_address:
-    #   properties:
-    #     address_1:
-# api_call_notifications:
-#   - modules/insites_core/insites_create_crm_activity
-#default_payload: |-
-#callback_actions: |- 
----
+<div id="personal-details-container" class="form-group fadeIn" active>
 
+      <input type="hidden" id="mobile_phone_number" 
+          name="{{ form.fields.mobile_phone_number.name }}" >
 
-{%- form 
-    html-id: "sign-up-form"
-    html-class: 'insites-form insites-form-code' 
-    html-novalidate: true
-    html-enctype="multipart/form-data"
-    html-onsubmit:"return LoginScript.methods.validateForm(event);" -%}
-
-  <div class="insites-form-grid">
-    {%- assign props = form.fields.profiles['modules/insites_core/insites_contact_number'].properties -%}
-
-    <input type="hidden" id="mobile_phone_number" 
-        name="{{ props.mobile_phone_number.name }}"
-        value="{{ props.mobile_phone_number.value }}" >
-
-    {%- assign country_code = props.mobile_phone_country_code.value | default: "61" -%}
-    <input type="hidden" id="mobile_phone_country_code" 
-        name="{{ props.mobile_phone_country_code.name }}"
-        value="{{ country_code }}" >
-        
-
-    <div class="form-group" active>
+      <input type="hidden" id="mobile_phone_country_code" 
+          name="{{ form.fields.mobile_phone_country_code.name }}"
+          value="61" >
 
       <div class="column-1">
           <h2 class="heading-2">Personal Details</h2>
@@ -88,7 +34,7 @@ fields:
             placeholder="Last Name">
         </ins-input>
       </div>
-
+      
       <div class="column-2">
         <ins-input validate
             id="email"
@@ -97,7 +43,7 @@ fields:
             name="{{ form.fields.email.name }}" 
             value="{{ form.fields.email.value }}" 
             {% if form.errors['email'] %} has-error {% endif %}
-            error-message="{{ form.fields.email.validation.rules.presence.message }}"
+            error-message="{{ form.errors['email'] }}"
             placeholder="Email">
         </ins-input>
       </div>
@@ -112,10 +58,6 @@ fields:
             no-areacode
             error-message="Please use a valid phone number">
         </ins-input-tel>
-
-        <input type="hidden" name="{{ form.fields.profiles['modules/insites_core/insites_customer'].properties.is_enabled.name }}" value="{{ form.fields.profiles['modules/insites_core/insites_customer'].properties.is_enabled.value }}">
-        <input type="hidden" name="{{ form.fields.profiles['modules/ecommerce/customer'].properties.is_enabled.name }}" value="{{ form.fields.profiles['modules/ecommerce/customer'].properties.is_enabled.value }}">
-        <input type="hidden" name="{{ form.fields.profiles['modules/ecommerce/customer'].properties.is_activated.name }}" value="{{ form.fields.profiles['modules/ecommerce/customer'].properties.is_activated.value }}">
       </div>
 
       <div class="column-1">
@@ -130,7 +72,7 @@ fields:
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field validate
+        <ins-input form-address-field 
             id="search_address_1"
             label="Address 1"
             name="{{ form.fields.properties.address_1.name }}" 
@@ -154,19 +96,19 @@ fields:
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field validate
-            id="search_city"
+        <ins-input form-address-field 
+            id="search_suburb"
             label="Suburb"
-            name="{{ form.fields.properties.city.name }}" 
-            value="{{ form.fields.properties.city.value }}" 
-            {% if form.errors['properties.city'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.city.validation.rules.presence.message }}"
-            placeholder="City">
+            name="{{ form.fields.properties.suburb.name }}" 
+            value="{{ form.fields.properties.suburb.value }}" 
+            {% if form.errors['properties.suburb'] %} has-error {% endif %}
+            error-message="{{ form.fields.properties.suburb.validation.rules.presence.message }}"
+            placeholder="Suburb">
         </ins-input>
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field validate
+        <ins-input form-address-field 
             id="search_state"
             label="State"
             name="{{ form.fields.properties.state.name }}" 
@@ -178,19 +120,19 @@ fields:
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field validate
+        <ins-input form-address-field 
             id="search_postcode"
-            label="ZIP / Postcode"
+            label="ZIP / Postal Code"
             name="{{ form.fields.properties.postcode.name }}" 
             value="{{ form.fields.properties.postcode.value }}" 
             {% if form.errors['properties.postcode'] %} has-error {% endif %}
             error-message="{{ form.fields.properties.postcode.validation.rules.presence.message }}"
-            placeholder="ZIP / Postcode">
+            placeholder="ZIP / Postal Code">
         </ins-input>
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field validate
+        <ins-input form-address-field 
             id="search_country"
             label="Country"
             name="{{ form.fields.properties.country.name }}" 
@@ -220,16 +162,13 @@ fields:
         </ins-input>
       </div>
 
-    </div> 
-    
+         
     <div class="column-1">      
       <div class="spacer small"></div>
       <div class="grid-x">
-        <div class="cell large-6 medium-6 small-12"> <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1" outlined ></ins-button></a></div>
-        <div class="cell large-6 medium-6 small-12 text-right"><ins-button type="submit" id="sign-up-btn" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
+        <div class="cell large-6 medium-6 small-12"> <a href="/"><ins-button type="button" id="cancel-button" label="CANCEL" icon="icon-close-1" outlined ></ins-button></a></div>
+        <div class="cell large-6 medium-6 small-12 text-right"><ins-button type="submit" id="submit-personal-details" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
       </div>  
     </div>
 
-  </div>
-
-{%- endform -%}
+</div>    

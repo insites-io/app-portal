@@ -1,34 +1,4 @@
----
-name: register_confirmation
-resource: User
-resource_owner: anyone
-flash_alert: Sorry-Signup
-flash_notice: Congratulations-Signup
-redirect_to: register
-fields:
-  company_email:
-    property_options: 
-      virtual: true
-    validation: 
-      presence: true        
-# api_call_notifications:
-#   - modules/insites_core/insites_create_crm_activity
-#default_payload: |-
-#callback_actions: |- 
----
-
-
-{%- form 
-    html-id: "sign-up-form"
-    html-class: 'insites-form insites-form-code' 
-    html-novalidate: true
-    html-enctype="multipart/form-data"
-    html-onsubmit:"return LoginScript.methods.validateForm(event);" -%}
-
-  <div class="insites-form-grid">
-    {%- assign props = form.fields.profiles['modules/insites_core/insites_contact_number'].properties -%}
-
-    <div class="form-group" active>
+<div id="confirmation-container" class="form-group fadeIn hide" active>
 
       <div class="column-1" >
         <div class="agreement-text scrollbar">
@@ -45,7 +15,6 @@ fields:
           </p>
         </div>
       </div>
-
       
     <!-- Field: I understand and agree -->
     <div class="column-1">
@@ -56,30 +25,23 @@ fields:
             {%- if form.errors['properties.agreement'] != nil -%} has-error="true" {%- endif -%}>
             <label class="list-checkbox_label"></label>
             <div class="list-checkbox-options">
-                <ins-checkbox
-                    {{disabled}}
+                <ins-checkbox validate
                     id="agreement"
-                    label="I understand and agree" value="I understand and agree" 
-                    name="{{ form.fields.properties.agreement.name }}"
-                    {%- if form.fields.properties.agreement.value contains 'I understand and agree' -%} checked {%- endif -%}>
+                    label="I understand and agree" 
+                    value="I understand and agree" 
+                    name="{{ form.fields.properties.agreement.name }}">
                 </ins-checkbox>
             </div>
             <p class="list-checkbox_error">{{ form.errors['properties.agreement'] }}</p>
         </div>
+    </div>   
+  
+    <div class="column-1">      
+        <div class="spacer small"></div>
+        <div class="grid-x">
+            <div class="cell large-6 medium-6 small-12"><ins-button id="back-to-step-2" type="button" label="BACK" icon="icon-arrow-back" outlined ></ins-button></div>
+            <div class="cell large-6 medium-6 small-12 text-right"><ins-button id="submit-confirmation" type="submit" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
+        </div>  
     </div>
-   
 
-    <div class="column-1">
-      <div class="spacer small"></div>
-      <div class="grid-x">
-        <div class="cell large-6 medium-6 small-12"> <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1" outlined ></ins-button></a></div>
-        <div class="cell large-6 medium-6 small-12 text-right"><ins-button type="submit" id="sign-up-btn" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
-      </div>  
-    </div>
-
-
-    </div> 
-
-  </div>
-
-{%- endform -%}
+</div>    

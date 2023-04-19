@@ -1,0 +1,35 @@
+---
+to: 'https://{{context.location.host}}/core/api/v1/contacts'
+format: http
+enabled: true
+trigger_condition: true
+request_type: PUT
+callback: >
+  {% log response, type: 'response object' %}
+  {% assign response_hash = response.body | parse_json %}
+  {% log response_hash, type: 'response body as hash' %} 
+request_headers: >
+    {
+        "Content-Type": "application/json",
+        "Authorization": "instance_92d3be32-b64f-4909-91fe-2db66783f617_Qz26R453IgamR5S7j18aHEheVbgqmV3zycGGc3UyE8c"
+    }
+---
+{%- log "*****************************************************************************", type: 'Test update_contacts:' -%}  
+{%- log form, type: 'Test api form:' -%}
+
+{
+    "id": "{{form.id}}",
+    "email": "{{form.email}}",
+    "mobile_phone_country_code": "{{form.mobile_phone_country_code}}",
+    "mobile_phone_number": "{{form.mobile_phone_number}}",
+    "addresses": [
+        {
+        "address_1": "{{form.address_1}}",
+        "address_2": "{{form.address_2}}",
+        "suburb": "{{form.suburb}}",
+        "state": "{{form.state}}",
+        "country": "{{form.country}}",      
+        "default_address": true
+        }
+    ]
+}
