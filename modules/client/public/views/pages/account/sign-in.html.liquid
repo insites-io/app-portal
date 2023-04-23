@@ -24,15 +24,10 @@ metadata: {
     "sitemap_changefreq": "never"
 }
 ---
-{% comment %} {%- if context.current_user -%}
-    {%- assign link = "/account-information" -%}
 
-    {%- if context.flash.alert contains 'confirmation page' -%}
-        {%- assign link ="/order-history" -%}
-    {%- endif -%}
-
-    {%- redirect_to link -%}
-{%- endif -%} {% endcomment %}
+{%- if context.current_user -%}    
+    {%- redirect_to '/client-portal' -%} 
+{%- endif -%} 
 
 <div class="sign-up grid-x grid-padding-x">
     <div class="large-offset-4 large-4 medium-offset-3 medium-6 small-12 cell">

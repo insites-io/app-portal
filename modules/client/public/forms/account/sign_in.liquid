@@ -4,12 +4,7 @@ resource: Session
 resource_owner: anyone
 flash_notice: 'Successful'
 flash_alert: 'Sorry-SignIn'
-redirect_to: >
-  {%- if form.redirect == "checkout" -%}
-    {{ form.redirect }}
-  {%- else -%}
-    account-information
-  {%- endif -%}
+redirect_to: sign-in
 fields:
   email:
     validation: 
@@ -24,21 +19,6 @@ fields:
   redirect:
     property_options:
         virtual: true
-callback_actions: >
-  {%- comment -%}GET Cart data{%- endcomment -%}
-  {% include 'modules/ecommerce/checkout/compute_order_summary',
-     user_id: context.session.session_id %}
-
-  {%- comment -%}Update cart user_id{%- endcomment -%}
-  {%- assign user_id = form.id | downcase -%}
-  {% graphql cart = "modules/ecommerce/cart/update_status_cart_ids", 
-      ids: context.exports.order.cart_ids,
-      user_id: user_id %}
-
-  {%- comment -%}Update cart discount code user_id{%- endcomment -%}
-  {% graphql cart_discount_codes = "modules/ecommerce/discount_code/callback_update_cart_discount_codes",
-    ids: context.exports.order.cart_discount_code_ids,
-    user_id: user_id %}
 ---
 
 {%- form 
@@ -78,7 +58,7 @@ callback_actions: >
 
 		<div class="cell grid-x">
 			<div class="cell text-right">
-				<a class="font-color-body" href="/password-recover">Forgot your password?</a>
+				<a class="font-color-body" href="/forgot-password">Forgot your password?</a>
 			</div>
 		</div>
 		<div class="small-12 cell spacer x-large">

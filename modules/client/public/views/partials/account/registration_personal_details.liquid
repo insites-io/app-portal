@@ -7,9 +7,15 @@
           name="{{ form.fields.mobile_phone_country_code.name }}"
           value="61" >
 
+      
       <div class="column-1">
+        {% if context.params.slug == 'my-details' %}
+          <h2 class="heading-2">Account Information</h2>
+        {% else %}
           <h2 class="heading-2">Personal Details</h2>
+        {% endif %}
       </div>
+      
 
       <div class="column-2">
         <ins-input validate
@@ -143,11 +149,19 @@
         </ins-input>
       </div>
 
+  {% if context.params.slug == 'my-details' %}
+
+    <div class="column-1">      
+      <div class="spacer small"></div>
+      <ins-button type="submit" id="submit-personal-details" label="Update Details" icon="icon-check-2" solid >
+    </div>
+  
+  {% else %}
+
       <div class="column-1">
           <div class="spacer small"></div>
           <h2 class="heading-2">Account Details</h2>
       </div>
-
 
       <div class="column-2">
         <ins-input validate
@@ -161,7 +175,7 @@
           placeholder="Password">
         </ins-input>
       </div>
-
+      
          
     <div class="column-1">      
       <div class="spacer small"></div>
@@ -170,5 +184,7 @@
         <div class="cell large-6 medium-6 small-12 text-right"><ins-button type="submit" id="submit-personal-details" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
       </div>  
     </div>
+
+  {% endif %}
 
 </div>    

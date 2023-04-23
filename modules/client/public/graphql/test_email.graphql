@@ -1,0 +1,9 @@
+mutation test_email($data: HashObject) {
+  email_send(
+    template: { name: "welcome_user" }
+    data: $data
+  ) {
+    errors { message }
+    is_scheduled_to_send
+  }
+}

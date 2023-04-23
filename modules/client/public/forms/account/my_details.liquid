@@ -1,5 +1,5 @@
 ---
-name: register
+name: my_details
 resource: User
 resource_owner: anyone
 flash_alert: Sorry-Signup
@@ -15,10 +15,6 @@ fields:
         message: Please use a valid email address
       email: 
         message: Please use a valid email address      
-  password:
-    validation: 
-      presence: 
-        message: Invalid Password
   first_name:
     validation: 
       presence: 
@@ -54,56 +50,8 @@ fields:
     property_options:
       virtual: true
 
-  # CRM Company Fields        
-  company_name:
-    presence: true
-    property_options:
-      virtual: true
-  registered_business_number:
-    presence: true
-    property_options:
-      virtual: true
-  email_1:
-    presence: true
-    property_options:
-      virtual: true
-  phone_1_country_code:
-    property_options:
-      virtual: true
-  company_mobile_phone_country_code:
-    property_options:
-      virtual: true
-  company_mobile_phone_number:
-    property_options:
-      virtual: true
-  company_address_1:
-    property_options:
-      virtual: true
-  company_address_2:
-    property_options:
-      virtual: true
-  company_suburb:
-    property_options:
-      virtual: true
-  company_state:
-    property_options:
-      virtual: true
-  company_postcode:
-    property_options:
-      virtual: true
-  company_country:
-    property_options:
-      virtual: true
-
-  # Confirmation Fields
-  agreement:
-    presence: true
-    property_options:
-      virtual: true
-      
 api_call_notifications:
   - modules/client/update_contacts
-  - modules/client/add_company 
 callback_actions: |-
   {% graphql g = 'modules/client/account/generate_user_temporary_token', email: form.email %}
   {% if g.items.results[0] %}
@@ -120,10 +68,6 @@ callback_actions: |-
   <div class="insites-form-grid">
 
   {% include 'modules/client/account/registration_personal_details' %}
-
-  {% include 'modules/client/account/registration_company_details' %}
-
-  {% include 'modules/client/account/registration_confirmation' %}
             
   </div>
 

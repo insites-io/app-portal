@@ -10,7 +10,7 @@
           <img class="logo" src="{{ 'modules/website/images/ins-logo.png' | asset_url }} " alt="logo" />
         </a>
       </div>
-      <div class="large-1 medium-3 small-0"></div>
+      <div class="large-1 medium-3 small-0">{{context.current_user.email}} {% include_form 'modules/client/sign_out' %} </div>
       <div class="show-for-large large-9 medium-6 small-12 cell text-right">
         <div class="header-links">
           <a class="color-main" class="color-font-head" href="/about-us">
