@@ -13,7 +13,7 @@ mutation create_address (
     $country: String,
     $country_code: String,
     $postcode: String,
-    $is_enabled: Boolean = true,
+    # $is_enabled: Boolean = true,
     $default_address: Boolean = true
 ) {
     item: record_create(

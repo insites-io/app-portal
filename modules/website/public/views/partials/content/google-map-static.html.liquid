@@ -1,10 +1,22 @@
 {%- graphql google_key = 'modules/website/system/get_google_api' -%}
 
-{%- if google_key.items.results.size > 0 -%}
+google_key={{google_key}}
+
+
+{% comment %} if google_key.items.results.size > 0 {% endcomment %}
+
+
+{%- if true -%}
 
 {% liquid
     assign google_key_first = google_key.items.results | first
+    echo 'google_key_first.value='
+    echo google_key_first.value
+    comment
     assign key = google_key_first.value
+    endcomment
+
+    assign key = 'AIzaSyAJMrf0U0fSa5rKVm0IxmxCFbMRiUyycrw'
     assign base_map_url = "https://maps.googleapis.com/maps/api/staticmap"
 %}
 
@@ -27,7 +39,7 @@ style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightn
 
 
 {% liquid
-    assign address = context.exports.global.loc_1_address_full | url_encode
+    assign address = 'Orani, Bataan, Philippines'  | url_encode
     if latitude != blank and longitude != blank
         assign address = latitude | append: "," | append: longitude
     endif

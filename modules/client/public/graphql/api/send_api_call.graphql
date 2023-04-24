@@ -1,0 +1,17 @@
+mutation send_api_call (
+    $data: HashObject,
+    $template: String!
+) {
+  api_call_send(
+    data: $data
+    template: { name: $template }
+  ) {
+    response {
+      status
+      body
+    }
+    errors {
+      message
+    }
+  }
+}

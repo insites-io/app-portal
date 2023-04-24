@@ -1,12 +1,4 @@
-<div id="personal-details-container" class="form-group fadeIn" active>
-
-      <input type="hidden" id="mobile_phone_number" 
-          name="{{ form.fields.mobile_phone_number.name }}" >
-
-      <input type="hidden" id="mobile_phone_country_code" 
-          name="{{ form.fields.mobile_phone_country_code.name }}"
-          value="61" >
-
+<div id="personal-details-container" class="form-group fadeIn" active>      
       
       <div class="column-1">
         {% if context.params.slug == 'my-details' %}
@@ -14,8 +6,7 @@
         {% else %}
           <h2 class="heading-2">Personal Details</h2>
         {% endif %}
-      </div>
-      
+      </div>      
 
       <div class="column-2">
         <ins-input validate
@@ -58,12 +49,20 @@
         <ins-input-tel
             id="mobile-phone"
             label="Mobile Phone" 
-            phonenum-value="{{ form.fields.profiles['modules/insites_core/insites_contact_number'].properties.mobile_phone_number.value }}" 
-            country-code="{{ form.fields.profiles['modules/insites_core/insites_contact_number'].properties.mobile_phone_country_code.value }}"
+            phonenum-value="{{ form.fields.mobile_phone_number.value }}" 
+            country-code="{{ form.fields.mobile_phone_country_code.value }}"
             phonenum-placeholder="Phone Number" 
             no-areacode
             error-message="Please use a valid phone number">
         </ins-input-tel>
+
+        <input type="hidden" id="mobile_phone_number" 
+          name="{{ form.fields.mobile_phone_number.name }}" 
+          value="">
+
+        <input type="hidden" id="mobile_phone_country_code" 
+            name="{{ form.fields.mobile_phone_country_code.name }}"
+            value="61" >
       </div>
 
       <div class="column-1">

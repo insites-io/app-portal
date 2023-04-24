@@ -14,10 +14,11 @@ request_headers: >
         "Authorization": "instance_92d3be32-b64f-4909-91fe-2db66783f617_Qz26R453IgamR5S7j18aHEheVbgqmV3zycGGc3UyE8c"
     }
 ---
-
+    {%- log form, type: 'Test update_contact form:' -%}
 {
     "id": "{{form.id}}",
     "email": "{{form.email}}",
+    "company_uuid": null,
     "mobile_phone_country_code": "{{form.mobile_phone_country_code}}",
     "mobile_phone_number": "{{form.mobile_phone_number}}",
     "addresses": [
@@ -27,7 +28,8 @@ request_headers: >
         "suburb": "{{form.suburb}}",
         "state": "{{form.state}}",
         "country": "{{form.country}}",      
-        "default_address": true
+        "default_address": true,
+        "id": null
         }
     ]
 }

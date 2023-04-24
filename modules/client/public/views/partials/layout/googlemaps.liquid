@@ -1,0 +1,11 @@
+{% graphql data = 'modules/client/api/send_api_call', template: 'modules/client/get_google_maps_api_key' %}
+
+{% parse_json response %}
+    {{data.api_call_send.response.body}}
+{% endparse_json%}
+
+{% assign key = response.items.results[0].value %}
+    
+<!-- Google Maps API -->
+<link rel="preload" as="script" href="//maps.googleapis.com/maps/api/js?key={{key}}&libraries=places&v=3.exp" >
+<script src="//maps.googleapis.com/maps/api/js?key={{key}}&libraries=places&v=3.exp"></script>

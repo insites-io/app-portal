@@ -4,7 +4,7 @@ resource: User
 resource_owner: anyone
 flash_alert: Sorry-Signup
 flash_notice: Congratulations-Signup
-redirect_to: register
+redirect_to: my-details
 fields:
   # User Fields
   email:
@@ -52,18 +52,27 @@ fields:
 
 api_call_notifications:
   - modules/client/update_contacts
-callback_actions: |-
-  {% graphql g = 'modules/client/account/generate_user_temporary_token', email: form.email %}
-  {% if g.items.results[0] %}
-    {% graphql res = 'modules/client/account/set_email_verification_token', id: g.items.results[0].id, token: g.items.results[0].temporary_token %}
-  {% endif %}    
 ---
+
+{% comment %} 
+  Get CRM -> Contact from v5 API
+{% endcomment %}
+{% parse_json data %} 
+{
+  "id": "{{form.fields.id.value}}"
+}
+{% endparse_json %}
+{% graphql contact = 'modules/client/api/send_api_call', template: 'modules/client/get_contact', data: data %}
+
+{%- log contact, type: 'Test my_details contact:' -%}
+
+
 {%- form 
-    html-id: "register-form"
+    html-id: "user-profile-form"
     html-class: 'insites-form insites-form-code' 
     html-novalidate: true
     html-enctype="multipart/form-data"
-    html-onsubmit:"return Session.events.signUpHandler(event, 'personal-details-container');" -%}
+    html-onsubmit:"return UserProfileScript.methods.validateForm(event);" -%}
 
   <div class="insites-form-grid">
 

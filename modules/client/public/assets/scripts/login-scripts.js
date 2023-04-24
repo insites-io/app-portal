@@ -6,14 +6,14 @@ let emailInputInfo =  {
 //Personal Details
 const mobileFields = {
     inputTel: document.getElementById('mobile-phone'),
-    number: document.getElementById('mobile_phone_number'),
+    phone_number: document.getElementById('mobile_phone_number'),
     country_code: document.getElementById('mobile_phone_country_code')
 }
 
 //Company Details
 const companyMobileFields = {
     inputTel: document.getElementById('company-mobile-phone'),
-    number: document.getElementById('company_mobile_phone_number'),
+    phone_number: document.getElementById('company_mobile_phone_number'),
     country_code: document.getElementById('company_mobile_phone_country_code')
 }
 
@@ -111,11 +111,11 @@ let LoginScript = (function () {
                         if(formId == 'submit-personal-details'){
                             let values = await mobileFields.inputTel.getValues();
                             mobileFields.country_code.value = values.country_code;
-                            mobileFields.number.value = values.number;
+                            mobileFields.phone_number.value = values.phone_number;
                         }else if(formId == 'submit-company-details'){
                             let values = await companyMobileFields.inputTel.getValues();
                             companyMobileFields.country_code.value = values.country_code;
-                            companyMobileFields.number.value = values.number;
+                            companyMobileFields.phone_number.value = values.phone_number;
                         }
                         
                         
