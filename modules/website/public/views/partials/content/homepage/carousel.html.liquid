@@ -1,6 +1,5 @@
 {%- graphql hero = 'modules/website/content/get_homepage_slider' -%}
 {%- assign res = hero | dig: 'items', 'results' -%}
-
 <div class="carousel-holder">
     <div class="blocks-hero-01 homepage-banner-wrap">
         <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner" transition="700" duration="5000"
@@ -11,12 +10,9 @@
             <div class="slide-container">
               <div class="img-wrap">
                 <!-- desktop image -->
-                <img
-                  src="{{ item.image.versions.Desktop }}"
-                  alt="" class="hide-for-small-only" />
+                <img src="{{ item.image.versions.Desktop }}" alt="desktop image" class="hide-for-small-only"/>
                 <!-- mobile image -->
-                <img src="{{ item.image.versions.Mobile }}" alt=""
-                  class="show-for-small-only" />
+                <img src="{{ item.image.versions.Mobile }}" alt="mobile image" class="show-for-small-only"/>
               </div>         
               <div class="slide-content wrapper vertical-align-middle">
                 <div class="grid-x">

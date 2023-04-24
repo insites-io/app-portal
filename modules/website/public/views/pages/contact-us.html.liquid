@@ -2,10 +2,18 @@
 slug: contact-us
 layout_name: modules/website/contact_us
 ---
-
+    
 {%- if context.environment == "staging" -%}
 <!-- start page: contact-us  -->
 {%- endif -%}
+    
+
+    {% comment %} connect services to graphql {% endcomment %}
+    {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+    {% comment %} assign var to fetch the result {% endcomment %}
+    {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
+    {%- assign res_contact = res_contact | first -%}
+    
 
     <h2 class="spacer">Get in Touch</h2>
     <p>Contact us about anything related to our company or services.<br>
@@ -13,7 +21,7 @@ layout_name: modules/website/contact_us
     <div class="spacer xx-large"></div>
     {% comment %} {%- include 'modules/insites_database/insites_functions/insites_database_form_scripts' -%}
     {%- include_form 'modules/ins_database/contact_us' -%} {% endcomment %}
-    
+
     {%- include_form 'modules/website/contact_us' -%}
 
 {%- if context.environment == "staging" -%}

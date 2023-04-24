@@ -7,7 +7,7 @@ query get_news(
         page: $page
         per_page: $size
         filter: {
-            table: { value: "modules/website/news" }
+            table: { value: "modules/ins_databases/news" }
             deleted_at: { exists: false }
             properties: [
                 { name: "name", contains: $keyword }
@@ -23,6 +23,7 @@ query get_news(
         current_page
         results {
           title:property(name: "title")
+          slug: property(name: "slug")
           author:property(name: "author")
 		    published_date:property(name: "published_date")
           content:property(name: "content")

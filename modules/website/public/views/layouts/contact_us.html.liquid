@@ -31,16 +31,26 @@ Contact Us layout
     {% include 'modules/website/layout/head' %}
     {% include 'modules/website/layout/googlemaps' %}
     {%- endcache -%}
+    <title>Contact Us</title>
 </head>
-
 <body>
+        {% comment %} connect services to graphql {% endcomment %}
+        {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+    {% comment %} assign var to fetch the result {% endcomment %}
+    {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
+    {%- assign res_contact = res_contact | first -%}
+    
+    {{ res_contact }}
+
     <div class="main-wrap">
         {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/content/hero-title' %} 
 
         <div class="wrapper">
             <div class="grid-container">
                 <div class="spacer section"></div>                
                 {%- include 'modules/website/data/global_content' -%}
+                    
 
                 <div class="contact-us grid-x grid-padding-x" data-test="page-contact-us">                    
                     <div class="large-7 medium-6 small-12 cell">
@@ -48,14 +58,15 @@ Contact Us layout
                     </div>                    
                     <div class="small-12 cell spacer large show-for-small-only"></div>
                     <div class="large-4 large-offset-1 medium-5 medium-offset-1 small-12 cell">
-                        {%- graphql google_key = 'modules/website/system/get_system_fields', 
-            key: 'google_maps_api_key' -%}
+                        {%- graphql google_key = 'modules/website/system/get_google_api' -%}
                         {%- assign google_key = google_key.items.results | first -%}
                         {%- comment -%} {%- assign api_key = google_key.value -%} {%- endcomment -%} 
                         {%- assign api_key = google_key.value -%}
 
+                        {{ api_key }}
+
                         <a target="_blank"
-                            href="https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}"
+                            href="https://www.google.com/maps/place/{{ res_contact.loc_1_address }}"
                             class="color-main" data-test="contact-us-map-link">
                             {%- include 'modules/website/content/google-map-static' -%}
                         </a>
@@ -75,9 +86,9 @@ Contact Us layout
                                     ((navigator.platform.indexOf("iPhone") != -1) ||
                                     (navigator.platform.indexOf("iPad") != -1) ||
                                     (navigator.platform.indexOf("iPod") != -1))
-                                    window.open("maps://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}");
+                                    window.open("maps://www.google.com/maps/place/{{ res_contact.loc_1_address }}");
                                 else /* else use Google */
-                                    window.open("https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}");
+                                    window.open("https://www.google.com/maps/place/{{ res_contact.loc_1_address }}");
                             }
                         </script>
 
@@ -140,7 +151,7 @@ Contact Us layout
                             {%- assign key_enable = "loc_1_" | append: day | append: "_enable" -%}
                             {%- assign key_open = "loc_1_" | append: day | append: "_open" -%}
                             {%- assign key_close = "loc_1_" | append: day | append: "_close" -%}
-
+                            {{res_contact.loc_1_mon_close}}
                             <div
                                 class="small-12 cell grid-x {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
                                 <div class="small-4 cell">{{ days_name[forloop.index0] }}:</div>

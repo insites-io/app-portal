@@ -2,12 +2,15 @@
 <html class="no-js" lang="en">
 <head>
     {% include 'modules/website/layout/head' %} 
+    <title>Insites Client Portal v5</title>
 </head>
 <body>
     <div class="main-wrap">
         {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/layout/header-mobile' %}
         {%comment%}
-        {% include 'modules/website/layout/header-mobile' %} 
+        {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/layout/header-mobile' %}
         {%endcomment%}
 
         {{ content_for_layout }}

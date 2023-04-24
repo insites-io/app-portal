@@ -1,3 +1,4 @@
+<hr>
 <footer class="blocks-footer-05 footer bg-color-ui-01">
     <div class="spacer xxxx-large"></div>
     <div class="wrapper top-footer">
@@ -20,7 +21,7 @@
                             <div class="spacer small"></div>
                         </li>
                         <li>
-                            <a class="footer-links color-font-head" data-test="" href="/FAQs">faq</a>
+                            <a class="footer-links color-font-head" data-test="" href="/faqs">FAQs</a>
                             <div class="spacer small"></div>
                         </li>
                         <li>
@@ -47,7 +48,7 @@
                         
                         {% for item in res_services %}
                           <li>
-                              <a class="footer-links color-font-head" data-test="">{{ item.service_name }}</a>
+                              <a href="/services/{{ item.slug }}" class="footer-links color-font-head" data-test="">{{ item.service_name }}</a>
                               <div class="spacer small"></div>
                           </li>
                         {% endfor %}

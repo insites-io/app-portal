@@ -13,25 +13,26 @@
       <div class="large-1 medium-3 small-0">{{context.current_user.email}} {% include_form 'modules/client/sign_out' %} </div>
       <div class="show-for-large large-9 medium-6 small-12 cell text-right">
         <div class="header-links">
-          <a class="color-main" class="color-font-head" href="/about-us">
+          <a class="color-main color-font-head" href="/about-us">
             About us
           </a>
-          <a class="color-main" class="color-font-head" href="/services">
+          <a class="color-main color-font-head" href="/services">
             Services
           </a>
-          <a class="color-main" class="color-font-head" href="/faq">
+          <a class="color-main color-font-head" href="/faqs">
             FAQ
           </a>
-          <a class="color-main" class="color-font-head" href="/news">
+          <a class="color-main color-font-head" href="/news">
             News
           </a> 
-          <a class="color-main" class="color-font-head" href="/contact-us"> 
+          <a class="color-main color-font-head" href="/contact-us"> 
             Contact
           </a>       
         </div>  
         <ins-button class="hide-for-small-only" solid label="Go To Website">
         </ins-button>
       </div>
+      
       <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-3 cell vertical-align-middle align-right">
         <div id="mobile-menu-btn" class="icon-menu-1"></div>
       </div>
@@ -45,3 +46,4 @@
 {%- if context.environment == "staging" -%}
 <!-- end partial:layout/header  -->
 {%- endif -%}
+
