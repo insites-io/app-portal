@@ -25,6 +25,17 @@ query get_services(
           category:property(name: "category")
           question:property(name: "question")
           answer:property(name: "answer")
+          slug:property(name: "slug")
+          sub_topic_1_title:property(name: "sub_topic_1_title")
+          sub_topic_1_details:property(name: "sub_topic_1_details")
+          sub_topic_2_title:property(name: "sub_topic_2_title")
+          sub_topic_2_details:property(name: "sub_topic_2_details")
+          sub_topic_3_title:property(name: "sub_topic_3_title")
+          sub_topic_3_details:property(name: "sub_topic_3_details")
+          sub_topic_4_title:property(name: "sub_topic_4_title")
+          sub_topic_4_details:property(name: "sub_topic_4_details")
+          
+          
         }
     }
 }
