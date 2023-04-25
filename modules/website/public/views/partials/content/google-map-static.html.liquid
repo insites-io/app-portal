@@ -25,9 +25,8 @@ style=feature:administrative%7Celement:geometry.fill%7Ccolor:0xfefefe%7Clightnes
 style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightness:17%7Cweight:1.2
 {%- endcapture -%}
 
-
 {% liquid
-    assign address = context.exports.global.loc_1_address_full | url_encode
+    assign address = res_contact.loc_1_address | url_encode
     if latitude != blank and longitude != blank
         assign address = latitude | append: "," | append: longitude
     endif
