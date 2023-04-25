@@ -1,11 +1,4 @@
-<div id="company-details-container" class="form-group fadeIn hide" active>
-
-    <input type="hidden" id="company_mobile_phone_number" 
-        name="{{ form.fields.company_mobile_phone_number.name }}" >
-
-    <input type="hidden" id="company_mobile_phone_country_code" 
-        name="{{ form.fields.company_mobile_phone_country_code.name }}"
-        value="61" >
+<div id="company-details-container" class="form-group fadeIn {% if params.slug != 'my-company-details' %}hide{% endif %}" active>    
 
       <div class="column-1">
           <h2 class="heading-2">Company Details</h2>
@@ -56,6 +49,14 @@
             no-areacode
             error-message="Please use a valid phone number">
         </ins-input-tel>
+
+        <input type="hidden" id="company_mobile_phone_number" 
+          name="{{ form.fields.company_mobile_phone_number.name }}" 
+          value="">
+
+        <input type="hidden" id="company_mobile_phone_country_code" 
+          name="{{ form.fields.company_mobile_phone_country_code.name }}"
+          value="61" >
      </div>
 
       <div class="column-1">
@@ -141,7 +142,15 @@
         </ins-input>
       </div>
 
-    
+      {% if params.slug == 'my-company-details' %}
+
+      <div class="column-1">      
+        <div class="spacer small"></div>
+        <ins-button type="submit" id="submit-company-details" label="Update Details" icon="icon-check-2" solid >
+      </div>
+
+      {% else %}
+
       <div class="column-1">      
       <div class="spacer small"></div>
       <div class="grid-x">
@@ -149,5 +158,7 @@
           <div class="cell large-6 medium-6 small-12 text-right"><ins-button id="submit-company-details" type="submit" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
       </div>  
       </div>
+
+      {% endif %}
 
 </div>

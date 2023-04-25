@@ -65,7 +65,7 @@ fields:
 
 {% liquid
 
-    graphql contact = 'modules/client/api/send_api_call', template: 'modules/client/get_contact', data: data 
+    graphql contact = 'modules/website/api/send_api_call', template: 'modules/client/get_contact', data: data 
 
     assign response = contact.api_call_send.response.body | parse_json
     assign prop = response.items.results[0].contact[0].properties    
@@ -80,9 +80,7 @@ fields:
     html-onsubmit:"return UserProfileScript.methods.validateForm(event);" -%}
 
   <div class="insites-form-grid">
-
-  {% include 'modules/client/account/registration_company_details', prop %}
-            .,.,
+    {% include 'modules/client/account/registration_company_details', prop %}
   </div>
 
 {%- endform -%}

@@ -62,7 +62,7 @@ api_call_notifications:
   "id": "{{form.fields.id.value}}"
 }
 {% endparse_json %}
-{% graphql contact = 'modules/client/api/send_api_call', template: 'modules/client/get_contact', data: data %}
+{% graphql contact = 'modules/website/api/send_api_call', template: 'modules/client/get_contact', data: data %}
 
 {%- log contact, type: 'Test my_details contact:' -%}
 
