@@ -1,22 +1,10 @@
 {%- graphql google_key = 'modules/website/system/get_google_api' -%}
 
-google_key={{google_key}}
-
-
-{% comment %} if google_key.items.results.size > 0 {% endcomment %}
-
-
-{%- if true -%}
+{%- if google_key.items.results.size > 0 -%}
 
 {% liquid
     assign google_key_first = google_key.items.results | first
-    echo 'google_key_first.value='
-    echo google_key_first.value
-    comment
     assign key = google_key_first.value
-    endcomment
-
-    assign key = 'AIzaSyAJMrf0U0fSa5rKVm0IxmxCFbMRiUyycrw'
     assign base_map_url = "https://maps.googleapis.com/maps/api/staticmap"
 %}
 

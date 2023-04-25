@@ -767,3 +767,11 @@ footer.blocks-footer-05{
 .servicesMenuSubitems .inner-head{
   padding: 0px;
 }
+.profileNav .ins-dropdown_menu-card a{
+  padding: 18px 25px;
+  margin: 0px;
+}
+.signOutCustom .ins-button div span {
+  font-size: var(--typography-x-small, 0.75rem);
+}
+

@@ -59,12 +59,10 @@ Contact Us layout
                         {%- graphql google_key = 'modules/website/system/get_google_api' -%}
                         {%- assign google_key = google_key.items.results | first -%}
                         {%- comment -%} {%- assign api_key = google_key.value -%} {%- endcomment -%} 
-                        {%- assign api_key = 'AIzaSyAJMrf0U0fSa5rKVm0IxmxCFbMRiUyycrw' -%}
-
-                        {{ api_key }}
+                        {%- assign api_key = 'google_key' -%}
 
                         <a target="_blank"
-                            href="https://www.google.com/maps/place/{{'Orani, Bataan, Philippines' | url_encode }}"
+                            href="https://www.google.com/maps/place/{{ res_contact.loc_1_address  | url_encode }}"
                             class="color-main" data-test="contact-us-map-link">
                             {%- include 'modules/website/content/google-map-static' -%}
                         </a>
@@ -84,13 +82,11 @@ Contact Us layout
                                     ((navigator.platform.indexOf("iPhone") != -1) ||
                                     (navigator.platform.indexOf("iPad") != -1) ||
                                     (navigator.platform.indexOf("iPod") != -1))
-                                    window.open("maps://www.google.com/maps/place/{{ 'Orani, Bataan, Philippines' | url_encode }}");
+                                    window.open("maps://www.google.com/maps/place/{{ res_contact.loc_1_address | url_encode }}");
                                 else /* else use Google */
-                                    window.open("https://www.google.com/maps/place/{{ 'Orani, Bataan, Philippines' | url_encode}}");
+                                    window.open("https://www.google.com/maps/place/{{ res_contact.loc_1_address | url_encode}}");
                             }
                         </script>
-
-                        res_contact.loc_1_address={{res_contact.loc_1_address}}
 
                         {%- comment -%}
                         <!-- GeoJSON feature not yet supported on INS global contents / data -->
@@ -99,13 +95,13 @@ Contact Us layout
 
                         <ul class="contact-details no-bullet color-main">
                             <li class="address-container spacer">
-                                {% if api_key != blank %}...
+                                {% if api_key != blank %}
                                 <a target="_blank" class="color-main" onclick="mapsSelector()"
                                     data-test="contact-us-get-directions">
                                     {% endif %}
                                     <i class="icon-map"></i>
                                     <span
-                                        id="full-address">{{ context.exports.global.loc_1_address_full | default: 'Orani, Bataan' }}</span>
+                                        id="full-address">{{ res_contact.loc_1_name | default: '-' }}</span>
                                     {% if api_key != blank %}
                                 </a>
                                 {% endif %}
