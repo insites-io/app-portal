@@ -30,14 +30,20 @@ fields:
         presence: 
           message:  Message is required
     document:
-callback_actions: >
-    {%- include 'modules/insites_core/insites_create_crm_on_submit',
-        email: form.properties.email,
-        first_name: form.properties.first_name,
-        last_name: form.properties.last_name,
-        mobile_phone_number: form.properties.phone_number,
-        mobile_phone_country_code: form.properties.phone_number_country_code,
-        model_id: form.id -%}
+
+api_call_notifications:
+  - modules/website/add_contact
+
+#callback_actions: >
+
+ #   {%- include 'modules/insites_core/insites_create_crm_on_submit',
+  #      email: form.properties.email,
+   #     first_name: form.properties.first_name,
+   #     last_name: form.properties.last_name,
+   #     mobile_phone_number: form.properties.phone_number,
+   #     mobile_phone_country_code: form.properties.phone_number_country_code,
+   #     model_id: form.id -%}
+   #     {}
 ---
 {%- if context.environment == "staging" -%}
   <!-- start form:modules/insites_forms/forms/contact_us  -->
@@ -51,7 +57,6 @@ callback_actions: >
  html-onsubmit: "return ContactUs.methods.validateForm(event)" %}
 
   {%- assign props = form.fields.properties -%}
-
   <input
     type="hidden"
     id="mobile_phone"

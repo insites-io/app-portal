@@ -1,7 +1,7 @@
 /* NAV */
 .navigation-04 {
     display: block; 
-    /*position: fixed;*/ 
+    position: relative; 
     z-index: 999999; 
     background-color: var(--color-ui-01, #FFFFFF);
     width: 100%;
@@ -747,4 +747,23 @@ footer.blocks-footer-05{
   footer.blocks-footer-05 .social.menu a {
     padding-right: 0px;
   }
+}
+
+/* Nav */
+.ins-dropdown_label{
+  padding: 0px;
+}
+.ins-dropdown_label:before{
+  display: none;
+}
+.customNav .ins-dropdown_menu-card{
+  width: 250px;
+}
+.customNav .ins-dropdown_menu-card a{
+  padding: 18px 25px;
+  margin: 0px;
+}
+
+.servicesMenuSubitems .inner-head{
+  padding: 0px;
 }

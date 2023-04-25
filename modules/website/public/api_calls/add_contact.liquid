@@ -1,0 +1,49 @@
+---
+to: 'https://{{context.location.host}}/core/api/v1/contacts'
+format: http
+request_type: POST
+callback: >
+  {% log response, type: 'response object' %}
+  {% assign response_hash = response.body | parse_json %}
+  {% log response_hash, type: 'response body as hash' %} 
+request_headers: >
+    {
+        "Content-Type": "application/json",
+        "Authorization": "instance_92d3be32-b64f-4909-91fe-2db66783f617_Qz26R453IgamR5S7j18aHEheVbgqmV3zycGGc3UyE8c"
+    }
+---
+
+{%- log form, type: 'Test add_contact:' -%}
+
+{
+    "first_name": "Mark",
+    "last_name": "Sloan",
+    "email": "{{form.email}}",
+    "work_phone_country_code": "61",
+    "home_phone_country_code": "61",
+    "mobile_phone_country_code": "61",
+    "work_phone_number": null,
+    "home_phone_number": null,
+    "mobile_phone_number": null,
+    "addresses": [
+        {
+        "address_label": "Home",
+        "address_1": "Customs Street East",
+        "address_2": "Area-D Camarin",
+        "address_3": "Barangay 177",
+        "city": "Caloocan",
+        "county": "NCR",
+        "district": null,
+        "suburb": null,
+        "state": null,
+        "country": null,
+        "country_code": null,
+        "postcode": null,
+        "latitude": null,
+        "longitude": null,
+        "geojson": null,
+        "default_address": false,
+        "id": null
+        }
+    ]
+}

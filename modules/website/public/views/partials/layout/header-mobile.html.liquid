@@ -1,43 +1,57 @@
-<div class="show-for-large-only navigation-04 drawer-holder">
-  <ins-drawer no-padding id="mobile-menu" show-header=false position="right">
-    <div>
-      <ul class="vertical menu">
-        <!-- normal list -->
-        <li>
-          <a>
-           Shipping and Delivery
-          </a>
-        </li>
-        <!-- /normal list -->
-        <!-- normal list -->
-        <li>
-          <a>
-           Orders
-          </a>
-        </li>
-        <!-- /normal list -->
-        <!-- normal list -->
-        <li>
-          <a>
-           Returns
-          </a>
-        </li>
-        <!-- /normal list -->
-        <!-- normal list -->
-        <li>
-          <a>
-           Membership
-          </a>
-        </li>
-        <!-- /normal list -->
-        <!-- normal list -->
-        <li>
-          <a>
-           Go to Website
-          </a>
-        </li>
-        <!-- /normal list -->
-      </ul>
-    </div>
-  </ins-drawer>
-</div>
+<ins-drawer no-padding id="mobile-menu" show-header="false" class="hide-for-large" >
+  <div>
+    <ul class="vertical menu">
+      <!-- normal list -->
+      <li>
+        <a href="/about-us">
+          About us
+        </a>
+      </li>
+      <!-- /normal list -->
+      <!-- normal list -->
+      <li>
+        <ins-accordion menu>
+          <ins-accordion-item heading="Services" link="/services" open-icon="icon-angle-down" close-icon="icon-minus"
+            class="has-subitems servicesMenuSubitems">
+
+                        {% comment %} connect services to graphql {% endcomment %}
+                        {%- graphql get_services = 'modules/website/content/get_services' -%}
+                      {% comment %} assign var to fetch the result {% endcomment %}
+                      {%- assign res_services = get_services | dig: 'items', 'results' -%}
+              
+                   {% for item in res_services %}
+                    <ins-accordion-link label="{{item.service_name}}" link="/services/{{ item.slug }}">
+            </ins-accordion-link>
+                   {% endfor %}   
+            
+
+          </ins-accordion-item>
+        </ins-accordion>
+      </li>
+      <!-- /normal list -->
+      <!-- normal list -->
+      <li>
+        <a href="/faqs">
+          FAQ
+        </a>
+      </li>
+      <!-- /normal list -->
+      <!-- normal list -->
+      <li>
+        <a href="/news">
+          News
+        </a>
+      </li>
+      <!-- /normal list -->
+      <!-- normal list -->
+      <li>
+        <a href="/contact">
+          Contact
+        </a>
+      </li>
+      <!-- /normal list -->
+    </ul>
+  </div>
+</ins-drawer>
+
+

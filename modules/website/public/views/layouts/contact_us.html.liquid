@@ -39,8 +39,6 @@ Contact Us layout
     {% comment %} assign var to fetch the result {% endcomment %}
     {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
     {%- assign res_contact = res_contact | first -%}
-    
-    {{ res_contact }}
 
     <div class="main-wrap">
         {% include 'modules/website/layout/header' %} 
@@ -112,25 +110,25 @@ Contact Us layout
                                 </a>
                                 {% endif %}
                             </li>
-                            {%- if context.exports.global.loc_1_phone -%}
+                            {%- if res_contact.loc_1_phone_number -%}
                             <li class="phone-container spacer">
                                 {%- comment -%}
                                 IF the phone number is a '1800', or no country code, etc.. just remove regex
                                 Data needs to be standard. If it will contain the country code, or not.
                                 {%- endcomment -%}
-                                {%- assign contact_no = context.exports.global.loc_1_phone | replace_regex: '[+() ]', '' | prepend: '+' -%}
+                                {%- assign contact_no = res_contact.loc_1_phone_number | replace_regex: '[+() ]', '' | prepend: '+' -%}
                                 <a class="color-main" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
                                     <i class="icon-phone1"></i>
-                                    +{{ context.exports.global.loc_1_phone | replace: "+", '' }}
+                                    +{{ res_contact.loc_1_phone_number | replace: "+", '' }}
                                 </a>
                             </li>
                             {%- endif -%}
-                            {%- if context.exports.global.company_email_1 -%}
+                            {%- if res_contact.loc_1_email -%}
                             <li class="email-container">
-                                <a class="color-main" href="mailto:{{ context.exports.global.company_email_1 }}"
+                                <a class="color-main" href="mailto:{{ res_contact.loc_1_email }}"
                                     data-test="contact-us-contact-number">
                                     <i class="icon-mail1"></i>
-                                    {{ context.exports.global.company_email_1 }}
+                                    {{ res_contact.loc_1_email }}
                                 </a>
                             </li>
                             {%- endif -%}
@@ -153,26 +151,20 @@ Contact Us layout
                             {%- assign key_enable = "loc_1_" | append: day | append: "_enable" -%}
                             {%- assign key_open = "loc_1_" | append: day | append: "_open" -%}
                             {%- assign key_close = "loc_1_" | append: day | append: "_close" -%}
-                            {{res_contact.loc_1_mon_close}}
-                            <div
-                                class="small-12 cell grid-x {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
+                                
+                            <div class="small-12 cell grid-x {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
                                 <div class="small-4 cell">{{ days_name[forloop.index0] }}:</div>
-                                {%- if context.exports.global[key_enable] -%}
                                 <div class="small-8 cell">
-                                    <p>{{ context.exports.global[key_open] | date: "%I:%M %p" }} -
-                                        {{ context.exports.global[key_close] | date: "%I:%M %p" }}</p>
+                                    {% if res_contact[key_enable] == 'false'%}
+                                        Closed
+                                    {% else %}
+                                        <p>{{ res_contact[key_open] | date: "%I:%M %p" }} - {{ res_contact[key_close] | date: "%I:%M %p" }}</p>
+                                    {% endif %}                                
                                 </div>
-                                {%- else -%}
-                                <div class="small-8 cell">
-                                    <p>Closed</p>
-                                </div>
-                                {%- endif -%}
                             </div>
                             <div class="small-12 cell spacer x-small"></div>
                             {%- endfor -%}
-
                         </div>
-
                     </div>
                 </div>
 
