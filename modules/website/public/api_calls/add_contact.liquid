@@ -9,16 +9,16 @@ callback: >
 request_headers: >
     {
         "Content-Type": "application/json",
-        "Authorization": "instance_92d3be32-b64f-4909-91fe-2db66783f617_Qz26R453IgamR5S7j18aHEheVbgqmV3zycGGc3UyE8c"
+        "Authorization": "instance_6af2dba2-4173-481e-81a8-89e3d12c7ae8_N5-Xn8Pq0yvSkcbWO5sAK1puvOT-mu_BrtfxKh9LBdo"
     }
 ---
 
 {%- log form, type: 'Test add_contact:' -%}
 
 {
-    "first_name": "Mark",
-    "last_name": "Sloan",
-    "email": "{{form.email}}",
+    "first_name": "{{form.properties.first_name}}",
+    "last_name": "{{form.properties.last_name}}",
+    "email": "{{form.properties.email}}",
     "work_phone_country_code": "61",
     "home_phone_country_code": "61",
     "mobile_phone_country_code": "61",

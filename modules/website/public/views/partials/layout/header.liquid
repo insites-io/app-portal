@@ -10,8 +10,7 @@
           <img class="logo" src="{{ 'modules/website/images/ins-logo.png' | asset_url }} " alt="logo" />
         </a>
       </div>
-      <div class="large-1 medium-3 small-0">{{context.current_user.email}} {% include_form 'modules/client/sign_out' %} </div>
-      <div class="show-for-large large-9 medium-6 small-12 cell text-right">
+      <div class="show-for-large large-10 medium-6 small-12 cell text-right">
         <div class="header-links">
           <a class="color-main color-font-head" href="/about-us">
             About us
@@ -41,10 +40,41 @@
           </a> 
           <a class="color-main color-font-head" href="/contact-us"> 
             Contact
-          </a>       
+          </a>
+          
+          {% if context.current_user == nil %}
+            <a href="/sign-in"> 
+              Sign in
+            </a>
+            <a href="/register"> 
+              <ins-button class="hide-for-small-only" href="/register" solid label="Register">
+              </ins-button>
+            </a>
+          {% else %} 
+            <a class="color-main color-font-head" href=""> 
+              <ins-dropdown 
+              label="{{ context.current_user.first_name }} {{ context.current_user.last_name }}"
+              class="profileNav">
+                  <ins-dropdown-item
+                    link=""
+                    label="My Details">
+                  </ins-dropdown-item>
+
+                  <ins-dropdown-item
+                    link=""
+                    label="Change Password">
+                  </ins-dropdown-item>
+
+                  <ins-dropdown-item
+                    link=""
+                    label="">
+                    {% include_form 'modules/client/sign_out' %}
+                  </ins-dropdown-item>
+              </ins-dropdown>
+            </a>
+          {% endif %}
+
         </div>  
-        <ins-button class="hide-for-small-only" solid label="Go To Website">
-        </ins-button>
       </div>
       
       <div  class="hide-for-large mobile-menu-toggle large-0 medium-6 small-3 cell vertical-align-middle align-right">
