@@ -7,28 +7,34 @@ flash_notice: Congratulations-Signup
 redirect_to: my-company-details
 fields:
   # User Fields
-  email:
+
+  # CRM Company Fields 
+  company_id:
     validation: 
-      unique:
-        message: Email already exist
-      presence:
-        message: Please use a valid email address
-      email: 
-        message: Please use a valid email address      
-  first_name:
-    validation: 
-      presence: 
-        message: First name is required
-  last_name:
-    validation: 
-      presence: 
-        message: Last name is required
-  
-  # CRM Contact Fields        
-  mobile_phone_country_code:
+      presence: true
     property_options:
       virtual: true
-  mobile_phone_number:
+  email_1:
+    validation: 
+      presence: true
+      email: 
+        message: Please use a valid email address 
+    property_options:
+      virtual: true     
+  company_name:
+    validation: 
+      presence: true
+    property_options:
+      virtual: true
+  registered_business_number:
+    validation: 
+      presence: true
+    property_options:
+      virtual: true           
+  company_mobile_phone_country_code:
+    property_options:
+      virtual: true
+  company_mobile_phone_number:
     property_options:
       virtual: true
   address_1:
@@ -50,37 +56,43 @@ fields:
     property_options:
       virtual: true
 
-# api_call_notifications:
-#   - modules/client/update_company
+default_payload: |-
+  {
+    "properties_attributes": {
+      "company_id": "{{ data.id }}"
+    }
+  }      
+
+api_call_notifications:
+  - modules/client/update_company
 ---
 
 {% comment %} 
   Get CRM -> Contact from v5 API
 {% endcomment %}
-{% parse_json data %} 
+{% comment %} {% parse_json data %} 
 {
-  "id": "{{external_id}}"
+  "id": "{{company_uuid}}"
 }
 {% endparse_json %}
 
 {% liquid
 
-    graphql contact = 'modules/website/api/send_api_call', template: 'modules/client/get_contact', data: data 
+    graphql company = 'modules/website/api/send_api_call', template: 'modules/client/get_company', data: data 
 
-    assign response = contact.api_call_send.response.body | parse_json
+    assign response = company.api_call_send.response.body | parse_json
     assign prop = response.items.results[0].contact[0].properties    
-%}
-
+%} {% endcomment %}
 
 {%- form 
-    html-id: "user-profile-form"
+    html-id: "user-company-form"
     html-class: 'insites-form insites-form-code' 
     html-novalidate: true
     html-enctype="multipart/form-data"
     html-onsubmit:"return UserProfileScript.methods.validateForm(event);" -%}
 
   <div class="insites-form-grid">
-    {% include 'modules/client/account/registration_company_details', prop %}
+    {% include 'modules/client/account/registration_company_details', data: data %}
   </div>
 
 {%- endform -%}

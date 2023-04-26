@@ -1,8 +1,15 @@
 //Insites CRM -> Contacts : mobile_phone_number, mobile_phone_country_code
-const mobileFields = {
+let contactMobileFields = {
     inputTel: document.getElementById('mobile-phone'),
     phone_number: document.getElementById('mobile_phone_number'),
     country_code: document.getElementById('mobile_phone_country_code')
+}
+
+//Insites CRM -> Company : mobile_phone_number, mobile_phone_country_code
+let companyMobileFields = {
+    inputTel: document.getElementById('company-mobile-phone'),
+    phone_number: document.getElementById('company_mobile_phone_number'),
+    country_code: document.getElementById('company_mobile_phone_country_code')
 }
 
 let addressForm = {
@@ -126,23 +133,22 @@ let UserProfileScript = (function () {
                 /* Attached on the on-submit event of the form */
                 /* Can identify form submitted by using their id */
                 event ? event.preventDefault() : '';
+
                 //Get id and element to identify the kind of form submitted
                 let formId = event.target.id;
-                console.log("formId="+formId);
                 let formElem = document.getElementById(formId);
-                console.log("formElem="+formElem);
+
                 // Check what form is being validated...
-                if (formId == 'user-profile-form') {
-                    //Validation for User profile
+                if (formId == 'user-profile-form' || formId == 'user-company-form') {
+                    //Validation for User profile/company
                     this.validateTelField();
+
+                    //Phone Fields
+                    let mobileFields = (formId == 'user-profile-form')? contactMobileFields : companyMobileFields;
                     let values = await mobileFields.inputTel.getValues();
                     mobileFields.country_code.value = values.country_code;
                     mobileFields.phone_number.value = values.phone_number;
 
-                    console.log("country_code="+values.country_code);
-                    console.log("number="+values.phone_number);
-                    
-                    console.log(JSON.stringify("values="+values));
                     if (await App.validation.validateForm(formElem)) {                        
                         this.disableFormButtons(formElem);
                         customerProfileForm.updateProfileBtn.loading = true;
@@ -152,8 +158,9 @@ let UserProfileScript = (function () {
                     // Validation and function for update of password
                     if (await this.validationForm(formElem)) {
                         let confirm = await App.events.swal('warning',
-                            'Warning',
-                            'You will be logged out after changing password.');
+                            'Change Password?',
+                            'You will be logged out after changing your password.',
+                            'Submit');
                         if (confirm) {
                             this.disableFormButtons(formElem);
                             customerProfileForm.updatePasswordBtn.loading = true;

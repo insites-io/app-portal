@@ -30,6 +30,7 @@ var AddressLookup = (function () {
                     });
             },
             mapGoogleAddress(address, name) {
+                console.log('name='+name);
                 address.forEach(item => {
                     let addressType = item.types[0];
                     // Update fields as needed on project.

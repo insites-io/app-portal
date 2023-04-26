@@ -156,6 +156,11 @@ ins-card .content {
     position: relative;
 }
 
+/* Insites Loader */
+.ins-loader-wrap--message{
+    margin-top: 24px;
+}
+
 /* Insites Form */
 .insites-form-grid .form-groups-tab {
     margin: initial !important;
@@ -303,6 +308,11 @@ ins-radio .ins-radio-checkbox label {
 
 .paginate button .btn__label {
     padding: 0px;
+}
+
+/* Swal */
+.swal2-actions{
+    margin: 24px auto 0px !important;
 }
 
 /*************************/

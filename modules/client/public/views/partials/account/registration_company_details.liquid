@@ -1,3 +1,11 @@
+{% comment %} 
+This partial is used by pages:
+- /register 
+- /my-company-details 
+
+Inputs will have values only on /my-company-details page
+{% endcomment %}
+
 <div id="company-details-container" class="form-group fadeIn {% if params.slug != 'my-company-details' %}hide{% endif %}" active>    
 
       <div class="column-1">
@@ -9,7 +17,7 @@
             id="company-name"
             label="Company Name*"
             name="{{ form.fields.company_name.name }}" 
-            value="{{ form.fields.company_name.value }}" 
+            value="{{ data.properties.company_name }}" 
             {% if form.errors['company_name'] %} has-error {% endif %}
             error-message="{{ form.fields.company_name.validation.rules.presence.message }}"
             placeholder="Company Name">
@@ -21,7 +29,7 @@
             id="registered-business-number"
             label="Company Registration Number*"
             name="{{ form.fields.registered_business_number.name }}" 
-            value="{{ form.fields.registered_business_number.value }}" 
+            value="{{ data.properties.registered_business_number }}" 
             {% if form.errors['registered_business_number'] %} has-error {% endif %}
             error-message="{{ form.fields.registered_business_number.validation.rules.presence.message }}"
             placeholder="Company Registration Number">
@@ -34,7 +42,7 @@
             label="Email*"
             field="email"
             name="{{ form.fields.email_1.name }}" 
-            value="{{ form.fields.email_1.value }}" 
+            value="{{ data.properties.email_1 }}" 
             {% if form.errors['email_1'] %} has-error {% endif %}
             error-message="{{ form.fields.email_1.validation.rules.presence.message }}"
             placeholder="Email">
@@ -44,7 +52,9 @@
       <div class="column-2">
         <ins-input-tel
             id="company-mobile-phone"
-            label="Phone"                         
+            label="Phone"                
+            phonenum-value="{{ data.properties.mobile_phone_number }}" 
+            country-code="{{ data.properties.mobile_phone_country_code }}"         
             phonenum-placeholder="Phone Number" 
             no-areacode
             error-message="Please use a valid phone number">
@@ -75,7 +85,7 @@
             id="company_address_1"
             label="Address 1"
             name="{{ form.fields.properties.company_address_1.name }}" 
-            value="{{ form.fields.properties.company_address_1.value }}" 
+            value="{{ data.properties.address_1 }}" 
             {% if form.errors['properties.company_address_1'] %} has-error {% endif %}
             error-message="{{ form.fields.properties.company_address_1.validation.rules.presence.message }}"
             placeholder="Address 1">
@@ -87,7 +97,7 @@
             id="company_address_2"
             label="Address 2"
             name="{{ form.fields.properties.company_address_2.name }}" 
-            value="{{ form.fields.properties.company_address_2.value }}" 
+            value="{{ data.properties.address_2 }}" 
             {% if form.errors['properties.company_address_2'] %} has-error {% endif %}
             error-message="{{ form.fields.properties.company_address_2.validation.rules.presence.message }}"
             placeholder="Address 2">
@@ -99,7 +109,7 @@
             id="company_suburb"
             label="Suburb"
             name="{{ form.fields.properties.company_suburb.name }}" 
-            value="{{ form.fields.properties.company_suburb.value }}" 
+            value="{{ data.properties.suburb }}" 
             {% if form.errors['properties.company_suburb'] %} has-error {% endif %}
             error-message="{{ form.fields.properties.company_suburb.validation.rules.presence.message }}"
             placeholder="Suburb">
@@ -111,7 +121,7 @@
             id="company_state"
             label="State"
             name="{{ form.fields.properties.company_state.name }}" 
-            value="{{ form.fields.properties.company_state.value }}" 
+            value="{{ data.properties.state }}" 
             {% if form.errors['properties.company_state'] %} has-error {% endif %}
             error-message="{{ form.fields.properties.company_state.validation.rules.presence.message }}"
             placeholder="State">
@@ -123,7 +133,7 @@
             id="company_postcode"
             label="ZIP / Postalcode"
             name="{{ form.fields.properties.company_postcode.name }}" 
-            value="{{ form.fields.properties.company_postcode.value }}" 
+            value="{{ data.properties.postcode }}" 
             {% if form.errors['properties.company_postcode'] %} has-error {% endif %}
             error-message="{{ form.fields.properties.company_postcode.validation.rules.presence.message }}"
             placeholder="ZIP / Postalcode">
@@ -135,7 +145,7 @@
             id="company_country"
             label="Country"
             name="{{ form.fields.properties.company_country.name }}" 
-            value="{{ form.fields.properties.company_country.value }}" 
+            value="{{ data.properties.country }}" 
             {% if form.errors['properties.company_country'] %} has-error {% endif %}
             error-message="{{ form.fields.properties.company_country.validation.rules.presence.message }}"
             placeholder="Country">

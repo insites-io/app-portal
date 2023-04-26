@@ -40,16 +40,15 @@ metadata: {
   {%- endif -%}
 {%- endif -%}
 
-{%- log user.id, type: 'Test user.id:' -%}
 <div>    
-    {%- include_form 'modules/client/my_details', id: user.id -%}
+    {%- include_form 'modules/client/my_details', id: user.id, external_id: user.external_id -%}
         
     {%- include_form 'modules/client/change_password', id: user.id -%}
     <div class="spacer xxxx-large"></div>
 </div>
 
 
-<!-- [Google Maps] -->
+{% comment %} Google Maps Script {% endcomment %}
 {% include 'modules/client/layout/googlemaps' %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>

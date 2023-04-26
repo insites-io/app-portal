@@ -183,6 +183,7 @@ let App = (function () {
                     Swal.fire({
                         html: `
                         <ins-loader
+                            icon="icon-close-1"
                             state-icon="${type}"
                             icon-color="${type}"
                             state-title="${title}"
@@ -197,7 +198,8 @@ let App = (function () {
                                     btnLabel.indexOf("Remove") >= 0
                                     ? "negative" : "",
                         },
-                        confirmButtonText: btnLabel
+                        confirmButtonText: '<i class="icon-check-2"></i> ' + btnLabel,
+                        cancelButtonText: '<i class="icon-close-1"></i> Cancel'
                     }).then(result => {
                         result.value
                             ? resolve(true)

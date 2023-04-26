@@ -40,7 +40,21 @@ metadata: {
   {%- endif -%}
 {%- endif -%}
 
-{%- include_form 'modules/client/my_company_details', id: user.id, external_id: user.external_id -%}
+{% comment %} 
+  Get CRM -> Company from v5 API
+{% endcomment %}
+{% parse_json data %} 
+{
+  "id": "{{user.client[0].company_uuid}}"
+}
+{% endparse_json %}
+
+{% liquid
+    graphql company = 'modules/website/api/send_api_call', template: 'modules/client/get_company', data: data 
+    assign data = company.api_call_send.response.body | parse_json  
+%}
+
+{%- include_form 'modules/client/my_company_details', id: user.id, data: data.items.results[0] -%}
 
 
 {% comment %} Google Maps Script {% endcomment %}
