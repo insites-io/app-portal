@@ -29,11 +29,12 @@
   
 // }
 
-  // // button event to open drawer
+  // button event to open drawer
   // document.getElementById('openEventDrawer').addEventListener('insClick', function () {
-  //   document.getElementById('mobile-menu').setDrawerState(true);
+  //   document.getElementById('mobile-menu-btn').setDrawerState(true);
   // });
   // // Drawer event listener
-  // document.getElementById('mobile-menu').addEventListener('toggleDrawer', function (event) {
+  // document.getElementById('mobile-menu-btn').addEventListener('toggleDrawer', function (event) {
   //   console.log("Toggle Drawer", event.detail)
   // });
+

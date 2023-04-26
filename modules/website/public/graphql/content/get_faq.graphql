@@ -1,4 +1,4 @@
-query get_services(
+query get_faqs(
     $page: Int = 1, 
     $size: Int = 9,
     $keyword: String

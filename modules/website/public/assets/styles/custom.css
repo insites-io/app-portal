@@ -771,7 +771,10 @@ footer.blocks-footer-05{
   padding: 18px 25px;
   margin: 0px;
 }
-.signOutCustom .ins-button div span {
-  font-size: var(--typography-x-small, 0.75rem);
+.signOutCustom .ins-button div .btn__label{
+  font-size: 12px;
 }
 
+.servicesMenuSubitems .ins-accordion-link{
+  padding: 0px;
+}
