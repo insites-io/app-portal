@@ -5,8 +5,10 @@ layout: modules/website/default
 {%comment%} get device type {%endcomment%}
 {%- assign test_device = context.device.device_type -%}
 {%- log test_device, type: "test_device" -%}
-
+testtttt
 {% include 'modules/website/content/homepage/carousel' %} 
 {% include 'modules/website/content/homepage/section-1' %} 
 {% include 'modules/website/content/homepage/section-2' %}
 {% include 'modules/website/content/homepage/testimonials' %} 
+<link rel="preload" as="script" href="{{ 'modules/website/scripts/app.js' | asset_url }}" >
+<script src="{{ 'modules/website/scripts/app.js' | asset_url }}"></script>

@@ -1,6 +1,5 @@
 mutation set_company_uuid(
   $id: ID!
-  $company_id: String!
   $company_uuid: String!
 ) {
   user_update(
@@ -11,7 +10,6 @@ mutation set_company_uuid(
           name: "modules/client/client",
           values: {
             properties: [
-              { name: "company_id", value: $company_id }
               { name: "company_uuid", value: $company_uuid }
             ]
           }

@@ -1,19 +1,13 @@
 ---
 name: my_company_details
-resource: User
+resource: modules/insites_core/crm_company
 resource_owner: anyone
-flash_alert: Sorry-Signup
-flash_notice: Congratulations-Signup
+flash_alert: Error-Company-Details
+flash_notice: Success-Company-Details
 redirect_to: my-company-details
 fields:
-  # User Fields
 
   # CRM Company Fields 
-  company_id:
-    validation: 
-      presence: true
-    property_options:
-      virtual: true
   email_1:
     validation: 
       presence: true
@@ -37,52 +31,28 @@ fields:
   company_mobile_phone_number:
     property_options:
       virtual: true
-  address_1:
+  company_address_1:
     property_options:
       virtual: true
-  address_2:
+  company_address_2:
     property_options:
       virtual: true
-  suburb:
+  company_suburb:
     property_options:
       virtual: true
-  state:
+  company_state:
     property_options:
       virtual: true
-  postcode:
+  company_postcode:
     property_options:
       virtual: true
-  country:
+  company_country:
     property_options:
-      virtual: true
-
-default_payload: |-
-  {
-    "properties_attributes": {
-      "company_id": "{{ data.id }}"
-    }
-  }      
+      virtual: true    
 
 api_call_notifications:
   - modules/client/update_company
 ---
-
-{% comment %} 
-  Get CRM -> Contact from v5 API
-{% endcomment %}
-{% comment %} {% parse_json data %} 
-{
-  "id": "{{company_uuid}}"
-}
-{% endparse_json %}
-
-{% liquid
-
-    graphql company = 'modules/website/api/send_api_call', template: 'modules/client/get_company', data: data 
-
-    assign response = company.api_call_send.response.body | parse_json
-    assign prop = response.items.results[0].contact[0].properties    
-%} {% endcomment %}
 
 {%- form 
     html-id: "user-company-form"

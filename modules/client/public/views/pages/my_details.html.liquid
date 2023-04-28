@@ -1,5 +1,5 @@
 ---
-slug: my-company-details
+slug: my-details
 layout: modules/client/form_layout
 # enable_profiler: true
 searchable: false
@@ -10,19 +10,19 @@ metadata: {
     "og:url": "{{ context.exports.global.company_url | strip }}",
     "og:type": "",
     "og:image": "",
-    "og:title": "My Company Details",
-    "og:description": "My Company Details",
+    "og:title": "Register",
+    "og:description": "Register",
     "og:site_name": "{{ context.exports.global.company_name | strip }}",
-    "meta_title": "My Company Details",
-    "page_title": "My Company Details | Insites",
-    "meta_description": "My Company Details",
+    "meta_title": "Register",
+    "page_title": "Register | Insites",
+    "meta_description": "Register",
     "canonical_url": "",
     "search_engine_visibility": false,
     "sitemap_enabled": false,
     "sitemap_priority": "1.0",## primary order (DESC)
     "sitemap_order": "0", ## secondary order (ASC)
     "sitemap_changefreq": "never",
-    "heading": "My Company Details"
+    "heading": "My Details"
 }
 ---
     
@@ -40,24 +40,15 @@ metadata: {
   {%- endif -%}
 {%- endif -%}
 
-{% comment %} 
-  Get CRM -> Company from v5 API
-{% endcomment %}
-{% parse_json data %} 
-{
-  "id": "{{user.client[0].company_uuid}}"
-}
-{% endparse_json %}
-
-{% liquid
-    graphql company = 'modules/website/api/send_api_call', template: 'modules/client/get_company', data: data 
-    assign data = company.api_call_send.response.body | parse_json  
-%}
-
-{%- include_form 'modules/client/my_company_details', id: user.id, data: data.items.results[0] -%}
+<div>    
+    {%- include_form 'modules/client/my_details', id: user.id, external_id: user.external_id -%}
+        
+    {%- include_form 'modules/client/change_password', id: user.id -%}
+    <div class="spacer xxxx-large"></div>
+</div>
 
 
-{% comment %} Google Maps Script {% endcomment %}
+{% comment %} Search Address Script {% endcomment %}
 {% include 'modules/client/layout/googlemaps' %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>

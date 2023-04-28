@@ -72,10 +72,10 @@ Inputs will have values only on /my-company-details page
       <div class="column-1">
         <ins-input 
           address-lookup 
-          label="Search Addresss" 
+          label="Search Address" 
           id="shipping-address-search"
-          name="search"
-          placeholder="Search Addresss"
+          name="company"
+          placeholder="Search Address"
           icon="icon-map-pin">
         </ins-input>
       </div>
@@ -84,10 +84,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_address_1"
             label="Address 1"
-            name="{{ form.fields.properties.company_address_1.name }}" 
+            name="{{ form.fields.company_address_1.name }}" 
             value="{{ data.properties.address_1 }}" 
-            {% if form.errors['properties.company_address_1'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.company_address_1.validation.rules.presence.message }}"
+            {% if form.errors['company_address_1'] %} has-error {% endif %}
+            error-message="{{ form.fields.company_address_1.validation.rules.presence.message }}"
             placeholder="Address 1">
         </ins-input>
       </div>
@@ -96,10 +96,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field
             id="company_address_2"
             label="Address 2"
-            name="{{ form.fields.properties.company_address_2.name }}" 
+            name="{{ form.fields.company_address_2.name }}" 
             value="{{ data.properties.address_2 }}" 
-            {% if form.errors['properties.company_address_2'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.company_address_2.validation.rules.presence.message }}"
+            {% if form.errors['company_address_2'] %} has-error {% endif %}
+            error-message="{{ form.fields.company_address_2.validation.rules.presence.message }}"
             placeholder="Address 2">
         </ins-input>
       </div>
@@ -108,10 +108,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_suburb"
             label="Suburb"
-            name="{{ form.fields.properties.company_suburb.name }}" 
+            name="{{ form.fields.company_suburb.name }}" 
             value="{{ data.properties.suburb }}" 
-            {% if form.errors['properties.company_suburb'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.company_suburb.validation.rules.presence.message }}"
+            {% if form.errors['company_suburb'] %} has-error {% endif %}
+            error-message="{{ form.fields.company_suburb.validation.rules.presence.message }}"
             placeholder="Suburb">
         </ins-input>
       </div>
@@ -120,10 +120,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_state"
             label="State"
-            name="{{ form.fields.properties.company_state.name }}" 
+            name="{{ form.fields.company_state.name }}" 
             value="{{ data.properties.state }}" 
-            {% if form.errors['properties.company_state'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.company_state.validation.rules.presence.message }}"
+            {% if form.errors['company_state'] %} has-error {% endif %}
+            error-message="{{ form.fields.company_state.validation.rules.presence.message }}"
             placeholder="State">
         </ins-input>
       </div>
@@ -132,10 +132,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_postcode"
             label="ZIP / Postalcode"
-            name="{{ form.fields.properties.company_postcode.name }}" 
+            name="{{ form.fields.company_postcode.name }}" 
             value="{{ data.properties.postcode }}" 
-            {% if form.errors['properties.company_postcode'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.company_postcode.validation.rules.presence.message }}"
+            {% if form.errors['company_postcode'] %} has-error {% endif %}
+            error-message="{{ form.fields.company_postcode.validation.rules.presence.message }}"
             placeholder="ZIP / Postalcode">
         </ins-input>
       </div>
@@ -144,10 +144,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_country"
             label="Country"
-            name="{{ form.fields.properties.company_country.name }}" 
+            name="{{ form.fields.company_country.name }}" 
             value="{{ data.properties.country }}" 
-            {% if form.errors['properties.company_country'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.company_country.validation.rules.presence.message }}"
+            {% if form.errors['company_country'] %} has-error {% endif %}
+            error-message="{{ form.fields.company_country.validation.rules.presence.message }}"
             placeholder="Country">
         </ins-input>
       </div>
@@ -165,7 +165,7 @@ Inputs will have values only on /my-company-details page
       <div class="spacer small"></div>
       <div class="grid-x">
           <div class="cell large-6 medium-6 small-12"><ins-button id="back-to-step-1" type="button" label="BACK" icon="icon-arrow-back" outlined ></ins-button></div>
-          <div class="cell large-6 medium-6 small-12 text-right"><ins-button id="submit-company-details" type="submit" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
+          <div class="cell large-6 medium-6 small-12 text-right"><ins-button id="submit-company-details" class="submit-btn" type="submit" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
       </div>  
       </div>
 

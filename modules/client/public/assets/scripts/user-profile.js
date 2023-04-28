@@ -19,7 +19,7 @@ let addressForm = {
 }
 
 let customerProfileForm = {
-    updateProfileBtn: document.getElementById('submit-personal-details'),
+    updateProfileBtn: document.getElementsByClassName('submit-btn'),
     updatePasswordBtn: document.getElementById('save-password-btn')
 }
 

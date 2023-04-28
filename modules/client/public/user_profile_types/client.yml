@@ -18,7 +18,5 @@ properties:
     options: []
 - name: verification_token
   type: string
-- name: company_id
-  type: string
 - name: company_uuid
   type: string      

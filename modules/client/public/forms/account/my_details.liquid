@@ -65,9 +65,9 @@ api_call_notifications:
 
 {% liquid
 
-    graphql contact = 'modules/client/api/send_api_call', template: 'modules/client/get_contact', data: data 
+    graphql contact = 'modules/website/trigger_api_call', name: 'modules/client/get_contact', data: data 
 
-    assign response = contact.api_call_send.response.body | parse_json
+    assign response = contact.items.response.body | parse_json
     assign prop = response.items.results[0].contact[0].properties    
 %}
 
@@ -81,7 +81,7 @@ api_call_notifications:
 
   <div class="insites-form-grid">
 
-  {% include 'modules/client/account/registration_personal_details', prop %}
+  {% include 'modules/client/account/registration_personal_details', data: prop %}
             
   </div>
 

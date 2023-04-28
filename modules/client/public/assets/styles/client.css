@@ -423,3 +423,8 @@ ins-tag.Completed span.ins-tag {
     /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
     background-color: #FFFFFF;
 }
+
+/* Feedback Form */
+.feedback .insites-form.insites-form-code .insites-form-buttons ins-button button{
+    margin-right: initial;
+}

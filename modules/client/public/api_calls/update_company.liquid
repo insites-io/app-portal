@@ -14,12 +14,12 @@ request_headers: >
 ---
     {%- log form, type: 'Test update_company form:' -%}
 {
-    "id": "{{form.company_id}}",
+    "id": "{{form.id}}",
     "company_name": "{{form.company_name}}",
     "registered_business_number": "{{form.registered_business_number}}",
     "email_1": "{{form.email_1}}",
-    "mobile_phone_country_code": "{{form.mobile_phone_country_code}}",
-    "mobile_phone_number": "{{form.mobile_phone_number}}",
+    "mobile_phone_country_code": "{{form.company_mobile_phone_country_code}}",
+    "mobile_phone_number": "{{form.company_mobile_phone_number}}",
     "addresses": [
         {
         "address_1": "{{form.company_address_1}}",
