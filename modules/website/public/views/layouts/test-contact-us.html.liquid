@@ -1,0 +1,20 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    {% include 'modules/website/layout/head' %} 
+    <title>Contact Us</title>
+</head>
+<body>
+    <div class="main-wrap">
+        {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/layout/header-mobile' %}
+        {%comment%}
+        {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/layout/header-mobile' %}
+        {%endcomment%}
+
+        {{ content_for_layout }}
+    </div>
+    {% include 'modules/website/layout/footer' %}  
+</body>
+</html>

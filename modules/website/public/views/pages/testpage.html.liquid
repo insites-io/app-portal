@@ -9,7 +9,126 @@
 
       {% include 'modules/website/layout/header' %}
       {% include 'modules/website/layout/header-mobile' %}
- test page
+
+{% comment %} connect services to graphql {% endcomment %}
+{%- graphql get_news = 'modules/website/content/get_news' -%}
+{% comment %} assign var to fetch the result {% endcomment %}
+{%- assign res_news = get_news | dig: 'items', 'results' -%}
+<style>
+    .card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  width: 300px;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 5px 5px 0 0;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-content h2 {
+  margin-top: 0;
+}
+
+.card-content p {
+  margin: 0;
+}
+</style>
+
+<div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card"></div>
+    <ul class="card-list">
+        {% for item in res_news %}
+        <li>
+            <div class="card">
+            <img src="{{ item.list_view_image.url }}" alt="Card Image">
+            <div class="card-content">
+                <div class="tagButton">
+                <ins-button 
+                    size="small"
+                    cursor="text" 
+                    solid 
+                    icon="icon-tag"
+                    color="blue" 
+                    label="{{ item.tag }}">
+                    </ins-button>
+                </div>
+                <h3 class="subHeading">{{ item.title }}</h3>
+                <p class="newsSubheading">{{ item.published_date }} BY {{ item.author }}</p>
+                <div class="description">
+                    {{ item.list_view_text }}
+                </div>
+                <div class="custom-publish-info">READ MORE <i class="icon-arrow-forward"></i></div>
+            </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+
+<section class="news-content">
+    <div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
+        <div class="our-team grid-container main-container" data-test="page-our-team-list">
+            <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
+                {% for item in res_news %}
+                    <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
+                        <div class="newsImageContainer">
+                            <a href="/news/{{ item.slug }}">
+                                <img alt="image" src="{{ item.list_view_image.url }}"/>
+                            </a>
+                        </div>
+
+                        <div class="newsContentContainer">
+                            <div class="spacer x-large"></div>
+                            <div class="tagButton">
+                            <ins-button 
+                                size="small"
+                                cursor="text" 
+                                solid 
+                                icon="icon-tag"
+                                color="blue" 
+                                label="{{ item.tag }}">
+                                </ins-button>
+                            </div>
+                            <div class="spacer"></div>
+                            <a href="/news/{{ item.slug }}">
+                                <div class="newsTitle">
+                                    <h3 class="subHeading">{{ item.title }}</h3>
+                                </div>
+                            </a>
+                            <p class="newsSubheading">{{ item.published_date }} BY {{ item.author }}</p>
+                            <div class="spacer small"></div>
+                            <div class="description">
+                                {{ item.list_view_text }}
+                            </div>
+                            <div class="spacer small"></div>
+                            <div class="custom-publish-info">
+                                <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+<div class="spacer"></div>
+</section>
+
     </div>
     {% include 'modules/website/layout/footer' %}  
 </body>

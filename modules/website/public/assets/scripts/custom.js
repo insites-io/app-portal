@@ -37,4 +37,3 @@
   // document.getElementById('mobile-menu-btn').addEventListener('toggleDrawer', function (event) {
   //   console.log("Toggle Drawer", event.detail)
   // });
-

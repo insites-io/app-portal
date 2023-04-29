@@ -24,6 +24,7 @@ query get_news(
         results {
           title:property(name: "title")
           slug: property(name: "slug")
+          tag: property(name: "tag")
           author:property(name: "author")
 		    published_date:property(name: "published_date")
           content:property(name: "content")

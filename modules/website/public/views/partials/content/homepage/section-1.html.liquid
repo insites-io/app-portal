@@ -5,42 +5,42 @@
         <div class="spacer xxxx-large"></div>
         <div class="about-us grid-container" data-test="page-about-us">
             <div class="grid-x align-middle">
-                {% if test_device == 'smartphone' %}
+                {% if device_used == 'smartphone' %}
 
                 <div class="small-12">
                     <h2>Beautiful, centralised client portal.</h2>
                     <div class="spacer"></div>
-                    <p>You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
+                    <p class="subHeading">You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
                 </div> 
 
                 <div class="spacer xxxx-large"></div>
                 <div class="small-12" style="background-image: url({{ 'modules/website/images/home/vector0.png' | asset_url }}) ;">
                     <div class="spacer xxxx-large"></div>
-                    <img style="width: 80%" src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
-                    <img style="width: 60%; margin-top: -100px; margin-left: 150px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
+                    <img alt="img" style="width: 80%" src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
+                    <img alt="img" style="width: 60%; margin-top: -100px; margin-left: 150px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
                 </div>
 
-                {% elsif test_device == "tablet" %}
+                {% elsif device_used == "tablet" %}
                     <div class="large-6 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
                         <h2>Beautiful, centralised client portal.</h2>
                         <div class="spacer"></div>
-                        <p>You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
+                        <p class="subHeading">You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
                     </div>
     
                     <div class="large-5 large-offset-1 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell" style="background-image: url({{ 'modules/website/images/home/vector0.png' | asset_url }}) ;">
-                        <img style="width: 80%" src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
-                        <img style="width: 60%; margin-top: -100px; margin-left: 120px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
+                        <img alt="img" style="width: 80%" src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
+                        <img alt="img" style="width: 60%; margin-top: -100px; margin-left: 120px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
                     </div>
-                {% elsif test_device == 'desktop' %}
+                {% elsif device_used == 'desktop' %}
                     <div class="large-6 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
                         <h2>Beautiful, centralised client portal.</h2>
                         <div class="spacer"></div>
-                        <p>You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
+                        <p class="subHeading">You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
                     </div>
     
                     <div class="large-5 large-offset-1 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell" style="background-image: url({{ 'modules/website/images/home/vector0.png' | asset_url }}) ;">
-                        <img src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
-                        <img style="margin-top: -200px; margin-left: 275px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
+                        <img alt="img" src="{{ 'modules/website/images/home/rectangle-1.png' | asset_url }} "/>
+                        <img alt="img" style="margin-top: -200px; margin-left: 275px" src="{{ 'modules/website/images/home/rectangle-2.png' | asset_url }} "/>
                     </div>
                 {% endif %}
             </div>
@@ -59,10 +59,10 @@
 <section class="overlap-section">
   <div class="blocks-sc-3col-01 wrapper bg-color-ui-01">
     <div class="spacer xxx-large"></div>
-    <div class="custom-center">
-      <h1 class="title-section-content-2 ">We’re thrilled you want to try Insites!</h1>
+    <div class="custom-center grid-container">
+      <h1>We’re thrilled you want to try Insites!</h1>
       <div class="spacer x-large"></div>
-      <p class="subtitle-section-content-2">The benefits of a client portal are numerous. They can help streamline communication between companies and clients, and make it easier for both parties to access the information they need.</p>
+      <p class="subHeading">The benefits of a client portal are numerous. They can help streamline communication between companies and clients, and make it easier for both parties to access the information they need.</p>
       <div class="spacer x-large"></div>
     </div>
     
@@ -71,15 +71,15 @@
           <!-- card -->
           <div class="large-4 medium-6 small-12 cell align-stretch">
             <a>
-              <ins-card steady data-test="section-content-01-card">
+              <ins-card steady data-test="section-content-01-card" style="background-color: #dfdfdf">
                 <div class="align-left"><img alt="icon_1" src="{{ 'modules/website/images/home/icon-1.png' | asset_url }} "/></div>
                 <div class="spacer x-large"></div>
                   <div class="content">
-                  <h3 class="name">Customisable Style Guide</h3>
-                  <div class="spacer x-large"></div>
-                  <div class="short-description">
-                    We crafted the design system for you! and can be customised to fit your brand.
-                  </div>
+                    <h3 class="name">Customisable Style Guide</h3>
+                    <div class="spacer"></div>
+                    <p class="subHeading">
+                      We crafted the design system for you! and can be customised to fit your brand.
+                    </p>
                   </div>
               </ins-card>
               </a>
@@ -93,10 +93,10 @@
               <div class="spacer x-large"></div>
                 <div class="content">
                 <h3 class="name">Web Blocks Variations</h3>
-                <div class="spacer x-large"></div>
-                <div class="short-description">
+                <div class="spacer"></div>
+                <p class="subHeading">
                   Every web block supports all major content types, including pages, galleries, blogs, commerce, and more. 
-                </div>
+                </p>
                 </div>
             </ins-card>
             </a>
@@ -110,10 +110,10 @@
               <div class="spacer x-large"></div>
                 <div class="content">
                 <h3 class="name">Customisable Web Components</h3>
-                <div class="spacer x-large"></div>
-                <div class="short-description">
+                <div class="spacer"></div>
+                <p class="subHeading">
                   You can change the size, text, colour and even the icon in your button. Everthing you need to know, you can get your hands on.
-                </div>
+                </p>
                 </div>
             </ins-card>
             </a>
@@ -127,10 +127,10 @@
               <div class="spacer x-large"></div>
                 <div class="content">
                 <h3 class="name">Content Types</h3>
-                <div class="spacer x-large"></div>
-                <div class="short-description">
+                <div class="spacer"></div>
+                <p class="subHeading">
                   Add and manage text, photos, videos, audio, galleries, products, newsletter sign-ups, custom code, charts, and more.
-                </div>
+                </p>
                 </div>
             </ins-card>
             </a>
@@ -144,10 +144,10 @@
               <div class="spacer x-large"></div>
                 <div class="content">
                 <h3 class="name">Pre Built Pages</h3>
-                <div class="spacer x-large"></div>
-                <div class="short-description">
+                <div class="spacer"></div>
+                <p class="subHeading">
                   How about layout & pages? We covered that for you as well of course! From blogs, pricing, our team, and more. 
-                </div>
+                </p>
                 </div>
             </ins-card>
             </a>
@@ -161,10 +161,10 @@
               <div class="spacer x-large"></div>
                 <div class="content">
                 <h3 class="name">Fully Responsive</h3>
-                <div class="spacer x-large"></div>
-                <div class="short-description">
+                <div class="spacer"></div>
+                <p class="subHeading">
                   How about the tablet and mobile? We have created templates that adapt to any device.
-                </div>
+                </p>
                 </div>
             </ins-card>
             </a>
