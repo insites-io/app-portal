@@ -648,7 +648,7 @@ background-color: #0000;
   .overlap-section{
     border: white 10px solid;
     border-radius: 24px;
-    margin: 0px 20px;
+    margin: 0px 10px;
     position: relative;
     margin-top: -50px;
   }
@@ -689,6 +689,10 @@ background-color: #0000;
 
   .our-team-desc{
     padding: 0px 15px;
+   }
+
+   .custGridContainer{
+    padding: 20px!important;
    }
 }
 
@@ -917,10 +921,17 @@ footer.blocks-footer-05{
   padding: 0px;
 }
 
-/* ADDITIONALS */
 .subHeading{
   font-family: var(--font-family-02)!important;
   font-size: 16px!important;
+}
+
+.subHeading a,
+.subHeading li,
+.subHeading .ins-accordion-link{
+  font-family: var(--font-family-01)!important;
+  font-size: 16px!important;
+  font-weight: 400!important;
 }
 
 .subHeading-2{
@@ -940,6 +951,29 @@ footer.blocks-footer-05{
 ins-button .ins-button .icon-user{
   font-size: 16px!important;
 }
+
+.custIcons{
+  font-size: 32px!important;
+  color: white;
+  background-color: #436CF2;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.custIconsInverted{
+  font-size: 32px!important;
+  color: #436CF2;
+}
+
+
+.custIconCheck{
+  font-size: 12px!important;
+  color: white;
+  background-color: #436CF2;
+  padding: 10px;
+  border-radius: 8px;
+}
+
 
 ins-button .ins-button div .btn__label{
   font-family: var(--font-family-01);
@@ -1045,4 +1079,34 @@ ins-accordion .inner-content{
 
 .card-content p {
   margin: 0;
+}
+
+.footerSubItems a{
+  font-family: var(--font-family-02)!important;
+  color: #575757!important;
+}
+
+.staticFonts p,
+.staticFonts ul{
+  font-family: var(--font-family-02)!important;
+  font-style: normal!important;
+  font-weight: 400!important;
+  font-size: 16px!important;
+  line-height: 24px!important;
+  color: #575757!important;
+}
+
+.signOutHolder{
+  padding: 20px 15px;
+}
+
+.signOut .ins-accordion-link{
+  display: none;
+}
+
+.signOutHolder form ins-button div .btn__label{
+  font-family: var(--font-family-01)!important;
+  font-size: 16px!important;
+  font-weight: 400!important;
+  color: #575757!important;
 }

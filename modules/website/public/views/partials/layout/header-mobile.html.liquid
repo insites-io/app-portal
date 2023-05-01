@@ -1,6 +1,6 @@
-<ins-drawer no-padding id="mobile-menu" show-header="false" class="hide-for-large" >
+<ins-drawer no-padding id="mobile-menu" show-header="false" class="mobileNav hide-for-large hide-for-small" >
   <div>
-    <ul class="vertical menu">
+    <ul class="vertical menu subHeading">
       <!-- normal list -->
       <li>
         <a href="/about-us">
@@ -12,7 +12,7 @@
       <!-- normal list -->
       <li>
         <ins-accordion menu>
-          <ins-accordion-item heading="Services" link="/services" open-icon="icon-angle-down" close-icon="icon-minus"
+          <ins-accordion-item heading="Services" link="/services" link-target="_self" open-icon="icon-angle-down" close-icon="icon-minus"
             class="has-subitems servicesMenuSubitems">
               {% comment %} connect services to graphql {% endcomment %}
               {%- graphql get_services = 'modules/website/content/get_services' -%}
@@ -20,7 +20,7 @@
               {%- assign res_services = get_services | dig: 'items', 'results' -%}
               
               {% for item in res_services %}
-                <ins-accordion-link label="{{item.service_name}}" link="/services/{{ item.slug }}">
+                <ins-accordion-link label="{{item.service_name}}" link="/services/{{ item.slug }}" link-target="_self">
                 </ins-accordion-link>
               {% endfor %}   
           </ins-accordion-item>
@@ -70,17 +70,16 @@
       {%else%}
       <li>
         <ins-accordion menu>
-          <ins-accordion-item heading="{{ context.current_user.first_name }} {{ context.current_user.last_name }}" link="/" open-icon="icon-angle-down" close-icon="icon-minus"
+          <ins-accordion-item heading="{{ context.current_user.first_name }} {{ context.current_user.last_name }}" link="/" link-target="_self" open-icon="icon-angle-down" close-icon="icon-minus"
             class="has-subitems servicesMenuSubitems">
-                <ins-accordion-link label="My Details" link="/my-details">
+                <ins-accordion-link label="My Details" link="/my-details" link-target="_self">
                 </ins-accordion-link>
-                <ins-accordion-link label="Change Password" link="/password-reset">
+                <ins-accordion-link label="Change Password" link="/password-reset" link-target="_self">
                 </ins-accordion-link>
-                <ins-accordion-link label="" link="">
-                  <div style="padding: 20px 15px">
+                <ins-accordion-link class="signOut"> 
+                  <div class="signOutHolder">
                     {% include_form 'modules/client/sign_out' %}
                   </div>
-
                 </ins-accordion-link>
           </ins-accordion-item>
         </ins-accordion>
