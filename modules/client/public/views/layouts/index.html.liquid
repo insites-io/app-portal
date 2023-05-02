@@ -42,7 +42,10 @@ The `homepage` layout is dedicated layout for homepage only.
         {%- endcache -%}
         {%- endif -%}
 
-        {%- if context.params.slug2 -%}
+        {%- if context.params.slug == 'client-portal' -%}
+        {%- comment -%} Carousel - Slider {%- endcomment -%}
+        {%- include 'modules/client/banner', size: 10 -%}        
+        {%- else -%}
         <div class="wrapper bg-color-main">
             <div class="grid-container">
                 <div class="spacer xxx-large"></div>
@@ -50,9 +53,6 @@ The `homepage` layout is dedicated layout for homepage only.
                 <div class="spacer xxx-large"></div>
             </div>
         </div>
-        {%- else -%}
-        {%- comment -%} Carousel - Slider {%- endcomment -%}
-        {%- include 'modules/client/banner', size: 10 -%}  
         {%- endif -%}      
 
         <div class="wrapper">

@@ -608,7 +608,8 @@ label,
 
 .form-error,
 .ins-form-field-wrap.is-invalid .ins-form-error,
-.form-field-wrapper.error-recaptcha .ins-form-error {
+.form-field-wrapper.error-recaptcha .ins-form-error,
+.list-field-wrap.is-invalid .list-field_error {
     font-family: var(--font-family-03);
     font-weight: 400;
     font-size: var(--font-x-small);
@@ -624,16 +625,17 @@ label,
     color: var(--error);
 }
 
-.ins-form-field-wrap.is-invalid .ins-form-field,
-.list-field-wrap.is-invalid {
+.ins-form-field-wrap.is-invalid .ins-form-field {
     color: var(--error);
     border-color: var(--error);
     background-color: var(--color-ui-01);
 }
 
-.list-field-wrap.is-invalid{
-    border: 1px solid;
+.list-field-wrap.is-invalid .list-field_error{
+    display: block !important;
+    margin-top: 8px;
 }
+
 
 .ins-form-field-wrap.is-invalid .ins-form-field:-moz-placeholder {
     color: var(--error);
