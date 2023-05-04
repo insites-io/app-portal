@@ -1,3 +1,4 @@
+
 <!-- STATIC: SECTION CONTENT 1 -->
 <section class="section-content-1">
     <div class="frame">
@@ -5,50 +6,37 @@
         <div class="spacer xxxx-large"></div>
         <div class="about-us grid-container" data-test="page-about-us">
             <div class="grid-x align-middle">
-                {% if device_used == 'smartphone' %}
 
-                <div class="small-12">
-                    <h2>Beautiful, centralised client portal.</h2>
+                <div class="large-6 medium-6 small-12 cell">
+                    <h2 class="">Beautiful, centralised client portal.</h2>
                     <div class="spacer"></div>
                     <p class="subHeading">You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
+                    <div class="spacer large"></div>
                 </div> 
 
-                <div class="spacer xxxx-large"></div>
-                <div class="small-12" style="background-image: url({{ 'modules/website/images/home/section-bg.png' | asset_url }}) ;">
-                    <div class="spacer xxxx-large"></div>
+                <div class="imageSection show-for-small-only">
                     <img alt="..."  loading="lazy" style="width: 80%" src="{{ 'modules/website/images/home/beautiful-img-1.png' | asset_url }} "/>
-                    <img alt="..."  loading="lazy" style="width: 60%; margin-top: -100px; margin-left: 150px" src="{{ 'modules/website/images/home/beautiful-img-2.png' | asset_url }} "/>
+                    <img alt="..."  loading="lazy" style="width: 60%; margin-top: -100px; margin-left: 100px" src="{{ 'modules/website/images/home/beautiful-img-2.png' | asset_url }} "/>
+                </div>
+                <div class="medium-5 medium-offset-1 imageSection show-for-medium-only">
+                    <img alt="..."  loading="lazy" style="width: 80%" src="{{ 'modules/website/images/home/beautiful-img-1.png' | asset_url }} "/>
+                    <img alt="..."  loading="lazy" style="width: 60%; margin-top: -100px; margin-left: 120px" src="{{ 'modules/website/images/home/beautiful-img-2.png' | asset_url }} "/>
                 </div>
 
-                {% elsif device_used == "tablet" %}
-                    <div class="large-6 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
-                        <h2>Beautiful, centralised client portal.</h2>
-                        <div class="spacer"></div>
-                        <p class="subHeading">You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
-                    </div>
-    
-                    <div class="large-5 large-offset-1 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell" style="background-image: url({{ 'modules/website/images/home/vector0.png' | asset_url }}) ;">
-                        <img alt="..."  loading="lazy" style="width: 80%" src="{{ 'modules/website/images/home/beautiful-img-1.png' | asset_url }} "/>
-                        <img alt="..."  loading="lazy" style="width: 60%; margin-top: -100px; margin-left: 120px" src="{{ 'modules/website/images/home/beautiful-img-2.png' | asset_url }} "/>
-                    </div>
-                {% elsif device_used == 'desktop' %}
-                    <div class="large-6 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
-                        <h2>Beautiful, centralised client portal.</h2>
-                        <div class="spacer"></div>
-                        <p class="subHeading">You may utilise the incredibly easy-to-use and lightweight client portal on your website right now to offer your clients access to all of the files and to allow them to follow the progress of the project.</p>
-                    </div>
-    
-                    <div class="large-5 large-offset-1 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell" style="background-image: url({{ 'modules/website/images/home/vector0.png' | asset_url }}) ;">
-                        <img alt="..."  loading="lazy" src="{{ 'modules/website/images/home/beautiful-img-1.png' | asset_url }} "/>
-                        <img alt="..."  loading="lazy" style="margin-top: -200px; margin-left: 275px" src="{{ 'modules/website/images/home/beautiful-img-2.png' | asset_url }} "/>
-                    </div>
-                {% endif %}
+
+                <div class="large-5 large-offset-1 imageSection hide-for-medium-only hide-for-small-only">
+                    <img alt="..."  loading="lazy" style="width: 80%" src="{{ 'modules/website/images/home/beautiful-img-1.png' | asset_url }} "/>
+                    <img alt="..."  loading="lazy" style="width: 50%; margin-top: -170px; margin-left: 250px" src="{{ 'modules/website/images/home/beautiful-img-2.png' | asset_url }} "/>
+                </div>
+
+
             </div>
         </div>
         <div class="spacer xxx-large"></div>
         </div>
     </div>
 </section>
+
 
 <!-- STATIC: SINGLE ROW IMAGE -->
 <section class="single-row-section">
@@ -57,7 +45,7 @@
 
 <!-- STATIC: OVERLAP SECTION -->
 <section class="overlap-section">
-  <div class="blocks-sc-3col-01 wrapper bg-color-ui-01">
+  <div class="blocks-sc-3col-01 wrapper bg-color-ui-01" style="border-radius: 24px!important;">
     <div class="spacer xxx-large"></div>
     <div class="custom-center grid-container">
       <h1>We’re thrilled you want to try Insites!</h1>
@@ -66,113 +54,39 @@
       <div class="spacer x-large"></div>
     </div>
     
-    <div class="grid-container" data-test="section-content-01">
-        <div class="service-list grid-x grid-padding-x grid-padding-y gutter-medium align-strech" data-equalizer>
-          <!-- card -->
-          <div class="large-4 medium-6 small-12 cell align-stretch">
-            <a>
-              <ins-card steady data-test="section-content-01-card" style="background-color: #dfdfdf">
-                <span class="custIcons"><i class="icon-clock"></i></span>
-                <div class="spacer x-large"></div>
-                  <div class="content">
-                    <h3 class="name">Customisable Style Guide</h3>
-                    <div class="spacer"></div>
-                    <p class="subHeading">
-                      We crafted the design system for you! and can be customised to fit your brand.
-                    </p>
+
+
+
+    {% comment %} connect services to graphql {% endcomment %}
+    {%- graphql get_services = 'modules/website/content/get_services' -%}
+    {% comment %} assign var to fetch the result {% endcomment %}
+    {%- assign res_services = get_services | dig: 'items', 'results' -%}
+
+
+
+    <section class="services-section">  
+        <div class="blocks-sc-3col-01 wrapper bg-color-ui-01">
+          <div class="grid-container" data-test="section-content-01">
+              <div class="service-list grid-x grid-padding-x grid-padding-y gutter-medium align-strech" data-equalizer>
+                <!-- card -->
+                {% for item in res_services %}
+                  <div class="large-4 medium-6 small-12 cell align-stretch">
+                    <a href="/services/{{ item.slug }}">                    
+                      <ins-card steady> 
+                        <span class="custIcons"> <i class="{{ item.list_view_icon }}"></i> </span>
+                        <div class="spacer large"></div>
+                        <h3 class="name">{{ item.service_name }}</h3>
+                        <div class="spacer small"></div>
+                        <div class="short-description subHeading">{{ item.list_view_text }}</div>
+                      </ins-card>
+                    </a>
                   </div>
-              </ins-card>
-              </a>
+                {% endfor %}
+                <!-- /card -->
+              </div>
           </div>
-          <!-- /card -->
-          <!-- card -->
-        <div class="large-4 medium-6 small-12 cell align-stretch">
-          <a>
-            <ins-card steady data-test="section-content-01-card">
-              <span class="custIcons"><i class="icon-file"></i></span>
-              <div class="spacer x-large"></div>
-                <div class="content">
-                <h3 class="name">Web Blocks Variations</h3>
-                <div class="spacer"></div>
-                <p class="subHeading">
-                  Every web block supports all major content types, including pages, galleries, blogs, commerce, and more. 
-                </p>
-                </div>
-            </ins-card>
-            </a>
         </div>
-        <!-- /card -->
-        <!-- card -->
-        <div class="large-4 medium-6 small-12 cell align-stretch">
-          <a>
-            <ins-card steady data-test="section-content-01-card">
-              <span class="custIcons"><i class="icon-calendar"></i></span>
-              <div class="spacer x-large"></div>
-                <div class="content">
-                <h3 class="name">Customisable Web Components</h3>
-                <div class="spacer"></div>
-                <p class="subHeading">
-                  You can change the size, text, colour and even the icon in your button. Everthing you need to know, you can get your hands on.
-                </p>
-                </div>
-            </ins-card>
-            </a>
-        </div>
-        <!-- /card -->
-        <!-- card -->
-        <div class="large-4 medium-6 small-12 cell align-stretch">
-          <a>
-            <ins-card steady data-test="section-content-01-card">
-              <span class="custIcons"><i class="icon-email-1"></i></span>
-              <div class="spacer x-large"></div>
-                <div class="content">
-                <h3 class="name">Content Types</h3>
-                <div class="spacer"></div>
-                <p class="subHeading">
-                  Add and manage text, photos, videos, audio, galleries, products, newsletter sign-ups, custom code, charts, and more.
-                </p>
-                </div>
-            </ins-card>
-            </a>
-        </div>
-        <!-- /card -->
-        <!-- card -->
-        <div class="large-4 medium-6 small-12 cell align-stretch">
-          <a>
-            <ins-card steady data-test="section-content-01-card">
-              <span class="custIcons"><i class="icon-file-text"></i></span>
-              <div class="spacer x-large"></div>
-                <div class="content">
-                <h3 class="name">Pre Built Pages</h3>
-                <div class="spacer"></div>
-                <p class="subHeading">
-                  How about layout & pages? We covered that for you as well of course! From blogs, pricing, our team, and more. 
-                </p>
-                </div>
-            </ins-card>
-            </a>
-        </div>
-        <!-- /card -->
-        <!-- card -->
-        <div class="large-4 medium-6 small-12 cell align-stretch">
-          <a>
-            <ins-card steady data-test="section-content-01-card">
-              <span class="custIcons"><i class="icon-file-plus"></i></span>
-              <div class="spacer x-large"></div>
-                <div class="content">
-                <h3 class="name">Fully Responsive</h3>
-                <div class="spacer"></div>
-                <p class="subHeading">
-                  How about the tablet and mobile? We have created templates that adapt to any device.
-                </p>
-                </div>
-            </ins-card>
-            </a>
-        </div>
-        <!-- /card -->
-        
-        </div>
-    </div>
+    </section>
   </div>
 </section>
 

@@ -18,9 +18,14 @@ query get_contact_us (
 			created_at
 			updated_at
       loc_1_name: property(name: "loc_1_name")
-			loc_1_address: property(name: "loc_1_address")              
+			loc_1_address: property(name: "loc_1_address")  
+      loc_1_phone_country_code: property(name: "loc_1_phone_country_code")
 			loc_1_phone_number:property(name: "loc_1_phone_number")
       loc_1_email:property(name: "loc_1_email")
+      twitter_link:property(name: "twitter_link")
+      youtube_link:property(name: "youtube_link")
+      facebook_link:property(name: "facebook_link")
+      linkedin_link:property(name: "linkedin_link")
       
 			loc_1_mon_enable: property(name: "loc_1_mon_enable")
       loc_1_mon_open: property(name: "loc_1_mon_open")

@@ -4,7 +4,7 @@
   --color-sub1: #000000;
   --color-sub2: #E3361E; */
   /* Buttons & Links */
-  --color-main-hover: #436CF2;
+  --color-main-hover: #3159DB;
   --color-sub1-hover: #373737;
   --color-sub2-hover: #D32F19;
   --color-main-hover-light: rgba(67, 108, 242, 0.1);
@@ -89,7 +89,7 @@
   
   .navigation-04 .header-links a {
     font-family: var(--font-family-01);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     /* color: var(--color-font-body, #595959); */
     padding: 8px 24px;
@@ -190,8 +190,8 @@
 
 /* overlap */
 .overlap-section{
-  border: white 20px solid;
-  border-radius: 24px;
+  /* border: white 20px solid;
+  border-radius: 24px; */
   margin: 0px 100px;
   position: relative;
   margin-top: -150px;
@@ -233,7 +233,8 @@
 }
 
 .service-list .ins-card-wrap {
-  padding: 35px;
+  padding: 24px;
+  box-shadow: none!important;
  }
 
  .ourTeamCardHolder{
@@ -245,6 +246,10 @@
   left: 0px; 
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+ }
+
+ .ourTeamCardHolder:hover{
+  cursor: default;
  }
 
  .ourTeamImg{
@@ -370,6 +375,9 @@
       padding-left: 32px;
       padding-right: 32px;
   }
+  h1.colorWhite{
+    font-size: 40px!important;
+  }
 }
 
 @media screen and (max-width: 639px) {
@@ -386,7 +394,7 @@
 .blocks-sc-3col-02 .our-team img,
 .blocks-sc-3col-02 .our-team .placeholder-img {
   width: 100%;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 .blocks-sc-3col-02 .our-team .team-list .description{
   font-family: 'Lato', sans-serif;
@@ -646,8 +654,8 @@ background-color: #0000;
   }
 
   .overlap-section{
-    border: white 10px solid;
-    border-radius: 24px;
+    /* border: white 10px solid;
+    border-radius: 24px; */
     margin: 0px 10px;
     position: relative;
     margin-top: -50px;
@@ -674,6 +682,7 @@ background-color: #0000;
   }
   .testiMessage{
     font-size: 20px;
+    padding: 0px 30px!important;
   }
   .testiName{
     font-size: 16px;
@@ -694,6 +703,11 @@ background-color: #0000;
    .custGridContainer{
     padding: 20px!important;
    }
+
+
+  .sideNavBg{
+    background: #fff;
+  }
 }
 
 
@@ -713,8 +727,8 @@ background-color: #0000;
   }  
   
   .overlap-section{
-    border: white 10px solid;
-    border-radius: 24px;
+    /* border: white 10px solid;
+    border-radius: 24px; */
     margin: 0px 20px;
     position: relative;
     margin-top: -70px;
@@ -738,6 +752,7 @@ background-color: #0000;
   }
   .testiMessage{
     font-size: 20px;
+    /* padding: 0px 100px!important; */
   }
   .testiName{
     font-size: 16px;
@@ -745,7 +760,9 @@ background-color: #0000;
   .testiLoc{
     font-size: 12px;
   }
-
+  .sideNavBg{
+    background: #fff;
+  }
 } 
 
 /* Large devices (laptops/desktops, 1025px and up) */
@@ -765,8 +782,8 @@ background-color: #0000;
 
   /* overlap */
   .overlap-section{
-    border: white 20px solid;
-    border-radius: 24px;
+    /* border: white 20px solid;
+    border-radius: 24px; */
     margin: 0px 100px;
     position: relative;
     margin-top: -150px;
@@ -792,12 +809,16 @@ background-color: #0000;
   .testiMessage{
     font-size: 40px;
     line-height: 56px;
+    /* padding: 0px 205px!important; */
   }
   .testiName{
     font-size: 21px;
   }
   .testiLoc{
     font-size: 16px;
+  }
+  .sideNavBg{
+    background: linear-gradient(90deg,#fafbfb 50%,#fff 50%)!important;
   }
 } 
 
@@ -898,10 +919,12 @@ footer.blocks-footer-05{
 .customNav .ins-dropdown_menu-card{
   width: 250px;
 }
-.customNav .ins-dropdown_menu-card a{
+.customNav .ins-dropdown_menu-card a,
+.customNav .header-top-bar .ins-dropdown_label{
   padding: 18px 25px;
   margin: 0px;
   color: #000000;
+  font-size: 14px!important;
 }
 
 .servicesMenuSubitems .inner-head{
@@ -913,7 +936,7 @@ footer.blocks-footer-05{
   color: #000000;
 }
 .signOutCustom .ins-button div .btn__label{
-  font-size: 12px;
+  font-size: 14px!important;
   color: #000000;
 }
 
@@ -956,12 +979,12 @@ ins-button .ins-button .icon-user{
   font-size: 32px!important;
   color: white;
   background-color: #436CF2;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 16px;
+  border-radius: 12px;
 }
 
 .custIconsInverted{
-  font-size: 32px!important;
+  font-size: 56px!important;
   color: #436CF2;
 }
 
@@ -977,11 +1000,11 @@ ins-button .ins-button .icon-user{
 
 ins-button .ins-button div .btn__label{
   font-family: var(--font-family-01);
-  font-size: 12px;
+  font-size: 12px!important;
 }
 
 .header-top-bar a{
-  padding-right: 0px;
+  padding-right: 16px;
 }
 
 .colorWhite{
@@ -999,6 +1022,7 @@ ins-button .ins-button div .btn__label{
 .testiMessage{
   font-family: var(--font-family-01);
   font-weight: 400;
+  padding: 0px 205px;
 }
 .testiName{
   font-family: var(--font-family-01);
@@ -1059,7 +1083,11 @@ ins-accordion .inner-content{
 .card {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+.card:hover {
+  border: 1px solid #436CF2;
 }
 
 .card img {
@@ -1109,4 +1137,136 @@ ins-accordion .inner-content{
   font-size: 16px!important;
   font-weight: 400!important;
   color: #575757!important;
+}
+
+.logo{
+  height: 56px!important;
+}
+.clientLogo img{
+  max-width: 60%;
+}
+
+.iconHover{
+  text-decoration: none!important;
+}
+
+ins-card .ins-card-wrap{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  background: #F9FAFB;
+  border: 1px solid #DFDFDF;
+  border-radius: 16px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+ins-card.support .ins-card-wrap{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* padding: 20px 10px!important; */
+  background: #F9FAFB;
+  /* border: 1px solid #DFDFDF; */
+  border-radius: 4px!important;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+ins-card.support .ins-card-wrap:hover{
+  cursor: default!important;
+  border: 1px solid transparent!important;
+}
+
+.servicesH1{
+  height: 100%!important;
+}
+
+/* ACCORDION SIDE NAV */
+.sideNav .ins-accordion-item_header{
+  padding: 0px;
+}
+.sideNav .ins-accordion-item_header>.inner-head,
+.sideNav .ins-accordion-item_content .inner-content{
+  border: 0px;
+  background-color: transparent;
+}
+
+.sideNav .ins-accordion-item{
+  background-color: transparent;
+}
+.sideNav .accordion-section-holder {
+  background-color: var(--color-ui-02);
+  padding-left: 24px;
+  padding-right: 24px
+}
+
+.sideNav .ins-accordion-item,
+.sideNav .ins-accordion-link,
+.sideNav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
+.sideNav .ins-accordion-item_content .ins-accordion-link,
+.sideNav .ins-accordion-item_header>.inner-head {
+  background-color: var(--color-ui-02);
+}
+
+.sideNav .ins-accordion-item_content .ins-accordion-link {
+  border-bottom: unset
+}
+
+.sideNav .ins-accordion.menu .ins-accordion-item .inner-head span,
+.sideNav .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
+  color: var(--font-color-sub);
+}
+
+.sideNav .ins-accordion-link a:hover {
+  text-decoration: none!important;
+  color:#436CF2!important;
+  font-weight: 700;
+  background-color: var(--color-main-hover-light);
+}
+
+.active{
+    text-decoration: none!important;
+    color:#436CF2!important;
+    font-weight: 700;
+    background-color: var(--color-main-hover-light);
+}
+
+.sideNav .ins-accordion.menu .ins-accordion-item .inner-head {
+  padding: 12px 14px;
+  padding-left: 0
+}
+
+.sideNav .ins-accordion.menu .ins-accordion-item .inner-head span,
+.sideNav .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px
+}
+
+.sideNav .ins-accordion.menu .ins-accordion-item .inner-head,
+.sideNav .ins-accordion-link,
+.sideNav .ins-accordion.menu ins-accordion-item:first-of-type .ins-accordion-item_header {
+  border: 0;
+}
+
+.sideNav .ins-accordion.menu .ins-accordion-item .inner-head:hover,
+.sideNav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
+.sideNav .ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover {
+  background-color: unset;
+}
+
+.sideNav .ins-accordion-link_link {
+  padding: 12px 12px;
+  font-weight: 400;
+  color: var(--font-color-sub);
+  font-family: var(--font-family-02);
+  font-size: 16px;  
 }

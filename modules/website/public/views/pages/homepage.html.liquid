@@ -5,10 +5,6 @@ layout: modules/website/default
 {%comment%} get device type {%endcomment%}
 {%- assign device_used = context.device.device_type -%}
 
-{% cache context.page.slug, expire: 10 %}
-Random string: {{ 18 | random_string }}
-{% endcache %}
-
 {% include 'modules/website/content/homepage/carousel' %} 
 {% include 'modules/website/content/homepage/section-1' %} 
 {% include 'modules/website/content/homepage/section-2' %}
