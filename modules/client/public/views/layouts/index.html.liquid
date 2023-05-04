@@ -55,18 +55,17 @@ The `homepage` layout is dedicated layout for homepage only.
         </div>
         {%- endif -%}      
 
-        <div class="wrapper">
+        <div class="wrapper client-portal">
             <div class="grid-container">
                 <div class="grid-x gutter-medium grid-padding-x">
                     <div class="large-3 medium-5 small-12 cell bg-color-ui-02">
                         {% include 'modules/client/layout/sidebar' %}
                     </div>
-                    <div class="large-9 medium-7 small-12 cell bg-color-ui-01">
+                    <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content">
                         <div class="spacer xxxx-large"></div>
                         {{ content_for_layout }}
                     </div>
                 </div>
-                <div class="spacer x-large"></div>
             </div>
         </div>
         

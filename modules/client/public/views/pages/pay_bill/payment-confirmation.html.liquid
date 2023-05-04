@@ -1,0 +1,79 @@
+---
+slug: payment-confirmation
+layout: modules/client/index
+# enable_profiler: true
+searchable: "true"
+max_deep_level: 3
+metadata: {
+    "status": "published",
+    "page_type": "content", ## content, system or endpoint
+    "og:url": "{{ context.exports.global.company_url | strip }}",
+    "og:type": "",
+    "og:image": "",
+    "og:title": "Pay Bill - Payment Successful",
+    "og:description": "Pay Bill - Payment Successful",
+    "og:site_name": "{{ context.exports.global.company_name | strip }}",
+    "meta_title": "Pay Bill - Payment Successful",
+    "page_title": "Pay Bill - Payment Successful | Insites",
+    "meta_description": "Pay Bill - Payment Successful",
+    "canonical_url": "",
+    "search_engine_visibility": false,
+    "sitemap_enabled": false,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "99", ## secondary order (ASC)
+    "sitemap_changefreq": "never",
+    "heading": "Pay a Bill"
+}
+# authorization_policies:
+#     - modules/ecommerce/order_created_date_valid 
+---
+
+{% graphql order = "modules/client/pay_bill/get_order_details", id: context.params.order_id | dig: 'items' | dig: 'results' | first %}
+
+{%- if context.session.paybill_email == order.billing_email -%}
+
+    <div class="spacer xxx-large"></div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-12 medium-12 small-12 cell text-center">
+            <h1 class="heading-1">We've received your payment</h1>
+            <div class="spacer small"></div> 
+            <p>Your payment has been received with order number <strong>{{ context.params.order_id | default: '0000000000000' }}</strong></p>
+        </div>
+    </div>
+    <div class="spacer xxxx-large"></div>
+
+    <div class="grid-x grid-padding-x confirmation__wrapper">
+        <div class="large-4 medium-5 small-12 cell">
+
+            {% graphql cart = "modules/client/pay_bill/get_cart_by_field",
+                order_id: context.params.order_id, is_product_name: true 
+                | dig: 'items' | dig: 'results' | first %}
+
+            {%- comment -%} Payment Details {%- endcomment -%}
+            <div>
+                <h3 class="heading-3">Payment Details</h3>
+                <div class="spacer small"></div>
+                <p class="font-cabin">{{ order.payment.card_brand | upcase }} **** **** **** {{ order.payment.card_last4 }}</p>
+                {%- assign month = order.payment.card_exp_month -%}
+                {%- if order.payment.card_exp_month.size < 2 -%}
+                    {%- assign month = "0" | append: order.payment.card_exp_month -%}
+                {%- endif -%}
+                <p class="font-cabin">{{ month }} / {{ order.payment.card_exp_year }}</p>
+                <div class="spacer x-large"></div>
+            </div>
+            
+        </div>
+        <div class="large-7 large-offset-1 medium-6 medium-offset-1 small-12 cell">
+            <div class="spacer xxx-large show-for-small-only"></div>
+
+            {% include 'modules/client/pay_bill/payment_summary', 
+                order_id: context.params.order_id %}
+            
+        </div>
+    </div>
+
+    {%- session paybill_email = null -%}    
+
+{%- else -%}
+    {%- redirect_to '/pay-bill' -%}
+{%- endif -%}

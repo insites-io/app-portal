@@ -1,0 +1,24 @@
+name: credit_card
+metadata:
+  label: "Credit Card"
+  is_archived: false
+properties:
+- name: gateway_id ## stripe card id
+  type: string
+- name: gateway_customer_id ## stripe customer id
+  type: string
+- name: user_id
+  type: string
+- name: external_id
+  type: string
+- name: brand
+  type: string
+- name: exp_month
+  type: integer
+- name: exp_year
+  type: integer
+- name: last4
+  type: string
+- name: is_enabled
+  type: boolean
+  default_value: true

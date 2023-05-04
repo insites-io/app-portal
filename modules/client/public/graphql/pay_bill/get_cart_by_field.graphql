@@ -1,0 +1,51 @@
+query get_cart_by_field (
+  $id: ID,
+  $ids: [ID!],
+  $not_id: [ID!], 
+  $page: Int = 1,
+  $size: Int = 100,
+  $user_id: String,
+  $order_id: String,
+  $product_id: String,
+  $product_variant_id: String,
+  $status: String,
+  $is_product_name: Boolean = false,
+  $is_product_price: Boolean = false,
+  $is_quantity: Boolean = false,
+  $is_order_id: Boolean = false
+) {
+  items: records(
+    page: $page
+    per_page: $size
+    filter: {
+      id: { value: $id, not_value_in: $not_id, value_in: $ids }
+      deleted_at: { exists: false }
+      table: { value: "modules/client/pay_bill" }
+      properties: [
+        { name: "user_id", value: $user_id }
+        { name: "order_id", value: $order_id }
+        { name: "status", value: $status }
+        { name: "product_id", value: $product_id }
+        { name: "product_variant_id", value: $product_variant_id }
+      ] 
+    }
+    sort: { created_at: { order: ASC } }
+  ) {
+    total_entries
+    results {
+      id            
+    },
+    results @include(if: $is_product_name){
+      product_name: property(name: "product_name")
+    },
+    results @include(if: $is_product_price){
+      product_price: property_float(name: "product_price")
+    },
+    results @include(if: $is_quantity){
+      quantity: property_int(name: "quantity")
+    },
+    results @include(if: $is_order_id){
+      order_id: property(name: "order_id")
+    }
+  }
+}
