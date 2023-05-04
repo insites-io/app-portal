@@ -4,7 +4,7 @@ resource: modules/website/contact_us
 resource_owner: anyone
 redirect_to: /thank-you
 # spam_protection:
-#   recaptcha_v2:
+# recaptcha_v2:
 fields:
   properties:
     first_name:
@@ -150,12 +150,11 @@ api_call_notifications:
       <input type="hidden" id="document" name="{{ props.document.name }}" />
     </div>
     {%- comment -%} IF your form / instance have recaptcha enabled, uncommment this code {%- endcomment -%}
-    {%- comment -%} 
     <div id="recaptcha-v2-wrapper" class="large-6 medium-6 small-12 cell" data-test="contact-us-recaptcha-container">
     {% spam_protection "recaptcha_v2" %}
     <div class="ins-form-error">Please prove you are not a robot.</div>
     </div>
-    {%- endcomment -%}
+    
     <div class="large-12 medium-12 small-12 cell text-left">
       <ins-button id="submit-btn-contact-us"
         label="Submit" solid color="blue" type="submit" size="normal" data-test="contact-us-button-submit"></ins-button>

@@ -10,16 +10,16 @@
             <div class="slide-container">
               <div class="img-wrap">
                 <!-- desktop image -->
-                <img src="{{ item.image.versions.Desktop }}" alt="desktop image" class="hide-for-small-only"/>
+                <img  loading="lazy" src="{{ item.image.versions.Desktop }}" alt="desktop image" class="hide-for-small-only"/>
                 <!-- mobile image -->
-                <img src="{{ item.image.versions.Mobile }}" alt="mobile image" class="show-for-small-only"/>
+                <img  loading="lazy" src="{{ item.image.versions.Mobile }}" alt="mobile image" class="show-for-small-only"/>
               </div>         
               <div class="slide-content wrapper vertical-align-middle">
                 <div class="grid-x">
                   <div class="large-12 medium-12 small-12 cell">
                     <h1 class="cusTitle heading heading-1">{{ item.title }}</h1>
                     <div class="spacer"></div>
-                    <p class="cusLongText">{{ item.long_text }}</p>
+                    <p class="subHeading cusLongText">{{ item.short_text }}</p>
                     <div class="spacer"></div>
                     <a href='{{ item.link }}' target="_blank">
                       <ins-button solid label="Learn More">

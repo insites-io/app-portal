@@ -7,99 +7,67 @@
 <body>
     <div class="main-wrap">
 
-    {% include 'modules/website/layout/header' %}
-    {% include 'modules/website/layout/header-mobile' %}
+      {% include 'modules/website/layout/header' %}
+      {% include 'modules/website/layout/header-mobile' %}
 
-    <div class="blocks-hero-01 homepage-banner-wrap">
-  <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner" transition="700" duration="5000"
-    data-test="homepage-slider" height="460px">
-    <div id="homepage-banner">
-      <!-- item -->
-      <div class="slide-container" style="background-color: #000;">
-        <div class="img-wrap">
-          <!-- desktop image -->
-          <img
-            src="https://insites.imgix.net/bg-dark.jpg"
-            alt="" class="hide-for-small-only" />
-          <!-- mobile image -->
-          <img src="https://insites.imgix.net/bg-dark.jpg" alt=""
-            class="show-for-small-only" />
-        </div>         
-        <div class="slide-content wrapper vertical-align-middle">
-          <div class="grid-x">
-            <div class="large-6 large-offset-1 medium-12 small-12 cell">
-              <h1 class="heading heading-1">Welcome to Insites Blocks</h1>
-              <div class="spacer"></div>
-              <p>Simple, clean, customisable AND easy to use? Yeah, we're as stoked as you as well! This is website template is for you to make your own. Tweak it or break it, it's totally up to you.</p>
-              <div class="spacer x-large"></div>
-              <a>
-                <ins-button solid label="Learn More">
-                </ins-button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /item -->
+{% comment %} connect services to graphql {% endcomment %}
+{%- graphql get_news = 'modules/website/content/get_news' -%}
+{% comment %} assign var to fetch the result {% endcomment %}
+{%- assign res_news = get_news | dig: 'items', 'results' -%}
 
-      <!-- item -->
-      <div class="slide-container" style="background-color: #000;">
-        <div class="img-wrap">
-          <!-- desktop image -->
-          <img
-            src="https://insites.imgix.net/bg-dark2.jpg"
-            alt="" class="hide-for-small-only" />
-          <!-- mobile image -->
-          <img src="https://insites.imgix.net/bg-dark2.jpg" alt=""
-            class="show-for-small-only" />
-        </div>         
-        <div class="slide-content wrapper vertical-align-middle">
-          <div class="grid-x">
-            <div class="large-6 large-offset-1 medium-12 small-12 cell">
-              <h1 class="heading heading-1">Welcome to Insites Blocks</h1>
-              <div class="spacer"></div>
-              <p>Simple, clean, customisable AND easy to use? Yeah, we're as stoked as you as well! This is website template is for you to make your own. Tweak it or break it, it's totally up to you.</p>
-              <div class="spacer x-large"></div>
-              <a>
-                <ins-button solid label="Learn More">
-                </ins-button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /item -->
+<section class="news-content">
+    <div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
+        <div class="our-team grid-container main-container" data-test="page-our-team-list">
+            <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
+                {% for item in res_news %}
+                    <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
+                        <div class="newsImageContainer">
+                            <a href="/news/{{ item.slug }}">
+                                <img alt="image" src="{{ item.list_view_image.url }}"/>
+                            </a>
+                        </div>
 
-      <!-- item -->
-      <div class="slide-container" style="background-color: #000;">
-        <div class="img-wrap">
-          <!-- desktop image -->
-          <img
-            src="https://insites.imgix.net/bg-dark.jpg"
-            alt="" class="hide-for-small-only" />
-          <!-- mobile image -->
-          <img src="https://insites.imgix.net/bg-dark.jpg" alt=""
-            class="show-for-small-only" />
-        </div>         
-        <div class="slide-content wrapper vertical-align-middle">
-          <div class="grid-x">
-            <div class="large-6 large-offset-1 medium-12 small-12 cell">
-              <h1 class="heading heading-1">Welcome to Insites Blocks</h1>
-              <div class="spacer"></div>
-              <p>Simple, clean, customisable AND easy to use? Yeah, we're as stoked as you as well! This is website template is for you to make your own. Tweak it or break it, it's totally up to you.</p>
-              <div class="spacer x-large"></div>
-              <a>
-                <ins-button solid label="Learn More">
-                </ins-button>
-              </a>
+                        <div class="newsContentContainer">
+                            <div class="spacer x-large"></div>
+                            <div class="tagButton">
+                            <ins-button 
+                                size="small"
+                                cursor="text" 
+                                solid 
+                                icon="icon-tag"
+                                color="blue" 
+                                label="{{ item.tag }}">
+                                </ins-button>
+                            </div>
+                            <div class="spacer"></div>
+                            <a href="/news/{{ item.slug }}">
+                                <div class="newsTitle">
+                                    <h3 class="subHeading">{{ item.title }}</h3>
+                                </div>
+                            </a>
+                            <p class="newsSubheading">{{ item.published_date }} BY {{ item.author }}</p>
+                            <div class="spacer small"></div>
+                            <div class="description">
+                                {{ item.list_view_text }}
+                            </div>
+                            <div class="spacer small"></div>
+                            <div class="custom-publish-info">
+                                <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-          </div>
         </div>
-      </div>
-      <!-- /item -->
     </div>
-  </ins-carousel>
-</div> 
+    
+    <div class="spacer"></div>        
+    {%- include "modules/client/paginations", page_num, per_page -%}
+    <div class="spacer xxxx-large"></div>
+
+
+<div class="spacer"></div>
+</section>
+
     </div>
     {% include 'modules/website/layout/footer' %}  
 </body>

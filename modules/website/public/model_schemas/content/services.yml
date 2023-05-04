@@ -1,4 +1,4 @@
-name: services
+name: modules/website/services
 metadata:
   label: "services"
   groups: [{"id":"20a0f99f-4380-41e6-b9ae-bb60d77762e8","name":"system field","weight":0},{"id":"53b96e08-da4b-4e42-a1d9-f7032d0c3c22","name":"SEO Settings","weight":1},{"id":"13abf116-4dbc-430c-ac12-aab2829619ae","name":"Page Settings","weight":2},{"id":"d494e68d-896b-4174-99a2-b4d2f4594a2e","name":"Service Content","weight":3}]

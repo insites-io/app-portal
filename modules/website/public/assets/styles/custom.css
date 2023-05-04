@@ -1,3 +1,66 @@
+:root {
+  /* Brand colors */
+  /* --color-main: #436CF2;
+  --color-sub1: #000000;
+  --color-sub2: #E3361E; */
+  /* Buttons & Links */
+  --color-main-hover: #436CF2;
+  --color-sub1-hover: #373737;
+  --color-sub2-hover: #D32F19;
+  --color-main-hover-light: rgba(67, 108, 242, 0.1);
+  --color-sub1-hover-light: rgba(0, 0, 0, 0.1);
+  --color-sub2-hover-light: rgba(211, 47, 25, 0.1);
+  /* Font colors */
+  --font-color-head: #000000;
+  --font-color-sub: #323232;
+  --font-color-body: #575757;
+  --font-color-link: #436CF2;
+  --font-color-visited: #670099;
+  --font-color-inv: #FFFFFF;
+  /* Text colors */
+  --text-3: #595959;
+  /* UI Colors */
+  --color-ui-01: #FFFFFF;
+  --color-ui-02: #F9FAFB;
+  --color-ui-03: #F7F7F7;
+  --color-ui-04: #DFDFDF;
+  --color-ui-05: #84848F;
+  --color-ui-06: #575757;
+  --color-ui-07: #436CF2;
+  --color-ui-08: #000000;
+  --ui-border: #E1E1E1;
+  /* Support/Notification Colors */
+  --success: #37B68F;
+  --error: #FF3366;
+  --warning: #FFA639;
+  /* Support/Notification Colors Hover*/
+  --success-hover: #2B8D6F;
+  --error-hover: #FF0040;
+  --warning-hover: #FF8F05;
+  /* Support/Notification Colors Hover Light*/
+  --success-hover-light: rgba(55, 182, 143, 0.1);
+  --error-hover-light: rgba(255, 51, 102, 0.1);
+  --warning-hover-light: rgba(255, 166, 57, 0.1);
+  /* Gradiant Background */
+  --color-gradiant1: linear-gradient(90deg, #1E4AA2 0%, #1B78CC 100%);
+  --color-gradiant2: linear-gradient(90deg, #8C1EE3 0%, #C71EE3 100%);
+  --color-gradiant3: linear-gradient(90deg, #E3351E 0%, #F07B26 100%);
+  /* Font family */
+  --font-family-01: 'Roboto', sans-serif;
+  /* usually on heading */
+  --font-family-02: 'Work Sans', sans-serif;
+  /* usually on sub-heading */
+  --font-family-03: 'Cabin', sans-serif;
+  --font-family-04: 'Roboto', condensed;
+  --font-family-05: 'Poppins';
+  /* Shadow */
+  --shadow-level-1: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-level-2: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-level-3: 0px 12px 12px rgba(0, 0, 0, 0.05), 0px 2px 5px rgba(0, 0, 0, 0.1);
+  --shadow-level-4: 0px 24px 38px rgba(0, 0, 0, 0.05), 0px 11px 15px rgba(0, 0, 0, 0.1);
+}
+
+
 /* NAV */
 .navigation-04 {
     display: block; 
@@ -25,12 +88,12 @@
   }
   
   .navigation-04 .header-links a {
-    font-family: var(--font-family-01, 'Lato', sans-serif);
-    font-size: var(--typography-x-small, 0.75rem);
+    font-family: var(--font-family-01);
+    font-size: 12px;
     font-weight: 700;
-    color: var(--color-font-body, #595959);
+    /* color: var(--color-font-body, #595959); */
     padding: 8px 24px;
-    margin-left: 8px;
+    /* margin-left: 8px; */
   }
   
   .navigation-04 ins-drawer#mobile-menu .menu li a {
@@ -151,6 +214,7 @@
 
 .card-section p,
 .card-section h3,
+.card-section h2,
 .card-section h5,
 .card-section h6{
   color: #fff;
@@ -221,12 +285,16 @@
   padding: 24px; 
 }
 
-.custom-publish-info{
+.custom-publish-info, .custom-publish-info a{
   color:#436CF2;
-  font-weight: 800;
+  font-weight: 700;
+  font-family: var(--font-family-01)!important;
 }
 
-.newsTitle{
+.newsTitle h3{
+  font-family: var(--font-family-01)!important;
+  font-size: 18px!important;
+  color: #000000!important;
   position: relative;
   display: inline-block;
   word-wrap: break-word;
@@ -234,6 +302,27 @@
   max-height: 58px; /* (Number of lines you want visible) * (line-height) */
   line-height: 1.2em;
 }
+
+.newsTitle{
+  max-height: 58px;
+  height: 58px;
+}
+
+.newsSubheading{
+  font-family: var(--font-family-02)!important;
+  font-style: normal;
+  font-weight: 700!important;
+  font-size: 12px!important;
+  line-height: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #323232!important;
+  flex: none;
+  order: 4;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
 
 /* sc-3col-02 */
 .blocks-sc-3col-02.wrapper {
@@ -391,9 +480,9 @@
 SERVICES
 *******/
 
-.services-section{
-
-}
+/* .services-section{
+background-color: #0000;
+} */
 
 /* Start: INS Component Overwrite */
 .blocks-sc-2col-08 .pageinations .ins-select-value-wrap{
@@ -501,10 +590,10 @@ SERVICES
 
 .newsContentContainer{
   padding: 16px;
-  border: 2px solid lightgray;
+  /* border: 2px solid lightgray;
   border-top: 0px;
   border-radius: 20px;
-  margin-top: -35px;
+  margin-top: -35px; */
 }
 
 .newsContentContainer .description{
@@ -512,9 +601,20 @@ SERVICES
   display: inline-block;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 3.6em; /* (Number of lines you want visible) * (line-height) */
+  max-height: 4.5em; /* (Number of lines you want visible) * (line-height) */
   line-height: 1.2em;
-  text-align:justify;
+  height: 4.5em;
+  /* text-align:justify; */
+  font-family: var(--font-family-02)!important;
+  font-style: normal;
+  font-weight: 400!important;
+  font-size: 16px!important;
+  line-height: 24px;
+  color: #575757!important;
+  flex: none;
+  order: 6;
+  align-self: stretch;
+  flex-grow: 0;
 }
 
 /* CONTACT */
@@ -548,7 +648,7 @@ SERVICES
   .overlap-section{
     border: white 10px solid;
     border-radius: 24px;
-    margin: 0px 20px;
+    margin: 0px 10px;
     position: relative;
     margin-top: -50px;
   }
@@ -569,17 +669,16 @@ SERVICES
     font-size: 14px;
   }
 
-  .testimonialText{
+  .testiLabel{
     font-size: 14px;
   }
-  .testimonialMessage{
-    font-size: 18px;
+  .testiMessage{
+    font-size: 20px;
   }
-  .testimonialName{
-    font-size: 14px;
+  .testiName{
+    font-size: 16px;
   }
-
-  .testimonialLocation{
+  .testiLoc{
     font-size: 12px;
   }
 
@@ -590,6 +689,10 @@ SERVICES
 
   .our-team-desc{
     padding: 0px 15px;
+   }
+
+   .custGridContainer{
+    padding: 20px!important;
    }
 }
 
@@ -629,6 +732,20 @@ SERVICES
     width: 10%;
     text-align: center;
   }
+
+  .testiLabel{
+    font-size: 14px;
+  }
+  .testiMessage{
+    font-size: 20px;
+  }
+  .testiName{
+    font-size: 16px;
+  }
+  .testiLoc{
+    font-size: 12px;
+  }
+
 } 
 
 /* Large devices (laptops/desktops, 1025px and up) */
@@ -665,6 +782,22 @@ SERVICES
   .check-icon{
     width: 20%;
     text-align: center;
+  }
+
+  .testiLabel{
+    font-size: 18px;
+    letter-spacing: 0.1em;
+  }
+
+  .testiMessage{
+    font-size: 40px;
+    line-height: 56px;
+  }
+  .testiName{
+    font-size: 21px;
+  }
+  .testiLoc{
+    font-size: 16px;
   }
 } 
 
@@ -750,6 +883,12 @@ footer.blocks-footer-05{
 }
 
 /* Nav */
+
+.navigation-04 .header-links a:hover, .navigation-04 .header-links a :hover{
+  color: var(--color-main-hover)!important;
+}
+
+
 .ins-dropdown_label{
   padding: 0px;
 }
@@ -762,6 +901,7 @@ footer.blocks-footer-05{
 .customNav .ins-dropdown_menu-card a{
   padding: 18px 25px;
   margin: 0px;
+  color: #000000;
 }
 
 .servicesMenuSubitems .inner-head{
@@ -770,8 +910,203 @@ footer.blocks-footer-05{
 .profileNav .ins-dropdown_menu-card a{
   padding: 18px 25px;
   margin: 0px;
+  color: #000000;
 }
-.signOutCustom .ins-button div span {
-  font-size: var(--typography-x-small, 0.75rem);
+.signOutCustom .ins-button div .btn__label{
+  font-size: 12px;
+  color: #000000;
 }
 
+.servicesMenuSubitems .ins-accordion-link{
+  padding: 0px;
+}
+
+.subHeading{
+  font-family: var(--font-family-02)!important;
+  font-size: 16px!important;
+}
+
+.subHeading a,
+.subHeading li,
+.subHeading .ins-accordion-link{
+  font-family: var(--font-family-01)!important;
+  font-size: 16px!important;
+  font-weight: 400!important;
+}
+
+.subHeading-2{
+  font-family: var(--font-family-01);
+  font-size: 18px;
+}
+
+.subHeading-3{
+  font-family: var(--font-family-05);
+  font-size: 16px!important;
+}
+ 
+.btnBlack .ins-button{
+  background-color: black!important;
+}
+
+ins-button .ins-button .icon-user{
+  font-size: 16px!important;
+}
+
+.custIcons{
+  font-size: 32px!important;
+  color: white;
+  background-color: #436CF2;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.custIconsInverted{
+  font-size: 32px!important;
+  color: #436CF2;
+}
+
+
+.custIconCheck{
+  font-size: 12px!important;
+  color: white;
+  background-color: #436CF2;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+ins-button .ins-button div .btn__label{
+  font-family: var(--font-family-01);
+  font-size: 12px;
+}
+
+.header-top-bar a{
+  padding-right: 0px;
+}
+
+.colorWhite{
+  color: #FFFFFF!important;
+}
+
+.colorBlack{
+  color: #000000!important;
+}
+
+.testiLabel{
+  font-family: var(--font-family-04);
+  font-weight: 500;
+}
+.testiMessage{
+  font-family: var(--font-family-01);
+  font-weight: 400;
+}
+.testiName{
+  font-family: var(--font-family-01);
+  font-weight: 700;
+}
+.testiLoc{
+  font-family: var(--font-family-01);
+  font-weight: 400;
+}
+
+.side-links{
+  list-style-type: none;
+  margin: 0px;
+}
+
+.faqListHeader{
+  font-weight: 400!important;
+  font-size: 16px!important;
+}
+
+.faqList{
+  font-weight: 400!important;
+  font-size: 16px!important;
+  line-height: 24px!important;
+  color: #323232!important;
+}
+
+.faqList:hover{
+  font-weight: 700!important;
+  color: #436CF2!important;
+  /* background-color: #1779ba; */
+}
+
+.listSpacer{
+  padding: 10px;
+}
+
+ins-accordion .heading, 
+ins-accordion .inner-content{
+  font-size: 16px!important;
+}
+
+.tagButton ins-button .ins-button:hover{
+  background-color: #116ec3!important;
+  color: #ffffff!important;
+  text-decoration: none!important;
+  cursor: default!important;
+}
+
+.card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 5px 5px 0 0;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-content h2 {
+  margin-top: 0;
+}
+
+.card-content p {
+  margin: 0;
+}
+
+.footerSubItems a{
+  font-family: var(--font-family-02)!important;
+  color: #575757!important;
+}
+
+.staticFonts p,
+.staticFonts ul{
+  font-family: var(--font-family-02)!important;
+  font-style: normal!important;
+  font-weight: 400!important;
+  font-size: 16px!important;
+  line-height: 24px!important;
+  color: #575757!important;
+}
+
+.signOutHolder{
+  padding: 20px 15px;
+}
+
+.signOut .ins-accordion-link{
+  display: none;
+}
+
+.signOutHolder form ins-button div .btn__label{
+  font-family: var(--font-family-01)!important;
+  font-size: 16px!important;
+  font-weight: 400!important;
+  color: #575757!important;
+}

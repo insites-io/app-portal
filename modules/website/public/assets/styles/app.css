@@ -1,7 +1,8 @@
 :root {
     font-size: 16px;
     /* Brand colors */
-    --color-main: #116EC3;
+    /* --color-main: #116EC3; */
+    --color-main: #436CF2;
     --color-sub1: #8C1EE3;
     --color-sub2: #E3361E;
     /* Buttons & Links */
