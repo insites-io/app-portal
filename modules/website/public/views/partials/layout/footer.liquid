@@ -6,14 +6,16 @@
             <div class="grid-x grid-padding-x gutter-medium">
                 <div class="large-4 medium-6 small-12 cell text-left">
                     <div class="img-logo img-full">
-                        <img alt="logo" style="width: 20%" src="https://docs.insites.io/assets/images/webblocks/insites-template-logo.png?updated" alt="Sample Logo">
+                        <img alt="logo" class="logo" src="https://docs.insites.io/assets/images/webblocks/insites-template-logo.png?updated" alt="Sample Logo">
                     </div>
                 </div>
                 <div class="small-12 cell spacer xxx-large hide-for-medium"></div>
+
+                <!-- QUICK LINKS -->
                 <div class="large-2 medium-6 small-12 cell">
                     <ul class="vertical menu">
                         <li>
-                            <p class="navigation-level-1 color-font-head subHeading-2" data-test="">Quick Links</p>
+                            <p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">Quick Links</p>
                             <div class="spacer"></div>
                         </li>
                         <li class="">
@@ -34,11 +36,15 @@
                         </li>
                     </ul>
                 </div>
-                <div class="small-12 cell spacer xxx-large hide-for-large"></div>
+    
+                <!-- SERVICES -->
                 <div class="large-3 medium-6 small-12 cell">
+                    <div class="spacer show-for-small-only"></div>
+                    <div class="spacer xxxx-large show-for-small-only"></div>
+                    
                     <ul class="vertical menu">
                         <li>
-                            <p class="navigation-level-1 color-font-head subHeading-2" data-test="">Services</p>
+                            <p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">Services</p>
                             <div class="spacer"></div>
                         </li>
                         {% comment %} connect services to graphql {% endcomment %}
@@ -54,34 +60,38 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="small-12 cell spacer xxx-large hide-for-medium"></div>
+
+
+                <!-- EXTERNAL LINKS -->
                 <div class="large-2 medium-6 small-12 cell">
-                  <div class="spacer xxx-large hide-for-large"></div>
-                  <ul class="vertical menu">
-                    <li><p class="navigation-level-1 color-font-head subHeading-2" data-test="">External Links</p>
-                      <div class="spacer"></div>
+                    <div class="spacer show-for-small-only"></div>
+                    <div class="spacer xxxx-large show-for-small-only"></div>
+                    
+                    <ul class="vertical menu">
+                    <li><p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">External Links</p>
+                        <div class="spacer"></div>
                     </li>
                     <li>
-                      <a href="https://www.insites.io/" class="footer-links color-font-head" data-test="">
+                        <a href="https://www.insites.io/" class="footer-links color-font-head" data-test="">
                         <span>Website</span>
                         <i class="icon-external-link1"></i>
-                      </a>
-                      <div class="spacer small"></div>
+                        </a>
+                        <div class="spacer small"></div>
                     </li>
                     <li>
-                      <a href="https://console.insites.io/" class="footer-links color-font-head" data-test="">
+                        <a href="https://console.insites.io/" class="footer-links color-font-head" data-test="">
                         <span>Console</span>
                         <i class="icon-external-link1"></i>
-                      </a>
-                      <div class="spacer small"></div>
+                        </a>
+                        <div class="spacer small"></div>
                     </li>
                     <li>
-                      <a href="https://docs.insites.io/" class="footer-links color-font-head" data-test="">
+                        <a href="https://docs.insites.io/" class="footer-links color-font-head" data-test="">
                         <span>Resources</span>
                         <i class="icon-external-link1"></i>
-                      </a>
+                        </a>
                     </li>
-                  </ul>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -97,30 +107,37 @@
             <div class="grid-x align-justify">
                 <div class="large-6 medium-6 small-12 cell medium-text-left text-center grid-x grid-margin-x">
                     <div class="medium-shrink cell">
-                        <a href="/privacy-policy" target="_blank">Privacy Policy</a>
+                        <a href="/privacy-policy">Privacy Policy</a>
                     </div>
                     <div class="cell spacer show-for-small-only"></div>
                     <div class="medium-shrink cell">
-                        <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a>
+                        <a href="/terms-and-conditions">Terms and Conditions</a>
                     </div>
                 </div>
                 <div class="cell spacer show-for-small-only"></div>
                 <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
                     <div>
+                        {% comment %} connect services to graphql {% endcomment %}
+                        {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+                        {% comment %} assign var to fetch the result {% endcomment %}
+                        {%- assign res_soc_url = get_contact_us | dig: 'items', 'results' -%}
+                        {%- assign res_soc_url = res_soc_url | first -%}
+
+
                     <ul class="menu social">
                         <li>
-                            <a class="footer-links" href="www.facebook.com" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
-                                <i class="icon-facebook-stroke"></i>
+                            <a class="footer-links iconHover" href="{{ res_soc_url.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
+                                <i class="icon-facebook-stroke colorBlack"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="footer-links" href="www.twitter.com" data-test="" target="_blank" title="" rel="noreferrer">
-                                <i class="icon-twitter-stroke"></i>
+                            <a class="footer-links iconHover" href="{{ res_soc_url.twitter_link }}" data-test="" target="_blank" title="" rel="noreferrer">
+                                <i class="icon-twitter-stroke colorBlack"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="footer-links" href="www.linkedin.com" data-test="" target="_blank" title="" rel="noreferrer">
-                                <i class="icon-linkedin-stroke"></i>
+                            <a class="footer-links iconHover" href="{{ res_soc_url.linkedin_link }}" data-test="" target="_blank" title="" rel="noreferrer">
+                                <i class="icon-linkedin-stroke colorBlack"></i>
                             </a>
                         </li>
                     </ul>

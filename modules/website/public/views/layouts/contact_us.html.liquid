@@ -34,8 +34,8 @@ Contact Us layout
     <title>Contact Us</title>
 </head>
 <body>
-        {% comment %} connect services to graphql {% endcomment %}
-        {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+    {% comment %} connect services to graphql {% endcomment %}
+    {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
     {% comment %} assign var to fetch the result {% endcomment %}
     {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
     {%- assign res_contact = res_contact | first -%}
@@ -47,10 +47,10 @@ Contact Us layout
 
         <div class="wrapper">
             <div class="grid-container">
-                <div class="spacer section"></div>                
+                <div class="spacer xxxx-large hide-for-small-only"></div> 
+                <div class="spacer xx-large show-for-small-only"></div>                
                 {%- include 'modules/website/data/global_content' -%}
                     
-
                 <div class="contact-us grid-x grid-padding-x" data-test="page-contact-us">                    
                     <div class="large-7 medium-6 small-12 cell">
                         {{ content_for_layout }}
@@ -97,12 +97,18 @@ Contact Us layout
                         <ul class="contact-details no-bullet color-main">
                             <li class="address-container spacer">
                                 {% if api_key != blank %}
-                                <a target="_blank" class="color-main" onclick="mapsSelector()"
+                                <a target="_blank" class="color-main subHeading" onclick="mapsSelector()"
                                     data-test="contact-us-get-directions">
                                     {% endif %}
                                     <i class="icon-map"></i>
-                                    <span
-                                        id="full-address">{{ res_contact.loc_1_name | default: '-' }}</span>
+                                    {% assign temp = res_contact.loc_1_address | parse_json %}
+                                    {{ temp.address }}, 
+                                    {% if temp.address2 != null %}
+                                        {{ temp.address2 }},
+                                    {% endif %}
+                                    {{ temp.city }}, 
+                                    {{ temp.postcode }}, 
+                                    {{ temp.country }}
                                     {% if api_key != blank %}
                                 </a>
                                 {% endif %}
@@ -114,15 +120,15 @@ Contact Us layout
                                 Data needs to be standard. If it will contain the country code, or not.
                                 {%- endcomment -%}
                                 {%- assign contact_no = res_contact.loc_1_phone_number | replace_regex: '[+() ]', '' | prepend: '+' -%}
-                                <a class="color-main" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
+                                <a class="color-main subHeading" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
                                     <i class="icon-phone1"></i>
-                                    +{{ res_contact.loc_1_phone_number | replace: "+", '' }}
+                                    +{{ res_contact.loc_1_phone_country_code }} {{  res_contact.loc_1_phone_number | replace: "+", ' ' }}
                                 </a>
                             </li>
                             {%- endif -%}
                             {%- if res_contact.loc_1_email -%}
                             <li class="email-container">
-                                <a class="color-main" href="mailto:{{ res_contact.loc_1_email }}"
+                                <a class="color-main subHeading" href="mailto:{{ res_contact.loc_1_email }}"
                                     data-test="contact-us-contact-number">
                                     <i class="icon-mail1"></i>
                                     {{ res_contact.loc_1_email }}

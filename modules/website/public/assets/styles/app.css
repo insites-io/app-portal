@@ -6,7 +6,7 @@
     --color-sub1: #8C1EE3;
     --color-sub2: #E3361E;
     /* Buttons & Links */
-    --color-main-hover: #0964B8;
+    --color-main-hover: #436CF2;
     --color-sub1-hover: #7E16D0;
     --color-sub2-hover: #D32F19;
     --color-main-hover-light: rgba(17, 110, 195, 0.1);
@@ -1479,7 +1479,7 @@ ins-tag span.ins-tag {
 }
 
 .header-top-bar ins-dropdown .ins-dropdown_menu {
-    right: 0;
+    /* right: 0; */
     text-align: left;
 }
 
@@ -1545,7 +1545,7 @@ ins-tag span.ins-tag {
     color: var(--font-color-head);
     font-family: var(--font-family-01);
     font-weight: 700;
-    font-size: var(--font-x-small);
+    /* font-size: var(--font-x-small); */
     line-height: var(--font-x-large);
     padding-left: 0px;
 }
