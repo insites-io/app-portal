@@ -1,0 +1,20 @@
+<ins-card >
+    <div class="content">
+    <div class="text-wrap">
+        <div>
+            <i class="icon-calendar"></i> 
+            <span class="date">{{ item.updated_at | date: '%B %d, %Y' | default: "January 11, 2023" }}</span>                                 
+        </div> 
+        <div class="spacer x-small"></div>        
+        <h4 class="heading-4">{{item.year}}</h4>
+        <div class="spacer"></div>
+    </div>
+    <div class="spacer small"></div>
+    <ins-button id="view-edit-btn" size="small" label="VIEW/EDIT"></ins-button>
+    {% if item.attach_documents.url %}
+    <a href="{{item.attach_documents.url}}" ><ins-button size="small" label="DOWNLOAD"></ins-button></a>
+    {% else %}
+    <ins-button size="small" label="DOWNLOAD" disabled></ins-button>
+    {% endif %}
+    </div>            
+</ins-card>

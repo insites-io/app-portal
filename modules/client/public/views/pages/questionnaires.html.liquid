@@ -147,7 +147,7 @@ metadata: {
     }
     function keywordInputEvent(event) {        
         if (event.detail.keyCode === 13) {            
-            let url = window.location.href.replace("year="+year, "") + "&year="+event.detail.value;
+            let url = window.location.href.replace("year="+year, "") + "?year="+event.detail.value;
             window.location = url;
         }
     }

@@ -1,6 +1,6 @@
 ---
 slug: documents
-layout: modules/client/index
+layout: modules/client/form_layout
 # enable_profiler: true
 searchable: false
 max_deep_level: 1
@@ -10,32 +10,20 @@ metadata: {
     "og:url": "",
     "og:type": "",
     "og:image": "",
-    "og:title": "Questionnaires | Insites",
-    "og:description": "Questionnaires | Insites",
+    "og:title": "My Documents | Insites",
+    "og:description": "My Documents | Insites",
     "og:site_name": "",
-    "meta_title": "Questionnaires | Insites",
-    "page_title": "Questionnaires | Insites",
-    "meta_description": "Questionnaires | Insites",
+    "meta_title": "My Documents | Insites",
+    "page_title": "My Documents | Insites",
+    "meta_description": "My Documents | Insites",
     "canonical_url": "",
     "search_engine_visibility": true,
     "sitemap_enabled": true,
     "sitemap_priority": "1.0",## primary order (DESC)
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly",
-    "heading": "Questionnaires"
-}
-# dynamic_cache:
-#   layout: |-
-#     true
-#   key: |-
-#     {%- parse_json models -%}
-#     [
-#       "modules/insites_site_manager/insites_global_content",
-#       "modules/insites_core/insites_system_fields",
-#       "modules/client/questionnaires"
-#     ]
-#     {%- endparse_json -%}
-#     {%- include "modules/website/generate_cache_key", models: models -%}    
+    "heading": "My Documents"
+}  
 ---
 
 {%- if context.environment == "staging" -%}
@@ -90,9 +78,7 @@ metadata: {
 <div class="questionnaire">
 
     <div class="box">
-        <p>Hello and welcome to our questionnaire!</p>
-        <br>
-        <p>We appreciate your participation in helping us gather important information and insights. The purpose of this questionnaire is to better understand your opinions, experiences, and preferences regarding a particular topic.</p>
+        <p>Please upload your documents or files here.</p>
     </div>
 
     <div class="spacer xxx-large"></div>
@@ -101,18 +87,16 @@ metadata: {
         <div class="cell large-5">
             <ins-button 
                 id="new-questionnaire"
-                label="New Questionnaire" 
+                label="Add Document" 
                 icon="icon-plus" 
                 solid 
-                color="blue" 
-                size="normal" 
-                options="{{year_options}}">
+                color="blue">
             </ins-button>
         </div>
         <div class="cell large-6 large-offset-1">
             <ins-input 
                 id="filter-year"
-                placeholder="Search by Year"
+                placeholder="Search by Description"
                 icon="icon-search-1">
             </ins-input>
         </div>                
@@ -125,7 +109,7 @@ metadata: {
         <div class="grid-x grid-padding-x grid-padding-y">                        
         {%- for item in data.results -%}
         <div class="large-4 medium-6 small-12 cell align-stretch">
-            {%- include "modules/client/questionnaires/questionnaires-card", item -%}
+            {%- include "modules/client/documents-card", item -%}
         </div>
         {%- endfor -%}
         </div>
@@ -138,7 +122,35 @@ metadata: {
 
 </div>
 
+<ins-modal 
+  id="modal"
+  with-backdrop 
+  confirmation value="DATA"
+  width="495px" 
+  height="auto"  
+  no-button
+  prevent-click-outside>
+
+  <div id="myModalContent" >        
+    {% include_form 'modules/client/documents' %}
+  </div>
+
+</ins-modal>
+
+<ins-button label="SUBMIT" solid id="openModalBtn" style="display: inline;" ></ins-button>
+
 <script>
+    var modal = document.getElementById('modal');
+    var openModalBtn = document.getElementById('openModalBtn');
+    openModalBtn.addEventListener('insClick', () => {
+      modal.open();
+    });
+
+    
+    setTimeout(() => {
+        modal.open();
+    }, 200);
+
     let year = "{{year}}";
     let keywordInput = document.getElementById("filter-year");
     if (keywordInput) {
@@ -150,18 +162,6 @@ metadata: {
             let url = window.location.href.replace("year="+year, "") + "&year="+event.detail.value;
             window.location = url;
         }
-    }
-
-    let newQuestionnaire = document.getElementById("new-questionnaire");
-    if (newQuestionnaire) {
-        newQuestionnaire.addEventListener('insClickOption', event => {
-            
-            console.log(event);
-            console.log(event.detail.option);
-            if(event.detail.option != "No forms to complete"){
-                window.location = "/client-portal/questionnaires-general?year="+event.detail.option;
-            }
-        });
     }
 </script>
 

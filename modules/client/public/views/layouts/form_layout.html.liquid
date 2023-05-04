@@ -46,18 +46,18 @@ The `homepage` layout is dedicated layout for homepage only.
         {%- endcache -%}
         {%- endif -%}
 
-        {%- if true -%}
-        <div class="wrapper bg-color-main client-portal">
+        {%- if params.slug == 'client-portal' -%}
+        {%- comment -%} Carousel - Slider {%- endcomment -%}
+        {%- include 'modules/client/banner', size: 10 -%}        
+        {%- else -%}
+        <div class="wrapper bg-color-main">
             <div class="grid-container">
                 <div class="spacer xxx-large"></div>
                 <h1 class="heading-1">{{context.page.metadata.heading}}</h1>
                 <div class="spacer xxx-large"></div>
             </div>
         </div>
-        {%- else -%}
-        {%- comment -%} Carousel - Slider {%- endcomment -%}
-        {%- include 'modules/client/banner', size: 10 -%}  
-        {%- endif -%}      
+        {%- endif -%}    
 
         <div class="wrapper">
             <div class="grid-container">

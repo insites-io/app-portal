@@ -33,6 +33,10 @@ email_notifications:
   - modules/client/feedback_workflow 
 ---
 
+{%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/website/testimonials" | dig: "items","results" | first -%}
+{%- assign groups = database_info.metadata.groups | sort_by: "weight" -%}
+{%- assign fields = database_info.properties -%}
+{%- assign form = form | add_hash_key: "metadata", fields -%}
 {%- assign props = form.fields.properties -%}
 
 {%- form
@@ -56,7 +60,7 @@ email_notifications:
             validate
             data-type="string"
             data-ui="text"
-            label="Full Name*"
+            label="{%- include 'modules/client/insites_database/label', form: form, name: 'full_name' -%}"
             name="{{ props.full_name.name }}"
             value="{{ props.full_name.value }}"
             error-message="{{ props.full_name.validation.rules.presence.message }}"            
@@ -69,7 +73,7 @@ email_notifications:
         <ins-input            
             data-type="string"
             data-ui="text"
-            label="Location"
+            label="{%- include 'modules/client/insites_database/label', form: form, name: 'location' -%}"
             name="{{ props.location.name }}"
             value="{{ props.location.value }}"
             error-message="{{ props.location.validation.rules.presence.message }}"            
@@ -83,7 +87,7 @@ email_notifications:
             validate
             data-type="string"
             data-ui="multi_line"
-            label="Message*"
+            label="{%- include 'modules/client/insites_database/label', form: form, name: 'message' -%}"
             maxlength="200"
             counter="increasing"
             name="{{ props.message.name }}"
@@ -101,7 +105,7 @@ email_notifications:
             data-ui="list_radio" 
             data-name="{{ props.allow_display_on_website.name }}"
             {%- if form.errors['properties.allow_display_on_website'] != nil -%} has-error="true" {%- endif -%}>
-            <label class="list-field_label">May we display your feedback on our website?*</label>
+            <label class="list-field_label">{%- include 'modules/client/insites_database/label', form: form, name: 'allow_display_on_website' -%}</label>
             <div class="list-radio-options">
                 <ins-radio
                     label="Yes, of course." value="Yes, of course."
