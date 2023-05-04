@@ -1,0 +1,59 @@
+query search_news (
+  $id: ID,
+  $page: Int = 1,
+  $size: Int = 5,
+  $keyword: String,
+  $schema: String,
+  $status: String
+) {
+  items: models(
+    page: $page,
+    per_page: $size,
+    filter: {
+      id: {
+        value: $id
+      },
+      deleted_at: { 
+        exists: false
+      },
+			properties: [
+        {
+          name: "status"
+          value: $status
+        }
+      ],
+      model_schema_name: {
+        value: $schema
+      },
+      or: [
+        {
+          properties: [
+            { 
+              name: "title",
+              contains: $keyword
+            }
+          ]
+        },
+        {
+          properties: [
+            { 
+              name: "content",
+              contains: $keyword
+            }
+          ]
+        }
+      ]
+    }
+  ) {
+    total_entries
+    total_pages
+    current_page
+    has_next_page
+    has_previous_page
+    per_page
+    results {
+      id 
+      properties
+    }
+  }
+}

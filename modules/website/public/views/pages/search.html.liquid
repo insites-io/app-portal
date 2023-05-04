@@ -1,0 +1,33 @@
+---
+slug: search
+---
+{%- comment -%}
+This is where the contents of the search page is imported/included in the forms of partials.
+{%- endcomment -%}
+
+{%- assign keyword = context.params.keyword -%}
+{%- assign news_page = context.params.np | default: 1 | plus: 0 -%}
+{%- assign search_per_page = context.params.per_page | default: 5 | plus: 0 -%}
+
+{%- graphql news_search_result = 'modules/website/search/search_news' 
+    schema: 'modules/ins_databases/news', 
+    keyword: keyword, 
+    page: news_page,
+    size: search_per_page
+    status: "Published"
+-%}
+
+{{news_search_result}}
+
+{%comment%}
+{%- include 'modules/website/search/searchpage_banner' -%}
+{%- if keyword != "" or keyword != blank  -%}
+    <div class="grid-x grid-padding-x pt-3 pb-6 container">
+        <div class="small-12 medium-12 large-8 
+            large-offset-2 small-offset-0 medium-offset-1 cell pb-5">
+                
+                
+        </div>
+    </div>
+{%- endif -%}
+{% endcomment %}
