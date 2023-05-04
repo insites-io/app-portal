@@ -7,7 +7,7 @@
   --color-main-hover: #3159DB;
   --color-sub1-hover: #373737;
   --color-sub2-hover: #D32F19;
-  --color-main-hover-light: rgba(67, 108, 242, 0.1);
+  --color-main-hover-light: #F9FAFB;
   --color-sub1-hover-light: rgba(0, 0, 0, 0.1);
   --color-sub2-hover-light: rgba(211, 47, 25, 0.1);
   /* Font colors */
@@ -1189,7 +1189,7 @@ ins-card.support .ins-card-wrap:hover{
   height: 100%!important;
 }
 
-/* ACCORDION SIDE NAV */
+/* ACCORDION SIDE NAV
 .sideNav .ins-accordion-item_header{
   padding: 0px;
 }
@@ -1269,4 +1269,103 @@ ins-card.support .ins-card-wrap:hover{
   color: var(--font-color-sub);
   font-family: var(--font-family-02);
   font-size: 16px;  
+} */
+
+
+/* FAQ SIDE NAV */
+
+/* INITIAL STYLE ON DEFAULT */
+.faqSidenav .ins-accordion-link_link{
+  font-family: var(--font-family-02);
+  font-size: 16px;  
+  font-weight: 400;
+  border: 0px;
+  color: #323232!important;
+  background-color: #F9FAFB!important;
+  border: 0px!important;
 }
+
+/* ON HOVER */
+.faqSidenav .ins-accordion-link_link:hover{
+  font-weight: 700;
+  text-decoration: none;
+  background: rgba(67, 108, 242, 0.1)!important;
+  color:#436CF2!important;
+}
+
+
+
+.faqSidenav .ins-accordion-link{
+  border: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* .faqSidenav .ins-accordion.menu .ins-accordion-item .inner-head a{
+  font-family: var(--font-family-02);
+  font-size: 16px;  
+  font-weight: 400;
+  border: 0px;
+  color: #323232;
+} */
+
+/* ON HOVER */
+/* .faqSidenav .ins-accordion.menu .ins-accordion-item .inner-head a:hover{
+  font-size: 16px;  
+  font-weight: 700;
+  text-decoration: none;
+  background: rgba(67, 108, 242, 0.1);
+} */
+
+/* .faqSidenav .ins-accordion.menu .ins-accordion-item .inner-head{
+  background-color: #F9FAFB;
+}
+.faqSidenav .ins-accordion.menu .ins-accordion-item .inner-head:hover{
+  background: rgba(67, 108, 242, 0.1);
+} */
+
+
+
+/* .faqSidenav .ins-accordion-item_header>.inner-head {
+
+  border: 0px;
+}
+
+.faqSidenav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head{
+  text-decoration: none!important;
+  color:#436CF2!important;
+  font-weight: 700;
+  background: rgba(67, 108, 242, 0.1);
+} */
+
+
+/* .faqSidenav .ins-accordion-item_header>.inner-head>{ */
+  /* text-decoration: none!important;
+  color:#436CF2!important;
+  font-weight: 700;
+  background: rgba(67, 108, 242, 0.1); */
+/* } */
+
+/* IF OPEN and HOVER */
+/* .faqSidenav .ins-accordion.menu .ins-accordion-item_header>.inner-head>:hover{
+  color: #3159DB!important;
+  
+  background: rgba(67, 108, 242, 0.1);
+  cursor: pointer; */
+/* } */
+
+/* .faqSidenav .ins-accordion.menu ins-accordion-item:first-of-type .ins-accordion-item_header{
+  border-top: 0px;
+}
+
+.faqSidenav .ins-accordion-item_content{
+  display: none!important;
+} */
