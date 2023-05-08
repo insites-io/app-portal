@@ -1,84 +1,137 @@
-{%  liquid            
+{%  liquid         
     assign page_num = context.params.page | default: 1 | plus: 0
     assign per_page = context.params.per_page | default: 6 | plus: 0
 %}
 
+
 {%- graphql get_news = 'modules/website/content/get_news', page: page_num, size: per_page -%}
-{% comment %} assign var to fetch the result {% endcomment %}
+{% comment %} assign var to fetch the result   page-size-options {% endcomment %}
 {%- assign res_news = get_news | dig: 'items', 'results' -%}
 
-<section class="news-banner">
-    <div class="blocks-hero-04 wrapper">
-        <div class="grid-container">
-            <div class="spacer"></div>
-            <div class="grid-x align-center">
-                <div class="large-6 medium-10 small-12 cell">
-                    <div class="title" style="font-weight: 700;">
-                        News
-                    </div>
-                    <div class="spacer"></div>
-                    <ins-input placeholder="" value="search" icon="icon-search">
-                    </ins-input>
-                </div>
-            </div>
-            <div class="spacer large"></div>
-        </div>
-    </div>
-</section>
+{% include 'modules/website/content/search/searchpage_banner' %}
 
-<div class="spacer xxxx-large"></div>
-<section class="news-content">
-    <div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
-        <div class="our-team grid-container main-container" data-test="page-our-team-list">
-            <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
-                {% for item in res_news %}
-                    <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
-                        <div class="card"> 
-                            <div class="newsImageContainer">
-                                <a href="/news/{{ item.slug }}">
-                                    <img alt="image" src="{{ item.list_view_image.url }}"/>
-                                </a>
-                            </div>
-                            <div class="newsContentContainer">
-                            <div class="spacer x-large"></div>
-                            <div class="tagButton">
-                            <ins-button 
-                                size="small"
-                                cursor="text" 
-                                solid 
-                                icon="icon-tag"
-                                color="blue" 
-                                label="{{ item.tag }}">
-                                </ins-button>
-                            </div>
-                            <div class="spacer"></div>
-                            <a href="/news/{{ item.slug }}">
-                                <div class="newsTitle">
-                                    <h3 class="subHeading">{{ item.title }}</h3>
+<div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
+    <div class="our-team grid-container main-container" data-test="page-our-team-list">
+
+
+            
+            <div class="spacer xxxx-large"></div>
+            <section class="news-content">
+                <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
+                    {% for item in res_news %}
+                        <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
+                            <div class="card"> 
+                                <div class="newsImageContainer">
+                                    <a href="/news/{{ item.slug }}">
+                                        <img alt="image" src="{{ item.list_view_image.url }}"/>
+                                    </a>
                                 </div>
-                            </a>
-                            <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ item.author }}</p>
-                            <div class="spacer small"></div>
-                            <div class="description">
-                                {{ item.list_view_text }}
+                                <div class="newsContentContainer">
+                                <div class="spacer x-large"></div>
+                                <div class="tagButton">
+                                <ins-button 
+                                    size="small"
+                                    cursor="text" 
+                                    solid 
+                                    icon="icon-tag"
+                                    color="blue" 
+                                    label="{{ item.tag }}">
+                                    </ins-button>
+                                </div>
+                                <div class="spacer"></div>
+                                <a href="/news/{{ item.slug }}">
+                                    <div class="newsTitle">
+                                        <h3 class="subHeading">{{ item.title }}</h3>
+                                    </div>
+                                </a>
+                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ item.author }}</p>
+                                <div class="spacer small"></div>
+                                <div class="description">
+                                    {{ item.list_view_text }}
+                                </div>
+                                <div class="spacer small"></div>
+                                <div class="custom-publish-info">
+                                    <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
+                                    <div class="spacer x-large"></div>
                             </div>
-                            <div class="spacer small"></div>
-                            <div class="custom-publish-info">
-                                <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
-                              <div class="spacer x-large"></div>
+                            </div>
                         </div>
-                        </div>
+                    {% endfor %}	
+                </div>
                 
+                <div class="grid-container">
+                    {% comment %}         {% include 'modules/website/layout/pagination', page_num, per_page %} {% endcomment %}
+                </div>
+            </section>
+        
+        <ins-table no-wrap
+        id="insBaseTable"
+        without-search>
 
-                        
-                    </div>
-                {% endfor %}	
-            </div>
-        </div>
-        <div class="grid-container">
-            {% include 'modules/website/layout/pagination', page_num, per_page %}
-        </div>
+        </ins-table>
     </div>
-</section>
+</div>
 
 <div class="spacer xxxx-large"></div>
+
+<script>
+    var insBaseTable = document.getElementById('insBaseTable');
+    
+    setTimeout(() => {
+        init();
+    },3000);
+
+    function init(){
+        if(insBaseTable){
+            insBaseTable.pageSizeOptions = [6,15,30];
+            
+            insBaseTable.pageNumber = 1;
+            insBaseTable.pageSize = 6;
+            insBaseTable.totalCount = 7;
+
+            console.log("Total Count " + insBaseTable.totalCount )
+            console.log("pageNumber " + insBaseTable.pageNumber )
+            console.log("pageSize " + insBaseTable.pageSize )
+            console.log("test")
+
+            insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
+        }
+    }
+
+    function processTableData(){
+        insBaseTable.totalCount = 7;
+
+        // Get the current URL
+        const currentUrl = window.location.href;
+
+        // Remove any existing `page` and `per_page` query parameters
+        const newUrl = currentUrl.replace(/[?&]page=\d+/, '').replace(/[?&]per_page=\d+/, '');
+
+        // Set the new `page` and `per_page` values
+        const newPage = pageNumber;
+        const newPerPage = pageSize;
+
+        // Append the new `page` and `per_page` query parameters to the URL
+        const updatedUrl = `${newUrl}?page=${newPage}&per_page=${newPerPage}`;
+
+        // Navigate to the updated URL
+        window.location.href = updatedUrl;
+    }
+
+    function tablePaginationHandler(event){
+        pageSize = event.detail.pageSize;
+        pageNumber = event.detail.pageNumber;
+        console.log(event.detail);
+        //processTableData()
+        console.log("Total Count " + insBaseTable.totalCount )
+        console.log("pageNumber " + insBaseTable.pageNumber )
+        console.log("pageSize " + insBaseTable.pageSize )
+    }
+
+    // Get the span element with the text "Rows per page:"
+    //const rowsPerPageLabel = document.querySelector('.ibt-table-wrap__pagination > span');
+
+    // Change the label text
+    //rowsPerPageLabel.textContent = 'Display rows:';
+
+</script>

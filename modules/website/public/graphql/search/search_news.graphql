@@ -1,7 +1,7 @@
 query search_news (
   $id: ID,
   $page: Int = 1,
-  $size: Int = 5,
+  $size: Int = 6,
   $keyword: String,
   $schema: String,
   $status: String
@@ -41,6 +41,14 @@ query search_news (
               contains: $keyword
             }
           ]
+        },
+        {
+          properties:[
+            {
+              name: "list_view_text",
+              contains: $keyword
+            }
+          ]
         }
       ]
     }
@@ -54,6 +62,12 @@ query search_news (
     results {
       id 
       properties
+      list_view_image: property_upload(name: "list_view_image") {
+              url
+              file_name
+              extension
+              versions
+          }   
     }
   }
 }

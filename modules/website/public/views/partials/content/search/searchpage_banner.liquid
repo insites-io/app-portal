@@ -1,32 +1,31 @@
-{%- comment -%}
-This is where the banner and the header text is set.
-
-
-<div class="homepage-banner" style="background-image: url({{ 'modules/ins_template_help_centre/images/banner/banner.jpg' | asset_url }})">
-    <div class="spacer section"></div>
-    {%- if context.params.keyword == "" or context.params.keyword == blank-%}
-        <h1 class="color-font-inv centered">Search</h1>
-    {%- else -%}
-        <h1 class="color-font-inv centered">Search Result for <b>"{{ context.params.keyword}}"</b></h1>
-    {%- endif -%}
-        
-    <div class="spacer small"></div>
-    <div class="grid-x grid-padding-x pt-1">
-        <div class="large-6 cell small-10 small-offset-1 medium-offset-1 large-offset-3">
-            <ins-input
-                id="search-input"
-                placeholder="Search Help Centre" 
-                value="{{ context.params.keyword}}"
-                field="text"
-                icon="icon-search"
-                icon-event="true"
-                error-message="Search Keyword cannot be blank">
-            </ins-input>
+<section class="news-banner">
+    <div class="blocks-hero-04 wrapper">
+        <div class="grid-container">
+            <div class="spacer"></div>
+            <div class="grid-x align-center">
+                <div class="large-8 medium-10 small-12 cell">
+                    <div class="title" style="font-weight: 700;">
+                        {%- if context.params.keyword == "" or context.params.keyword == blank-%}
+                            <h1 class="colorWhite centered">News</h1>
+                        {%- else -%}
+                            <h1 class="colorWhite centered">Search Result for <b>"{{ context.params.keyword}}"</b></h1>
+                        {%- endif -%}
+                    </div>
+                    <div class="spacer"></div>
+                    <ins-input
+                        id="search-input"
+                        placeholder="Search" 
+                        value="{{ context.params.keyword}}"
+                        field="text"
+                        icon="icon-search"
+                        icon-event="true"
+                        error-message="Search Keyword cannot be blank">
+                    </ins-input>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="spacer xxx-large"></div>
-</div>
-{%- endcomment -%}
+</section>
 
 <script>
     var searchKey = document.getElementById('search-input');

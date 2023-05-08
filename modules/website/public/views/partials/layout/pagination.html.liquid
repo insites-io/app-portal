@@ -3,10 +3,13 @@
     - page_num
     - per_page
 {% endcomment %}
+
+
+
 <div class="paginations grid-x grid-padding-x align-right align-middle">
     <div class="shrink cell">
         <span class="per__page font-color-head form-label"><strong>Items per page:</strong></span>
-        <ins-select id="page-size-select" placeholder="Select Size" class="" small>
+        <ins-select id="page-size-select" placeholder="Select Size" small>
             <ins-select-option label="6" value="6" {% if per_page <= 6 %}default{% endif %}></ins-select-option>
             <ins-select-option label="15" value="15"  {% if per_page > 6 and per_page <= 15 %}default{% endif %}></ins-select-option>
             <ins-select-option label="30" value="30"  {% if per_page > 15 and per_page <= 30 %}default{% endif %}></ins-select-option>
@@ -92,7 +95,8 @@
 
 <script>
     let pageSizeSelect = document.getElementById('page-size-select');
-    let per_page = "{{per_page}}";    
+    
+    let per_page = "{{per_page}}";   
     if (pageSizeSelect) {
         pageSizeSelect.addEventListener('insValueChange', event => {
             let url = window.location.href.replace("per_page="+per_page, "per_page="+event.detail);
