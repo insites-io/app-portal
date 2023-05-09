@@ -1425,3 +1425,41 @@ ins-card.support .ins-card-wrap:hover{
   content: 'Display';
   visibility: visible;
 }
+
+/* Table pagination */
+ins-table .ibt-table-wrap .pagination-wrap {
+  padding: 40px 24px 0 24px;
+}
+
+
+ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__pagination {
+  width: initial;
+}
+
+ins-table .ibt-table-wrap .pagination-wrap  .ibt-table-wrap__page {
+  width: initial;
+  float: none;
+  margin: 0 30px;
+}
+
+@media screen and (max-width: 639px) {
+  ins-table .ibt-table-wrap .pagination-wrap.full {
+      text-align: center;
+      display: block;
+  }
+  
+  ins-table .ibt-table-wrap .pagination-wrap>.ibt-table-wrap__prev-next {
+      margin-top: 32px;
+      display: block;
+  } 
+  ins-table .ibt-table-wrap .pagination-wrap>.ibt-table-wrap__prev-next button {
+      width: initial;
+      vertical-align: middle;
+  }
+}
+
+@media (max-width: 420px) {
+  ins-table .ibt-table-wrap__pagination span {
+      float: none;
+  }
+}

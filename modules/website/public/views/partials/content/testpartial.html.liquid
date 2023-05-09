@@ -11,63 +11,60 @@
 {% include 'modules/website/content/search/searchpage_banner' %}
 
 <div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
-    <div class="our-team grid-container main-container" data-test="page-our-team-list">
-
-
-            
-            <div class="spacer xxxx-large"></div>
-            <section class="news-content">
-                <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
-                    {% for item in res_news %}
-                        <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
-                            <div class="card"> 
-                                <div class="newsImageContainer">
-                                    <a href="/news/{{ item.slug }}">
-                                        <img alt="image" src="{{ item.list_view_image.url }}"/>
-                                    </a>
-                                </div>
-                                <div class="newsContentContainer">
-                                <div class="spacer x-large"></div>
-                                <div class="tagButton">
-                                <ins-button 
-                                    size="small"
-                                    cursor="text" 
-                                    solid 
-                                    icon="icon-tag"
-                                    color="blue" 
-                                    label="{{ item.tag }}">
-                                    </ins-button>
-                                </div>
-                                <div class="spacer"></div>
+    <div class="our-team grid-container main-container" data-test="page-our-team-list">     
+        <div class="spacer xxxx-large"></div>
+        <section class="news-content">
+            <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
+                {% for item in res_news %}
+                    <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
+                        <div class="card"> 
+                            <div class="newsImageContainer">
                                 <a href="/news/{{ item.slug }}">
-                                    <div class="newsTitle">
-                                        <h3 class="subHeading">{{ item.title }}</h3>
-                                    </div>
+                                    <img alt="image" src="{{ item.list_view_image.url }}"/>
                                 </a>
-                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ item.author }}</p>
-                                <div class="spacer small"></div>
-                                <div class="description">
-                                    {{ item.list_view_text }}
+                            </div>
+                            <div class="newsContentContainer">
+                            <div class="spacer x-large"></div>
+                            <div class="tagButton">
+                            <ins-button 
+                                size="small"
+                                cursor="text" 
+                                solid 
+                                icon="icon-tag"
+                                color="blue" 
+                                label="{{ item.tag }}">
+                                </ins-button>
+                            </div>
+                            <div class="spacer"></div>
+                            <a href="/news/{{ item.slug }}">
+                                <div class="newsTitle">
+                                    <h3 class="subHeading">{{ item.title }}</h3>
                                 </div>
-                                <div class="spacer small"></div>
-                                <div class="custom-publish-info">
-                                    <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
-                                    <div class="spacer x-large"></div>
+                            </a>
+                            <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ item.author }}</p>
+                            <div class="spacer small"></div>
+                            <div class="description">
+                                {{ item.list_view_text }}
                             </div>
-                            </div>
+                            <div class="spacer small"></div>
+                            <div class="custom-publish-info">
+                                <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
+                                <div class="spacer x-large"></div>
                         </div>
-                    {% endfor %}	
-                </div>
-                
-                <div class="grid-container">
-                    {% comment %}         {% include 'modules/website/layout/pagination', page_num, per_page %} {% endcomment %}
-                </div>
-            </section>
-        
-        <ins-table no-wrap
-        id="insBaseTable"
-        without-search>
+                        </div>
+                    </div>
+                {% endfor %}	
+            </div>
+            
+            <div class="grid-container">
+                {% comment %}         {% include 'modules/website/layout/pagination', page_num, per_page %} {% endcomment %}
+            </div>
+        </section>
 
+        <ins-table no-wrap
+        static-table
+        id="insBaseTable"
+        without-search>    
         </ins-table>
     </div>
 </div>
@@ -75,31 +72,31 @@
 <div class="spacer xxxx-large"></div>
 
 <script>
+
+
     var insBaseTable = document.getElementById('insBaseTable');
+
+    insBaseTable.pageSizeOptions = [6,15,30];
+    insBaseTable.totalCount = {{ get_news.items.total_entries }};
+    insBaseTable.pageNumber = {{page_num}};
+    insBaseTable.pageSize = {{per_page}};
     
-    setTimeout(() => {
-        init();
-    },3000);
-
-    function init(){
-        if(insBaseTable){
-            insBaseTable.pageSizeOptions = [6,15,30];
-            
-            insBaseTable.pageNumber = 1;
-            insBaseTable.pageSize = 6;
-            insBaseTable.totalCount = 7;
-
-            console.log("Total Count " + insBaseTable.totalCount )
-            console.log("pageNumber " + insBaseTable.pageNumber )
-            console.log("pageSize " + insBaseTable.pageSize )
-            console.log("test")
-
-            insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
-        }
+    if(insBaseTable){
+        setTimeout(() => {
+            insBaseTable.querySelector(".ibt-table-wrap__pagination>span").innerHTML='Items per page';
+        },600);            
     }
 
+
+
+    console.log( insBaseTable.totalCount )
+    console.log( insBaseTable.pageNumber )
+    console.log( insBaseTable.pageSize )
+
+    
+    insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
+
     function processTableData(){
-        insBaseTable.totalCount = 7;
 
         // Get the current URL
         const currentUrl = window.location.href;
@@ -121,17 +118,6 @@
     function tablePaginationHandler(event){
         pageSize = event.detail.pageSize;
         pageNumber = event.detail.pageNumber;
-        console.log(event.detail);
-        //processTableData()
-        console.log("Total Count " + insBaseTable.totalCount )
-        console.log("pageNumber " + insBaseTable.pageNumber )
-        console.log("pageSize " + insBaseTable.pageSize )
+        processTableData()
     }
-
-    // Get the span element with the text "Rows per page:"
-    //const rowsPerPageLabel = document.querySelector('.ibt-table-wrap__pagination > span');
-
-    // Change the label text
-    //rowsPerPageLabel.textContent = 'Display rows:';
-
 </script>
