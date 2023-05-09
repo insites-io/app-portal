@@ -12,6 +12,9 @@ request_headers: >
         "Authorization": "instance_6af2dba2-4173-481e-81a8-89e3d12c7ae8_N5-Xn8Pq0yvSkcbWO5sAK1puvOT-mu_BrtfxKh9LBdo"
     }
 ---
+{% comment %}
+FOR CRM
+{% endcomment %}
 
 {
     "first_name": "{{form.properties.first_name}}",
@@ -20,9 +23,9 @@ request_headers: >
     "work_phone_country_code": "61",
     "home_phone_country_code": "61",
     "mobile_phone_country_code": "61",
-    "work_phone_number": null,
-    "home_phone_number": null,
-    "mobile_phone_number": null,
+    "work_phone_number": "{{form.properties.work_phone_number}}",
+    "home_phone_number": "{{form.properties.home_phone_number}}",
+    "mobile_phone_number": "{{form.properties.mobile_phone_number}}",
     "addresses": [
         {
         "address_label": "Home",

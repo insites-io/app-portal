@@ -57,6 +57,7 @@ api_call_notifications:
  html-onsubmit: "return ContactUs.methods.validateForm(event)" %}
 
   {%- assign props = form.fields.properties -%}
+  {%- log props, type: 'response props' -%}
   <input
     type="hidden"
     id="mobile_phone"
