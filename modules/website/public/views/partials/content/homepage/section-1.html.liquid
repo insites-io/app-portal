@@ -58,18 +58,16 @@
 
 
     {% comment %} connect services to graphql {% endcomment %}
-    {%- graphql get_services = 'modules/website/content/get_services' -%}
+    {%- graphql get_services_homepage = 'modules/website/content/get_services_homepage' -%}
     {% comment %} assign var to fetch the result {% endcomment %}
-    {%- assign res_services = get_services | dig: 'items', 'results' -%}
-
-
+    {%- assign res_services_homepage = get_services_homepage | dig: 'items', 'results' -%}
 
     <section class="services-section">  
         <div class="blocks-sc-3col-01 wrapper bg-color-ui-01">
           <div class="grid-container" data-test="section-content-01">
               <div class="service-list grid-x grid-padding-x grid-padding-y gutter-medium align-strech" data-equalizer>
                 <!-- card -->
-                {% for item in res_services %}
+                {% for item in res_services_homepage %}
                   <div class="large-4 medium-6 small-12 cell align-stretch">
                     <a href="/services/{{ item.slug }}">                    
                       <ins-card steady> 
