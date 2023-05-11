@@ -82,7 +82,6 @@ let App = (function () {
         // Validation functions
         validation: {
             validateForm(containerEl) {
-                console.log('enetered validateForm');
                 for (let index = 0; index < containerEl.querySelectorAll('[validate]').length; index++) {
                     let field = containerEl.querySelectorAll('[validate]')[index];
                     let type = field.tagName.toLowerCase();
@@ -102,9 +101,7 @@ let App = (function () {
                                 ? this.validateEmail(field)
                                 : this.validateInput(field)
                             break;
-                    }
-                    console.log('enetered loop='+type+'; field='+field);
-                    console.log(JSON.stringify(field));
+                    }                    
                 }
                 return this.checkInvalidFields(containerEl);
             },
@@ -120,7 +117,6 @@ let App = (function () {
                 return new Promise(resolve => {
                     setTimeout(() => {
                         resolve(!containerEl.querySelectorAll('.is-invalid').length);
-                        console.log('checkInvalidFields='+containerEl.querySelectorAll('.is-invalid').length);
                     }, 200)
                 });
             },
@@ -133,14 +129,12 @@ let App = (function () {
                 }
                 return !tabEl.querySelectorAll('.is-invalid').length;
             },
-            validateFile(field) {
-                field.getFilesList().length <= 0 ?
+            async validateFile(field) {
+                (await field.getFilesList()).length <= 0 ?
                     field.setAttribute('has-error', true) :
                     field.removeAttribute('has-error')
             },
-            validateRadio(wrapper) {
-                console.log('validateRadio=' + wrapper.querySelectorAll('ins-radio input:checked').length);
-                console.log(wrapper);
+            validateRadio(wrapper) {                
                 wrapper.querySelectorAll('ins-radio input:checked').length ?
                     wrapper.classList.remove('is-invalid') :
                     wrapper.classList.add('is-invalid');
@@ -291,7 +285,6 @@ let App = (function () {
                         //this is done to avoid throtling the function too much
                         if (!ticking) {
                             window.requestAnimationFrame(function () {
-                                //console.log("Scroll Y:", window.scrollY);
                                 App.events.checkScrollStatus(window.scrollY);
                                 ticking = false;
                             });

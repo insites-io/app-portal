@@ -155,7 +155,9 @@
 }
 
 /* Insites Card */
-.ins-card-wrap {
+ins-card .ins-card-wrap{
+    border-radius: 4px;
+    background: var(--color-ui-01);
     height: 100%;
 }
 
@@ -174,8 +176,13 @@ ins-card .content {
 }
 
 /* Insites Modal */
+ins-modal.no-close-icon .ins-modal-head .icon-close-1{
+    display: none;
+}
+
 .ins-modal-wrap.show-modal .ins-modal-body {
     position: relative;
+    padding-top:0px;
 }
 
 /* Insites Loader */
@@ -198,7 +205,6 @@ ins-card .content {
     margin-right: initial !important;
 }
 
-
 ins-checkbox .ins-radio-checkbox {
     padding-left: 0px;
 }
@@ -212,6 +218,16 @@ ins-checkbox .ins-radio-checkbox {
     font-size: 12px !important;
     line-height: 16px !important;
     color: var(--font-color-head) !important;
+    margin-bottom: 8px;
+}
+
+.ins-form-field-wrap .ins-form-label{
+    min-height: unset;
+}
+
+
+.ins-form-field-wrap .ins-form-label span{
+    display: inline-block;
 }
 
 .insites-form .list-checkbox_label,
@@ -493,4 +509,24 @@ ins-tag.Completed span.ins-tag {
 
 .payment-summary .col2 {
     text-align: right;
+}
+
+/* Common */
+.m-0,
+.m-0 button{
+    margin: 0px !important
+}
+
+.ml-16,
+.ml-16 button{
+    margin-left: 16px !important
+}
+
+.mr-0,
+.mr-0 button{
+    margin-right: 0px !important;
+}
+
+.mt-0{
+    margin-top: 0px !important;
 }
