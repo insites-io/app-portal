@@ -82,6 +82,8 @@ metadata: {
                 endunless
             endunless
         endfor
+    elsif all_questionnaires.size == 0
+        assign year_options = this_year
     else
         assign year_options = 'No forms to complete'
     endif

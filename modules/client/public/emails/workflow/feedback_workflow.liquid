@@ -12,8 +12,6 @@ subject: New feedback received
 layout: modules/insites_core/insites_external_email_layout
 ---
 
-{%- log 'feedback_workflow', type: 'Test form:' -%}
-
   {%- graphql data = 'modules/client/account/get_user_with_password_token', email: form.email -%}
   {%- assign user_data = data.users.results | first -%}
   {%- assign user_data_default = user_data.default | first -%}
