@@ -69,7 +69,7 @@ let ContactUs = (function () {
                 event ? event.preventDefault() : '';
                 var captcha = true;
                 // IF your form / instance have recaptcha enabled, uncommment this code instead
-                //var captcha = App.validation.checkRecaptcha();
+                var captcha = App.validation.checkRecaptcha();
 
                 // Form fields with attribute 'validate' are validated
                 if (await App.validation.validateForm(formEl) && captcha) {

@@ -1,6 +1,8 @@
 ---
 to: 'https://{{context.location.host}}/core/api/v1/contacts'
 format: http
+enabled: true
+trigger_condition: true
 request_type: POST
 callback: >
   {% log response, type: 'response object' %}
@@ -9,12 +11,17 @@ callback: >
 request_headers: >
     {
         "Content-Type": "application/json",
-        "Authorization": "instance_6af2dba2-4173-481e-81a8-89e3d12c7ae8_N5-Xn8Pq0yvSkcbWO5sAK1puvOT-mu_BrtfxKh9LBdo"
+        "Authorization": "instance_6af2dba2-4173-481e-81a8-89e3d12c7ae8_IzOHkVQmwJOu9r7tiCNcj8WzSnoYMuwIMqdKI7poCQY"
     }
 ---
+
 {% comment %}
 FOR CRM
 {% endcomment %}
+
+{%- log "*****************************************************************************", type: 'Test add_Contacts:' -%}  
+{%- log form, type: 'Test api form:' -%}
+
 
 {
     "first_name": "{{form.properties.first_name}}",

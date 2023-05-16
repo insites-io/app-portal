@@ -26,16 +26,9 @@ This is where the contents of the search page is imported/included in the forms 
 <div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
     <div class="our-team grid-container main-container" data-test="page-our-team-list">
 
-        <ins-table no-wrap
-        id="insBaseTable"
-        page-number={{page_num}}
-        page-size={{per_page}}
-
-        total-count={{ news_search_result.items.total_entries }}
-        without-search>
-         
-
         <div class="spacer xxxx-large"></div>
+
+        {% if news_search_result.items.total_entries != 0 %}
             <section class="news-content">
                 <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
                     {% for item in news_search %}
@@ -43,9 +36,9 @@ This is where the contents of the search page is imported/included in the forms 
                             <div class="card"> 
                                 <div class="newsImageContainer">
                                     <a href="/news/{{ item.properties.slug }}">
-    
+
                                         <img alt="image" src="{{ item.list_view_image.url }}"/>
-                                      
+                                    
                                     </a>
                                 </div>
                                 <div class="newsContentContainer">
@@ -74,11 +67,11 @@ This is where the contents of the search page is imported/included in the forms 
                                 <div class="spacer small"></div>
                                 <div class="custom-publish-info">
                                     <a href="/news/{{ item.properties.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
-                                  <div class="spacer x-large"></div>
+                                <div class="spacer x-large"></div>
                             </div>
                             </div>
                     
-    
+
                             
                         </div>
                     {% endfor %}	
@@ -88,6 +81,17 @@ This is where the contents of the search page is imported/included in the forms 
                     {% comment %}         {% include 'modules/website/layout/pagination', page_num, per_page %} {% endcomment %}
                 </div>
             </section>
+        {% else %}
+           <p class="subHeading">
+            No results found for keyword "{{ context.params.keyword}}".
+           </p> 
+        {% endif %}
+
+
+        <ins-table no-wrap
+        static-table
+        id="insBaseTable"
+        without-search>
         </ins-table>
     </div>
 </div>
@@ -101,9 +105,25 @@ This is where the contents of the search page is imported/included in the forms 
 
     var insBaseTable = document.getElementById('insBaseTable');
 
-    insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
-
     insBaseTable.pageSizeOptions = [6,15,30];
+    insBaseTable.totalCount = {{ news_search_result.items.total_entries }};
+    insBaseTable.pageNumber = {{page_num}};
+    insBaseTable.pageSize = {{per_page}};
+    
+    if(insBaseTable){
+        setTimeout(() => {
+            insBaseTable.querySelector(".ibt-table-wrap__pagination>span").innerHTML='Items per page';
+        },600);            
+    }
+
+
+
+    console.log( insBaseTable.totalCount )
+    console.log( insBaseTable.pageNumber )
+    console.log( insBaseTable.pageSize )
+
+    
+    insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
 
     function processTableData(){
 
@@ -125,16 +145,8 @@ This is where the contents of the search page is imported/included in the forms 
     }
 
     function tablePaginationHandler(event){
-        insBaseTable.loadingScreen = true;
         pageSize = event.detail.pageSize;
         pageNumber = event.detail.pageNumber;
         processTableData()
     }
-
-    // Get the span element with the text "Rows per page:"
-    const rowsPerPageLabel = document.querySelector('.ibt-table-wrap__pagination > span');
-
-    // Change the label text
-    rowsPerPageLabel.textContent = 'Display rows:';
-
 </script>

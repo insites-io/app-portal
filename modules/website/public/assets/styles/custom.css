@@ -378,6 +378,9 @@
   h1.colorWhite{
     font-size: 40px!important;
   }
+  h1.testiMessage{
+    font-size: 24px!important;
+  }
 }
 
 @media screen and (max-width: 639px) {
@@ -1022,19 +1025,23 @@ ins-button .ins-button div .btn__label{
 .testiLabel{
   font-family: var(--font-family-04);
   font-weight: 500;
+  color: white;
 }
 .testiMessage{
   font-family: var(--font-family-01);
   font-weight: 400;
   padding: 0px 205px;
+  color: white;
 }
 .testiName{
   font-family: var(--font-family-01);
   font-weight: 700;
+  color: white;
 }
 .testiLoc{
   font-family: var(--font-family-01);
   font-weight: 400;
+  color: white;
 }
 
 .side-links{

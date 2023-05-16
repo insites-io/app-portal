@@ -5,6 +5,7 @@ resource_owner: anyone
 redirect_to: /thank-you
 # spam_protection:
 # recaptcha_v2:
+
 fields:
   properties:
     first_name:
@@ -33,6 +34,7 @@ fields:
 
 api_call_notifications:
   - modules/website/add_contact
+  
 
 #callback_actions: >
 
@@ -58,6 +60,9 @@ api_call_notifications:
 
   {%- assign props = form.fields.properties -%}
   {%- log props, type: 'response props' -%}
+
+  {{ props }}
+
   <input
     type="hidden"
     id="mobile_phone"
@@ -155,6 +160,7 @@ api_call_notifications:
     {% spam_protection "recaptcha_v2" %}
     <div class="ins-form-error">Please prove you are not a robot.</div>
     </div>
+    
     
     <div class="large-12 medium-12 small-12 cell text-left">
       <ins-button id="submit-btn-contact-us"
