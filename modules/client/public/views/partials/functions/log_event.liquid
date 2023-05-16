@@ -1,0 +1,33 @@
+{%- comment -%}
+    font_icon
+    icon_color
+    description
+    details
+    related_type
+    related_uuid
+{%- endcomment -%}
+
+{%- 
+    liquid
+
+    assign event_info = '{}' | parse_json
+
+    assign var_font_icon = font_icon | default: "icon-info"
+    assign var_icon_color = icon_color | default: "#451278"
+    assign var_description = description | default: ""
+    assign var_details = description | default: "{}"
+    assign var_related_type = related_type | default: ""
+    assign var_related_uuid = related_uuid | default: ""
+
+    assign event_info = event_info | add_hash_key: "font_icon", var_font_icon
+    assign event_info = event_info | add_hash_key: "icon_color", var_icon_color
+    assign event_info = event_info | add_hash_key: "description", var_description
+    assign event_info = event_info | add_hash_key: "description", var_details
+    assign event_info = event_info | add_hash_key: "related_type", var_related_type
+    assign event_info = event_info | add_hash_key: "related_uuid", var_related_uuid
+
+    graphql create_event_log = 'modules/website/trigger_api_call', name: "modules/client/add_events", data: event_info | dig: 'items' | dig: 'response'
+    
+    return create_event_log
+    
+-%}

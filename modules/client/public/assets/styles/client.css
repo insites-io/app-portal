@@ -74,21 +74,30 @@
 
 /* Insites Accordion */
 .accordion-section-holder {
-    background-color: var(--color-ui-02);
-    padding-left: 24px;
-    padding-right: 24px
+    background: var(--color-ui-02);
 }
 
 .ins-accordion-item,
 .ins-accordion-link,
-.ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
 .ins-accordion-item_content .ins-accordion-link,
-.ins-accordion-item_header>.inner-head {
-    background-color: var(--color-ui-02);
+.ins-accordion-item_header>.inner-head{
+    background: var(--color-ui-02);
+}
+
+.ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
+.ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
+.ins-accordion-link.active>.ins-accordion-link_link{
+    background: var(--color-main-hover-light);
 }
 
 .ins-accordion-item_content .ins-accordion-link {
     border-bottom: unset
+}
+
+.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link,
+.ins-accordion-link:hover,
+.ins-accordion.menu .ins-accordion-item .inner-head:hover{
+    background: unset;
 }
 
 .ins-accordion.menu .ins-accordion-item .inner-head span,
@@ -100,40 +109,55 @@
     text-decoration: none
 }
 
-.ins-accordion.menu .ins-accordion-item .inner-head {
-    padding: 12px 14px;
-    padding-left: 0
-}
-
-.ins-accordion.menu .ins-accordion-item .inner-head span,
-.ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
-    font-size: var(--typography-small, .875rem);
-    font-family: var(--font-family-01, sans-serif);
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px
-}
-
 .ins-accordion.menu .ins-accordion-item .inner-head,
 .ins-accordion-link,
-.ins-accordion.menu ins-accordion-item:first-of-type .ins-accordion-item_header {
+.ins-accordion.menu ins-accordion-item:first-of-type .ins-accordion-item_header,
+.ins-accordion-item_content .inner-content {
     border: 0;
 }
 
-.ins-accordion.menu .ins-accordion-item .inner-head:hover,
-.ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
-.ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover {
-    background-color: unset;
-}
-
-.ins-accordion-link_link {
-    padding: 12px 0px;
+.ins-accordion-link_link,
+.ins-accordion.menu .ins-accordion-item .inner-head span,
+.ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {    
     font-weight: 400;
+    font-size: 16px;
+    font-family: var(--font-family-02);
     color: var(--font-color-sub);
 }
 
+.ins-accordion-link.active>.ins-accordion-link_link,
+.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link span {
+    font-weight: 700;
+    color: var(--color-main);
+}
+
+.ins-accordion-link_link:hover,
+.ins-accordion.menu .ins-accordion-item .inner-head span:hover {
+    color: var(--color-main);
+    text-decoration: initial;    
+}
+
+.ins-accordion-link_link,
+.ins-accordion.menu .ins-accordion-item .inner-head{
+    padding: 12px 16px;
+}
+
+.ins-accordion-item_header>.inner-head{
+    line-height: 24px;
+}
+
+.ins-accordion.menu .ins-accordion-item .ins-accordion-item_header_caret-wrap span{
+    font-size: 18px;
+}
+
+.ins-accordion-item_content.will-show{
+    margin-left: 24px;
+}
+
 /* Insites Card */
-.ins-card-wrap {
+ins-card .ins-card-wrap{
+    border-radius: 4px;
+    background: var(--color-ui-01);
     height: 100%;
 }
 
@@ -152,8 +176,18 @@ ins-card .content {
 }
 
 /* Insites Modal */
+ins-modal.no-close-icon .ins-modal-head .icon-close-1{
+    display: none;
+}
+
 .ins-modal-wrap.show-modal .ins-modal-body {
     position: relative;
+    padding-top:0px;
+}
+
+/* Insites Loader */
+.ins-loader-wrap--message {
+    margin-top: 24px;
 }
 
 /* Insites Form */
@@ -171,8 +205,7 @@ ins-card .content {
     margin-right: initial !important;
 }
 
-
-ins-checkbox .ins-radio-checkbox{
+ins-checkbox .ins-radio-checkbox {
     padding-left: 0px;
 }
 
@@ -185,6 +218,16 @@ ins-checkbox .ins-radio-checkbox{
     font-size: 12px !important;
     line-height: 16px !important;
     color: var(--font-color-head) !important;
+    margin-bottom: 8px;
+}
+
+.ins-form-field-wrap .ins-form-label{
+    min-height: unset;
+}
+
+
+.ins-form-field-wrap .ins-form-label span{
+    display: inline-block;
 }
 
 .insites-form .list-checkbox_label,
@@ -305,15 +348,39 @@ ins-radio .ins-radio-checkbox label {
     padding: 0px;
 }
 
+/* Swal */
+.swal2-actions {
+    margin: 24px auto 0px !important;
+}
+
 /*************************/
 /*     Client Portal     */
 /*************************/
-a:visited, .body-link:visited{
+a:visited,
+.body-link:visited {
     color: var(--color-main);
 }
+
 p {
     font-family: var(--font-family-02);
     font-size: 16px;
+}
+
+.client-portal{
+    background: linear-gradient(
+    to right,
+    var(--color-ui-02) 0%,
+    var(--color-ui-02) 50%,
+    var(--color-ui-01) 50%,
+    var(--color-ui-01) 100%
+  );
+}
+.wrapper .main-content{
+    padding: 0px 24px !important;
+}
+
+.main-wrap {
+    min-height: initial;
 }
 
 /* Questionnaire Form */
@@ -370,6 +437,14 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
     box-shadow: 1px 1px 2px #E4E6EC;
 }
 
+.empty-box {
+    background: var(--color-ui-02);
+    border: 1px solid var(--color-ui-04);
+    padding: 24px;
+    border-radius: 4px;
+    text-align: center;
+}
+
 .date,
 ins-tag span.ins-tag {
     font-size: var(--font-x-small);
@@ -391,8 +466,8 @@ ins-tag.Completed span.ins-tag {
     color: #048801;
 }
 
-.thank-you p{
- color: var(--text-3);
+.thank-you p {
+    color: var(--text-3);
 }
 
 /* Registration Form */
@@ -412,4 +487,46 @@ ins-tag.Completed span.ins-tag {
     border-radius: 22px;
     /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
     background-color: #FFFFFF;
+}
+
+/* Feedback Form */
+.feedback .insites-form.insites-form-code .insites-form-buttons ins-button button {
+    margin-right: initial;
+}
+
+/* Pay Bill */
+.payment-summary {
+    padding: 24px;
+    background: var(--color-ui-02);
+    font-size: 16px;
+    color: #3F3F3F;
+    font-family: var(--font-family-02);
+}
+
+.payment-summary .col1 {
+    font-weight: 700;
+}
+
+.payment-summary .col2 {
+    text-align: right;
+}
+
+/* Common */
+.m-0,
+.m-0 button{
+    margin: 0px !important
+}
+
+.ml-16,
+.ml-16 button{
+    margin-left: 16px !important
+}
+
+.mr-0,
+.mr-0 button{
+    margin-right: 0px !important;
+}
+
+.mt-0{
+    margin-top: 0px !important;
 }

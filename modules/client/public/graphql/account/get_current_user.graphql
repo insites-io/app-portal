@@ -5,6 +5,7 @@ query get_current_user {
     last_name
     name
     email
+    external_id
     ## INS Contact Number
     # insites_contact_number: profiles(
     #   profile_type: "modules/insites_core/insites_contact_number"
@@ -28,6 +29,7 @@ query get_current_user {
     ) {
       is_enabled: property_boolean(name: "is_enabled")
       is_activated: property_boolean(name: "is_activated")
+      company_uuid: property(name: "company_uuid")
     }
 
     # profiles{

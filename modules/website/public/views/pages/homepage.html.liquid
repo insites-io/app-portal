@@ -9,3 +9,5 @@ layout: modules/website/default
 {% include 'modules/website/content/homepage/section-1' %} 
 {% include 'modules/website/content/homepage/section-2' %}
 {% include 'modules/website/content/homepage/testimonials' %} 
+<link rel="preload" as="script" href="{{ 'modules/website/scripts/app.js' | asset_url }}" >
+<script src="{{ 'modules/website/scripts/app.js' | asset_url }}"></script>

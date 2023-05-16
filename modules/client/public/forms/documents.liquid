@@ -1,0 +1,122 @@
+---
+name: documents
+resource: modules/client/documents
+resource_owner: anyone
+redirect_to: /documents
+fields:
+  properties:
+    user_id:
+      validation:
+        presence: true
+    description:
+      validation:
+        presence:
+          message: Description is required
+    file:
+      validation:
+        presence:
+          message: File is required
+    notes:
+  resource_id:
+    property_options:
+      virtual: true
+default_payload: |-
+  {
+    "properties_attributes": {
+      "user_id": "{{context.current_user.id}}"
+    }
+  }
+# email_notifications:
+#   - modules/client/document_workflow
+callback_actions: >  
+  {% log form, type: "Test callback_actions form" %}
+---
+
+{% log form, type: "Test documents form" %}
+
+{%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/documents" | dig: "items","results" | first -%}
+{%- assign groups = database_info.metadata.groups | sort_by: "weight" -%}
+{%- assign fields = database_info.properties -%}
+{%- assign form = form | add_hash_key: "metadata", fields -%}
+{%- assign props = form.fields.properties -%}
+
+{%- form
+  html-autocomplete: "off"
+  html-id: "documents-form"
+  html-class: 'insites-form insites-form-code documents-form' 
+  html-novalidate: true
+  html-enctype = "multipart/form-data"
+  html-onsubmit: "return validateDocumentsForm(event)"   -%}
+    
+  <div class="insites-form-grid">
+
+    <div class="column-1 mt-0">
+      <h3 class="heading-3">Add Document</h3>
+      <div class="spacer small"></div>
+      <p>Upload your documents.</p>
+    </div>
+
+    <!-- Field: Description -->
+    <div class="column-1">
+        <ins-input 
+          validate
+          id="description"
+          data-type="string"
+          data-ui="text"
+          label="{%- include 'modules/client/insites_database/label', form: form, name: 'description' -%}"
+          name="{{ props.description.name }}"
+          value="{{ props.description.value }}"
+          error-message="{{ props.description.validation.rules.presence.message }}"            
+          {%- if form.errors['properties.description'] != nil -%} has-error {%- endif -%} >
+        </ins-input>
+    </div>
+
+    <!-- Field: File -->
+    <div class="column-1" >
+        <ins-input-file
+          validate
+          id="document-input"
+          data-multiple="false"
+          data-name="{{ props.file.name }}"
+          data-type="upload"
+          data-ui="media_file"
+          data-prop="file"
+          label="{%- include 'modules/client/insites_database/label', form: form, name: 'file' -%}"
+          accepted-files=""
+          capture=""
+          error-message="{{ form.errors['properties.file'] }}"                
+          {%- if form.errors['properties.file'] != nil -%} has-error {%- endif -%}>
+        </ins-input-file>
+        <input
+          type="hidden"
+          id="document"
+          name="{{ props.file.name }}" >        
+    </div>
+
+    <!-- Field: Notes  -->
+    <div class="column-1">
+      <ins-textarea
+        id="notes"
+        data-type="string"
+        data-ui="multi_line"
+        label="{%- include 'modules/client/insites_database/label', form: form, name: 'notes' -%}"
+        name="{{ props.notes.name }}"
+        value="{{ props.notes.value }}"
+        error-message="{{ form.errors['properties.notes'] }}"                
+        {%- if form.errors['properties.notes'] != nil -%} has-error {%- endif -%}>
+      </ins-textarea>
+    </div>      
+      
+  </div>
+  
+  <div class="spacer x-large"></div>
+  <div class="insites-form-grid">      
+    <div class="insites-form-buttons column-1">
+      <div class="m-0 ml-16 text-right">
+        <ins-button type="button" id="close-form-btn" label="CANCEL" icon="icon-close-1" outlined ></ins-button>
+        <ins-button type="submit" label="Add Document" icon="icon-check-2" id="submit-form-btn" solid class="mr-0"></ins-button>
+      </div>          
+    </div>
+  </div>
+
+{%- endform -%}

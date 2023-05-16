@@ -49,8 +49,8 @@
         <ins-input-tel
             id="mobile-phone"
             label="Mobile Phone" 
-            phonenum-value="{{ form.fields.mobile_phone_number.value }}" 
-            country-code="{{ form.fields.mobile_phone_country_code.value }}"
+            phonenum-value="{{ data.mobile_phone_number }}" 
+            country-code="{{ data.mobile_phone_country_code }}"
             phonenum-placeholder="Phone Number" 
             no-areacode
             error-message="Please use a valid phone number">
@@ -68,82 +68,82 @@
       <div class="column-1">
         <ins-input 
           address-lookup 
-          label="Search Addresss" 
+          label="Search Address" 
           id="shipping-address-search"
-          name="search"
-          placeholder="Search Addresss"
+          name="contact"
+          placeholder="Search Address"
           icon="icon-map-pin">
         </ins-input>
       </div>
 
       <div class="column-2">
         <ins-input form-address-field 
-            id="search_address_1"
+            id="contact_address_1"
             label="Address 1"
-            name="{{ form.fields.properties.address_1.name }}" 
-            value="{{ form.fields.properties.address_1.value }}" 
-            {% if form.errors['properties.address_1'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.address_1.validation.rules.presence.message }}"
+            name="{{ form.fields.address_1.name }}" 
+            value="{{ form.fields.address_1.value }}" 
+            {% if form.errors['address_1'] %} has-error {% endif %}
+            error-message="{{ form.fields.address_1.validation.rules.presence.message }}"
             placeholder="Address 1">
         </ins-input>
       </div>
 
       <div class="column-2">
         <ins-input form-address-field
-            id="search_address_2"
+            id="contact_address_2"
             label="Address 2"
-            name="{{ form.fields.properties.address_2.name }}" 
-            value="{{ form.fields.properties.address_2.value }}" 
-            {% if form.errors['properties.address_2'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.address_2.validation.rules.presence.message }}"
+            name="{{ form.fields.address_2.name }}" 
+            value="{{ form.fields.address_2.value }}" 
+            {% if form.errors['address_2'] %} has-error {% endif %}
+            error-message="{{ form.fields.address_2.validation.rules.presence.message }}"
             placeholder="Address 2">
         </ins-input>
       </div>
 
       <div class="column-2">
         <ins-input form-address-field 
-            id="search_suburb"
+            id="contact_suburb"
             label="Suburb"
-            name="{{ form.fields.properties.suburb.name }}" 
-            value="{{ form.fields.properties.suburb.value }}" 
-            {% if form.errors['properties.suburb'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.suburb.validation.rules.presence.message }}"
+            name="{{ form.fields.suburb.name }}" 
+            value="{{ form.fields.suburb.value }}" 
+            {% if form.errors['suburb'] %} has-error {% endif %}
+            error-message="{{ form.fields.suburb.validation.rules.presence.message }}"
             placeholder="Suburb">
         </ins-input>
       </div>
 
       <div class="column-2">
         <ins-input form-address-field 
-            id="search_state"
+            id="contact_state"
             label="State"
-            name="{{ form.fields.properties.state.name }}" 
-            value="{{ form.fields.properties.state.value }}" 
-            {% if form.errors['properties.state'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.state.validation.rules.presence.message }}"
+            name="{{ form.fields.state.name }}" 
+            value="{{ form.fields.state.value }}" 
+            {% if form.errors['state'] %} has-error {% endif %}
+            error-message="{{ form.fields.state.validation.rules.presence.message }}"
             placeholder="State">
         </ins-input>
       </div>
 
       <div class="column-2">
         <ins-input form-address-field 
-            id="search_postcode"
+            id="contact_postcode"
             label="ZIP / Postal Code"
-            name="{{ form.fields.properties.postcode.name }}" 
-            value="{{ form.fields.properties.postcode.value }}" 
-            {% if form.errors['properties.postcode'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.postcode.validation.rules.presence.message }}"
+            name="{{ form.fields.postcode.name }}" 
+            value="{{ form.fields.postcode.value }}" 
+            {% if form.errors['postcode'] %} has-error {% endif %}
+            error-message="{{ form.fields.postcode.validation.rules.presence.message }}"
             placeholder="ZIP / Postal Code">
         </ins-input>
       </div>
 
       <div class="column-2">
         <ins-input form-address-field 
-            id="search_country"
+            id="contact_country"
             label="Country"
-            name="{{ form.fields.properties.country.name }}" 
-            value="{{ form.fields.properties.country.value }}" 
-            {% if form.errors['properties.country'] %} has-error {% endif %}
-            error-message="{{ form.fields.properties.country.validation.rules.presence.message }}"
+            name="{{ form.fields.country.name }}" 
+            value="{{ form.fields.country.value }}" 
+            {% if form.errors['country'] %} has-error {% endif %}
+            error-message="{{ form.fields.country.validation.rules.presence.message }}"
             placeholder="Country">
         </ins-input>
       </div>
@@ -180,7 +180,7 @@
       <div class="spacer small"></div>
       <div class="grid-x">
         <div class="cell large-6 medium-6 small-12"> <a href="/"><ins-button type="button" id="cancel-button" label="CANCEL" icon="icon-close-1" outlined ></ins-button></a></div>
-        <div class="cell large-6 medium-6 small-12 text-right"><ins-button type="submit" id="submit-personal-details" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
+        <div class="cell large-6 medium-6 small-12 text-right"><ins-button type="submit" id="submit-personal-details" class="submit-btn" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
       </div>  
     </div>
 

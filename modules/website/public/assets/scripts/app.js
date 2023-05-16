@@ -101,7 +101,7 @@ let App = (function () {
                                 ? this.validateEmail(field)
                                 : this.validateInput(field)
                             break;
-                    }
+                    }                    
                 }
                 return this.checkInvalidFields(containerEl);
             },
@@ -129,12 +129,12 @@ let App = (function () {
                 }
                 return !tabEl.querySelectorAll('.is-invalid').length;
             },
-            validateFile(field) {
-                field.getFilesList().length <= 0 ?
+            async validateFile(field) {
+                (await field.getFilesList()).length <= 0 ?
                     field.setAttribute('has-error', true) :
                     field.removeAttribute('has-error')
             },
-            validateRadio(wrapper) {
+            validateRadio(wrapper) {                
                 wrapper.querySelectorAll('ins-radio input:checked').length ?
                     wrapper.classList.remove('is-invalid') :
                     wrapper.classList.add('is-invalid');
@@ -183,6 +183,7 @@ let App = (function () {
                     Swal.fire({
                         html: `
                         <ins-loader
+                            icon="icon-close-1"
                             state-icon="${type}"
                             icon-color="${type}"
                             state-title="${title}"
@@ -197,7 +198,8 @@ let App = (function () {
                                     btnLabel.indexOf("Remove") >= 0
                                     ? "negative" : "",
                         },
-                        confirmButtonText: btnLabel
+                        confirmButtonText: '<i class="icon-check-2"></i> ' + btnLabel,
+                        cancelButtonText: '<i class="icon-close-1"></i> Cancel'
                     }).then(result => {
                         result.value
                             ? resolve(true)
@@ -283,7 +285,6 @@ let App = (function () {
                         //this is done to avoid throtling the function too much
                         if (!ticking) {
                             window.requestAnimationFrame(function () {
-                                //console.log("Scroll Y:", window.scrollY);
                                 App.events.checkScrollStatus(window.scrollY);
                                 ticking = false;
                             });

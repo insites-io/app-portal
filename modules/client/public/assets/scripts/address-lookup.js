@@ -6,7 +6,7 @@ var AddressLookup = (function () {
 
     return {
         methods: {
-            fillAddress(field, type) {
+            fillAddress(field, type) {            
                 let address = field.getPlace();
                     AddressLookup.methods.resetAddress(type);
                     AddressLookup.methods.unselectAddressCards(type);

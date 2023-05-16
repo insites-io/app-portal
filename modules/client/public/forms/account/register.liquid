@@ -104,12 +104,21 @@ fields:
 api_call_notifications:
   - modules/client/update_contacts
   - modules/client/add_company 
+  
 callback_actions: |-
   {% graphql g = 'modules/client/account/generate_user_temporary_token', email: form.email %}
   {% if g.items.results[0] %}
     {% graphql res = 'modules/client/account/set_email_verification_token', id: g.items.results[0].id, token: g.items.results[0].temporary_token %}
   {% endif %}    
+
+  {%- assign desc = form.first_name | append: ' ' | append: form.last_name | append: ' signed up.' -%}
+  {%- function event_res = "modules/client/functions/log_event", 
+      description: desc,
+      related_type: "Form Submission" -%}
 ---
+
+
+
 {%- form 
     html-id: "register-form"
     html-class: 'insites-form insites-form-code' 

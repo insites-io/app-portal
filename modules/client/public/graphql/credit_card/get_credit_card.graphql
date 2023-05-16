@@ -1,0 +1,37 @@
+query get_credit_card (
+  $id: ID,
+  $page: Int = 1,
+  $size: Int = 10,
+  $gateway_id: String,
+  $gateway_customer_id: String,
+  $user_id: String
+) {
+  items: records(
+    page: $page
+    per_page: $size
+    filter: {
+      id: { value: $id }
+      deleted_at: { exists: false }
+      table: { value: "modules/client/credit_card" }
+      properties: [
+        { name: "gateway_id", value: $gateway_id }
+        { name: "gateway_customer_id", value: $gateway_customer_id }
+        { name: "user_id", value: $user_id }
+        { name: "is_enabled", value_boolean: true }
+      ] 
+    }
+    sort: { updated_at: { order: DESC } }
+  ) {
+    total_entries
+    total_pages
+    current_page
+    results {
+      id
+      brand: property(name: "brand") 
+      last4: property(name: "last4") 
+      exp_month: property_int(name: "exp_month") 
+      exp_year: property_int(name: "exp_year") 
+      gateway_id: property(name: "gateway_id")        
+    }
+  }
+}

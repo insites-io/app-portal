@@ -609,7 +609,8 @@ label,
 
 .form-error,
 .ins-form-field-wrap.is-invalid .ins-form-error,
-.form-field-wrapper.error-recaptcha .ins-form-error {
+.form-field-wrapper.error-recaptcha .ins-form-error,
+.list-field-wrap.is-invalid .list-field_error {
     font-family: var(--font-family-03);
     font-weight: 400;
     font-size: var(--font-x-small);
@@ -630,6 +631,12 @@ label,
     border-color: var(--error);
     background-color: var(--color-ui-01);
 }
+
+.list-field-wrap.is-invalid .list-field_error{
+    display: block !important;
+    margin-top: 8px;
+}
+
 
 .ins-form-field-wrap.is-invalid .ins-form-field:-moz-placeholder {
     color: var(--error);

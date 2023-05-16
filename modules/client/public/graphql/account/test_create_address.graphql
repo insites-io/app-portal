@@ -1,4 +1,4 @@
-mutation create_address (
+mutation test_create_address (
     $source_id: String!,
     $source_name: String!,
     $name: String!,

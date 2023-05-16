@@ -1,5 +1,5 @@
 ---
-slug: my-details
+slug: my-company-details
 layout: modules/client/form_layout
 # enable_profiler: true
 searchable: false
@@ -10,19 +10,19 @@ metadata: {
     "og:url": "{{ context.exports.global.company_url | strip }}",
     "og:type": "",
     "og:image": "",
-    "og:title": "Register",
-    "og:description": "Register",
+    "og:title": "My Company Details",
+    "og:description": "My Company Details",
     "og:site_name": "{{ context.exports.global.company_name | strip }}",
-    "meta_title": "Register",
-    "page_title": "Register | Insites",
-    "meta_description": "Register",
+    "meta_title": "My Company Details",
+    "page_title": "My Company Details | Insites",
+    "meta_description": "My Company Details",
     "canonical_url": "",
     "search_engine_visibility": false,
     "sitemap_enabled": false,
     "sitemap_priority": "1.0",## primary order (DESC)
     "sitemap_order": "0", ## secondary order (ASC)
     "sitemap_changefreq": "never",
-    "heading": "My Details"
+    "heading": "My Company Details"
 }
 ---
     
@@ -40,16 +40,24 @@ metadata: {
   {%- endif -%}
 {%- endif -%}
 
-{%- log user.id, type: 'Test user.id:' -%}
-<div>    
-    {%- include_form 'modules/client/my_details', id: user.id -%}
-        
-    {%- include_form 'modules/client/change_password', id: user.id -%}
-    <div class="spacer xxxx-large"></div>
-</div>
+{% comment %} 
+  Get CRM -> Company from v5 API
+{% endcomment %}
+{% parse_json data %} 
+{
+  "id": "{{user.client[0].company_uuid}}"
+}
+{% endparse_json %}
+
+{% liquid
+    graphql company = 'modules/website/trigger_api_call', name: 'modules/client/get_company', data: data 
+    assign response = company.items.response.body | parse_json | dig: 'items','results' | first
+%}
+
+{%- include_form 'modules/client/my_company_details', id: response.id, data: response -%}
 
 
-<!-- [Google Maps] -->
+{% comment %} Search Address Script {% endcomment %}
 {% include 'modules/client/layout/googlemaps' %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
@@ -63,18 +71,18 @@ metadata: {
   <script src="{{ 'modules/client/scripts/user-profile.min.js' | asset_url }}"></script>
 {%- endif -%}
 
-{%- if context.flash and context.flash.notice == "Success-UserProfile" -%}
+{%- if context.flash and context.flash.notice == "Success-Company-Details" -%}
 <script>
 setTimeout(() => {
-    App.events.notyf('success', "Account details has been updated.");
+    App.events.notyf('success', "Company details updated.");
 }, 200);
 </script>
 {% endif -%}
 
-{%- if context.flash and context.flash.alert == "Error-UserProfile" -%}
+{%- if context.flash and context.flash.alert == "Error-Company-Details" -%}
 <script>
 setTimeout(() => {
-    App.events.notyf('error', "Error updating account detail.");
+    App.events.notyf('error', "Error updating company details.");
 }, 200);
 </script>
 {% endif -%}

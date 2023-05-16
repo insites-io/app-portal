@@ -59,12 +59,17 @@ api_call_notifications:
 {% endcomment %}
 {% parse_json data %} 
 {
-  "id": "{{form.fields.id.value}}"
+  "id": "{{external_id}}"
 }
 {% endparse_json %}
-{% graphql contact = 'modules/client/api/send_api_call', template: 'modules/client/get_contact', data: data %}
 
-{%- log contact, type: 'Test my_details contact:' -%}
+{% liquid
+
+    graphql contact = 'modules/website/trigger_api_call', name: 'modules/client/get_contact', data: data 
+
+    assign response = contact.items.response.body | parse_json
+    assign prop = response.items.results[0].contact[0].properties    
+%}
 
 
 {%- form 
@@ -76,7 +81,7 @@ api_call_notifications:
 
   <div class="insites-form-grid">
 
-  {% include 'modules/client/account/registration_personal_details' %}
+  {% include 'modules/client/account/registration_personal_details', data: prop %}
             
   </div>
 

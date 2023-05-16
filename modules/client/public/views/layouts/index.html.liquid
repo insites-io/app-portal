@@ -42,7 +42,10 @@ The `homepage` layout is dedicated layout for homepage only.
         {%- endcache -%}
         {%- endif -%}
 
-        {%- if context.params.slug2 -%}
+        {%- if context.params.slug == 'client-portal' -%}
+        {%- comment -%} Carousel - Slider {%- endcomment -%}
+        {%- include 'modules/client/banner', size: 10 -%}        
+        {%- else -%}
         <div class="wrapper bg-color-main">
             <div class="grid-container">
                 <div class="spacer xxx-large"></div>
@@ -50,40 +53,19 @@ The `homepage` layout is dedicated layout for homepage only.
                 <div class="spacer xxx-large"></div>
             </div>
         </div>
-        {%- else -%}
-        {%- comment -%} Carousel - Slider {%- endcomment -%}
-        {%- include 'modules/client/banner', size: 10 -%}  
         {%- endif -%}      
 
-        <div class="wrapper">
+        <div class="wrapper client-portal">
             <div class="grid-container">
                 <div class="grid-x gutter-medium grid-padding-x">
                     <div class="large-3 medium-5 small-12 cell bg-color-ui-02">
-                        <div class="spacer xxxx-large"></div>
-                        <div class="accordion-section-holder">
-                            <div class="description">                            
-                                <ins-accordion-link label="Overview" link="/client-portal" link-target="_self"></ins-accordion-link>
-                                <ins-accordion menu>                    
-                                    <ins-accordion-item heading="My Forms" open-icon="icon-plus" close-icon="icon-minus">
-                                        <ins-accordion-link label="Questionnaires" link="/client-portal/questionnaires" link-target="_self"></ins-accordion-link>
-                                    </ins-accordion-item>                                                                             
-                                </ins-accordion>
-                                <ins-accordion-link label="My Documents" link="/web-components/v2-accordion" link-target="_self"></ins-accordion-link>
-                                <ins-accordion-link label="My Details" link="/my-details" link-target="_self"></ins-accordion-link>
-                                <ins-accordion-link label="My Company Details" link="/web-components/v2-accordion" link-target="_self"></ins-accordion-link>
-                                <ins-accordion-link label="Feedback" link="/web-components/v2-accordion" link-target="_self"></ins-accordion-link>
-                                <ins-accordion-link label="Payment Methods" link="/web-components/v2-accordion" link-target="_self"></ins-accordion-link>
-                                <ins-accordion-link label="Pay a Bill" link="/web-components/v2-accordion" link-target="_self"></ins-accordion-link>
-                            </div>
-                            <div class="spacer"></div>
-                        </div>
+                        {% include 'modules/client/layout/sidebar' %}
                     </div>
-                    <div class="large-9 medium-7 small-12 cell bg-color-ui-01">
+                    <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content">
                         <div class="spacer xxxx-large"></div>
                         {{ content_for_layout }}
                     </div>
                 </div>
-                <div class="spacer x-large"></div>
             </div>
         </div>
         

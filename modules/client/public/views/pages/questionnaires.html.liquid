@@ -1,5 +1,5 @@
 ---
-slug: client-portal/questionnaires
+slug: questionnaires
 layout: modules/client/index
 # enable_profiler: true
 searchable: false
@@ -82,6 +82,8 @@ metadata: {
                 endunless
             endunless
         endfor
+    elsif all_questionnaires.size == 0
+        assign year_options = this_year
     else
         assign year_options = 'No forms to complete'
     endif
@@ -147,7 +149,7 @@ metadata: {
     }
     function keywordInputEvent(event) {        
         if (event.detail.keyCode === 13) {            
-            let url = window.location.href.replace("year="+year, "") + "&year="+event.detail.value;
+            let url = window.location.href.replace("year="+year, "") + "?year="+event.detail.value;
             window.location = url;
         }
     }

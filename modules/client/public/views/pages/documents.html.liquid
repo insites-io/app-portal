@@ -1,6 +1,6 @@
 ---
 slug: documents
-layout: modules/client/index
+layout: modules/client/form_layout
 # enable_profiler: true
 searchable: false
 max_deep_level: 1
@@ -10,43 +10,31 @@ metadata: {
     "og:url": "",
     "og:type": "",
     "og:image": "",
-    "og:title": "Questionnaires | Insites",
-    "og:description": "Questionnaires | Insites",
+    "og:title": "My Documents | Insites",
+    "og:description": "My Documents | Insites",
     "og:site_name": "",
-    "meta_title": "Questionnaires | Insites",
-    "page_title": "Questionnaires | Insites",
-    "meta_description": "Questionnaires | Insites",
+    "meta_title": "My Documents | Insites",
+    "page_title": "My Documents | Insites",
+    "meta_description": "My Documents | Insites",
     "canonical_url": "",
     "search_engine_visibility": true,
     "sitemap_enabled": true,
     "sitemap_priority": "1.0",## primary order (DESC)
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly",
-    "heading": "Questionnaires"
-}
-# dynamic_cache:
-#   layout: |-
-#     true
-#   key: |-
-#     {%- parse_json models -%}
-#     [
-#       "modules/insites_site_manager/insites_global_content",
-#       "modules/insites_core/insites_system_fields",
-#       "modules/client/questionnaires"
-#     ]
-#     {%- endparse_json -%}
-#     {%- include "modules/website/generate_cache_key", models: models -%}    
+    "heading": "My Documents"
+}  
 ---
 
 {%- if context.environment == "staging" -%}
-<!-- start page: overview  -->
+<!-- start page: documents  -->
 {%- endif -%}
 
 {%- comment -%} Pagination and Filters {%- endcomment -%}
 {%  liquid            
     assign page_num = context.params.page | default: 1 | plus: 0
-    assign per_page = context.params.per_page | default: 6 | plus: 0
-    assign year = context.params.year | default: ""
+    assign per_page = context.params.per_page | default: 15 | plus: 0
+    assign description = context.params.search | default: ""
 %}
 
 {% parse_json filters %}
@@ -54,45 +42,18 @@ metadata: {
     "user_id": "{{context.current_user.id}}",
     "page": {{page_num}},
     "size": {{per_page}}      
-    {% if context.params.year and context.params.year != '' %} 
-    ,"year": "{{year}}"
+    {% if description != '' %} 
+    ,"description": "{{description}}"
     {% endif %} 
 }
 {% endparse_json %}
 
-{%- graphql data = "modules/client/questionnaires/get_questionnaires", args: filters | dig: "items" -%}
+{%- graphql data = "modules/client/get_documents", args: filters | dig: "items" -%}
 
-
-
-{%- comment -%} New Questionnaire Button - Options {%- endcomment -%}
-{%- graphql all_questionnaires = "modules/client/questionnaires/get_all_questionnaires", user_id: context.current_user.id | dig: "items","results" -%}
-
-{%  liquid
-    assign years = all_questionnaires | map: "year" | sort | reverse  
-    assign latest_year = years[0]
-    assign this_year = 'now' | date: '%Y'
-
-    if this_year > latest_year
-        assign year_options = ''
-        for i in (latest_year..this_year)
-            unless forloop.first
-                assign year_options = year_options | append: i 
-                unless forloop.last
-                    assign year_options = year_options | append: ','
-                endunless
-            endunless
-        endfor
-    else
-        assign year_options = 'No forms to complete'
-    endif
-%}
-
-<div class="questionnaire">
+<div class="documents">
 
     <div class="box">
-        <p>Hello and welcome to our questionnaire!</p>
-        <br>
-        <p>We appreciate your participation in helping us gather important information and insights. The purpose of this questionnaire is to better understand your opinions, experiences, and preferences regarding a particular topic.</p>
+        <p>Please upload your documents or files here.</p>
     </div>
 
     <div class="spacer xxx-large"></div>
@@ -100,19 +61,18 @@ metadata: {
     <div class="grid-x">
         <div class="cell large-5">
             <ins-button 
-                id="new-questionnaire"
-                label="New Questionnaire" 
+                id="add-document-btn"
+                class="open-form-btn"
+                label="Add Document" 
                 icon="icon-plus" 
                 solid 
-                color="blue" 
-                size="normal" 
-                options="{{year_options}}">
+                color="blue">
             </ins-button>
         </div>
         <div class="cell large-6 large-offset-1">
             <ins-input 
-                id="filter-year"
-                placeholder="Search by Year"
+                id="search"
+                placeholder="Search by Description"
                 icon="icon-search-1">
             </ins-input>
         </div>                
@@ -122,49 +82,149 @@ metadata: {
 
     <div class="grid-container">
 
-        <div class="grid-x grid-padding-x grid-padding-y">                        
+        <div class="grid-x grid-padding-x grid-padding-y">       
+        {%- assign key = 0 -%}                 
         {%- for item in data.results -%}
         <div class="large-4 medium-6 small-12 cell align-stretch">
-            {%- include "modules/client/questionnaires/questionnaires-card", item -%}
+            {%- include "modules/client/documents-card", item, key: key -%}
         </div>
+        {%- assign key = key | plus: 1 -%} 
         {%- endfor -%}
         </div>
 
-        <div class="spacer"></div>        
-        {%- include "modules/client/paginations", page_num, per_page -%}
+        {% if data.has_next_page %}
+            <div class="spacer"></div>        
+            {%- include "modules/client/paginations", page_num, per_page -%}
+        {% endif %}
+
         <div class="spacer xxxx-large"></div>
         
     </div>
 
 </div>
 
-<script>
-    let year = "{{year}}";
-    let keywordInput = document.getElementById("filter-year");
+<ins-modal 
+  id="modal-form"
+  with-backdrop 
+  confirmation value="DATA"
+  width="495px" 
+  height="auto"  
+  no-button
+  prevent-click-outside
+  class="no-close-icon">
+
+  <div id="myModalContent" >        
+    {% include_form 'modules/client/documents', id: :375 %}
+  </div>
+
+</ins-modal>
+
+<script>    
+    let documentsForm = document.querySelector('form.documents-form');
+    let submitFormBtn = document.getElementById('submit-form-btn');
+
+    <!-- File Upload -->
+    let insFileUploaderEl = document.getElementById('document-input');
+    let documentFieldEl = document.getElementById('document');
+    let table = "modules/client/documents";
+    let property = "file";
+
+    <!-- Edit Document -->
+    let data = {{data.results}};
+    let index, method, value;
+    let description = document.getElementById("description");
+    let notes = document.getElementById("notes");
+    let resource_id = document.querySelector("#documents-form input[name=resource_id]");
+
+    <!-- Modal - Form -->
+    let modalForm = document.getElementById('modal-form');
+    let openFormBtn = document.querySelectorAll('.open-form-btn');
+    let closeFormBtn = document.getElementById('close-form-btn');
+
+    openFormBtn.forEach(field => {
+        field.addEventListener('insClick', () => {
+            modalForm.open();
+            submitFormBtn.loading = false;          
+            if(field.getAttribute("id") == "add-document-btn"){
+                //Add Document
+                documentsForm.action = "/api/customizations/";
+                resource_id.value = "new";                
+                if(method != null){
+                    method.remove();
+                }
+                submitFormBtn.label = "Add Document";
+            }else{
+                //Edit Document
+                index = field.getAttribute("data-index");
+                documentsForm.action = "/api/customizations/" + data[index].id;                
+                resource_id.value = data[index].id;
+                method = document.querySelector("#documents-form input[name=_method]");
+                if(method == null){
+                    const el = document.createElement("input");
+                    el.name = "_method";
+                    el.type = "hidden";
+                    el.value = "patch";
+                    el.autocomplete = "off";            
+                    documentsForm.appendChild(el);
+                }
+
+                //Fill existing data
+                description.value = data[index].description;
+                notes.value = data[index].notes;
+
+                //Preview existing file
+                value = [{
+                    name: data[index].file.file_name,
+                    type: data[index].file.extension,
+                    url: data[index].file.url
+                }]
+                insFileUploaderEl.removeFiles();
+                insFileUploaderEl.setFiles(value);
+
+                submitFormBtn.label = "Update";                
+            }
+        });            
+    });
+
+    closeFormBtn.addEventListener('insClick', () => {
+        modalForm.close();
+    });    
+
+    
+                
+    <!-- Filter List - Search Description -->
+    let search = "{{description}}";
+    let keywordInput = document.getElementById("search");
     if (keywordInput) {
         keywordInput.addEventListener('insInput', this.keywordInputEvent);
         keywordInput.addEventListener('insIconClick', this.keywordInputEvent);
     }
     function keywordInputEvent(event) {        
         if (event.detail.keyCode === 13) {            
-            let url = window.location.href.replace("year="+year, "") + "&year="+event.detail.value;
+            let tempURL = window.location.href.replace("?search="+search, "");
+            tempURL = tempURL.replace("search="+search, "");
+            let Qmark = tempURL.indexOf("?") == -1? "?" : "";
+            let url = tempURL + Qmark + "search="+event.detail.value;                    
             window.location = url;
         }
     }
 
-    let newQuestionnaire = document.getElementById("new-questionnaire");
-    if (newQuestionnaire) {
-        newQuestionnaire.addEventListener('insClickOption', event => {
-            
-            console.log(event);
-            console.log(event.detail.option);
-            if(event.detail.option != "No forms to complete"){
-                window.location = "/client-portal/questionnaires-general?year="+event.detail.option;
-            }
-        });
+    <!-- Submit Form -->
+    async function validateDocumentsForm(event) {
+        event.preventDefault();
+        submitFormBtn.loading = true;
+        if (await App.validation.validateForm(documentsForm)) {
+            await FileUpload.methods.processAttachments();
+            documentsForm.submit();
+            return true;
+        } else {
+            submitFormBtn.loading = false;
+            return false;
+        }
     }
 </script>
+<script src="{{ 'modules/website/scripts/forms/file-upload.js' | asset_url }}"></script>
 
 {%- if context.environment == "staging" -%}
-<!-- end page: overview  -->
+<!-- end page: documents  -->
 {%- endif -%}
