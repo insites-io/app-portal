@@ -34,7 +34,11 @@ fields:
 api_call_notifications:
   - modules/website/add_contact
   
-
+callback_actions: >
+  {%- include 'modules/website/forms/update_document_files',
+    id: form.id,
+    document: form.properties.document
+  %}
 #callback_actions: >
 
  #   {%- include 'modules/insites_core/insites_create_crm_on_submit',
@@ -151,7 +155,6 @@ api_call_notifications:
     <div class="large-12 medium-12 small-12 cell">
       <ins-input-file 
         id="document-input"
-        value="{{ props.document.name }}"
         label="Sample Attachment" 
         max-files="3" 
         max-file-size="2" 

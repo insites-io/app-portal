@@ -9,6 +9,7 @@ const phoneFields = {
     mobile_phone: document.getElementById('mobile_phone'),
     country_code: document.getElementById('country_code')
 }
+let uuidList = [];
 
 // Google Map phoneFields
 // Div element to set Google Map display
@@ -79,7 +80,7 @@ let ContactUs = (function () {
                 if (await App.validation.validateForm(formEl) && captcha) {
                     formEl.querySelector('ins-button').loading = true;
                     await this.processAttachments();
-                formEl.submit();
+                    formEl.submit();
                 } else {
                     return false;
                 }
@@ -109,6 +110,9 @@ let ContactUs = (function () {
             async uploadFile(file) {
 
                 return new Promise(async resolve => {
+                    uuidList = [];
+                    const paths = [];
+
                     let fileUrl = "";
                     if (file.upload_url) {
                         fileUrl = file.upload_url;
@@ -122,10 +126,33 @@ let ContactUs = (function () {
                         console.log("s3cred =  " , s3CredentialsURL)
                         console.log("file = " , file)
                         console.log("file name " , file.name)
-                        fileUrl = await S3UploaderService.methods.uploadToS3(s3CredentialsURL, file, file.name, "file", true);
+                        const uploads3 = await S3UploaderService.methods.uploadToS3(
+                          "/api/attachments/s3-form?name=modules/insites_core/attachment&field=file", 
+                          file,
+                          file.name,
+                          "file",
+                          true
+                        );
+                        
+                        const response = await this.createDatabaseFile(uploads3);
+                        
+                        if (response.state) {
+                            const url = response.data.item.file.url;
+                            const path = url.split('/property_uploads/')[1];
+                            paths.push(path);
+                            uuidList.push(response.data.item.uuid)
+                        }
                     }
-                    resolve(fileUrl);
+                    resolve(uuidList);
                 });
+            },
+            async createDatabaseFile(data) {
+              const URL = decodeURIComponent((data+'').replace(/\+/g, '%20'));
+
+              return await FormServices.createAttachmentfile({
+                  path: URL.split('/property_uploads/')[1],
+                  url: data
+              });
             },
             mapGetCoordinates(geocoder, map) {
                 if (address.trim() !== '') {
