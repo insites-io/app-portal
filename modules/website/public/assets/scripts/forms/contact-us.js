@@ -15,7 +15,7 @@ const phoneFields = {
 const mapEl = document.getElementById('contact-google-map');
 
 // Map center address
-let address = document.getElementById('full-address').innerText;
+// let address = document.getElementById('full-address').innerText;
 // GeoJSON feature not yet supported on INS global contents / data
 let addressData = document.getElementById('address-data');
 addressData = addressData ? JSON.parse(addressData) : null;
@@ -67,42 +67,47 @@ let ContactUs = (function () {
             },
             async validateForm(event) {
                 event ? event.preventDefault() : '';
-                var captcha = true;
+                var captcha = false;
                 // IF your form / instance have recaptcha enabled, uncommment this code instead
                 var captcha = App.validation.checkRecaptcha();
+
+                let values = await phoneFields.inputTel.getValues();
+                phoneFields.country_code.value = values.country_code;
+                phoneFields.mobile_phone.value = "+" + values.country_code + values.phone_number;
 
                 // Form fields with attribute 'validate' are validated
                 if (await App.validation.validateForm(formEl) && captcha) {
                     formEl.querySelector('ins-button').loading = true;
                     await this.processAttachments();
-
-                    let values = await phoneFields.inputTel.getValues();
-                    phoneFields.country_code.value = values.country_code;
-                    phoneFields.mobile_phone.value = "+" + values.country_code + values.phone_number;
-                    formEl.submit();
+                formEl.submit();
                 } else {
                     return false;
                 }
             },
             async processAttachments() {
+                var testarr = [];
                 if (insFileUploaderEl) {
                     let filesToUpload = await insFileUploaderEl.getFilesList().then(result => {
                         return result;
                     });
-
+                    console.log(filesToUpload);
                     for (let index = 0; index < filesToUpload.length; index++) {
                         /*  This specific case only uploads 1 file, and return the uploaded S3 URL to the field in the form
                             Code implementation may change if your uploading multiple files / images at a time,
                             and assigning it to different fields, etc..
                         */
-
                         let s3URL = await this.uploadFile(filesToUpload[index]);
                         // assign to pOS hidden field s3 URL
-                        documentFieldEl.value = s3URL;
+                        //documentFieldEl.value = s3URL;
+                        testarr.push(s3URL);
                     }
+                    console.log("testarr =  " , testarr);
+                    console.log("documentFieldEl = " , documentFieldEl);
+                    documentFieldEl.value = testarr;
                 }
             },
             async uploadFile(file) {
+
                 return new Promise(async resolve => {
                     let fileUrl = "";
                     if (file.upload_url) {
@@ -114,7 +119,10 @@ let ContactUs = (function () {
                         }
                         // pass 'document' as it is the pOS field name
                         // pass 'media' depending on pOS field type
-                        fileUrl = await S3UploaderService.methods.uploadToS3(s3CredentialsURL, file, file.name);
+                        console.log("s3cred =  " , s3CredentialsURL)
+                        console.log("file = " , file)
+                        console.log("file name " , file.name)
+                        fileUrl = await S3UploaderService.methods.uploadToS3(s3CredentialsURL, file, file.name, "file", true);
                     }
                     resolve(fileUrl);
                 });

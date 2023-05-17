@@ -20,9 +20,8 @@ layout_name: modules/website/contact_us
     <br><br>
     We'll do our best to get back to you as soon as possible.</p>
     <div class="spacer xx-large"></div>
-    {% comment %} {%- include 'modules/insites_database/insites_functions/insites_database_form_scripts' -%}
-    {%- include_form 'modules/ins_database/contact_us' -%} {% endcomment %}
-
+    {%- include 'modules/client/insites_database/insites_database_form_scripts' -%}
+    
     {%- include_form 'modules/website/contact_us' -%}
 
 {%- if context.environment == "staging" -%}

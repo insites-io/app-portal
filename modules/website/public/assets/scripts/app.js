@@ -106,12 +106,14 @@ let App = (function () {
                 return this.checkInvalidFields(containerEl);
             },
             checkRecaptcha() {
-                let isValid = grecaptcha.getResponse().length == 0
+                let isValid = grecaptcha.getResponse().length == 0 
                     ? false : true;
                 isValid
+                
                     ? document.getElementById('recaptcha-v2-wrapper').classList.remove("error-recaptcha")
                     : document.getElementById('recaptcha-v2-wrapper').classList.add('error-recaptcha');
                 return isValid;
+                
             },
             checkInvalidFields(containerEl) {
                 return new Promise(resolve => {

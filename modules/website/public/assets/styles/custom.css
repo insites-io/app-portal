@@ -629,13 +629,21 @@ background-color: #0000;
 }
 
 /* CONTACT */
-.blocks-sc-2col-05 .ins-form-field-wrap.is-invalid .ins-form-error {
-  color: var(--color-error, #FF3366);
-  font-family: var(--font-family-03, sans-serif);
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 400;
+.form-error,
+.ins-form-field-wrap.is-invalid .ins-form-error,
+.form-field-wrapper.error-recaptcha .ins-form-error,
+.list-field-wrap.is-invalid .list-field_error {
+    font-family: var(--font-family-03);
+    font-weight: 400;
+    font-size: var(--font-x-small);
+    line-height: normal;
+    color: var(--error);
 }
+
+.form-field-wrapper.error-recaptcha .ins-form-error::after {
+    content: "reCAPTCHA is required.";
+}
+
 
 /********* MEDIA QUERIES **********/
 /* Extra small devices (phones, 600px and down) */
