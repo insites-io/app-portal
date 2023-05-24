@@ -159,6 +159,7 @@ ins-card .ins-card-wrap{
     border-radius: 4px;
     background: var(--color-ui-01);
     height: 100%;
+    display: block;
 }
 
 .ins-card-wrap:hover {
@@ -200,10 +201,10 @@ ins-modal.no-close-icon .ins-modal-head .icon-close-1{
     margin-bottom: initial !important;
 }
 
-.insites-form.insites-form-code .insites-form-grid {
+/* .insites-form.insites-form-code .insites-form-grid {
     margin-left: initial !important;
     margin-right: initial !important;
-}
+} */
 
 ins-checkbox .ins-radio-checkbox {
     padding-left: 0px;
@@ -509,6 +510,66 @@ ins-tag.Completed span.ins-tag {
 
 .payment-summary .col2 {
     text-align: right;
+}
+
+/* Stripe Element */
+@media screen and (max-width: 639px) {
+    #stripe-modal .ins-modal-wrap.show-modal ins-card {
+        height: 315px !important;
+        width: 90% !important;
+        left: 5% !important;
+    }
+}
+
+.stripe-modal .ins-modal-wrap.show-modal .ins-modal-head{
+    padding: 16px 56px 16px 24px;
+}
+
+.stripe-modal .ins-modal-wrap.show-modal .ins-modal-body {
+    position: absolute;
+    padding:24px;    
+}
+
+.stripe-modal .error-message{
+    margin-top: initial;
+}
+
+.ins-modal-wrap.ins-modal-head h1,
+.ins-modal-wrap.show-modal .ins-modal-head h1 {
+    /* h1.heading-2 */
+    font-family: var(--font-family-01);
+    font-size: var(--font-xx-large);
+    font-weight: 700;
+    color: var(--font-color-head);
+    line-height: normal;
+}
+
+.ins-modal-wrap .ins-modal-head .icon-close-1,
+.ins-modal-wrap.show-modal .ins-modal-head .icon-close-1 {
+    font-size: var(--font-medium);
+    top: 24px;
+}
+
+.StripeElement {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-ui-04);
+    border-radius: 4px;
+    background-color: var(--color-ui-01);
+}
+
+.StripeElement--focus {
+    /* box-shadow: 0 1px 3px 0 #cfd7df; */
+    border-color: var(--color-main);
+}
+
+.StripeElement--invalid {
+    border-color: var(--error);
+}
+
+.StripeElement--webkit-autofill {
+    background-color: var(--color-ui-02) !important;
 }
 
 /* Common */

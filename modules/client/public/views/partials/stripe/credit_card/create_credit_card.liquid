@@ -1,10 +1,17 @@
 
+{% log 'create_credit_card', type: 'TEST partial create_credit_card' %}
 {% graphql stripe_create_card = 'modules/website/trigger_api_call', 
-    name: "modules/insites_stripe/create_card",
+    name: "modules/client/create_card",
     data: stripe_card
     | dig: 'items' | dig: 'response' %}
+
+    {% log "===========================================================================================================================", type: 'TEST' %}
+
+    {% log stripe_card, type: 'TEST stripe_card' %}    
+
     
     {%- assign stripe_create_card = stripe_create_card.body | parse_json -%}
+    {% log stripe_create_card, type: 'TEST stripe_create_card' %}
     {% parse_json credit_card %}
     {
         "gateway_id": "{{ stripe_create_card.id }}",

@@ -12,11 +12,11 @@ let card;
 let style = {
     base: {
         color: '#404040',
-        fontFamily: '"Open Sans", sans-serif',
+        fontFamily: '"Work Sans", sans-serif',
         fontSmoothing: 'antialiased',
-        fontSize: '16px',
+        fontSize: '14px',
         '::placeholder': {
-            color: '#595959'
+            color: '#8C94A4'
         }
     },
     invalid: {
@@ -34,7 +34,7 @@ let StripeElement = (() => {
         methods: {
             makeCardElement(token) {
                 if(cardOptionsList && token) {
-                    let grid = cardOptionsList.getAttribute('card-grid') || "large-6 medium-12 small-12";
+                    let grid = cardOptionsList.getAttribute('card-grid') || "large-4 medium-4 small-12";
                     let divEl = document.createElement("div");
                         divEl.className = `${grid} cell card-options`;
                     let insCardEl = document.createElement("ins-credit-card");

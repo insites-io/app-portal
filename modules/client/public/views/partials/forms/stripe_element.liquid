@@ -1,14 +1,12 @@
-<ins-modal id="stripe-modal" 
+<ins-modal id="stripe-modal" class="stripe-modal"
     no-button 
     with-backdrop
-    height="255px" 
+    height="221px" 
     width="520px"
     heading="Add New Card">
-    <form id="card-form">        
-
+    <form id="card-form">
       <script src="https://js.stripe.com/v3/"></script>
         <div class="form-row">
-            <div class="spacer small"></div>
             <div id="card-element">
               <!-- A Stripe Element will be inserted here. -->
             </div>
@@ -50,7 +48,7 @@
     let payByCardField = document.getElementById('{{ cc_field_id }}');
     let emailField = document.getElementById('{{ email_field_id }}');
     // Create a Stripe client.
-    let stripe = Stripe('{{ context.exports.payments.gateway.public_key }}');
+    let stripe = Stripe('pk_test_51JgiQgDKXN2B4Z9YLtz61lb7PDgjIPH2GtKJ6FTN8cYkwOUazMt80sQUH56Wp7ba6UwCCsOg7yTqiNZnD2psb8Oq00gTkdRuh9');
 </script>
 
 {%- if context.environment == "staging" -%}
