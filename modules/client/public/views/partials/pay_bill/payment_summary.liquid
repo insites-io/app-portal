@@ -1,16 +1,24 @@
-{%- if order_id -%}
-    {% graphql order = "modules/ecommerce/orders/get_order_amount",
-        id: context.params.order_id 
-        | dig: 'items' | dig: 'results' | first %}
-    {% graphql cart = "modules/ecommerce/cart/get_cart_by_field",
-        order_id: context.params.order_id, is_product_price: true 
-        | dig: 'items' | dig: 'results' %}
-    {% assign amountPayable = cart[0].product_price | divided_by: 100 %}
-    {% assign ccSurcharge = cart[1].product_price | divided_by: 100 %}
-    {% assign subTotal = amountPayable | plus: ccSurcharge | default: "0.00" %}
-    {% assign taxTotal = order.tax_amount | divided_by: 100 %}
-    {% assign totalAmount = order.total_amount | divided_by: 100 %}
-{%- endif -%}
+{% if order_id %} 
+    {% parse_json data %} 
+    {
+        "id": "{{order_id}}"
+    }
+    {% endparse_json %}
+{% endif %} 
+
+{%  liquid
+    if order_id
+        graphql get_order = 'modules/website/trigger_api_call', name: 'modules/client/ecommerce/get_order', data: data 
+        assign order = get_order.items.response.body | parse_json | dig: 'items','results' | first
+
+        function computed = "modules/client/pay_bill/compute_amounts", amount: order.properties.order_value
+
+        assign amountPayable = computed.amount
+        assign ccSurcharge = computed.cc_surcharge
+        assign subTotal = computed.total_amount
+        assign totalAmount = computed.total_amount
+    endif
+%}
 
 {%- comment -%}Payment Summary{%- endcomment -%}
 <div class="payment-summary">
@@ -18,23 +26,20 @@
     <div class="spacer x-lage"></div>
     <div class="grid-x">
         <div class="large-9 col1">Bill Amount</div>
-        <div class="large-3 col2">$150.00</div>
+        <div class="large-3 col2">$<span id="charge-amount-summary">{{ amountPayable | default: "0.00" }}</div>
         <div class="cell spacer x-small"></div>
         <div class="large-9 col1">Processing Fee (1.7%)</div>
-        <div class="large-3 col2">$5.00</div>
+        <div class="large-3 col2">$<span id="cc-charge-summary">{{ ccSurcharge | default: "0.00" }}</span></div>
         <div class="cell spacer"></div>
         <hr>
         <div class="cell spacer small"></div>
         <div class="large-9 col1">Sub Total</div>
-        <div class="large-3 col2">$155.00</div>
-        <div class="cell spacer x-small"></div>
-        <div class="large-9 col1">Tax</div>
-        <div class="large-3 col2">$1.00</div>
+        <div class="large-3 col2">$<span id="sub-total-summary">{{ subTotal | default: "0.00" }}</span></div>        
         <div class="cell spacer small"></div>
         <hr>
         <div class="cell spacer small"></div>
         <div class="large-7 col1"><h3 class="heading-3">Total</h3></div>
-        <div class="large-5 col2"><h3 class="heading-3">$156.00</h3></div>        
+        <div class="large-5 col2"><h3 class="heading-3" id="total-amount-summary">${{ taxTotal | default: "0.00" }}</h3></div>        
     </div>
 </div>
 <div class="spacer xxxx-large"></div>
@@ -45,14 +50,12 @@
         let chargeAmountEl = document.getElementById('charge-amount-summary');
         let ccAmountEl = document.getElementById('cc-charge-summary');
         let subTotalEl = document.getElementById('sub-total-summary');
-        let taxTotalEl = document.getElementById('tax-total-summary');
         let totalAmountEl = document.getElementById('total-amount-summary');
 
         setTimeout(() => {
             chargeAmountEl.innerHTML = pricify({{ amountPayable }});
             ccAmountEl.innerHTML = pricify({{ ccSurcharge }});
             subTotalEl.innerHTML = pricify({{ subTotal }});
-            taxTotalEl.innerHTML = pricify({{ taxTotal }});
             totalAmountEl.innerHTML = pricify({{ totalAmount }});
         }, 500)
 
@@ -67,11 +70,14 @@
     let valueChangeHandler = debounce((ev) => calculatePaymentSummary(ev));
 
     let amountEl = document.getElementById('bill-amount');
+    let amountTotalEl = document.getElementById('bill-total-amount');
+    let amountDueEl = document.getElementById('bill-amount-due');
+    let notesEl = document.getElementById('bill-notes');
+
     let chargeAmountEl = document.getElementById('charge-amount-summary');
     let ccAmountEl = document.getElementById('cc-charge-summary');
     let subTotalEl = document.getElementById('sub-total-summary');
-    let taxTotalEl = document.getElementById('tax-total-summary');
-    let totalAmountEl = document.getElementById('total-amount-summary');
+    let totalAmountEl = document.getElementById('total-amount-summary');    
 
     function debounce(func, timeout = 500){
         let timer;
@@ -84,20 +90,24 @@
     function calculatePaymentSummary(ev){
     let amountPayable = ev.detail * 1.00;
     let ccSurcharge = amountPayable * 0.017; // 1.7% credit card surcharge
-    let subTotal = amountPayable + ccSurcharge;
-    let taxAmount = subTotal * 0.10; // 10% Tax;
-    let totalAmount = subTotal + taxAmount;
+    let totalAmount = subTotal = amountPayable + ccSurcharge;
 
         if(chargeAmountEl) 
             chargeAmountEl.innerHTML = pricify(amountPayable);
         if(ccAmountEl) 
             ccAmountEl.innerHTML = pricify(ccSurcharge);
         if(subTotalEl) 
-            subTotalEl.innerHTML = pricify(subTotal);
-        if(taxTotalEl) 
-            taxTotalEl.innerHTML = pricify(taxAmount);
+            subTotalEl.innerHTML = pricify(subTotal);        
         if(totalAmountEl) 
             totalAmountEl.innerHTML = pricify(totalAmount);
+
+        {%- comment %} Update hidden input {% endcomment %}
+        if(amountTotalEl) 
+            amountTotalEl.value = totalAmount;
+        if(amountDueEl) 
+            amountDueEl.value = totalAmount;
+        if(notesEl) 
+            notesEl.value = `{"amount": "${amountPayable}", "cc-charge": "${ccSurcharge}", "total-amount": "${totalAmount}"}`;
     }
 
     function pricify(number) {

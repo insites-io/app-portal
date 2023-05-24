@@ -2,13 +2,25 @@
 to: 'https://{{context.location.host}}/core/api/v1/events'
 format: http
 request_type: POST
-callback: >
-  {% assign response_hash = response.body | parse_json %}
-  {% log response_hash.items.properties.description, type: 'Event response' %} 
+#callback: >
+#  {% assign response_hash = response.body | parse_json %}
+#  {% log response_hash.items.properties.description, type: 'Event response' %} 
 request_headers: >
     {
         "Content-Type": "application/json",
-        "Authorization": "instance_92d3be32-b64f-4909-91fe-2db66783f617_Qz26R453IgamR5S7j18aHEheVbgqmV3zycGGc3UyE8c"
+        "Authorization": "<%= instance_api_key =%>"
     }
 ---
-{{data}}
+
+{%- capture details -%}
+    {{ data.details }}
+{%- endcapture -%}
+
+{
+    "font_icon": "{{ data.font_icon }}",
+    "font_icon_color": "{{ data.font_icon_color }}",
+    "description": "{{ data.description }}",
+    "details": {{ details | json }},
+    "related_type": "{{ data.related_type }}",
+    "related_uuid": "{{ data.related_uuid }}"
+}

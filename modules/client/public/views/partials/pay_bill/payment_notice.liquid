@@ -1,0 +1,49 @@
+{% parse_json data %} 
+{
+  "id": "{{payment_id}}"
+}
+{% endparse_json %}
+{% liquid
+    graphql get_payment = 'modules/website/trigger_api_call', name: 'modules/client/ecommerce/get_payment', data: data 
+    assign payment = get_payment.items.response.body | parse_json | dig: 'items','results' | first
+%}
+
+    <div class="spacer xxx-large"></div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-12 medium-12 small-12 cell text-center">
+            <h1 class="heading-1">We've received your payment</h1>
+            <div class="spacer small"></div> 
+            <p>Your payment has been received with order number <strong>{{ payment.properties.order_id | default: '0000000000000' }}</strong></p>
+        </div>
+    </div>
+    <div class="spacer xxxx-large"></div>
+
+    <div class="grid-x grid-padding-x confirmation__wrapper">
+        <div class="large-4 medium-5 small-12 cell">
+
+            {% graphql cart = "modules/client/pay_bill/get_cart_by_field",
+                order_id: context.params.order_id, is_product_name: true 
+                | dig: 'items' | dig: 'results' | first %}
+
+            {%- comment -%} Payment Details {%- endcomment -%}
+            <div>
+                <h3 class="heading-3">Payment Details</h3>
+                <div class="spacer small"></div>
+                <p class="font-cabin">{{ order.payment.card_brand | upcase }} **** **** **** {{ payment.properties.card_last4 }}</p>
+                {%- assign month = payment.properties.card_exp_month -%}
+                {%- if month.size < 2 -%}
+                    {%- assign month = "0" | append: payment.properties.card_exp_month -%}
+                {%- endif -%}
+                <p class="font-cabin">{{ month }} / {{ payment.properties.card_exp_year }}</p>
+                <div class="spacer x-large"></div>
+            </div>
+            
+        </div>
+        <div class="large-7 large-offset-1 medium-6 medium-offset-1 small-12 cell">
+            <div class="spacer xxx-large show-for-small-only"></div>
+
+            {% include 'modules/client/pay_bill/payment_summary', 
+                order_id: order_id %}
+            
+        </div>
+    </div>

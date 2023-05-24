@@ -1,0 +1,31 @@
+---
+to: 'https://{{context.location.host}}/ecommerce/api/v1/orders'
+format: http
+request_type: PUT
+# callback: >
+#   {% log response, type: 'response object' %}
+#   {% assign response_hash = response.body | parse_json %}
+#   {% log response_hash, type: 'response body as hash' %} 
+request_headers: >
+    {
+        "Content-Type": "application/json",
+        "Authorization": "<%= instance_api_key =%>"
+    }
+---
+{
+    "payload": {
+        "id": "{{ data.id }}", 
+        "order_number": "{{ data.order_number }}", 
+        "user_id": "{{ data.user_id }}", 
+        "order_first_name": "{{ data.order_first_name }}", 
+        "order_last_name": "{{ data.order_last_name }}", 
+        "order_status": "{{ data.order_status }}",
+        "order_payment_status": "{{ data.order_payment_status }}",
+        "last_updated_by_id": "{{ data.last_updated_by_id }}",
+        "amount_due": {{ data.amount_due }},
+        "total_amount": {{ data.total_amount }},
+        "shipping_amount": {{ data.shipping_amount }},
+        "tax_amount": {{ data.tax_amount }},
+        "order_value": {{ data.order_value }}        
+    }
+}

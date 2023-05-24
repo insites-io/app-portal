@@ -1,0 +1,38 @@
+---
+to: 'https://{{context.location.host}}/ecommerce/api/v1/payments'
+format: http
+request_type: POST
+callback: >
+  {% assign response_hash = response.body | parse_json %}
+  {% log response_hash.items.properties.description, type: 'Event response' %} 
+request_headers: >
+    {
+        "Content-Type": "application/json",
+        "Authorization": "<%= instance_api_key =%>"
+    }
+---
+
+{%- capture payment_gateway_details -%}
+    {{ data.payment_gateway_details }}
+{%- endcapture -%}
+
+{
+    "payload": {
+        "date_time": "{{ data.date_time }}",
+        "payment_status": "{{ data.payment_status }}",
+        "payment_source": "{{ data.payment_source }}",
+        "amount": {{ data.amount }},
+        "order_value": {{ data.order_value }},
+        "amount_due": {{ data.amount_due }},
+        "payment_gateway_name": "{{ data.payment_gateway_name }}",
+        "card_brand": "{{ data.card_brand }}",
+        "card_exp_month": "{{ data.card_exp_month }}",
+        "card_exp_year": "{{ data.card_exp_year }}",
+        "card_last4": "{{ data.card_last4 }}",
+        "payment_gateway_details": {{ payment_gateway_details | json }},
+        "order_id": "{{ data.order_id }}",
+        "currency": "{{ data.currency }}",        
+        "last_updated_by_id": "{{ data.last_updated_by_id }}",
+        "is_enabled": {{ data.is_enabled }}
+    }
+}

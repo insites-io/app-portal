@@ -1,14 +1,17 @@
-mutation create_credit_card (
-  $gateway_id: String!
-  $gateway_customer_id: String!
-  $user_id: String!
+mutation update_credit_card (
+  $id: ID!
+  $gateway_id: String
+  $gateway_customer_id: String
+  $user_id: String
   $external_id: String
-  $brand: String!
-  $exp_month: String!
-  $exp_year: String!
-  $last4: String!
+  $brand: String
+  $exp_month: String
+  $exp_year: String
+  $last4: String
+  $is_enabled: Boolean
 ) {
-  items: record_create(
+  items: record_update(
+    id: $id
     record: {
       table: "modules/insites_ecommerce/insites_credit_card"
       properties: [
@@ -20,6 +23,7 @@ mutation create_credit_card (
         { name: "exp_month", value: $exp_month }
         { name: "exp_year", value: $exp_year }
         { name: "last4", value: $last4 }
+        { name: "is_enabled", value_boolean: $is_enabled }
       ]
     }
   ) {

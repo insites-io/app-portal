@@ -1,0 +1,30 @@
+---
+to: 'https://{{context.location.host}}/core/api/v1/contacts/addresses'
+format: http
+request_type: POST
+callback: >  
+  {% assign response_hash = response.body | parse_json %}
+  {% log response, type: 'TEST response' %} 
+  {% log response_hash.items.properties.address_label, type: 'Register - Add CRM Contact Address' %}   
+request_headers: >
+    {
+        "Content-Type": "application/json",
+        "Authorization": "<%= instance_api_key =%>"
+    }
+---
+
+{% graphql user = 'modules/client/account/get_user_uuid', id: form.id | dig: 'items','results' | first %}
+{% log user.uuid, type: 'TEST user.uuid' %}   
+{% log form, type: 'TEST form' %}
+{% log data, type: 'TEST data' %}
+
+{
+    "contact_uuid": "260caab4-d988-43c7-8ccb-9ea63a3bfe9e",
+    "address_label": "{{form.address_1}} {{user.uuid}}", 
+    "default_address": true,
+    "address_1": "{{form.address_1}}",
+    "address_2": "{{form.address_2}}",
+    "suburb": "{{form.suburb}}",
+    "state": "{{form.state}}",
+    "country": "{{form.country}}"
+}

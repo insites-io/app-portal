@@ -32,6 +32,8 @@ payload:
 {%- endcomment -%}
 
 {%- assign payload = context.params.payload | parse_json -%}
+{% log payload, type: 'TEST payload' %}
+
 {%- assign status = 200 -%}
 {% assign response = "{}" | parse_json %}
 
@@ -40,7 +42,7 @@ payload:
 {%- assign customer_email = payload.email | strip -%}
 
 {%- comment -%} STEP 1: Check Stripe Customer Data {%- endcomment -%}
-{%- graphql stripe_customer = "modules/client/client/get_client_model" 
+{%- graphql stripe_customer = "modules/client/customer/get_customer_model" 
     email: customer_email,
     gateway_name: "Stripe" 
     | dig: "items" | dig: "results" | first -%}
@@ -59,10 +61,13 @@ payload:
     {%- comment -%}Step 1-A: Customer Stripe data exist. Proceed create stripe credit card {%- endcomment -%}
 
     {%- comment -%}Step 1-A.1: Update customer model data{%- endcomment -%}
-    {%- graphql customer_model = "modules/client/customer/update_client_model", 
+    {%- graphql customer_model = "modules/client/customer/update_customer_model", 
         id: stripe_customer.id
         user_id: user_id,
         name: customer_name | dig: "items" -%}
+
+        {% log customer_model, type: 'TEST: update_customer_model' %}
+
     
     
     {%- comment -%}Step 1-A.2: Customer Stripe data exist. Proceed create stripe credit card {%- endcomment -%}
@@ -98,7 +103,7 @@ payload:
     {
         "email": "{{ customer_email }}",
         "name": "{{ customer_name }}",
-        "source": "{{ payload.stripe_credit_card }}",
+        {% comment %} "source": "{{ payload.stripe_credit_card }}", {% endcomment %}
         "description": ""
     }
     {% endparse_json %}
@@ -111,13 +116,17 @@ payload:
         data: stripe_customer
         | dig: 'items' | dig: 'response' %}
     {% comment %} End TODO {% endcomment %}
+    
 
     {%- assign stripe_create_customer = stripe_create_customer.body | parse_json  -%}
+
+    {% log stripe_create_customer, type: 'TEST stripe_create_customer' %}
+
     {%- assign stripe_customer_id = stripe_create_customer.id -%}
     
 
     {%- comment -%}Save Stripe credit card to pOS model{%- endcomment -%}
-    {%- assign stripe_card = stripe_create_customer.sources.data[0] -%}
+    {% comment %} {%- assign stripe_card = stripe_create_customer.sources.data[0] -%}
     {% parse_json credit_card %}
     {
         "gateway_id": "{{ stripe_card.id }}",
@@ -131,7 +140,8 @@ payload:
     {% endparse_json %}
 
     {% graphql card_model = "modules/client/credit_card/create_credit_card"
-        args: credit_card %}
+        args: credit_card %} {% endcomment %}
+        
     {%- comment -%}END Save Stripe card to pOS {%- endcomment -%}
 
     {% parse_json customer_data %}
@@ -148,9 +158,24 @@ payload:
         
     }
     {% endparse_json %}
-    {%- graphql customer_model = "modules/client/customer/create_client_model", 
+    {%- graphql customer_model = "modules/client/customer/create_customer_model", 
         args: customer_data -%}
     {%- assign response = customer_model -%}
+
+    {% log customer_model, type: 'TEST create_customer_model' %}
+
+    {% parse_json stripe_card %}
+        {
+            "customer_id": "{{ customer_model.items.properties.gateway_id | default: user_id }}",
+            "source": "{{ payload.stripe_credit_card }}"
+        }
+        {% endparse_json %}
+
+        {%- include 'modules/client/stripe/credit_card/create_credit_card', 
+                stripe_card: stripe_card,
+                user_id: user_id -%}
+
+
 {%- endif -%}
 
 {%- comment -%}

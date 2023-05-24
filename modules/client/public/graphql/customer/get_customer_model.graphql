@@ -1,4 +1,4 @@
-query get_client_model (
+query get_customer_model (
     $id: ID,
     $page: Int = 1,
     $size: Int = 10,
@@ -13,7 +13,7 @@ query get_client_model (
       filter: {
         id: { value: $id }
         deleted_at: { exists: false }
-        table: { value: "modules/client/client" }
+        table: { value: "modules/insites_ecommerce/insites_customer" }
         properties: [
           { name: "gateway_id", value: $gateway_id }
           { name: "gateway_name", value: $gateway_name }
@@ -29,6 +29,7 @@ query get_client_model (
       results {
         id 
         gateway_id: property(name: "gateway_id") 
+        gateway_name: property(name: "gateway_name")
       }
     }
   }

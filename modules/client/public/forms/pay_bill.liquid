@@ -1,167 +1,138 @@
 ---
 name: pay_bill
-resource: modules/client/pay_bill
+resource: modules/insites_ecommerce/insites_order
 resource_owner: anyone
-redirect_to: >
-    {%- graphql cart = 'modules/client/pay_bill/get_cart_by_field', 
-        id: form.id, is_order_id: true 
-        | dig: "items" | dig: "results" | first -%}
-    /payment-confirmation?order_id={{ cart.order_id }}
+redirect_to: /pay-bill
+flash_alert: Error-PayBill
+flash_notice: Success-PayBill
 fields:
-    properties:
-    ## Payment Details
-        product_name: ## Invoice number
-            validation:
-                presence:  
-                    message: Invoice number is required 
-        status: ## Cart status = "Cart"
-        quantity:
-        order_id:
-        product_price:
-            validation:
-                presence:  
-                    message: Amount should be greater than 0
-                numericality:
-                    message: Amount should be greater than 0
-        tax_amount:
-        shipping_amount:
-        cc_charge_amount:
-            property_options:
-                virtual: true
+  properties:
+    order_number:    
+      validation: 
+        presence:
+          message: Invoice Number is required  
+    order_value:    
+      validation: 
+        presence:  
+          message: Amount is required
+        numericality:
+          greater_than_or_equal_to: 1
+    user_id:    
+      validation: 
+        presence: true
+    currency:    
+      validation: 
+        presence: true
+    date_time:    
+      validation: 
+        presence: true
+    tax_amount:    
+      validation: 
+        presence: true
+    shipping_amount:    
+      validation: 
+        presence: true
+    total_amount:    
+      validation: 
+        presence: true
+    amount_due:    
+      validation: 
+        presence: true
+    total_discount_amount:    
+      validation: 
+        presence: true
+    is_enabled:    
+      validation: 
+        presence: true    
+    order_first_name:
+    order_last_name:
+    order_status:
+    order_payment_status:
+    shipping_status:
+    notes:
 
-        ## Order Details
-        company_name:
-            property_options:
-                virtual: true
-        billing_first_name:
-            property_options:
-                virtual: true
-            validation:
-                presence:  
-                    message: First name is required 
-        billing_last_name:
-            property_options:
-                virtual: true
-            validation:
-                presence:  
-                    message: Last name is required 
-        billing_email:
-            property_options:
-                virtual: true
-            validation:
-                email: 
-                    message: Please use a valid email address
-                presence:  
-                    message: Please use a valid email address
-        billing_phone:
-            property_options:
-                virtual: true
-        billing_address_id:
-            property_options:
-                virtual: true
-        billing_address_1:
-            property_options:
-                virtual: true
-            validation:
-                presence:  
-                    message: Address is required 
-        billing_address_2:
-            property_options:
-                virtual: true
-        billing_address_3:
-            property_options:
-                virtual: true
-        billing_city:
-            property_options:
-                virtual: true
-            validation:
-                presence:  
-                    message: City name is required 
-        billing_state:
-            property_options:
-                virtual: true
-            validation:
-                presence:
-                    message: State is required 
-        billing_country:
-            property_options:
-                virtual: true
-            validation:
-                presence:  
-                    message: Country is required 
-        billing_postcode:
-            property_options:
-                virtual: true
-            validation:
-                presence:  
-                    message: Postcode is required
-        ## Other Details 
-        stripe_credit_card:
-            property_options:
-                virtual: true
-        account_phone_number:
-            property_options:
-                virtual: true
-        account_phone_number_country:
-            property_options:
-                virtual: true
-        
-default_payload: |-
+    # Other Details 
+    stripe_credit_card:
+        property_options:
+            virtual: true            
+default_payload: >
+  {% function settings = "modules/client/pay_bill/get_settings" %}
   {
     "properties_attributes":{
-        "status": "Cart",
-        "quantity": 1,
-        "shipping_amount": 0.0
+        "user_id": "{{ context.current_user.id }}",
+        "currency": "{{ settings.currency }}",
+        "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}",
+        "tax_amount": 0,
+        "shipping_amount": 0,
+        "total_discount_amount": 0,
+        "is_enabled": true,
+        "order_first_name": "{{ context.current_user.first_name }}",
+        "order_last_name": "{{ context.current_user.last_name }}",
+        "order_status": "Open",
+        "order_payment_status": "Pending Funds",
+        "shipping_status": "Not Applicable"
     }
-  }
+  }  
 callback_actions: >
-    {%- comment -%}
-    These actions are made intentionally on `callback_actions` and not on `async_callback_action` bec.
-    confirmation page needs to be able to see the 'payment details' & cart summary. 
-    {%- endcomment -%}    
-
-    {%- comment -%}START: Bills payment callback process {%- endcomment -%}
-    # {%- include 'modules/client/pay_bill/callback_init', 
-    #     context: context,
-    #     form: form -%}
-
-    {%- session paybill_email = form.properties.billing_email -%}
+  {%- include 'modules/client/pay_bill/callback_init', 
+      context: context,
+      form: form -%}  
 ---
+
+{%- assign props = form.fields.properties -%}
 
 {% form 
     html-id: "checkout-form"
-    html-onsubmit:"return Paybill.events.payBillsSubmit(event);"
+    html-onsubmit: "return Paybill.events.payBillsSubmit(event);"
     html-novalidate: true %}
 
-    <input type="hidden" id="hidden_billing_phone" 
-        name="{{ form.fields.properties.billing_phone.name }}"
-        value="{{ form.fields.properties.billing_phone.value }}" />
-
-    <input type="hidden" id="hidden_phone_number" 
-        name="{{ form.fields.properties.account_phone_number.name }}"
-        value="{{ form.fields.properties.account_phone_number.value }}" />
-    <input type="hidden" id="hidden_phone_number_country" 
-        name="{{ form.fields.properties.account_phone_number_country.name }}"
-        value="{{ form.fields.properties.account_phone_number_country.value }}" />
+    <input type="hidden" id="bill-total-amount" name="{{ props.total_amount.name }}" >
+    <input type="hidden" id="bill-amount-due" name="{{ props.amount_due.name }}" >
+    <input type="hidden" id="bill-notes" name="{{ props.notes.name }}" >
 
     <!-- Invoice Details -->
-    {% include 'modules/client/pay_bill/invoice_details' %}
+    <div id="invoice-details">
+        <h2 class="heading-2">Invoice Details</h2>
+        <div class="spacer x-large"></div>
+
+        <div class="grid-x grid-padding-x invoice-details">
+            {%- graphql data = 'modules/client/account/get_current_user' -%}
+            <div class="large-6 medium-6 small-12 cell">
+                <ins-input required validate account-details-field
+                    class="label-input"
+                    label="Invoice Number*" 
+                    placeholder="Invoice Number"
+                    field="text"
+                    id="invoice-number"
+                    name="{{ props.order_number.name }}" 
+                    value="{{ props.order_number.value }}"
+                    {% if form.errors['properties.order_number'] %} has-error {% endif %}
+                    error-message="{{ props.order_number.validation.rules.presence.message }}">
+                </ins-input>
+            </div>      
+            <div class="large-6 medium-6 small-12 cell">
+                <ins-input required validate account-details-field
+                    class="label-input"
+                    label="Amount Excluding Tax*" 
+                    placeholder="Amount Excluding Tax"
+                    field="number"
+                    id="bill-amount"
+                    min="1"
+                    name="{{ props.order_value.name }}" 
+                    value="{{ props.order_value.value }}"
+                    {% if form.errors['properties.order_value'] %} has-error {% endif %}
+                    error-message="{{ props.order_value.validation.rules.presence.message }}">
+                </ins-input>
+            </div>
+        </div>
+    </div>
     <!-- END: Invoice Details -->
     
     <div class="spacer xxx-large"></div>
     <!-- Payment Details -->
-    {%- comment -%}
-    {%- include 'modules/insites_stripe/shared/api_credentials' -%}
-    {%- endcomment -%}
-    {%- comment -%} 
-    Stripe API keys 
-    - pOS `context.exports.payments`
-        context.exports.payments.gateway = stripe object
-        context.exports.payments.live_mode = true/false (gateway mode: test / live)
-        context.exports.payments.secret = ~ stripe secret key ~
-    {%- endcomment -%}
+    
 
-    {% include 'modules/client/pay_bill/payment_details' %}
+    {% include 'modules/client/pay_bill/payment_credit_card' %}
     <!-- END Payment Details -->
     
 {% endform %}

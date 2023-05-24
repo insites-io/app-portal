@@ -1,0 +1,131 @@
+{% log "Checkout Form Data " %}
+
+{%- assign stripe_customer_id = blank -%}
+{%- assign customer_email = context.current_user.email | strip -%}
+{%- assign customer_name = context.current_user.first_name | append: ' ' | append: context.current_user.last_name -%}
+{%- assign company_id = company_id | default: blank -%}
+{%- assign company_name = company_name | default: blank -%}
+{%- assign charge_to_this_card = false -%}
+
+{%- comment -%} STEP 1: Stripe Customer  {%- endcomment -%}
+{%- graphql stripe_customer = "modules/client/customer/get_customer_model" 
+    email: customer_email,
+    gateway_name: "Stripe" 
+    | dig: "items" | dig: "results" | first -%}
+{% log "Trigger: Check existing stripe / customer model ?? ==== " %}
+
+{% comment %} if stripe_customer.id {% endcomment %}
+{%- if stripe_customer.id -%}
+{%- comment -%}Step 1-A: Customer Stripe data exist. Proceed payment process {%- endcomment -%}
+
+{%- comment -%}Step 1-A.1: Get updated 'user' data{%- endcomment -%}
+    {%- graphql user = "modules/client/user/get_user_by_email" 
+        email: customer_email
+        | dig: "items" | dig: "results" | first -%}
+    
+    {%- assign customer_model_id = stripe_customer.id | downcase -%}
+    {%- assign user_id = user.id -%}
+    {%- assign customer_name = user.first_name | append: ' ' | append: user.last_name -%}
+
+{%- comment -%}Step 1-A.2: Update customer model data{%- endcomment -%}
+    {%- graphql customer_model = "modules/client/customer/update_customer_model", 
+        id: customer_model_id
+        user_id: user_id,
+        name: customer_name | dig: "items" -%}
+    
+    {% log "===== Customer model updated =====" %}
+    
+{%- comment -%}Step 1-A.3: Customer Stripe data exist. Proceed create stripe credit card {%- endcomment -%}
+    {%- assign stripe_customer_id = customer_model.properties.gateway_id -%}
+    {% log "Exist True ---- stripe_customer_id ----" %}
+
+    {%- assign check_new = form.properties.stripe_credit_card | split: '_' | first | downcase -%}
+    {%- if check_new == 'tok' -%}
+        {%- comment -%}Create new card object payload {%- endcomment -%}
+        {% parse_json stripe_card %}
+        {
+            "customer_id": "{{ stripe_customer_id }}",
+            "source": "{{ form.properties.stripe_credit_card }}"
+        }
+        {% endparse_json %}
+        {%- comment -%}Create new card on Stripe API {%- endcomment -%}
+        
+        {%- capture charge_to_this_card -%}
+            {%- if user_id -%}
+                {%- assign bind_card_user_id = user_id | default: blank -%}
+            {%- endif -%}
+            {%- include 'modules/client/stripe/credit_card/create_credit_card', 
+                stripe_card: stripe_card,
+                user_id: bind_card_user_id
+                return: true -%}
+        {%- endcapture -%}
+        {%- assign charge_to_this_card = charge_to_this_card | strip_newlines | strip -%}
+    {%- elsif check_new == 'card' -%}
+        {%- assign charge_to_this_card = form.properties.stripe_credit_card -%}
+        {%- if context.current_user.id -%}
+        {% comment %} Optional: Update Credit Card, if user is logged in set user_id {% endcomment %}
+        {% comment %} 
+            {%- graphql current_card = "modules/ecommerce/credit_card/get_credit_card", 
+                gateway_id: charge_to_this_card,
+                size: 1 | dig: 'items' | dig: 'results' | first -%}
+            {%- graphql update_credit_card = 'modules/ecommerce/credit_card/update_credit_card',
+                id: current_card.id,
+                user_id: user_id | dig: 'items' -%}
+            {% log update_credit_card, type: "---- Updated CREDIT CARD ----" %}
+        {% endcomment %}
+        {%- endif -%}
+    {%- endif -%}
+    {% log "---- CHARGE TO THIS CARD ----" %}
+    {%- comment -%}Proceed to Step 2: Payment {%- endcomment -%}
+{%- else -%}
+    {%- comment -%}Step 1-B: New customer: Create Stripe customer data{%- endcomment -%}
+    
+{%- endif -%}
+
+   
+
+{% comment %} Compute amounts {% endcomment %}
+{%  liquid
+    assign amount = form.properties.order_value | times: 100
+    function computed = "modules/client/pay_bill/compute_amounts", amount: amount
+%}
+
+{%- comment -%} STEP 2: Stripe Charge / Payment  {%- endcomment -%}
+{% parse_json "create_charge" %}
+{
+    "idempotency_key": "{{ '' | uuid }}",
+    "currency": "AUD",
+    "amount": "{{ computed.total_amount | advanced_format: '%.0f' }}",
+    "customer": "{{ stripe_customer_id }}",
+    {%- if charge_to_this_card -%}
+        "source": "{{ charge_to_this_card }}",
+    {%- endif -%}
+    "description": "Insites Order ID: {{ form.id }} (Insites Customer ID: {{ user_id }})",
+    "metadata": {
+        "Insites Order ID": "{{ form.id }}",
+        "Insites Customer ID": "{{ user_id }}",
+        "Insites Company ID": "{{ company_id }}",
+        "Insites Company Name": "{{ company_name }}",
+        "Insites Order": "https://{{ context.location.host }}/admin/insites#/ecommerce/edit-order/{{ form.id }}"
+    },
+    "statement_descriptor": "{{ form.properties.statement_descriptor }}"
+}
+{% endparse_json %}
+
+{% log "=== START PROCESS: STRIPE PAYMENT PAYBILL ==="%}
+
+{% graphql stripe_create_charge = 'modules/website/trigger_api_call', 
+    name: "modules/client/create_payment",
+    data: create_charge 
+    | dig: "items" | dig: "response" %}   
+
+{%- assign stripe_create_charge = stripe_create_charge.body | parse_json -%}
+{% log stripe_create_charge, type: "TEST create_payment stripe API"%} 
+
+{%- assign payment_response = stripe_create_charge -%}
+
+{% log "Payment Response before export" %}
+
+{% export payment_response %}
+
+{% log "=== END PROCESS: STRIPE PAYMENT PAYBILL ===" %}

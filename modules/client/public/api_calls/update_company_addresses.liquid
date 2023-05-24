@@ -1,0 +1,37 @@
+---
+to: 'https://{{context.location.host}}/core/api/v1/companies/addresses'
+format: http
+request_type: PUT
+# callback: >
+#   {% log response, type: 'response object' %}
+#   {% assign response_hash = response.body | parse_json %}
+#   {% log response_hash, type: 'response body as hash' %} 
+request_headers: >
+    {
+        "Content-Type": "application/json",
+        "Authorization": "<%= instance_api_key =%>"
+    }
+---
+{
+    "uuid": "088c4881-2c2e-4c1d-bff5-e8ac71bfe282", //REQUIRED
+    "company_uuid": "22e0ef5b-1fed-4785-acc0-110435cb156e", //REQUIRED
+    "default_address": true,
+    "address_label": "Test Address 1", //REQUIRED
+    "address_1": "Address 1",
+    "address_2": "Address 2",
+    "address_3": "Address 3",
+    "city": "CITY",
+    "county": "COUNTY",
+    "district": "DISTRICT",
+    "suburb": "SUBURB",
+    "state": "STATE",
+    "country": "Australia",
+    "country_code": "AU",
+    "postcode": "1234",
+    "geojson": {
+        "type": "Point",
+        "coordinates": [51.52781, -0.2698899999999999]
+    },
+    "latitude": "51.52781",
+    "longitude": "-0.2698899999999999"
+}

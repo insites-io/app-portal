@@ -102,8 +102,9 @@ fields:
       virtual: true
       
 api_call_notifications:
-  - modules/client/update_contacts
+  - modules/client/update_contacts  
   - modules/client/add_company 
+  - modules/client/add_contact_address
   
 callback_actions: |-
   {% graphql g = 'modules/client/account/generate_user_temporary_token', email: form.email %}
@@ -111,13 +112,14 @@ callback_actions: |-
     {% graphql res = 'modules/client/account/set_email_verification_token', id: g.items.results[0].id, token: g.items.results[0].temporary_token %}
   {% endif %}    
 
+  {% comment %} {% graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: form | parse_json %}
+  {% log contact_address, type: 'TEST callback_actions contact_address' %} {% endcomment %}
+
   {%- assign desc = form.first_name | append: ' ' | append: form.last_name | append: ' signed up.' -%}
   {%- function event_res = "modules/client/functions/log_event", 
       description: desc,
       related_type: "Form Submission" -%}
 ---
-
-
 
 {%- form 
     html-id: "register-form"

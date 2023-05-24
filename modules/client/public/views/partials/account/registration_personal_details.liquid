@@ -1,9 +1,7 @@
 <div id="personal-details-container" class="form-group fadeIn" active>      
       
       <div class="column-1">
-        {% if context.params.slug == 'my-details' %}
-          <h2 class="heading-2">Account Information</h2>
-        {% else %}
+        {% if context.params.slug != 'my-details' %}
           <h2 class="heading-2">Personal Details</h2>
         {% endif %}
       </div>      

@@ -12,7 +12,7 @@ query get_credit_card (
     filter: {
       id: { value: $id }
       deleted_at: { exists: false }
-      table: { value: "modules/client/credit_card" }
+      table: { value: "modules/insites_ecommerce/insites_credit_card" }
       properties: [
         { name: "gateway_id", value: $gateway_id }
         { name: "gateway_customer_id", value: $gateway_customer_id }

@@ -1,4 +1,4 @@
-mutation update_client_model(
+mutation update_customer_model(
   $id: ID!
   $gateway_id: String
   $gateway_name: String
@@ -11,7 +11,7 @@ mutation update_client_model(
   items: record_update(
     id: $id
     record: {
-      table: "modules/client/client"
+      table: "modules/insites_ecommerce/insites_customer"
       properties: [
         { name: "gateway_id", value: $gateway_id }
         { name: "gateway_name", value: $gateway_name }
