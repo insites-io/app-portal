@@ -10,7 +10,7 @@ callback: >
 request_headers: >
     {
         "Content-Type": "application/json",
-        "Authorization": "instance_92d3be32-b64f-4909-91fe-2db66783f617_Qz26R453IgamR5S7j18aHEheVbgqmV3zycGGc3UyE8c"
+        "Authorization": "<%= instance_api_key =%>"
     }
 ---
 
@@ -22,7 +22,7 @@ request_headers: >
     "mobile_phone_number": "{{form.company_mobile_phone_number}}",
     "addresses": [
         {
-            "address_label": "Default Address",
+            "address_label": "{{form.company_address_1}}",
             "address_1": "{{form.company_address_1}}",
             "address_2": "{{form.company_address_2}}",
             "suburb": "{{form.company_suburb}}",
