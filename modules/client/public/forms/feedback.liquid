@@ -142,11 +142,9 @@ email_notifications:
     submitBtn.loading = true;
 
     if (await App.validation.validateForm(form)) {
-      console.log('submit');
       form.submit();
       return true;
     } else {
-      console.log('do not submit');
       submitBtn.loading = false;
       return false;
     }
