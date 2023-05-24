@@ -7,15 +7,16 @@ max_deep_level: 1
 metadata: {
     "status": "published",
     "page_type": "system", ## content, system or endpoint
+    "page_name": "My Details",
     "og:url": "{{ context.exports.global.company_url | strip }}",
     "og:type": "",
     "og:image": "",
-    "og:title": "Register",
-    "og:description": "Register",
+    "og:title": "My Details",
+    "og:description": "My Details",
     "og:site_name": "{{ context.exports.global.company_name | strip }}",
-    "meta_title": "Register",
-    "page_title": "Register | Insites",
-    "meta_description": "Register",
+    "meta_title": "My Details",
+    "page_title": "My Details | Insites",
+    "meta_description": "My Details",
     "canonical_url": "",
     "search_engine_visibility": false,
     "sitemap_enabled": false,
@@ -25,22 +26,30 @@ metadata: {
     "heading": "My Details"
 }
 ---
+{%- liquid
+    graphql user = 'modules/client/account/get_current_user' | dig: 'current_user'
+
+    if user.client
+        assign profile = user.client[0]
+        if profile != blank and profile.is_activated
+            assign verified = true
+        else
+            assign verified = false            
+        endif
+    endif    
+-%}
+
+<div class="my-details">    
+
+    <h2 class="heading-2">Account Information</h2>
     
-{%- graphql user_data = 'modules/client/account/get_current_user' -%}
-{%- assign user = user_data.current_user -%}
+    {%- if verified == false -%}
+      <div class="small-12 cell text-center">
+        <div class="spacer"></div>
+        {%- include_form "modules/client/resend_verification", id: context.current_user.id -%}
+      </div>
+    {%- endif -%}
 
-{%- if user.client -%}
-  {%- assign prof = user.client[0] -%}
-  {%- if prof != blank  -%}
-    {%- if prof.is_activated -%}
-      {%- assign verified = true -%}
-    {%- else -%}
-      {%- assign verified = false -%}
-    {%- endif -%}  
-  {%- endif -%}
-{%- endif -%}
-
-<div>    
     {%- include_form 'modules/client/my_details', id: user.id, external_id: user.external_id -%}
         
     {%- include_form 'modules/client/change_password', id: user.id -%}
