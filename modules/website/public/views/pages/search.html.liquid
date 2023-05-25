@@ -13,7 +13,7 @@ This is where the contents of the search page is imported/included in the forms 
 %}
 
 {%- graphql news_search_result = 'modules/website/search/search_news' 
-    schema: 'modules/ins_databases/news', 
+    schema: 'modules/website/news_database', 
     keyword: keyword, 
     page: news_page,
     size: search_per_page
