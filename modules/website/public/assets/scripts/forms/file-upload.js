@@ -1,8 +1,8 @@
 // Set these variables on form page
-// let insFileUploaderEl = document.getElementById('document-input');
-// let documentFieldEl = document.getElementById('document');
+ let insFileUploaderEl = document.getElementById('document-input');
+  let documentFieldEl = document.getElementById('document');
 // let table = "modules/client/questionnaires";
-// let property = "attach_documents";
+ let property = "attach_documents";
 let s3CredentialsURL = `${window.location.origin}/api/s3-upload.json?table=${table}&property=${property}`;
 
 

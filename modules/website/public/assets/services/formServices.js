@@ -40,6 +40,11 @@ var FormServices = (function () {
         createContactUs: async function (payload) {
             let url = `/create-contact-us.json`;
             return await processRequest('post', url, payload);
-        }
+        },
+
+        createAttachmentfile: async function (payload) {
+          let url = `/create-attachment-file.json`;
+          return await processRequest('post', url, payload);
+      }
     }
 })();

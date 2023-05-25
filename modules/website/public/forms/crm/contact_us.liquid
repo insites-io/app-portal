@@ -3,8 +3,8 @@ name: contact_us
 resource: modules/website/contact_us
 resource_owner: anyone
 redirect_to: /thank-you
-# spam_protection:
-# recaptcha_v2:
+spam_protection:
+   recaptcha_v2:
 fields:
   properties:
     first_name:
@@ -33,7 +33,12 @@ fields:
 
 api_call_notifications:
   - modules/website/add_contact
-
+  
+callback_actions: >
+  {%- include 'modules/website/forms/update_document_files',
+    id: form.id,
+    document: form.properties.document
+  %}
 #callback_actions: >
 
  #   {%- include 'modules/insites_core/insites_create_crm_on_submit',
@@ -57,6 +62,8 @@ api_call_notifications:
  html-onsubmit: "return ContactUs.methods.validateForm(event)" %}
 
   {%- assign props = form.fields.properties -%}
+  {%- log props, type: 'response props' -%}
+
   <input
     type="hidden"
     id="mobile_phone"
@@ -146,13 +153,23 @@ api_call_notifications:
         placeholder="How can we help you?"></ins-textarea>
     </div>
     <div class="large-12 medium-12 small-12 cell">
-      <ins-input-file id="document-input" label="Attachments" data-test="contact-us-field-document"></ins-input-file>
-      <input type="hidden" id="document" name="{{ props.document.name }}" />
+      <ins-input-file 
+        id="document-input"
+        label="Sample Attachment" 
+        max-files="3" 
+        max-file-size="2" 
+        accepted-files="image/*,.pdf,.csv,.txt"
+        tooltip="">
+      </ins-input-file>
+      
+      {%- comment -%} <ins-input-file max-files="3" id="document-input" label="Attachments" data-test="contact-us-field-document"></ins-input-file>{%- endcomment -%}
+      <input type="hidden" id="document" name="{{ props.document.name }}" multiple="" /> 
     </div>
     {%- comment -%} IF your form / instance have recaptcha enabled, uncommment this code {%- endcomment -%}
-    <div id="recaptcha-v2-wrapper" class="large-6 medium-6 small-12 cell" data-test="contact-us-recaptcha-container">
-    {% spam_protection "recaptcha_v2" %}
-    <div class="ins-form-error">Please prove you are not a robot.</div>
+    <div id="recaptcha-v2-wrapper" class="large-6 medium-6 small-12 cell form-field-wrapper" data-test="contact-us-recaptcha-container">
+    {% spam_protection "recaptcha_v2" %}  
+    <div class="ins-form-error"></div>
+    <div class="spacer"></div>
     </div>
     
     <div class="large-12 medium-12 small-12 cell text-left">

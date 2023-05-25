@@ -11,6 +11,7 @@ query get_news(
             deleted_at: { exists: false }
             properties: [
                 { name: "name", contains: $keyword }
+              	{ name: "status", contains: "Published"}
             ]
         }
         sort: [
@@ -22,6 +23,7 @@ query get_news(
         per_page
         current_page
         results {
+          status:property(name: "status")
           title:property(name: "title")
           slug: property(name: "slug")
           tag: property(name: "tag")

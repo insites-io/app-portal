@@ -120,9 +120,15 @@ Contact Us layout
                                 Data needs to be standard. If it will contain the country code, or not.
                                 {%- endcomment -%}
                                 {%- assign contact_no = res_contact.loc_1_phone_number | replace_regex: '[+() ]', '' | prepend: '+' -%}
+                                {% assign phone_number = res_contact.loc_1_phone_number %}
+                                
+                               
                                 <a class="color-main subHeading" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
                                     <i class="icon-phone1"></i>
-                                    +{{ res_contact.loc_1_phone_country_code }} {{  res_contact.loc_1_phone_number | replace: "+", ' ' }}
+                                    +{{ res_contact.loc_1_phone_country_code }}
+                                    {{ phone_number | slice: 0, 3 }} 
+                                    {{ phone_number | slice: 3, 4 }} 
+                                    {{ phone_number | slice: 6, 10 }}
                                 </a>
                             </li>
                             {%- endif -%}

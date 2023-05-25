@@ -7,7 +7,7 @@
   --color-main-hover: #3159DB;
   --color-sub1-hover: #373737;
   --color-sub2-hover: #D32F19;
-  --color-main-hover-light: rgba(67, 108, 242, 0.1);
+  --color-main-hover-light: #F9FAFB;
   --color-sub1-hover-light: rgba(0, 0, 0, 0.1);
   --color-sub2-hover-light: rgba(211, 47, 25, 0.1);
   /* Font colors */
@@ -378,6 +378,9 @@
   h1.colorWhite{
     font-size: 40px!important;
   }
+  h1.testiMessage{
+    font-size: 24px!important;
+  }
 }
 
 @media screen and (max-width: 639px) {
@@ -626,13 +629,21 @@ background-color: #0000;
 }
 
 /* CONTACT */
-.blocks-sc-2col-05 .ins-form-field-wrap.is-invalid .ins-form-error {
-  color: var(--color-error, #FF3366);
-  font-family: var(--font-family-03, sans-serif);
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 400;
+.form-error,
+.ins-form-field-wrap.is-invalid .ins-form-error,
+.form-field-wrapper.error-recaptcha .ins-form-error,
+.list-field-wrap.is-invalid .list-field_error {
+    font-family: var(--font-family-03);
+    font-weight: 400;
+    font-size: var(--font-x-small);
+    line-height: normal;
+    color: var(--error);
 }
+
+.form-field-wrapper.error-recaptcha .ins-form-error::after {
+    content: "reCAPTCHA is required.";
+}
+
 
 /********* MEDIA QUERIES **********/
 /* Extra small devices (phones, 600px and down) */
@@ -707,6 +718,10 @@ background-color: #0000;
 
   .sideNavBg{
     background: #fff;
+  }
+
+  .faqSidenav .ins-accordion-link_link{
+    padding: 14px 0px!important;
   }
 }
 
@@ -1018,19 +1033,23 @@ ins-button .ins-button div .btn__label{
 .testiLabel{
   font-family: var(--font-family-04);
   font-weight: 500;
+  color: white;
 }
 .testiMessage{
   font-family: var(--font-family-01);
   font-weight: 400;
   padding: 0px 205px;
+  color: white;
 }
 .testiName{
   font-family: var(--font-family-01);
   font-weight: 700;
+  color: white;
 }
 .testiLoc{
   font-family: var(--font-family-01);
   font-weight: 400;
+  color: white;
 }
 
 .side-links{
@@ -1189,7 +1208,7 @@ ins-card.support .ins-card-wrap:hover{
   height: 100%!important;
 }
 
-/* ACCORDION SIDE NAV */
+/* ACCORDION SIDE NAV
 .sideNav .ins-accordion-item_header{
   padding: 0px;
 }
@@ -1269,4 +1288,193 @@ ins-card.support .ins-card-wrap:hover{
   color: var(--font-color-sub);
   font-family: var(--font-family-02);
   font-size: 16px;  
+} */
+
+
+/* FAQ SIDE NAV */
+
+/* INITIAL STYLE ON DEFAULT */
+.faqSidenav .ins-accordion-link_link{
+  font-family: var(--font-family-02);
+  font-size: 16px;  
+  font-weight: 400;
+  border: 0px;
+  color: #323232!important;
+  background-color: #F9FAFB!important;
+  border: 0px!important;
+}
+
+.faqSidenav .ins-accordion-link_link:hover{
+  /* font-weight: 700; */
+  text-decoration: none;
+  /* background: rgba(67, 108, 242, 0.1)!important; */
+  color:#436CF2!important;
+}
+
+/* ON HOVER --SHOULD BE ACTIVE STATE */
+.faqSidenav .activeNav .ins-accordion-link_link a{
+  font-weight: 700;
+  text-decoration: none;
+  background: rgba(67, 108, 242, 0.1)!important;
+  color:#436CF2!important;
+}
+.faqSidenav .ins-accordion-link{
+  border: 0px;
+}
+
+/* SIDE NAV */
+
+/* WHEN CLICKED and OPENED */
+.mobileNav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head {
+  background-color:  rgba(67, 108, 242, 0.1);
+  color: #436CF2!important;
+  font-weight: 700!important;
+}
+.mobileNav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head a{
+  color: #436CF2!important;
+  font-weight: 700!important;
+}
+
+/* ON HOVER */
+.mobileNav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover{
+  color: #3159DB!important;
+  background-color:  rgba(67, 108, 242, 0.1)!important;
+  font-weight: 700!important;
+}
+
+/* TRY ACTIVE */
+/* .faqSidenav .ins-accordion-link a:active{
+  font-weight: 700;
+  text-decoration: none;
+  background: rgba(67, 108, 242, 0.1)!important;
+  color:#436CF2!important;
+} */
+
+.setActive .ins-accordion-link a{
+  font-weight: 700;
+  text-decoration: none;
+  background: rgba(67, 108, 242, 0.1)!important;
+  color:#436CF2!important;
+}
+
+/* Pagination */
+.paginations ins-select {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.paginations .ins-select-value-wrap {
+  width: 53px;
+  border: none;
+}
+
+.paginations .ins-select-options-wrap {
+  border-color: var(--color-ui-04);
+  border-bottom: none;
+  z-index: 9999;
+}
+
+.paginations .ins-select-wrap {
+  margin-bottom: 0px;
+}
+
+.paginations .ins-select-wrap.activated .ins-select-options-wrap {
+  border-bottom: solid 1px var(--color-ui-04);
+  border-color: var(--color-ui-04);
+}
+
+.paginations ins-select .ins-select-wrap .ins-select-value-input {
+  padding-right: 0px;
+}
+
+.paginations .ins-select-wrap .ins-select-options-wrap {
+  right: 0px;
+  min-width: 120px;
+}
+
+.paginations .activated .ins-select-options-wrap {
+  border-top: solid 1px var(--color-ui-04);
+}
+
+.paginate>span,
+.paginate>div {
+  display: inline-block;
+  font-family: var(--font-family-03);
+  font-weight: 400;
+  font-size: var(--font-small);
+  line-height: var(--font-small);
+  color: var(--font-color-body);
+}
+
+.paginate button {
+  min-width: initial;
+  width: 25px;
+  height: auto !important;
+  border-radius: 0px;
+  margin-left: 8px;
+  vertical-align: text-bottom;
+  color: var(--font-color-body);
+}
+
+.paginate button.blue:not([disabled]):hover {
+  background-color: var(--color-ui-01);
+}
+
+.paginate button.blue:not([disabled]):hover .btn__icon.action {
+  color: var(--color-main-hover);
+}
+
+.paginate button .btn__label {
+  padding: 0px;
+}
+
+#insBaseTable .ibt-table-wrap .pagination-wrap .full{
+  padding-right: 0px!important;
+}
+
+#insBaseTable.ibt-table-wrap__pagination span {
+  visibility: hidden;
+}
+
+#insBaseTable.ibt-table-wrap__pagination span::before {
+  content: 'Display';
+  visibility: visible;
+}
+
+/* Table pagination */
+ins-table .ibt-table-wrap .pagination-wrap {
+  padding: 40px 24px 0 24px;
+}
+
+
+ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__pagination {
+  width: initial;
+}
+
+ins-table .ibt-table-wrap .pagination-wrap  .ibt-table-wrap__page {
+  width: initial;
+  float: none;
+  margin: 0 30px;
+}
+
+@media screen and (max-width: 639px) {
+  ins-table .ibt-table-wrap .pagination-wrap.full {
+      text-align: center;
+      display: block;
+  }
+  
+  ins-table .ibt-table-wrap .pagination-wrap>.ibt-table-wrap__prev-next {
+      margin-top: 32px;
+      display: block;
+  } 
+  ins-table .ibt-table-wrap .pagination-wrap>.ibt-table-wrap__prev-next button {
+      width: initial;
+      vertical-align: middle;
+  }
+}
+
+@media (max-width: 420px) {
+  ins-table .ibt-table-wrap__pagination span {
+      float: none;
+  }
 }
