@@ -35,7 +35,7 @@ This is where the contents of the search page is imported/included in the forms 
                         <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
                             <div class="card"> 
                                 <div class="newsImageContainer">
-                                    <a href="/news/{{ item.properties.slug }}">
+                                    <a href="/news/{{ item.slug }}">
 
                                         <img alt="image" src="{{ item.list_view_image.url }}"/>
                                     
@@ -50,23 +50,23 @@ This is where the contents of the search page is imported/included in the forms 
                                     solid 
                                     icon="icon-tag"
                                     color="blue" 
-                                    label="{{ item.properties.tag }}">
+                                    label="{{ item.tag }}">
                                     </ins-button>
                                 </div>
                                 <div class="spacer"></div>
-                                <a href="/news/{{ item.properties.slug }}">
+                                <a href="/news/{{ item.slug }}">
                                     <div class="newsTitle">
-                                        <h3 class="subHeading">{{ item.properties.title }}</h3>
+                                        <h3 class="subHeading">{{ item.title }}</h3>
                                     </div>
                                 </a>
-                                <p class="newsSubheading">PUBLISHED ON {{ item.properties.published_date | date: "%b %d, %Y" }} BY {{ item.properties.author }}</p>
+                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ item.author }}</p>
                                 <div class="spacer small"></div>
                                 <div class="description">
-                                    {{ item.properties.list_view_text }}
+                                    {{ item.list_view_text }}
                                 </div>
                                 <div class="spacer small"></div>
                                 <div class="custom-publish-info">
-                                    <a href="/news/{{ item.properties.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
+                                    <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
                                 <div class="spacer x-large"></div>
                             </div>
                             </div>

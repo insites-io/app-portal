@@ -4,7 +4,6 @@ resource: modules/website/contact_us
 resource_owner: anyone
 redirect_to: /thank-you
 spam_protection:
-   recaptcha_v2:
 fields:
   properties:
     first_name:
@@ -39,16 +38,6 @@ callback_actions: >
     id: form.id,
     document: form.properties.document
   %}
-#callback_actions: >
-
- #   {%- include 'modules/insites_core/insites_create_crm_on_submit',
-  #      email: form.properties.email,
-   #     first_name: form.properties.first_name,
-   #     last_name: form.properties.last_name,
-   #     mobile_phone_number: form.properties.phone_number,
-   #     mobile_phone_country_code: form.properties.phone_number_country_code,
-   #     model_id: form.id -%}
-   #     {}
 ---
 {%- if context.environment == "staging" -%}
   <!-- start form:modules/insites_forms/forms/contact_us  -->

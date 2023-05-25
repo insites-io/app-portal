@@ -2,7 +2,7 @@ query search_news (
   $id: ID,
   $page: Int = 1,
   $size: Int = 6,
-  $keyword: String,
+  $keyword: String = "Mobile",
   $schema: String,
   $status: String
 ) {
@@ -61,7 +61,13 @@ query search_news (
     per_page
     results {
       id 
-      properties
+      slug: property(name: "slug")
+      tag: property(name: "tag")
+      title: property(name: "title")
+      published_date: property(name: "published_date")
+      author: property(name: "author")
+      list_view_text: property(name: "list_view_text")
+
       list_view_image: property_upload(name: "list_view_image") {
               url
               file_name
