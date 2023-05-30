@@ -50,9 +50,10 @@ authorization_policies:
 <div id="credit-card-fields">
     
     <div class="grid-x">
-        <h2 class="heading-2 large-8">Credit Card Details</h2>
+        <h2 class="heading-2 large-8 medium-7 small-12">Credit Card Details</h2>
         {%- if verified -%}
-        <ins-button id="add-credit-card" class="large-4 vertical-align-middle align-right" label="Add credit card" icon="icon-plus" ></ins-button>
+        <div class="spacer small-12 show-for-small-only"></div>
+        <ins-button id="add-credit-card" class="large-4 medium-5 small-12 vertical-align-middle align-right fixed-btn-width" label="Add credit card" icon="icon-plus" ></ins-button>
         {%- endif -%}
     </div>
     <div class="spacer xx-large"></div>
@@ -61,7 +62,7 @@ authorization_policies:
         {%- graphql cards = "modules/client/credit_card/get_credit_card", 
             user_id: context.current_user.id | dig: 'items' -%}
         {%- if cards.total_entries > 0 -%}          
-            <div id="card-options-list" class="grid-x grid-padding-x">
+            <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">
             {%- for card in cards.results -%}
                 <div class="large-4 medium-6 small-12 cell card-options">
                     <ins-credit-card data-id="{{ card.id }}" 
