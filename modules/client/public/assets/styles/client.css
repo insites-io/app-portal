@@ -149,8 +149,8 @@
     text-decoration: initial;    
 }
 
-.ins-accordion-link_link,
-.ins-accordion.menu .ins-accordion-item .inner-head{
+.client-portal .ins-accordion-link_link,
+.client-portal .ins-accordion.menu .ins-accordion-item .inner-head {
     padding: 12px 16px;
 }
 
@@ -162,8 +162,8 @@
     font-size: 18px;
 }
 
-.ins-accordion-item_content.will-show{
-    margin-left: 24px;
+.client-portal .ins-accordion-item_content.will-show {
+    margin-left: 24px
 }
 
 /* Insites Card */
@@ -454,18 +454,18 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
 }
 
 /* Questionnaire */
-.questionnaire .text-wrap {
+.client-portal ins-card .text-wrap {
     border-bottom: 1px solid var(--color-ui-04);
+}
+
+.client-portal ins-card ins-button .ins-button div .btn__label {
+    font-size: 10px!important;
 }
 
 .questionnaire ins-card p {
     font-weight: 700;
     font-family: var(--font-family-02);
     line-height: 16px;
-}
-
-.questionnaire ins-card ins-button .ins-button div .btn__label {
-    font-size: 10px!important;
 }
 
 .questionnaire button {

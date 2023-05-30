@@ -37,14 +37,15 @@ The `homepage` layout is dedicated layout for homepage only.
 
 <body>
     <div class="main-wrap">
-        {%- if context.current_user and context.modules.ecommerce.name != blank -%}
-        {% include 'modules/website/layout/header' %}
-        {%- else -%}
-        {%- capture header_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-header" }} {%- endcapture -%}
-        {%- cache header_key -%}
-        {% include 'modules/website/layout/header' %}
-        {%- endcache -%}
-        {%- endif -%}
+        {%- capture header -%} {{ context.exports.layout_cache_key.cache_key | append: "-header" }} {%- endcapture -%}
+        {% cache header %}
+            {% include 'modules/website/layout/header' %} 
+        {% endcache %}
+        
+        {%- capture header-mobile -%} {{ context.exports.layout_cache_key.cache_key | append: "-header-mobile" }} {%- endcapture -%}
+        {% cache header-mobile %}
+            {% include 'modules/website/layout/header-mobile' %}
+        {% endcache %}
         
         <div class="wrapper bg-color-main">
             <div class="grid-container">

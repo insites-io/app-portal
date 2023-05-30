@@ -90,7 +90,7 @@ authorization_policies:
         <div class="grid-x grid-padding-x grid-padding-y">       
         {%- assign key = 0 -%}                 
         {%- for item in data.results -%}
-        <div class="large-4 small-12 cell align-stretch">
+        <div class="large-4 medium-12 small-12 cell align-stretch">
             {%- include "modules/client/documents-card", item, key: key -%}
         </div>
         {%- assign key = key | plus: 1 -%} 

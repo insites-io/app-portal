@@ -11,12 +11,12 @@
         assign downloadLink = 
     endif
 -%}
-<ins-card >
+<ins-card class="fixed-btn-width">
     <div class="content">
     <div class="text-wrap">
         <div class="grid-x">
-        <div class="large-8 cell"><i class="icon-calendar"></i> <span class="date">{{ item.updated_at | date: '%B %d, %Y' | default: "January 11, 2023" }}</span></div>                  
-        <div class="large-4 cell align-right vertical-align-middle"><ins-tag label="{{status}}" class="{{status}}"></ins-tag></div>                  
+        <div class="large-8 medium-8 small-8 cell"><i class="icon-calendar"></i> <span class="date">{{ item.updated_at | date: '%B %d, %Y' | default: "January 11, 2023" }}</span></div>                  
+        <div class="large-4 medium-4 small-4 cell align-right vertical-align-middle"><ins-tag label="{{status}}" class="{{status}}"></ins-tag></div>                  
         </div> 
         <div class="spacer x-small"></div>
         <h3 class="heading-3">{{item.year}}</h3>
