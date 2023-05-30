@@ -30,6 +30,7 @@ Inputs will have values only on /my-company-details page
         <ins-input validate
             id="registered-business-number"
             label="Company Registration Number*"
+            field="number"
             name="{{ props.registered_business_number.name }}" 
             value="{{ data.properties.registered_business_number }}" 
             {% if form.errors['registered_business_number'] %} has-error {% endif %}

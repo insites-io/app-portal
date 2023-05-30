@@ -257,6 +257,11 @@ ins-checkbox .ins-radio-checkbox {
     margin-bottom: 12px !important;
 }
 
+ins-checkbox .ins-radio-checkbox .ripple-check:checked, 
+ins-radio .ins-radio-checkbox .ripple-check:checked{
+    background: var(--color-main);
+}
+
 ins-checkbox .ins-radio-checkbox label,
 ins-radio .ins-radio-checkbox label,
 .insites-form .ins-radio.ins-radio-checkbox {
@@ -278,10 +283,15 @@ ins-radio .ins-radio-checkbox label {
     padding: 16px 25px;
 }
 
-.ins-step_description {
+.ins-step_description,
+#confirmation-container ins-checkbox .ins-radio-checkbox label {
     font-family: var(--font-family-02);
+    color: var(--font-color-body);
     font-size: 14px;
-    line-height: 21px;
+    line-height: 21px;    
+}
+
+.ins-step_description{
     margin-top: 16px;
 }
 
@@ -415,6 +425,12 @@ p {
     min-height: initial;
 }
 
+/* Home Slider */
+#homepage-banner .slide-container{
+    height: 460px;
+    min-height: 460px;
+}
+
 /* Questionnaire Form */
 .warning svg {
     width: 70px;
@@ -531,6 +547,7 @@ ins-tag.Completed span.ins-tag {
     max-height: 349px;
     overflow-y: scroll;
     padding: 24px;
+    border: 1px solid var(--color-ui-04);
 }
 
 /* Modified Scrollbar */
