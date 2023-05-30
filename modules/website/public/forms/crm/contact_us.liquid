@@ -57,14 +57,14 @@ callback_actions: >
     type="hidden"
     id="mobile_phone"
     name="{{ props.mobile_phone.name }}"
-    value="{{ props.mobile_phone.value }}" />
+    value="{{ props.mobile_phone.value }}" >
 
   {%- assign country_code = props.mobile_phone_country_code.value | default: "61" -%}
   <input
     type="hidden"
     id="country_code"
     name="{{ props.mobile_phone_country_code.name }}"
-    value="{{ country_code }}" />
+    value="{{ country_code }}" >
 
   <div class="grid-x grid-padding-x">
     <div class="large-6 medium-12 small-12 cell">
@@ -152,7 +152,7 @@ callback_actions: >
       </ins-input-file>
       
       {%- comment -%} <ins-input-file max-files="3" id="document-input" label="Attachments" data-test="contact-us-field-document"></ins-input-file>{%- endcomment -%}
-      <input type="hidden" id="document" name="{{ props.document.name }}" multiple="" /> 
+      <input type="hidden" id="document" name="{{ props.document.name }}" multiple="" > 
     </div>
     {%- comment -%} IF your form / instance have recaptcha enabled, uncommment this code {%- endcomment -%}
     <div id="recaptcha-v2-wrapper" class="large-6 medium-6 small-12 cell form-field-wrapper" data-test="contact-us-recaptcha-container">

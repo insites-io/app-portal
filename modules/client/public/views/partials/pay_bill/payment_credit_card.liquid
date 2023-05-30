@@ -35,7 +35,7 @@
     {%- if verified -%}
     <div class="validate-credit-card">
         {% comment %} Credit Cards {% endcomment %}
-        <div id="credit-card-fields" required class="card-fields">
+        <div id="credit-card-fields" class="card-fields">
             <div class="spacer x-large"></div>
             <p class="error-message hide">Credit Card is required.</p>
             <ins-input required validate
@@ -86,12 +86,13 @@
 
 
     <div class="insites-form-grid">
-    <div class="insites-form-buttons column-1 text-right">
-        <ins-button solid type="submit"
-            id="checkout-submit-btn"
-            icon="icon-check-2"
-            label="Pay Bill">
-        </ins-button>
+        <div class="insites-form-buttons column-1 text-right">
+            <ins-button solid type="submit"
+                id="checkout-submit-btn"
+                icon="icon-check-2"
+                label="Pay Bill">
+            </ins-button>
+        </div>
     </div>
 
 </div>

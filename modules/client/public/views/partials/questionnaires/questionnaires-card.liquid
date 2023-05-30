@@ -28,7 +28,7 @@
     <a href="{{viewEditLink}}" ><ins-button size="small" label="VIEW/EDIT"></ins-button></a>
     
     {% if item.attach_documents.url %}
-    <a href="{{item.attach_documents.url}}" ><ins-button size="small" label="DOWNLOAD"></ins-button></a>
+    <a href="{{ item.attach_documents.url | replace: ' ', '%20' }}" ><ins-button size="small" label="DOWNLOAD"></ins-button></a>
     {% else %}
     <ins-button size="small" label="DOWNLOAD" disabled></ins-button>
     {% endif %}
