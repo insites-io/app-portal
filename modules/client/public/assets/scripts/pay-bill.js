@@ -1,8 +1,8 @@
 let sameAddressBtn = document.getElementById('same-billing');
 let sameShippingDetailsBtn = document.getElementById('same-shipping');
 
-let addCardBtn = document.getElementById('add-card-btn');
-let cardModal = document.getElementById('stripe-modal');
+//let addCardBtn = document.getElementById('add-card-btn');
+//let cardModal = document.getElementById('stripe-modal');
 let checkoutSubmitBtn = document.getElementById('checkout-submit-btn');
 let checkoutForm = document.getElementById('checkout-form');
 
@@ -105,9 +105,10 @@ let Paybill = (function () {
         },
         init: {
             initEventListener() {
-                if(addCardBtn) {
-                    addCardBtn.addEventListener('insClick',() => cardModal.open());
-                }
+                // if(addCardBtn) {
+                //     addCardBtn.addEventListener('insClick',() => cardModal.open());
+                // }
+                
                 //this.initShippingDetailsListener();
                 this.initAddressFieldInputListener();
                 this.initAddressBtnListener();
