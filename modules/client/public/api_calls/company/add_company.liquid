@@ -1,21 +1,18 @@
 ---
+name: add_company
 to: 'https://{{context.location.host}}/core/api/v1/companies'
 format: http
 request_type: POST
 callback: >
   {% assign response_hash = response.body | parse_json %}
-   {% log response_hash.items.properties.company_name, type: 'Register - Add CRM Company' %} 
-  {% graphql res = 'modules/client/account/set_company_uuid', id: form.id, company_uuid: response_hash.items.properties.uuid %}
-  {% log res, type: 'Register - Set company_uuid' %}
+  {% graphql res = 'modules/client/account/set_company_uuid', id: data.id, company_uuid: response_hash.items.properties.uuid %}
 request_headers: >
     {
         "Content-Type": "application/json",
         "Authorization": "<%= instance_api_key =%>"
     }
 ---
-
-{%- assign props = form.properties -%}
-
+{%- assign props = data.properties -%}
 {
     "company_name": "{{props.company_name}}",
     "registered_business_number": "{{props.registered_business_number}}",

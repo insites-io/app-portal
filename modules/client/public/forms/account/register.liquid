@@ -104,16 +104,13 @@ fields:
       virtual: true
       
 api_call_notifications:
-  - modules/client/update_contacts  
+  - modules/client/update_contact
   - modules/client/add_company 
   #- modules/client/add_contact_address
   
 callback_actions: |-
   {%  liquid      
-      graphql new_user = 'modules/client/account/get_user_uuid', id: form.id | dig: 'items','results' | first
-      log new_user, type: "New user"
       assign data = form | json
-      assign data = data | add_hash_key: "contact_uuid", new_user.uuid
       graphql api = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
   %} 
   

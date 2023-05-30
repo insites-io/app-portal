@@ -120,7 +120,6 @@
     | dig: "items" | dig: "response" %}   
 
 {%- assign stripe_create_charge = stripe_create_charge.body | parse_json -%}
-{% log stripe_create_charge, type: "TEST create_payment stripe API"%} 
 
 {%- assign payment_response = stripe_create_charge -%}
 

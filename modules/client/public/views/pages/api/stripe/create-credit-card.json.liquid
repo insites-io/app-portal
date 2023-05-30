@@ -32,7 +32,6 @@ payload:
 {%- endcomment -%}
 
 {%- assign payload = context.params.payload | parse_json -%}
-{% log payload, type: 'TEST payload' %}
 
 {%- assign status = 200 -%}
 {% assign response = "{}" | parse_json %}
@@ -65,9 +64,6 @@ payload:
         id: stripe_customer.id
         user_id: user_id,
         name: customer_name | dig: "items" -%}
-
-        {% log customer_model, type: 'TEST: update_customer_model' %}
-
     
     
     {%- comment -%}Step 1-A.2: Customer Stripe data exist. Proceed create stripe credit card {%- endcomment -%}
@@ -119,9 +115,6 @@ payload:
     
 
     {%- assign stripe_create_customer = stripe_create_customer.body | parse_json  -%}
-
-    {% log stripe_create_customer, type: 'TEST stripe_create_customer' %}
-
     {%- assign stripe_customer_id = stripe_create_customer.id -%}
     
 
@@ -161,8 +154,6 @@ payload:
     {%- graphql customer_model = "modules/client/customer/create_customer_model", 
         args: customer_data -%}
     {%- assign response = customer_model -%}
-
-    {% log customer_model, type: 'TEST create_customer_model' %}
 
     {% parse_json stripe_card %}
         {

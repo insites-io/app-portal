@@ -8,7 +8,6 @@ fields:
     agreement:
       validation:
         presence: true
-#callback_actions: >
 ---
 
 {%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}
@@ -16,7 +15,6 @@ fields:
 {%- assign fields = database_info.properties -%}
 {%- assign form = form | add_hash_key: "metadata", fields -%}
 
-{% comment %} html-onSubmit: "return quoteFormScript.validations.validateForm(event)" {% endcomment %}
 
 {%- form html-class: 'insites-form insites-form-code' 
     html-novalidate: 'novalidate' 
@@ -38,11 +36,7 @@ fields:
     <div class="insites-form-grid">
         <div class="insites-form-buttons column-1 text-right">    
             <a href="/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1" ></ins-button></a>
-            <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>        
-            {% comment %} 
-            <ins-button label="SUBMIT" solid id="openModalBtn" style="display: inline;" ></ins-button>            
-            <input type="submit" value="test"> 
-            {% endcomment %}
+            <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
             <ins-button type="submit" label="SUBMIT" solid icon="icon-check-2" ></ins-button>
         </div>
     </div>
@@ -77,39 +71,6 @@ fields:
   openModalBtn.addEventListener('insClick', () => {
     modal.open();
   });
-
-
-  let form2 = document.querySelector('form');
-  
-  let test = document.getElementById('test');
-// Eventlistener can be another event and on another DOM object this is just an example
-form2.addEventListener('submit', function (event) {
-    // Only needed if event is submit, otherwise this line can be skipped 
-    
-    
-    let agree = document.querySelector('#agreement input');
-    console.log(agree);
-
-    console.log("entered");
-    console.log(agree.checkValidity());
-    console.log(agree.reportValidity());
-
-    // This is the important part, test if form is valid
-    if (form2.checkValidity() === false){
-        // This is the magic function that displays the validation errors to the user
-          
-        console.log(form2.reportValidity());
-        return; 
-    }else
-    {
-        return false;
-    }
-
-    event.preventDefault();
-    return false;
-
-    // Code if all fields are valid; continue form submit or make Ajax call.
-})
 
 </script>
         

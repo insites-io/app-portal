@@ -12,7 +12,6 @@ callback: >
 headers: >
   {% if data %}
     {%- include 'modules/client/stripe/get_stripe_settings' -%}
-    {%- log context.exports.stripe.data.sk_key, type: 'TEST create_customer sk_key' -%}
     {
       "Content-Type": "application/x-www-form-urlencoded",
       "Authorization": "Bearer {{context.exports.stripe.data.sk_key}}"

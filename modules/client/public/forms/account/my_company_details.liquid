@@ -57,26 +57,6 @@ api_call_notifications:
   #- modules/client/update_company
   - modules/client/update_company_address
 ---
-{% comment %} callback_actions: |-  
-  {%  liquid
-      assign data = form | json
-      graphql api = 'modules/website/trigger_api_call', name: 'modules/client/update_company_address', data: data | dig: 'items','response','body' | parse_json
-      if api.items
-        log api, type: "TEST api success"
-      else 
-        log api, type: "TEST api error"      
-      endif      
-  %} {% endcomment %}
-
-{% comment %} data.default_address.id = {{ data.default_address.id }}  
-.
-.
-form={{form}}
-.
-.
-form.external_id={{form.external_id}} {% endcomment %}
-
-
 
 {%- form 
     html-id: "my-company-details-form"

@@ -1,0 +1,22 @@
+---
+name: update_contact
+to: 'https://{{context.location.host}}/core/api/v1/contacts'
+format: http
+request_type: PUT
+#callback: >
+#   {% log response, type: 'response object' %}
+#   {% assign response_hash = response.body | parse_json %}
+#   {% log response_hash, type: 'response body as hash' %} 
+request_headers: >
+    {
+        "Content-Type": "application/json",
+        "Authorization": "<%= instance_api_key =%>"
+    }
+---
+{
+    "id": "{{data.id}}",
+    "email": "{{data.email}}",
+    "company_uuid": null,
+    "mobile_phone_country_code": "{{data.mobile_phone_country_code}}",
+    "mobile_phone_number": "{{data.mobile_phone_number}}"
+}

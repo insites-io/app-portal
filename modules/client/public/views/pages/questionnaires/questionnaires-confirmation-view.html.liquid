@@ -31,15 +31,12 @@ metadata: {
 {%- endif -%}
 
 
-
 {%- liquid
     graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first 
     assign fields = database_info.properties
 
     graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first
 -%}
-
-{%- log data, type: 'Test data:' -%}
 
 {%- parse_json form -%}
 {

@@ -26,10 +26,8 @@ default_payload: |-
       "user_id": "{{context.current_user.id}}"
     }
   }
-# email_notifications:
-#   - modules/client/document_workflow
-callback_actions: >  
-  {% log form, type: "Test callback_actions form" %}
+email_notifications:
+  - modules/client/document_workflow
 ---
 
 {%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/documents" | dig: "items","results" | first -%}

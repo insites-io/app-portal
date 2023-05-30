@@ -96,33 +96,11 @@ metadata: {
     return {
         events: {
 
-            async signUpHandler(event) { // Platform Seller Sign Up
+            async signUpHandler(event) { 
                 if(registerForm){
-                    event ? event.preventDefault(): ''; // prevent default on submit
-                    let formId = event.target.id;
-                    let formElement = document.getElementById(formId);
-                    let buttonData = event.submitter.parentElement.data;
-
-                    if(buttonData == 'create-account') {
-                        if(await LoginScript.methods.validateForm(event, step1Container)){
-                            createAccountButton.loading = true;
-    
-                            const uploadFields = signUpForm.querySelectorAll('ins-input-file');
-                            if (uploadFields.length) {
-                                await this.uploadHandler(uploadFields); //Handle file uploads
-                            }
-
-                            await this.createStoreSlug();
-
-                            signUpForm.submit();
-                        } else {
-                            Validate.events.notyf('error', "Please check required fields.");
-                            secondStep.hasError = true;
-                        }
-                    }
+                    event ? event.preventDefault(): ''; 
                 }
             },
-
 
             disableSubmitOnEnter() {
                 window.addEventListener('keydown', function(e) {

@@ -72,8 +72,6 @@
     | parse_json %}   
 
 {%- session paybill_payment_id = add_payment.items.id -%}
-
-{% log add_payment, type: "TEST add_payment" %}
 {% log "==== Payment Created ====" %}
 
 
@@ -102,8 +100,6 @@
     | parse_json %}   
 
 {%- session paybill_order_id = update_order.items.id -%}
-
-{% log update_order, type: "TEST update_order" %}
 {% log "==== Order Updated ====" %}
 
 

@@ -3,20 +3,17 @@ name: update_contact_address
 to: 'https://{{context.location.host}}/core/api/v1/contacts/addresses'
 format: http
 request_type: PUT
-callback: >
-   {% log "==================update_contact_address==================" %}
-   {% log response, type: 'response object' %}
-   {% assign response_hash = response.body | parse_json %}
-   {% log response_hash, type: 'response body as hash' %} 
+#callback: >
+#   {% log response, type: 'response object' %}
+#   {% assign response_hash = response.body | parse_json %}
+#   {% log response_hash, type: 'response body as hash' %} 
 request_headers: >
     {
         "Content-Type": "application/json",
         "Authorization": "<%= instance_api_key =%>"
     }
 ---
-
-{%- assign props = form.properties -%}
-
+{%- assign props = data.properties -%}
 {
     "uuid": "{{ props.contact_address_uuid }}", //REQUIRED
     "contact_uuid": "{{ props.contact_uuid }}", //REQUIRED

@@ -3,17 +3,15 @@ name: add_contact_address
 to: 'https://{{context.location.host}}/core/api/v1/contacts/addresses'
 format: http
 request_type: POST
-callback: >  
-  {% log response, type: 'response object' %} 
-  {% assign response_hash = response.body | parse_json %}
-  {% log response_hash.items.properties.address_label, type: 'Add CRM Contact Address' %}
+#callback: >  
+#  {% log response, type: 'response object' %} 
+#  {% assign response_hash = response.body | parse_json %}
 request_headers: >
     {
         "Content-Type": "application/json",
         "Authorization": "<%= instance_api_key =%>"
     }
 ---
-
 {%  liquid 
     if data.contact_uuid
         assign contact_uuid = data.contact_uuid
@@ -24,7 +22,6 @@ request_headers: >
 
     assign props = data.properties
 %}
-
 {
     "contact_uuid": "{{contact_uuid}}",
     "address_label": "{{props.address_1}}", 
