@@ -6,6 +6,8 @@ This partial is used by pages:
 Inputs will have values only on /my-company-details page
 {% endcomment %}
 
+{%- assign props = form.fields.properties -%}
+
 <div id="company-details-container" class="form-group fadeIn {% if params.slug != 'my-company-details' %}hide{% endif %}" active>    
 
       <div class="column-1">
@@ -16,10 +18,10 @@ Inputs will have values only on /my-company-details page
         <ins-input validate
             id="company-name"
             label="Company Name*"
-            name="{{ form.fields.company_name.name }}" 
+            name="{{ props.company_name.name }}" 
             value="{{ data.properties.company_name }}" 
             {% if form.errors['company_name'] %} has-error {% endif %}
-            error-message="{{ form.fields.company_name.validation.rules.presence.message }}"
+            error-message="{{ props.company_name.validation.rules.presence.message }}"
             placeholder="Company Name">
         </ins-input>
       </div>
@@ -28,10 +30,10 @@ Inputs will have values only on /my-company-details page
         <ins-input validate
             id="registered-business-number"
             label="Company Registration Number*"
-            name="{{ form.fields.registered_business_number.name }}" 
+            name="{{ props.registered_business_number.name }}" 
             value="{{ data.properties.registered_business_number }}" 
             {% if form.errors['registered_business_number'] %} has-error {% endif %}
-            error-message="{{ form.fields.registered_business_number.validation.rules.presence.message }}"
+            error-message="{{ props.registered_business_number.validation.rules.presence.message }}"
             placeholder="Company Registration Number">
         </ins-input>
       </div>
@@ -41,10 +43,10 @@ Inputs will have values only on /my-company-details page
             id="email-1"
             label="Email*"
             field="email"
-            name="{{ form.fields.email_1.name }}" 
+            name="{{ props.email_1.name }}" 
             value="{{ data.properties.email_1 }}" 
             {% if form.errors['email_1'] %} has-error {% endif %}
-            error-message="{{ form.fields.email_1.validation.rules.presence.message }}"
+            error-message="{{ props.email_1.validation.rules.presence.message }}"
             placeholder="Email">
         </ins-input>
       </div>
@@ -60,12 +62,22 @@ Inputs will have values only on /my-company-details page
             error-message="Please use a valid phone number">
         </ins-input-tel>
 
+        {%  liquid
+            if params.slug == 'my-company-details' 
+              assign mobile_phone_number_name = props.mobile_phone_number.name
+              assign mobile_phone_country_code_name = props.mobile_phone_country_code.name
+            else
+              assign mobile_phone_number_name = props.company_mobile_phone_number.name
+              assign mobile_phone_country_code_name = props.company_mobile_phone_country_code.name
+            endif        
+        %}
+
         <input type="hidden" id="company_mobile_phone_number" 
-          name="{{ form.fields.company_mobile_phone_number.name }}" 
+          name="{{ mobile_phone_number_name }}" 
           value="">
 
         <input type="hidden" id="company_mobile_phone_country_code" 
-          name="{{ form.fields.company_mobile_phone_country_code.name }}"
+          name="{{ mobile_phone_country_code_name }}"
           value="61" >
      </div>
 
@@ -80,14 +92,20 @@ Inputs will have values only on /my-company-details page
         </ins-input>
       </div>
 
+      {%  liquid
+          if params.slug == 'my-company-details' 
+            assign default_address = data.default_address.properties
+          endif
+      %}
+
       <div class="column-2">
         <ins-input form-address-field 
             id="company_address_1"
             label="Address 1"
-            name="{{ form.fields.company_address_1.name }}" 
-            value="{{ data.properties.address_1 }}" 
+            name="{{ props.company_address_1.name }}" 
+            value="{{ default_address.address_1 }}" 
             {% if form.errors['company_address_1'] %} has-error {% endif %}
-            error-message="{{ form.fields.company_address_1.validation.rules.presence.message }}"
+            error-message="{{ props.company_address_1.validation.rules.presence.message }}"
             placeholder="Address 1">
         </ins-input>
       </div>
@@ -96,10 +114,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field
             id="company_address_2"
             label="Address 2"
-            name="{{ form.fields.company_address_2.name }}" 
-            value="{{ data.properties.address_2 }}" 
+            name="{{ props.company_address_2.name }}" 
+            value="{{ default_address.address_2 }}" 
             {% if form.errors['company_address_2'] %} has-error {% endif %}
-            error-message="{{ form.fields.company_address_2.validation.rules.presence.message }}"
+            error-message="{{ props.company_address_2.validation.rules.presence.message }}"
             placeholder="Address 2">
         </ins-input>
       </div>
@@ -108,10 +126,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_suburb"
             label="Suburb"
-            name="{{ form.fields.company_suburb.name }}" 
-            value="{{ data.properties.suburb }}" 
+            name="{{ props.company_suburb.name }}" 
+            value="{{ default_address.suburb }}" 
             {% if form.errors['company_suburb'] %} has-error {% endif %}
-            error-message="{{ form.fields.company_suburb.validation.rules.presence.message }}"
+            error-message="{{ props.company_suburb.validation.rules.presence.message }}"
             placeholder="Suburb">
         </ins-input>
       </div>
@@ -120,10 +138,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_state"
             label="State"
-            name="{{ form.fields.company_state.name }}" 
-            value="{{ data.properties.state }}" 
+            name="{{ props.company_state.name }}" 
+            value="{{ default_address.state }}" 
             {% if form.errors['company_state'] %} has-error {% endif %}
-            error-message="{{ form.fields.company_state.validation.rules.presence.message }}"
+            error-message="{{ props.company_state.validation.rules.presence.message }}"
             placeholder="State">
         </ins-input>
       </div>
@@ -132,10 +150,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_postcode"
             label="ZIP / Postalcode"
-            name="{{ form.fields.company_postcode.name }}" 
-            value="{{ data.properties.postcode }}" 
+            name="{{ props.company_postcode.name }}" 
+            value="{{ default_address.postcode }}" 
             {% if form.errors['company_postcode'] %} has-error {% endif %}
-            error-message="{{ form.fields.company_postcode.validation.rules.presence.message }}"
+            error-message="{{ props.company_postcode.validation.rules.presence.message }}"
             placeholder="ZIP / Postalcode">
         </ins-input>
       </div>
@@ -144,10 +162,10 @@ Inputs will have values only on /my-company-details page
         <ins-input form-address-field 
             id="company_country"
             label="Country"
-            name="{{ form.fields.company_country.name }}" 
-            value="{{ data.properties.country }}" 
+            name="{{ props.company_country.name }}" 
+            value="{{ default_address.country }}" 
             {% if form.errors['company_country'] %} has-error {% endif %}
-            error-message="{{ form.fields.company_country.validation.rules.presence.message }}"
+            error-message="{{ props.company_country.validation.rules.presence.message }}"
             placeholder="Country">
         </ins-input>
       </div>
@@ -156,7 +174,7 @@ Inputs will have values only on /my-company-details page
 
       <div class="column-1">      
         <div class="spacer small"></div>
-        <ins-button type="submit" id="submit-company-details" label="Update Details" icon="icon-check-2" solid >
+        <ins-button type="submit" id="submit-btn" label="Update Details" icon="icon-check-2" solid >
       </div>
 
       {% else %}

@@ -23,17 +23,10 @@ metadata: {
     "sitemap_changefreq": "never"
 }
 dynamic_cache:
-  layout: |-
-    {%- comment -%}Set layout cache depending if E-commerce module is present{%- endcomment -%}
-    {%- if context.modules.ecommerce.name != blank -%}
-    false
-    {%- else -%}
-    true
-    {%- endif -%}
+  layout: true
   key: |-
     {%- parse_json models -%}
     [
-      {%- if context.modules.ecommerce.name == blank -%} "modules/website/main_menu", {%- endif -%}
       "modules/website/page_header",
       "modules/insites_core/insites_system_fields",
       "modules/insites_site_manager/insites_global_content"

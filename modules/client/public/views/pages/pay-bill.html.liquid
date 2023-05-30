@@ -25,6 +25,8 @@ metadata: {
     "sitemap_changefreq": "monthly",
     "heading": "Pay a Bill"
 }   
+authorization_policies:
+  - modules/client/user_logged_in
 ---
 
 {%- if context.environment == "staging" -%}

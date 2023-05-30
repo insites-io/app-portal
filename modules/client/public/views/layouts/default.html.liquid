@@ -42,7 +42,7 @@ The `homepage` layout is dedicated layout for homepage only.
         {%- endcache -%}
         {%- endif -%}
 
-        {%- if context.params.slug == 'client-portal' -%}
+        {%- if context.params.slug == 'client-portal' and context.params.slug2 == null  -%}
         {%- comment -%} Carousel - Slider {%- endcomment -%}
         {%- include 'modules/client/banner', size: 10 -%}        
         {%- else -%}
@@ -64,6 +64,7 @@ The `homepage` layout is dedicated layout for homepage only.
                     <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content">
                         <div class="spacer xxxx-large"></div>
                         {{ content_for_layout }}
+                        <div class="spacer xxxx-large"></div>
                     </div>
                 </div>
             </div>

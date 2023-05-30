@@ -45,19 +45,25 @@ The `homepage` layout is dedicated layout for homepage only.
         {% include 'modules/website/layout/header' %}
         {%- endcache -%}
         {%- endif -%}
-
-        {%- if params.slug == 'client-portal' -%}
-        {%- comment -%} Carousel - Slider {%- endcomment -%}
-        {%- include 'modules/client/banner', size: 10 -%}        
-        {%- else -%}
+        
         <div class="wrapper bg-color-main">
             <div class="grid-container">
                 <div class="spacer xxx-large"></div>
-                <h1 class="heading-1">{{context.page.metadata.heading}}</h1>
+                {%- liquid
+                    if context.page.metadata.heading == "Questionnaire Form"
+                        if params.slug2
+                            assign heading = "Edit Questionnaire"
+                        else
+                            assign heading = "Add Questionnaire"
+                        endif
+                    else
+                        assign heading = context.page.metadata.heading
+                    endif
+                -%}
+                <h1 class="heading-1">{{ heading }}</h1>
                 <div class="spacer xxx-large"></div>
             </div>
         </div>
-        {%- endif -%}    
 
         <div class="wrapper client-portal">
             <div class="grid-container">
@@ -68,6 +74,7 @@ The `homepage` layout is dedicated layout for homepage only.
                     <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content">
                         <div class="spacer xxxx-large"></div>
                         {{ content_for_layout }}
+                        <div class="spacer xxxx-large"></div>
                     </div>
                 </div>
             </div>

@@ -5,64 +5,90 @@ resource_owner: anyone
 flash_alert: Error-Company-Details
 flash_notice: Success-Company-Details
 redirect_to: my-company-details
-fields:
+fields:  
+  properties:
+    email_1:
+      validation: 
+        presence: true
+        email: 
+          message: Please use a valid email address     
+    company_name:
+      validation: 
+        presence: true
+    registered_business_number:
+      validation: 
+        presence: true          
+    mobile_phone_number:
+    mobile_phone_country_code:
+    company_mobile_phone_number:
+      property_options:
+        virtual: true
+    company_address_1:
+      property_options:
+        virtual: true
+    company_address_2:
+      property_options:
+        virtual: true
+    company_suburb:
+      property_options:
+        virtual: true
+    company_state:
+      property_options:
+        virtual: true
+    company_postcode:
+      property_options:
+        virtual: true
+    company_country:
+      property_options:
+        virtual: true    
 
-  # CRM Company Fields 
-  email_1:
-    validation: 
-      presence: true
-      email: 
-        message: Please use a valid email address 
-    property_options:
-      virtual: true     
-  company_name:
-    validation: 
-      presence: true
-    property_options:
-      virtual: true
-  registered_business_number:
-    validation: 
-      presence: true
-    property_options:
-      virtual: true           
-  company_mobile_phone_country_code:
-    property_options:
-      virtual: true
-  company_mobile_phone_number:
-    property_options:
-      virtual: true
-  company_address_1:
-    property_options:
-      virtual: true
-  company_address_2:
-    property_options:
-      virtual: true
-  company_suburb:
-    property_options:
-      virtual: true
-  company_state:
-    property_options:
-      virtual: true
-  company_postcode:
-    property_options:
-      virtual: true
-  company_country:
-    property_options:
-      virtual: true    
-
+    #Company Address
+    company_uuid:
+      property_options:
+        virtual: true
+      validation:
+          presence: true
+    company_address_uuid:
+      property_options:
+        virtual: true
+      validation:
+          presence: true 
 api_call_notifications:
-  - modules/client/update_company
+  #- modules/client/update_company
+  - modules/client/update_company_address
 ---
+{% comment %} callback_actions: |-  
+  {%  liquid
+      assign data = form | json
+      graphql api = 'modules/website/trigger_api_call', name: 'modules/client/update_company_address', data: data | dig: 'items','response','body' | parse_json
+      if api.items
+        log api, type: "TEST api success"
+      else 
+        log api, type: "TEST api error"      
+      endif      
+  %} {% endcomment %}
+
+{% comment %} data.default_address.id = {{ data.default_address.id }}  
+.
+.
+form={{form}}
+.
+.
+form.external_id={{form.external_id}} {% endcomment %}
+
+
 
 {%- form 
-    html-id: "user-company-form"
+    html-id: "my-company-details-form"
     html-class: 'insites-form insites-form-code' 
     html-novalidate: true
-    html-enctype="multipart/form-data"
-    html-onsubmit:"return UserProfileScript.methods.validateForm(event);" -%}
+    html-onsubmit:"return validateMyCompanyDetails(event);" -%}
 
-  <div class="insites-form-grid">
-    {% include 'modules/client/account/registration_company_details', data: data %}
-  </div>
+    <input type="hidden" name="{{ form.fields.properties.company_uuid.name }}"  value="{{ data.properties.uuid }}" >
+    <input type="hidden" name="{{ form.fields.properties.company_address_uuid.name }}" value="{{ data.default_address.properties.uuid }}" >
+
+    <div class="insites-form-grid">
+      {% include 'modules/client/account/registration_company_details', data: data %}
+    </div>
 
 {%- endform -%}

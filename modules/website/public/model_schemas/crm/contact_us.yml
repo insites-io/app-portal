@@ -5,7 +5,7 @@ metadata:
   is_archived: false
 properties:
 - name: document
-  type: array
+  type: upload
   metadata:
     type: "file_multiple"
     ui_element: "file_multiple"

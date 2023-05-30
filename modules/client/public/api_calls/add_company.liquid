@@ -14,20 +14,23 @@ request_headers: >
     }
 ---
 
+{%- assign props = form.properties -%}
+
 {
-    "company_name": "{{form.company_name}}",
-    "registered_business_number": "{{form.registered_business_number}}",
-    "email_1": "{{form.email_1}}",
-    "mobile_phone_country_code": "{{form.company_mobile_phone_country_code}}",
-    "mobile_phone_number": "{{form.company_mobile_phone_number}}",
+    "company_name": "{{props.company_name}}",
+    "registered_business_number": "{{props.registered_business_number}}",
+    "email_1": "{{props.email_1}}",
+    "mobile_phone_country_code": "{{props.company_mobile_phone_country_code}}",
+    "mobile_phone_number": "{{props.company_mobile_phone_number}}",
     "addresses": [
         {
-            "address_label": "{{form.company_address_1}}",
-            "address_1": "{{form.company_address_1}}",
-            "address_2": "{{form.company_address_2}}",
-            "suburb": "{{form.company_suburb}}",
-            "state": "{{form.company_state}}",
-            "country": "{{form.company_country}}",      
+            "address_label": "{{props.company_address_1}}",
+            "address_1": "{{props.company_address_1}}",
+            "address_2": "{{props.company_address_2}}",
+            "suburb": "{{props.company_suburb}}",
+            "state": "{{props.company_state}}",
+            "postcode": "{{ props.company_postcode }}",
+            "country": "{{props.company_country}}",      
             "default_address": true
         }
     ]

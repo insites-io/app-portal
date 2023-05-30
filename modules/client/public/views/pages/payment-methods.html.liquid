@@ -24,7 +24,9 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly",
     "heading": "Payment Methods"
-}   
+}
+authorization_policies:
+  - modules/client/user_logged_in
 ---
 
 {%- if context.environment == "staging" -%}

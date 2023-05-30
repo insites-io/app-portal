@@ -2,15 +2,15 @@
 name: questionnaires_additional_details
 resource: modules/client/questionnaires
 resource_owner: anyone
-redirect_to: /client-portal/questionnaires-confirmation/{{form.id}}
+redirect_to: /questionnaires-confirmation/{{form.id}}
 fields:
   properties:
     contact_name:
       validation:
         presence: true
     contact_number:
-      validation:
-        presence: true
+    #  validation:
+    #    presence: true
     update_site:
       validation:
         presence: true
@@ -22,7 +22,12 @@ fields:
 {%- assign fields = database_info.properties -%}
 {%- assign form = form | add_hash_key: "metadata", fields -%}
 
-{%- form html-class: 'insites-form insites-form-code' html-novalidate: 'novalidate' html-data-form: 'modules/client/questionnaires' -%}
+{%- form
+    html-autocomplete: "off"
+    html-id: "questionnaires-form"
+    html-class: 'insites-form insites-form-code questionnaires-form' 
+    html-novalidate: true
+    html-onsubmit: "return validateQuestionnairesForm(event)" -%}   
 
     <div class="insites-form-grid">
     
@@ -33,23 +38,27 @@ fields:
         {% include "modules/client/questionnaires/questionnaires-additional-details-inputs", form %}
         
     </div>
-    
-    <div class="insites-form-grid">
-        <div class="insites-form-buttons column-1 text-right">            
-            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1"></ins-button></a>
-            <a href="/client-portal/questionnaires-general/{{context.params.slug3}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
-            <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" solid ></ins-button>
+
+    <div class="insites-form-grid ">        
+      <div class="insites-form-buttons column-1">
+        <div class="spacer small"></div>
+        <div class="grid-x">
+          <div class="large-3 medium-3 small-12">
+            <ins-button type="submit" label="SAVE & EXIT" icon="icon-exit-to-app" id="save-exit-btn" ></ins-button>
+          </div>
+          <div class="large-9 medium-9 small-12 text-right">
+            <a href="/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1"></ins-button></a>
+            <a href="/questionnaires-general/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
+            <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" solid class="mr-0"></ins-button>
+          </div>
         </div>
+      </div>
     </div>
     
 {%- endform -%}
-        
-<script id="modules/client/questionnaires">
-    InsitesFormProcessor.setFormProps("modules/client/questionnaires", "modules/client/questionnaires", {{ form.fields.properties }}, "", true);
-</script>
 
 <script>
-    // Update `countryCode` and `phonenum-value` attribute of the telephone
+    <!-- Contact Number country code -->
     let contact_number = document.getElementById('contact_number');
     contact_number.addEventListener('didLoad', function(e){    
         let countryCode = {{ form.fields.properties.contact_number.value | split: ' ' | default: '[]' }};
@@ -58,4 +67,25 @@ fields:
             contact_number.setAttribute('phonenum-value', countryCode[1]);
         }
     });   
-</script>
+
+  <!-- Submit Form -->
+  let form = document.getElementById('questionnaires-form');
+  let buttons = form.querySelectorAll('ins-button');
+  let saveExitBtn = document.getElementById('save-exit-btn');
+  let saveExitInput = document.getElementById('save-exit');
+      saveExitBtn.addEventListener('insClick', event => {
+        saveExitInput.value = "true";
+      });   
+
+  async function validateQuestionnairesForm(event) {
+    event.preventDefault();
+    buttons.forEach(btn => btn.loading = true);                
+    if (await App.validation.validateForm(form)) {
+      form.submit();
+      return true;
+    } else {
+      buttons.forEach(btn => btn.loading = false);
+      return false;
+    }
+  }
+</script>  

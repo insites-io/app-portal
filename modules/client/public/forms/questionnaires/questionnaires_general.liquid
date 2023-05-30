@@ -2,7 +2,15 @@
 name: questionnaires_general
 resource: modules/client/questionnaires
 resource_owner: anyone
-redirect_to: /client-portal/questionnaires-additional-details/{{form.id}}
+redirect_to: >
+  {%  liquid
+      if form.properties.save_exit == 'true'
+        assign redirect_url = '/questionnaires'
+      else
+        assign redirect_url = '/questionnaires-additional-details/' | append: form.id
+      endif
+  %}
+  {{ redirect_url }}
 fields:
   properties:
     user_id:
@@ -29,6 +37,9 @@ fields:
       validation:
         presence: true
     attach_documents:    
+    save_exit:
+      property_options:
+        virtual: true
 default_payload: |-
   {
     "properties_attributes": {
@@ -41,73 +52,113 @@ default_payload: |-
 {%- assign fields = database_info.properties -%}
 {%- assign form = form | add_hash_key: "metadata", fields -%}
 
+{%  liquid
+    assign props = form.fields.properties
 
-  {%- form
+    if props.year.value
+      assign year = props.year.value
+    else
+      assign year = context.params.year 
+    endif
+    assign year_now = 'now' | date: '%Y'    
+%}
+
+{%- form
     html-autocomplete: "off"
     html-id: "questionnaires-form"
     html-class: 'insites-form insites-form-code questionnaires-form' 
     html-novalidate: true
     html-enctype = "multipart/form-data"
-    html-onsubmit: "return Questionnaires.methods.validateForm(event)"   -%}
-
-    <input name="{{ form.fields.properties.user_id.name }}" type="hidden" value="{{context.current_user.id}}" >
-
-    {%  liquid
-        if form.fields.properties.year.value
-          assign year = form.fields.properties.year.value
-        else
-          assign year = context.params.year 
-        endif
-        assign year_now = 'now' | date: '%Y'
-    %}
-    <input name="{{ form.fields.properties.year.name }}" type="hidden" value="{{year | default: year_now}}" >
-
-    <div class="insites-form-grid">
-    
-    <div class="form-groups-tab">        
-        {% include "modules/client/questionnaires/questionnaires-steps" %}
-    </div>    
-
-    {% include "modules/client/questionnaires/questionnaires-general-inputs", form %}
+    html-onsubmit: "return validateQuestionnairesForm(event)" -%}        
         
+    <input name="{{ props.user_id.name }}" type="hidden" value="{{context.current_user.id}}" >
+    <input name="{{ props.save_exit.name }}" id="save-exit" type="hidden" value="false" >
+    <input name="{{ props.year.name }}" type="hidden" value="{{year | default: year_now}}" >
+
+    <div class="insites-form-grid">  
+      <div class="form-groups-tab">        
+          {% include "modules/client/questionnaires/questionnaires-steps" %}            
+      </div>    
+      {% include "modules/client/questionnaires/questionnaires-general-inputs", form %}        
     </div>
     
-    <div class="insites-form-grid grid-x">        
-        <div class="insites-form-buttons column-1 text-right">
-            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1"></ins-button></a>
-            <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" id="submit-btn-questionnaires" solid ></ins-button>
+    <div class="insites-form-grid ">        
+      <div class="insites-form-buttons column-1">
+        <div class="spacer small"></div>
+        <div class="grid-x">
+          <div class="large-4 medium-4 small-12">
+            <ins-button type="submit" label="SAVE & EXIT" icon="icon-exit-to-app" id="save-exit-btn" ></ins-button>
+          </div>
+          <div class="large-8 medium-8 small-12 text-right">
+            <a href="/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1"></ins-button></a>
+            <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" id="submit-form-btn" solid class="mr-0"></ins-button>
+          </div>
         </div>
+      </div>
     </div>
 
 {%- endform -%}
 
+{%  liquid   
+    assign attach_documents = context.exports.questionnaires.data.attach_documents
+    assign file_name = attach_documents.file_name
+    assign file_extension = attach_documents.extension
+    assign file_path = attach_documents.url
+%}
+
 <script>
-    // Update `countryCode` and `phonenum-value` attribute of the telephone
-    let primary_phone = document.getElementById('primary_phone');
-    primary_phone.addEventListener('didLoad', function(e){            
-        let countryCode = {{ form.fields.properties.primary_phone.value | split: ' ' | default: '[]' }};        
-        if (Array.isArray(countryCode) && countryCode.length == 2){
-            primary_phone.setCountryCode(countryCode[0]);
-            primary_phone.setAttribute('phonenum-value', countryCode[1]);
-        }
-    });    
+  <!-- Primary Phone country code -->
+  let primary_phone = document.getElementById('primary_phone');
+  primary_phone.addEventListener('didLoad', function(e){            
+    let countryCode = {{ props.primary_phone.value | split: ' ' | default: '[]' }};        
+    if (Array.isArray(countryCode) && countryCode.length == 2){
+      primary_phone.setCountryCode(countryCode[0]);
+      primary_phone.setAttribute('phonenum-value', countryCode[1]);
+    }
+  });      
 
-  let submitFormBtn = document.getElementById('submit-form-btn');
-  let questionnairesForm = document.querySelector('form.questionnaires-form');
+  <!-- File Upload -->
+  let insFileUploaderEl = document.getElementById('document-input');
+  let documentFieldEl = document.getElementById('document');
+  let table = "modules/client/questionnaires";
+  let property = "attach_documents";           
 
+  {% if params.slug2 %}
+  <!-- Preview existing file --> 
+  let file_name = "{{file_name}}";
+  let file_extension = "{{file_extension}}";
+  let file_path = "{{file_path}}";
+  value = [{
+    name: file_name,
+    type: file_extension,
+    url: file_path
+  }];
+  console.log('value', value);
+  insFileUploaderEl.addEventListener('didLoad', function(e){
+    insFileUploaderEl.setFiles(value);
+  });  
+  {% endif %}
+
+  <!-- Submit Form -->
+  let form = document.getElementById('questionnaires-form');
+  let buttons = form.querySelectorAll('ins-button');
+  let saveExitBtn = document.getElementById('save-exit-btn');
+  let saveExitInput = document.getElementById('save-exit');
+      saveExitBtn.addEventListener('insClick', event => {
+        saveExitInput.value = "true";
+      });   
+      
   async function validateQuestionnairesForm(event) {
     event.preventDefault();
-    submitFormBtn.loading = true;
-
-    if (await App.validation.validateForm(questionnairesForm)) {
-      questionnairesForm.submit();
+    buttons.forEach(btn => btn.loading = true);                
+    if (await App.validation.validateForm(form)) {
+      await FileUpload.methods.processAttachments();
+      form.submit();
       return true;
     } else {
-      submitFormBtn.loading = false;
+      buttons.forEach(btn => btn.loading = false);
       return false;
     }
   }
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-<script src="{{ 'modules/website/services/formServices.js' | asset_url }}"></script>
-<script src="{{ 'modules/website/scripts/forms/questionnaires.js' | asset_url }}"></script>
+<script src="{{ 'modules/client/scripts/file-upload.js' | asset_url }}"></script>

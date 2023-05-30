@@ -24,7 +24,9 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly",
     "heading": "My Documents"
-}  
+}
+authorization_policies:
+  - modules/client/user_logged_in
 ---
 
 {%- if context.environment == "staging" -%}
@@ -59,11 +61,13 @@ metadata: {
 
     <div class="spacer xxx-large"></div>
     
+    {% if data.total_entries > 0 %}
+
     <div class="grid-x">
         <div class="cell large-5">
             <ins-button 
                 id="add-document-btn"
-                class="open-form-btn"
+                class="add-btn open-form-btn"
                 label="Add Document" 
                 icon="icon-plus" 
                 solid 
@@ -71,15 +75,15 @@ metadata: {
             </ins-button>
         </div>
         <div class="cell large-6 large-offset-1">
-            <ins-input 
-                id="search"
+            <div class="hide-for-large-only spacer"></div>
+            <ins-input                 
+                id="search-description"
+                class="search-item"
                 placeholder="Search by Description"
                 icon="icon-search-1">
             </ins-input>
         </div>                
     </div>
-
-    <div class="spacer"></div>
 
     <div class="grid-container">
 
@@ -97,10 +101,27 @@ metadata: {
             <div class="spacer"></div>        
             {%- include "modules/client/paginations", page_num, per_page -%}
         {% endif %}
-
-        <div class="spacer xxxx-large"></div>
         
     </div>
+
+    {% else %}
+
+    <div class="box no-item text-center">
+        <div class="spacer xxxx-large"></div>
+        <h4 class="heading-4">No documents uploaded</h4>
+        <div class="spacer small"></div>
+        <ins-button 
+            id="add-document-btn"
+            class="add-btn open-form-btn"
+            label="Add Document" 
+            icon="icon-plus" 
+            solid 
+            color="blue">
+        </ins-button>
+        <div class="spacer xxxx-large"></div>
+    </div>
+
+    {% endif %}
 
 </div>
 
@@ -195,7 +216,7 @@ metadata: {
                 
     <!-- Filter List - Search Description -->
     let search = "{{description}}";
-    let keywordInput = document.getElementById("search");
+    let keywordInput = document.getElementById("search-description");
     if (keywordInput) {
         keywordInput.addEventListener('insInput', this.keywordInputEvent);
         keywordInput.addEventListener('insIconClick', this.keywordInputEvent);
@@ -224,7 +245,7 @@ metadata: {
         }
     }
 </script>
-<script src="{{ 'modules/website/scripts/forms/file-upload.js' | asset_url }}"></script>
+<script src="{{ 'modules/client/scripts/file-upload.js' | asset_url }}"></script>
 
 {%- if context.environment == "staging" -%}
 <!-- end page: documents  -->

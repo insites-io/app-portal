@@ -1,5 +1,5 @@
 ---
-slug: client-portal/questionnaires-additional-details
+slug: questionnaires-additional-details
 layout: modules/client/form_layout
 # enable_profiler: true
 searchable: false
@@ -21,7 +21,8 @@ metadata: {
     "sitemap_enabled": true,
     "sitemap_priority": "1.0",## primary order (DESC)
     "sitemap_order": "1", ## secondary order (ASC)
-    "sitemap_changefreq": "monthly"
+    "sitemap_changefreq": "monthly",
+    "heading": "Edit Questionnaire"
 }
 authorization_policies:
   - modules/client/questionnaires_form_auth
@@ -31,7 +32,7 @@ authorization_policies:
 {%- endif -%}
 
 <div class="questionnaire">
-    {%- include_form 'modules/client/questionnaires_additional_details', id: context.params.slug3 -%}
+    {%- include_form 'modules/client/questionnaires_additional_details', id: context.params.slug2 -%}
 </div>
 
 {%- if context.environment == "staging" -%}

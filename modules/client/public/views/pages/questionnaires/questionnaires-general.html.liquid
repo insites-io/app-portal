@@ -1,9 +1,9 @@
 ---
-slug: client-portal/questionnaires-general
+slug: questionnaires-general
 layout: modules/client/form_layout
 # enable_profiler: true
 searchable: false
-max_deep_level: 3
+max_deep_level: 2
 metadata: {
     "status": "published",
     "page_type": "content", ## content, system or endpoint
@@ -21,18 +21,21 @@ metadata: {
     "sitemap_enabled": true,
     "sitemap_priority": "1.0",## primary order (DESC)
     "sitemap_order": "1", ## secondary order (ASC)
-    "sitemap_changefreq": "monthly"
-}
+    "sitemap_changefreq": "monthly",
+    "heading": "Questionnaire Form"
+  }
 authorization_policies:
   - modules/client/questionnaires_form_auth
 ---
+
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
 {%- endif -%}
 
 <div class="questionnaire">
-    {%- include_form 'modules/client/questionnaires_general', id: context.params.slug3 -%}
+    {%- include_form 'modules/client/questionnaires_general', id: context.params.slug2 -%}
 </div>
+
 
 {%- if context.environment == "staging" -%}
 <!-- end page: overview  -->

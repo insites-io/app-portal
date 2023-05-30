@@ -1,5 +1,5 @@
 ---
-slug: client-portal/questionnaires-confirmation-view
+slug: questionnaires-confirmation-view
 layout: modules/client/form_layout
 # enable_profiler: true
 searchable: false
@@ -36,7 +36,7 @@ metadata: {
     graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first 
     assign fields = database_info.properties
 
-    graphql data = "modules/client/get_questionnaires", id: {{context.params.slug3}} | dig: "items","results" | first
+    graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first
 -%}
 
 {%- log data, type: 'Test data:' -%}
@@ -74,8 +74,8 @@ metadata: {
 
   <div class="insites-form-grid grid-x">        
       <div class="insites-form-buttons column-1 text-right">        
-          <a href="/client-portal/questionnaires-additional-details-view/{{context.params.slug3}}"><ins-button type="submit" label="BACK" icon="icon-arrow-back" outlined ></ins-button></a>
-          <a href="/client-portal/questionnaires"><ins-button type="submit" label="DONE" solid ></ins-button></a>
+          <a href="/questionnaires-additional-details-view/{{context.params.slug2}}"><ins-button type="submit" label="BACK" icon="icon-arrow-back" outlined ></ins-button></a>
+          <a href="/questionnaires"><ins-button type="submit" label="DONE" solid ></ins-button></a>
       </div>
   </div>
 </div>

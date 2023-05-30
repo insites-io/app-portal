@@ -1,13 +1,13 @@
 
 {%- liquid
 
-    graphql data = "modules/client/get_questionnaires", id: {{context.params.slug3}} | dig: "items","results" | first
+    graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first
 
-    if context.params.slug2 == "questionnaires-general" or context.params.slug2 == "questionnaires-general-view"
+    if context.params.slug == "questionnaires-general" or context.params.slug == "questionnaires-general-view"
         assign statusGeneral = "active"
         assign statusAdditional = "disabled"
         assign statusConfirmation = "disabled"
-        if context.params.slug3
+        if context.params.slug2
             if data.contact_name
                 assign statusAdditional = "complete"
             endif
@@ -15,16 +15,16 @@
                 assign statusConfirmation = "complete"
             endif
         endif
-    elsif context.params.slug2 == "questionnaires-additional-details" or context.params.slug2 == "questionnaires-additional-details-view"
+    elsif context.params.slug == "questionnaires-additional-details" or context.params.slug == "questionnaires-additional-details-view"
         assign statusGeneral = "complete"
         assign statusAdditional = "active"
         assign statusConfirmation = "disabled"
-        if context.params.slug3
+        if context.params.slug2
             if data.agreement[0] == "I understand and agree"
                 assign statusConfirmation = "complete"
             endif
         endif
-    elsif context.params.slug2 == "questionnaires-confirmation" or context.params.slug2 == "questionnaires-confirmation-view"
+    elsif context.params.slug == "questionnaires-confirmation" or context.params.slug == "questionnaires-confirmation-view"
         assign statusGeneral = "complete"
         assign statusAdditional = "complete"
         assign statusConfirmation = "active"
@@ -35,9 +35,9 @@
 
 <div class="form-groups-tab">        
     <ins-steps clickable id="insStepsClickEl" style="width: 100%;">
-        <ins-step description="General" {{statusGeneral}} link="/client-portal/questionnaires-general/{{context.params.slug3}}"></ins-step>
-        <ins-step description="Additional Details" {{statusAdditional}} link="/client-portal/questionnaires-additional-details/{{context.params.slug3}}"></ins-step>
-        <ins-step description="Confirmation" {{statusConfirmation}} link="/client-portal/questionnaires-confirmation/{{context.params.slug3}}"></ins-step>
+        <ins-step description="General" {{statusGeneral}} link="/questionnaires-general/{{context.params.slug2}}"></ins-step>
+        <ins-step description="Additional Details" {{statusAdditional}} link="/questionnaires-additional-details/{{context.params.slug2}}"></ins-step>
+        <ins-step description="Confirmation" {{statusConfirmation}} link="/questionnaires-confirmation/{{context.params.slug2}}"></ins-step>
     </ins-steps>
 </div>
 

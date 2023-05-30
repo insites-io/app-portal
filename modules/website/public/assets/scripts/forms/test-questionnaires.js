@@ -44,15 +44,19 @@ let Questionnaires = (function () {
             },
             async validateForm(event) {
                 event ? event.preventDefault() : '';
-                var captcha = true;
-                // IF your form / instance have recaptcha enabled, uncommment this code instead
-                //var captcha = App.validation.checkRecaptcha();
 
                 console.log('entered validateForm');
 
+                console.log('event', event);
+
                 // Form fields with attribute 'validate' are validated
-                if (await App.validation.validateForm(formEl) && captcha) {
-                    formEl.querySelector('ins-button').loading = true;
+                if (await App.validation.validateForm(formEl) ) {
+
+                    let btn = formEl.querySelectorAll('ins-button'); //.loading = true;
+                    btn.forEach(el => {
+                        el.loading = true;
+                    });
+
                     await this.processAttachments();
 
                     // let values = await phoneFields.inputTel.getValues();

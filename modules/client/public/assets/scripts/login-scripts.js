@@ -155,7 +155,7 @@ let LoginScript = (function () {
                 let emailInput = document.getElementById('email');
                 let varEmail = document.getElementById('email').value
                 if(App.validation.validateEmail(emailInput)){
-                    let url = '/check_user_email_signup.json?'+ 'email='+ varEmail ;
+                    let url = '/check-user-email-signup.json?'+ 'email='+ varEmail ;
                     let response = await apiServices.processRequest('get', url);
                     if(response.state && response.data) {
                         //Check / Handle if user exist
@@ -194,14 +194,7 @@ let LoginScript = (function () {
             updateEmailInputInfo(status, id = null){
                 emailInputInfo.status = status;
                 emailInputInfo.id = id;
-            },
-            async test(event){ 
-                console.log('test');
-                // let url = '/api/create_contacts.json?' ;
-                // let response = await apiServices.processRequest('get', url);
-                // console.log(JSON.stringify(response));                
-
-            },
+            }
         },
         init: {
             //Initialise form if signup (only applies to sign up)

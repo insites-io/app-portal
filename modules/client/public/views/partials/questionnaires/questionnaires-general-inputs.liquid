@@ -1,5 +1,5 @@
 {%- liquid
-    if context.params.slug2 == "questionnaires-general-view"
+    if context.params.slug == "questionnaires-general-view"
         assign disabled = "disabled"
     endif
 -%}
@@ -8,7 +8,8 @@
 <div class="form-group" active>
 
     <div class="column-1">
-        <div class="spacer large"></div>
+        <div class="spacer"></div>
+        <div class="spacer xx-small"></div>
         <h2 class="heading-2">General Information</h2>
         <div class="spacer small"></div>
     </div>
@@ -105,7 +106,7 @@
             validate
             no-areacode
             id="primary_phone"
-            {% if context.params.slug2 == "questionnaires-general-view" %} class="hideCountryCode" {% endif %}
+            {% if context.params.slug == "questionnaires-general-view" %} class="hideCountryCode" {% endif %}
             data-type="string"
             data-ui="phone"
             label="{%- include 'modules/client/insites_database/label', form: form, name: 'primary_phone' -%}"
@@ -174,7 +175,6 @@
 
     <!-- Field: Attach Documents -->
     <div class="column-1" >
-        {%- if context.params.slug2 == "questionnaires-general" -%}
         <ins-input-file
             {{disabled}}
             id="document-input"
@@ -186,22 +186,13 @@
             label="{%- include 'modules/client/insites_database/label', form: form, name: 'attach_documents' -%}"
             accepted-files=""
             capture=""
-            error-message="{{ form.errors['properties.attach_documents'] }}"
-            
+            error-message="{{ form.errors['properties.attach_documents'] }}"            
             {%- if form.errors['properties.attach_documents'] != nil -%} has-error {%- endif -%}>
         </ins-input-file>
         <input
             type="hidden"
             id="document"
-            name="{{ form.fields.properties.attach_documents.name }}" >
-        {%- else -%}
-        <div class="ins-input-file-wrapper ins-form-field-wrap">
-            <label class="ins-form-label"><span>Attach Documents</span></label>
-            <div>
-                <a href="">Download</a>
-            </div>
-        </div>
-        {%- endif -%}
+            name="{{ form.fields.properties.attach_documents.name }}" >        
     </div>
 
 </div> 

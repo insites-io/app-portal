@@ -2,7 +2,7 @@
 name: questionnaires_confirmation
 resource: modules/client/questionnaires
 resource_owner: anyone
-redirect_to: /client-portal/questionnaires
+redirect_to: /questionnaires
 fields:
   properties:
     agreement:
@@ -37,8 +37,8 @@ fields:
     
     <div class="insites-form-grid">
         <div class="insites-form-buttons column-1 text-right">    
-            <a href="/client-portal/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1" ></ins-button></a>
-            <a href="/client-portal/questionnaires-additional-details/{{context.params.slug3}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>        
+            <a href="/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1" ></ins-button></a>
+            <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>        
             {% comment %} 
             <ins-button label="SUBMIT" solid id="openModalBtn" style="display: inline;" ></ins-button>            
             <input type="submit" value="test"> 

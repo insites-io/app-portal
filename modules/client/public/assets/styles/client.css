@@ -279,9 +279,18 @@ ins-radio .ins-radio-checkbox label {
 }
 
 /* Pagination */
+.paginations .form-label{
+    font-size: var(--font-x-small);
+}
+
 .paginations ins-select {
     display: inline-block;
     margin-left: 8px;
+}
+
+.paginations .ins-select-wrap .ins-select-value-wrap{
+    min-height: 24px;
+    height: 24px;
 }
 
 .paginations .ins-select-value-wrap {
@@ -306,6 +315,7 @@ ins-radio .ins-radio-checkbox label {
 
 .paginations ins-select .ins-select-wrap .ins-select-value-input {
     padding-right: 0px;
+    height: 24px;
 }
 
 .paginations .ins-select-wrap .ins-select-options-wrap {
@@ -323,7 +333,7 @@ ins-radio .ins-radio-checkbox label {
     font-family: var(--font-family-03);
     font-weight: 400;
     font-size: var(--font-small);
-    line-height: var(--font-small);
+    line-height: var(--font-medium);
     color: var(--font-color-body);
 }
 
@@ -427,15 +437,33 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
     line-height: 16px;
 }
 
+.questionnaire ins-card ins-button .ins-button div .btn__label {
+    font-size: 10px!important;
+}
+
 .questionnaire button {
     margin-right: 4px;
 }
+
+.search-item .ins-form-field-wrap{
+    margin-bottom: 12px;
+}
+
+.add-btn button,
+.search-item .ins-form-field-wrap .ins-form-field{
+    height: 40px;
+}
+
 
 .box {
     border: 1px solid var(--ui-border);
     padding: 24px;
     border-radius: 4px;
     box-shadow: 1px 1px 2px #E4E6EC;
+}
+
+.box.no-item{
+    padding: 0px 24px;
 }
 
 .empty-box {

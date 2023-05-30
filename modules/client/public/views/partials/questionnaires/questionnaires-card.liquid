@@ -1,10 +1,10 @@
 {%-liquid
     if item.agreement[0] == "I understand and agree"
         assign status = "Completed"
-        assign viewEditLink = "/client-portal/questionnaires-general-view/" | append: item.id
+        assign viewEditLink = "/questionnaires-general-view/" | append: item.id
     else 
         assign status = "Draft"
-        assign viewEditLink = "/client-portal/questionnaires-general/" | append: item.id
+        assign viewEditLink = "/questionnaires-general/" | append: item.id
     endif
 
     if item.attach_documents.url
@@ -18,7 +18,7 @@
         <div class="large-8 cell"><i class="icon-calendar"></i> <span class="date">{{ item.updated_at | date: '%B %d, %Y' | default: "January 11, 2023" }}</span></div>                  
         <div class="large-4 cell align-right vertical-align-middle"><ins-tag label="{{status}}" class="{{status}}"></ins-tag></div>                  
         </div> 
-        
+        <div class="spacer x-small"></div>
         <h3 class="heading-3">{{item.year}}</h3>
         <div class="spacer xx-small"></div>
         {%- if showName %} <p>Questionnaire</p> {%- endif %}

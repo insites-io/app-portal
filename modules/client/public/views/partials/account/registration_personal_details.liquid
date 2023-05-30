@@ -1,3 +1,5 @@
+{%- assign props = form.fields.properties -%}
+
 <div id="personal-details-container" class="form-group fadeIn" active>      
       
       <div class="column-1">
@@ -47,8 +49,8 @@
         <ins-input-tel
             id="mobile-phone"
             label="Mobile Phone" 
-            phonenum-value="{{ data.mobile_phone_number }}" 
-            country-code="{{ data.mobile_phone_country_code }}"
+            phonenum-value="{{ data.contact[0].properties.mobile_phone_number }}" 
+            country-code="{{ data.contact[0].properties.mobile_phone_country_code }}"
             phonenum-placeholder="Phone Number" 
             no-areacode
             error-message="Please use a valid phone number">
@@ -74,14 +76,20 @@
         </ins-input>
       </div>
 
+      {%  liquid
+          if params.slug == 'my-company-details' 
+            assign default_address = data.default_address.properties
+          endif
+      %}
+
       <div class="column-2">
         <ins-input form-address-field 
             id="contact_address_1"
             label="Address 1"
-            name="{{ form.fields.address_1.name }}" 
-            value="{{ form.fields.address_1.value }}" 
+            name="{{ props.address_1.name }}" 
+            value="{{ default_address.properties.address_1 }}" 
             {% if form.errors['address_1'] %} has-error {% endif %}
-            error-message="{{ form.fields.address_1.validation.rules.presence.message }}"
+            error-message="{{ props.address_1.validation.rules.presence.message }}"
             placeholder="Address 1">
         </ins-input>
       </div>
@@ -90,10 +98,10 @@
         <ins-input form-address-field
             id="contact_address_2"
             label="Address 2"
-            name="{{ form.fields.address_2.name }}" 
-            value="{{ form.fields.address_2.value }}" 
+            name="{{ props.address_2.name }}" 
+            value="{{ default_address.properties.address_2 }}" 
             {% if form.errors['address_2'] %} has-error {% endif %}
-            error-message="{{ form.fields.address_2.validation.rules.presence.message }}"
+            error-message="{{ props.address_2.validation.rules.presence.message }}"
             placeholder="Address 2">
         </ins-input>
       </div>
@@ -102,10 +110,10 @@
         <ins-input form-address-field 
             id="contact_suburb"
             label="Suburb"
-            name="{{ form.fields.suburb.name }}" 
-            value="{{ form.fields.suburb.value }}" 
+            name="{{ props.suburb.name }}" 
+            value="{{ default_address.properties.suburb }}" 
             {% if form.errors['suburb'] %} has-error {% endif %}
-            error-message="{{ form.fields.suburb.validation.rules.presence.message }}"
+            error-message="{{ props.suburb.validation.rules.presence.message }}"
             placeholder="Suburb">
         </ins-input>
       </div>
@@ -114,10 +122,10 @@
         <ins-input form-address-field 
             id="contact_state"
             label="State"
-            name="{{ form.fields.state.name }}" 
-            value="{{ form.fields.state.value }}" 
+            name="{{ props.state.name }}" 
+            value="{{ default_address.properties.state }}" 
             {% if form.errors['state'] %} has-error {% endif %}
-            error-message="{{ form.fields.state.validation.rules.presence.message }}"
+            error-message="{{ props.state.validation.rules.presence.message }}"
             placeholder="State">
         </ins-input>
       </div>
@@ -126,10 +134,10 @@
         <ins-input form-address-field 
             id="contact_postcode"
             label="ZIP / Postal Code"
-            name="{{ form.fields.postcode.name }}" 
-            value="{{ form.fields.postcode.value }}" 
+            name="{{ props.postcode.name }}" 
+            value="{{ default_address.properties.postcode }}" 
             {% if form.errors['postcode'] %} has-error {% endif %}
-            error-message="{{ form.fields.postcode.validation.rules.presence.message }}"
+            error-message="{{ props.postcode.validation.rules.presence.message }}"
             placeholder="ZIP / Postal Code">
         </ins-input>
       </div>
@@ -138,10 +146,10 @@
         <ins-input form-address-field 
             id="contact_country"
             label="Country"
-            name="{{ form.fields.country.name }}" 
-            value="{{ form.fields.country.value }}" 
+            name="{{ props.country.name }}" 
+            value="{{ default_address.properties.country }}" 
             {% if form.errors['country'] %} has-error {% endif %}
-            error-message="{{ form.fields.country.validation.rules.presence.message }}"
+            error-message="{{ props.country.validation.rules.presence.message }}"
             placeholder="Country">
         </ins-input>
       </div>

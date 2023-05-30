@@ -25,6 +25,8 @@ metadata: {
     "sitemap_changefreq": "never",
     "heading": "My Details"
 }
+authorization_policies:
+  - modules/client/user_logged_in
 ---
 {%- liquid
     graphql user = 'modules/client/account/get_current_user' | dig: 'current_user'
@@ -39,6 +41,47 @@ metadata: {
     endif    
 -%}
 
+
+
+{% comment %} Get CRM -> Contact from v5 API {% endcomment %}
+{% parse_json data %} 
+{
+  "id": "{{user.external_id}}"
+}
+{% endparse_json %}
+{% liquid
+    graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/client/get_contact', data: data 
+    assign contact = contact_api.items.response.body | parse_json | dig: 'items','results' | first
+%}
+
+
+{% comment %} Get CRM -> Contact Address from v5 API {% endcomment %}
+{% parse_json data %} 
+{
+  "contact_uuid": "{{ user.external_id }}"
+}
+{% endparse_json %}
+{% liquid
+    graphql contact_address_api = 'modules/website/trigger_api_call', name: 'modules/client/get_contact_address', data: data 
+    assign contact_address = contact_address_api.items.response.body | parse_json | dig: 'items'
+
+    if contact_address.total_entries == 0
+      assign default_address = '' | parse_json
+    else
+      for item in contact_address.results
+        if forloop.first == true
+          assign default_address = item
+        endif
+        if item.properties.uuid == contact.contact[0].properties.default_address_uuid 
+          assign default_address = item
+        endif
+      endfor
+    endif
+
+    assign contact = contact | add_hash_key: "default_address", default_address
+%}
+
+
 <div class="my-details">    
 
     <h2 class="heading-2">Account Information</h2>
@@ -50,10 +93,9 @@ metadata: {
       </div>
     {%- endif -%}
 
-    {%- include_form 'modules/client/my_details', id: user.id, external_id: user.external_id -%}
+    {%- include_form 'modules/client/my_details', id: user.id, data: contact -%}
         
     {%- include_form 'modules/client/change_password', id: user.id -%}
-    <div class="spacer xxxx-large"></div>
 </div>
 
 

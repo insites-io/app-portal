@@ -1,5 +1,5 @@
 {%- liquid
-    if context.params.slug2 == "questionnaires-additional-details-view"
+    if context.params.slug == "questionnaires-additional-details-view"
         assign disabled = "disabled"
     endif
 -%}
@@ -17,6 +17,7 @@
 <div class="column-1">
     <ins-input 
         {{disabled}}
+        validate
         data-type="string"
         data-ui="text"
         label="{%- include 'modules/client/insites_database/label', form: form, name: 'contact_name' -%}"
@@ -33,6 +34,7 @@
 <div class="column-1">
     <ins-input-tel
         {{disabled}}
+        validate
         no-areacode 
         id="contact_number"
         data-type="string"
@@ -49,6 +51,7 @@
 <!-- Field: Would you like us to update your site or would you like to be responsible for updates?  -->
 <div class="{%- if form.metadata.properties.update_site.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
     <div class="list-field-wrap" 
+        validate
         data-type="string"
         data-ui="list_radio" 
         data-name="{{ form.fields.properties.update_site.name }}"

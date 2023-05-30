@@ -1,6 +1,6 @@
 ---
 slug: client-portal
-layout: modules/client/index
+layout: modules/client/default
 # enable_profiler: true
 searchable: true
 max_deep_level: 1
@@ -11,12 +11,12 @@ metadata: {
     "og:url": "",
     "og:type": "",
     "og:image": "",
-    "og:title": "About Us | Insites",
-    "og:description": "About Us | Insites",
+    "og:title": "Overview | Insites",
+    "og:description": "Overview | Insites",
     "og:site_name": "",
-    "meta_title": "About Us | Insites",
-    "page_title": "About Us | Insites",
-    "meta_description": "About Us | Insites",
+    "meta_title": "Overview | Insites",
+    "page_title": "Overview | Insites",
+    "meta_description": "Overview | Insites",
     "canonical_url": "",
     "search_engine_visibility": true,
     "sitemap_enabled": true,
@@ -25,34 +25,25 @@ metadata: {
     "sitemap_changefreq": "monthly"
 }
 dynamic_cache:
-  layout: |-
-    {%- comment -%}Set layout cache depending if E-commerce module is present{%- endcomment -%}
-    {%- if context.modules.ecommerce.name != blank -%}
-    false
-    {%- else -%}
-    true
-    {%- endif -%}
+  layout: true
   key: |-
     {%- parse_json models -%}
     [
-      {%- if context.modules.ecommerce.name == blank -%} "modules/website/main_menu", {%- endif -%}
       "modules/insites_site_manager/insites_global_content",
       "modules/insites_core/insites_system_fields",
       "modules/client/client_portal_banners"
     ]
     {%- endparse_json -%}
     {%- include "modules/website/generate_cache_key", models: models -%}
-    {%- if context.device.device_type == 'smartphone' -%}
-        smartphone
-    {%- else -%}
-        desktop
-    {%- endif -%}
+    {{context.current_user.id}}
+authorization_policies:
+  - modules/client/user_logged_in    
 ---
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
 {%- endif -%}
 
-{%- graphql data = "modules/client/get_questionnaires", user_id: context.current_user.id, not_agreement: "I understand and agree", size: 6 | dig: "items","results" -%}
+{%- graphql data = "modules/client/questionnaires/get_questionnaires", user_id: context.current_user.id, not_agreement: "I understand and agree", size: 6 | dig: "items","results" -%}
 
 <div class="questionnaire">
 {%- if data.size > 0 -%}

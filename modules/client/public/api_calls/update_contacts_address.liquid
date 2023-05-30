@@ -1,11 +1,10 @@
 ---
-to: 'https://{{context.location.host}}/core/api/v1/companies/addresses'
+to: 'https://{{context.location.host}}/core/api/v1/contacts/addresses'
 format: http
 request_type: PUT
-# callback: >
-#   {% log response, type: 'response object' %}
-#   {% assign response_hash = response.body | parse_json %}
-#   {% log response_hash, type: 'response body as hash' %} 
+callback: >
+  {% assign response_hash = response.body | parse_json %}
+  {% log response_hash.items.email, type: 'Update CRM Contact Address' %} 
 request_headers: >
     {
         "Content-Type": "application/json",
@@ -13,8 +12,8 @@ request_headers: >
     }
 ---
 {
-    "uuid": "088c4881-2c2e-4c1d-bff5-e8ac71bfe282", //REQUIRED
-    "company_uuid": "22e0ef5b-1fed-4785-acc0-110435cb156e", //REQUIRED
+    "uuid": "5e7ad909-ffd6-4654-8ed9-e226c44cb331", //REQUIRED
+    "contact_uuid": "764cc49d-eeea-4401-accc-ee580e4b2242", //REQUIRED
     "default_address": true,
     "address_label": "Test Address 1", //REQUIRED
     "address_1": "Address 1",

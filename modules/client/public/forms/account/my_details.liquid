@@ -31,46 +31,51 @@ fields:
   mobile_phone_number:
     property_options:
       virtual: true
-  address_1:
-    property_options:
-      virtual: true
-  address_2:
-    property_options:
-      virtual: true
-  suburb:
-    property_options:
-      virtual: true
-  state:
-    property_options:
-      virtual: true
-  postcode:
-    property_options:
-      virtual: true
-  country:
-    property_options:
-      virtual: true
+  
+  properties:
+    address_1:
+      property_options:
+        virtual: true
+    address_2:
+      property_options:
+        virtual: true
+    suburb:
+      property_options:
+        virtual: true
+    state:
+      property_options:
+        virtual: true
+    postcode:
+      property_options:
+        virtual: true
+    country:
+      property_options:
+        virtual: true
 
-api_call_notifications:
-  - modules/client/update_contacts
+    #Contact Address
+    default_address:
+      property_options:
+        virtual: true
+    contact_uuid:
+      property_options:
+        virtual: true
+    contact_address_uuid:
+      property_options:
+        virtual: true
+
+#api_call_notifications: 
+  #- modules/client/update_contacts
+  #- modules/client/update_contact_address
+callback_actions: |-  
+  {%  liquid
+      assign data = form | json
+      if form.properties.default_address   
+        graphql api = 'modules/website/trigger_api_call', name: 'modules/client/update_contact_address', data: data | dig: 'items','response','body' | parse_json      
+      else
+        graphql api = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
+      endif 
+  %} 
 ---
-
-{% comment %} 
-  Get CRM -> Contact from v5 API
-{% endcomment %}
-{% parse_json data %} 
-{
-  "id": "{{external_id}}"
-}
-{% endparse_json %}
-
-{% liquid
-
-    graphql contact = 'modules/website/trigger_api_call', name: 'modules/client/get_contact', data: data 
-
-    assign response = contact.items.response.body | parse_json
-    assign prop = response.items.results[0].contact[0].properties    
-%}
-
 
 {%- form 
     html-id: "user-profile-form"
@@ -81,7 +86,11 @@ api_call_notifications:
 
   <div class="insites-form-grid">
 
-  {% include 'modules/client/account/registration_personal_details', data: prop %}
+  <input type="hidden" name="{{ form.fields.properties.default_address.name }}"  value="{{ data.default_address.id }}" >
+  <input type="hidden" name="{{ form.fields.properties.contact_uuid.name }}"  value="{{ data.uuid }}" >
+  <input type="hidden" name="{{ form.fields.properties.contact_address_uuid.name }}" value="{{ data.default_address.properties.uuid }}" >
+
+  {% include 'modules/client/account/registration_personal_details', data: data %}
             
   </div>
 

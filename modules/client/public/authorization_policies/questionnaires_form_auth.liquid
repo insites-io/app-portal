@@ -3,18 +3,20 @@ name: questionnaires_form_auth
 ---
 {% comment %} 
     URL cases:
-        Add questionnaires      - /client-portal/questionnaires-general?year=2023
-        Edit questionnaires     - /client-portal/questionnaires-general/123
-                                - /client-portal/questionnaires-additional-details/123
-                                 /client-portal/questionnaires-confirmation/123
+        Add questionnaires      - /questionnaires-general?year=2023
+        Edit questionnaires     - /questionnaires-general/123
+                                - /questionnaires-additional-details/123
+                                 /questionnaires-confirmation/123
 {% endcomment %}
 {%- liquid 
 
-    if context.params.slug3
+    if context.current_user.id == null
+        echo false
+    elsif context.params.slug2
         comment 
             Edit Questionnaire
         endcomment
-        graphql data = "modules/client/get_questionnaires", user_id: context.current_user.id, id: context.params.slug3 | dig: "items","results" 
+        graphql data = "modules/client/questionnaires/get_questionnaires", user_id: context.current_user.id, id: context.params.slug2 | dig: "items","results" 
 
         if data.size > 0
             comment 
@@ -44,7 +46,7 @@ name: questionnaires_form_auth
                 Add Questionnaire
                 - one questionnaire per user per year
             endcomment
-            graphql data = "modules/client/get_questionnaires", user_id: context.current_user.id, year: context.params.year | dig: "items","results" 
+            graphql data = "modules/client/questionnaires/get_questionnaires", user_id: context.current_user.id, year: context.params.year | dig: "items","results" 
 
             if data.size > 0
                 comment 

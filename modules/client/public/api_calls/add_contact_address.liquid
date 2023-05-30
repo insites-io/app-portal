@@ -1,11 +1,12 @@
 ---
+name: add_contact_address
 to: 'https://{{context.location.host}}/core/api/v1/contacts/addresses'
 format: http
 request_type: POST
 callback: >  
+  {% log response, type: 'response object' %} 
   {% assign response_hash = response.body | parse_json %}
-  {% log response, type: 'TEST response' %} 
-  {% log response_hash.items.properties.address_label, type: 'Register - Add CRM Contact Address' %}   
+  {% log response_hash.items.properties.address_label, type: 'Add CRM Contact Address' %}
 request_headers: >
     {
         "Content-Type": "application/json",
@@ -13,18 +14,25 @@ request_headers: >
     }
 ---
 
-{% graphql user = 'modules/client/account/get_user_uuid', id: form.id | dig: 'items','results' | first %}
-{% log user.uuid, type: 'TEST user.uuid' %}   
-{% log form, type: 'TEST form' %}
-{% log data, type: 'TEST data' %}
+{%  liquid 
+    if data.contact_uuid
+        assign contact_uuid = data.contact_uuid
+    else
+        graphql user = 'modules/client/account/get_user_uuid', id: data.id | dig: 'items','results' | first
+        assign contact_uuid = user.uuid
+    endif
+
+    assign props = data.properties
+%}
 
 {
-    "contact_uuid": "260caab4-d988-43c7-8ccb-9ea63a3bfe9e",
-    "address_label": "{{form.address_1}} {{user.uuid}}", 
+    "contact_uuid": "{{contact_uuid}}",
+    "address_label": "{{props.address_1}}", 
     "default_address": true,
-    "address_1": "{{form.address_1}}",
-    "address_2": "{{form.address_2}}",
-    "suburb": "{{form.suburb}}",
-    "state": "{{form.state}}",
-    "country": "{{form.country}}"
+    "address_1": "{{props.address_1}}",
+    "address_2": "{{props.address_2}}",
+    "suburb": "{{props.suburb}}",
+    "state": "{{props.state}}",
+    "postcode": "{{ props.postcode }}",
+    "country": "{{props.country}}"
 }

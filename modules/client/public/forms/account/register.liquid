@@ -27,73 +27,75 @@ fields:
     validation: 
       presence: 
         message: Last name is required
-  
-  # CRM Contact Fields        
+
   mobile_phone_country_code:
     property_options:
       virtual: true
   mobile_phone_number:
     property_options:
       virtual: true
-  address_1:
-    property_options:
-      virtual: true
-  address_2:
-    property_options:
-      virtual: true
-  suburb:
-    property_options:
-      virtual: true
-  state:
-    property_options:
-      virtual: true
-  postcode:
-    property_options:
-      virtual: true
-  country:
-    property_options:
-      virtual: true
+  
+  properties:
+    # CRM Contact Fields              
+    address_1:
+      property_options:
+        virtual: true
+    address_2:
+      property_options:
+        virtual: true
+    suburb:
+      property_options:
+        virtual: true
+    state:
+      property_options:
+        virtual: true
+    postcode:
+      property_options:
+        virtual: true
+    country:
+      property_options:
+        virtual: true
 
-  # CRM Company Fields        
-  company_name:
-    presence: true
-    property_options:
-      virtual: true
-  registered_business_number:
-    presence: true
-    property_options:
-      virtual: true
-  email_1:
-    presence: true
-    property_options:
-      virtual: true
-  phone_1_country_code:
-    property_options:
-      virtual: true
-  company_mobile_phone_country_code:
-    property_options:
-      virtual: true
-  company_mobile_phone_number:
-    property_options:
-      virtual: true
-  company_address_1:
-    property_options:
-      virtual: true
-  company_address_2:
-    property_options:
-      virtual: true
-  company_suburb:
-    property_options:
-      virtual: true
-  company_state:
-    property_options:
-      virtual: true
-  company_postcode:
-    property_options:
-      virtual: true
-  company_country:
-    property_options:
-      virtual: true
+    # CRM Company Fields          
+    company_name:
+      presence: true
+      property_options:
+        virtual: true
+    registered_business_number:
+      presence: true
+      property_options:
+        virtual: true
+    email_1:
+      presence: true
+      property_options:
+        virtual: true
+    phone_1_country_code:
+      property_options:
+        virtual: true
+    company_mobile_phone_country_code:
+      property_options:
+        virtual: true
+    company_mobile_phone_number:
+      property_options:
+        virtual: true
+    company_address_1:
+      property_options:
+        virtual: true
+    company_address_2:
+      property_options:
+        virtual: true
+    company_suburb:
+      property_options:
+        virtual: true
+    company_state:
+      property_options:
+        virtual: true
+    company_postcode:
+      property_options:
+        virtual: true
+    company_country:
+      property_options:
+        virtual: true
 
   # Confirmation Fields
   agreement:
@@ -104,16 +106,22 @@ fields:
 api_call_notifications:
   - modules/client/update_contacts  
   - modules/client/add_company 
-  - modules/client/add_contact_address
+  #- modules/client/add_contact_address
   
 callback_actions: |-
+  {%  liquid      
+      graphql new_user = 'modules/client/account/get_user_uuid', id: form.id | dig: 'items','results' | first
+      log new_user, type: "New user"
+      assign data = form | json
+      assign data = data | add_hash_key: "contact_uuid", new_user.uuid
+      graphql api = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
+  %} 
+  
   {% graphql g = 'modules/client/account/generate_user_temporary_token', email: form.email %}
   {% if g.items.results[0] %}
     {% graphql res = 'modules/client/account/set_email_verification_token', id: g.items.results[0].id, token: g.items.results[0].temporary_token %}
   {% endif %}    
-
-  {% comment %} {% graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: form | parse_json %}
-  {% log contact_address, type: 'TEST callback_actions contact_address' %} {% endcomment %}
+  
 
   {%- assign desc = form.first_name | append: ' ' | append: form.last_name | append: ' signed up.' -%}
   {%- function event_res = "modules/client/functions/log_event", 

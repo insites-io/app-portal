@@ -32,8 +32,6 @@ callback_actions: >
   {% log form, type: "Test callback_actions form" %}
 ---
 
-{% log form, type: "Test documents form" %}
-
 {%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/documents" | dig: "items","results" | first -%}
 {%- assign groups = database_info.metadata.groups | sort_by: "weight" -%}
 {%- assign fields = database_info.properties -%}

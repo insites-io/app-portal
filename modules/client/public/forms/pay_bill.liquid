@@ -113,8 +113,8 @@ callback_actions: >
             <div class="large-6 medium-6 small-12 cell">
                 <ins-input required validate account-details-field
                     class="label-input"
-                    label="Amount Excluding Tax*" 
-                    placeholder="Amount Excluding Tax"
+                    label="Amount Including Tax*" 
+                    placeholder="Amount Including Tax"
                     field="number"
                     id="bill-amount"
                     min="1"
@@ -126,13 +126,7 @@ callback_actions: >
             </div>
         </div>
     </div>
-    <!-- END: Invoice Details -->
     
-    <div class="spacer xxx-large"></div>
-    <!-- Payment Details -->
-    
-
     {% include 'modules/client/pay_bill/payment_credit_card' %}
-    <!-- END Payment Details -->
     
 {% endform %}
