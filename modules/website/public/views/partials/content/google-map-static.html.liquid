@@ -1,10 +1,9 @@
 {%- graphql google_key = 'modules/website/system/get_google_api' -%}
 
-{%- if google_key.items.results.size > 0 -%}
 
 {% liquid
     assign google_key_first = google_key.items.results | first
-    assign key = google_key_first.value
+    assign key = "AIzaSyAJMrf0U0fSa5rKVm0IxmxCFbMRiUyycrw"
     assign base_map_url = "https://maps.googleapis.com/maps/api/staticmap"
 %}
 
@@ -47,4 +46,3 @@ style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightn
     <img src="{{ full_map_url }}" loading="lazy">
 </div>
 
-{%- endif -%}

@@ -16,6 +16,8 @@ Project Assets - Holds app css and js
     {%- comment -%} Minified version will be used in the production environment {%- endcomment -%}
     <link rel="preload" as="style" href="{{ 'modules/website/styles/app.min.css' | asset_url }}" >
     <link rel="stylesheet" href="{{ 'modules/website/styles/app.min.css' | asset_url }}" >
+    <link rel="preload" as="style" href="{{ 'modules/website/styles/custom.min.css' | asset_url }}" >
+    <link rel="stylesheet" href="{{ 'modules/website/styles/custom.min.css' | asset_url }}" >
     {% if context.modules.ecommerce != blank %}
     <link rel="preload" as="style" href="{{ 'modules/ecommerce/styles/style-ecommerce.min.css' | asset_url }}" >
     <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/style-ecommerce.min.css' | asset_url }}" >

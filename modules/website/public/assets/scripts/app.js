@@ -63,21 +63,21 @@ let App = (function () {
                     : '';
                 return InsitesUtil.removeWhitespace(kebab);
             },
-            // getFillerHeight() {
-            //     /* Get the width of the window to check if it will get the height of the filler for the mobile or desktop then return it. */
-            //     let windowWidth = window.innerWidth;
-            //     let fillerContainer = document.getElementById("head-filler");
-            //     let fillerHeight = 0;
-            //     //clientHeight includes the padding only
-            //     if (windowWidth <= mobileWindowWidthLimit) {
-            //         fillerHeight = fillerContainer.getElementsByClassName("mobile")[0].clientHeight;
-            //         //console.log("Inner Height Used: ", fillerContainer.getElementsByClassName("mobile")[0].clientHeight);
-            //     } else {
-            //         fillerHeight = fillerContainer.getElementsByClassName("desktop")[0].clientHeight;
-            //         //console.log("Inner Height Used: ", fillerContainer.getElementsByClassName("desktop")[0].clientHeight);
-            //     }
-            //     return fillerHeight;
-            // }
+            getFillerHeight() {
+                /* Get the width of the window to check if it will get the height of the filler for the mobile or desktop then return it. */
+                let windowWidth = window.innerWidth;
+                let fillerContainer = document.getElementById("head-filler");
+                let fillerHeight = 0;
+                //clientHeight includes the padding only
+                if (windowWidth <= mobileWindowWidthLimit) {
+                    fillerHeight = fillerContainer.getElementsByClassName("mobile")[0].clientHeight;
+                    //console.log("Inner Height Used: ", fillerContainer.getElementsByClassName("mobile")[0].clientHeight);
+                } else {
+                    fillerHeight = fillerContainer.getElementsByClassName("desktop")[0].clientHeight;
+                    //console.log("Inner Height Used: ", fillerContainer.getElementsByClassName("desktop")[0].clientHeight);
+                }
+                return fillerHeight;
+            }
         },
         // Validation functions
         validation: {
@@ -234,21 +234,21 @@ let App = (function () {
             },
             checkScrollStatus(scrollPosition) {
                 let mainHeader = document.getElementById('main-header');
-                // let fillerGuide = App.data.getFillerHeight();
-                //Check if guide is breached before initiating animation
-                // if (scrollPosition > fillerGuide) {
-                //     if (scrollPosition <= lastKnownScrollPosition) {
-                //         //show Menu
-                //         mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
-                //     } else {
-                //         //hide Menu
-                //         mainHeader.style.transform = "translate3d(0px, -162px, 0px)";
-                //     }
-                // } else {
-                //     //If less than the Guide put back Header to initial looks
-                //     mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
-                // }
-                // lastKnownScrollPosition = scrollPosition;
+                let fillerGuide = App.data.getFillerHeight();
+                // Check if guide is breached before initiating animation
+                if (scrollPosition > fillerGuide) {
+                    if (scrollPosition <= lastKnownScrollPosition) {
+                        //show Menu
+                        mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
+                    } else {
+                        //hide Menu
+                        mainHeader.style.transform = "translate3d(0px, -162px, 0px)";
+                    }
+                } else {
+                    //If less than the Guide put back Header to initial looks
+                    mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
+                }
+                lastKnownScrollPosition = scrollPosition;
             }
         },
         // Initialize elements & event listeners

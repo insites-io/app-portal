@@ -30,6 +30,7 @@ Contact Us layout
     {%- cache head_key -%}
     {% include 'modules/website/layout/head' %}
     {% include 'modules/website/layout/googlemaps' %}
+    
     {%- endcache -%}
     <title>Contact Us</title>
 </head>
@@ -60,8 +61,7 @@ Contact Us layout
                         {%- graphql google_key = 'modules/website/system/get_google_api' -%}
                         {%- assign google_key = google_key.items.results | first -%}
                         {%- comment -%} {%- assign api_key = google_key.value -%} {%- endcomment -%} 
-                        {%- assign api_key = 'google_key' -%}
-
+                        {%- assign api_key = google_key -%}
                         <a target="_blank"
                             href="https://www.google.com/maps/place/{{ res_contact.loc_1_address  | url_encode }}"
                             class="color-main" data-test="contact-us-map-link">
@@ -76,7 +76,6 @@ Contact Us layout
                         href="https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}"
                         {% endcomment %}
                         <div class="spacer large"></div>
-
                         <script>
                             function mapsSelector() {
                                 if /* if we're on iOS, open in Apple Maps */
@@ -181,6 +180,10 @@ Contact Us layout
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
                 <script src="{{ 'modules/website/services/formServices.js' | asset_url }}"></script>
+
+                <!-- minified --> 
+                <script src="{{ 'modules/website/services/formServices.min.js' | asset_url }}"></script>
+                
                 <script src="{{ 'modules/website/scripts/forms/contact-us.js' | asset_url }}"></script>
                 <div class="spacer section"></div>
             </div>

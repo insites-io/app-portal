@@ -3,8 +3,6 @@ name: subscribe
 resource: modules/website/subscriptions
 resource_owner: anyone
 redirect_to: /subscribe-success
-# spam_protection:
-#    recaptcha_v2:
 fields:
   properties:
     email:
@@ -33,14 +31,10 @@ callback_actions: >
 
 
       <div class="large-6 large-offset-1 medium-6 small-12 cell">
-        {%- comment -%}
-        To add 'html element properties' on pOS form, prepend 'html-<property>'
-        ie. html-class, html-id, etc..
-        {%- endcomment -%}
         {%- form 
- html-id: "subscribe-form"
- html-onSubmit: "return validateForm(event)"
- html-novalidate: true -%}
+        html-id: "subscribe-form"
+        html-onSubmit: "return validateForm(event)"
+        html-novalidate: true -%}
 
           <div class="grid-x grid-padding-x">
             <div class="grid-y cell large-10">

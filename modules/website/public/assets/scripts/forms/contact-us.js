@@ -68,7 +68,7 @@ let ContactUs = (function () {
             },
             async validateForm(event) {
                 event ? event.preventDefault() : '';
-                var captcha = false;
+                var captcha = true;
                 // IF your form / instance have recaptcha enabled, uncommment this code instead
                 var captcha = App.validation.checkRecaptcha();
 
@@ -259,6 +259,6 @@ let ContactUs = (function () {
     }
 })();
 
-if (google) {
+//if (google) {
     //ContactUs.init.initGoogleMap();
-}
+//}

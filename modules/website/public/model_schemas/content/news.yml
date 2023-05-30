@@ -1,14 +1,14 @@
-name: modules/ins_databases/news_database
+name: modules/website/news_database
 metadata:
   label: "News Database"
-  groups: [{"id":"56f7a9d5-9144-4ccb-bb3a-1faff1ca1844","name":"system field","weight":0},{"id":"528dbffa-3d2f-4ccb-b95e-a23ae7432c0e","name":"SEO Settings","weight":1},{"id":"37d87a39-cdf7-4da0-b857-1faec3f4339a","name":"Article Details","weight":2},{"id":"2432e12d-518f-4e3d-8cb6-e16a9cfe506c","name":"Article Content","weight":3}]
+  groups: [{"id":"528dbffa-3d2f-4ccb-b95e-a23ae7432c0e","name":"SEO Settings","weight":0},{"id":"37d87a39-cdf7-4da0-b857-1faec3f4339a","name":"Article Details","weight":1},{"id":"2432e12d-518f-4e3d-8cb6-e16a9cfe506c","name":"Article Content","weight":2}]
   is_archived: false
 properties:
 - name: author
   type: string
   metadata:
     label: "Author"
-    weight: 11
+    weight: 7
     group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
     ui_element: "input"
     is_required: false
@@ -19,42 +19,15 @@ properties:
   type: string
   metadata:
     label: "Content"
-    weight: 15
+    weight: 11
     group_id: "2432e12d-518f-4e3d-8cb6-e16a9cfe506c"
     ui_element: "html"
     is_required: false
-- name: created_at
-  type: string
-  metadata:
-    label: "Created At"
-    weight: 1
-    group_id: "56f7a9d5-9144-4ccb-bb3a-1faff1ca1844"
-    ui_element: "input"
-    is_required: false
-    is_shown_in_table: false
-- name: deleted_at
-  type: string
-  metadata:
-    label: "Deleted At"
-    weight: 3
-    group_id: "56f7a9d5-9144-4ccb-bb3a-1faff1ca1844"
-    ui_element: "input"
-    is_required: false
-    is_shown_in_table: false
-- name: id
-  type: string
-  metadata:
-    label: "ID"
-    weight: 0
-    group_id: "56f7a9d5-9144-4ccb-bb3a-1faff1ca1844"
-    ui_element: "input"
-    is_required: false
-    is_shown_in_table: false
 - name: list_view_image
   type: upload
   metadata:
     label: "List View Image"
-    weight: 13
+    weight: 9
     group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
     ui_element: "media_image"
     is_required: false
@@ -66,7 +39,7 @@ properties:
   type: string
   metadata:
     label: "List View Text"
-    weight: 12
+    weight: 8
     group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
     ui_element: "input"
     is_required: false
@@ -75,7 +48,7 @@ properties:
   type: upload
   metadata:
     label: "Main Image"
-    weight: 14
+    weight: 10
     group_id: "2432e12d-518f-4e3d-8cb6-e16a9cfe506c"
     ui_element: "media_image"
     is_required: false
@@ -87,7 +60,7 @@ properties:
   type: string
   metadata:
     label: "Meta Description"
-    weight: 5
+    weight: 1
     group_id: "528dbffa-3d2f-4ccb-b95e-a23ae7432c0e"
     ui_element: "input"
     is_required: false
@@ -96,7 +69,7 @@ properties:
   type: string
   metadata:
     label: "Meta Title"
-    weight: 4
+    weight: 0
     group_id: "528dbffa-3d2f-4ccb-b95e-a23ae7432c0e"
     ui_element: "input"
     is_required: false
@@ -105,7 +78,7 @@ properties:
   type: date
   metadata:
     label: "Published Date"
-    weight: 9
+    weight: 5
     group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
     ui_element: "date"
     is_required: false
@@ -115,26 +88,28 @@ properties:
   type: string
   metadata:
     label: "Slug"
-    weight: 8
+    weight: 4
     group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
     ui_element: "input"
     is_required: true
     is_shown_in_table: false
 - name: status
-  type: boolean
+  type: string
   metadata:
     label: "Status"
-    weight: 6
+    weight: 2
+    options: ["Published","Draft"]
     group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
-    ui_element: "toggle"
+    ui_element: "select"
+    is_required: true
     is_sortable: true
     is_shown_in_table: true
 - name: tag
   type: string
   metadata:
     label: "Tag"
-    weight: 10
-    options: ["Tag 1","Tag 2","Tag 3"]
+    weight: 6
+    options: ["WebDev","Design","SEO"]
     group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
     ui_element: "select"
     is_required: false
@@ -144,19 +119,10 @@ properties:
   type: string
   metadata:
     label: "Title"
-    weight: 7
+    weight: 3
     group_id: "37d87a39-cdf7-4da0-b857-1faec3f4339a"
     ui_element: "input"
     is_required: true
     is_sortable: true
     is_searchable: true
     is_shown_in_table: true
-- name: updated_at
-  type: string
-  metadata:
-    label: "Updated At"
-    weight: 2
-    group_id: "56f7a9d5-9144-4ccb-bb3a-1faff1ca1844"
-    ui_element: "input"
-    is_required: false
-    is_shown_in_table: false
