@@ -87,10 +87,16 @@ let App = (function () {
                     let type = field.tagName.toLowerCase();
                     switch (type) {
                         case 'div':
-                            this.validateRadio(field);
+                            if(field.getAttribute('data-ui') == 'list_checkbox')
+                                this.validateChekbox(field);
+                            else
+                                this.validateRadio(field);
                             break;
                         case 'ins-input-file':
                             this.validateFile(field);
+                            break;
+                        case 'ins-input-tel':
+                            this.validateTel(field);
                             break;
                         case 'ins-textarea':
                             this.validateInput(field.querySelector('textarea'));
@@ -136,11 +142,21 @@ let App = (function () {
                     field.setAttribute('has-error', true) :
                     field.removeAttribute('has-error')
             },
+            async validateTel(field) {
+                (await field.getValues()).phone_number.length < 7 ?
+                    field.setAttribute('has-error', true) :
+                    field.removeAttribute('has-error')                                    
+            },
             validateRadio(wrapper) {                
                 wrapper.querySelectorAll('ins-radio input:checked').length ?
                     wrapper.classList.remove('is-invalid') :
                     wrapper.classList.add('is-invalid');
             },
+            validateChekbox(wrapper) {                
+                wrapper.querySelectorAll('ins-checkbox input:checked').length ?
+                    wrapper.classList.remove('is-invalid') :
+                    wrapper.classList.add('is-invalid');
+            },            
             validateEmail(field) {
                 let isEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 if (field.value) {
@@ -155,7 +171,7 @@ let App = (function () {
                 InsitesUtil.invalidFieldNotif(field);
                 return false;
             },
-            validateInput(field) {
+            async validateInput(field) {                
                 field = field.target ? field.target : field;
                 if (!field.value) {
                     InsitesUtil.invalidFieldNotif(field);

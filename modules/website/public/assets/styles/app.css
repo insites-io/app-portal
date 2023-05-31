@@ -632,7 +632,9 @@ label,
     background-color: var(--color-ui-01);
 }
 
-.list-field-wrap.is-invalid .list-field_error{
+.list-field-wrap.is-invalid .list-field_error,
+.list-field-wrap.is-invalid .list-checkbox_error,
+.insites-form .list-field-wrap.is-invalid .list-checkbox_error, .insites-form .list-field-wrap.is-invalid .list-field_error{
     display: block !important;
     margin-top: 8px;
 }

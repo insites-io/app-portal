@@ -23,8 +23,8 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly"
 }
-# authorization_policies:
-#   - modules/client/questionnaires_form_auth
+authorization_policies:
+  - modules/client/user_logged_in
 ---
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->

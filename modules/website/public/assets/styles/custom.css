@@ -106,8 +106,8 @@
   
   .navigation-04 .header-top-bar {
     height: unset;
-    padding-top: 32px;
-    padding-bottom: 32px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
   
   @media screen and (max-width: 1024px) {

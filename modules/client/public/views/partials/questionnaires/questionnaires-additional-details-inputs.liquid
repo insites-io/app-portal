@@ -2,6 +2,8 @@
     if context.params.slug == "questionnaires-additional-details-view"
         assign disabled = "disabled"
     endif
+
+    assign props = form.fields.properties
 -%}
 
 <!-- Form Group: Additional Details -->
@@ -14,38 +16,39 @@
 </div>
 
 <!-- Field: Name of the Contact Person -->
-<div class="column-1">
+<div class="column-2">
     <ins-input 
         {{disabled}}
         validate
         data-type="string"
         data-ui="text"
         label="{%- include 'modules/client/insites_database/label', form: form, name: 'contact_name' -%}"
-        name="{{ form.fields.properties.contact_name.name }}"
-        value="{{ form.fields.properties.contact_name.value }}"
-        error-message="{{ form.errors['properties.contact_name'] }}"
-        
-        {%- if form.errors['properties.contact_name'] != nil -%} has-error {%- endif -%} 
-        >
+        placeholder="Name of the Contact Person"
+        name="{{ props.contact_name.name }}"
+        value="{{ props.contact_name.value }}"
+        error-message="{{ form.errors['properties.contact_name'] | default: 'Required' }}"        
+        {% if form.errors['properties.contact_name'] != nil -%} has-error {%- endif -%} >
     </ins-input>
 </div>
 
 <!-- Field: Contact Number -->
-<div class="column-1">
+<div class="column-2">
     <ins-input-tel
         {{disabled}}
         validate
         no-areacode 
-        id="contact_number"
+        id="ins_contact_number"
         data-type="string"
         data-ui="phone"
         label="{%- include 'modules/client/insites_database/label', form: form, name: 'contact_number' -%}"
-        name="{{ form.fields.properties.contact_number.name }}"
-        phonenum-value="{{ form.fields.properties.contact_number.value }}"
-        error-message="{{ form.errors['properties.contact_number'] }}"
-        
-        {%- if form.errors['properties.contact_number'] != nil -%} has-error {%- endif -%}>
+        phonenum-placeholder="Telephone Number"
+        error-message="{{ form.errors['properties.contact_number'] | default: 'Required' }}"        
+        {% if form.errors['properties.contact_number'] != nil -%} has-error {%- endif -%}>
     </ins-input-tel>
+
+    <input type="hidden" id="contact_number" 
+          name="{{ props.contact_number.name }}"
+          value="{{ props.contact_number.value }}" >
 </div>
 
 <!-- Field: Would you like us to update your site or would you like to be responsible for updates?  -->
@@ -54,39 +57,43 @@
         validate
         data-type="string"
         data-ui="list_radio" 
-        data-name="{{ form.fields.properties.update_site.name }}"
+        data-name="{{ props.update_site.name }}"
         {%- if form.errors['properties.update_site'] != nil -%} has-error="true" {%- endif -%}>
         <label class="list-field_label">{%- include 'modules/client/insites_database/label', form: form, name: 'update_site' -%}</label>
         <div class="list-radio-options">
             <ins-radio
                 {{disabled}}
                 label="Yes" value="Yes"
-                name="{{ form.fields.properties.update_site.name }}"
-                {% if form.fields.properties.update_site.value == 'Yes' %}checked{% endif %}>
+                name="{{ props.update_site.name }}"
+                {% if props.update_site.value == 'Yes' %}checked{% endif %}>
             </ins-radio>
             <ins-radio
                 {{disabled}}
                 label="No" value="No"
-                name="{{ form.fields.properties.update_site.name }}"
-                {% if form.fields.properties.update_site.value == 'No' %}checked{% endif %}>
+                name="{{ props.update_site.name }}"
+                {% if props.update_site.value == 'No' %}checked{% endif %}>
             </ins-radio>
         </div>
-        <p class="list-field_error">{{ form.errors['properties.update_site'] }}</p>
+        <p class="list-field_error">{{ form.errors['properties.update_site'] | default: 'Required' }}</p>
     </div>
 </div>
 
+<div class="column-1">
+    <div class="spacer small"></div>
+    <h5 class="heading-5">Other Relevant Notes</h5>
+</div>
+
 <!-- Field: Is there anything else you'd like to tell us?  -->
-<div class="{%- if form.metadata.properties.notes.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+<div class="column-1">
     <ins-textarea 
         {{disabled}}
         data-type="string"
         data-ui="multi_line"
         label="{%- include 'modules/client/insites_database/label', form: form, name: 'notes' -%}"
-        name="{{ form.fields.properties.notes.name }}"
-        value="{{ form.fields.properties.notes.value }}"
-        error-message="{{ form.errors['properties.notes'] }}"
-        
-        {%- if form.errors['properties.notes'] != nil -%} has-error {%- endif -%}>
+        name="{{ props.notes.name }}"
+        value="{{ props.notes.value }}"
+        error-message="{{ form.errors['properties.notes'] }}"        
+        {% if form.errors['properties.notes'] != nil -%} has-error {%- endif -%}>
     </ins-textarea>
 </div>
 </div>

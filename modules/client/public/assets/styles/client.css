@@ -4,7 +4,7 @@
     --color-sub1: #000000;
     --color-sub2: #E3361E;
     /* Buttons & Links */
-    --color-main-hover: #436CF2;
+    --color-main-hover: #3159DB;
     --color-sub1-hover: #373737;
     --color-sub2-hover: #D32F19;
     --color-main-hover-light: rgba(67, 108, 242, 0.1);
@@ -30,17 +30,17 @@
     --color-ui-08: #000000;
     --ui-border: #E1E1E1;
     /* Support/Notification Colors */
-    --success: #37B68F;
-    --error: #FF3366;
-    --warning: #FFA639;
+    --success: #048801;
+    --error: #DF1F1F;
+    --warning: #EC9C00;
     /* Support/Notification Colors Hover*/
-    --success-hover: #2B8D6F;
-    --error-hover: #FF0040;
-    --warning-hover: #FF8F05;
+    --success-hover: #026900;
+    --error-hover: #CC1717;
+    --warning-hover: #CC8700;
     /* Support/Notification Colors Hover Light*/
-    --success-hover-light: rgba(55, 182, 143, 0.1);
-    --error-hover-light: rgba(255, 51, 102, 0.1);
-    --warning-hover-light: rgba(255, 166, 57, 0.1);
+    --success-hover-light: rgba(4, 136, 1, 0.1);
+    --error-hover-light: rgba(223, 31, 31, 0.1);
+    --warning-hover-light: rgba(251, 172, 19, 0.1);
     /* Gradiant Background */
     --color-gradiant1: linear-gradient(90deg, #1E4AA2 0%, #1B78CC 100%);
     --color-gradiant2: linear-gradient(90deg, #8C1EE3 0%, #C71EE3 100%);
@@ -82,6 +82,18 @@
     .fixed-btn-width button {
         width:initial;
     }
+}
+
+ins-button button.information-1.solid{
+    background: var(--error) !important;
+}
+
+ins-button button.information-1.solid:hover{
+    background: var(--error-hover) !important;
+}
+
+ins-button+ins-button button{
+    margin-left:0px;
 }
 
 /* Insites Accordion */
@@ -222,10 +234,20 @@ ins-modal.no-close-icon .ins-modal-head .icon-close-1{
     margin-bottom: initial !important;
 }
 
-/* .insites-form.insites-form-code .insites-form-grid {
-    margin-left: initial !important;
-    margin-right: initial !important;
-} */
+.form-error, 
+.ins-form-field-wrap.is-invalid .ins-form-error, 
+.form-field-wrapper.error-recaptcha .ins-form-error, 
+.list-field-wrap.is-invalid .list-field_error{
+    font-family: var(--font-family-02);
+    font-size: var(--font-x-small);
+    color: var(--error);
+    line-height: 18px;
+}
+
+.insites-form .list-checkbox_error, 
+.insites-form .list-field_error{
+    margin-bottom: 0px !important;
+}
 
 ins-checkbox .ins-radio-checkbox {
     padding-left: 0px;
@@ -395,6 +417,10 @@ ins-radio .ins-radio-checkbox label {
     margin: 24px auto 0px !important;
 }
 
+.notyf__toast{
+    background: var(--color-ui-08);
+}
+
 /*************************/
 /*     Client Portal     */
 /*************************/
@@ -406,6 +432,10 @@ a:visited,
 p {
     font-family: var(--font-family-02);
     font-size: 16px;
+}
+
+[class*=" icon-"], [class^=icon-]{
+    font-size: 14px;
 }
 
 .client-portal{
@@ -470,11 +500,11 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
 }
 
 /* Questionnaire */
-.client-portal ins-card .text-wrap {
+.client-card ins-card .text-wrap {
     border-bottom: 1px solid var(--color-ui-04);
 }
 
-.client-portal ins-card ins-button .ins-button div .btn__label {
+.client-card ins-card ins-button .ins-button div .btn__label {
     font-size: 10px!important;
 }
 
@@ -487,6 +517,10 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
 .questionnaire button {
     margin-right: 4px;
 }
+
+/* .questionnaire-form button{
+    margin-right: 8px;
+} */
 
 .search-item .ins-form-field-wrap{
     margin-bottom: 12px;

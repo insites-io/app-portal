@@ -19,7 +19,8 @@
 
 <!-- Field: I understand and agree -->
 <div class="column-1">
-    <div class="list-checkbox" 
+    <div class="list-field-wrap" 
+        validate
         data-type="array" 
         data-ui="list_checkbox"  
         data-name="{{ form.fields.properties.agreement.name }}"
@@ -34,7 +35,7 @@
                 {%- if form.fields.properties.agreement.value contains 'I understand and agree' -%} checked {%- endif -%}>
             </ins-checkbox>
         </div>
-        <p class="list-checkbox_error">{{ form.errors['properties.agreement'] }}</p>
+        <p class="list-checkbox_error">{{ form.errors['properties.agreement'] | default: 'Required' }}</p>
     </div>
 </div>
 </div>

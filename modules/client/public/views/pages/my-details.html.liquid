@@ -113,7 +113,7 @@ authorization_policies:
   <script src="{{ 'modules/client/scripts/user-profile.min.js' | asset_url }}"></script>
 {%- endif -%}
 
-{%- if context.flash and context.flash.notice == "Success-UserProfile" -%}
+{%- if context.flash and context.flash.notice == "Success-My-Details" -%}
 <script>
 setTimeout(() => {
     App.events.notyf('success', "Account details has been updated.");
@@ -121,7 +121,7 @@ setTimeout(() => {
 </script>
 {% endif -%}
 
-{%- if context.flash and context.flash.alert == "Error-UserProfile" -%}
+{%- if context.flash and context.flash.alert == "Error-My-Details" -%}
 <script>
 setTimeout(() => {
     App.events.notyf('error', "Error updating account detail.");

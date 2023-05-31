@@ -16,10 +16,12 @@ fields:
 {%- assign form = form | add_hash_key: "metadata", fields -%}
 
 
-{%- form html-class: 'insites-form insites-form-code' 
-    html-novalidate: 'novalidate' 
-    html-data-form: 'modules/client/questionnaires' 
--%}
+{%- form
+    html-autocomplete: "off"
+    html-id: "questionnaires-form"
+    html-class: 'insites-form insites-form-code questionnaires-form' 
+    html-novalidate: true
+    html-onsubmit: "return validateQuestionnairesForm(event)" -%}
 
     <div class="insites-form-grid">
     
@@ -35,16 +37,30 @@ fields:
     
     <div class="insites-form-grid">
         <div class="insites-form-buttons column-1 text-right">    
-            <a href="/questionnaires"><ins-button type="button" label="CANCEL" icon="icon-close-1" ></ins-button></a>
+          {% comment %} Desktop view of buttons {% endcomment %}
+          <div class="show-for-large">
+            <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1" ></ins-button>
             <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
-            <ins-button type="submit" label="SUBMIT" solid icon="icon-check-2" ></ins-button>
+            <ins-button type="button" label="SUBMIT" class="submit-btn" solid icon="icon-check-2" class="mr-0"></ins-button>
+          </div>  
+
+          {% comment %} Tablet and Mobile view of buttons {% endcomment %}
+          <div class="hide-for-large mr-0">            
+            <ins-button type="button" label="SUBMIT" class="submit-btn" solid icon="icon-check-2" ></ins-button>
+            <div class="spacer"></div>
+            <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
+            <div class="spacer"></div>
+            <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1" ></ins-button>
+          </div>
         </div>
     </div>
     
 {%- endform -%}
 
+{%- include 'modules/client/questionnaires/questionnaires-cancel-modal' -%}
+
 <ins-modal 
-  id="modal"
+  id="submit-modal"
   with-backdrop 
   confirmation value="DATA"
   width="400px" 
@@ -59,21 +75,41 @@ fields:
     <div class="spacer"></div>
     <p>Once submitted, the form cannot be edited.</p>  
     <div class="spacer"></div>
-    <ins-button type="submit" label="CANCEL" outlined icon="icon-close-1" onclick="modal.close()" ></ins-button>
-    <ins-button type="submit" label="SUBMIT" solid icon="icon-check-2" onclick="form.submit()"></ins-button>
+    <ins-button type="submit" label="CANCEL" outlined icon="icon-close-1" onclick="submitModal.close()" ></ins-button>
+    <span class="pl-16"></span>
+    <ins-button type="submit" label="SUBMIT" solid icon="icon-check-2" onclick="validateQuestionnairesForm(event, true)"></ins-button>
   </div>
 
 </ins-modal>
 
 <script>
-  var modal = document.getElementById('modal');
-  var openModalBtn = document.getElementById('openModalBtn');
-  openModalBtn.addEventListener('insClick', () => {
-    modal.open();
+  <!-- Submit Modal -->
+  let submitModal = document.getElementById('submit-modal');
+  let submitBtn = document.querySelectorAll('.submit-btn');
+
+  submitBtn.forEach(field => {
+      field.addEventListener('insClick', () => {
+        validateQuestionnairesForm(event);        
+      });            
   });
 
-</script>
-        
-<script id="modules/client/questionnaires">
-    InsitesFormProcessor.setFormProps("modules/client/questionnaires", "modules/client/questionnaires", {{ form.fields.properties }}, "", true);
-</script>
+  <!-- Submit Form -->
+  let form = document.getElementById('questionnaires-form');
+  let buttons = form.querySelectorAll('ins-button');     
+
+  async function validateQuestionnairesForm(event, submit) {
+    if(submit){
+      form.submit();
+    }else{
+      event.preventDefault();
+      if (await App.validation.validateForm(form)) {
+        submitModal.open();      
+        //buttons.forEach(btn => btn.loading = true); 
+        return false;
+      } else {
+        buttons.forEach(btn => btn.loading = false);
+        return false;
+      }
+    }                          
+  }
+</script>        

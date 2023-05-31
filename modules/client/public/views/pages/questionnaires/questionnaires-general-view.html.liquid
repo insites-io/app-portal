@@ -23,8 +23,8 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly"
 }
-# authorization_policies:
-#   - modules/client/questionnaires_form_auth
+authorization_policies:
+  - modules/client/user_logged_in
 ---
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
@@ -35,7 +35,7 @@ metadata: {
     graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first 
     assign fields = database_info.properties
 
-    graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first
+    graphql data = "modules/client/questionnaires/get_questionnaires", id: {{params.slug2}}, user_id: {{current_user.id}} | dig: "items","results" | first
 -%}
 
 {%- parse_json form -%}
@@ -79,3 +79,17 @@ metadata: {
 {%- if context.environment == "staging" -%}
 <!-- end page: overview  -->
 {%- endif -%}
+
+<script>
+  <!-- Set Primary Phone value -->  
+  let primaryPhone = document.getElementById('ins_primary_phone');
+  primaryPhone.addEventListener('didLoad', function(e){            
+    let countryCode = {{ form.fields.properties.primary_phone.value | split: ' ' | default: '[]' }};   
+    if (Array.isArray(countryCode) ){
+      primaryPhone.setCountryCode(`+${countryCode[0]}`);
+      if(countryCode.length > 1){
+        primaryPhone.setAttribute('phonenum-value', countryCode[1]);
+      }      
+    }
+  }); 
+</script>

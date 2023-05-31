@@ -2,6 +2,8 @@
     if context.params.slug == "questionnaires-general-view"
         assign disabled = "disabled"
     endif
+
+    assign props = form.fields.properties
 -%}
 
 <!-- Form Group: General -->
@@ -16,10 +18,11 @@
 
     <!-- Field: Have you ever heard about Insites? -->
     <div class="column-1">
-        <div class="list-field-wrap"             
+        <div class="list-field-wrap"   
+            validate          
             data-type="string"
             data-ui="list_radio" 
-            data-name="{{ form.fields.properties.have_you_heard.name }}"
+            data-name="{{ props.have_you_heard.name }}"
             {%- if form.errors['properties.have_you_heard'] != nil -%} has-error="true" {%- endif -%}>
             <label class="list-field_label">{%- include 'modules/client/insites_database/label', form: form, name: 'have_you_heard' -%}</label>
             <div class="list-radio-options">
@@ -27,18 +30,18 @@
                     {{disabled}}
                     validate
                     label="Yes" value="Yes"
-                    name="{{ form.fields.properties.have_you_heard.name }}"
-                    {% if form.fields.properties.have_you_heard.value == 'Yes' %}checked{% endif %}>
+                    name="{{ props.have_you_heard.name }}"
+                    {% if props.have_you_heard.value == 'Yes' %}checked{% endif %}>
                 </ins-radio>
                 <ins-radio
                     {{disabled}}
                     validate
                     label="No" value="No"
-                    name="{{ form.fields.properties.have_you_heard.name }}"
-                    {% if form.fields.properties.have_you_heard.value == 'No' %}checked{% endif %}>
+                    name="{{ props.have_you_heard.name }}"
+                    {% if props.have_you_heard.value == 'No' %}checked{% endif %}>
                 </ins-radio>
             </div>
-            <p class="list-field_error">{{ form.errors['properties.have_you_heard'] }}</p>
+            <p class="list-field_error">{{ form.errors['properties.have_you_heard'] | default: 'Required' }}</p>
         </div>
     </div>
 
@@ -51,10 +54,9 @@
             data-type="string"
             data-ui="list_select"
             label="{%- include 'modules/client/insites_database/label', form: form, name: 'howd_you_learn' -%}"
-            name="{{ form.fields.properties.howd_you_learn.name }}"
-            value="{{ form.fields.properties.howd_you_learn.value }}"
-            error-message="{{ form.errors.howd_you_learn }}"
-            
+            name="{{ props.howd_you_learn.name }}"
+            value="{{ props.howd_you_learn.value }}"
+            error-message="{{ form.errors.howd_you_learn | default: 'Required' }}"            
             {%- if form.errors['properties.howd_you_learn'] != nil -%} has-error {%- endif -%}>
             <ins-select-option label="Word of Mouth" value="Word of Mouth"></ins-select-option>
             <ins-select-option label="Online Ads" value="Online Ads"></ins-select-option>
@@ -71,10 +73,9 @@
             data-type="string"
             data-ui="list_select"
             label="{%- include 'modules/client/insites_database/label', form: form, name: 'reason_for_visit' -%}"
-            name="{{ form.fields.properties.reason_for_visit.name }}"
-            value="{{ form.fields.properties.reason_for_visit.value }}"
-            error-message="{{ form.errors['properties.reason_for_visit'] }}"
-            
+            name="{{ props.reason_for_visit.name }}"
+            value="{{ props.reason_for_visit.value }}"
+            error-message="{{ form.errors['properties.reason_for_visit'] | default: 'Required' }}"            
             {%- if form.errors['properties.reason_for_visit'] != nil -%} has-error {%- endif -%}>
             <ins-select-option label="Browsing" value="Browsing"></ins-select-option>
             <ins-select-option label="Enquire about services" value="Enquire about services"></ins-select-option>
@@ -90,12 +91,10 @@
             data-type="string"
             data-ui="text"
             label="{%- include 'modules/client/insites_database/label', form: form, name: 'personal_email' -%}"
-            name="{{ form.fields.properties.personal_email.name }}"
-            value="{{ form.fields.properties.personal_email.value }}"
-            error-message="{{ form.errors['properties.personal_email'] }}"
-            
-            {%- if form.errors['properties.personal_email'] != nil -%} has-error {%- endif -%} 
-            >
+            name="{{ props.personal_email.name }}"
+            value="{{ props.personal_email.value }}"
+            error-message="{{ form.errors['properties.personal_email'] | default: 'Required' }}"            
+            {% if form.errors['properties.personal_email'] != nil -%} has-error {%- endif -%} >
         </ins-input>
     </div>
 
@@ -103,20 +102,19 @@
     <div class="column-2">
         <ins-input-tel 
             {{disabled}}
-            validate
             no-areacode
-            id="primary_phone"
-            {% if context.params.slug == "questionnaires-general-view" %} class="hideCountryCode" {% endif %}
+            id="ins_primary_phone"
             data-type="string"
             data-ui="phone"
             label="{%- include 'modules/client/insites_database/label', form: form, name: 'primary_phone' -%}"
-            name="{{ form.fields.properties.primary_phone.name }}"
-            phonenum-value="{{ form.fields.properties.primary_phone.value }}"
-            error-message="{{ form.errors['properties.primary_phone'] }}"
-            
-            {%- if form.errors['properties.primary_phone'] != nil -%} has-error {%- endif -%} 
-            >
+            phonenum-placeholder="Telephone Number"
+            error-message="{{ form.errors['properties.primary_phone'] }}"            
+            {% if form.errors['properties.primary_phone'] != nil -%} has-error {%- endif -%} >
         </ins-input-tel>
+
+        <input type="hidden" id="primary_phone" 
+          name="{{ props.primary_phone.name }}"
+          value="{{ props.primary_phone.value }}" >
     </div>
 
     <!-- Field: Why did you leave your previous job? -->
@@ -126,11 +124,10 @@
             data-type="string"
             data-ui="multi_line"
             label="{%- include 'modules/client/insites_database/label', form: form, name: 'previous_job' -%}"
-            name="{{ form.fields.properties.previous_job.name }}"
-            value="{{ form.fields.properties.previous_job.value }}"
-            error-message="{{ form.errors['properties.previous_job'] }}"
-            
-            {%- if form.errors['properties.previous_job'] != nil -%} has-error {%- endif -%}>
+            name="{{ props.previous_job.name }}"
+            value="{{ props.previous_job.value }}"
+            error-message="{{ form.errors['properties.previous_job'] }}"            
+            {% if form.errors['properties.previous_job'] != nil -%} has-error {%- endif -%}>
         </ins-textarea>
     </div>
 
@@ -139,7 +136,7 @@
         <div class="list-checkbox" 
             data-type="array" 
             data-ui="list_checkbox"  
-            data-name="{{ form.fields.properties.service_of_interest.name }}"
+            data-name="{{ props.service_of_interest.name }}"
             {%- if form.errors['properties.service_of_interest'] != nil -%} has-error="true" {%- endif -%}>
             <label class="list-checkbox_label">{%- include 'modules/client/insites_database/label', form: form, name: 'service_of_interest' -%}</label>
             <div class="list-checkbox-options">
@@ -147,26 +144,26 @@
                     {{disabled}}
                     validate
                     label="Design" value="Design" 
-                    name="{{ form.fields.properties.service_of_interest.name }}"
-                    {%- if form.fields.properties.service_of_interest.value contains 'Design' -%} checked {%- endif -%}>
+                    name="{{ props.service_of_interest.name }}"
+                    {%- if props.service_of_interest.value contains 'Design' -%} checked {%- endif -%}>
                 </ins-checkbox>
                 <ins-checkbox
                     {{disabled}}
                     label="Software Development" value="Software Development" 
-                    name="{{ form.fields.properties.service_of_interest.name }}"
-                    {%- if form.fields.properties.service_of_interest.value contains 'Software Development' -%} checked {%- endif -%}>
+                    name="{{ props.service_of_interest.name }}"
+                    {%- if props.service_of_interest.value contains 'Software Development' -%} checked {%- endif -%}>
                 </ins-checkbox>
                 <ins-checkbox
                     {{disabled}}
                     label="Marketing" value="Marketing" 
-                    name="{{ form.fields.properties.service_of_interest.name }}"
-                    {%- if form.fields.properties.service_of_interest.value contains 'Marketing' -%} checked {%- endif -%}>
+                    name="{{ props.service_of_interest.name }}"
+                    {%- if props.service_of_interest.value contains 'Marketing' -%} checked {%- endif -%}>
                 </ins-checkbox>
                 <ins-checkbox
                     {{disabled}}
                     label="Technical Support" value="Technical Support" 
-                    name="{{ form.fields.properties.service_of_interest.name }}"
-                    {%- if form.fields.properties.service_of_interest.value contains 'Technical Support' -%} checked {%- endif -%}>
+                    name="{{ props.service_of_interest.name }}"
+                    {%- if props.service_of_interest.value contains 'Technical Support' -%} checked {%- endif -%}>
                 </ins-checkbox>
             </div>
             <p class="list-checkbox_error">{{ form.errors['properties.service_of_interest'] }}</p>
@@ -179,7 +176,7 @@
             {{disabled}}
             id="document-input"
             data-multiple="false"
-            data-name="{{ form.fields.properties.attach_documents.name }}"
+            data-name="{{ props.attach_documents.name }}"
             data-type="upload"
             data-ui="media_file"
             data-prop="attach_documents"
@@ -192,7 +189,7 @@
         <input
             type="hidden"
             id="document"
-            name="{{ form.fields.properties.attach_documents.name }}" >        
+            name="{{ props.attach_documents.name }}" >        
     </div>
 
 </div> 

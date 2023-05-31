@@ -126,22 +126,18 @@ if(registerForm){
     //Stepper
     if(step1) {
         step1.addEventListener('insClick', async function(event) {
-            console.log('step1');
             steps = await registerStepper.getAllSteps();
-            console.log(steps);
             firstStep = steps[0];
             secondStep = steps[1];
             
             const isValid = await LoginScript.methods.validateForm(event, step1Container); 
             if(isValid){
-                console.log('Stepper valid');
                 step1Container.classList.add('hide');
                 firstStep.hasError = false;
                 firstStep.removeAttribute("has-error");
                 registerStepper.next();
                 step2Container.classList.remove('hide');
             } else {
-                console.log('Stepper Not valid');
                 firstStep.hasError = true;
                 firstStep.setAttribute("has-error", true);
             }
@@ -150,22 +146,18 @@ if(registerForm){
 
     if(step2) {
         step2.addEventListener('insClick', async function(event) {
-            console.log('step2');
             steps = await registerStepper.getAllSteps();
-            console.log(steps);
             firstStep = steps[0];
             secondStep = steps[1];
             
             const isValid = await LoginScript.methods.validateForm(event, step2Container); 
             if(isValid){
-                console.log('Stepper 2 valid');
                 step2Container.classList.add('hide');
                 secondStep.hasError = false;
                 secondStep.removeAttribute("has-error");
                 registerStepper.next();
                 step3Container.classList.remove('hide');
             } else {
-                console.log('Stepper Not valid');
                 secondStep.hasError = true;
                 secondStep.setAttribute("has-error", true);
             }
@@ -174,16 +166,13 @@ if(registerForm){
 
     if(step3) {
         step3.addEventListener('insClick', async function(event) {
-            console.log('step3');
             steps = await registerStepper.getAllSteps();
-            console.log(steps);
             firstStep = steps[0];
             secondStep = steps[1];
             thirdStep = steps[2];
             
             const isValid = await LoginScript.methods.validateForm(event, step3Container); 
             if(isValid){
-                console.log('Stepper 3 valid');
                 step3Container.classList.add('hide');
                 thirdStep.hasError = false;
                 thirdStep.removeAttribute("has-error");
@@ -191,7 +180,6 @@ if(registerForm){
                 step4Container.classList.remove('hide');
                 registerForm.submit();
             } else {
-                console.log('Stepper Not valid');
                 thirdStep.hasError = true;
                 thirdStep.setAttribute("has-error", true);
             }

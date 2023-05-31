@@ -23,8 +23,8 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly"
 }
-# authorization_policies:
-#   - modules/client/questionnaires_form_auth
+authorization_policies:
+  - modules/client/user_logged_in
 ---
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
@@ -80,3 +80,17 @@ metadata: {
 {%- if context.environment == "staging" -%}
 <!-- end page: overview  -->
 {%- endif -%}
+
+<script>
+  <!-- Set Contact Number value -->
+  let contactNumber = document.getElementById('ins_contact_number');
+  contactNumber.addEventListener('didLoad', function(e){    
+      let countryCode = {{ form.fields.properties.contact_number.value | split: ' ' | default: '[]' }};
+      if (Array.isArray(countryCode)){
+        contactNumber.setCountryCode(`+${countryCode[0]}`);
+        if(countryCode.length > 1){
+          contactNumber.setAttribute('phonenum-value', countryCode[1]);
+        }
+      }
+  });
+</script>    
