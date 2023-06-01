@@ -37,11 +37,14 @@ authorization_policies:
 <div class="pay-bill">
         
     {%- if context.flash.notice == "Success-PayBill" -%}
-      {% comment %} Payment Notice {% endcomment %}
-      {%- include "modules/client/pay_bill/payment_notice", 
-          order_id: context.session.paybill_order_id, 
-          payment_id: context.session.paybill_payment_id -%}
-
+      {% comment %} Payment Notice {% endcomment %} 
+      {%  liquid
+          if context.session.paybill_status == 'success'
+              include 'modules/client/pay_bill/payment_notice_success', order_id: context.session.paybill_order_id,  payment_id: context.session.paybill_payment_id
+          else
+              include 'modules/client/pay_bill/payment_notice_failed'
+          endif
+      %}
     {%- else -%}
       {% comment %} Pay bill Form {% endcomment %}
       {%- include_form "modules/client/pay_bill" -%} 

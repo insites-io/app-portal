@@ -71,7 +71,14 @@
     | dig: 'items','response','body'
     | parse_json %}   
 
-{%- session paybill_payment_id = add_payment.items.id -%}
+{%- liquid
+    session paybill_payment_id = add_payment.items.id
+    session paybill_status = status
+
+    if status == 'failed'
+        session paybill_error = stripe_payment_response
+    endif
+-%}
 {% log "==== Payment Created ====" %}
 
 
