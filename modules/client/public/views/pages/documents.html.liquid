@@ -123,23 +123,20 @@ authorization_policies:
 
     {% endif %}
 
+
+    <ins-modal 
+        id="modal-form"
+        with-backdrop 
+        confirmation value="DATA"
+        height="auto"  
+        no-button
+        class="no-close-icon">
+        <div id="myModalContent" >        
+            {% include_form 'modules/client/documents', id: :375 %}
+        </div>
+    </ins-modal>
+
 </div>
-
-<ins-modal 
-  id="modal-form"
-  with-backdrop 
-  confirmation value="DATA"
-  width="495px" 
-  height="auto"  
-  no-button
-  prevent-click-outside
-  class="no-close-icon">
-
-  <div id="myModalContent" >        
-    {% include_form 'modules/client/documents', id: :375 %}
-  </div>
-
-</ins-modal>
 
 <script>    
     let documentsForm = document.querySelector('form.documents-form');

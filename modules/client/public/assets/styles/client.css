@@ -421,6 +421,10 @@ ins-radio .ins-radio-checkbox label {
     background: var(--color-ui-08);
 }
 
+.ins-loader-wrap--state{
+    margin: 0 auto 24px;
+}
+
 /*************************/
 /*     Client Portal     */
 /*************************/
@@ -429,9 +433,14 @@ a:visited,
     color: var(--color-main);
 }
 
-p {
+p,
+ul {
     font-family: var(--font-family-02);
     font-size: 16px;
+}
+
+ul{
+    list-style-type: none;
 }
 
 [class*=" icon-"], [class^=icon-]{
@@ -518,10 +527,6 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
     margin-right: 4px;
 }
 
-/* .questionnaire-form button{
-    margin-right: 8px;
-} */
-
 .search-item .ins-form-field-wrap{
     margin-bottom: 12px;
 }
@@ -575,6 +580,15 @@ ins-tag.Completed span.ins-tag {
 .thank-you p {
     color: var(--text-3);
 }
+
+
+/* Documents */
+.documents .ins-modal-wrap.show-modal,
+.documents .ins-modal-wrap.show-modal ins-card{
+    position: absolute;
+    width: 100%;
+}
+
 
 /* Registration Form */
 .agreement-text {

@@ -195,7 +195,7 @@ let App = (function () {
                     }
                 })[type](message);
             },
-            async swal(type = "warning", title, message, label = "OK", showCancel = true) {
+            async swal(type = "warning", title, message, label = "OK", showCancel = true, iconConfirm = "icon-check-2") {
                 let btnLabel = App.data.capitalize(label);
                 return await new Promise(resolve => {
                     Swal.fire({
@@ -216,7 +216,7 @@ let App = (function () {
                                     btnLabel.indexOf("Remove") >= 0
                                     ? "negative" : "",
                         },
-                        confirmButtonText: '<i class="icon-check-2"></i> ' + btnLabel,
+                        confirmButtonText: `<i class="${iconConfirm}"></i>  ${btnLabel}`,
                         cancelButtonText: '<i class="icon-close-1"></i> Cancel'
                     }).then(result => {
                         result.value

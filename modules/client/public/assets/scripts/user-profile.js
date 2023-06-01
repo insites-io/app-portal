@@ -167,27 +167,6 @@ let UserProfileScript = (function () {
                             formElem.submit();
                         }
                     }
-                } else if (formId == 'delete-address') {
-                    // Validation and function for the deletion of address
-                    if (await App.validation.validateForm(formElem)) {
-                        let confirm = await App.events.swal('warning',
-                            'Are you sure?',
-                            'This will delete this address.',
-                            'Delete');
-                        if (confirm) {
-                            this.disableFormButtons(formElem);
-                            addressForm.deletBtn.loading = true;
-                            addressForm.deleteBtnTrigger.loading = true;
-                            formElem.submit();
-                        }
-                    }
-                } else if (formId == 'update-address-form') {
-                    // Validation for updating and addition of address
-                    if (await App.validation.validateForm(formElem)) {
-                        this.disableFormButtons(formElem);
-                        addressForm.saveAddressBtn.forEach(btn => btn.loading = true);
-                        formElem.submit();
-                    }
                 } else {
                     //Validation for other (account type) forms
                     if (await App.validation.validateForm(formElem)) {
@@ -292,9 +271,11 @@ let UserProfileScript = (function () {
         events: {
             async removeCard(selectedEl) {
                 let confirm = await App.events.swal('warning',
-                    'Are you sure?',
-                    'This will delete this card.',
-                    'Delete');
+                    'Remove Card?',
+                    'Are you sure you want to remove this credit card?',
+                    'Remove',
+                    true,
+                    'icon-trash');
                 if (confirm) {
                     if (selectedEl.dataset.id) {
                         let response = await StripeModel.creditcard.removeCreditCard(selectedEl.dataset.id);
