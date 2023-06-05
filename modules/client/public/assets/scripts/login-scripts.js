@@ -99,12 +99,10 @@ let LoginScript = (function () {
                 event ? event.preventDefault(): '';
                 //Get id and element to identify the kind of form submitted
                 let formId = event.target.id;
-                console.log('formId= ' + formId);
                 let formElem = document.getElementById(formId).closest('form'); 
                 // Check what form is being validated...
                 if(formId == 'submit-personal-details' || formId == 'submit-company-details'){
                     //Validation for Sign Up Form
-                    console.log('validate register-form');
                     this.validateTelField();
                     if(await this.validationForm(groupElem)){
 
@@ -143,7 +141,6 @@ let LoginScript = (function () {
 
                 } else {
                     //Validation for other forms
-                    console.log('validate else');
                     if(await App.validation.validateForm(formElem)){
                         formElem.submit();
                     }
@@ -151,7 +148,6 @@ let LoginScript = (function () {
             },
             async checkSignUpUserEmail(event){ 
                 // Attached to the eventlistener
-                console.log('checkSignUpUserEmail');
                 let emailInput = document.getElementById('email');
                 let varEmail = document.getElementById('email').value
                 if(App.validation.validateEmail(emailInput)){
@@ -164,7 +160,6 @@ let LoginScript = (function () {
                 }
             },
             checkUserEmail(emailElem, data){
-                console.log('checkUserEmail = ' + data.email_status);
                 if(data.email_status == "invalid"){
                     //Profile in account is already existing (Active / Inactive)
                     emailElem.hasError = true;
