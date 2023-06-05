@@ -52,12 +52,12 @@ fields:
             <div class="show-for-large">
               <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1"></ins-button>
               <a href="/questionnaires-general/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
-              <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" solid class="mr-0"></ins-button>
+              <ins-button type="submit" label="SAVE & NEXT" class="save-next-btn mr-0" icon-right="icon-arrow-forward" solid ></ins-button>
             </div>            
             
             {% comment %} Tablet and Mobile view of buttons {% endcomment %}
             <div class="hide-for-large mr-0">              
-              <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" solid ></ins-button>
+              <ins-button type="submit" label="SAVE & NEXT" class="save-next-btn" icon-right="icon-arrow-forward" solid ></ins-button>
               <div class="spacer"></div>
               <a href="/questionnaires-general/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
               <div class="spacer"></div>
@@ -73,21 +73,21 @@ fields:
 {%- include 'modules/client/questionnaires/questionnaires-cancel-modal' -%}
 
 <script>
-    <!-- Set Contact Number value -->
-    let contactNumber = document.getElementById('ins_contact_number');
-    contactNumber.addEventListener('didLoad', function(e){    
-        let countryCode = {{ form.fields.properties.contact_number.value | split: ' ' | default: '[]' }};
-        if (Array.isArray(countryCode)){
-          contactNumber.setCountryCode(`+${countryCode[0]}`);
-          if(countryCode.length > 1){
-            contactNumber.setAttribute('phonenum-value', countryCode[1]);
-          }
-        }
-    });   
+  <!-- Set Contact Number value -->
+  let contactNumber = document.getElementById('ins_contact_number');
+  contactNumber.addEventListener('didLoad', function(e){    
+    let countryCode = {{ form.fields.properties.contact_number.value | split: ' ' | default: '[]' }};
+    if (Array.isArray(countryCode)){
+      contactNumber.setCountryCode(`+${countryCode[0]}`);
+      if(countryCode.length > 1){
+        contactNumber.setAttribute('phonenum-value', countryCode[1]);
+      }
+    }
+  });   
 
   <!-- Submit Form -->
   let form = document.getElementById('questionnaires-form');
-  let buttons = form.querySelectorAll('ins-button');
+  let saveNextBtn = document.querySelectorAll('.save-next-btn');
   let saveExitBtn = document.getElementById('save-exit-btn');
   let saveExitInput = document.getElementById('save-exit');
       saveExitBtn.addEventListener('insClick', event => {
@@ -96,16 +96,19 @@ fields:
 
   async function validateQuestionnairesForm(event) {
     event.preventDefault();
-    buttons.forEach(btn => btn.loading = true);                
+                    
     if (await App.validation.validateForm(form)) {
+      saveNextBtn.forEach(btn => btn.loading = true);
+      document.querySelectorAll('ins-button').forEach(btn => btn.disabled = true);
+
       let contactNumberInput = document.getElementById('contact_number');
       let phoneVal = await contactNumber.getValues();
       contactNumberInput.value = `${phoneVal.country_code} ${phoneVal.phone_number}`; 
-
+      
       form.submit();
       return true;
     } else {
-      buttons.forEach(btn => btn.loading = false);
+      saveNextBtn.forEach(btn => btn.loading = false);
       return false;
     }
   }

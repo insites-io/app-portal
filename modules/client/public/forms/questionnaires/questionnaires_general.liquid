@@ -94,12 +94,12 @@ default_payload: |-
             {% comment %} Desktop view of buttons {% endcomment %}
             <div class="show-for-large">
               <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1"></ins-button>
-              <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" solid class="mr-0"></ins-button>
+              <ins-button type="submit" label="SAVE & NEXT" class="save-next-btn mr-0" icon-right="icon-arrow-forward" solid ></ins-button>
             </div>  
 
             {% comment %} Tablet and Mobile view of buttons {% endcomment %}
             <div class="hide-for-large mr-0">              
-              <ins-button type="submit" label="SAVE & NEXT" icon-right="icon-arrow-forward" solid class="mr-0"></ins-button>
+              <ins-button type="submit" label="SAVE & NEXT" class="save-next-btn" icon-right="icon-arrow-forward" solid ></ins-button>
               <div class="spacer"></div>
               <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1"></ins-button>
             </div>            
@@ -157,7 +157,7 @@ default_payload: |-
 
   <!-- Submit Form -->
   let form = document.getElementById('questionnaires-form');
-  let buttons = form.querySelectorAll('ins-button');
+  let saveNextBtn = document.querySelectorAll('.save-next-btn');
   let saveExitBtn = document.getElementById('save-exit-btn');
   let saveExitInput = document.getElementById('save-exit');
       saveExitBtn.addEventListener('insClick', event => {
@@ -166,8 +166,11 @@ default_payload: |-
       
   async function validateQuestionnairesForm(event) {
     event.preventDefault();
-    buttons.forEach(btn => btn.loading = true);                
+                
     if (await App.validation.validateForm(form)) {
+      saveNextBtn.forEach(btn => btn.loading = true);
+      document.querySelectorAll('ins-button').forEach(btn => btn.disabled = true);
+      
       await FileUpload.methods.processAttachments();
 
       let primaryPhoneInput = document.getElementById('primary_phone');
@@ -177,7 +180,7 @@ default_payload: |-
       form.submit();
       return false;
     } else {
-      buttons.forEach(btn => btn.loading = false);
+      saveNextBtn.forEach(btn => btn.loading = false);
       return false;
     }
   }

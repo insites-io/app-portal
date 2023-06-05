@@ -41,7 +41,7 @@ fields:
           <div class="show-for-large">
             <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1" ></ins-button>
             <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
-            <ins-button type="button" label="SUBMIT" class="submit-btn" solid icon="icon-check-2" class="mr-0"></ins-button>
+            <ins-button type="button" label="SUBMIT" class="submit-btn mr-0" solid icon="icon-check-2" ></ins-button>
           </div>  
 
           {% comment %} Tablet and Mobile view of buttons {% endcomment %}
@@ -77,7 +77,7 @@ fields:
     <div class="spacer"></div>
     <ins-button type="submit" label="CANCEL" outlined icon="icon-close-1" onclick="submitModal.close()" ></ins-button>
     <span class="pl-16"></span>
-    <ins-button type="submit" label="SUBMIT" solid icon="icon-check-2" onclick="validateQuestionnairesForm(event, true)"></ins-button>
+    <ins-button type="submit" id="final-submit-btn" label="SUBMIT" solid icon="icon-check-2" onclick="validateQuestionnairesForm(event, true)"></ins-button>
   </div>
 
 </ins-modal>
@@ -85,29 +85,28 @@ fields:
 <script>
   <!-- Submit Modal -->
   let submitModal = document.getElementById('submit-modal');
+  let finalSubmitBtn = document.getElementById('final-submit-btn');
   let submitBtn = document.querySelectorAll('.submit-btn');
-
-  submitBtn.forEach(field => {
-      field.addEventListener('insClick', () => {
-        validateQuestionnairesForm(event);        
-      });            
-  });
+      submitBtn.forEach(field => {
+          field.addEventListener('insClick', () => {
+            validateQuestionnairesForm(event);        
+          });            
+      });
 
   <!-- Submit Form -->
-  let form = document.getElementById('questionnaires-form');
-  let buttons = form.querySelectorAll('ins-button');     
+  let form = document.getElementById('questionnaires-form');   
 
   async function validateQuestionnairesForm(event, submit) {
     if(submit){
+      finalSubmitBtn.loading = true;
       form.submit();
     }else{
       event.preventDefault();
       if (await App.validation.validateForm(form)) {
-        submitModal.open();      
-        //buttons.forEach(btn => btn.loading = true); 
+        submitModal.open();              
         return false;
       } else {
-        buttons.forEach(btn => btn.loading = false);
+        finalSubmitBtn.loading = false;
         return false;
       }
     }                          
