@@ -37,12 +37,12 @@ The `homepage` layout is dedicated layout for homepage only.
 
 <body>
     <div class="main-wrap">
-        {%- capture header -%} {{ context.exports.layout_cache_key.cache_key | append: "-header" }} {%- endcapture -%}
+        {%- capture header -%} {{ context.current_user.id }}-{{ context.exports.layout_cache_key.cache_key }}-header {%- endcapture -%}
         {% cache header %}
             {% include 'modules/website/layout/header' %} 
         {% endcache %}
         
-        {%- capture header-mobile -%} {{ context.exports.layout_cache_key.cache_key | append: "-header-mobile" }} {%- endcapture -%}
+        {%- capture header-mobile -%} {{ context.current_user.id }}-{{ context.exports.layout_cache_key.cache_key }}-header-mobile {%- endcapture -%}
         {% cache header-mobile %}
             {% include 'modules/website/layout/header-mobile' %}
         {% endcache %}
