@@ -143,9 +143,11 @@ default_payload: |-
   let file_name = "{{file_name}}";
   let file_extension = "{{file_extension}}";
   let file_path = "{{file_path}}";
+  let imageExtsions = ["jpg", "jpeg", "jfif", "pjpeg", "pjp", "apng", "png", "avif", "gif", "svg", "webp", "bmp", "ico", "tif", "tiff"];
+  let type = imageExtsions.includes(file_extension)? "image" : "file";
   value = [{
     name: file_name,
-    type: file_extension,
+    type: `"${type}/${file_extension}"`,
     url: file_path
   }];
   insFileUploaderEl.addEventListener('didLoad', function(e){
