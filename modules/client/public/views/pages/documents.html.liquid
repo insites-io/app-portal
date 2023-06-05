@@ -192,9 +192,11 @@ authorization_policies:
                 notes.value = data[index].notes;
 
                 //Preview existing file
+                let imageExtsions = ["jpg", "jpeg", "jfif", "pjpeg", "pjp", "apng", "png", "avif", "gif", "svg", "webp", "bmp", "ico", "tif", "tiff"];
+                let type = imageExtsions.includes(data[index].file.extension)? "image" : "file";
                 value = [{
                     name: data[index].file.file_name,
-                    type: data[index].file.extension,
+                    type: `"${type}/${data[index].file.extension}"`,
                     url: data[index].file.url
                 }]
                 insFileUploaderEl.removeFiles();

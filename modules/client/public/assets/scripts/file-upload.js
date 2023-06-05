@@ -30,7 +30,8 @@ let FileUpload = (function () {
                 return new Promise(async resolve => {
                     let fileUrl = "";
                     if (file.url) {
-                        fileUrl = file.url; //upload_url
+                        //existing file, replace spaces by +
+                        fileUrl = file.url.replace(/ /g, ' ').replace(' ', '+'); 
                     } else {
                         // if file has not dataURL yet
                         if (!file.dataURL) {
