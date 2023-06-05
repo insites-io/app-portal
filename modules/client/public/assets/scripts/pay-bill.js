@@ -22,7 +22,7 @@ let Paybill = (function () {
                     });
             },
             validateCreditCard(currentStep) {
-                let cardValid = currentStep.querySelectorAll(".card-fields[required] .is-invalid");
+                let cardValid = currentStep.querySelectorAll("#stripe-card[required] .is-invalid");
                 let container = currentStep.querySelector('.validate-credit-card');
                 if (container) {
                     if (cardValid && cardValid.length > 0) {
@@ -45,12 +45,11 @@ let Paybill = (function () {
         },
         events: {
             async payBillsSubmit(event) {
-                console.log("payBillsSubmit");
                 event.preventDefault();
                 checkoutSubmitBtn.loading = true;
                 let form = event.srcElement;
                 let validAmount = true;
-                let billAmountEl = document.getElementById('bill-amount');
+                let billAmountEl = document.getElementById('bill-amount');                
                 let isValid = await App.validation.validateForm(form);
 
                 if(billAmountEl) {

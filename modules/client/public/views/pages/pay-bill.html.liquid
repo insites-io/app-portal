@@ -33,7 +33,6 @@ authorization_policies:
 <!-- start page: Pay a Bill  -->
 {%- endif -%}
 
-
 <div class="pay-bill">
         
     {%- if context.flash.notice == "Success-PayBill" -%}
@@ -55,58 +54,6 @@ authorization_policies:
 {%- if context.environment == "staging" -%}
 <!-- end page: Pay a Bill  -->
 {%- endif -%}
-
-<script>
-
-  let submitBtn = document.getElementById('submit-btn');
-  let form = document.getElementById('paybill-form');
-
-  async function payBillAddOrder(){
-
-    console.log("payBillAddOrder");
-
-   // event.preventDefault();
-
-    //if (await App.validation.validateForm(form)) {
-
-      //submitBtn.loading = true;
-      
-
-    let order_number = document.getElementById("invoice-number").value;
-    let order_value = total_amount = amount_due = document.getElementById("bill-amount").value;
-    let userID = "{{context.current_user.id}}";
-    let currency = "AUD";
-    let date_time = "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}"; //2023-05-10T01:22:11.000Z
-    let tax_amount = shipping_amount = total_discount_amount = 0;
-    let order_status = order_payment_status = "Open";
-
-    let raw = `{ "payload": {"order_number":"${order_number}", "user_id":"${userID}", "currency": "${currency}", "date_time": "${date_time}", "order_value": ${order_value}, "tax_amount": ${tax_amount}, "shipping_amount": ${shipping_amount}, "total_amount": ${total_amount}, "amount_due": ${amount_due}, "total_discount_amount": ${total_discount_amount}, "is_enabled": true}, "order_status": "${order_status}", "order_payment_status": "${order_payment_status}" }`;
-
-    var requestOptions = {
-      method: 'POST',
-      body: raw,
-      redirect: 'follow',
-      headers: {
-      'Content-Type': 'application/json',
-      'Authorization':'instance_92d3be32-b64f-4909-91fe-2db66783f617_q7V-rkI5fYMmz2TtJ8NfQuuL2BaKhkDMChITkejdLK8'
-      }
-    };
-
-    fetch("/ecommerce/api/v1/orders", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-
-
-      return true;
-
-    //} else {
-    //  submitBtn.loading = false;
-    //  return false;
-    //}
-
-}
-</script>
 
 <!-- Stripe Element -->
 {%- include 'modules/client/forms/stripe_element',
