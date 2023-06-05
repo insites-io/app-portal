@@ -118,13 +118,13 @@ callback_actions: >
                     placeholder="Amount Including Tax"
                     field="number"
                     id="bill-amount"
+                    name="temp_order_value"
                     min="1"
                     max="983283.99"
-                    name="{{ props.order_value.name }}" 
-                    value="{{ props.order_value.value }}"
                     {% if form.errors['properties.order_value'] %} has-error {% endif %}
                     error-message="{{ props.order_value.validation.rules.presence.message }}">
                 </ins-input>
+                <input type="hidden" id="bill-order-value" name="{{ props.order_value.name }}" >
             </div>
         </div>
     </div>

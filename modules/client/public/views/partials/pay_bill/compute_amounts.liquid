@@ -1,7 +1,8 @@
+{% comment %} Payload: total_amount {% endcomment %}
+
 {%  liquid
-    assign amount = amount
+    assign amount = total_amount | divided_by: 1.017
     assign cc_surcharge = amount | times: 0.017
-    assign total_amount = amount | plus: cc_surcharge 
 %}
 
 {% parse_json computed %}

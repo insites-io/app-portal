@@ -11,7 +11,7 @@
         graphql get_order = 'modules/website/trigger_api_call', name: 'modules/client/ecommerce/get_order', data: data 
         assign order = get_order.items.response.body | parse_json | dig: 'items','results' | first
 
-        function computed = "modules/client/pay_bill/compute_amounts", amount: order.properties.order_value
+        function computed = "modules/client/pay_bill/compute_amounts", total_amount: order.properties.order_value
 
         assign amountPayable = computed.amount
         assign ccSurcharge = computed.cc_surcharge
@@ -39,40 +39,23 @@
         <hr>
         <div class="cell spacer small"></div>
         <div class="large-5 medium-5 small-5 col1"><h3 class="heading-3">Total</h3></div>
-        <div class="large-7 medium-7 small-7 col2"><h3 class="heading-3" id="total-amount-summary">${{ taxTotal | default: "0.00" }}</h3></div>        
+        <div class="large-7 medium-7 small-7 col2"><h3 class="heading-3">$<span id="total-amount-summary">{{ totalAmount | default: "0.00" }}</span></h3></div>        
     </div>
 </div>
 <div class="spacer xxxx-large"></div>
 
-{%- if order_id -%}
-    {%- comment -%} Success page {%- endcomment -%}
-    <script>
-        let chargeAmountEl = document.getElementById('charge-amount-summary');
-        let ccAmountEl = document.getElementById('cc-charge-summary');
-        let subTotalEl = document.getElementById('sub-total-summary');
-        let totalAmountEl = document.getElementById('total-amount-summary');
+{%- unless order_id -%}
 
-        setTimeout(() => {
-            chargeAmountEl.innerHTML = pricify({{ amountPayable }});
-            ccAmountEl.innerHTML = pricify({{ ccSurcharge }});
-            subTotalEl.innerHTML = pricify({{ subTotal }});
-            totalAmountEl.innerHTML = pricify({{ totalAmount }});
-        }, 500)
-
-        function pricify(number) {
-            return number.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        }
-    </script>
-
-{%- else -%}
     {%- comment -%}Payment form {%- endcomment -%}
     <script>
     let valueChangeHandler = debounce((ev) => calculatePaymentSummary(ev));
 
     let amountEl = document.getElementById('bill-amount');
     let amountTotalEl = document.getElementById('bill-total-amount');
+    let orderValueEl = document.getElementById('bill-order-value');
     let amountDueEl = document.getElementById('bill-amount-due');
     let notesEl = document.getElementById('bill-notes');
+    
 
     let chargeAmountEl = document.getElementById('charge-amount-summary');
     let ccAmountEl = document.getElementById('cc-charge-summary');
@@ -99,15 +82,17 @@
         if(subTotalEl) 
             subTotalEl.innerHTML = pricify(subTotal);        
         if(totalAmountEl) 
-            totalAmountEl.innerHTML = pricify(totalAmount);
+            totalAmountEl.innerHTML = pricify(totalAmount);                    
 
         {%- comment %} Update hidden input {% endcomment %}
         if(amountTotalEl) 
             amountTotalEl.value = totalAmount;
+        if(orderValueEl) 
+            orderValueEl.value = totalAmount;            
         if(amountDueEl) 
             amountDueEl.value = totalAmount;
         if(notesEl) 
-            notesEl.value = `{"amount": "${amountPayable}", "cc-charge": "${ccSurcharge}", "total-amount": "${totalAmount}"}`;
+            notesEl.value = `{"amount": "${pricify(amountPayable)}", "cc-charge": "${pricify(ccSurcharge)}", "total-amount": "${pricify(totalAmount)}"}`;
     }
 
     function pricify(number) {
@@ -125,4 +110,5 @@
         });
     }
     </script>
-{%- endif -%}
+
+{%- endunless -%}

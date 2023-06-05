@@ -85,22 +85,19 @@
    
 
 {% comment %} Compute amounts {% endcomment %}
-{%  liquid
-    assign amount = form.properties.order_value | times: 100
-    function computed = "modules/client/pay_bill/compute_amounts", amount: amount
-%}
+{% assign amount = form.properties.order_value | times: 100 %}
 
 {%- comment -%} STEP 2: Stripe Charge / Payment  {%- endcomment -%}
 {% parse_json "create_charge" %}
 {
     "idempotency_key": "{{ '' | uuid }}",
     "currency": "AUD",
-    "amount": "{{ computed.total_amount | advanced_format: '%.0f' }}",
+    "amount": "{{ amount | advanced_format: '%.0f' }}",
     "customer": "{{ stripe_customer_id }}",
     {%- if charge_to_this_card -%}
         "source": "{{ charge_to_this_card }}",
     {%- endif -%}
-    "description": "Insites Order ID: {{ form.id }} (Insites Customer ID: {{ user_id }})",
+    "description": "Insites Order ID: {{ form.id }} (Insites Customer ID: {{ user.uuid }})",
     "metadata": {
         "Insites Order ID": "{{ form.id }}",
         "Insites Customer ID": "{{ user_id }}",

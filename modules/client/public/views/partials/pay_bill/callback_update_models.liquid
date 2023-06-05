@@ -22,7 +22,7 @@
 {% comment %} Compute amounts {% endcomment %}
 {% liquid
 
-    function computed = "modules/client/pay_bill/compute_amounts", amount: form.properties.order_value
+    function computed = "modules/client/pay_bill/compute_amounts", total_amount: form.properties.order_value
     
     if status == 'success'
         assign amount_due = 0.0
@@ -94,7 +94,7 @@
     "total_amount" : {{ computed.total_amount }},
     "shipping_amount": 0,
     "tax_amount": 0,
-    "order_value" : {{ computed.amount }},
+    "order_value" : {{ computed.total_amount }},
     "order_first_name": "{{ context.current_user.first_name }}", 
     "order_last_name": "{{ context.current_user.last_name }}",
     "last_updated_by_id": "{{ context.current_user.id }}"
@@ -104,7 +104,7 @@
     name: "modules/client/ecommerce/update_order",
     data: data
     | dig: 'items','response','body'
-    | parse_json %}   
+    | parse_json %}
 
 {%- session paybill_order_id = update_order.items.id -%}
 {% log "==== Order Updated ====" %}

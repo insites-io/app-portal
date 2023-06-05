@@ -17,7 +17,7 @@ layout: modules/insites_core/insites_internal_email_layout
 
 {% comment %} Compute amounts {% endcomment %}
 {%- liquid
-    function computed = "modules/client/pay_bill/compute_amounts", amount: data.order_info.properties.order_value
+    function computed = "modules/client/pay_bill/compute_amounts", total_amount: data.order_info.properties.order_value
     assign amount_due = computed.total_amount
     if status == 'succeeded'
         assign amount_due = 0.0
