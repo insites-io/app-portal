@@ -33,13 +33,13 @@
     --font-color-inv: #FFFFFF;
     /* UI Colors */
     --color-ui-01: #FFFFFF;
-    --color-ui-02: #FAFBFC;
-    --color-ui-03: #F2F4F8;
-    --color-ui-04: #E4E6EC;
-    --color-ui-05: #8C94A4;
-    --color-ui-06: #2C3148;
-    --color-ui-07: #1E86E3;
-    --color-ui-08: #FFFFFF1A;
+    --color-ui-02: #F9FAFB;
+    --color-ui-03: #F7F7F7;
+    --color-ui-04: #DFDFDF;
+    --color-ui-05: #84848F;
+    --color-ui-06: #575757;
+    --color-ui-07: #436CF2;
+    --color-ui-08: #000000;
     /* Gradiant Background */
     --color-gradiant1: linear-gradient(90deg, #1E4AA2 0%, #1B78CC 100%);
     --color-gradiant2: linear-gradient(90deg, #8C1EE3 0%, #C71EE3 100%);
@@ -599,6 +599,14 @@ label,
     height: auto;
 }
 
+.ins-form-field-wrap .ins-form-field{
+    border-color: var(--color-ui-04);
+}
+
+.ins-form-field-wrap .ins-form-field:hover{
+    border-color: var(--color-ui-05);
+}
+
 .ins-form-field-wrap .ins-form-field:focus {
     border-color: var(--color-main);
 }
@@ -917,6 +925,11 @@ ins-card.full {
     z-index: 99999;
 }
 
+.ins-select-wrap.activated .ins-select-value-wrap,
+.ins-select-wrap.activated .ins-select-options-wrap{
+    border-color: var(--color-main);
+}
+
 .grid-padding-x>.cell ins-checkbox .ins-radio-checkbox,
 .grid-padding-x>.cell ins-radio .ins-radio-checkbox {
     padding: 0;
@@ -940,6 +953,11 @@ ins-checkbox.inline .ins-radio-checkbox label .ins-checkbox-radio-label,
 ins-radio.inline .ins-radio-checkbox label .ins-checkbox-radio-label {
     display: inline;
     line-height: normal;
+}
+
+ins-checkbox .ins-radio-checkbox .ripple-check:checked::after, 
+ins-radio .ins-radio-checkbox .ripple-check:checked::after{
+    background: var(--color-main);
 }
 
 .ins-modal-wrap.show-modal ins-card {
