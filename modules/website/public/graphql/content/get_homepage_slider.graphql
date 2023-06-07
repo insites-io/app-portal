@@ -10,7 +10,7 @@ query get_homepage_slider(
             table: { value: "modules/website/homepage_slider" }
             deleted_at: { exists: false }
             properties: [
-                { name: "enabled", value_boolean: true }
+                { name: "is_enabled", value_boolean: true }
                 { name: "title", contains: $keyword }
             ]
         }

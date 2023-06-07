@@ -7,11 +7,11 @@ query get_services_homapage(
         page: $page
         per_page: $size
         filter: {
-            table: { value: "modules/website/services_database" }
+            table: { value: "modules/ins_databases/services_database" }
             deleted_at: { exists: false }
             properties: [
                 { name: "name", contains: $keyword }
-                { name: "enabled", value_boolean: true }
+                { name: "is_enabled", value_boolean: true }
                 { name: "add_to_homepage", value: "Yes" }
             ]
         }

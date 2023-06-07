@@ -6,18 +6,12 @@ trigger_condition: true
 request_type: POST
 callback: >
   {% assign response_hash = response.body | parse_json %}
-  {% log response_hash, type: 'response body as hash' %} 
 request_headers: >
     {
         "Content-Type": "application/json",
         "Authorization": "instance_4d201d12-47a6-4c1f-96ed-4a60264c00ee_r1WzfxUZZXbH1ira6r6UB8SfGWtW_UUdG05u4I0hd2U"
     }
 ---
-    
-{% comment %}
-#{% log response, type: 'response object' %}
-FOR CRM
-{% endcomment %}
 
 {
     "first_name": "{{form.properties.first_name}}",

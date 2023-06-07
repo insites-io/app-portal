@@ -9,7 +9,7 @@ query get_testimonial(
             table: { value: "modules/website/testimonials" }
             deleted_at: { exists: false }
             properties: [
-                { name: "show_on_website", value_boolean: true }
+                { name: "is_shown_on_webstie", value_boolean: true }
             ]
         }
         sort: [
