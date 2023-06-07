@@ -56,24 +56,39 @@ fields:
     default_address:
       property_options:
         virtual: true
-    contact_uuid:
-      property_options:
-        virtual: true
     contact_address_uuid:
       property_options:
         virtual: true
 
-#api_call_notifications: 
-  #- modules/client/update_contact
-  #- modules/client/update_contact_address
-callback_actions: |-  
+callback_actions: |-
+  {% graphql current_user = 'modules/client/account/get_current_user' | dig: 'current_user' %}
+  
+  {% parse_json update_contact_data %}
+  {
+    "id": "{{form.id}}",
+    "email": "{{form.email}}",
+    "company_uuid": "{{current_user.client[0].company_uuid}}",
+    "mobile_phone_country_code": "{{form.mobile_phone_country_code}}",
+    "mobile_phone_number": "{{form.mobile_phone_number}}"
+  }
+  {% endparse_json %}
+  {% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/client/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json %}
+  {% log update_contact, type: "==========TEST my_details update_contact" %}
+  
+
   {%  liquid
       assign data = form | json
+      log data, type: "==========TEST data"
+      
       if form.properties.default_address   
-        graphql api = 'modules/website/trigger_api_call', name: 'modules/client/update_contact_address', data: data | dig: 'items','response','body' | parse_json      
+        log "==========update_contact_address"
+        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/client/update_contact_address', data: data | dig: 'items','response','body' | parse_json      
       else
-        graphql api = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
-      endif 
+        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
+        log "==========add_contact_address"
+      endif         
+
+      log contact_address, type: "==========TEST my_details contact_address"
   %} 
 ---
 
@@ -87,7 +102,6 @@ callback_actions: |-
     <div class="insites-form-grid">
 
       <input type="hidden" name="{{ form.fields.properties.default_address.name }}"  value="{{ data.default_address.id }}" >
-      <input type="hidden" name="{{ form.fields.properties.contact_uuid.name }}"  value="{{ data.uuid }}" >
       <input type="hidden" name="{{ form.fields.properties.contact_address_uuid.name }}" value="{{ data.default_address.properties.uuid }}" >
 
       {% include 'modules/client/account/registration_personal_details', data: data %}

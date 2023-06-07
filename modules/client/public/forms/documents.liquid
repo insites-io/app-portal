@@ -3,6 +3,8 @@ name: documents
 resource: modules/client/documents
 resource_owner: anyone
 redirect_to: /documents
+flash_alert: Error-Documents
+flash_notice: Success-Documents
 fields:
   properties:
     user_id:
@@ -17,15 +19,19 @@ fields:
         presence:
           message: File is required
     notes:
-  resource_id:
+  notice_message:
     property_options:
       virtual: true
+    validation:
+        presence: true
 default_payload: |-
   {
     "properties_attributes": {
       "user_id": "{{context.current_user.id}}"
     }
   }
+callback_actions: |-
+  {% session document_notice_message = form.notice_message %}
 email_notifications:
   - modules/client/document_workflow
 ---
@@ -43,6 +49,8 @@ email_notifications:
   html-novalidate: true
   html-enctype = "multipart/form-data"
   html-onsubmit: "return validateDocumentsForm(event)"   -%}
+
+  <input type="hidden" name="{{form.fields.notice_message.name}}" id="notice-message" >
     
   <div class="insites-form-grid">
 

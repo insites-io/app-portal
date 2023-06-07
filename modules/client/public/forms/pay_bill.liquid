@@ -7,7 +7,7 @@ flash_alert: Error-PayBill
 flash_notice: Success-PayBill
 fields:
   properties:
-    order_number:    
+    order_reference:    
       validation: 
         presence:
           message: Invoice Number is required  
@@ -21,6 +21,9 @@ fields:
     user_id:    
       validation: 
         presence: true
+    user_uuid:
+    company_id:
+    company_uuid:
     currency:    
       validation: 
         presence: true
@@ -45,8 +48,6 @@ fields:
     is_enabled:    
       validation: 
         presence: true    
-    order_first_name:
-    order_last_name:
     order_status:
     order_payment_status:
     shipping_status:
@@ -61,14 +62,16 @@ default_payload: >
   {
     "properties_attributes":{
         "user_id": "{{ context.current_user.id }}",
+        "user_uuid": "{{ context.current_user.id }}",
+        "company_id": "{{ context.current_user.id }}",
+        "company_uuid": "{{ context.current_user.id }}",
         "currency": "{{ settings.currency }}",
         "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}",
         "tax_amount": 0,
         "shipping_amount": 0,
         "total_discount_amount": 0,
         "is_enabled": true,
-        "order_first_name": "{{ context.current_user.first_name }}",
-        "order_last_name": "{{ context.current_user.last_name }}",
+        
         "order_status": "Open",
         "order_payment_status": "Pending Funds",
         "shipping_status": "Not Applicable"
@@ -98,20 +101,20 @@ callback_actions: >
 
         <div class="grid-x grid-padding-x invoice-details">
             {%- graphql data = 'modules/client/account/get_current_user' -%}
-            <div class="large-6 medium-6 small-12 cell">
+            <div class="large-6 medium-12 small-12 cell">
                 <ins-input required validate account-details-field
                     class="label-input"
                     label="Invoice Number*" 
                     placeholder="Invoice Number"
                     field="text"
                     id="invoice-number"
-                    name="{{ props.order_number.name }}" 
-                    value="{{ props.order_number.value }}"
-                    {% if form.errors['properties.order_number'] %} has-error {% endif %}
-                    error-message="{{ props.order_number.validation.rules.presence.message }}">
+                    name="{{ props.order_reference.name }}" 
+                    value="{{ props.order_reference.value }}"
+                    {% if form.errors['properties.order_reference'] %} has-error {% endif %}
+                    error-message="{{ props.order_reference.validation.rules.presence.message }}">
                 </ins-input>
             </div>      
-            <div class="large-6 medium-6 small-12 cell">
+            <div class="large-6 medium-12 small-12 cell">
                 <ins-input required validate account-details-field
                     class="label-input"
                     label="Amount Including Tax*" 

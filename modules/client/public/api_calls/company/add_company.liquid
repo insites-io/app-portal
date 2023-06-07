@@ -3,9 +3,10 @@ name: add_company
 to: 'https://{{context.location.host}}/core/api/v1/companies'
 format: http
 request_type: POST
-callback: >
-  {% assign response_hash = response.body | parse_json %}
-  {% graphql res = 'modules/client/account/set_company_uuid', id: data.id, company_uuid: response_hash.items.properties.uuid %}
+#callback: >
+#   {% log response, type: 'response object' %}
+#   {% assign response_hash = response.body | parse_json %}
+#   {% log response_hash, type: 'response body as hash' %} 
 request_headers: >
     {
         "Content-Type": "application/json",

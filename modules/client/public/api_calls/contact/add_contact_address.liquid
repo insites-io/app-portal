@@ -13,18 +13,14 @@ request_headers: >
     }
 ---
 {%  liquid 
-    if data.contact_uuid
-        assign contact_uuid = data.contact_uuid
-    else
-        graphql user = 'modules/client/account/get_user_uuid', id: data.id | dig: 'items','results' | first
-        assign contact_uuid = user.uuid
-    endif
+    graphql user = 'modules/client/account/get_user_uuid', id: data.id | dig: 'items','results' | first
+    assign contact_uuid = user.uuid
 
     assign props = data.properties
 %}
 {
     "contact_uuid": "{{contact_uuid}}",
-    "address_label": "{{props.address_1}}", 
+    "address_label": "{{props.address_1 | default: 'Default'}}", 
     "default_address": true,
     "address_1": "{{props.address_1}}",
     "address_2": "{{props.address_2}}",

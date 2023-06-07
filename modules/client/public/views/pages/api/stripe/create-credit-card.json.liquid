@@ -53,7 +53,7 @@ payload:
     | dig: "items" | dig: "results" | first -%}
 {%- assign user_id = user.id -%}
 {%- assign customer_name = user.first_name | append: ' ' | append: user.last_name -%}
-{%- assign account_verified = user.customer[0].is_activated -%}    
+{%- assign account_verified = user.client[0].is_activated -%}    
 
 
 {%- if stripe_customer.id -%}

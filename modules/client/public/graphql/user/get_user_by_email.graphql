@@ -1,6 +1,6 @@
 query get_user_by_email (
   $page: Int = 1, 
-  $size: Int = 10, 
+  $size: Int = 1, 
   $email: String!
 ) {
   items: users(
@@ -18,6 +18,7 @@ query get_user_by_email (
     total_pages
     results {
       id
+      uuid: external_id
       created_at
       updated_at
       email
@@ -25,7 +26,7 @@ query get_user_by_email (
       last_name
       
       ## INS ECO Customer
-      customer: profiles(
+      client: profiles(
         profile_type: "modules/client/client"
       ) {
         is_enabled: property_boolean(name: "is_enabled")

@@ -930,6 +930,11 @@ ins-card.full {
     border-color: var(--color-main);
 }
 
+.ins-select-wrap.is-invalid .ins-select-value-wrap,
+.ins-select-wrap.is-invalid.activated .ins-select-options-wrap{
+    border-color: var(--error);
+}
+
 .grid-padding-x>.cell ins-checkbox .ins-radio-checkbox,
 .grid-padding-x>.cell ins-radio .ins-radio-checkbox {
     padding: 0;

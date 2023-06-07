@@ -30,6 +30,14 @@ var AddressLookup = (function () {
                     });
             },
             mapGoogleAddress(address, name) {
+                //clear values
+                document.getElementById(`${name}_address_1`).value = "";
+                document.getElementById(`${name}_address_2`).value = "";
+                document.getElementById(`${name}_suburb`).value = "";
+                document.getElementById(`${name}_state`).value = "";
+                document.getElementById(`${name}_postcode`).value = "";
+                document.getElementById(`${name}_country`).value = "";
+
                 address.forEach(item => {
                     let addressType = item.types[0];
                     // Update fields as needed on project.
@@ -76,7 +84,7 @@ var AddressLookup = (function () {
 
                         case "administrative_area_level_1":
                             if (address.length < 8)
-                                document.getElementById(`${name}_state`).value += item['short_name'];
+                                document.getElementById(`${name}_state`).value = item['short_name'];
                             else
                                 document.getElementById(`${name}_suburb`).value += item['short_name'];
                             break;

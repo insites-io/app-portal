@@ -134,13 +134,14 @@ authorization_policies:
         <div id="myModalContent" >        
             {% include_form 'modules/client/documents', id: :375 %}
         </div>
-    </ins-modal>
+    </ins-modal>    
 
 </div>
 
 <script>    
     let documentsForm = document.querySelector('form.documents-form');
     let submitFormBtn = document.getElementById('submit-form-btn');
+    let noticeMessage = document.getElementById('notice-message');
 
     <!-- File Upload -->
     let insFileUploaderEl = document.getElementById('document-input');
@@ -172,6 +173,11 @@ authorization_policies:
                     method.remove();
                 }
                 submitFormBtn.label = "Add Document";
+                noticeMessage.value = "Document successfully added";
+                description.value = "";
+                documentFieldEl.value = "";
+                notes.value = "";
+                insFileUploaderEl.removeFiles();
             }else{
                 //Edit Document
                 index = field.getAttribute("data-index");
@@ -202,7 +208,8 @@ authorization_policies:
                 insFileUploaderEl.removeFiles();
                 insFileUploaderEl.setFiles(value);
 
-                submitFormBtn.label = "Update";                
+                submitFormBtn.label = "Update";
+                noticeMessage.value = "Document successfully updated";
             }
         });            
     });
@@ -245,6 +252,16 @@ authorization_policies:
     }
 </script>
 <script src="{{ 'modules/client/scripts/file-upload.js' | asset_url }}"></script>
+
+{%- if context.flash.notice == "Success-Documents" -%}
+<script>
+let msg = "{{ context.session.document_notice_message | default: 'Document successfully added' }}";
+setTimeout(() => {
+    App.events.notyf('success', msg);
+}, 200);
+</script>
+{% endif -%}
+
 
 {%- if context.environment == "staging" -%}
 <!-- end page: documents  -->

@@ -103,27 +103,49 @@ fields:
     property_options:
       virtual: true
       
-api_call_notifications:
-  - modules/client/update_contact
-  - modules/client/add_company 
-  #- modules/client/add_contact_address
-  
-callback_actions: |-
-  {%  liquid      
-      assign data = form | json
-      graphql api = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
-  %} 
-  
-  {% graphql g = 'modules/client/account/generate_user_temporary_token', email: form.email %}
-  {% if g.items.results[0] %}
-    {% graphql res = 'modules/client/account/set_email_verification_token', id: g.items.results[0].id, token: g.items.results[0].temporary_token %}
-  {% endif %}    
-  
-
-  {%- assign desc = form.first_name | append: ' ' | append: form.last_name | append: ' signed up.' -%}
-  {%- function event_res = "modules/client/functions/log_event", 
-      description: desc,
-      related_type: "Form Submission" -%}
+async_callback_actions:
+  delay: 0
+  priority: high
+  max_attempts: 2
+  content: >
+    {% comment %}
+      Steps:
+        1. Add Company
+        2. Update company_uuid on Client Profile
+        3. Update Contact
+        4. Add Contact Address    
+    {% endcomment %}
+    {% assign data = form | json %}
+    {% graphql add_company = 'modules/website/trigger_api_call', name: 'modules/client/add_company', data: data | dig: 'items','response','body' | parse_json %}
+    {% parse_json update_contact_data %}
+    {
+      "id": "{{form.id}}",
+      "email": "{{form.email}}",
+      "company_uuid": "{{add_company.items.properties.uuid}}",
+      "mobile_phone_country_code": "{{form.mobile_phone_country_code}}",
+      "mobile_phone_number": "{{form.mobile_phone_number}}"
+    }
+    {% endparse_json %}
+    {%  liquid                      
+        log data, type: "==========TEST register data"
+        graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: form.id, company_uuid: add_company.items.properties.uuid 
+        graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/client/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
+        graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
+    %} 
+    
+    {% comment %} Verification Token {% endcomment %}
+    {%  liquid
+        graphql g = 'modules/client/account/generate_user_temporary_token', email: form.email 
+        if g.items.results[0]
+          graphql res = 'modules/client/account/set_email_verification_token', id: g.items.results[0].id, token: g.items.results[0].temporary_token
+        endif
+    %}
+   
+    {% comment %} Event Stream {% endcomment %}
+    {% liquid
+        assign desc = form.first_name | append: ' ' | append: form.last_name | append: ' signed up.' 
+        function event_res = "modules/client/functions/log_event", description: desc, related_type: "Form Submission"
+    %}
 ---
 
 {%- form 

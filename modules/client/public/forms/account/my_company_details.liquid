@@ -46,16 +46,38 @@ fields:
     company_uuid:
       property_options:
         virtual: true
-      validation:
-          presence: true
     company_address_uuid:
       property_options:
         virtual: true
-      validation:
-          presence: true 
-api_call_notifications:
+#api_call_notifications:
   #- modules/client/update_company
-  - modules/client/update_company_address
+  #- modules/client/update_company_address
+callback_actions: |-
+  {%  liquid            
+      
+      assign data = form | json
+      log form, type: "==========TEST my_company_details form"
+      log data, type: "==========TEST my_company_details data"
+
+      if form.properties.company_uuid != '' and form.properties.company_uuid != null
+        log "==========TEST update"      
+        graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/client/update_company_address', data: data | dig: 'items','response','body' | parse_json
+        log update_company_address, type: "==========TEST update_company_address"
+
+        graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: form.properties.company_uuid
+        
+
+      else
+        log "==========TEST add"
+        graphql add_company = 'modules/website/trigger_api_call', name: 'modules/client/add_company', data: data | dig: 'items','response','body' | parse_json
+        log add_company, type: "==========TEST add_company"
+
+        graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: add_company.items.properties.uuid
+      endif          
+      
+          
+      log set_company_uuid, type: "==========TEST set_company_uuid"
+  %}   
 ---
 
 {%- form 

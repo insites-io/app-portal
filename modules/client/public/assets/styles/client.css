@@ -186,6 +186,10 @@ ins-card .ins-card-wrap{
     display: block;
 }
 
+.ins-card-wrap:hover{
+    margin-bottom: 3px;
+}
+
 .ins-credit-card-main-wrap{
     padding: 0px;
 }
@@ -204,9 +208,19 @@ ins-card .content {
     height: 100%;
 }
 
+#no-card .ins-card-wrap,
+#payment-details .empty-box{
+    margin: 12px 0px;
+}
+
 [class^="icon-"],
 [class*=" icon-"] {
     font-size: 12px;
+}
+
+ins-button .carets {
+    font-size:14px; 
+    line-height: 18px;
 }
 
 /* Insites Modal */
@@ -301,6 +315,10 @@ ins-radio .ins-radio-checkbox label {
 }
 
 /* Insites Step */
+ins-step{
+    align-self: stretch;
+}
+
 .ins-step_details {
     padding: 16px 25px;
 }
@@ -417,6 +435,12 @@ ins-radio .ins-radio-checkbox label {
     margin: 24px auto 0px !important;
 }
 
+.swal2-popup .swal2-actions button{
+    height: 38px;
+    font-family: var(--font-family-01) !important;
+    margin: 0px 8px;
+}
+
 .notyf__toast{
     background: var(--color-ui-08);
 }
@@ -441,10 +465,6 @@ ul {
 
 ul{
     list-style-type: none;
-}
-
-[class*=" icon-"], [class^=icon-]{
-    font-size: 14px;
 }
 
 .client-portal{
@@ -604,10 +624,23 @@ ins-tag.Completed span.ins-tag {
     background-color: #F2F4F8;
 }
 
-.scrollbar::-webkit-scrollbar-thumb {
+.step-scrollbar::-webkit-scrollbar {
+    height: 10px;
+    background-color: var(--color-ui-03);
+}
+
+.scrollbar::-webkit-scrollbar-thumb,
+.step-scrollbar::-webkit-scrollbar-thumb {
     border-radius: 22px;
     /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
     background-color: #FFFFFF;
+}
+
+.step-scrollbar {
+    overflow-x: auto;
+}
+.step-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--color-ui-04);
 }
 
 /* Feedback Form */
@@ -711,6 +744,11 @@ ins-tag.Completed span.ins-tag {
 .mt-0{
     margin-top: 0px !important;
 }
+
+.mt-12{
+    margin-top: 12px;
+}
+
 .pl-16{
     padding-left: 16px;
 }

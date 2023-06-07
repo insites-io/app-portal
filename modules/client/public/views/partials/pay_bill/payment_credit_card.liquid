@@ -14,72 +14,80 @@
 <div id="payment-details">
     <div class="spacer large"></div>
     <div class="grid-x grid-padding-x">
-        <div class="large-6 medium-6 small-12 cell">
+        <div class="large-6 medium-12 small-12 cell">
             <h2 class="heading-2">Credit Card Details</h2>
-        </div>
-        <div class="large-6 medium-6 small-12 cell text-right">
-            <div class="spacer x-small"></div>
+        </div>        
+        <div class="large-6 medium-12 small-12 cell text-right show-for-large">
             {%- if verified -%}
             <ins-button type="button"
-                id="add-credit-card"
+                class="add-credit-card"
+                icon="icon-plus"
+                label="Add Credit Card">
+            </ins-button>
+            {%- endif -%}
+        </div>
+        <div class="cell hide-for-large">
+            <div class="spacer"></div>
+            {%- if verified -%}
+            <ins-button type="button"
+                class="add-credit-card fixed-btn-width"
                 icon="icon-plus"
                 label="Add Credit Card">
             </ins-button>
             {%- endif -%}
         </div>
     </div>
-    <div class="spacer xx-large"></div>
+    
+    <div class="spacer large"></div>
+    <div class="spacer xx-small"></div>
 
+    {% comment %} Credit Cards {% endcomment %}   
+    {%- if verified -%} 
+    {%- graphql cards = "modules/client/credit_card/get_credit_card", 
+                        user_id: context.current_user.id
+                        size: 50 | dig: 'items' -%}
 
-    {% comment %} Credit Cards {% endcomment %}
-    {%- if verified -%}
-    <div class="validate-credit-card">
+    <div class="validate-credit-card" >
         {% comment %} Credit Cards {% endcomment %}
-        <div id="credit-card-fields" class="card-fields">
-            <div class="spacer x-large"></div>
+        <div id="credit-card-fields" class="card-fields">            
             <p class="error-message hide">Credit Card is required.</p>
-            <ins-input required validate
+            <ins-input required validate style="height:0px; display: block; overflow: hidden;"
                 field="hidden" 
                 id="stripe-card"
                 name="{{ form.fields.properties.stripe_credit_card.name }}" 
                 value="{{ form.fields.properties.stripe_credit_card.value }}">
             </ins-input>
-            <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">
-                {%- if context.current_user.id -%}
-                    {%- graphql cards = "modules/client/credit_card/get_credit_card", 
-                        user_id: context.current_user.id
-                        size: 50 | dig: 'items' -%}
-                    {%- if cards.total_entries > 0 -%}
-                        {%- assign hide = "hide" -%}
-                    {%- endif -%}
-                    {%- for card in cards.results -%}
-                        <div class="large-4 medium-6 small-12 cell card-options">
-                            <ins-credit-card 
-                                data-id="{{ card.id }}" 
-                                brand="{{ card.brand }}"
-                                last-four="{{ card.last4 }}"
-                                expiry-month="{{ card.exp_month }}"
-                                expiry-year="{{ card.exp_year }}"
-                                full-year
-                                value="{{ card.gateway_id }}">
-                            </ins-credit-card>
-                            <div class="spacer small"></div>
-                        </div>
-                    {%- endfor -%}
-                {%- endif -%}
+            <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">                    
+                {%- for card in cards.results -%}
+                    <div class="large-4 medium-6 small-12 cell card-options">
+                        <ins-credit-card 
+                            data-id="{{ card.id }}" 
+                            brand="{{ card.brand }}"
+                            last-four="{{ card.last4 }}"
+                            expiry-month="{{ card.exp_month }}"
+                            expiry-year="{{ card.exp_year }}"
+                            full-year
+                            value="{{ card.gateway_id }}">
+                        </ins-credit-card>
+                    </div>
+                {%- endfor -%}
             </div>
-        </div>
-        
-        <ins-card steady id="no-card" class="empty-state text-center {{ hide }}">
+        </div>        
+        <ins-card steady id="no-card" class="empty-state text-center {% if cards.total_entries > 0 %}hide{% endif %}" >
             Add Credit Card / Debit Card
         </ins-card>
     </div>
+    
+    <div class="spacer large"></div>
+    <div class="spacer xx-small"></div>
+
     {%- else -%}
         <div class="empty-box">
             <p>To view / modify your Credit Cards please verify your account.</p>            
         </div>
+        <div class="spacer large"></div>
+        <div class="spacer xx-small"></div>
     {%- endif -%}
-    <div class="spacer xxx-large"></div>
 
 
     {% include 'modules/client/pay_bill/payment_summary' %}

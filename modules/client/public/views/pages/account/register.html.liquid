@@ -87,6 +87,9 @@ metadata: {
     const step1 = document.getElementById("submit-personal-details");
     const step2 = document.getElementById("submit-company-details");
     const step3 = document.getElementById("submit-confirmation");
+
+    //const stepper1 = document.getElementById("stepper-personal-details");
+    //const stepper2 = document.getElementById("stepper-company-details");
     
     const step1Container = document.getElementById('personal-details-container');
     const step2Container = document.getElementById('company-details-container');
@@ -195,12 +198,22 @@ if(registerForm){
         });
     }
 
-    if(backToStep2) {
-        backToStep2.addEventListener('insClick', async function(event) {
-            registerStepper.prev();
-            step2Container.classList.remove('hide');
+    {% comment %} if(stepper1) {
+        stepper1.addEventListener('insClick', async function(event) {
+            registerStepper.setStep(1);
+            step1Container.classList.remove('hide');
+            step2Container.classList.add('hide');
             step3Container.classList.add('hide');
         });
     }
+
+    if(stepper2) {
+        stepper2.addEventListener('insClick', async function(event) {
+            registerStepper.setStep(2);
+            step1Container.classList.add('hide');
+            step2Container.classList.remove('hide');
+            step3Container.classList.add('hide');
+        });
+    } {% endcomment %}
 
 </script>

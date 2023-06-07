@@ -30,7 +30,7 @@ let tmpUserPayload = {
 }
 
 /* Variable that handles the credit card elements */
-let addCardBtn = document.getElementById('add-credit-card');
+let addCardBtn = document.querySelectorAll('.add-credit-card');
 let cardModal = document.getElementById('stripe-modal');
 
 /* Variables that handles the data for the Order History  Table*/
@@ -301,7 +301,7 @@ let UserProfileScript = (function () {
         init: {
             initEventListener() {
                 if (addCardBtn) {
-                    addCardBtn.addEventListener('insClick', () => cardModal.open());
+                    addCardBtn.forEach(btn => btn.addEventListener('insClick', () => cardModal.open()));
                 }
                 this.initCardsEventListener();
             },

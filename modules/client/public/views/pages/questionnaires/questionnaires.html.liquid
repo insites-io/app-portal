@@ -102,7 +102,7 @@ authorization_policies:
     <div class="spacer xxx-large"></div>
 
 
-    {% if data.total_entries > 0 %}
+    {% if data.total_entries > 0 or params.year %}
     
     <div class="grid-x">
         <div class="cell large-5">
@@ -123,11 +123,17 @@ authorization_policies:
             <ins-input                 
                 id="search-year"
                 class="search-item"
+                field="number"
                 placeholder="Search by Year"
                 icon="icon-search-1">
             </ins-input>
         </div>                
     </div>
+
+    {% endif %}
+
+
+    {% if data.total_entries > 0 %}
 
     <div class="grid-container client-card">
 
@@ -143,6 +149,15 @@ authorization_policies:
         <div class="spacer x-small"></div>
         {%- include "modules/client/paginations", page_num, per_page -%}
         
+    </div>
+
+    {% elsif params.year %}
+
+    <div class="box no-item text-center mt-12">
+        <div class="spacer xxxx-large"></div>
+        <h4 class="heading-4">No result for search "{{params.year}}"</h4>
+        <div class="spacer small"></div>        
+        <div class="spacer xxxx-large"></div>
     </div>
 
     {% else %}
@@ -179,11 +194,15 @@ authorization_policies:
     }
     function keywordInputEvent(event) {   
         if (event.detail.keyCode === 13) {
-            let tempURL = window.location.href.replace("?year="+year, "");
-            tempURL = tempURL.replace("year="+year, "");
-            let Qmark = tempURL.indexOf("?") == -1? "?" : "";
-            let url = tempURL + Qmark + "year="+event.detail.value;                    
-            window.location = url;
+            console.log(event.detail);
+            console.log(year.length);
+            if(event.detail.value != ''){
+                let tempURL = window.location.href.replace("?year="+year, "");
+                tempURL = tempURL.replace("year="+year, "");
+                let Qmark = tempURL.indexOf("?") == -1? "?" : "";
+                let url = tempURL + Qmark + "year="+event.detail.value;                    
+                window.location = url;
+            }
         }
     }
 

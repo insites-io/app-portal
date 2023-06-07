@@ -6,24 +6,17 @@ query get_current_user {
     name
     email
     external_id
-    ## INS Contact Number
-    # insites_contact_number: profiles(
-    #   profile_type: "modules/insites_core/insites_contact_number"
-    # ) {
-    #   mobile_phone_country_code: property(name: "mobile_phone_country_code")
-    #   mobile_phone_area_code: property(name: "mobile_phone_area_code")
-    #   mobile_phone_number: property(name: "mobile_phone_number")
-    # }
+
+    ## INS CRM Contact 
+    crm_contact: profiles(
+      profile_type: "modules/insites_core/crm_contact"
+    ) {
+      id
+      mobile_phone_number: property(name: "mobile_phone_number")
+      mobile_phone_country_code: property(name: "mobile_phone_country_code")
+    }
     
-    ## INS Customer 
-    # insites_customer: profiles(
-    #   profile_type: "modules/insites_core/insites_customer"
-    # ) {
-    #   is_enabled: property_boolean(name: "is_enabled")
-    #   company_id: property(name: "company_id")
-    # }
-    
-    ## client
+    ## Client
     client: profiles(
       profile_type: "modules/client/client"
     ) {

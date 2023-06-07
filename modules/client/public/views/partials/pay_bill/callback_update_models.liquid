@@ -86,7 +86,7 @@
 {% parse_json data %}
 {
     "id": "{{ form.id }}",
-    "order_number": "{{ form.properties.order_number }}",
+    "order_reference": "{{ form.properties.order_reference }}",
     "user_id": "{{ context.current_user.id }}",
     "order_status": "{{ order_status }}",
     "order_payment_status" : "{{ order_payment_status }}",

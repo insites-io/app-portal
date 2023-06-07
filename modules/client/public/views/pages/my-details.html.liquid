@@ -28,6 +28,12 @@ metadata: {
 authorization_policies:
   - modules/client/user_logged_in
 ---
+
+{%- if context.environment == "staging" -%}
+<!-- start page: my-details  -->
+{%- endif -%}
+
+
 {%- liquid
     graphql user = 'modules/client/account/get_current_user' | dig: 'current_user'
 
@@ -40,8 +46,6 @@ authorization_policies:
         endif
     endif    
 -%}
-
-
 
 {% comment %} Get CRM -> Contact from v5 API {% endcomment %}
 {% parse_json data %} 
@@ -128,3 +132,7 @@ setTimeout(() => {
 }, 200);
 </script>
 {% endif -%}
+
+{%- if context.environment == "staging" -%}
+<!-- end page: my-details  -->
+{%- endif -%}
