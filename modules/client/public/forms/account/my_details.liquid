@@ -61,6 +61,14 @@ fields:
         virtual: true
 
 callback_actions: |-
+  {% comment %} 
+    - The form itself will update the [email, first_name, last_name]
+    - Use API update_contact to add or update profile:crm_contact
+        -- This will only update the [mobile_phone_country_code, mobile_phone_number]
+        -- Note: using add_contact api will create another user
+    - Then update the contact address using another api (update_contact_address or add_contact_address)
+  {% endcomment %}
+
   {% graphql current_user = 'modules/client/account/get_current_user' | dig: 'current_user' %}
   
   {% parse_json update_contact_data %}
@@ -73,22 +81,15 @@ callback_actions: |-
   }
   {% endparse_json %}
   {% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/client/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json %}
-  {% log update_contact, type: "==========TEST my_details update_contact" %}
   
-
   {%  liquid
       assign data = form | json
-      log data, type: "==========TEST data"
       
       if form.properties.default_address   
-        log "==========update_contact_address"
         graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/client/update_contact_address', data: data | dig: 'items','response','body' | parse_json      
       else
         graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
-        log "==========add_contact_address"
       endif         
-
-      log contact_address, type: "==========TEST my_details contact_address"
   %} 
 ---
 
