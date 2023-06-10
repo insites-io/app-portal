@@ -58,13 +58,14 @@ fields:
         property_options:
             virtual: true            
 default_payload: >
+  {% graphql current_user = 'modules/client/account/get_current_user' | dig: 'current_user' %}
   {% function settings = "modules/client/pay_bill/get_settings" %}
   {
     "properties_attributes":{
         "user_id": "{{ context.current_user.id }}",
-        "user_uuid": "{{ context.current_user.id }}",
-        "company_id": "{{ context.current_user.id }}",
-        "company_uuid": "{{ context.current_user.id }}",
+        "user_uuid": "{{ current_user.external_id }}",
+        {% comment %} "company_id": "", {% endcomment %}
+        "company_uuid": "{{ current_user.client[0].company_uuid }}",
         "currency": "{{ settings.currency }}",
         "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}",
         "tax_amount": 0,
@@ -100,7 +101,6 @@ callback_actions: >
         <div class="spacer x-large"></div>
 
         <div class="grid-x grid-padding-x invoice-details">
-            {%- graphql data = 'modules/client/account/get_current_user' -%}
             <div class="large-6 medium-12 small-12 cell">
                 <ins-input required validate account-details-field
                     class="label-input"
