@@ -485,9 +485,21 @@ ul{
 }
 
 /* Home Slider */
-#homepage-banner .slide-container{
-    height: 460px;
+#homepage-banner .slide-container{    
     min-height: 460px;
+    height: 460px;
+}
+
+#homepage-banner .img-wrap img{
+    min-height: 460px;
+}
+
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+    #homepage-banner .slide-container,
+    #homepage-banner .img-wrap img {
+        min-height: 310px;
+        height: 310px;
+    }
 }
 
 /* Questionnaire Form */

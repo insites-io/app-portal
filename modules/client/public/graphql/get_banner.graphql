@@ -33,7 +33,13 @@ query get_banner(
             button_label: property(name: "button_label")  
 
             ## Images
-            image: property_upload(name: "image") {
+            desktop_image: property_upload(name: "desktop_image") {
+                url
+                file_name
+                extension
+                versions
+            }
+            mobile_image: property_upload(name: "mobile_image") {
                 url
                 file_name
                 extension

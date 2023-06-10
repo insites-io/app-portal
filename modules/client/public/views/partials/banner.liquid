@@ -14,10 +14,12 @@
                 {%- for item in data -%}
                     <div class="slide-container" >
                         {%- comment -%}Slide Image{%- endcomment -%}
-                        {%- if item.image.url -%}
-                        <div class="img-wrap">
-                            <img src="{{ item.image.url | replace: ' ', '%20' }}" alt="{{ item.main_text }}" 
-                                class="hide-for-small-only" loading="lazy">                           
+                        {%- if item.desktop_image.url -%}
+                        <div class="img-wrap">   
+                            <!-- desktop image -->
+                            <img src="{{ item.desktop_image.url | replace: ' ', '%20' }}" alt="{{ item.main_text }}" class="hide-for-small-only" />
+                            <!-- mobile image -->
+                            <img src="{{ item.desktop_image.url | replace: ' ', '%20' }}" alt="{{ item.main_text }}" class="show-for-small-only" />
                         </div>
                         {%- endif -%}
                         
