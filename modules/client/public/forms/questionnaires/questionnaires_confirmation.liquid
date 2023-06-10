@@ -8,6 +8,12 @@ fields:
     agreement:
       validation:
         presence: true
+async_callback_actions:
+  delay: 0
+  priority: high
+  max_attempts: 2
+  content: >
+    {% include 'modules/client/questionnaires/questionnaires_pdf_generator', questionnaire_id: form.id %}   
 ---
 
 {%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}

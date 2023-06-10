@@ -1,7 +1,7 @@
 name: modules/client/questionnaires
 metadata:
   label: "Questionnaires"
-  groups: [{"id":"e503b301-22ce-40e5-b741-0f4b1f0e3d60","name":"Hidden Fields","weight":0},{"id":"39bd86d4-1312-41c2-891e-791cd7206cb0","name":"General","weight":1},{"id":"2edfee62-1403-4aa3-9859-7995d59dd220","name":"Additional Details","weight":2},{"id":"2988bc1d-77ba-48af-b6d1-6c0261b1c60f","name":"Confirmation","weight":3}]
+  groups: [{"id":"e503b301-22ce-40e5-b741-0f4b1f0e3d60","name":"Hidden Fields","weight":0},{"id":"39bd86d4-1312-41c2-891e-791cd7206cb0","name":"General","weight":1},{"id":"2edfee62-1403-4aa3-9859-7995d59dd220","name":"Additional Details","weight":2},{"id":"2988bc1d-77ba-48af-b6d1-6c0261b1c60f","name":"Confirmation","weight":3},{"id":"e769a4aa-217e-47f3-bb3a-590796d359c4","name":"Report","weight":4}]
   is_enabled: true
   is_archived: false
 properties:
@@ -165,4 +165,14 @@ properties:
     is_header: false
     ui_element: "checkbox"
     is_required: true
-    is_shown_in_table: false    
+    is_shown_in_table: false
+- name: pdf
+  type: upload
+  metadata:
+    label: "Questionnaire in PDF"
+    weight: 15
+    group_id: "e769a4aa-217e-47f3-bb3a-590796d359c4"
+  options:
+    acl: public
+    cache_control: ""
+    content_disposition: inline

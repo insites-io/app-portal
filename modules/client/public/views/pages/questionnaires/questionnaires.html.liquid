@@ -25,18 +25,6 @@ metadata: {
     "sitemap_changefreq": "monthly",
     "heading": "Questionnaires"
 }
-dynamic_cache:
-  layout: true
-  key: |-
-    {%- parse_json models -%}
-    [
-      "modules/insites_site_manager/insites_global_content",
-      "modules/insites_core/insites_system_fields",
-      "modules/client/questionnaires"
-    ]
-    {%- endparse_json -%}
-    {%- include "modules/website/generate_cache_key", models: models -%}
-    {{context.current_user.id}}
 authorization_policies:
   - modules/client/user_logged_in  
 ---
@@ -215,7 +203,44 @@ authorization_policies:
             }
         });
     }
+
+    //Download PDF
+    let downloadPDF = document.querySelectorAll(".download-pdf");
+    downloadPDF.forEach(btn => {                                            
+        btn.addEventListener('insClick', async event => {   
+            console.log(event);
+            btn.loading = true;
+            let data = event.detail.data.split(",");
+            let id = data[0];
+            let downloadURL = data[1];            
+            if(downloadURL.substring(0, 10) == 'https://s3'){
+                window.open(downloadURL, '_blank');
+                btn.loading = false;
+            }else{
+                let url = "/get-questionnaires-pdf?download="+id;
+                let response = await apiServices.processRequest('get', url);                    
+                if(response.data.substring(0, 10) == 'https://s3'){
+                    App.events.notyf('success', "Creating PDF file...");
+                    //PDF is being created here, alot time for this to finish
+                    setTimeout(() => {
+                        window.open(response.data, '_blank');
+                        btn.loading = false;
+                    }, 3000);            
+                }else{
+                     App.events.notyf('error', "Recreating PDF file, please reload the page.");
+                     btn.loading = false;
+                }
+            }
+        });
+    });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+{%- if context.environment == "staging" -%}
+  <script src="{{ 'modules/client/services/apiServices.js' | asset_url }}"></script>
+{%- else -%}
+  <script src="{{ 'modules/client/services/apiServices.min.js' | asset_url }}"></script>
+{%- endif -%}
+
 
 {%- if context.environment == "staging" -%}
 <!-- end page: overview  -->

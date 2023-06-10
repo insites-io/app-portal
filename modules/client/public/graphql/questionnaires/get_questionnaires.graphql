@@ -43,17 +43,24 @@ query get_questionnaires(
            	primary_phone: property(name: "primary_phone")
            	previous_job: property(name: "previous_job")
             service_of_interest: property_array(name: "service_of_interest")
+            #do not placed 'attach_documents' and 'pdf' on the last
            	attach_documents: property_upload(name: "attach_documents") {
            	  extension
            	  file_name
            	  url
            	  versions
            	}
+            pdf: property_upload(name:"pdf", expires_in: 1800) {
+              extension
+              file_name
+              url
+              versions
+            }
            	contact_name: property(name: "contact_name")
           	contact_number: property(name: "contact_number")
            	update_site: property(name: "update_site")
            	notes: property(name: "notes")
-          	agreement: property_array(name: "agreement")
+          	agreement: property_array(name: "agreement")            
         }
     }
 }
