@@ -43,7 +43,11 @@ authorization_policies:
   "metadata": {{fields}},
   "fields": {"properties": {
       {%- for field in data -%}
-        {% unless field[0] == "attach_documents" %}
+        {%  liquid
+            if field[0] == "attach_documents" or field[0] == "pdf"
+              continue
+            endif
+        %}
         "{{field[0]}}": {
             "value": 
               {% if field[1][0] %}
@@ -53,7 +57,6 @@ authorization_policies:
               {% endif %}
           } 
         {%- unless forloop.last -%},{%- endunless forloop.lass -%} 
-        {% endunless %}              
       {%- endfor -%}
     }
   }
