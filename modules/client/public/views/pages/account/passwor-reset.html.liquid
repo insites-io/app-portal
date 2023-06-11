@@ -39,7 +39,7 @@ metadata: {
             "message": "<p>Your password has been reset. You can now proceed to <a href='/sign-in'>sign in.</a></p>"
         }
         {%- endparse_json -%}
-        {%- include 'modules/client/system/form-result', messageInfo: messageInfo -%}
+        {%- include 'modules/client/system/form_result', messageInfo: messageInfo -%}
 
     {%- else -%}
         {%- include_form 'modules/client/password_reset', id:g.users.results[0].id  -%}

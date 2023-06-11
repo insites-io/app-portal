@@ -32,10 +32,10 @@ fields:
     <div class="insites-form-grid">
     
         <div class="form-groups-tab">        
-            {% include "modules/client/questionnaires/questionnaires-steps" %}
+            {% include "modules/client/questionnaires/questionnaires_steps" %}
         </div>
         
-        {% include "modules/client/questionnaires/questionnaires-additional-details-inputs", form %}
+        {% include "modules/client/questionnaires/questionnaires_additional_details_inputs", form %}
         
     </div>
 
@@ -70,7 +70,7 @@ fields:
     
 {%- endform -%}
 
-{%- include 'modules/client/questionnaires/questionnaires-cancel-modal' -%}
+{%- include 'modules/client/questionnaires/questionnaires_cancel_modal' -%}
 
 <script>
   <!-- Set Contact Number value -->

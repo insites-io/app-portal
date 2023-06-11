@@ -32,10 +32,10 @@ async_callback_actions:
     <div class="insites-form-grid">
     
     <div class="form-groups-tab">        
-        {% include "modules/client/questionnaires/questionnaires-steps" %}
+        {% include "modules/client/questionnaires/questionnaires_steps" %}
     </div>
     
-    {% include "modules/client/questionnaires/questionnaires-confirmation-inputs", form %}
+    {% include "modules/client/questionnaires/questionnaires_confirmation_inputs", form %}
         
     </div>
 
@@ -63,7 +63,7 @@ async_callback_actions:
     
 {%- endform -%}
 
-{%- include 'modules/client/questionnaires/questionnaires-cancel-modal' -%}
+{%- include 'modules/client/questionnaires/questionnaires_cancel_modal' -%}
 
 <ins-modal 
   id="submit-modal"
