@@ -9,6 +9,15 @@ const phoneFields = {
     mobile_phone: document.getElementById('mobile_phone'),
     country_code: document.getElementById('country_code')
 }
+
+const contactUsFields = {
+    first_name: document.getElementById("first-name"),
+    last_name: document.getElementById("last-name"),
+    email: document.getElementById("email"),
+    message: document.getElementById("message"),
+    
+}
+
 let uuidList = [];
 
 // Google Map phoneFields
@@ -79,6 +88,7 @@ let ContactUs = (function () {
                 // Form fields with attribute 'validate' are validated
                 if (await App.validation.validateForm(formEl) && captcha) {
                     formEl.querySelector('ins-button').loading = true;
+                    validateXSS();
                     await this.processAttachments();
                     formEl.submit();
                 } else {
@@ -258,6 +268,28 @@ let ContactUs = (function () {
         },
     }
 })();
+
+// Validate XSS
+function validateXSS() {
+    contactUsFields.first_name.value = escapeHTML(contactUsFields.first_name.value);
+    contactUsFields.last_name.value = escapeHTML(contactUsFields.last_name.value);
+    contactUsFields.email.value = escapeHTML(contactUsFields.email.value);
+    contactUsFields.message.value = escapeHTML(contactUsFields.message.value);
+
+    return true;
+}
+
+function escapeHTML(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+}
 
 //if (google) {
     //ContactUs.init.initGoogleMap();

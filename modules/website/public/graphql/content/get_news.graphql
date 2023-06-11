@@ -7,7 +7,7 @@ query get_news(
         page: $page
         per_page: $size
         filter: {
-            table: { value: "modules/website/news_database" }
+            table: { value: "modules/ins_databases/news" }
             deleted_at: { exists: false }
             properties: [
                 { name: "name", contains: $keyword }
