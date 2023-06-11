@@ -7,6 +7,7 @@ flash_notice: Success-Company-Details
 redirect_to: my-company-details
 fields:  
   properties:
+    #CRM Company Fields
     email_1:
       validation: 
         presence: true
@@ -20,9 +21,8 @@ fields:
         presence: true          
     mobile_phone_number:
     mobile_phone_country_code:
-    company_mobile_phone_number:
-      property_options:
-        virtual: true
+
+    #CRM Address (Company) Fields
     company_address_1:
       property_options:
         virtual: true
@@ -41,8 +41,6 @@ fields:
     company_country:
       property_options:
         virtual: true    
-
-    #Company Address
     company_uuid:
       property_options:
         virtual: true
@@ -54,9 +52,9 @@ callback_actions: |-
     The form itself will update the CRM_Company only
     Update the company address using API
       If company already exist
-        - API for update_company_address
+        - use API to update_company_address only
       Else
-        - API for add_company (this will update the address also)
+        - use API to add_company (this will update the address also)
   {% endcomment %}
   {%  liquid                  
       assign data = form | json
@@ -67,7 +65,7 @@ callback_actions: |-
       else
         graphql add_company = 'modules/website/trigger_api_call', name: 'modules/client/add_company', data: data | dig: 'items','response','body' | parse_json
         graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: add_company.items.properties.uuid
-      endif          
+      endif
   %}   
 ---
 

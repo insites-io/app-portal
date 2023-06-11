@@ -24,15 +24,16 @@ fields:
       presence: 
         message: Last name is required
   
-  # CRM Contact Fields        
-  mobile_phone_country_code:
-    property_options:
-      virtual: true
-  mobile_phone_number:
-    property_options:
-      virtual: true
-  
   properties:
+    # Profile - CRM Contact Fields
+    mobile_phone_country_code:
+      property_options:
+        virtual: true
+    mobile_phone_number:
+      property_options:
+        virtual: true
+
+    # CRM Address (Contact) Fields
     address_1:
       property_options:
         virtual: true
@@ -62,7 +63,7 @@ fields:
 
 callback_actions: |-
   {% comment %} 
-    - The form itself will update the [email, first_name, last_name]
+    - The form itself will update the User: [email, first_name, last_name]
     - Use API update_contact to add or update profile:crm_contact
         -- This will only update the [mobile_phone_country_code, mobile_phone_number]
         -- Note: using add_contact api will create another user
@@ -73,15 +74,14 @@ callback_actions: |-
   
   {% parse_json update_contact_data %}
   {
-    "id": "{{form.id}}",
-    "email": "{{form.email}}",
-    "company_uuid": "{{current_user.client[0].company_uuid}}",
-    "mobile_phone_country_code": "{{form.mobile_phone_country_code}}",
-    "mobile_phone_number": "{{form.mobile_phone_number}}"
+    "id": "{{form.id}}", 
+    "email": "{{form.email}}", 
+    "mobile_phone_country_code": "{{form.properties.mobile_phone_country_code}}",
+    "mobile_phone_number": "{{form.properties.mobile_phone_number}}"
   }
   {% endparse_json %}
   {% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/client/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json %}
-  
+
   {%  liquid
       assign data = form | json
       

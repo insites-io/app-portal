@@ -27,16 +27,17 @@ fields:
     validation: 
       presence: 
         message: Last name is required
-
-  mobile_phone_country_code:
-    property_options:
-      virtual: true
-  mobile_phone_number:
-    property_options:
-      virtual: true
   
   properties:
-    # CRM Contact Fields              
+    # Profile - CRM Contact Fields
+    mobile_phone_country_code:
+      property_options:
+        virtual: true
+    mobile_phone_number:
+      property_options:
+        virtual: true
+
+    # CRM Address - Contact Fields              
     address_1:
       property_options:
         virtual: true
@@ -69,9 +70,8 @@ fields:
       presence: true
       property_options:
         virtual: true
-    phone_1_country_code:
-      property_options:
-        virtual: true
+
+    # CRM Address - Company Fields
     company_mobile_phone_country_code:
       property_options:
         virtual: true
@@ -122,8 +122,8 @@ async_callback_actions:
       "id": "{{form.id}}",
       "email": "{{form.email}}",
       "company_uuid": "{{add_company.items.properties.uuid}}",
-      "mobile_phone_country_code": "{{form.mobile_phone_country_code}}",
-      "mobile_phone_number": "{{form.mobile_phone_number}}"
+      "mobile_phone_country_code": "{{form.properties.mobile_phone_country_code}}",
+      "mobile_phone_number": "{{form.properties.mobile_phone_number}}"
     }
     {% endparse_json %}
     {%  liquid                      

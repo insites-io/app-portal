@@ -1697,6 +1697,10 @@ ul.menu {
 }
 
 /* [Menu Dropdown Overwrite] */
+.ins-dropdown_menu-card{
+    overflow: hidden;
+}
+
 .menu .ins-dropdown_label {
     display: block;
     padding: 18px 25px;

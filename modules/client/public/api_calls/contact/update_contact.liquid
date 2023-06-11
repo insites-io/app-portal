@@ -13,10 +13,4 @@ request_headers: >
         "Authorization": "<%= instance_api_key =%>"
     }
 ---
-{
-    "id": "{{data.id}}",
-    "email": "{{data.email}}",
-    "company_uuid": "{{data.company_uuid}}",
-    "mobile_phone_country_code": "{{data.mobile_phone_country_code}}",
-    "mobile_phone_number": "{{data.mobile_phone_number}}"
-}
+{{data}}
