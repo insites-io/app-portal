@@ -79,10 +79,6 @@ authorization_policies:
   </div>
 </div>
 
-{%- if context.environment == "staging" -%}
-<!-- end page: overview  -->
-{%- endif -%}
-
 <script>
   <!-- Set Primary Phone value -->  
   let primaryPhone = document.getElementById('ins_primary_phone');
@@ -96,3 +92,7 @@ authorization_policies:
     }
   }); 
 </script>
+
+{%- if context.environment == "staging" -%}
+<!-- end page: overview  -->
+{%- endif -%}

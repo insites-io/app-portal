@@ -61,7 +61,7 @@ authorization_policies:
 
     <div class="spacer xxx-large"></div>
     
-    {% if data.total_entries > 0 %}
+    {% if data.total_entries > 0 or params.search %}
 
     <div class="grid-x">
         <div class="cell large-5">
@@ -85,6 +85,10 @@ authorization_policies:
         </div>                
     </div>
 
+    {% endif %}
+
+    {% if data.total_entries > 0 %}
+
     <div class="grid-container client-card">
 
         <div class="grid-x grid-padding-x grid-padding-y">       
@@ -102,6 +106,15 @@ authorization_policies:
             {%- include "modules/client/paginations", page_num, per_page -%}
         {% endif %}
         
+    </div>
+
+    {% elsif params.search %}
+
+    <div class="box no-item text-center mt-12">
+        <div class="spacer xxxx-large"></div>
+        <h4 class="heading-4">No result for search "{{params.search}}"</h4>
+        <div class="spacer small"></div>        
+        <div class="spacer xxxx-large"></div>
     </div>
 
     {% else %}

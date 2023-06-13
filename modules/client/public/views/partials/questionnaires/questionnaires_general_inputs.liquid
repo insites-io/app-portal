@@ -172,6 +172,14 @@
 
     <!-- Field: Attach Documents -->
     <div class="column-1" >
+        {% if params.slug ==  'questionnaires-general-view' %}
+            <label class="list-checkbox_label">Attach Documents</label> 
+            {% if data.attach_documents.url %}
+                <p><a href="{{data.attach_documents.url}}" ><ins-button type="button" label="Download" ></ins-button></a></p>
+            {% else %}
+                <p>- No file submitted.</p>
+            {% endif %} 
+        {% else %}
         <ins-input-file
             {{disabled}}
             id="document-input"
@@ -189,7 +197,9 @@
         <input
             type="hidden"
             id="document"
-            name="{{ props.attach_documents.name }}" >        
+            name="{{ props.attach_documents.name }}" >    
+
+        {% endif %}           
     </div>
 
 </div> 
