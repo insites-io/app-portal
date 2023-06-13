@@ -16,10 +16,13 @@
                         {%- comment -%}Slide Image{%- endcomment -%}
                         {%- if item.desktop_image.url -%}
                         <div class="img-wrap">   
+                            {%- if context.device.device_type != "smartphone" -%}
                             <!-- desktop image -->
-                            <img src="{{ item.desktop_image.url | replace: ' ', '%20' }}" alt="{{ item.main_text }}" class="hide-for-small-only" />
+                            <img src="{{ item.desktop_image.url | replace: ' ', '%20' }}" alt="{{ item.main_text }}" >
+                            {%- else -%}
                             <!-- mobile image -->
-                            <img src="{{ item.desktop_image.url | replace: ' ', '%20' }}" alt="{{ item.main_text }}" class="show-for-small-only" />
+                            <img src="{{ item.mobile_image.url | replace: ' ', '%20' }}" alt="{{ item.main_text }}" >
+                            {%- endif -%}
                         </div>
                         {%- endif -%}
                         

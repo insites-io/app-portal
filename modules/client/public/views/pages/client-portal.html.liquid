@@ -36,9 +36,11 @@ dynamic_cache:
     {%- endparse_json -%}
     {%- include "modules/website/generate_cache_key", models: models -%}
     {{context.current_user.id}}
+    {{context.device.device_type}}
 authorization_policies:
   - modules/client/user_logged_in    
 ---
+
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
 {%- endif -%}
