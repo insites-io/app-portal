@@ -198,22 +198,12 @@ if(registerForm){
         });
     }
 
-    {% comment %} if(stepper1) {
-        stepper1.addEventListener('insClick', async function(event) {
-            registerStepper.setStep(1);
-            step1Container.classList.remove('hide');
-            step2Container.classList.add('hide');
-            step3Container.classList.add('hide');
-        });
-    }
-
-    if(stepper2) {
-        stepper2.addEventListener('insClick', async function(event) {
-            registerStepper.setStep(2);
+    if(backToStep2) {
+        backToStep2.addEventListener('insClick', async function(event) {
+            registerStepper.prev();
             step1Container.classList.add('hide');
             step2Container.classList.remove('hide');
             step3Container.classList.add('hide');
         });
-    } {% endcomment %}
-
+    }    
 </script>
