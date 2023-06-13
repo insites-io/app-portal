@@ -112,7 +112,7 @@
 {% log "=== START PROCESS: STRIPE PAYMENT PAYBILL ==="%}
 
 {% graphql stripe_create_charge = 'modules/website/trigger_api_call', 
-    name: "modules/client/create_payment",
+    name: "modules/client/create_charge",
     data: create_charge 
     | dig: "items" | dig: "response" %}   
 

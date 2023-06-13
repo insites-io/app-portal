@@ -66,7 +66,7 @@
 {% assign data = data | add_hash_key: "payment_gateway_details", stripe_payment_response %}
 
 {%  graphql add_payment = 'modules/website/trigger_api_call', 
-    name: "modules/client/ecommerce/add_payment",
+    name: "modules/client/add_payment",
     data: data
     | dig: 'items','response','body'
     | parse_json %}   
@@ -101,7 +101,7 @@
 }
 {% endparse_json %}
 {%  graphql update_order = 'modules/website/trigger_api_call', 
-    name: "modules/client/ecommerce/update_order",
+    name: "modules/client/update_order",
     data: data
     | dig: 'items','response','body'
     | parse_json %}

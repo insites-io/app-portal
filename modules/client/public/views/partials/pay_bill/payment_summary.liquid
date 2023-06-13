@@ -8,7 +8,7 @@
 
 {%  liquid
     if order_id
-        graphql get_order = 'modules/website/trigger_api_call', name: 'modules/client/ecommerce/get_order', data: data 
+        graphql get_order = 'modules/website/trigger_api_call', name: 'modules/client/get_order', data: data 
         assign order = get_order.items.response.body | parse_json | dig: 'items','results' | first
 
         function computed = "modules/client/pay_bill/compute_amounts", total_amount: order.properties.order_value

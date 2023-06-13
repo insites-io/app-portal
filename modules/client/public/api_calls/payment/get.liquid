@@ -1,5 +1,6 @@
 ---
-to: 'https://{{context.location.host}}/stripe/api/v1/settings'
+name: get_payment
+to: 'https://{{context.location.host}}/ecommerce/api/v1/payments/{{data.id}}'
 format: http
 request_type: GET
 # callback: >

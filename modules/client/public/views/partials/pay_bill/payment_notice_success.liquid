@@ -4,7 +4,7 @@
 }
 {% endparse_json %}
 {% liquid
-    graphql get_payment = 'modules/website/trigger_api_call', name: 'modules/client/ecommerce/get_payment', data: data 
+    graphql get_payment = 'modules/website/trigger_api_call', name: 'modules/client/get_payment', data: data 
     assign payment = get_payment.items.response.body | parse_json | dig: 'items','results' | first
 %}
 
