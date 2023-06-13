@@ -2,5 +2,4 @@
 {% assign key = data.items.response.body | parse_json | dig: 'items','results' | first | dig: 'key' %}
 
 <!-- Google Maps API -->
-<link rel="preload" as="script" href="//maps.googleapis.com/maps/api/js?key={{key}}&libraries=places&v=3.exp" >
-<script src="//maps.googleapis.com/maps/api/js?key={{key}}&libraries=places&v=3.exp"></script>
+<script defer src="//maps.googleapis.com/maps/api/js?key={{key}}&libraries=places&v=3.exp"></script>
