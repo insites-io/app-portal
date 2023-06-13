@@ -151,7 +151,7 @@ let LoginScript = (function () {
                 let emailInput = document.getElementById('email');
                 let varEmail = document.getElementById('email').value
                 if(App.validation.validateEmail(emailInput)){
-                    let url = '/check-user-email-signup.json?'+ 'email='+ varEmail ;
+                    let url = '/check-user-email-signup?'+ 'email='+ varEmail ;
                     let response = await apiServices.processRequest('get', url);
                     if(response.state && response.data) {
                         //Check / Handle if user exist
