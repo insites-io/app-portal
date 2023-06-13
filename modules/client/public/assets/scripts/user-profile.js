@@ -5,13 +5,6 @@ let contactMobileFields = {
     country_code: document.getElementById('mobile_phone_country_code')
 }
 
-//Insites CRM -> Company : mobile_phone_number, mobile_phone_country_code
-let companyMobileFields = {
-    inputTel: document.getElementById('company-mobile-phone'),
-    phone_number: document.getElementById('company_mobile_phone_number'),
-    country_code: document.getElementById('company_mobile_phone_country_code')
-}
-
 let addressForm = {
     deletBtn: document.getElementById('deleteAddressBtn-main'),
     deleteBtnTrigger: document.getElementById('deleteAddressBtn2'),
@@ -144,7 +137,7 @@ let UserProfileScript = (function () {
                     this.validateTelField();
 
                     //Phone Fields
-                    let mobileFields = (formId == 'user-profile-form')? contactMobileFields : companyMobileFields;
+                    let mobileFields = contactMobileFields;
                     let values = await mobileFields.inputTel.getValues();
                     mobileFields.country_code.value = values.country_code;
                     mobileFields.phone_number.value = values.phone_number;

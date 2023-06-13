@@ -71,6 +71,11 @@ authorization_policies:
 <script>
   let submitBtn = document.getElementById("submit-btn");
   let form = document.getElementById("my-company-details-form");
+  let companyMobileFields = {
+    inputTel: document.getElementById('company-mobile-phone'),
+    phone_number: document.getElementById('company_mobile_phone_number'),
+    country_code: document.getElementById('company_mobile_phone_country_code')
+  }
 
    async function validateMyCompanyDetails(event) {
     event.preventDefault();
@@ -108,8 +113,6 @@ setTimeout(() => {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 {%- if context.environment == "staging" -%}
   <script src="{{ 'modules/client/scripts/address-lookup.js' | asset_url }}"></script>
-  <script src="{{ 'modules/client/scripts/user-profile.js' | asset_url }}"></script>
 {%- else -%}
   <script src="{{ 'modules/client/scripts/address-lookup.min.js' | asset_url }}"></script>
-  <script src="{{ 'modules/client/scripts/user-profile.min.js' | asset_url }}"></script>
 {%- endif -%}

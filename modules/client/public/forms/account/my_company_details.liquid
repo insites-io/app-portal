@@ -61,11 +61,13 @@ callback_actions: |-
 
       if form.properties.company_uuid != '' and form.properties.company_uuid != null
         graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/client/update_company_address', data: data | dig: 'items','response','body' | parse_json
-        graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: form.properties.company_uuid        
+        assign company_uuid = form.properties.company_uuid
       else
         graphql add_company = 'modules/website/trigger_api_call', name: 'modules/client/add_company', data: data | dig: 'items','response','body' | parse_json
-        graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: add_company.items.properties.uuid
+        assign company_uuid = add_company.items.properties.uuid
       endif
+
+      graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: company_uuid       
   %}   
 ---
 
