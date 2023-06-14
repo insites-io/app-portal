@@ -38,6 +38,11 @@ callback_actions: >
     id: form.id,
     document: form.properties.document
   %}
+  {% log form.properties, type: "_____________________________FORM___________________________________" %}
+  {%- assign desc = form.properties.first_name | append: ' ' | append: form.properties.last_name | append: ' contact us.' -%}
+  {%- function event_res = "modules/client/functions/log_event", 
+      description: desc,
+      related_type: "Form Submission" -%}
 ---
 {%- if context.environment == "staging" -%}
   <!-- start form:modules/insites_forms/forms/contact_us  -->
@@ -69,6 +74,8 @@ callback_actions: >
     <div class="large-6 medium-12 small-12 cell">
       <ins-input
         validate
+        onkeypress="return validateInput(event)"
+        onpaste="return handlePaste(event)"
         id="first-name"
         label="First Name*"
         data-test="contact-us-field-first-name"
@@ -84,6 +91,8 @@ callback_actions: >
     <div class="large-6 medium-12 small-12 cell">
       <ins-input
         validate
+        onkeypress="return validateInput(event)"
+        onpaste="return handlePaste(event)"
         id="last-name"
         label="Last Name*"
         data-test="contact-us-field-last-name"

@@ -85,10 +85,11 @@ let ContactUs = (function () {
                 phoneFields.country_code.value = values.country_code;
                 phoneFields.mobile_phone.value = "+" + values.country_code + values.phone_number;
 
+                validateXSS();
+
                 // Form fields with attribute 'validate' are validated
                 if (await App.validation.validateForm(formEl) && captcha) {
                     formEl.querySelector('ins-button').loading = true;
-                    validateXSS();
                     await this.processAttachments();
                     formEl.submit();
                 } else {
@@ -101,7 +102,6 @@ let ContactUs = (function () {
                     let filesToUpload = await insFileUploaderEl.getFilesList().then(result => {
                         return result;
                     });
-                    console.log(filesToUpload);
                     for (let index = 0; index < filesToUpload.length; index++) {
                         /*  This specific case only uploads 1 file, and return the uploaded S3 URL to the field in the form
                             Code implementation may change if your uploading multiple files / images at a time,
@@ -112,8 +112,6 @@ let ContactUs = (function () {
                         //documentFieldEl.value = s3URL;
                         testarr.push(s3URL);
                     }
-                    console.log("testarr =  " , testarr);
-                    console.log("documentFieldEl = " , documentFieldEl);
                     documentFieldEl.value = testarr;
                 }
             },
@@ -133,9 +131,6 @@ let ContactUs = (function () {
                         }
                         // pass 'document' as it is the pOS field name
                         // pass 'media' depending on pOS field type
-                        console.log("s3cred =  " , s3CredentialsURL)
-                        console.log("file = " , file)
-                        console.log("file name " , file.name)
                         const uploads3 = await S3UploaderService.methods.uploadToS3(
                           "/api/attachments/s3-form?name=modules/insites_core/attachment&field=file", 
                           file,
@@ -281,14 +276,39 @@ function validateXSS() {
 
 function escapeHTML(text) {
     var map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
+        '&': '',
+        '<': '',
+        '>': '',
+        '"': ''
     };
 
-    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+    return text.replace(/[&<>"]/g, function (m) { return map[m]; });
+}
+
+// Function to validate the input
+function validateInput(event) {
+    var key = event.keyCode || event.which;
+    var keyChar = String.fromCharCode(key);
+    var allowedChars = /^[a-zA-Z0-9\s'-]+$/;
+
+    // Check if the pressed key is allowed or not
+    if (!allowedChars.test(keyChar)) {
+        event.preventDefault();
+        return false;
+    }
+}
+
+// Function to handle paste event
+function handlePaste(event) {
+    var clipboardData = event.clipboardData || window.clipboardData;
+    var pastedData = clipboardData.getData('text');
+    var allowedChars = /^[a-zA-Z0-9\s'-]+$/;
+
+    // Check if the pasted data contains any disallowed characters
+    if (!allowedChars.test(pastedData)) {
+        event.preventDefault();
+        return false;
+    }
 }
 
 //if (google) {
