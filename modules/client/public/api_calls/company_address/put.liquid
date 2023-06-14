@@ -10,7 +10,13 @@ request_type: PUT
 request_headers: >
     {
         "Content-Type": "application/json",
+        {% if context.location.host == 'insites-app-client-portal-dev1.staging.oregon.platform-os.com' %}
         "Authorization": "<%= instance_api_key =%>"
+        {% elsif context.location.host == 'insites-app-client-portal-dev3.staging.oregon.platform-os.com' %}
+        "Authorization": "<%= instance_api_key_dev3 =%>"
+        {% else %}
+        "Authorization": "<%= instance_api_key_uat =%>"
+        {% endif %}
     }
 ---
 {%- assign props = data.properties -%}

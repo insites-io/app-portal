@@ -1,0 +1,54 @@
+---
+slug: test
+layout: modules/client/form_layout
+# enable_profiler: true
+searchable: false
+max_deep_level: 1
+metadata: {
+  "og:url": null,
+  "schema": null,
+  "status": "published",
+  "og:type": null,
+  "og:image": null,
+  "og:title": null,
+  "page_name": "TEST DB",
+  "page_type": "content",
+  "meta_title": null,
+  "page_title": "TEST DB",
+  "database_id": "1195770",
+  "description": null,
+  "layout_name": "Test Layout",
+  "redirect_to": null,
+  "list_enabled": false,
+  "og:site_name": null,
+  "canonical_url": null,
+  "database_name": "modules/client/questionnaire",
+  "sitemap_order": "",
+  "og:description": null,
+  "details_enabled": false,
+  "sitemap_enabled": false,
+  "sitemap_priority": "",
+  "details_layout_id": null,
+  "sitemap_changefreq": "monthly",
+  "search_engine_visibility": false
+}
+authorization_policies:
+  - modules/client/user_logged_in
+---
+
+{%- if context.environment == "staging" -%}
+<!-- start page: feedback  -->
+{%- endif -%}
+
+
+{{context.headers.HTTP_HOST}}
+"Authorization": "<%= instance_api_key =%>"
+<hr>
+"Authorization": "<%= instance_api_key_dev3 =%>"
+<hr>
+"Authorization": "<%= instance_api_key_uat =%>"
+
+
+{%- if context.environment == "staging" -%}
+<!-- end page: feedback  -->
+{%- endif -%}

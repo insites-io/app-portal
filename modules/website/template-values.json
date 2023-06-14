@@ -1,5 +1,7 @@
 {
    "seed_data": false,
    "google_maps_api_key": "",
-   "instance_api_key": "instance_92d3be32-b64f-4909-91fe-2db66783f617_q7V-rkI5fYMmz2TtJ8NfQuuL2BaKhkDMChITkejdLK8"
+   "instance_api_key": "instance_92d3be32-b64f-4909-91fe-2db66783f617_q7V-rkI5fYMmz2TtJ8NfQuuL2BaKhkDMChITkejdLK8",
+   "instance_api_key_dev3": "instance_6af2dba2-4173-481e-81a8-89e3d12c7ae8_IzOHkVQmwJOu9r7tiCNcj8WzSnoYMuwIMqdKI7poCQY",
+   "instance_api_key_uat": "instance_4d201d12-47a6-4c1f-96ed-4a60264c00ee_r1WzfxUZZXbH1ira6r6UB8SfGWtW_UUdG05u4I0hd2U"
 }
