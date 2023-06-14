@@ -21,7 +21,7 @@ fields:
     user_id:    
       validation: 
         presence: true
-    user_uuid:
+    #user_uuid:
     company_id:
     company_uuid:
     currency:    
@@ -55,8 +55,8 @@ fields:
 
     # Other Details 
     stripe_credit_card:
-        property_options:
-            virtual: true            
+      property_options:
+          virtual: true            
 default_payload: >
   {% graphql current_user = 'modules/client/account/get_current_user' | dig: 'current_user' %}
   {% function settings = "modules/client/pay_bill/get_settings" %}
