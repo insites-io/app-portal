@@ -38,8 +38,8 @@ callback_actions: >
     id: form.id,
     document: form.properties.document
   %}
-
-  {%- assign desc = "Test" | append: ' ' | append: 'Test stream' | append: ' signed up.' -%}
+  {% log form.properties, type: "_____________________________FORM___________________________________" %}
+  {%- assign desc = form.properties.first_name | append: ' ' | append: form.properties.last_name | append: ' signed up.' -%}
   {%- function event_res = "modules/client/functions/log_event", 
       description: desc,
       related_type: "Form Submission" -%}
