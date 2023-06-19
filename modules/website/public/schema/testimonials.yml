@@ -1,6 +1,6 @@
 name: modules/website/testimonials
 metadata:
-  label: "testimonials"
+  label: "Testimonials"
   groups: [{"id":"9e96cf3e-c23f-4118-ab5e-f0ed9899ccef","name":"Settings","weight":0},{"id":"53f9c2ff-7458-4834-8f0b-ec25d72828fe","name":"Testimonial Content","weight":1}]
   is_archived: false
 properties:

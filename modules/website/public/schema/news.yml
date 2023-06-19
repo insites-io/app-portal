@@ -1,6 +1,6 @@
 name: modules/website/news_database
 metadata:
-  label: "News Database"
+  label: "News"
   groups: [{"id":"528dbffa-3d2f-4ccb-b95e-a23ae7432c0e","name":"SEO Settings","weight":0},{"id":"37d87a39-cdf7-4da0-b857-1faec3f4339a","name":"Article Details","weight":1},{"id":"2432e12d-518f-4e3d-8cb6-e16a9cfe506c","name":"Article Content","weight":2}]
   is_archived: false
 properties:

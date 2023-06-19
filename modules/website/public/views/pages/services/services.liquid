@@ -1,0 +1,47 @@
+---
+slug: services
+layout: modules/website/default
+# enable_profiler: true
+searchable: false
+max_deep_level: 1
+metadata: {
+  "og:url": null,
+  "schema": null,
+  "status": "published",
+  "og:type": null,
+  "og:image": null,
+  "og:title": null,
+  "page_name": "Services",
+  "page_type": "content",
+  "meta_title": null,
+  "page_title": "Services",
+  "database_id": "1137214",
+  "description": null,
+  "layout_name": "Services",
+  "redirect_to": null,
+  "list_enabled": false,
+  "og:site_name": null,
+  "canonical_url": null,
+  "database_name": "modules/website/services",
+  "sitemap_order": "",
+  "og:description": null,
+  "details_enabled": false,
+  "sitemap_enabled": false,
+  "sitemap_priority": "",
+  "details_layout_id": null,
+  "sitemap_changefreq": "monthly",
+  "search_engine_visibility": false
+}
+---
+
+{%- if context.environment == "staging" -%}
+<!-- start page: feedback  -->
+{%- endif -%}
+
+
+{{context}}
+
+
+{%- if context.environment == "staging" -%}
+<!-- end page: feedback  -->
+{%- endif -%}
