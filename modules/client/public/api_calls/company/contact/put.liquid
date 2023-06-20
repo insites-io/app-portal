@@ -1,13 +1,18 @@
 ---
-name: update_contact
-to: 'https://{{context.location.host}}/core/api/v1/contacts'
+name: assign_company_contact
+to: 'https://{{context.location.host}}/core/api/v1/companies/contacts/assign'
 format: http
 request_type: PUT
-#callback: >
+# callback: >
 #   {% log response, type: 'response object' %}
 #   {% assign response_hash = response.body | parse_json %}
 #   {% log response_hash, type: 'response body as hash' %} 
 request_headers: >
     {% include 'modules/client/api_headers' %}
----
-{{data}}
+---    
+{
+    "company_uuid": "{{data.company_uuid}}",
+    "contact_ids": [
+        "{{data.contact_ids}}"
+    ]
+}

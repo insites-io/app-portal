@@ -7,16 +7,7 @@ request_type: POST
 #  {% log response, type: 'response object' %} 
 #  {% assign response_hash = response.body | parse_json %}
 request_headers: >
-    {
-        "Content-Type": "application/json",
-        {% if context.location.host == 'insites-app-client-portal-dev1.staging.oregon.platform-os.com' %}
-        "Authorization": "<%= instance_api_key =%>"
-        {% elsif context.location.host == 'insites-app-client-portal-dev3.staging.oregon.platform-os.com' %}
-        "Authorization": "<%= instance_api_key_dev3 =%>"
-        {% else %}
-        "Authorization": "<%= instance_api_key_uat =%>"
-        {% endif %}
-    }
+    {% include 'modules/client/api_headers' %}
 ---
 {%  liquid 
     graphql user = 'modules/client/account/get_user_uuid', id: data.id | dig: 'items','results' | first

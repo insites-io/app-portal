@@ -8,16 +8,7 @@ request_type: POST
 #   {% assign response_hash = response.body | parse_json %}
 #   {% log response_hash, type: 'response body as hash' %} 
 request_headers: >
-    {
-        "Content-Type": "application/json",
-        {% if context.location.host == 'insites-app-client-portal-dev1.staging.oregon.platform-os.com' %}
-        "Authorization": "<%= instance_api_key =%>"
-        {% elsif context.location.host == 'insites-app-client-portal-dev3.staging.oregon.platform-os.com' %}
-        "Authorization": "<%= instance_api_key_dev3 =%>"
-        {% else %}
-        "Authorization": "<%= instance_api_key_uat =%>"
-        {% endif %}
-    }
+    {% include 'modules/client/api_headers' %}
 ---
 {%- assign props = data.properties -%}
 {
