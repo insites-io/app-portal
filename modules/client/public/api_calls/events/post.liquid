@@ -9,37 +9,4 @@ callback: >
 request_headers: >
     {% include 'modules/client/api_headers' %}
 ---
-
-{%- capture details -%}
-    {{ data.details }}
-{%- endcapture -%}
-
-{% comment %} {
-    "font_icon": "{{ data.font_icon }}",
-    "font_icon_color": "{{ data.font_icon_color }}",
-    "datetime": {{ 'now' | date: '%Y-%m-%dT%H:%M:%S' }}
-    "description": "{{ data.description }}",
-    "details": {{ details | json }},
-    "log": {
-
-    }
-} {% endcomment %}
-
-{
-    "description": "This is a <strong>Test Event</strong>", //REQUIRED
-    "datetime": {{ 'now' | date: '%Y-%m-%dT%H:%M:%S' }},
-    "log": {
-        "company": "Sample Company",
-        "contact": "Sample Contact"
-    },
-    "details": "<html>Test Details</html>",
-    "font_icon": "icon-star-full",
-    "font_icon_color": "#ffafcc"
-}
-
-{% comment %} datetime	Datetime in Epoch format
-description	Markdown description
-font_icon	Insites Font Icon you want to display on your Events timeline.
-font_icon_color	The color of the icon
-details	The HTML content you would like displayed in the drawer
-log {% endcomment %}
+{{data}}

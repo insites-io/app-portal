@@ -91,6 +91,19 @@ callback_actions: |-
         graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
       endif         
   %} 
+
+  {% comment %} Event Stream {% endcomment %}
+  {% parse_json info %}
+  {
+    "description": "My Details Updated",
+    "log": {
+      "first_name": "{{ form.first_name }}",
+      "last_name": "{{ form.last_name }}",
+      "email": "{{ form.email }}"
+    }
+  }
+  {% endparse_json %}
+  {% include 'modules/client/functions/log_event', info %}
 ---
 
 {%- form 

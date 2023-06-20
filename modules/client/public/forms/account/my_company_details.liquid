@@ -69,6 +69,18 @@ callback_actions: |-
 
       graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: company_uuid       
   %}   
+
+  {% comment %} Event Stream {% endcomment %}
+  {% parse_json info %}
+  {
+    "description": "My Company Details Updated",
+    "log": {
+      "company_name": "{{ form.properties.company_name }}",
+      "email_1": "{{ form.properties.email_1 }}"
+    }
+  }
+  {% endparse_json %}
+  {% include 'modules/client/functions/log_event', info %}
 ---
 
 {%- form 

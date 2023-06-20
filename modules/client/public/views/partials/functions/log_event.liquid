@@ -1,36 +1,22 @@
 {%- comment -%}
+    datetime
+    description
     font_icon
     font_icon_color
-    description
     details
-    related_type
-    related_uuid
+    log
 {%- endcomment -%}
-
-{%-  liquid
-
-    assign var_font_icon = font_icon | default: "icon-info"
-    assign var_font_icon_color = font_icon_color | default: "#451278"
-    assign var_description = description | default: ""
-    assign var_details = details | default: "{}"
-    assign var_related_type = related_type | default: ""
-    assign var_related_uuid = related_uuid | default: ""
--%}
 
 {%- parse_json data -%}
 {
-    "font_icon": "{{var_font_icon}}",
-    "font_icon_color": "{{var_font_icon_color}}",
-    "description": "{{var_description}}",
-    "related_type": "{{var_related_type}}",
-    "related_uuid": "{{var_related_uuid}}"
+    "font_icon": "{{ info.font_icon | default: "icon-info" }}",
+    "font_icon_color": "{{ info.font_icon_color | default: "#451278" }}",
+    "description": "{{ info.description | default: "" }}",
+    "details": "{{ info.details | default: "" }}"    
 }
 {%- endparse_json -%}
-{%- assign data = data | add_hash_key: "details", var_details -%}
+{%- assign data = data | add_hash_key: "log", info.log -%}
 
 {%- liquid
-
-    graphql create_event_log = 'modules/website/trigger_api_call', name: "modules/client/add_events", data: data | dig: 'items','response'
-    
-    return create_event_log
+    graphql create_event_log = 'modules/website/trigger_api_call', name: "modules/client/add_events", data: data | dig: 'items','response'    
 -%}
