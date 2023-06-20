@@ -38,7 +38,7 @@ dynamic_cache:
     {{context.current_user.id}}
     {{context.device.device_type}}
 authorization_policies:
-  - modules/client/user_logged_in    
+  - modules/client/is_user_logged_in    
 ---
 
 {%- if context.environment == "staging" -%}
