@@ -59,7 +59,7 @@ authorization_policies:
     <div class="spacer xx-large"></div>
 
     {%- if verified -%}        
-        {%- graphql cards = "modules/client/credit_card/get_credit_card", 
+        {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
             user_id: context.current_user.id | dig: 'items' -%}
         {%- if cards.total_entries > 0 -%}          
             <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">
