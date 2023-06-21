@@ -181,7 +181,8 @@ authorization_policies:
             if(field.getAttribute("id") == "add-document-btn"){
                 //Add Document
                 documentsForm.action = "/api/customizations/";
-                resource_id.value = "new";                
+                resource_id.value = "new";           
+                method = document.querySelector("#documents-form input[name=_method]");     
                 if(method != null){
                     method.remove();
                 }
