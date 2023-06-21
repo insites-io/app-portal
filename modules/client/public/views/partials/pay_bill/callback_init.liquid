@@ -1,9 +1,8 @@
 {% comment %} 
   Steps:
     1. Gateway / Create Payment
-    2. Update models/records
-    3.1. Email Notification
-    3.2. Create Event Stream
+    2. Update models/records (Payment, Order)
+    3. Email Notification
 {% endcomment %}
 
 
@@ -39,7 +38,7 @@
     settings: settings %}
 
 
-{% comment %} Step 3: Trigger autoresponder, workflow, Event Stream {% endcomment %}
+{% comment %} Step 3. Email Notification {% endcomment %}
 {% parse_json customer_info %}
 {
     "email": "{{ context.current_user.email }}",
@@ -56,21 +55,6 @@
 }
 {% endparse_json %}
 
-
-{% comment %} Step 3.1. Email Notification {% endcomment %}
 {% include 'modules/client/pay_bill/callback_email_notifications', 
     status: status,
-    data: data %}
-
-
-{% comment %} Step 3.2. Create Event Stream {% endcomment %}
-{%  liquid
-    assign description = "<b>Status:</b> Bills Payment " | append: status | append: "<br> <b>Amount:</b> "| append: data.order_info.properties.total_amount | append: data.order_info.properties.currency | upcase  
-    
-    assign related_type = "Bills Payment " | append: status | titleize
-%}
-{%  include "modules/client/functions/log_event", 
-    font_icon_color: "violet",
-    description: description,
-    details: data.order_info,
-    related_type: related_type %}
+    data: data %} 

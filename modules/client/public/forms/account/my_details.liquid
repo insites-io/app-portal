@@ -91,19 +91,34 @@ callback_actions: |-
         graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
       endif         
   %} 
-
-  {% comment %} Event Stream {% endcomment %}
-  {% parse_json info %}
-  {
-    "description": "My Details Updated",
-    "log": {
-      "first_name": "{{ form.first_name }}",
-      "last_name": "{{ form.last_name }}",
-      "email": "{{ form.email }}"
+  
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {% parse_json info %}
+    {
+      "description": "My Details Updated",
+      "log": {
+        "first_name": "{{ form.first_name }}",
+        "last_name": "{{ form.last_name }}",
+        "email": "{{ form.email }}",
+        "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
+        "mobile_phone_number": "{{ form.properties.mobile_phone_number }}",
+        "contact_address":{
+          "address_1": "{{ form.properties.address_1 }}",
+          "address_2": "{{ form.properties.address_2 }}",
+          "suburb": "{{ form.properties.suburb }}",
+          "state": "{{ form.properties.state }}",
+          "postcode": "{{ form.properties.postcode }}",
+          "country": "{{ form.properties.country }}"
+        }      
+      }
     }
-  }
-  {% endparse_json %}
-  {% include 'modules/client/functions/log_event', info %}
+    {% endparse_json %}
+    {% include 'modules/client/functions/log_event', info %}
 ---
 
 {%- form 

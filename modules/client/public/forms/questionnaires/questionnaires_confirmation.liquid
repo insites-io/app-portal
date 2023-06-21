@@ -13,7 +13,25 @@ async_callback_actions:
   priority: high
   max_attempts: 2
   content: >
-    {% include 'modules/client/questionnaires/questionnaires_pdf_generator', questionnaire_id: form.id %}   
+    {% comment %} Create PDF version of this Questionnaire {% endcomment %}
+    {% include 'modules/client/questionnaires/questionnaires_pdf_generator', questionnaire_id: form.id %} 
+
+    {% comment %} Create Event Stream {% endcomment %}
+    {% parse_json info %}
+    {
+      "description": "New Questionnaire Added",
+      "log": {
+        "user": {
+          "id": "{{ context.current_user.id }}",
+          "email": "{{ context.current_user.email }}",
+          "first_name": "{{ context.current_user.first_name }}",
+          "last_name": "{{ context.current_user.last_name }}"
+        },
+        "id": "{{ form.id }}"
+      }
+    }    
+    {% endparse_json %}
+    {% include 'modules/client/functions/log_event', info %}  
 ---
 
 {%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}

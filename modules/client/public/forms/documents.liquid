@@ -32,6 +32,28 @@ default_payload: |-
   }
 callback_actions: |-
   {% session document_notice_message = form.notice_message %}
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {% parse_json info %}
+    {
+      "description": "{{form.notice_message}}",
+      "log": {
+        "user": {
+          "id": "{{ context.current_user.id }}",
+          "email": "{{ context.current_user.email }}",
+          "first_name": "{{ context.current_user.first_name }}",
+          "last_name": "{{ context.current_user.last_name }}"
+        },
+        "description": "{{ form.properties.description }}",
+        "notes": "{{ form.properties.notes }}"
+      }
+    }
+    {% endparse_json %}
+    {% include 'modules/client/functions/log_event', info %}  
 email_notifications:
   - modules/client/document_workflow
 ---

@@ -2,6 +2,7 @@
   Steps:
     1. Create Payment record on POS
     2. Update Order record
+    3. Create Event Stream
 {% endcomment %}
 
 
@@ -111,3 +112,46 @@
 
 
 {% export update_order %}
+
+
+{% comment %} Step 3. Create Event Stream {% endcomment %}
+{% parse_json info %}
+{
+    "description": "Bills Payment",
+    "log": {
+        "user": {
+            "id": "{{ context.current_user.id }}",
+            "email": "{{ context.current_user.email }}",
+            "first_name": "{{ context.current_user.first_name }}",
+            "last_name": "{{ context.current_user.last_name }}"
+        },
+        "order": {
+            "id": "{{ form.id }}",
+            "order_reference": "{{ form.properties.order_reference }}",
+            "order_status": "{{ order_status }}",
+            "order_payment_status" : "{{ order_payment_status }}",
+            "amount_due" : "{{ amount_due }}",
+            "total_amount" : "{{ computed.total_amount }}",
+            "shipping_amount": "0",
+            "tax_amount": "0",
+            "order_value" : "{{ computed.total_amount }}"
+        },
+        "payment": {
+            "order_id": "{{order_id}}",
+            "payment_source": "Payment Gateway",
+            "payment_status": "{{order_payment_status}}",
+            "payment_gateway_name": "{{settings.gateway_name}}",
+            "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+            "card_last4": "{{card.last4}}",
+            "card_brand": "{{card.brand}}",
+            "card_exp_month": "{{card.exp_month}}",
+            "card_exp_year": "{{card.exp_year}}",
+            "currency": "{{settings.currency}}",
+            "order_value": "{{computed.total_amount}}",
+            "amount": "{{computed.total_amount}}",
+            "amount_due": "{{amount_due}}"
+        }
+    }
+}
+{% endparse_json %}
+{% include 'modules/client/functions/log_event', info %}

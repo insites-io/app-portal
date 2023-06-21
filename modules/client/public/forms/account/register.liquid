@@ -127,7 +127,6 @@ async_callback_actions:
     }
     {% endparse_json %}
     {%  liquid                      
-        log data, type: "==========TEST register data"
         graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: form.id, company_uuid: add_company.items.properties.uuid 
         graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/client/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
         graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
@@ -141,11 +140,43 @@ async_callback_actions:
         endif
     %}
    
-    {% comment %} Event Stream {% endcomment %}
-    {% liquid
-        assign desc = form.first_name | append: ' ' | append: form.last_name | append: ' signed up.' 
-        function event_res = "modules/client/functions/log_event", description: desc, related_type: "Form Submission"
-    %}
+    {% comment %} Create Event Stream {% endcomment %}
+    {% parse_json info %}
+    {
+      "description": "New Registration",
+      "log": {
+        "first_name": "{{ form.first_name }}",
+        "last_name": "{{ form.last_name }}",
+        "email": "{{ form.email }}",
+        "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
+        "mobile_phone_number": "{{ form.properties.mobile_phone_number }}",
+        "contact_address":{
+          "address_1": "{{ form.properties.address_1 }}",
+          "address_2": "{{ form.properties.address_2 }}",
+          "suburb": "{{ form.properties.suburb }}",
+          "state": "{{ form.properties.state }}",
+          "postcode": "{{ form.properties.postcode }}",
+          "country": "{{ form.properties.country }}"
+        },
+        "company":{
+          "company_name": "{{ form.properties.company_name }}",
+          "registered_business_number": "{{ form.properties.registered_business_number }}",
+          "email_1": "{{ form.properties.email_1 }}",
+          "mobile_phone_country_code": "{{ form.properties.company_mobile_phone_country_code }}",
+          "mobile_phone_number": "{{ form.properties.company_mobile_phone_number }}"
+        },
+        "company_address":{
+          "address_1": "{{ form.properties.company_address_1 }}",
+          "address_2": "{{ form.properties.company_address_2 }}",
+          "suburb": "{{ form.properties.company_suburb }}",
+          "state": "{{ form.properties.company_state }}",
+          "postcode": "{{ form.properties.company_postcode }}",
+          "country": "{{ form.properties.company_country }}"
+        }        
+      }
+    }
+    {% endparse_json %}
+    {% include 'modules/client/functions/log_event', info %}
 ---
 
 {%- form 
