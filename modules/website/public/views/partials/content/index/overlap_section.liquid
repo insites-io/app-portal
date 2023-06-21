@@ -58,9 +58,9 @@
 
 
     {% comment %} connect services to graphql {% endcomment %}
-    {%- graphql get_services_homepage = 'modules/website/content/get_services_homepage' -%}
+    {%- graphql get_services_on_homepage = 'modules/website/home/get_services_on_homepage' -%}
     {% comment %} assign var to fetch the result {% endcomment %}
-    {%- assign res_services_homepage = get_services_homepage | dig: 'items', 'results' -%}
+    {%- assign res_services_homepage = get_services_on_homepage | dig: 'items', 'results' -%}
 
     <section class="services-section">  
         <div class="blocks-sc-3col-01 wrapper bg-color-ui-01">

@@ -7,10 +7,7 @@ request_type: POST
 callback: >
   {% assign response_hash = response.body | parse_json %}
 request_headers: >
-    {
-        "Content-Type": "application/json",
-        "Authorization": "instance_4d201d12-47a6-4c1f-96ed-4a60264c00ee_r1WzfxUZZXbH1ira6r6UB8SfGWtW_UUdG05u4I0hd2U"
-    }
+    {% include 'modules/client/api_headers' %}
 ---
 
 {

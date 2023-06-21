@@ -1,5 +1,5 @@
-{%- graphql get_testimonial = 'modules/website/content/get_testimonial' -%}
-{%- assign res_testimonial = get_testimonial | dig: 'items', 'results' -%}
+{%- graphql get_testimonials = 'modules/website/home/get_testimonials' -%}
+{%- assign res_testimonial = get_testimonials | dig: 'items', 'results' -%}
 
 <section class="section-testimonials">
     <div class="blocks-hero-01 homepage-banner-wrap">
