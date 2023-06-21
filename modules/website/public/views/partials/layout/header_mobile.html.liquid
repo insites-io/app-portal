@@ -15,7 +15,7 @@
           <ins-accordion-item heading="Services" link="/services" link-target="_self" open-icon="icon-angle-down" close-icon="icon-minus"
             class="has-subitems servicesMenuSubitems">
               {% comment %} connect services to graphql {% endcomment %}
-              {%- graphql get_services = 'modules/website/content/get_services' -%}
+              {%- graphql get_services = 'modules/website/services/get_services' -%}
               {% comment %} assign var to fetch the result {% endcomment %}
               {%- assign res_services = get_services | dig: 'items', 'results' -%}
               

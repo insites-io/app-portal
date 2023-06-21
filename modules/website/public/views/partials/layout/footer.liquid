@@ -6,7 +6,7 @@
             <div class="grid-x grid-padding-x gutter-medium">
                 <div class="large-4 medium-6 small-12 cell text-left">
                     <div class="img-logo img-full">
-                        <img class="logo" src="https://docs.insites.io/assets/images/webblocks/insites-template-logo.png?updated" alt="Sample Logo">
+                        <img class="logo" src="{{ context.exports.global.company_logo }}" alt="Logo">
                     </div>
                 </div>
                 <div class="small-12 cell spacer xxx-large hide-for-medium"></div>
@@ -48,7 +48,7 @@
                             <div class="spacer"></div>
                         </li>
                         {% comment %} connect services to graphql {% endcomment %}
-                        {%- graphql get_services = 'modules/website/content/get_services' -%}
+                        {%- graphql get_services = 'modules/website/services/get_services' -%}
                         {% comment %} assign var to fetch the result {% endcomment %}
                         {%- assign res_services = get_services | dig: 'items', 'results' -%}
                         
