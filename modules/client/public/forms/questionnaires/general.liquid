@@ -62,7 +62,7 @@ async_callback_actions:
           "first_name": "{{ context.current_user.first_name }}",
           "last_name": "{{ context.current_user.last_name }}"
         },
-        "id": "{{ form.id }}"
+        "id": "{{ form.id }}",
         "year": "{{ form.properties.year }}",
         "have_you_heard": "{{ form.properties.have_you_heard }}",
         "howd_you_learn": "{{ form.properties.howd_you_learn }}",
@@ -106,9 +106,9 @@ async_callback_actions:
 
     <div class="insites-form-grid">  
       <div class="form-groups-tab">        
-          {% include "modules/client/questionnaires/questionnaires_steps" %}            
+          {% include "modules/client/questionnaires/form_steps" %}            
       </div>    
-      {% include "modules/client/questionnaires/questionnaires_general_inputs", form %}        
+      {% include "modules/client/questionnaires/general_inputs", form %}        
     </div>
     
     <div class="insites-form-grid ">        
@@ -146,7 +146,7 @@ async_callback_actions:
     assign file_path = attach_documents.url
 %}
 
-{%- include 'modules/client/questionnaires/questionnaires_cancel_modal' -%}
+{%- include 'modules/client/questionnaires/cancel_modal' -%}
 
 <script>
   <!-- Set Primary Phone value -->  

@@ -19,7 +19,7 @@
 {% endcomment %}
 {%-liquid
     if item.pdf.url == null
-        function pdf_generator = 'modules/client/questionnaires/questionnaires_pdf_generator', questionnaire_id: item.id
+        function pdf_generator = 'modules/client/questionnaires/pdf_generator', questionnaire_id: item.id
         assign download_url = pdf_generator.record_update.pdf.url
     else
         assign download_url = item.pdf.url

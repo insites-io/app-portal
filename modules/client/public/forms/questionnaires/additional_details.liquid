@@ -31,7 +31,7 @@ async_callback_actions:
           "first_name": "{{ context.current_user.first_name }}",
           "last_name": "{{ context.current_user.last_name }}"
         },
-        "id": "{{ form.id }}"
+        "id": "{{ form.id }}",
         "contact_name": "{{ form.properties.contact_name }}",
         "contact_number": "{{ form.properties.contact_number }}",
         "update_site": "{{ form.properties.update_site }}",
@@ -56,10 +56,10 @@ async_callback_actions:
     <div class="insites-form-grid">
     
         <div class="form-groups-tab">        
-            {% include "modules/client/questionnaires/questionnaires_steps" %}
+            {% include "modules/client/questionnaires/form_steps" %}
         </div>
         
-        {% include "modules/client/questionnaires/questionnaires_additional_details_inputs", form %}
+        {% include "modules/client/questionnaires/additional_details_inputs", form %}
         
     </div>
 
@@ -94,7 +94,7 @@ async_callback_actions:
     
 {%- endform -%}
 
-{%- include 'modules/client/questionnaires/questionnaires_cancel_modal' -%}
+{%- include 'modules/client/questionnaires/cancel_modal' -%}
 
 <script>
   <!-- Set Contact Number value -->

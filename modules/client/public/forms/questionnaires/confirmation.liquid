@@ -14,7 +14,7 @@ async_callback_actions:
   max_attempts: 2
   content: >
     {% comment %} Create PDF version of this Questionnaire {% endcomment %}
-    {% include 'modules/client/questionnaires/questionnaires_pdf_generator', questionnaire_id: form.id %} 
+    {% include 'modules/client/questionnaires/pdf_generator', questionnaire_id: form.id %} 
 
     {% comment %} Create Event Stream {% endcomment %}
     {% parse_json info %}
@@ -50,10 +50,10 @@ async_callback_actions:
     <div class="insites-form-grid">
     
     <div class="form-groups-tab">        
-        {% include "modules/client/questionnaires/questionnaires_steps" %}
+        {% include "modules/client/questionnaires/form_steps" %}
     </div>
     
-    {% include "modules/client/questionnaires/questionnaires_confirmation_inputs", form %}
+    {% include "modules/client/questionnaires/confirmation_inputs", form %}
         
     </div>
 
@@ -81,7 +81,7 @@ async_callback_actions:
     
 {%- endform -%}
 
-{%- include 'modules/client/questionnaires/questionnaires_cancel_modal' -%}
+{%- include 'modules/client/questionnaires/cancel_modal' -%}
 
 <ins-modal 
   id="submit-modal"
