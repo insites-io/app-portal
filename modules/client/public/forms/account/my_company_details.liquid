@@ -69,18 +69,41 @@ callback_actions: |-
 
       graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: company_uuid       
   %}   
-
-  {% comment %} Event Stream {% endcomment %}
-  {% parse_json info %}
-  {
-    "description": "My Company Details Updated",
-    "log": {
-      "company_name": "{{ form.properties.company_name }}",
-      "email_1": "{{ form.properties.email_1 }}"
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {% parse_json info %}
+    {
+      "description": "My Company Details Updated",
+      "log": {
+        "user": {
+          "id": "{{ context.current_user.id }}",
+          "email": "{{ context.current_user.email }}",
+          "first_name": "{{ context.current_user.first_name }}",
+          "last_name": "{{ context.current_user.last_name }}"
+        },
+        "company":{
+          "company_name": "{{ form.properties.company_name }}",
+          "registered_business_number": "{{ form.properties.registered_business_number }}",
+          "email_1": "{{ form.properties.email_1 }}",
+          "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
+          "mobile_phone_number": "{{ form.properties.mobile_phone_number }}"
+        },
+        "company_address":{
+          "address_1": "{{ form.properties.company_address_1 }}",
+          "address_2": "{{ form.properties.company_address_2 }}",
+          "suburb": "{{ form.properties.company_suburb }}",
+          "state": "{{ form.properties.company_state }}",
+          "postcode": "{{ form.properties.company_postcode }}",
+          "country": "{{ form.properties.company_country }}"
+        }      
+      }
     }
-  }
-  {% endparse_json %}
-  {% include 'modules/client/functions/log_event', info %}
+    {% endparse_json %}
+    {% include 'modules/client/functions/log_event', info %}
 ---
 
 {%- form 

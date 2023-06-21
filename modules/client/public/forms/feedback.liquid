@@ -29,6 +29,30 @@ default_payload: |-
       "user_id": "{{ context.current_user.id }}"
     }
   }
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {% parse_json info %}
+    {
+      "description": "Feedback Added",
+      "log": {
+        "user": {
+          "id": "{{ context.current_user.id }}",
+          "email": "{{ context.current_user.email }}",
+          "first_name": "{{ context.current_user.first_name }}",
+          "last_name": "{{ context.current_user.last_name }}"
+        },
+        "full_name": "{{ form.properties.full_name }}",
+        "location": "{{ form.properties.location }}",
+        "message": "{{ form.properties.message }}",
+        "allow_display_on_website": "{{ form.properties.allow_display_on_website }}"
+      }
+    }
+    {% endparse_json %}
+    {% include 'modules/client/functions/log_event', info %}    
 email_notifications:
   - modules/client/feedback_workflow 
 ---

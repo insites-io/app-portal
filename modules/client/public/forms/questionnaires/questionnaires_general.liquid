@@ -46,6 +46,35 @@ default_payload: |-
       "user_id": "{{context.current_user.id}}"
     }
   }
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {% parse_json info %}
+    {
+      "description": "Questionnaires - General",
+      "log": {
+        "user": {
+          "id": "{{ context.current_user.id }}",
+          "email": "{{ context.current_user.email }}",
+          "first_name": "{{ context.current_user.first_name }}",
+          "last_name": "{{ context.current_user.last_name }}"
+        },
+        "id": "{{ form.id }}"
+        "year": "{{ form.properties.year }}",
+        "have_you_heard": "{{ form.properties.have_you_heard }}",
+        "howd_you_learn": "{{ form.properties.howd_you_learn }}",
+        "reason_for_visit": "{{ form.properties.reason_for_visit }}",
+        "personal_email": "{{ form.properties.personal_email }}",
+        "primary_phone": "{{ form.properties.primary_phone }}",
+        "previous_job": "{{ form.properties.previous_job }}",
+        "service_of_interest": {{ form.properties.service_of_interest }}
+      }
+    }    
+    {% endparse_json %}
+    {% include 'modules/client/functions/log_event', info %}
 ---
 {%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}
 {%- assign groups = database_info.metadata.groups | sort_by: "weight" -%}

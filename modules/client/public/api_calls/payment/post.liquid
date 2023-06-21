@@ -3,9 +3,10 @@ name: add_payment
 to: 'https://{{context.location.host}}/ecommerce/api/v1/payments'
 format: http
 request_type: POST
-callback: >
-  {% assign response_hash = response.body | parse_json %}
-  {% log response_hash.items.properties.description, type: 'Event response' %} 
+# callback: >
+#   {% log response, type: 'response object' %}
+#   {% assign response_hash = response.body | parse_json %}
+#   {% log response_hash, type: 'response body as hash' %} 
 request_headers: >
     {% include 'modules/client/api_headers' %}
 ---

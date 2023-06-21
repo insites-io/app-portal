@@ -15,7 +15,31 @@ fields:
       validation:
         presence: true
     notes:
-#callback_actions: >
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {% parse_json info %}
+    {
+      "description": "Questionnaires - Additional Details",
+      "log": {
+        "user": {
+          "id": "{{ context.current_user.id }}",
+          "email": "{{ context.current_user.email }}",
+          "first_name": "{{ context.current_user.first_name }}",
+          "last_name": "{{ context.current_user.last_name }}"
+        },
+        "id": "{{ form.id }}"
+        "contact_name": "{{ form.properties.contact_name }}",
+        "contact_number": "{{ form.properties.contact_number }}",
+        "update_site": "{{ form.properties.update_site }}",
+        "notes": "{{ form.properties.notes }}"
+      }
+    }    
+    {% endparse_json %}
+    {% include 'modules/client/functions/log_event', info %}
 ---
 
 {%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}

@@ -17,6 +17,4 @@
 {%- endparse_json -%}
 {%- assign data = data | add_hash_key: "log", info.log -%}
 
-{%- liquid
-    graphql create_event_log = 'modules/website/trigger_api_call', name: "modules/client/add_events", data: data | dig: 'items','response'    
--%}
+{%- graphql add_events = 'modules/website/trigger_api_call', name: "modules/client/add_events", data: data -%}
