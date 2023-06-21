@@ -10,7 +10,7 @@ query get_banner(
             table: { value: "modules/client/client_portal_banners" }
             deleted_at: { exists: false }
             properties: [
-                { name: "enabled", value_boolean: true }
+                { name: "is_enabled", value_boolean: true }
                 { name: "main_text", contains: $keyword }
             ]
         }
