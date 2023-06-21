@@ -42,10 +42,6 @@ async_callback_actions:
     {% include 'modules/client/functions/log_event', info %}
 ---
 
-{%- graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first -%}
-{%- assign fields = database_info.properties -%}
-{%- assign form = form | add_hash_key: "metadata", fields -%}
-
 {%- form
     html-autocomplete: "off"
     html-id: "questionnaires-form"

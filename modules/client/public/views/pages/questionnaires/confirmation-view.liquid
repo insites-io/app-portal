@@ -31,16 +31,10 @@ authorization_policies:
 {%- endif -%}
 
 
-{%- liquid
-    graphql database_info = "modules/client/forms/get_database_info", $resource: "modules/client/questionnaires" | dig: "items","results" | first 
-    assign fields = database_info.properties
-
-    graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first
--%}
+{%- graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first -%}
 
 {%- parse_json form -%}
 {
-  "metadata": {{fields}},
   "fields": {"properties": {
       {%- for field in data -%}
         {%  liquid

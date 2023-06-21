@@ -24,7 +24,7 @@
             data-ui="list_radio" 
             data-name="{{ props.have_you_heard.name }}"
             {%- if form.errors['properties.have_you_heard'] != nil -%} has-error="true" {%- endif -%}>
-            <label class="list-field_label">{%- include 'modules/client/insites_database/label', form: form, name: 'have_you_heard' -%}</label>
+            <label class="list-field_label">Have you ever heard about Insites?*</label>
             <div class="list-radio-options">
                 <ins-radio
                     {{disabled}}
@@ -53,7 +53,7 @@
             searchable 
             data-type="string"
             data-ui="list_select"
-            label="{%- include 'modules/client/insites_database/label', form: form, name: 'howd_you_learn' -%}"
+            label="How did you learn about Insites?*"
             name="{{ props.howd_you_learn.name }}"
             value="{{ props.howd_you_learn.value }}"
             error-message="{{ form.errors.howd_you_learn | default: 'Required' }}"            
@@ -72,7 +72,7 @@
             searchable 
             data-type="string"
             data-ui="list_select"
-            label="{%- include 'modules/client/insites_database/label', form: form, name: 'reason_for_visit' -%}"
+            label="What is the main reason you visit our website? *"
             name="{{ props.reason_for_visit.name }}"
             value="{{ props.reason_for_visit.value }}"
             error-message="{{ form.errors['properties.reason_for_visit'] | default: 'Required' }}"            
@@ -90,7 +90,7 @@
             validate
             data-type="string"
             data-ui="text"
-            label="{%- include 'modules/client/insites_database/label', form: form, name: 'personal_email' -%}"
+            label="Personal Email*"
             name="{{ props.personal_email.name }}"
             value="{{ props.personal_email.value }}"
             error-message="{{ form.errors['properties.personal_email'] | default: 'Required' }}"            
@@ -106,7 +106,7 @@
             id="ins_primary_phone"
             data-type="string"
             data-ui="phone"
-            label="{%- include 'modules/client/insites_database/label', form: form, name: 'primary_phone' -%}"
+            label="Primary Phone"
             phonenum-placeholder="Telephone Number"
             error-message="{{ form.errors['properties.primary_phone'] }}"            
             {% if form.errors['properties.primary_phone'] != nil -%} has-error {%- endif -%} >
@@ -123,7 +123,7 @@
             {{disabled}}
             data-type="string"
             data-ui="multi_line"
-            label="{%- include 'modules/client/insites_database/label', form: form, name: 'previous_job' -%}"
+            label="Why did you leave your previous job?"
             name="{{ props.previous_job.name }}"
             value="{{ props.previous_job.value }}"
             error-message="{{ form.errors['properties.previous_job'] }}"            
@@ -133,16 +133,16 @@
 
     <!-- Field: Which of our services are you interested in? -->
     <div class="column-1">
-        <div class="list-checkbox" 
+        <div class="list-field-wrap" 
+            validate
             data-type="array" 
             data-ui="list_checkbox"  
             data-name="{{ props.service_of_interest.name }}"
             {%- if form.errors['properties.service_of_interest'] != nil -%} has-error="true" {%- endif -%}>
-            <label class="list-checkbox_label">{%- include 'modules/client/insites_database/label', form: form, name: 'service_of_interest' -%}</label>
+            <label class="list-checkbox_label">Which of our services are you interested in?*</label>
             <div class="list-checkbox-options">
                 <ins-checkbox
-                    {{disabled}}
-                    validate
+                    {{disabled}}                    
                     label="Design" value="Design" 
                     name="{{ props.service_of_interest.name }}"
                     {%- if props.service_of_interest.value contains 'Design' -%} checked {%- endif -%}>
@@ -166,7 +166,7 @@
                     {%- if props.service_of_interest.value contains 'Technical Support' -%} checked {%- endif -%}>
                 </ins-checkbox>
             </div>
-            <p class="list-checkbox_error">{{ form.errors['properties.service_of_interest'] }}</p>
+            <p class="list-checkbox_error">{{ form.errors['properties.service_of_interest'] | default: 'Required' }}</p>
         </div>
     </div>
 
@@ -188,7 +188,7 @@
             data-type="upload"
             data-ui="media_file"
             data-prop="attach_documents"
-            label="{%- include 'modules/client/insites_database/label', form: form, name: 'attach_documents' -%}"
+            label="Attach Documents"
             accepted-files=""
             capture=""
             error-message="{{ form.errors['properties.attach_documents'] }}"            
