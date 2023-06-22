@@ -41,7 +41,7 @@ payload:
 {%- assign customer_email = payload.email | strip -%}
 
 {%- comment -%} STEP 1: Check Stripe Customer Data {%- endcomment -%}
-{%- graphql stripe_customer = "modules/client/customer/get_customer_model" 
+{%- graphql stripe_customer = "modules/client/customers/get_customer_model" 
     email: customer_email,
     gateway_name: "Stripe" 
     | dig: "items" | dig: "results" | first -%}
@@ -60,7 +60,7 @@ payload:
     {%- comment -%}Step 1-A: Customer Stripe data exist. Proceed create stripe credit card {%- endcomment -%}
 
     {%- comment -%}Step 1-A.1: Update customer model data{%- endcomment -%}
-    {%- graphql customer_model = "modules/client/customer/update_customer_model", 
+    {%- graphql customer_model = "modules/client/customers/update_customer_model", 
         id: stripe_customer.id
         user_id: user_id,
         name: customer_name | dig: "items" -%}
@@ -132,7 +132,7 @@ payload:
     }
     {% endparse_json %}
 
-    {% graphql card_model = "modules/client/credit_card/create_credit_card"
+    {% graphql card_model = "modules/client/credit_cards/create_credit_card"
         args: credit_card %} {% endcomment %}
         
     {%- comment -%}END Save Stripe card to pOS {%- endcomment -%}
@@ -151,7 +151,7 @@ payload:
         
     }
     {% endparse_json %}
-    {%- graphql customer_model = "modules/client/customer/create_customer_model", 
+    {%- graphql customer_model = "modules/client/customers/create_customer_model", 
         args: customer_data -%}
     {%- assign response = customer_model -%}
 

@@ -15,7 +15,7 @@
 
 {%- if email_name -%}
     {% comment %} Autoresponder /  Email notification {% endcomment %}
-    {%- graphql trigger = "modules/website/system/trigger_email_notification",
+    {%- graphql trigger = "modules/website/trigger_email_notification",
         name: email_name,
         data: data -%}
     {% log "Bill Payment: Send autoresponder" %}
@@ -23,7 +23,7 @@
 
 {%- if workflow_name -%}
     {% comment %} Workflow notification {% endcomment %}
-    {%- graphql trigger = "modules/website/system/trigger_email_notification",
+    {%- graphql trigger = "modules/website/trigger_email_notification",
         name: workflow_name,
         data: data -%}
     {% log "Bill Payment: Send Workflow" %}

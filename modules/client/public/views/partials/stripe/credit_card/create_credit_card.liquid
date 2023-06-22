@@ -17,7 +17,7 @@
     }
     {% endparse_json %}
     {% comment %} Create pOS credit card model {% endcomment %}
-    {% graphql card_model = "modules/client/credit_card/create_credit_card"
+    {% graphql card_model = "modules/client/credit_cards/create_credit_card"
         args: credit_card | dig: "items" %}
     
 

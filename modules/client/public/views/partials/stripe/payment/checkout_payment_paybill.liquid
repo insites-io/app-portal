@@ -8,7 +8,7 @@
 {%- assign charge_to_this_card = false -%}
 
 {%- comment -%} STEP 1: Stripe Customer  {%- endcomment -%}
-{%- graphql stripe_customer = "modules/client/customer/get_customer_model" 
+{%- graphql stripe_customer = "modules/client/customers/get_customer_model" 
     email: customer_email,
     gateway_name: "Stripe" 
     | dig: "items" | dig: "results" | first -%}
@@ -28,7 +28,7 @@
     {%- assign customer_name = user.first_name | append: ' ' | append: user.last_name -%}
 
 {%- comment -%}Step 1-A.2: Update customer model data{%- endcomment -%}
-    {%- graphql customer_model = "modules/client/customer/update_customer_model", 
+    {%- graphql customer_model = "modules/client/customers/update_customer_model", 
         id: customer_model_id
         user_id: user_id,
         name: customer_name | dig: "items" -%}

@@ -51,7 +51,7 @@ authorization_policies:
 }
 {% endparse_json %}
 
-{%- graphql data = "modules/client/get_documents", args: filters | dig: "items" -%}
+{%- graphql data = "modules/client/documents/get_documents", args: filters | dig: "items" -%}
 
 <div class="documents">
 

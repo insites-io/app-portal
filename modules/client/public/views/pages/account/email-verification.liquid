@@ -57,22 +57,6 @@ metadata: {
         {%- endparse_json -%}
         {%- include 'modules/client/system/form_result', messageInfo: messageInfo -%}
 
-        {% comment %} Create Event Stream {% endcomment %}
-        {% comment %} TEST {% parse_json info %}
-        {
-            "description": "Email Verified",
-            "log": {
-                "id": "{{ user_with_token.id }}",
-                "first_name": "{{ user_with_token.first_name }}",
-                "last_name": "{{ user_with_token.last_name }}",
-                "email": "{{ user_with_token.email }}"            
-            }
-        }
-        {% endparse_json %}
-        {% include 'modules/client/functions/log_event', info %}
-        {% session event_email_verification = true %} {% endcomment %}
-
     {% endif %}
     
 {% endif %}
-

@@ -1,4 +1,4 @@
-{%- graphql data = "modules/client/get_banner", size: 10 | dig: "items","results" -%}
+{%- graphql data = "modules/client/banners/get_banner", size: 10 | dig: "items","results" -%}
 
 {%- if data.size > 0 -%}
 <div class="homepage-banner-wrap">

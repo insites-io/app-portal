@@ -26,7 +26,7 @@ metadata: {
 {%- assign payload = context.params.payload | parse_json -%}
 {%- assign status = 200 -%}
 
-{%- graphql response = 'modules/client/credit_card/update_credit_card',
+{%- graphql response = 'modules/client/credit_cards/update_credit_card',
     id: payload.id,
     args: payload.properties -%}
 
