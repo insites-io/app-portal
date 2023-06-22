@@ -59,7 +59,7 @@ fields:
           virtual: true            
 default_payload: >
   {% graphql current_user = 'modules/client/account/get_current_user' | dig: 'current_user' %}
-  {% function settings = "modules/client/pay_bill/get_settings" %}
+  {% function settings = "modules/client/pay_bills/get_settings" %}
   {
     "properties_attributes":{
         "user_id": "{{ context.current_user.id }}",
@@ -79,7 +79,7 @@ default_payload: >
     }
   }  
 callback_actions: >
-  {%- include 'modules/client/pay_bill/callback_init', 
+  {%- include 'modules/client/pay_bills/callback_init', 
       context: context,
       form: form -%}  
 ---
@@ -132,6 +132,6 @@ callback_actions: >
         </div>
     </div>
     
-    {% include 'modules/client/pay_bill/payment_credit_card' %}
+    {% include 'modules/client/pay_bills/payment_credit_card' %}
     
 {% endform %}

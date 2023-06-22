@@ -39,9 +39,9 @@ authorization_policies:
       {% comment %} Payment Notice {% endcomment %} 
       {%  liquid
           if context.session.paybill_status == 'success'
-              include 'modules/client/pay_bill/payment_notice_success', order_id: context.session.paybill_order_id,  payment_id: context.session.paybill_payment_id
+              include 'modules/client/pay_bills/payment_notice_success', order_id: context.session.paybill_order_id,  payment_id: context.session.paybill_payment_id
           else
-              include 'modules/client/pay_bill/payment_notice_failed'
+              include 'modules/client/pay_bills/payment_notice_failed'
           endif
       %}
     {%- else -%}

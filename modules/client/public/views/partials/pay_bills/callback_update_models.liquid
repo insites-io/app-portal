@@ -23,7 +23,7 @@
 {% comment %} Compute amounts {% endcomment %}
 {% liquid
 
-    function computed = "modules/client/pay_bill/compute_amounts", total_amount: form.properties.order_value
+    function computed = "modules/client/pay_bills/compute_amounts", total_amount: form.properties.order_value
     
     if status == 'success'
         assign amount_due = 0.0

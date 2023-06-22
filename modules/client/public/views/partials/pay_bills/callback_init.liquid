@@ -7,7 +7,7 @@
 
 
 {% comment %} Get Gateway Settings from Ecommerce settings {% endcomment %}
-{% function settings = "modules/client/pay_bill/get_settings" %}
+{% function settings = "modules/client/pay_bills/get_settings" %}
 {% assign gateway = settings.gateway_name | downcase %}
 
 {% comment %} Step 1: Gateway / Create Payment {% endcomment %}
@@ -31,7 +31,7 @@
 
 
 {% comment %} Step 2. Update models/records {% endcomment %}
-{% include 'modules/client/pay_bill/callback_update_models'
+{% include 'modules/client/pay_bills/callback_update_models'
     status: status,
     order_id: order_id,
     form: form,
@@ -55,6 +55,6 @@
 }
 {% endparse_json %}
 
-{% include 'modules/client/pay_bill/callback_email_notifications', 
+{% include 'modules/client/pay_bills/callback_email_notifications', 
     status: status,
     data: data %} 

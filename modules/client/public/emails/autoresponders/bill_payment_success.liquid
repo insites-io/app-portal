@@ -5,9 +5,9 @@ delay: 0
 enabled: true
 trigger_condition: true
 from: >
-    {%- include 'modules/client/email/autoresponder_from' -%}
+    {%- include 'modules/client/emails/autoresponder_from' -%}
 reply_to: >
-    {%- include 'modules/client/email/autoresponder_reply_to' -%}
+    {%- include 'modules/client/emails/autoresponder_reply_to' -%}
 cc:
 bcc:
 subject: Bill payment successful
@@ -16,7 +16,7 @@ layout: modules/insites_core/insites_external_email_layout
 
 {% comment %} Compute amounts {% endcomment %}
 {%- liquid
-    function computed = "modules/client/pay_bill/compute_amounts", total_amount: data.order_info.properties.order_value
+    function computed = "modules/client/pay_bills/compute_amounts", total_amount: data.order_info.properties.order_value
     assign amount_due = computed.total_amount
     if status == 'succeeded'
         assign amount_due = 0.0
