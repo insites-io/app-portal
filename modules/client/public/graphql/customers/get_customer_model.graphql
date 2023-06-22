@@ -1,7 +1,7 @@
 query get_customer_model (
     $id: ID,
     $page: Int = 1,
-    $size: Int = 10,
+    $size: Int = 1,
     $gateway_id: String,
     $gateway_name: String,
     $user_id: String

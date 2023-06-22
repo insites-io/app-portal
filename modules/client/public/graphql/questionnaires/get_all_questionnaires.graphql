@@ -28,7 +28,6 @@ query get_all_questionnaires(
             id
             updated_at
             created_at
-            #properties
           	user_id: property(name: "user_id")
           	year: property(name: "year")          	
         }

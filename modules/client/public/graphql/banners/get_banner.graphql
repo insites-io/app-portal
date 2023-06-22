@@ -26,7 +26,6 @@ query get_banner(
             id
             updated_at
             created_at
-            #properties
             main_text: property(name: "main_text")
             sub_text: property(name: "sub_text")
             button_link: property(name: "button_link")

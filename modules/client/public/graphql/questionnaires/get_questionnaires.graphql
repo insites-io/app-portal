@@ -33,7 +33,6 @@ query get_questionnaires(
             id
             updated_at
             created_at
-            #properties
           	user_id: property(name: "user_id")
           	year: property(name: "year")
             have_you_heard: property(name: "have_you_heard")
@@ -43,7 +42,7 @@ query get_questionnaires(
            	primary_phone: property(name: "primary_phone")
            	previous_job: property(name: "previous_job")
             service_of_interest: property_array(name: "service_of_interest")
-            #do not placed 'attach_documents' and 'pdf' on the last
+            #do not place 'attach_documents' and 'pdf' on the last
            	attach_documents: property_upload(name: "attach_documents") {
            	  extension
            	  file_name

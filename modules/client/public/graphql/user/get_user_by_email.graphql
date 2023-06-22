@@ -25,21 +25,12 @@ query get_user_by_email (
       first_name
       last_name
       
-      ## INS ECO Customer
       client: profiles(
         profile_type: "modules/client/client"
       ) {
         is_enabled: property_boolean(name: "is_enabled")
         is_activated: property_boolean(name: "is_activated")
       }
-
-      ## INS Contact Number
-      # contact: profiles(
-      #   profile_type: "modules/insites_core/insites_contact_number"
-      # ) {
-      #   id
-      #   properties
-      # }
     }
   }
 }

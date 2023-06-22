@@ -28,7 +28,6 @@ query get_documents(
           id
           updated_at
           created_at
-          #properties
           user_id: property(name: "user_id")
           description: property(name: "description")
           notes: property(name: "notes")

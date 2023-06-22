@@ -15,7 +15,6 @@ query check_user_email_signup($email:String){
       profiles{
         id
         profile_type
-        #properties
       }
     }
   }

@@ -7,7 +7,6 @@ query get_current_user {
     email
     external_id
 
-    ## INS CRM Contact 
     crm_contact: profiles(
       profile_type: "modules/insites_core/crm_contact"
     ) {
@@ -17,7 +16,6 @@ query get_current_user {
       mobile_phone_country_code: property(name: "mobile_phone_country_code")
     }
     
-    ## Client
     client: profiles(
       profile_type: "modules/client/client"
     ) {
@@ -25,10 +23,5 @@ query get_current_user {
       is_activated: property_boolean(name: "is_activated")
       company_uuid: property(name: "company_uuid")
     }
-
-    # profiles{
-    #   profile_type
-    #   properties
-    # }
   }
 }
