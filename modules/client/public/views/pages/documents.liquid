@@ -265,7 +265,11 @@ authorization_policies:
         }
     }
 </script>
+{%- if context.environment == "staging" -%}
 <script src="{{ 'modules/client/scripts/file-upload.js' | asset_url }}"></script>
+{% else %}
+<script src="{{ 'modules/client/scripts/file-upload.min.js' | asset_url }}"></script>
+{%- endif -%}
 
 {%- if context.flash.notice == "Success-Documents" -%}
 <script>
