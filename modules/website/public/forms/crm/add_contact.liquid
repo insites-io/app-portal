@@ -52,7 +52,7 @@ callback_actions: >
     "font_icon_color": "yellow"
   }
   {% endparse_json %}
-  {% include 'modules/client/functions/log_event', info %}
+  {% include 'modules/client/events/log_event', info %}
 ---
 {%- if context.environment == "staging" -%}
   <!-- start form:modules/insites_forms/forms/contact_us  -->

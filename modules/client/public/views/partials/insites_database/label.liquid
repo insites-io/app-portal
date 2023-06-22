@@ -1,2 +1,0 @@
-{%- assign field = form.metadata | array_detect: name: name -%}
-{{ field.metadata.label | default: name }}{%- if form.fields.properties[name].validation.rules.presence != blank -%}*{%- endif -%}

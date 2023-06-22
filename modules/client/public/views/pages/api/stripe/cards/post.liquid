@@ -82,7 +82,7 @@ payload:
         {%- assign bind_card_user_id = user_id | default: blank -%}
         {%- comment -%}Create new card on Stripe API {%- endcomment -%}
         {%- capture new_stripe_credit_card -%}
-            {%- include 'modules/client/stripe/credit_card/create_credit_card', 
+            {%- include 'modules/client/stripe/credit_cards/create_credit_card', 
                 stripe_card: stripe_card,
                 user_id: bind_card_user_id
                 return: true -%}
@@ -162,7 +162,7 @@ payload:
         }
         {% endparse_json %}
 
-        {%- include 'modules/client/stripe/credit_card/create_credit_card', 
+        {%- include 'modules/client/stripe/credit_cards/create_credit_card', 
                 stripe_card: stripe_card,
                 user_id: user_id -%}
 

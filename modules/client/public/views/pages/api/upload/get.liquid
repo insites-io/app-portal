@@ -25,5 +25,5 @@ metadata: {
 }
 ---
 
-{%- graphql results = 'modules/client/forms/get_s3_upload' table: context.params.table, property: context.params.property -%}
+{%- graphql results = 'modules/client/uploads/get_s3_upload' table: context.params.table, property: context.params.property -%}
 {{ results }}

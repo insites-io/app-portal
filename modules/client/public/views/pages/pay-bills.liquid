@@ -56,7 +56,7 @@ authorization_policies:
 {%- endif -%}
 
 <!-- Stripe Element -->
-{%- include 'modules/client/forms/stripe_element',
+{%- include 'modules/client/stripe/stripe_element',
     cc_field_id: "checkout-credit-card"
     email_field_id: "email" -%}
 <!-- END Stripe Element -->

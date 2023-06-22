@@ -14,7 +14,7 @@
 {% case gateway %}
     {% when 'stripe' %}
         {% comment %}Step 1-A: Stripe payment process{% endcomment %}
-        {% include 'modules/client/stripe/payment/checkout_payment_paybill', 
+        {% include 'modules/client/stripe/payments/checkout_payment_paybill', 
             form: form %}
         {% comment %}
         If new / other payment gateways are supported, insert process here:

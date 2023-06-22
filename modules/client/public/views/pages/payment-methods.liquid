@@ -101,7 +101,7 @@ authorization_policies:
 <!-- end page: Payment Methods  -->
 {%- endif -%}
 
-{%- include 'modules/client/forms/stripe_element', email_field_id: "email" -%}
+{%- include 'modules/client/stripe/stripe_element', email_field_id: "email" -%}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 {%- if context.environment == "staging" -%}
