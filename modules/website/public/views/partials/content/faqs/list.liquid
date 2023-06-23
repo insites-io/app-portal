@@ -1,0 +1,35 @@
+---
+# enable_profiler: true
+metadata: {
+    "database_name": "modules/website/faqs",
+    "layout": "list",
+    "page_title": "Faqs List",
+    "slug": "faqs-list"
+}
+---
+
+
+{% comment %} connect services to graphql {% endcomment %}
+{%- graphql get_faq = 'modules/website/faqs/get_faqs' -%}
+{% comment %} assign var to fetch the result {% endcomment %}
+{%- assign res_faq = get_faq | dig: 'items', 'results' -%}
+
+{% assign get_category = get_faq | dig: 'items', 'results' %}
+{% assign get_category = get_category | map: "category" | uniq %}
+
+<div class="wrapper sideNavBg">
+    <div class="grid-container">
+            <div class="grid-container">
+                <div class="blocks-sc-2col-07 wrapper bg-color-ui-01">
+                    <div class="grid-container">
+                        <div class="grid-x grid-padding-x gutter-medium">
+                            
+                            {%- include 'modules/insites_cms/faqs-sidenav' -%}
+                            
+                            {%- include 'modules/insites_cms/faqs-content' -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

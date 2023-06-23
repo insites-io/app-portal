@@ -1,9 +1,9 @@
 ---
-slug: faq
+slug: faqs
 layout: modules/website/default
 # enable_profiler: true
 searchable: false
-max_deep_level: 1
+max_deep_level: 2
 metadata: {
   "og:url": null,
   "schema": null,
@@ -11,21 +11,24 @@ metadata: {
   "og:type": null,
   "og:image": null,
   "og:title": null,
-  "page_name": "Faq",
+  "page_name": "Faqs",
   "page_type": "content",
   "meta_title": null,
-  "page_title": "Faq",
-  "database_id": "1137214",
+  "page_title": "Faqs",
+  "database_id": "1278420",
   "description": null,
-  "layout_name": "Faq",
+  "layout_name": "Faqs",
   "redirect_to": null,
-  "list_enabled": false,
   "og:site_name": null,
   "canonical_url": null,
-  "database_name": "modules/website/faq",
+  "list_layout_slug": "faqs-list",
+  "details_layout_slug": "{{ context.exports.data.item.slug }}",
+  "database_name": "modules/website/faqs",
+  "list_enabled": true,
+  "details_enabled": true,
+  "database_name": "modules/website/faqs",
   "sitemap_order": "",
   "og:description": null,
-  "details_enabled": false,
   "sitemap_enabled": false,
   "sitemap_priority": "",
   "details_layout_id": null,
@@ -33,15 +36,4 @@ metadata: {
   "search_engine_visibility": false
 }
 ---
-
-{%- if context.environment == "staging" -%}
-<!-- start page: feedback  -->
-{%- endif -%}
-
-
-{{context}}
-
-
-{%- if context.environment == "staging" -%}
-<!-- end page: feedback  -->
-{%- endif -%}
+{%- include 'modules/insites_cms/databases_layouts/page_content' -%}

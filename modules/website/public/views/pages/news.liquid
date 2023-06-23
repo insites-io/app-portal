@@ -3,7 +3,7 @@ slug: news
 layout: modules/website/default
 # enable_profiler: true
 searchable: false
-max_deep_level: 1
+max_deep_level: 2
 metadata: {
   "og:url": null,
   "schema": null,
@@ -15,13 +15,18 @@ metadata: {
   "page_type": "content",
   "meta_title": null,
   "page_title": "News",
-  "database_id": "1137214",
+  "database_id": "1254113",
   "description": null,
   "layout_name": "News",
   "redirect_to": null,
   "list_enabled": false,
   "og:site_name": null,
   "canonical_url": null,
+  "list_layout_slug": "news-list",
+  "details_layout_slug": "{{ context.exports.data.item.slug }}",
+  "database_name": "modules/website/news",
+  "list_enabled": true,
+  "details_enabled": true,
   "database_name": "modules/website/news",
   "sitemap_order": "",
   "og:description": null,
@@ -33,15 +38,4 @@ metadata: {
   "search_engine_visibility": false
 }
 ---
-
-{%- if context.environment == "staging" -%}
-<!-- start page: feedback  -->
-{%- endif -%}
-
-
-{{context}}
-
-
-{%- if context.environment == "staging" -%}
-<!-- end page: feedback  -->
-{%- endif -%}
+  {%- include 'modules/insites_cms/databases_layouts/page_content' -%}

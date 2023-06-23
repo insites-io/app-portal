@@ -1,0 +1,171 @@
+---
+# enable_profiler: true
+metadata: {
+    "database_name": "modules/website/services",
+    "layout": "details",
+    "slug": "{{ context.exports.data.item.slug }}",
+    "page_title": "{{ context.exports.data.item.service_name }}"
+}
+---
+
+{% comment %} TITLE {% endcomment %}
+<section class="hero-title">
+    <div class="blocks-sc-2col-08 wrapper ">    
+        <div class="grid-container">  
+            <div class="spacer x-large hide-for-small-only"></div>
+            <div class="spacer show-for-small-only"></div>     
+            <h1 class="servicesH1" style="padding: 0px;">
+                {{ context.exports.data.item.service_name }}
+            </h1>
+            <div class="spacer x-large hide-for-small-only"></div>
+            <div class="spacer show-for-small-only"></div>
+        </div>
+    </div>
+</section>
+
+<div class="spacer xxxx-large show-for-small-only"></div>
+<div class="spacer xxxx-large"></div>
+
+{% comment %} CONTENT BLOCK 1 {% endcomment %}
+{% if context.exports.data.item.sub_heading_1 != nil and context.exports.data.item.content_block_1 != nil%}
+    <section class="section-1 staticFonts">
+        <div class="blocks-sc-2col-02 wrapper bg-color-ui-01">
+            <div class="about-us grid-container" data-test="page-about-us">
+                <div class="grid-x">
+                <div class="large-5 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
+                    {% if context.exports.data.item.icon_1 != nil%}
+                        <span class="custIconsInverted"><i class="{{context.exports.data.item.icon_1}}"></i></span>
+                        <div class="spacer"></div>
+                    {% endif %}
+
+                    {% if context.exports.data.item.sub_heading_1 != nil%}
+                        <h2>{{ context.exports.data.item.sub_heading_1 }}</h2>
+                        <div class="spacer"></div>
+                    {% endif %}
+
+                    {% if context.exports.data.item.content_block_1 != nil%}
+                        <p class="subHeading">{{ context.exports.data.item.content_block_1 }}</p>
+                    {% endif %}  
+                </div>
+                <div class="spacer xxx-large show-for-small-only"></div>
+                <div class="large-5 large-offset-2 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell">
+                    {% if context.exports.data.item.image_1.url != nil%}
+                        <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_1.url }}"/>
+                        <div class="spacer xxx-large show-for-small-only"></div>
+                    {% endif %}
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="spacer xxxx-large"></div>
+{% endif %}
+
+{% comment %} CONTENT BLOCK 2 {% endcomment %}
+{% if context.exports.data.item.sub_heading_2 != nil and context.exports.data.item.content_block_2 != nil%}
+    <div class="spacer xxxx-large show-for-small-only"></div>    
+    <section class="section-2 staticFonts">
+        <div class="blocks-sc-2col-02 wrapper bg-color-ui-01">
+            <div class="about-us grid-container" data-test="page-about-us">
+                <div class="grid-x">
+                    <div class="large-5 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
+                        {% if context.exports.data.item.icon_2 != nil%}
+                            <span class="custIconsInverted"><i class="{{context.exports.data.item.icon_2}}"></i></span>
+                            <div class="spacer"></div>
+                        {% endif %}
+
+                        {% if context.exports.data.item.sub_heading_2 != nil%}
+                            <h2>{{ context.exports.data.item.sub_heading_2 }}</h2>
+                            <div class="spacer"></div>
+                        {% endif %}
+                        
+                        {% if context.exports.data.item.content_block_2 != nil%}
+                            <p class="subHeading">{{ context.exports.data.item.content_block_2 }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="spacer xxx-large show-for-small-only"></div>
+                    <div class="large-5 large-offset-2 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell">
+                        {% if context.exports.data.item.image_2.url != nil%}
+                            <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_2.url }}"/>
+                            <div class="spacer xxx-large show-for-small-only"></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="spacer xxxx-large"></div>
+        </div>
+    </section>
+{% endif %}
+
+{% comment %} CONTENT BLOCK 3 {% endcomment %}
+{% if context.exports.data.item.sub_heading_3 != nil and context.exports.data.item.content_block_3 != nil%}
+    <div class="spacer xxxx-large show-for-small-only"></div>
+    <section class="section-3 staticFonts">
+        <div class="blocks-sc-2col-03 wrapper bg-color-ui-01">
+            <div class="about-us grid-container" data-test="page-about-us">
+                <div class="grid-x">
+                    <div class="large-5 medium-5 small-12 cell">
+                        {% if context.exports.data.item.image_3.url != nil%}
+                            <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_3.url }}"/>
+                            <div class="spacer xxx-large show-for-small-only"></div>
+                        {% endif %}
+                    </div>
+                    <div class="large-5 medium-6 small-12 large-offset-2 medium-offset-1 cell">
+                        {% if context.exports.data.item.icon_3 != nil%}
+                            <span class="custIconsInverted"><i class="{{context.exports.data.item.icon_3}}"></i></span>
+                            <div class="spacer"></div>
+                        {% endif %}
+                        {% if context.exports.data.item.sub_heading_3 != nil%}
+                            <h2 class="heading-2">{{ context.exports.data.item.sub_heading_3 }}</h2>
+                            <div class="spacer"></div>
+                        {% endif %}
+                        {% if context.exports.data.item.content_block_3 != nil%}
+                            <p class="subHeading">{{ context.exports.data.item.content_block_3 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="spacer xxxx-large"></div>
+        </div>
+    </section>
+{% endif %}
+
+{% comment %} CONTENT BLOCK 4 {% endcomment %}
+{% if context.exports.data.item.sub_heading_4 != nil and context.exports.data.item.content_block_4 != nil%}
+    <div class="spacer xxxx-large show-for-small-only"></div>
+    <section class="section-4 staticFonts">
+        <div class="blocks-sc-2col-02 wrapper bg-color-ui-01">
+            <div class="about-us grid-container" data-test="page-about-us">
+                <div class="grid-x">
+                    <div class="large-5 medium-6 small-12 large-order-1 medium-order-1 small-order-2 cell">
+                        {% if context.exports.data.item.icon_4 != nil%}
+                            <span class="custIconsInverted"><i class="{{context.exports.data.item.icon_4}}"></i></span>
+                            <div class="spacer"></div>
+                        {% endif %}
+                        {% if context.exports.data.item.sub_heading_4 != nil%}
+                            <h2>{{ context.exports.data.item.sub_heading_4 }}</h2>
+                            <div class="spacer"></div>
+                        {% endif %}
+                        {% if context.exports.data.item.sub_heading_4 != nil%}
+                            <p class="subHeading">{{ context.exports.data.item.content_block_4 }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="large-5 large-offset-2 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell">
+                        {% if context.exports.data.item.image_4.url != nil%}
+                            <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_4.url }}"/>
+                            <div class="spacer xxx-large show-for-small-only"></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="spacer xxx-large"></div>
+        </div>
+    </section>
+{% endif %}
+
+{%- if context.params.slug2 == "customisable-style-guide" -%}
+	{%- include 'modules/insites_cms/services-details-static' -%}
+{% endif %}
+
+<div class="spacer xxxx-large show-for-small-only"></div>
+<div class="spacer xxxx-large"></div>

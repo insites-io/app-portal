@@ -7,7 +7,7 @@ query get_services(
         page: $page
         per_page: $size
         filter: {
-            table: { value: "modules/website/services_database" }
+            table: { value: "modules/website/services" }
             deleted_at: { exists: false }
             properties: [
                 { name: "name", contains: $keyword }

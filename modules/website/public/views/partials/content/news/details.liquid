@@ -1,0 +1,46 @@
+---
+# enable_profiler: true
+metadata: {
+    "database_name": "modules/website/news",
+    "layout": "details",
+    "slug": "{{ context.exports.data.item.slug }}",
+    "page_title": "{{ context.exports.data.item.service_name }}"
+}
+---
+
+
+{% if context.exports.data.item.status != "Published" %}
+    <script>
+      window.location.href = "{{ '/404' }}"
+    </script>
+{% endif %}
+
+<section class="newsDetailsSection">
+  <div class="grid-container">
+    <div class="spacer xxxx-large"></div>
+    <a href="/news"><span class="subHeading colorBlack"> <b> <i class="icon-angle-left"></i> BACK TO NEWS LIST </b> </span></a>
+    <div class="spacer"></div>
+    
+    <div class="tagButton">
+      <ins-button size="small" cursor="text" solid icon="icon-tag" color="blue" label="{{ context.exports.data.item.tag }}">
+      </ins-button>
+    </div>
+      
+    <div class="spacer"></div>
+    <h1 class="title">{{ context.exports.data.item.title }}</h1>
+    <div class="spacer"></div>
+   
+    <h4 style="text-transform: uppercase;">PUBLISHED ON {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} By {{ context.exports.data.item.author }}</h4>
+    <div class="spacer"></div>
+    <!-- BANNER -->
+    <img loading="lazy" alt="image" src="{{ context.exports.data.item.main_image.url }} "/>
+    <div class="spacer"></div>
+
+    <div class="newsDetailHolder subHeading">
+      <div class="grid-container">
+        {{ context.exports.data.item.content }}    
+      </div>
+    </div>
+    <div class="spacer xxxx-large"></div>
+  </div>
+</section>
