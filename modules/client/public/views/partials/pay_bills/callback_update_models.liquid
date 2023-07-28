@@ -107,7 +107,10 @@
     | dig: 'items','response','body'
     | parse_json %}
 
-{%- session paybill_order_id = update_order.items.id -%}
+{% liquid
+    session paybill_order_id = update_order.items.id
+    session paybill_order_reference = form.properties.order_reference
+%}
 {% log "==== Order Updated ====" %}
 
 
