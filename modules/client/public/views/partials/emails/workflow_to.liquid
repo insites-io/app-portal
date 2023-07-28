@@ -1,5 +1,7 @@
-{%- graphql global = 'modules/insites_core/utilities/get_global_content_for_email' -%}
-{%- if global.items.results.size > 0 -%}
-    {%- assign email = global.items.results[0].company_email_1 -%}
-{%- endif -%}
-{{ email | default: "support@insites.io" }}
+{%  liquid
+    include "modules/insites_cms/globals"
+    assign global = context.exports.global
+    assign email = global.company_email_1 | default: "support@insites.io"
+%}
+
+{{ email }}
