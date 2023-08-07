@@ -90,6 +90,8 @@ let StripeElement = (() => {
             async createStripeCardModel(token) {
                 let data = {
                     "email": emailField.value,
+                    "first_name": stripeFirstName.value,
+                    "last_name": stripeLastName.value,
                     "creditcard": token.id
                 }
                 let response = await StripeModel.creditcard.createCreditCard(data);

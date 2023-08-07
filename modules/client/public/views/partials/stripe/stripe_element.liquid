@@ -44,9 +44,21 @@
 
 <input type="hidden" id="email" value="{{ context.current_user.email }}" >
 
+<input
+  type="hidden"
+  id="stripe-first-name"
+  value="{{ context.current_user.first_name }}">  
+
+<input
+  type="hidden"
+  id="stripe-last-name"
+  value="{{ context.current_user.last_name }}"> 
+
 <script>
     let payByCardField = document.getElementById('{{ cc_field_id }}');
     let emailField = document.getElementById('{{ email_field_id }}');
+    let stripeFirstName = document.getElementById('stripe-first-name');
+    let stripeLastName = document.getElementById('stripe-last-name');
     // Create a Stripe client.
     let stripe = Stripe('pk_test_51JgiQgDKXN2B4Z9YLtz61lb7PDgjIPH2GtKJ6FTN8cYkwOUazMt80sQUH56Wp7ba6UwCCsOg7yTqiNZnD2psb8Oq00gTkdRuh9');
 </script>

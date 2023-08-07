@@ -41,11 +41,13 @@
     <div class="spacer large"></div>
     <div class="spacer xx-small"></div>
 
-    {% comment %} Credit Cards {% endcomment %}   
+    {% comment %} Credit Cards {% endcomment %}  
     {%- if verified -%} 
-    {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
-                        user_id: context.current_user.id
-                        size: 50 | dig: 'items' -%}
+        {% if context.current_user %}
+            {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
+                            user_id: context.current_user.id
+                            size: 50 | dig: 'items' -%}
+        {% endif %}
 
     <div class="validate-credit-card" >
         {% comment %} Credit Cards {% endcomment %}
