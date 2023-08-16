@@ -56,6 +56,14 @@ let Paybill = (function () {
                     billAmountEl.hasError = !(billAmountEl.value && Math.sign(parseFloat(billAmountEl.value)) > 0);
                     validAmount = !billAmountEl.hasError;
                 }
+
+                //Phone Number
+                let insPhone = document.getElementById('ins-phone-number');
+                let phoneNumber = document.getElementById('phone-number');
+                if( insPhone && phoneNumber ){
+                    let phoneValues = await insPhone.getValues();
+                    phoneNumber.value = phoneValues.country_code + " " + phoneValues.phone_number;
+                }
                 
                 Paybill.validation.validateCreditCard(form);
 

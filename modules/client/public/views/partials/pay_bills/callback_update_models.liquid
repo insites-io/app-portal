@@ -43,6 +43,21 @@
 }
 {% endparse_json %}
 
+{% comment %} User info {% endcomment %}
+{% liquid
+    if context.current_user
+        assign user_id = context.current_user.id
+        assign email = context.current_user.email
+        assign first_name = context.current_user.first_name
+        assign last_name = context.current_user.last_name
+    else 
+        assign user_id = null
+        assign email = form.properties.order_email
+        assign first_name = form.properties.order_first_name
+        assign last_name = form.properties.order_last_name
+        assign phone_number = form.properties.order_phone
+    endif
+%}
 
 {% comment %} Step 1: Create Payment record on POS {% endcomment %}
 {% parse_json data %}
@@ -88,7 +103,11 @@
 {
     "id": "{{ form.id }}",
     "order_reference": "{{ form.properties.order_reference }}",
-    "user_id": "{{ context.current_user.id }}",
+    "user_id": "{{ user_id }}",
+    "order_email": "{{ email }}",
+    "order_first_name": "{{ first_name }}",
+    "order_last_name": "{{ last_name }}",
+    "order_phone": "{{ phone_number }}",
     "order_status": "{{ order_status }}",
     "order_payment_status" : "{{ order_payment_status }}",
     "amount_due" : {{ amount_due }},
@@ -96,9 +115,7 @@
     "shipping_amount": 0,
     "tax_amount": 0,
     "order_value" : {{ computed.total_amount }},
-    "order_first_name": "{{ context.current_user.first_name }}", 
-    "order_last_name": "{{ context.current_user.last_name }}",
-    "last_updated_by_id": "{{ context.current_user.id }}"
+    "last_updated_by_id": "{{ user_id }}"
 }
 {% endparse_json %}
 {%  graphql update_order = 'modules/website/trigger_api_call', 
@@ -123,10 +140,10 @@
     "description": "Bills Payment",
     "log": {
         "user": {
-            "id": "{{ context.current_user.id }}",
-            "email": "{{ context.current_user.email }}",
-            "first_name": "{{ context.current_user.first_name }}",
-            "last_name": "{{ context.current_user.last_name }}"
+            "id": "{{ user_id }}",
+            "email": "{{ email }}",
+            "first_name": "{{ first_name }}",
+            "last_name": "{{ last_name }}"
         },
         "order": {
             "id": "{{ form.id }}",
