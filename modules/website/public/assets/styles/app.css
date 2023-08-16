@@ -1804,6 +1804,14 @@ ins-drawer#mobile-menu .menu li a {
     color: var(--font-color-body);
 }
 
+ins-drawer#mobile-menu .ins-accordion-item>.ins-accordion-item_header>.inner-head .heading {
+    display: inline;
+}
+
+ins-drawer#mobile-menu .ins-accordion-item>.ins-accordion-item_header>.inner-head {
+    padding: 20px 0px;
+}
+
 ins-drawer#mobile-menu .menu li a.active,
 ins-drawer#mobile-menu .menu li a:hover,
 ins-drawer#mobile-menu .menu li a:focus,

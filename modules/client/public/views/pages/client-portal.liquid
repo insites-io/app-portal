@@ -43,7 +43,7 @@ authorization_policies:
 
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
-{%- endif -%}
+{%- endif -%} 
 
 {%- graphql data = "modules/client/questionnaires/get_questionnaires", user_id: context.current_user.id, not_agreement: "I understand and agree", size: 6 | dig: "items","results" -%}
 

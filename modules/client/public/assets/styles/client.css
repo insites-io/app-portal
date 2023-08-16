@@ -105,7 +105,11 @@ ins-button+ins-button button{
 .ins-accordion-link,
 .ins-accordion-item_content .ins-accordion-link,
 .ins-accordion-item_header>.inner-head{
-    background: var(--color-ui-02);
+    /* background: var(--color-ui-02); */
+}
+
+.portal-sidebar .ins-accordion-link {
+    background: transparent;
 }
 
 .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
