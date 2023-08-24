@@ -2,6 +2,9 @@
 
 <div id="personal-details-container" class="form-group fadeIn" active>      
       
+      <input type="hidden" id="contact_longitude" name="{{ form.fields.properties.longitude.name }}" value="{{ default_address.properties.longitude }}" >
+      <input type="hidden" id="contact_latitude" name="{{ form.fields.properties.latitude.name }}" value="{{ default_address.properties.latitude }}" >
+
       <div class="column-1">
         {% if context.params.slug != 'my-details' %}
           <h2 class="heading-2">Personal Details</h2>

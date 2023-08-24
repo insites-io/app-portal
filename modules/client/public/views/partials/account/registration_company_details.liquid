@@ -10,6 +10,9 @@ Inputs will have values only on /my-company-details page
 
 <div id="company-details-container" class="form-group fadeIn {% if params.slug != 'my-company-details' %}hide{% endif %}" active>    
 
+      <input type="hidden" id="company_longitude" name="{{ form.fields.properties.company_longitude.name }}" value="{{ default_address.properties.company_longitude }}" >
+      <input type="hidden" id="company_latitude" name="{{ form.fields.properties.company_latitude.name }}" value="{{ default_address.properties.company_latitude }}" >
+
       <div class="column-1">
           <h2 class="heading-2">Company Details</h2>
       </div>
