@@ -1,12 +1,3 @@
-{%- graphql google_key = 'modules/website/system/get_google_api' -%}
-
-
-{% liquid
-    assign google_key_first = google_key.items.results | first
-    assign key = "AIzaSyAJMrf0U0fSa5rKVm0IxmxCFbMRiUyycrw"
-    assign base_map_url = "https://maps.googleapis.com/maps/api/staticmap"
-%}
-
 {%- capture 'map_style' -%}
 style=element:labels.text.fill%7Ccolor:0x333333%7Clightness:40&
 style=feature:water%7Celement:geometry%7Ccolor:0xe9e9e9%7Clightness:17&
@@ -25,7 +16,10 @@ style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightn
 {%- endcapture -%}
 
 {% liquid
-    assign address = res_contact.loc_1_address | url_encode
+
+    assign base_map_url = "https://maps.googleapis.com/maps/api/staticmap" 
+
+    assign address = address | url_encode
     if latitude != blank and longitude != blank
         assign address = latitude | append: "," | append: longitude
     endif
@@ -34,7 +28,7 @@ style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightn
 %}
 
 {%- assign full_map_url = base_map_url 
-    | append: "?center=" | append: address 
+    | append: "?center=Australia" | append: address 
     | append: "&zoom=15&size=390x300&maptype=roadmap&" 
     | append: marker_position 
     | append: "&key=" | append: key 
@@ -45,4 +39,3 @@ style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightn
 <div class="google-map-img">
     <img src="{{ full_map_url }}" loading="lazy">
 </div>
-

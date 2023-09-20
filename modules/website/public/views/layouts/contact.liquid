@@ -38,11 +38,37 @@ Contact Us layout
     <title>Contact Us</title>
 </head>
 <body>
-    {% comment %} connect services to graphql {% endcomment %}
-    {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
-    {% comment %} assign var to fetch the result {% endcomment %}
-    {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
-    {%- assign res_contact = res_contact | first -%}
+
+    {% comment %} Globals {% endcomment %}
+    {%- include "modules/insites_cms/globals" -%}
+    {%- assign global = context.exports.global -%}
+
+    {% comment %} Set full address using loc_1 {% endcomment %}
+    {%  liquid
+        assign loc_1_address_full = ""
+        if global.loc_1_address_1 and global.loc_1_address_1 != ''
+            assign loc_1_address_full = global.loc_1_address_1 | append : ", "
+        endif
+        if global.loc_1_address_2 and global.loc_1_address_2 != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_address_2 | append : ", "
+        endif
+        if global.loc_1_city and global.loc_1_city != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_city | append : " "
+        endif
+        if global.loc_1_state and global.loc_1_state != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_state | append : " "
+        endif
+        if global.loc_1_postcode and global.loc_1_postcode != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_postcode | append : " "
+        endif
+        if global.loc_1_country and global.loc_1_country != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_country 
+        endif
+    %}
+
+    {% comment %} Google map key {% endcomment %}
+    {% graphql data = 'modules/website/trigger_api_call', name: 'modules/client/get_google_maps_api_key' %}
+    {% assign map_key = data.items.response.body | parse_json | dig: 'items', 'results' | first | dig: 'key' %}
 
     <div class="main-wrap">
         {% include 'modules/website/layout/header' %} 
@@ -59,86 +85,45 @@ Contact Us layout
                         {{ content_for_layout }}
                     </div>                    
                     <div class="small-12 cell spacer large show-for-small-only"></div>
-                    <div class="large-4 large-offset-1 medium-5 medium-offset-1 small-12 cell">
-                        {%- graphql google_key = 'modules/website/system/get_google_api' -%}
-                        {%- assign google_key = google_key.items.results | first -%}
-                        {%- comment -%} {%- assign api_key = google_key.value -%} {%- endcomment -%} 
-                        {%- assign api_key = google_key -%}
+                    <div class="large-4 large-offset-1 medium-5 medium-offset-1 small-12 cell">                                                
                         <a target="_blank"
-                            href="https://www.google.com/maps/place/{{ res_contact.loc_1_address  | url_encode }}"
-                            class="color-main" data-test="contact-us-map-link">
-                            {%- include 'modules/website/content/google-map-static' -%}
+                            href="https://www.google.com/maps/place/{{ loc_1_address_full  | url_encode }}"
+                            class="color-main">
+                            {%- include 'modules/website/map/google-map-static', key: map_key, address: loc_1_address_full -%}
                         </a>
-                        {%- comment -%}
-                        <!-- Can be inputted with latitude and longitude -->
-                        {% include 'modules/website/content/google-map-static'
-            logintude: "144.993160", latitude: "-37.827620" %}
-                        {%- endcomment -%}
-                        {% comment %}
-                        href="https://www.google.com/maps/place/{{ context.exports.global.loc_1_address_full | url_encode }}"
-                        {% endcomment %}
-                        <div class="spacer large"></div>
-                        <script>
-                            function mapsSelector() {
-                                if /* if we're on iOS, open in Apple Maps */
-                                    ((navigator.platform.indexOf("iPhone") != -1) ||
-                                    (navigator.platform.indexOf("iPad") != -1) ||
-                                    (navigator.platform.indexOf("iPod") != -1))
-                                    window.open("maps://www.google.com/maps/place/{{ res_contact.loc_1_address | url_encode }}");
-                                else /* else use Google */
-                                    window.open("https://www.google.com/maps/place/{{ res_contact.loc_1_address | url_encode}}");
-                            }
-                        </script>
-
-                        {%- comment -%}
-                        <!-- GeoJSON feature not yet supported on INS global contents / data -->
-                        <div id="address-data">{{ context.exports.global.loc_1_address.data | json }}</div>
-                        {%- endcomment -%}
-
+                        <div class="spacer large"></div>                        
                         <ul class="contact-details no-bullet color-main">
                             <li class="address-container spacer">
-                                {% if api_key != blank %}
-                                <a target="_blank" class="color-main subHeading" onclick="mapsSelector()"
-                                    data-test="contact-us-get-directions">
-                                    {% endif %}
+                                {% if map_key != blank %}
+                                <a target="_blank" class="color-main subHeading" onclick="mapsSelector()">                                    
                                     <i class="icon-map"></i>
-                                    {% assign temp = res_contact.loc_1_address | parse_json %}
-                                    {{ temp.address }}, 
-                                    {% if temp.address2 != null %}
-                                        {{ temp.address2 }},
-                                    {% endif %}
-                                    {{ temp.city }}, 
-                                    {{ temp.postcode }}, 
-                                    {{ temp.country }}
-                                    {% if api_key != blank %}
+                                    {{ loc_1_address_full }}                                    
                                 </a>
                                 {% endif %}
                             </li>
-                            {%- if res_contact.loc_1_phone_number -%}
+                            {%- if global.loc_1_phone_number -%}
                             <li class="phone-container spacer">
                                 {%- comment -%}
                                 IF the phone number is a '1800', or no country code, etc.. just remove regex
                                 Data needs to be standard. If it will contain the country code, or not.
                                 {%- endcomment -%}
-                                {%- assign contact_no = res_contact.loc_1_phone_number | replace_regex: '[+() ]', '' | prepend: '+' -%}
-                                {% assign phone_number = res_contact.loc_1_phone_number %}
-                                
-                               
+                                {%- assign contact_no = global.loc_1_phone_number | replace_regex: '[+() ]', '' | prepend: '+' -%}
+                                {% assign phone_number = global.loc_1_phone_number %}                                                               
                                 <a class="color-main subHeading" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
                                     <i class="icon-phone1"></i>
-                                    +{{ res_contact.loc_1_phone_country_code }}
+                                    +{{ global.loc_1_phone_country_code }}
                                     {{ phone_number | slice: 0, 3 }} 
                                     {{ phone_number | slice: 3, 4 }} 
                                     {{ phone_number | slice: 6, 10 }}
                                 </a>
                             </li>
                             {%- endif -%}
-                            {%- if res_contact.loc_1_email -%}
+                            {%- if global.loc_1_email -%}
                             <li class="email-container">
-                                <a class="color-main subHeading" href="mailto:{{ res_contact.loc_1_email }}"
+                                <a class="color-main subHeading" href="mailto:{{ global.loc_1_email }}"
                                     data-test="contact-us-contact-number">
                                     <i class="icon-mail1"></i>
-                                    {{ res_contact.loc_1_email }}
+                                    {{ global.loc_1_email }}
                                 </a>
                             </li>
                             {%- endif -%}
@@ -165,10 +150,10 @@ Contact Us layout
                             <div class="small-12 cell grid-x {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
                                 <div class="small-4 cell">{{ days_name[forloop.index0] }}:</div>
                                 <div class="small-8 cell">
-                                    {% if res_contact[key_enable] == 'false'%}
+                                    {% if global[key_enable] == 'false' or global[key_enable] == false %}
                                         Closed
                                     {% else %}
-                                        <p>{{ res_contact[key_open] | date: "%I:%M %p" }} - {{ res_contact[key_close] | date: "%I:%M %p" }}</p>
+                                        <p>{{ global[key_open] | date: "%I:%M %p" }} - {{ global[key_close] | date: "%I:%M %p" }}</p>
                                     {% endif %}                                
                                 </div>
                             </div>
@@ -201,6 +186,18 @@ Contact Us layout
 
     {% include 'modules/website/layout/footer' %}
     {%- endcache -%}
+
+    <script>
+        function mapsSelector() {
+            if /* if we're on iOS, open in Apple Maps */
+                ((navigator.platform.indexOf("iPhone") != -1) ||
+                (navigator.platform.indexOf("iPad") != -1) ||
+                (navigator.platform.indexOf("iPod") != -1))
+                window.open("maps://www.google.com/maps/place/{{ loc_1_address_full | url_encode }}");
+            else /* else use Google */
+                window.open("https://www.google.com/maps/place/{{ loc_1_address_full | url_encode}}");
+        }
+    </script>
 
 </body>
 {%- if context.environment == "staging" -%}
