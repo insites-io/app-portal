@@ -4,7 +4,8 @@ metadata: {
     "database_name": "modules/website/faqs",
     "layout": "details",
     "slug": "{{ context.exports.data.item.slug }}",
-    "page_title": "{{ context.exports.data.item.service_name }}"
+    "page_title": "{{ context.exports.data.item.service_name }}",
+    "label": 'Faq | Details'
 }
 ---
 
@@ -15,7 +16,6 @@ metadata: {
 
 {% assign get_category = get_faq | dig: 'items', 'results' %}
 {% assign get_category = get_category | map: "category" | uniq %}
-
 <div class="wrapper sideNavBg">
     <div class="grid-container">
             <div class="grid-container">
@@ -23,8 +23,8 @@ metadata: {
                     <div class="grid-container">
                         <div class="grid-x grid-padding-x gutter-medium">
                             
-                            {%- include 'modules/insites_cms/faqs-sidenav' -%}
-                            <div class="large-9 medium-9 small-12 cell">
+                        {%- include 'modules/website/content/faqs/faqs-sidenav' -%}
+                        <div class="large-9 medium-9 small-12 cell">
                             <div class="spacer xxxx-large"></div>  
                             <div class="grid-container">
                               <h1>{{ context.exports.data.item.question }}</h1>

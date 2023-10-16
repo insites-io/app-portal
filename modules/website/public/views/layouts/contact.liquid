@@ -42,7 +42,7 @@ Contact Us layout
     {% comment %} Globals {% endcomment %}
     {%- include "modules/insites_cms/globals" -%}
     {%- assign global = context.exports.global -%}
-
+    {{global}}
     {% comment %} Set full address using loc_1 {% endcomment %}
     {%  liquid
         assign loc_1_address_full = ""
@@ -85,16 +85,18 @@ Contact Us layout
                         {{ content_for_layout }}
                     </div>                    
                     <div class="small-12 cell spacer large show-for-small-only"></div>
-                    <div class="large-4 large-offset-1 medium-5 medium-offset-1 small-12 cell">                                                
-                        <a target="_blank"
+                    <div class="large-4 large-offset-1 medium-5 medium-offset-1 small-12 cell">  
+                        {%- if loc_1_address_full != "" -%}
+                            <a target="_blank"
                             href="https://www.google.com/maps/place/{{ loc_1_address_full  | url_encode }}"
                             class="color-main">
                             {%- include 'modules/website/map/google-map-static', key: map_key, address: loc_1_address_full -%}
                         </a>
+                        {% endif %}                                              
                         <div class="spacer large"></div>                        
                         <ul class="contact-details no-bullet color-main">
                             <li class="address-container spacer">
-                                {% if map_key != blank %}
+                                {%- if loc_1_address_full != "" -%}
                                 <a target="_blank" class="color-main subHeading" onclick="mapsSelector()">                                    
                                     <i class="icon-map"></i>
                                     {{ loc_1_address_full }}                                    
@@ -129,6 +131,13 @@ Contact Us layout
                             {%- endif -%}
                         </ul>
 
+                        {% if loc_1_mon_open != null and  loc_1_tue_open != null and loc_1_wed_open != null  
+                            and loc_1_thu_open != null  and loc_1_fri_open != null  and loc_1_sat_open != null  
+                            and loc_1_sun_close != null  
+                            %}
+                            
+                        {% else %}
+                                        
                         <div class="spacer xxx-large"></div>
                         <h3>Opening Hours</h3>
                         <div class="spacer large"></div>
@@ -160,6 +169,8 @@ Contact Us layout
                             <div class="small-12 cell spacer x-small"></div>
                             {%- endfor -%}
                         </div>
+                        {% endif %}
+              
                     </div>
                 </div>
 

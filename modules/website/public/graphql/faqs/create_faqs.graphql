@@ -1,0 +1,72 @@
+mutation create_faqs(
+  $category: String,
+  $question: String,
+  $slug: String,
+  $answer: String,
+  $sort_order: Int,
+  $sub_title_topic_1: String,
+  $sub_title_details_1: String,
+  $sub_title_topic_2: String,
+  $sub_title_details_2: String,
+  $sub_title_topic_3: String,
+  $sub_title_details_3: String,
+  $sub_title_topic_4: String,
+) {
+  items: model_create(
+    model: {
+      model_schema_name: "modules/website/faqs",
+      properties: [
+        { 
+          name: "category",
+          value: $category 
+        },
+        { 
+          name: "question",
+          value: $question 
+        },
+        { 
+          name: "slug",
+          value: $slug 
+        },
+        { 
+          name: "answer",
+          value: $answer
+        },
+        { 
+          name: "sort_order",
+          value: $sort_order
+        },
+        { 
+          name: "sub_title_topic_1",
+          value: $sub_title_topic_1
+        },
+        { 
+          name: "sub_title_details_1",
+          value: $sub_title_details_1
+        },
+        { 
+          name: "sub_title_topic_2",
+          value: $sub_title_topic_2
+        },
+        { 
+          name: "sub_title_details_2",
+          value: $sub_title_details_2
+        },
+        { 
+          name: "sub_title_topic_3",
+          value: $sub_title_topic_3
+        },
+        { 
+          name: "sub_title_details_3",
+          value: $sub_title_details_3
+        },
+        { 
+          name: "sub_title_topic_4",
+          value: $sub_title_topic_4
+        }
+      ]
+    }
+  ) {
+    id
+  }
+}

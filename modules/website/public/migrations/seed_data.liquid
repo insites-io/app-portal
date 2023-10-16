@@ -1,0 +1,117 @@
+{%- comment -%} FAQS {%- endcomment -%}
+{%- assign category = "FAQ Topic 1" -%}
+{%- assign question = "Why use a client portal?" -%}
+{%- assign slug = "why-use-a-client-portal" -%}
+{%- assign answer = "A client portal is an online system that allows clients to securely access information from a company. It is generally used to provide clients with access to their data, such as invoices or contracts, as well as any resources or support materials the company may have." -%}
+{%- assign sort_order = "1" -%}
+{%- assign sub_title_topic_1 = "How do I update the colour style guide?" -%}
+{%- assign sub_title_details_1 = "Select an element on your design. Select a color tile from the editor toolbar to bring up the color panel. Your brand color palettes should appear there. Select a color from the color palette to apply it to the element." -%}
+{%- assign sub_title_topic_2 = "How do I update the button styles?" -%}
+{%- assign sub_title_details_2 = "We have crafted the button style for you, you can change the button style in the Insites style guide and components pages for the developer guide. Also we have crafter the button variants for you!" -%}
+{%- assign sub_title_topic_3 = "Can I change the components?" -%}
+{%- assign sub_title_details_3 = "Update components. To make sure Figma applies changes to all instances of a component, you will need to edit the main component" -%}
+{%- assign sub_title_topic_4 = "How do I restyle the web blocks?" -%}
+{%- assign sub_title_details_4 = "Block styles work by adding a CSS class to the block and applying styles to the new selector. When you have selected a block style, you can open the Advanced section of the block settings sidebar and see that WordPress adds the class in the Additional CSS" -%}
+
+{%- for i in (1..3) -%}
+    {%- assign sort_order = i -%}
+    {%- graphql create_faq_entry = "modules/website/faqs/create_faqs" 
+        category: category,
+        question: question,
+        slug: slug,
+        answer: answer,
+        sort_order: sort_order,
+        sub_title_topic_1: sub_title_topic_1,
+        sub_title_details_1: sub_title_details_1,
+        sub_title_topic_2: sub_title_topic_2,
+        sub_title_details_2: sub_title_details_2,
+        sub_title_topic_3: sub_title_topic_3,
+        sub_title_details_3: sub_title_details_3,
+        sub_title_topic_4: sub_title_topic_4,
+        sub_title_details_4: sub_title_details_4
+    -%}
+{%- endfor -%}
+
+{%- comment -%} SERVICES {%- endcomment -%}
+{%- assign service_name = "Customisable Style Guide" -%}
+{%- assign slug = "customisable-style-guide" -%}
+{%- assign list_view_icon = "icon-clock" -%}
+{%- assign list_view_text = "We crafted the design system for you! It can be customised to fit your brand." -%}
+{%- assign icon_1 = "" -%}
+{%- assign sub_heading_1 = "Benefits of style guide" -%}
+{%- assign content_block_1 = "<p> We crafted the design system for you! It can be customised to fit your brand. </p>" -%}
+{%- assign icon_2 = "icon-briefcase" -%}
+{%- assign sub_heading_2 = "Benefits of Insites" -%}
+{%- assign content_block_2 = "<ul><li>Publish more content, faster with unlimited users, groups and permissions</li><li>Supercharge your marketing with integrated contact forms and CRM</li><li>Generate revenue from your content with membership-only paid content</li><li>Publish content to anywhere with an integration to Zapier and over 2000 other apps</li><li>Capture user generated content with secure publishing areas for your users</li></ul>" -%}
+{%- assign icon_3 = "icon-user" -%}
+{%- assign sub_heading_3 = "Used By" -%}
+{%- assign content_block_3 = "<p>Professionalize your projects (and impress your clients) with a beautiful, centralized client portal.</p><ul><li>Agencies</li><li>Schools</li><li>Law firms</li><li>Accountants</li></ul><p>The list of sectors that gain from having a dedicated client portal is not entire. Your industry isn't listed here. Not to worry! Client Portal can help you if you work with clients or consumers.</p>" -%}
+{%- assign icon_4 = "" -%}
+{%- assign sub_heading_4 = "Our Areas of Expertise" -%}
+{%- assign content_block_4 = "<p>We have developed a number of successful cutting-edge solutions and gained a huge amount of experience and knowledge in developing custom ERP solutions in Logistics, Financial, Healthcare, Customer, and Business services. Moreover, we can implement social, cloud, and geo features in any future customer-centric ERP system.<br><br>Our field service management solution, developed for one of our US clients enjoys a lofty reputation among Fortune 500 equipment manufacturers.<br><br>We pay great attention to the analysis of your business processes, and offer in-house technical support and training during and after deployment.</p>" -%}
+{%- assign dropdown_1 = "How do I track my order status?" -%}
+{%- assign dropdown_2 = "How do I return defective or flawed items?" -%}
+{%- assign dropdown_3 = "Can I exchange my order?" -%}
+
+{%- for i in (1..3) -%}
+    {%- assign sort_order = i -%}
+    {%- graphql create_services_entry = "modules/website/services/create_services" 
+        service_name: service_name,
+        slug: slug,
+        sort_order: sort_order,
+        list_view_icon: list_view_icon,
+        list_view_text: list_view_text,
+        icon_1: icon_1,
+        sub_heading_1: sub_heading_1,
+        content_block_1: content_block_1,
+        icon_2: icon_2,
+        sub_heading_2: sub_heading_2,
+        content_block_2: content_block_2,
+        icon_3: icon_3,
+        sub_heading_3: sub_heading_3,
+        content_block_3: content_block_3,
+        icon_4: icon_4,
+        sub_heading_4: sub_heading_4,
+        content_block_4: content_block_4,
+        dropdown_1: dropdown_1,
+        dropdown_2: dropdown_2,
+        dropdown_3: dropdown_3
+    -%}
+{%- endfor -%}
+
+{%- comment -%} NEWS {%- endcomment -%}
+{%- assign status = "Published" -%}
+{%- assign title = "The Beginner's Guide to Website Development" -%}
+{%- assign slug = "the-beginners-guide-to-website-development" -%}
+{%- assign published_date = "now" | date: "%Y-%m-%d" -%}
+{%- assign tag = "WebDev" -%}
+{%- assign list_view_text = "What skills do I need as a web developer? The basics of how the Internet and websites work. The basics of HTML, CSS, and JavaScript. Libraries and frameworks, like jQuery, React.js, and Bootstrap. Other programming languages, like Python and Ruby (for back-end web devs only) Git and GitHub." -%}
+{%- assign author = "Mark Webber" -%}
+{%- assign content = "FOUNDATIONS OF WEB DEVELOPMENT<br>Web development skills can lead you to a flexible career in a variety of industries. Building for the web is limited only to your imagination, so it’s great for those excited by the creative aspects of coding.<br><br><br><br>WHO IS THIS COURSE FOR?<br>Web development is ideal for anyone interested in how humans interact with information. A successful web developer will be someone who identifies as a lifelong learner and is always up for exploring the latest trends and learning the latest techniques.HTML and CSS aren't actually classified as programming languages. And while JavaScript is a programming language, it's really forgiving. So this trio is great to start with if you're feeling intimidated by the idea of coding. It’s great for anyone who wants to use code as a creative skill.
+" -%}
+
+{%- for i in (1..3) -%}
+    {%- graphql create_news_entry = "modules/website/news/create_news" 
+        status: status,
+        title: title,
+        slug: slug,
+        published_date: published_date,
+        tag: tag,
+        list_view_text: list_view_text,
+        author: author,
+        content: content
+    -%}
+{%- endfor -%}
+
+{%- comment -%} TESTIMONIALS {%- endcomment -%}
+{%- assign full_name = "Winston Churchill" -%}
+{%- assign location = "United States" -%}
+{%- assign message = "Success is not final, failure is not fatal: It is the courage to continue that counts." -%}
+
+{%- for i in (1..3) -%}
+    {%- graphql create_testimonials_entry = "modules/website/home/create_testimonials" 
+        full_name: full_name,
+        location: location,
+        message: message
+    -%}
+{%- endfor -%}

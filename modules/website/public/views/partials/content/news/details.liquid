@@ -4,11 +4,11 @@ metadata: {
     "database_name": "modules/website/news",
     "layout": "details",
     "slug": "{{ context.exports.data.item.slug }}",
-    "page_title": "{{ context.exports.data.item.service_name }}"
+    "page_title": "{{ context.exports.data.item.service_name }}",
+    "label": 'News | Details'
 }
 ---
-
-
+  
 {% if context.exports.data.item.status != "Published" %}
     <script>
       window.location.href = "{{ '/404' }}"

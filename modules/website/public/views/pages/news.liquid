@@ -38,4 +38,127 @@ metadata: {
   "search_engine_visibility": false
 }
 ---
-  {%- include 'modules/insites_cms/databases_layouts/page_content' -%}
+  {%  liquid         
+  assign page_num = context.params.page | default: 1 | plus: 0
+  assign per_page = context.params.per_page | default: 6 | plus: 0
+%}
+
+
+{%- graphql get_news = 'modules/website/news/get_news', page: page_num, size: per_page -%}
+{% comment %} assign var to fetch the result   page-size-options {% endcomment %}
+{%- assign res_news = get_news | dig: 'items', 'results' -%}
+
+{% include 'modules/website/content/search/searchpage_banner' %}
+
+<div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
+  <div class="our-team grid-container main-container" data-test="page-our-team-list">     
+      <div class="spacer xxxx-large"></div>
+      <section class="news-content">
+          <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
+              {% for item in res_news %}
+                  <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
+                      <div class="card"> 
+                          <div class="newsImageContainer">
+                              <a href="/news/{{ item.slug }}">
+                                  <img loading="lazy" alt="image" src="{{ item.list_view_image.url }}"/>
+                              </a>
+                          </div>
+                          <div class="newsContentContainer">
+                          <div class="spacer x-large"></div>
+                          <div class="tagButton">
+                          <ins-button 
+                              size="small"
+                              cursor="text" 
+                              solid 
+                              icon="icon-tag"
+                              color="blue" 
+                              label="{{ item.tag }}">
+                              </ins-button>
+                          </div>
+                          <div class="spacer"></div>
+                          <a href="/news/{{ item.slug }}">
+                              <div class="newsTitle">
+                                  <h3 class="subHeading">{{ item.title }}</h3>
+                              </div>
+                          </a>
+                          <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ item.author }}</p>
+                          <div class="spacer small"></div>
+                          <div class="description">
+                              {{ item.list_view_text }}
+                          </div>
+                          <div class="spacer small"></div>
+                          <div class="custom-publish-info">
+                              <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
+                              <div class="spacer x-large"></div>
+                      </div>
+                      </div>
+                  </div>
+              {% endfor %}	
+          </div>
+          
+          <div class="grid-container">
+              {% comment %}         {% include 'modules/website/layout/pagination', page_num, per_page %} {% endcomment %}
+          </div>
+      </section>
+
+      <ins-table no-wrap
+      static-table
+      id="insBaseTable"
+      without-search>    
+      </ins-table>
+  </div>
+</div>
+
+<div class="spacer xxxx-large"></div>
+
+<script>
+
+
+  var insBaseTable = document.getElementById('insBaseTable');
+
+  insBaseTable.pageSizeOptions = [6,15,30];
+  insBaseTable.totalCount = {{ get_news.items.total_entries }};
+  insBaseTable.pageNumber = {{page_num}};
+  insBaseTable.pageSize = {{per_page}};
+  
+  if(insBaseTable){
+      setTimeout(() => {
+          insBaseTable.querySelector(".ibt-table-wrap__pagination>span").innerHTML='Items per page';
+      },600);            
+  }
+
+
+
+  console.log( insBaseTable.totalCount )
+  console.log( insBaseTable.pageNumber )
+  console.log( insBaseTable.pageSize )
+
+  
+  insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
+
+  function processTableData(){
+
+      // Get the current URL
+      const currentUrl = window.location.href;
+
+      // Remove any existing `page` and `per_page` query parameters
+      const newUrl = currentUrl.replace(/[?&]page=\d+/, '').replace(/[?&]per_page=\d+/, '');
+
+      // Set the new `page` and `per_page` values
+      const newPage = pageNumber;
+      const newPerPage = pageSize;
+
+      // Append the new `page` and `per_page` query parameters to the URL
+      const updatedUrl = `${newUrl}?page=${newPage}&per_page=${newPerPage}`;
+
+      // Navigate to the updated URL
+      window.location.href = updatedUrl;
+  }
+
+  function tablePaginationHandler(event){
+      pageSize = event.detail.pageSize;
+      pageNumber = event.detail.pageNumber;
+      processTableData()
+  }
+</script>
+

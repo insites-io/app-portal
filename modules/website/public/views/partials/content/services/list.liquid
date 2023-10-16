@@ -4,7 +4,9 @@ metadata: {
     "database_name": "modules/website/services",
     "layout": "list",
     "page_title": "Services List",
-    "slug": "service-list"
+    "slug": "service-list",
+    "label": 'Services | List'
+
 }
 ---
 
@@ -12,7 +14,7 @@ metadata: {
 {%- graphql get_services = 'modules/website/services/get_services' -%}
 {% comment %} assign var to fetch the result {% endcomment %}
 {%- assign res_services = get_services | dig: 'items', 'results' -%}
-{% include 'modules/website/content/hero-title' %} 
+{%- include 'modules/website/content/hero_title' -%}
 
 <section class="services-section">  
     <div class="spacer xxxx-large"></div>

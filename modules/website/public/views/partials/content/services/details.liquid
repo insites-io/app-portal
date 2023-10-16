@@ -4,7 +4,9 @@ metadata: {
     "database_name": "modules/website/services",
     "layout": "details",
     "slug": "{{ context.exports.data.item.slug }}",
-    "page_title": "{{ context.exports.data.item.service_name }}"
+    "page_title": "{{ context.exports.data.item.service_name }}",
+    "label": 'Services | Details'
+
 }
 ---
 
@@ -164,7 +166,7 @@ metadata: {
 {% endif %}
 
 {%- if context.params.slug2 == "customisable-style-guide" -%}
-	{%- include 'modules/insites_cms/services-details-static' -%}
+	{%- include 'modules/website/content/services/services-details-static' -%}
 {% endif %}
 
 <div class="spacer xxxx-large show-for-small-only"></div>
