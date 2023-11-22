@@ -13,7 +13,6 @@
         {% cache header %}
             {% include 'modules/website/layout/header' %} 
         {% endcache %}
-        
         {%- capture header-mobile -%} {{ context.exports.layout_cache_key.cache_key | append: "-header-mobile" }} {%- endcapture -%}
         {% cache header-mobile %}
             {% include 'modules/website/layout/header_mobile' %}
