@@ -58,7 +58,8 @@ authorization_policies:
 {%- endparse_json -%}
 
 <div class="simple_form insites-form insites-form-code">
-  <div class="insites-form-grid">      
+  {% comment %}
+     <div class="insites-form-grid">      
       <div class="form-groups-tab">        
           {% include "modules/client/questionnaires/form_steps", link: "view" %}
       </div>    
@@ -70,7 +71,13 @@ authorization_policies:
       <div class="insites-form-buttons column-1 text-right">        
           <a href="/questionnaires-additional-details-view/{{context.params.slug2}}"><ins-button type="submit" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></a>
       </div>
-  </div>
+  </div> 
+
+{% endcomment %}
+
+  {% comment %} this form is from form builder {% endcomment %}
+  {% assign id = context.params.slug2 %}
+  {%- include_form 'modules/ins_forms/questionaires' id:  id-%}
 </div>
 
 <script>

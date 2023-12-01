@@ -35,9 +35,8 @@ authorization_policies:
 
 
 <div class="feedback">    
-    
-    {%- if context.flash.notice == "Success-Feedback" -%}
-
+ 
+        {%- if context.params.page == "thank-you" -%}
         <div class="spacer x-large"></div>
 
         {%- parse_json messageInfo -%}
@@ -50,8 +49,15 @@ authorization_policies:
         {%- include 'modules/client/system/form_result', messageInfo: messageInfo -%}
 
     {%- else -%}
+        {% comment %} {%- include_form 'modules/client/feedback' -%} {% endcomment %}
 
-        {%- include_form 'modules/client/feedback' -%}
+        <div class="column-1">
+            <h2 class="heading-2">How did we do? </h2>
+            <div class="spacer x-small"></div>
+            <p>Please share how your experience with us is going. We’d love to hear from you.</p>
+        </div>
+        {% comment %} this form is from form builder {% endcomment %}
+        {%- include_form 'modules/ins_forms/client_feedback', test: 'this is a variable' -%}
 
     {%- endif -%}    
 
