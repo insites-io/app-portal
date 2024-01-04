@@ -14,47 +14,54 @@
         </a>
       </div>
       <div class="large-1 medium-3 small-0"></div>
+
+      {%- assign heading = '{}' | parse_json -%}
+      {%- assign menus = '[]' | parse_json -%}
+      {%- graphql get_menu = 'modules/website/menu/get_parent_menu' | dig: 'items', 'results'-%}
+
+      {% assign menu_data = get_menu | parse_json %}
+    
+      {% for menu_item in menu_data %}
+        {%- assign parent = '{}' | parse_json -%}
+        {%- assign parent = parent | add_hash_key: "label", menu_item.label -%}
+        {%- assign parent = parent | add_hash_key: "slug", menu_item.slug -%}
+
+        {%- graphql get_child_menu = 'modules/website/menu/get_child_menu', parent_id: menu_item.id | dig: 'items', 'results' -%}
+        {%- assign parent = parent | add_hash_key: "child", get_child_menu -%}
+        {%- assign menus = menus | add_to_array: parent -%}
+      {% endfor %}
+ 
+
       <div class="show-for-large large-9 medium-6 small-12 cell text-right">
         <div class="header-links">
-          <a class="colorBlack" href="/about">
-            About us
-          </a>
 
-          <a class="" href="/services">
+        {% for menu in menus %}
+          
+          {%- if menu.child.size > 0 -%}
+            <a class="" href="/{{menu.slug}}">
             <ins-dropdown 
-              label="Services"
+              label="{{menu.label}}"
               class="customNav">
-                {% comment %} connect services to graphql {% endcomment %}
-                {%- graphql get_services = 'modules/website/services/get_services' -%}
-                {% comment %} assign var to fetch the result {% endcomment %}
-                {%- assign res_services = get_services | dig: 'items', 'results' -%}
+                {%- assign res_services = menu.child -%}
                 
                 {% for item in res_services %}
                   <ins-dropdown-item
                     link="/services/{{ item.slug }}"
-                    label="{{ item.service_name }}">
+                    label="{{ item.label }}">
                   </ins-dropdown-item>
                 {% endfor %} 
             </ins-dropdown>
           </a>
-
-          <a class="colorBlack" href="/faqs">
-            FAQ
+          {% else %}
+ 
+          <a class="colorBlack" href="/{{menu.slug}}">
+            {{menu.label}}
           </a>
-          
-          <a class="colorBlack" href="/news">
-            News
-          </a> 
-          
-          {%- if context.modules.locator -%}
-            <a class="colorBlack" href="/locations">
-              Locations
-            </a> 
-          {%- endif -%}
+          {% endif %}
+         
+        {% endfor %}
 
-          <a class="colorBlack" href="/contact"> 
-            Contact
-          </a>
+      
 
           {% if context.current_user == nil %}
          

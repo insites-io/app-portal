@@ -5,5 +5,19 @@
     "email": "marc+insites-console@combinate.me",
     "url": "https://insites-app-client-portal-v5-dev-aldrin.staging.oregon.platform-os.com",
     "key": "dV53Nth9KDYrragkNkVv5r1pBuWCIsUTQZmuWenZ0jg"
+  },
+  "dev": {
+    "instance_uuid": "018531f5-58d0-45c1-a15a-ccc50bd5b988",
+    "token": "12e5d4cc-16b1-49e1-9675-2878f9df65aa",
+    "email": "marc@combinate.me",
+    "url": "https://test-instance-aldrin.staging.oregon.platform-os.com",
+    "key": "sjKN0VM5VeNH9dgytnGR2BeMBqW3yTAG6g24BM4zp68"
+  },
+  "test": {
+    "instance_uuid": "4170764d-0f7e-4429-a281-81912744029f",
+    "token": "12e5d4cc-16b1-49e1-9675-2878f9df65aa",
+    "email": "marc@combinate.me",
+    "url": "https://test-insites-core-5-6-1.staging.oregon.platform-os.com",
+    "key": "M5MUlZvh9WPaqwnJnDtyedYIdKeHeczhCwtu2urstIQ"
   }
 }

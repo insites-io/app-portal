@@ -10,7 +10,7 @@ callback: >
   {% if response_data.error %}
     {%- log response_data.error, type: 'modules/insites_payments/create_charge' -%}
   {% endif %}
-headers: >
+request_headers: >
   {% if data %}
     {%- include 'modules/client/stripe/get_stripe_settings' -%}
     {
