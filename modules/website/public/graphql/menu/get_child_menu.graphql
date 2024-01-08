@@ -4,7 +4,7 @@ query get_child_menu ($parent_id: String) {
     per_page: 1000
     filter: {
       deleted_at: { exists: false }
-      model_schema_name: { value: "modules/ins_databases/menu" }
+      model_schema_name: { value: "modules/website/menu" }
       properties: [
         { name: "show_in_menu", value_boolean: true },
         { name: "parent", value: $parent_id }

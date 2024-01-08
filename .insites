@@ -19,5 +19,12 @@
     "email": "marc@combinate.me",
     "url": "https://test-insites-core-5-6-1.staging.oregon.platform-os.com",
     "key": "M5MUlZvh9WPaqwnJnDtyedYIdKeHeczhCwtu2urstIQ"
+  },
+  "ecom": {
+    "instance_uuid": "59f969a0-7a21-4193-9255-d78eaa8bd377",
+    "token": "12e5d4cc-16b1-49e1-9675-2878f9df65aa",
+    "email": "marc@combinate.me",
+    "url": "https://test-insites-permissions-5-2-0.staging.oregon.platform-os.com",
+    "key": "UWvqQ1qDuEOxWkURofykGIcb8MHP15om7_3yalf-YWk"
   }
 }

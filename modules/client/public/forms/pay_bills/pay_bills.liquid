@@ -1,6 +1,6 @@
 ---
 name: pay_bills
-resource: modules/insites_ecommerce/insites_order
+resource: modules/insites_ecommerce/order
 resource_owner: anyone
 redirect_to: /pay-bills
 flash_alert: Error-PayBill
@@ -11,46 +11,46 @@ fields:
       validation: 
         presence:
           message: Invoice Number is required  
-    order_value:    
+    subtotal_amount:    
       validation: 
         presence:  
           message: Minimum of 1, maximum of 983283.99
         numericality:
           greater_than_or_equal_to: 1
           less_than_or_equal_to: 983283.99
-    user_id:    
-      validation: 
-        presence: true
+    # user_id:    
+    #   validation: 
+    #     presence: true
     #user_uuid:
-    company_id:
-    company_uuid:
+    # company_id:
+    # company_uuid:
     currency:    
       validation: 
         presence: true
     date_time:    
       validation: 
         presence: true
-    tax_amount:    
+    total_tax_amount:    
       validation: 
         presence: true
-    shipping_amount:    
+    total_shipping_amount:    
       validation: 
         presence: true
     total_amount:    
       validation: 
         presence: true
-    amount_due:    
-      validation: 
-        presence: true
+    # amount_due:    
+    #   validation: 
+    #     presence: true
     total_discount_amount:    
       validation: 
         presence: true
-    is_enabled:    
-      validation: 
-        presence: true    
+    # is_enabled:    
+    #   validation: 
+    #     presence: true    
     order_status:
     order_payment_status:
-    shipping_status:
+    order_shipping_status:
     notes:
 
     # Other Details 
@@ -68,8 +68,8 @@ default_payload: >
         "company_uuid": "{{ current_user.client[0].company_uuid }}",
         "currency": "{{ settings.currency }}",
         "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}",
-        "tax_amount": 0,
-        "shipping_amount": 0,
+        "total_tax_amount": 0,
+        "total_shipping_amount": 0,
         "total_discount_amount": 0,
         "is_enabled": true,
         
@@ -92,7 +92,7 @@ callback_actions: >
     html-novalidate: true %}
 
     <input type="hidden" id="bill-total-amount" name="{{ props.total_amount.name }}" >
-    <input type="hidden" id="bill-amount-due" name="{{ props.amount_due.name }}" >
+    {% comment %} <input type="hidden" id="bill-amount-due" name="{{ props.amount_due.name }}" > {% endcomment %}
     <input type="hidden" id="bill-notes" name="{{ props.notes.name }}" >
 
     <!-- Invoice Details -->
@@ -124,10 +124,10 @@ callback_actions: >
                     name="temp_order_value"
                     min="1"
                     max="983283.99"
-                    {% if form.errors['properties.order_value'] %} has-error {% endif %}
-                    error-message="{{ props.order_value.validation.rules.presence.message }}">
+                    {% if form.errors['properties.subtotal_amount'] %} has-error {% endif %}
+                    error-message="{{ props.subtotal_amount.validation.rules.presence.message }}">
                 </ins-input>
-                <input type="hidden" id="bill-order-value" name="{{ props.order_value.name }}" >
+                <input type="hidden" id="bill-order-value" name="{{ props.subtotal_amount.name }}" >
             </div>
         </div>
     </div>

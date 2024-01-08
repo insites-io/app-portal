@@ -15,7 +15,6 @@
       </div>
       <div class="large-1 medium-3 small-0"></div>
 
-      {%- assign heading = '{}' | parse_json -%}
       {%- assign menus = '[]' | parse_json -%}
       {%- graphql get_menu = 'modules/website/menu/get_parent_menu' | dig: 'items', 'results'-%}
 
@@ -36,7 +35,7 @@
         <div class="header-links">
 
         {% for menu in menus %}
-          
+
           {%- if menu.child.size > 0 -%}
             <a class="" href="/{{menu.slug}}">
             <ins-dropdown 
@@ -46,7 +45,7 @@
                 
                 {% for item in res_services %}
                   <ins-dropdown-item
-                    link="/services/{{ item.slug }}"
+                    link="/{{menu.slug}}/{{ item.slug }}"
                     label="{{ item.label }}">
                   </ins-dropdown-item>
                 {% endfor %} 

@@ -116,3 +116,37 @@
     -%}
 {%- endfor -%}
 
+
+{% assign menu = '[
+    {"label": "About us", "order": "0", "slug": "about", "show_in_menu": true},
+    {"label": "Services", "order": "1", "slug": "services", "show_in_menu": true},
+    {"label": "FAQ", "order": "2", "slug": "faqs", "show_in_menu": true},
+    {"label": "News", "order": "3", "slug": "news", "show_in_menu": true},
+    {"label": "Contact", "order": "", "slug": "contact", "show_in_menu": true}
+  ]' | parse_json %}
+
+  {% for item in menu %}
+    {%- graphql create_menu = "modules/website/menu/create_menu"
+        label: {{item.label}},
+        order: {{item.order}},
+        slug: {{item.slug}}
+     -%}
+    
+  
+  {% endfor %}
+
+  {%- graphql get_menu = 'modules/website/menu/get_parent_menu' | dig: 'items', 'results'-%}
+
+  {% for sub_menu in get_menu %}
+    {% if sub_menu.label == 'Services' %}
+        {%- graphql create_menu = "modules/website/menu/create_menu"
+        label: "Customisable Style Guide",
+        order: "0",
+        slug: "customisable-style-guide"
+        parent: {{sub_menu.id}}
+     -%}
+    {% endif %}
+ {% endfor %}
+
+  
+

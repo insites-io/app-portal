@@ -32,10 +32,10 @@ authorization_policies:
 {%- endif -%}
 
 <div class="questionnaire-form">
-    {% comment %} {%- include_form 'modules/client/questionnaires_general', id: context.params.slug2 -%} {% endcomment %}
+    {%- include_form 'modules/client/questionnaires_general', id: context.params.slug2 -%}
 
     {% comment %} this form is from form builder {% endcomment %}
-    {%- include_form 'modules/ins_forms/questionaires' -%}
+    {% comment %} {%- include_form 'modules/ins_forms/questionaires' -%} {% endcomment %}
 </div>
 
 

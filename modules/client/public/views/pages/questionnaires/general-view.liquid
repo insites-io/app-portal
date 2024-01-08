@@ -57,7 +57,7 @@ authorization_policies:
 {%- endparse_json -%}
 
 <div class="simple_form insites-form insites-form-code">
-  {% comment %}
+
      <div class="insites-form-grid">      
       <div class="form-groups-tab">        
           {% include "modules/client/questionnaires/form_steps", link: "view" %}
@@ -72,11 +72,11 @@ authorization_policies:
       </div>
   </div> 
 
-{% endcomment %}
+
 
   {% comment %} this form is from form builder {% endcomment %}
-  {% assign id = context.params.slug2 %}
-  {%- include_form 'modules/ins_forms/questionaires' id:  id-%}
+  {% comment %} {% assign id = context.params.slug2 %}
+  {%- include_form 'modules/ins_forms/questionnaires' id:  id-%} {% endcomment %}
 </div>
 
 <script>

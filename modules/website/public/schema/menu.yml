@@ -1,4 +1,4 @@
-name: modules/ins_databases/menu
+name: modules/website/menu
 metadata:
   label: "Menu"
   groups: []
@@ -24,7 +24,7 @@ properties:
     is_shown_in_table: false
 - name: parent
   type: string
-  belongs_to: modules/ins_databases/menu
+  belongs_to: modules/website/menu
   metadata:
     label: "Parent"
     weight: 3

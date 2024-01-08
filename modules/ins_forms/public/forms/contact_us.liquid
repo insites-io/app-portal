@@ -1,0 +1,284 @@
+---
+default_payload: '{% assign form_properties = context.params.form.properties_attributes
+  %}{"properties_attributes":{}}'
+fields:
+  properties:
+    first_name:
+      validation:
+        presence:
+          message: First name is required.
+          if: "{% if form.first_name != blank %}true{% endif %}"
+    last_name:
+      validation:
+        presence:
+          message: Last name is required.
+          if: "{% if form.last_name != blank %}true{% endif %}"
+    email:
+      validation:
+        email:
+          message: Use valid email.
+          if: "{% if form.email != blank %}true{% endif %}"
+        presence:
+          message: Email is required.
+          if: "{% if form.email != blank %}true{% endif %}"
+    mobile_phone:
+      validation: {}
+    message:
+      validation:
+        presence:
+          message: Message is required.
+          if: "{% if form.message != blank %}true{% endif %}"
+    document:
+      validation: {}
+flash_alert: Failed to submit form. Please try again.
+flash_notice: Successfully submitted form.
+metadata:
+  label: Contact us
+  database:
+    name: modules/website/contact_us
+  properties:
+    email:
+      step: 1
+      label: Email Address
+      hidden: false
+      weight: 2
+      is_enabled: true
+      ui_element: input
+      prefill_key:
+      two_columns: true
+      dispay_label: true
+      attribute_type: string
+      default_payload:
+      value_calculation: {}
+      visibility_conditions: []
+    message:
+      step: 1
+      label: Message
+      hidden: false
+      weight: 4
+      is_enabled: true
+      ui_element: input
+      prefill_key:
+      two_columns: false
+      dispay_label: true
+      attribute_type: string
+      default_payload:
+      value_calculation: {}
+      visibility_conditions: []
+    document:
+      step: 1
+      label: Document
+      hidden: false
+      weight: 5
+      is_enabled: true
+      ui_element: file_multiple
+      auto_upload: false
+      prefill_key:
+      two_columns: false
+      dispay_label: true
+      attribute_type: array
+      default_payload: []
+      value_calculation: {}
+      visibility_conditions: []
+    last_name:
+      step: 1
+      label: Last Name
+      hidden: false
+      weight: 1
+      is_enabled: true
+      ui_element: input
+      prefill_key:
+      two_columns: true
+      dispay_label: true
+      attribute_type: string
+      default_payload:
+      value_calculation: {}
+      visibility_conditions: []
+    first_name:
+      step: 1
+      label: First Name
+      hidden: false
+      weight: 0
+      is_enabled: true
+      ui_element: input
+      prefill_key:
+      two_columns: true
+      dispay_label: true
+      attribute_type: string
+      default_payload:
+      value_calculation: {}
+      visibility_conditions: []
+    mobile_phone:
+      step: 1
+      label: Mobile Phone
+      hidden: false
+      weight: 3
+      is_enabled: true
+      ui_element: input
+      prefill_key:
+      two_columns: true
+      dispay_label: true
+      attribute_type: string
+      default_payload:
+      value_calculation: {}
+      visibility_conditions: []
+  form_groups: []
+  buttons_color:
+  buttons_alignment: Left
+  show_button_icons: false
+  submit_button_icon:
+  submit_button_label:
+  buttons_background_color:
+redirect_to: "/thank-you"
+resource: modules/website/contact_us
+resource_owner: anyone
+spam_protection:
+  recaptcha_v2: {}
+---
+{%- form html-class: 'insites-form insites-form-code' html-name: 'modules/ins_forms/contact_us' html-novalidate: 'novalidate' html-data-form: 'modules/website/contact_us' -%}
+
+<div class="insites-form-grid">
+	<!-- Field: First Name -->
+	<div class="{%- if form.metadata.properties.first_name.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+		<ins-input 
+			id="0"
+			data-type="string"
+			data-ui="input"
+			label="{%- include 'modules/insites_forms/form_code/label', form: form, name: 'first_name' -%}"
+			name="{{ form.fields.properties.first_name.name }}"
+			value="{{ form.fields.properties.first_name.value }}"
+			error-message="{{ form.errors['properties.first_name'] }}"
+			{%- include 'modules/insites_forms/form_code/placeholder', form: form, name: 'first_name' -%}
+			{%- include 'modules/insites_forms/form_code/validation/required', form: form, name: 'first_name' -%}
+			{%- if form.errors['properties.first_name'] != nil -%} has-error {%- endif -%} 
+			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'first_name' -%} 
+			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'first_name' -%}>
+		</ins-input>
+	</div>
+	<!-- Field: Last Name -->
+	<div class="{%- if form.metadata.properties.last_name.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+		<ins-input 
+			id="1"
+			data-type="string"
+			data-ui="input"
+			label="{%- include 'modules/insites_forms/form_code/label', form: form, name: 'last_name' -%}"
+			name="{{ form.fields.properties.last_name.name }}"
+			value="{{ form.fields.properties.last_name.value }}"
+			error-message="{{ form.errors['properties.last_name'] }}"
+			{%- include 'modules/insites_forms/form_code/placeholder', form: form, name: 'last_name' -%}
+			{%- include 'modules/insites_forms/form_code/validation/required', form: form, name: 'last_name' -%}
+			{%- if form.errors['properties.last_name'] != nil -%} has-error {%- endif -%} 
+			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'last_name' -%} 
+			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'last_name' -%}>
+		</ins-input>
+	</div>
+	<!-- Field: Email Address -->
+	<div class="{%- if form.metadata.properties.email.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+		<ins-input 
+			id="2"
+			data-type="string"
+			data-ui="input"
+			label="{%- include 'modules/insites_forms/form_code/label', form: form, name: 'email' -%}"
+			name="{{ form.fields.properties.email.name }}"
+			value="{{ form.fields.properties.email.value }}"
+			error-message="{{ form.errors['properties.email'] }}"
+			{%- include 'modules/insites_forms/form_code/placeholder', form: form, name: 'email' -%}
+			{%- include 'modules/insites_forms/form_code/validation/required', form: form, name: 'email' -%}
+			{%- if form.errors['properties.email'] != nil -%} has-error {%- endif -%} 
+			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'email' -%} 
+			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'email' -%}>
+		</ins-input>
+	</div>
+	<!-- Field: Mobile Phone -->
+	<div class="{%- if form.metadata.properties.mobile_phone.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+		<ins-input 
+			id="3"
+			data-type="string"
+			data-ui="input"
+			label="{%- include 'modules/insites_forms/form_code/label', form: form, name: 'mobile_phone' -%}"
+			name="{{ form.fields.properties.mobile_phone.name }}"
+			value="{{ form.fields.properties.mobile_phone.value }}"
+			error-message="{{ form.errors['properties.mobile_phone'] }}"
+			{%- include 'modules/insites_forms/form_code/placeholder', form: form, name: 'mobile_phone' -%}
+			{%- include 'modules/insites_forms/form_code/validation/required', form: form, name: 'mobile_phone' -%}
+			{%- if form.errors['properties.mobile_phone'] != nil -%} has-error {%- endif -%} 
+			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'mobile_phone' -%} 
+			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'mobile_phone' -%}>
+		</ins-input>
+	</div>
+	<!-- Field: Message -->
+	<div class="{%- if form.metadata.properties.message.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+		<ins-input 
+			id="4"
+			data-type="string"
+			data-ui="input"
+			label="{%- include 'modules/insites_forms/form_code/label', form: form, name: 'message' -%}"
+			name="{{ form.fields.properties.message.name }}"
+			value="{{ form.fields.properties.message.value }}"
+			error-message="{{ form.errors['properties.message'] }}"
+			{%- include 'modules/insites_forms/form_code/placeholder', form: form, name: 'message' -%}
+			{%- include 'modules/insites_forms/form_code/validation/required', form: form, name: 'message' -%}
+			{%- if form.errors['properties.message'] != nil -%} has-error {%- endif -%} 
+			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'message' -%} 
+			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'message' -%}>
+		</ins-input>
+	</div>
+	<!-- Field: Document -->
+	<div class="{%- if form.metadata.properties.document.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+		<ins-input-file
+			id="5"
+			data-multiple="true"
+			data-name="{{ form.fields.properties.document.name }}"
+			data-type="array"
+			data-ui="file_multiple"
+			data-prop="document"
+			label="Document"
+			accepted-files=""
+			capture=""
+			max-files="10"
+			max-file-size="10"
+			error-message="{{ form.errors['properties.document'] }}"
+			{%- include 'modules/insites_forms/form_code/validation/file', form: form, name: 'document' -%}
+			{%- include 'modules/insites_forms/form_code/validation/required', form: form, name: 'document' -%}
+			{%- if form.errors['properties.document'] != nil -%} has-error {%- endif -%}>
+		</ins-input-file>
+	</div>
+
+</div>
+
+<div class="insites-form-grid">
+	<div class="column-1">
+		{%- spam_protection 'recaptcha_v2' -%}
+	</div>
+	<div class="insites-form-buttons column-1 left">
+		<ins-button type="submit" icon="" label="SUBMIT" solid></ins-button>
+	</div>
+</div>
+
+{%- endform -%}
+
+<script id="{{ form.name }}">
+    InsitesFormProcessor.setFormProps("{{ form.name }}", "{{ form.system_fields.parent_resource_id }}", {{ form.fields.properties }});
+
+
+    document.addEventListener("DOMContentLoaded", function() { setTimeout(() => {
+        Array.from(document.querySelectorAll("[data-ui='stepper'][data-type='float']")).forEach(stepper => {
+            const inputEl = stepper.querySelector('input')
+            stepper.querySelectorAll('.ins-input-stepper_minus, .ins-input-stepper_plus').forEach(button => {
+                button.addEventListener('click', function() {
+                    setTimeout(() => {
+                        let fixValue = parseFloat(inputEl.value || 0).toFixed(1).toString()
+                        inputEl.value = fixValue.endsWith('.0') ? fixValue.slice(0, -2) : fixValue
+                    }, 10)
+                })
+            })
+        })
+
+      
+
+      	const formcontactUsEl = document.querySelector('form[name="modules/ins_forms/contact_us"]')
+      
+      
+      
+    }, 350) })
+</script>
