@@ -3,6 +3,7 @@
 {%  liquid
     assign amount = total_amount | divided_by: 1.017
     assign cc_surcharge = amount | times: 0.017
+    assign tax = total_tax_amount 
 %}
 
 {% parse_json computed %}
@@ -10,6 +11,7 @@
     "amount": {{ amount }},
     "cc_surcharge": {{ cc_surcharge }},
     "total_amount": {{ total_amount }}
+    "tax": {{ tax }}
 }
 {% endparse_json %}
 
