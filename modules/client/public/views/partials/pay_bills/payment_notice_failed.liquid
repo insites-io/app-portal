@@ -11,7 +11,8 @@
             <li>The bank's fraud rules blocked the transaction</li>
         </ul>            
         <div class="spacer x-large"></div>
-        <p>Order reference #: <b>{{ context.session.paybill_order_id }}</b></p>
+        {{ context.session }}
+        <p>Order reference #: <b>{{ context.session.paybill_order_reference }}</b></p>
         <p>Payment reference #: <b>{{ context.session.paybill_payment_id }}</b></p>
         <div class="spacer x-large"></div>
         <p>You might need to update your billing info or retry. <br>If the issue persists contact your bank for more information.</p>

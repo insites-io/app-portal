@@ -19,7 +19,7 @@
                             <div class="spacer"></div>
                         </li>
                         <li class="">
-                            <a class="footer-links color-font-head" data-test="" href="/about-us">About</a>
+                            <a class="footer-links color-font-head" data-test="" href="/about">About</a>
                             <div class="spacer small"></div>
                         </li>
                         <li>
@@ -31,7 +31,7 @@
                             <div class="spacer small"></div>
                         </li>
                         <li>
-                            <a class="footer-links color-font-head" data-test="" href="/contact-us">Contact</a>
+                            <a class="footer-links color-font-head" data-test="" href="/contact">Contact</a>
                             <div class="spacer small"></div>
                         </li>
                     </ul>
@@ -118,25 +118,28 @@
                 <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
                     <div>
                         {% comment %} connect services to graphql {% endcomment %}
-                        {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+                        {% comment %} {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%} {% endcomment %}
                         {% comment %} assign var to fetch the result {% endcomment %}
-                        {%- assign res_soc_url = get_contact_us | dig: 'items', 'results' -%}
+                        {% comment %} {%- assign res_soc_url = get_contact_us | dig: 'items', 'results' -%}
                         {%- assign res_soc_url = res_soc_url | first -%}
-
-
+                         {% endcomment %}
+                         
+                        {% comment %} GET GLOBAL CONTENTS {% endcomment %}
+                        {%- include "modules/insites_cms/globals" -%}
+                        {{ context.exports.global.facebook_link }}
                     <ul class="menu social">
                         <li>
-                            <a class="footer-links iconHover" href="{{ res_soc_url.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
+                            <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
                                 <i class="icon-facebook-stroke colorBlack"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="footer-links iconHover" href="{{ res_soc_url.twitter_link }}" data-test="" target="_blank" title="" rel="noreferrer">
+                            <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="" rel="noreferrer">
                                 <i class="icon-twitter-stroke colorBlack"></i>
                             </a>
                         </li>
                         <li>
-                            <a class="footer-links iconHover" href="{{ res_soc_url.linkedin_link }}" data-test="" target="_blank" title="" rel="noreferrer">
+                            <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="" rel="noreferrer">
                                 <i class="icon-linkedin-stroke colorBlack"></i>
                             </a>
                         </li>
@@ -147,16 +150,20 @@
             <div class="spacer"></div>
             <div class="grid-x">
                 <div class="large-6 medium-6 small-12 cell medium-text-left text-center">
-                    <p class="subHeading" style="color: #595959; font-size: 12px!important;">Copyright © 2023 Insites Template.</p>
+                    <p class="subHeading"  style="color: #595959; font-size: 12px!important;">Copyright © <span id="year-container"></span> </p>
                 </div>
                 <div class="small-12 cell spacer show-for-small-only"></div>
                 <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
-                    <p class="subHeading" style="color: #595959; font-size: 12px!important;"> Built by <a style="font-size: 12px!important" target="_blank" href="https://www.combinate.me/">Combinate</a>. Powered by <a style="font-size: 12px!important" target="_blank" href="https://www.insites.io/">Insites</a>.</p>
+                    <p class="subHeading" style="color: #595959; font-size: 12px!important;"> Powered by <a style="font-size: 12px!important" target="_blank" href="https://www.insites.io/">Insites</a>.</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="spacer"></div>
 </footer>
+
+<script>
+    document.getElementById("year-container").innerHTML = new Date().getFullYear();
+</script>
 
 {%- include 'modules/website/layout/foot' -%}

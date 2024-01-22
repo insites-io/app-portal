@@ -1027,7 +1027,7 @@ ins-button .ins-button div .btn__label{
 }
 
 .colorBlack{
-  color: #000000!important;
+  color: var(--font-color-body) !important;
 }
 
 .testiLabel{

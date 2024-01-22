@@ -84,6 +84,32 @@
     <div class="spacer xx-small"></div>
 
     {%- else -%}
+    <div class="validate-credit-card" >
+    {% comment %} Credit Cards {% endcomment %}
+    <div id="credit-card-fields" class="card-fields">            
+        <p class="error-message hide">Credit Card is required.</p>
+        <ins-input required validate style="height:0px; display: block; overflow: hidden;"
+            field="hidden" 
+            id="stripe-card"
+            name="{{ form.fields.properties.stripe_credit_card.name }}" 
+            value="{{ form.fields.properties.stripe_credit_card.value }}">
+        </ins-input>
+        <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">                    
+            {%- for card in cards.results -%}
+                <div class="large-4 medium-6 small-12 cell card-options">
+                    <ins-credit-card 
+                        data-id="{{ card.id }}" 
+                        brand="{{ card.brand }}"
+                        last-four="{{ card.last4 }}"
+                        expiry-month="{{ card.exp_month }}"
+                        expiry-year="{{ card.exp_year }}"
+                        full-year
+                        value="{{ card.gateway_id }}">
+                    </ins-credit-card>
+                </div>
+            {%- endfor -%}
+        </div>
+    </div>    
         <div class="empty-box">
             <p>To view / modify your Credit Cards please verify your account.</p>            
         </div>

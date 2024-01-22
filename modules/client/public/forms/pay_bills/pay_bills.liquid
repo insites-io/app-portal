@@ -41,12 +41,12 @@ fields:
     date_time:    
       validation: 
         presence: true
-    total_tax_amount:    
-      validation: 
-        presence: true
-    total_shipping_amount:    
-      validation: 
-        presence: true
+    # total_tax_amount:    
+    #   validation: 
+    #     presence: true
+    # total_shipping_amount:    
+    #   validation: 
+    #     presence: true
     total_amount:    
       validation: 
         presence: true
@@ -145,6 +145,7 @@ callback_actions: >
             </div>
 
             <div class="spacer large"></div>
+
         <div class="large-6 medium-12 small-12 cell">
           <ins-input required validate account-details-field
               class="label-input"
@@ -153,7 +154,7 @@ callback_actions: >
               field="number"
               id="tax-amount"
               name="{{ props.total_tax_amount.name }}" 
-              value="{{ props.total_tax_amount.value }}"
+              {% comment %} value="{{ props.total_tax_amount.value }}" {% endcomment %}
               {% if form.errors['properties.total_tax_amount'] %} has-error {% endif %}
               error-message="{{ props.total_tax_amount.validation.rules.presence.message }}">
           </ins-input>
@@ -166,7 +167,7 @@ callback_actions: >
                   field="number"   
                   id="shipping-amount"   
                   name="{{ props.total_shipping_amount.name }}" 
-                  value="{{ props.total_shipping_amount.value }}"
+                  {% comment %} value="{{ props.total_shipping_amount.value }}" {% endcomment %}
                   {% if form.errors['properties.total_shipping_amount'] %} has-error {% endif %}
                   error-message="{{ props.total_shipping_amount.validation.rules.presence.message }}">
               </ins-input>
