@@ -1478,3 +1478,8 @@ ins-table .ibt-table-wrap .pagination-wrap  .ibt-table-wrap__page {
       float: none;
   }
 }
+
+
+ins-card .ins-card-wrap {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10) !important;
+}
