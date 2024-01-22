@@ -97,6 +97,27 @@ callback_actions: >
 
 {%- assign props = form.fields.properties -%}
 
+{%- liquid
+    graphql user = 'modules/client/account/get_current_user' | dig: 'current_user'
+
+    if user.client
+        assign profile = user.client[0]
+        if profile != blank and profile.is_activated
+            assign verified = true
+        else
+            assign verified = false            
+        endif
+    endif    
+-%}
+
+{%- if verified == false -%}
+  <div class="small-12 cell text-center">
+    <div class="spacer"></div>
+    {%- include_form "modules/client/resend_verification", id: context.current_user.id -%}
+  </div>
+{%- endif -%}    
+<div class="spacer"></div>
+
 {% form 
     html-id: "checkout-form"
     html-onsubmit: "return Paybill.events.payBillsSubmit(event);"

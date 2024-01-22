@@ -45,6 +45,18 @@ authorization_policies:
     endif    
 -%}
 
+{% comment %} Check if user verified their account {% endcomment %}
+{%- liquid
+    if user.client
+        assign profile = user.client[0]
+        if profile != blank and profile.is_activated
+            assign verified = true
+        else
+            assign verified = false            
+        endif
+    endif    
+-%}
+
 
 <div id="credit-card-fields">
     
@@ -86,9 +98,14 @@ authorization_policies:
         {%- endif -%}
 
     {%- else -%}
-        <div class="empty-box">
-            <p>To view / modify your Credit Cards please verify your account.</p>            
-        </div>
+       
+                {%- if verified == false -%}
+                    <div class="small-12 cell text-center">
+                      <div class="spacer"></div>
+                      {%- include_form "modules/client/resend_verification", id: context.current_user.id -%}
+                    </div>
+                  {%- endif -%}        
+      
     {%- endif -%}
 
     <div class="spacer xxxx-large"></div>

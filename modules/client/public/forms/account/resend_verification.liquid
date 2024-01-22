@@ -2,7 +2,14 @@
 name: resend_verification
 resource: User
 resource_owner: anyone
-redirect_to: /my-details
+redirect_to: |-
+    {% if params.slug == 'payment-methods' %}
+        /payment-methods
+    {%  elsif params.slug == 'pay-bills' %}
+        /pay-bills
+    {% else %}
+        /my-details
+    {% endif %}   
 fields:
     email:
         validation: 
@@ -21,7 +28,13 @@ callback_actions: |-
     {% endif %}
 ---
 <ins-card class="empty-state" steady>
-    <p class="font-body-large">You haven't yet verified your account. Please check your email or resend a verification email.</p>
+    {% if params.slug == 'payment-methods' or params.slug == 'pay-bills' %}
+        <p>To view/modify your Credit Cards please verify your account.
+            <br>
+            Please check your email or resend a verification email.</p>   
+    {% else %}
+        <p class="font-body-large">You haven't yet verified your account. Please check your email or resend a verification email.</p>  
+    {% endif %}
     <div class="spacer small"></div>
     {% form %}
         <input type="hidden" 
