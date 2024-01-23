@@ -135,7 +135,7 @@
 /*////////HERO BANNER///////*/
 
   .hero-title{
-    background: #436CF2;
+    background: var(--color-main);
     color: #fff;
   }
   
@@ -1023,7 +1023,7 @@ ins-button .ins-button div .btn__label{
 }
 
 .colorWhite{
-  color: #FFFFFF!important;
+  color: var(--font-color-inv)!important;
 }
 
 .colorBlack{
@@ -1482,4 +1482,8 @@ ins-table .ibt-table-wrap .pagination-wrap  .ibt-table-wrap__page {
 
 ins-card .ins-card-wrap {
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10) !important;
+}
+
+.ins-form-field-wrap .ins-form-field {
+  color: var(--color-font-body) !important;
 }
