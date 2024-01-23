@@ -1,9 +1,10 @@
 :root {
   /* Brand colors */
   /* --color-main: #436CF2;
-  --color-sub1: #000000;
+
   --color-sub2: #E3361E; */
   /* Buttons & Links */
+  --color-sub1: #000000;
   --color-main-hover: #3159DB;
   --color-sub1-hover: #373737;
   --color-sub2-hover: #D32F19;
@@ -17,6 +18,7 @@
   --font-color-link: #436CF2;
   --font-color-visited: #670099;
   --font-color-inv: #FFFFFF;
+  --color-font-body: #595959;
   /* Text colors */
   --text-3: #595959;
   /* UI Colors */
@@ -207,7 +209,7 @@
 }
 
 .custGridContainer{
-  background-color: #436cf2;
+  background-color: var(--color-main);
   border-radius: 35px;
   padding: 0 50px!important;
 }
@@ -217,7 +219,7 @@
 .card-section h2,
 .card-section h5,
 .card-section h6{
-  color: #fff;
+  color: var(--font-color-inv);
 }
 
 /*////////HOME///////*/
@@ -962,6 +964,7 @@ footer.blocks-footer-05{
 .subHeading{
   font-family: var(--font-family-02)!important;
   font-size: 16px!important;
+  color: var(--font-color-body);
 }
 
 .subHeading a,
@@ -983,7 +986,7 @@ footer.blocks-footer-05{
 }
  
 .btnBlack .ins-button{
-  background-color: black!important;
+  background-color: var(--color-sub1) !important;
 }
 
 ins-button .ins-button .icon-user{
@@ -1027,29 +1030,29 @@ ins-button .ins-button div .btn__label{
 }
 
 .colorBlack{
-  color: var(--font-color-body) !important;
+  color: var(--font-color-head) !important;
 }
 
 .testiLabel{
-  font-family: var(--font-family-04);
+  font-family: var(--font-family-01);
   font-weight: 500;
-  color: white;
+  color: var(--font-color-inv);
 }
 .testiMessage{
-  font-family: var(--font-family-01);
+  font-family: var(--font-family-02);
   font-weight: 400;
   padding: 0px 205px;
-  color: white;
+  color: var(--font-color-inv);
 }
 .testiName{
   font-family: var(--font-family-01);
   font-weight: 700;
-  color: white;
+  color: var(--font-color-inv);
 }
 .testiLoc{
   font-family: var(--font-family-01);
   font-weight: 400;
-  color: white;
+  color: var(--font-color-inv);
 }
 
 .side-links{
@@ -1130,7 +1133,7 @@ ins-accordion .inner-content{
 
 .footerSubItems a{
   font-family: var(--font-family-02)!important;
-  color: #575757!important;
+  color: var(--color-font-body) !important;
 }
 
 .staticFonts p,
@@ -1175,8 +1178,8 @@ ins-card .ins-card-wrap{
   flex-direction: column;
   align-items: flex-start;
   padding: 24px;
-  background: #F9FAFB;
-  border: 1px solid #DFDFDF;
+  background: var(--color-ui-02);
+  border: 1px solid var(--color-ui-04);
   border-radius: 16px;
   flex: none;
   order: 0;
@@ -1486,4 +1489,9 @@ ins-card .ins-card-wrap {
 
 .ins-form-field-wrap .ins-form-field {
   color: var(--color-font-body) !important;
+}
+
+.footer-p {
+  color: var(--color-font-body) !important;
+   font-size: 12px!important;
 }
