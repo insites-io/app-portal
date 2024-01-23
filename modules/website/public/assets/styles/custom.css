@@ -433,7 +433,7 @@
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.5rem;
-  color: #595959;
+  color: var(--font-color-body);
 }
 
 .blocks-sc-3col-02 .spacer { 
@@ -1009,8 +1009,8 @@ ins-button .ins-button .icon-user{
 
 .custIconCheck{
   font-size: 12px!important;
-  color: white;
-  background-color: #436CF2;
+  color: var(--font-color-inv);
+  background-color: var(--color-main);
   padding: 10px;
   border-radius: 8px;
 }
@@ -1193,13 +1193,14 @@ ins-card.support .ins-card-wrap{
   flex-direction: column;
   align-items: flex-start;
   /* padding: 20px 10px!important; */
-  background: #F9FAFB;
+  background: var(--color-ui-02);
   /* border: 1px solid #DFDFDF; */
   border-radius: 4px!important;
   flex: none;
   order: 0;
   align-self: stretch;
   flex-grow: 1;
+  border-color: var(--color-ui-04) !important;
 }
 
 ins-card.support .ins-card-wrap:hover{
