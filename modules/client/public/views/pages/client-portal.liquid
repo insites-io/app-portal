@@ -44,8 +44,7 @@ authorization_policies:
 <!-- start page: overview  -->
 {%- endif -%} 
 
-{%- graphql data = "modules/client/questionnaires/get_questionnaires", user_id: context.current_user.id, not_agreement: "I understand and agree", size: 6 | dig: "items","results" -%}
-
+{%- graphql data = "modules/client/questionnaires/get_questionnaires_overview", user_id: context.current_user.id, not_agreement: "I understand and agree", size: 6 | dig: "items","results" -%}
 <div class="questionnaire">
 {%- if data.size > 0 -%}
   <h2 class="heading-2">My Incomplete Forms</h2>

@@ -1,7 +1,7 @@
-query get_questionnaires(
+query get_questionnaires_overview(
     $page: Int = 1
     $size: Int = 1
-  	$id: ID
+ 
     $user_id: String
   	$year: String
     # $not_agreement: [String!]
@@ -12,11 +12,11 @@ query get_questionnaires(
         filter: {
             table: { value: "modules/client/questionnaires" }
             deleted_at: { exists: false }
-          	id: {value: $id}
+   
             properties: [
                 { name: "user_id", value: $user_id }
                 { name: "year", value: $year }
-                # { name: "agreement", not_value_in: $not_agreement }
+                { name: "agreement", value_array: [] }
             ]    
         }
         sort: [
