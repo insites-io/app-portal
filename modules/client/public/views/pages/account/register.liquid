@@ -35,29 +35,8 @@ metadata: {
     <div class="spacer xxx-large"></div>
     {%- include 'modules/client/account/registration_steps' -%}
     <div class="spacer x-large"></div>    
-
-    {%- if context.flash.notice != blank -%}
-
-        <div class="thank-you">
-            <div class="grid-x grid-padding-x text-center">
-                <div class="large-12 medium-12 small-12 cell">
-                    <div class="thank-you-img spacer">
-                        <i class="icon-number-of-checks"></i>
-                    </div>
-                    <h3 class="heading-3">Account Created</h3>
-                    <div class="spacer small"></div>
-                    <p>You can now sign in to the client portal.</p> 
-                    <div class='spacer xxx-large'></div>
-                    <a href='/sign-in'><ins-button label='VIew Client Portal' solid ></ins-button></a>
-                </div>
-            </div>
-        </div>
     
-    {%- else -%}
-
-        {%- include_form 'modules/client/register' -%}
-
-    {%- endif -%}
+    {%- include_form 'modules/client/register' -%}
 </div>
 
 

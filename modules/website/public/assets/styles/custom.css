@@ -146,7 +146,7 @@
     font-weight: 700;
     font-size: 40px;
     line-height: 120%;
-    color: #FFFFFF;
+    color: var(--font-color-inv);
     flex: none;
     order: 2;
     flex-grow: 0;
@@ -169,6 +169,10 @@
 
 .slide-content{
   background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+}
+
+.section-testimonials .slide-content{ 
+  background: var(--color-sub1) !important;
 }
 
 .cusTitle{
@@ -1495,4 +1499,13 @@ ins-card .ins-card-wrap {
 .footer-p {
   color: var(--color-font-body) !important;
    font-size: 12px!important;
+}
+
+.account-created h3 {
+  font-size: var(--font-xxx-large) !important;
+}
+
+.account-created p {
+  font-size: var(--font-medium) !important;
+  font-family: var(--font-family-02) !important;
 }
