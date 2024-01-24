@@ -1961,10 +1961,10 @@ footer .bottom-footer a {
     line-height: 15px;
 }
 
-footer .bottom-footer a:hover,
+/* footer .bottom-footer a:hover,
 footer .bottom-footer a:focus {
     text-decoration: underline;
-}
+} */
 
 .scroll-to-top-btn {
     position: fixed;
