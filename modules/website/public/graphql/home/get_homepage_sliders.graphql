@@ -7,7 +7,7 @@ query get_homepage_sliders(
         page: $page
         per_page: $size
         filter: {
-            table: { value: "modules/website/homepage_slider" }
+            table: { value: "modules/website/homepage_sliders" }
             deleted_at: { exists: false }
             properties: [
                 { name: "is_enabled", value_boolean: true }
