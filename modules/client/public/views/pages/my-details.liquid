@@ -109,7 +109,7 @@ authorization_policies:
         {%- include_form "modules/client/resend_verification", id: context.current_user.id -%}
       </div>
     {%- endif -%}
-
+    <div class="spacer x-large"></div>
     {%- include_form 'modules/client/my_details', id: user.id, data: contact -%}
         
     {%- include_form 'modules/client/change_password', id: user.id -%}
