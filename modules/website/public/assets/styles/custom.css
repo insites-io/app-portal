@@ -877,6 +877,14 @@ footer.blocks-footer-05{
   
 }
 
+.footer-links:hover {
+  color: var(--color-main) !important;
+}
+
+.footer-links i {
+  color: var(--font-color-body);
+}
+
 .blocks-footer-05 .menu li, 
 .blocks-footer-05 .menu a, 
 .blocks-footer-05 .navigation-level-1{
@@ -1508,4 +1516,8 @@ ins-card .ins-card-wrap {
 .account-created p {
   font-size: var(--font-medium) !important;
   font-family: var(--font-family-02) !important;
+}
+
+.mobile-menu-style a {
+  color: var(--font-color-head) !important;
 }

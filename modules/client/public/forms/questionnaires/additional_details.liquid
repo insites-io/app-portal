@@ -58,16 +58,19 @@ async_callback_actions:
         {% include "modules/client/questionnaires/additional_details_inputs", form %}
         
     </div>
-
-    <div class="insites-form-grid ">        
-      <div class="insites-form-buttons column-1">
-        <div class="spacer small"></div>
+    <div class="spacer x-large"></div>
+    <div class="insites-form-grid ">    
+      <div class="column-2 left">
         <div class="grid-x">
-          <div class="large-4 medium-6 small-12">
+          <div class="cell">
             <ins-button type="submit" label="SAVE & EXIT" icon="icon-exit-to-app" id="save-exit-btn" ></ins-button>
-            <div class="spacer show-for-small-only"></div>
-          </div>          
-          <div class="large-8 medium-6 small-12 text-right">
+          </div>
+        </div>
+        
+      </div> 
+      <div class="insites-form-buttons column-2 right">
+        <div class="grid-x">
+    
             {% comment %} Desktop view of buttons {% endcomment %}
             <div class="show-for-large">
               <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1"></ins-button>
@@ -83,7 +86,6 @@ async_callback_actions:
               <div class="spacer"></div>
               <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1" ></ins-button>
             </div>
-          </div>
         </div>
       </div>
     </div>

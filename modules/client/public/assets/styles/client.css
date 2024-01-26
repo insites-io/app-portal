@@ -557,6 +557,7 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
     font-weight: 700;
     font-family: var(--font-family-02);
     line-height: 16px;
+    font-size: var(--font-small) !important;
 }
 
 .questionnaire button {
@@ -771,3 +772,14 @@ ins-tag.Completed span.ins-tag {
 
 /* Custom Css */
 
+.portal-sidebar .ins-accordion ins-accordion-item .ins-accordion-item {
+    background: 0 0 !important;
+}
+
+.portal-sidebar .ins-accordion  .inner-head{
+    background: 0 0 !important;
+}
+
+.ins-step_details {
+    background-color: var(--color-ui-01) !important;
+}

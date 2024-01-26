@@ -152,17 +152,19 @@ if(registerForm){
             thirdStep = steps[2];
             
             const isValid = await LoginScript.methods.validateForm(event, step3Container); 
-            if(isValid){
+            let checkBox = document.getElementById('agreement')
+            if(checkBox.checked){
                 step3Container.classList.add('hide');
                 thirdStep.hasError = false;
                 thirdStep.removeAttribute("has-error");
                 registerStepper.next();
                 step4Container.classList.remove('hide');
                 registerForm.submit();
-            } else {
+            }else {
                 thirdStep.hasError = true;
                 thirdStep.setAttribute("has-error", true);
             }
+
         });
     }
 

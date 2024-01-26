@@ -2852,3 +2852,18 @@ screen and (min-width: 1024px) {
         padding: 25px 25px;
     }
 }
+
+
+/* Custom Css */
+.ins-step_details {
+    background-color: var(--color-ui-01) !important;
+}
+
+/* ins-radio .ins-radio-checkbox .ripple-check {
+    background: var(--color-ui-02) !important;
+    color: var(--color-ui-01) !important;
+} */
+
+.ins-form-field {
+    background: var(--color-ui-01) !important;
+}

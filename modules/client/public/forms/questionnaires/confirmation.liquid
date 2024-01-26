@@ -52,25 +52,35 @@ async_callback_actions:
     </div>
 
     <div class="spacer x-large"></div>
-    
-    <div class="insites-form-grid">
-        <div class="insites-form-buttons column-1 text-right">    
-          {% comment %} Desktop view of buttons {% endcomment %}
-          <div class="show-for-large">
-            <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1" ></ins-button>
-            <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
-            <ins-button type="button" label="SUBMIT" class="submit-btn mr-0" solid icon="icon-check-2" ></ins-button>
-          </div>  
 
+    <div class="show-for-large">
+      <div class="insites-form-grid">
+        <div class="column-2 left">
+          <div class="grid-x">
+            <div class="cell">
+              <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1" ></ins-button>
+            </div>
+          </div>
+        </div>
+          <div class="insites-form-buttons column-2 right">    
+            {% comment %} Desktop view of buttons {% endcomment %}
+              <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
+              <ins-button type="button" label="SUBMIT" class="submit-btn mr-0" solid icon="icon-check-2" ></ins-button>
+          </div>
+      </div>
+    </div>  
+
+    <div class="hide-for-large mr-0">  
+      <div class="insites-form-grid">
+        <div class="insites-form-buttons column-1 text-right">    
           {% comment %} Tablet and Mobile view of buttons {% endcomment %}
-          <div class="hide-for-large mr-0">            
             <ins-button type="button" label="SUBMIT" class="submit-btn" solid icon="icon-check-2" ></ins-button>
             <div class="spacer"></div>
             <a href="/questionnaires-additional-details/{{context.params.slug2}}"><ins-button type="button" label="BACK" icon="icon-arrow-left" outlined ></ins-button></a>
             <div class="spacer"></div>
             <ins-button type="button" label="CANCEL" class="cancel-btn" icon="icon-close-1" ></ins-button>
-          </div>
         </div>
+      </div>
     </div>
     
 {%- endform -%}
