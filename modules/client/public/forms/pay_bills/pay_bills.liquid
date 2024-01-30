@@ -110,13 +110,6 @@ callback_actions: >
     endif    
 -%}
 
-{%- if verified == false -%}
-  <div class="small-12 cell text-center">
-    {%- include_form "modules/client/resend_verification", id: context.current_user.id -%}
-  </div>
-{%- endif -%}    
-<div class="spacer x-large"></div>
-
 {% form 
     html-id: "checkout-form"
     html-onsubmit: "return Paybill.events.payBillsSubmit(event);"
@@ -137,8 +130,8 @@ callback_actions: >
             <div class="large-6 medium-12 small-12 cell">
                 <ins-input required validate account-details-field
                     class="label-input"
-                    label="Order Refernece*" 
-                    placeholder="Order Refernece"
+                    label="Order Reference*" 
+                    placeholder="Order Reference"
                     field="text"
                     id="invoice-number"
                     name="{{ props.order_reference.name }}" 
@@ -169,8 +162,8 @@ callback_actions: >
         <div class="large-6 medium-12 small-12 cell">
           <ins-input required validate account-details-field
               class="label-input"
-              label="Tax Ammount*" 
-              placeholder="Tax Ammount"
+              label="Tax Amount*" 
+              placeholder="Tax Amount"
               field="number"
               id="tax-amount"
               name="{{ props.total_tax_amount.name }}" 

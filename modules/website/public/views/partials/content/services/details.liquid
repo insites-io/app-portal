@@ -26,8 +26,8 @@ metadata: {
     </div>
 </section>
 
-<div class="spacer xxxx-large show-for-small-only"></div>
-<div class="spacer xxxx-large"></div>
+{% comment %} <div class="spacer xxxx-large show-for-small-only"></div> {% endcomment %}
+<div class="spacer section"></div>
 
 {% comment %} CONTENT BLOCK 1 {% endcomment %}
 {% if context.exports.data.item.sub_heading_1 != nil and context.exports.data.item.content_block_1 != nil%}
@@ -170,5 +170,4 @@ metadata: {
 	{%- include 'modules/website/content/services/services-details-static' -%}
 {% endif %}
 
-<div class="spacer xxxx-large show-for-small-only"></div>
-<div class="spacer xxxx-large"></div>
+<div class="spacer section"></div>

@@ -36,26 +36,14 @@ properties:
     type: "media_image"
     label: "Image"
     status: "enabled"
-    values: []
     weight: 8
     group_id: "116c9fb6-aee7-405f-baf3-d7c99ff0eaa5"
     is_header: false
-    mock_data: ""
     is_enabled: ""
-    validation: ""
+    ui_element: "media_image"
     is_required: false
-    is_sortable: false
-    placeholder: ""
     primary_key: ""
-    example_data: ""
-    default_value: ""
-    display_field: ""
-    error_message: ""
-    is_searchable: false
-    character_limit: ""
     reference_field: ""
-    description_notes: ""
-    help_text_tooltip: ""
   options:
     acl: public
     versions:

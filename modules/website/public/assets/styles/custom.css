@@ -1155,7 +1155,17 @@ ins-accordion .inner-content{
   font-weight: 400!important;
   font-size: 16px!important;
   line-height: 24px!important;
-  color: #575757!important;
+  color: var(--font-color-body) !important;
+}
+
+.faqs-holder 
+.ins-accordion-item_header>.inner-head {
+  color: var(--font-color-head);
+}
+
+.faqs-holder 
+.ins-accordion-item_content .inner-content {
+  border: var(--ins-border-style) var(--ins-border-thickness) var(--color-ui-04);
 }
 
 .signOutHolder{
@@ -1520,4 +1530,12 @@ ins-card .ins-card-wrap {
 
 .mobile-menu-style a {
   color: var(--font-color-head) !important;
+}
+
+.sign-in-button a {
+  color: var(--color-main) !important;
+}
+
+.sign-in-button i {
+  font-size: 15px;
 }

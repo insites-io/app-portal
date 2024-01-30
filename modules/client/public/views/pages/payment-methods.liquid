@@ -62,15 +62,13 @@ authorization_policies:
     
     <div class="grid-x">
         <h2 class="heading-2 large-8 medium-7 small-12">Credit Card Details</h2>
-        {%- if verified -%}
         <div class="show-for-large spacer x-large"></div>    
         <div class="spacer small-12 show-for-small-only"></div>
         <ins-button id="add-credit-card" class="add-credit-card large-4 medium-5 small-12 vertical-align-middle align-right fixed-btn-width" label="Add Credit Card" icon="icon-plus" ></ins-button>
-        {%- endif -%}
     </div>
     <div class="spacer x-large"></div>
 
-    {%- if verified -%}        
+  
         {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
             user_id: context.current_user.id | dig: 'items' -%}
         {%- if cards.total_entries > 0 -%}          
@@ -98,15 +96,8 @@ authorization_policies:
             </div>
         {%- endif -%}
 
-    {%- else -%}
-       
-                {%- if verified == false -%}
-                    <div class="small-12 cell text-center">
-                      {%- include_form "modules/client/resend_verification", id: context.current_user.id -%}
-                    </div>
-                  {%- endif -%}        
-      
-    {%- endif -%}
+
+
 
     <div class="spacer x-large"></div>
 </div>

@@ -125,24 +125,48 @@
                          {% endcomment %}
                          
                         {% comment %} GET GLOBAL CONTENTS {% endcomment %}
-                        {%- include "modules/insites_cms/globals" -%}
-                        {{ context.exports.global.facebook_link }}
+                        {% comment %} {%- include "modules/insites_cms/globals" -%} {% endcomment %}
                     <ul class="menu social">
+
+                        {% if context.exports.global.facebook_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
                                 <i class="icon-facebook-stroke "></i>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if context.exports.global.twitter_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="" rel="noreferrer">
                                 <i class="icon-twitter-stroke "></i>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if context.exports.global.linkedin_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="" rel="noreferrer">
                                 <i class="icon-linkedin-stroke "></i>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if context.exports.global.instagram_link %}
+                        <li>
+                            <a class="footer-links iconHover" href="{{ context.exports.global.instagram_link }}" data-test="" target="_blank" title="" rel="noreferrer">
+                                <i class="icon-instagram"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% if context.exports.global.youtube_link  %}
+                        <li>
+                            <a class="footer-links iconHover" href="{{ context.exports.global.youtube_link }}" data-test="" target="_blank" title="" rel="noreferrer">
+                                <i class="icon-youtube-stroke"></i>
+                            </a>
+                        </li>
+                        {% endif %}
                     </ul>
                     </div>
                 </div>

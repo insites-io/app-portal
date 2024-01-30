@@ -103,12 +103,12 @@ authorization_policies:
 
     <h2 class="heading-2">Account Information</h2>
     
-    {%- if verified == false -%}
+    {% comment %} {%- if verified == false -%}
       <div class="small-12 cell text-center">
         <div class="spacer x-large"></div>
         {%- include_form "modules/client/resend_verification", id: context.current_user.id -%}
       </div>
-    {%- endif -%}
+    {%- endif -%} {% endcomment %}
     <div class="spacer x-large"></div>
     {%- include_form 'modules/client/my_details', id: user.id, data: contact -%}
         

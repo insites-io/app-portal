@@ -18,35 +18,30 @@
             <h2 class="heading-2">Credit Card Details</h2>
         </div>        
         <div class="large-6 medium-12 small-12 cell text-right show-for-large">
-            {%- if verified -%}
             <ins-button type="button"
                 class="add-credit-card"
                 icon="icon-plus"
                 label="Add Credit Card">
             </ins-button>
-            {%- endif -%}
         </div>
         <div class="cell hide-for-large">
             <div class="spacer"></div>
-            {%- if verified -%}
             <ins-button type="button"
                 class="add-credit-card fixed-btn-width"
                 icon="icon-plus"
                 label="Add Credit Card">
             </ins-button>
-            {%- endif -%}
         </div>
     </div>
     <div class="spacer xx-large"></div>
 
 
     {% comment %} Credit Cards {% endcomment %}  
-    {%- if verified -%} 
-        {% if context.current_user %}
-            {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
-                            user_id: context.current_user.id
-                            size: 50 | dig: 'items' -%}
-        {% endif %}
+    {% if context.current_user %}
+        {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
+                        user_id: context.current_user.id
+                        size: 50 | dig: 'items' -%}
+    {% endif %}
 
     <div class="validate-credit-card" >
         {% comment %} Credit Cards {% endcomment %}
@@ -79,10 +74,6 @@
         </ins-card>
     </div>
     
-    <div class="spacer large"></div>
-    <div class="spacer xx-small"></div>
-
-    {%- else -%}
     <div class="validate-credit-card" >
     {% comment %} Credit Cards {% endcomment %}
     <div id="credit-card-fields" class="card-fields">            
@@ -109,11 +100,8 @@
             {%- endfor -%}
         </div>
     </div>    
-        <div class="empty-box">
-            <p>To view / modify your Credit Cards please verify your account.</p>            
-        </div>
         <div class="spacer xx-large"></div>
-    {%- endif -%}
+  
 
 
     {% include 'modules/client/pay_bills/payment_summary' %}
