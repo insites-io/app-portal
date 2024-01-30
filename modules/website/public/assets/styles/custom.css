@@ -290,16 +290,21 @@
 }
 
 .custom-article-item{
-  background: #F9FAFB;
-  border: 1px solid #DFDFDF;
+  background: var(--color-ui-02);
+  border: 1px solid var(--color-ui-04);
   border-radius: 16px; 
   padding: 24px; 
+  font-family: var(--font-family-02);
+}
+
+.custom-article-item h3 {
+  font-family: var(--font-family-02);
 }
 
 .custom-publish-info, .custom-publish-info a{
-  color:#436CF2;
+  color:var(--color-main);
   font-weight: 700;
-  font-family: var(--font-family-01)!important;
+  font-family: var(--font-family-02)!important;
 }
 
 .newsTitle h3{
@@ -1158,12 +1163,12 @@ ins-accordion .inner-content{
   color: var(--font-color-body) !important;
 }
 
-.faqs-holder 
+
 .ins-accordion-item_header>.inner-head {
   color: var(--font-color-head);
 }
 
-.faqs-holder 
+
 .ins-accordion-item_content .inner-content {
   border: var(--ins-border-style) var(--ins-border-thickness) var(--color-ui-04);
 }
@@ -1325,7 +1330,7 @@ ins-card.support .ins-card-wrap:hover{
   font-size: 16px;  
   font-weight: 400;
   border: 0px;
-  color: #323232!important;
+  color: var(--font-color-sub) !important; 
   background-color: #F9FAFB!important;
   border: 0px!important;
 }
@@ -1334,7 +1339,7 @@ ins-card.support .ins-card-wrap:hover{
   /* font-weight: 700; */
   text-decoration: none;
   /* background: rgba(67, 108, 242, 0.1)!important; */
-  color:#436CF2!important;
+  color:var(--color-main)!important;
 }
 
 /* ON HOVER --SHOULD BE ACTIVE STATE */
@@ -1342,7 +1347,7 @@ ins-card.support .ins-card-wrap:hover{
   font-weight: 700;
   text-decoration: none;
   background: rgba(67, 108, 242, 0.1)!important;
-  color:#436CF2!important;
+  color:var(--color-main)!important;
 }
 .faqSidenav .ins-accordion-link{
   border: 0px;

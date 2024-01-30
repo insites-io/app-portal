@@ -19,6 +19,7 @@ metadata: {
 
 {% assign get_category = get_faq | dig: 'items', 'results' %}
 {% assign get_category = get_category | map: "category" | uniq %}
+{%- include 'modules/website/content/hero_title' -%}
 
 <div class="wrapper sideNavBg">
     <div class="grid-container">

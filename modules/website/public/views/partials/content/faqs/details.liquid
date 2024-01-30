@@ -17,6 +17,21 @@ metadata: {
 
 {% assign get_category = get_faq | dig: 'items', 'results' %}
 {% assign get_category = get_category | map: "category" | uniq %}
+<section class="hero-title">
+    <div class="blocks-sc-2col-08 wrapper ">    
+        <div class="grid-container">  
+            <div class="spacer x-large hide-for-small-only"></div>
+            <div class="spacer show-for-small-only"></div>     
+            <h1 class="servicesH1" style="padding: 0px;">
+                {{ context.exports.data.item.question }}
+            </h1>
+            <div class="spacer x-large hide-for-small-only"></div>
+            <div class="spacer show-for-small-only"></div>
+        </div>
+    </div>
+</section>
+
+
 <div class="wrapper sideNavBg">
     <div class="grid-container">
             <div class="grid-container">
