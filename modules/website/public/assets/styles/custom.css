@@ -310,7 +310,7 @@
 .newsTitle h3{
   font-family: var(--font-family-01)!important;
   font-size: 18px!important;
-  color: #000000!important;
+  color: var(--font-color-head) !important;
   position: relative;
   display: inline-block;
   word-wrap: break-word;
@@ -332,7 +332,7 @@
   line-height: 14px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #323232!important;
+  color: var(--font-color-sub)!important;
   flex: none;
   order: 4;
   align-self: stretch;
@@ -598,8 +598,8 @@ background-color: #0000;
 /* news */
 
 .news-banner{
-  background: #436CF2;
-  color: #fff;
+  background: var(--color-main);
+  color: var( --font-color-inv);
 }
 
 .blocks-hero-04 .title{
@@ -632,7 +632,7 @@ background-color: #0000;
   font-weight: 400!important;
   font-size: 16px!important;
   line-height: 24px;
-  color: #575757!important;
+  color: var( --font-color-body)!important;
   flex: none;
   order: 6;
   align-self: stretch;
@@ -1543,4 +1543,35 @@ ins-card .ins-card-wrap {
 
 .sign-in-button i {
   font-size: 15px;
+}
+
+.ins-form-field-wrap .icon-wrap  {
+  color: var(--color-font-body);
+}
+
+.ins-form-field::placeholder {
+  color: var(--color-font-body);
+}
+
+.ibt-table-wrap__pagination, .ibt-table-wrap__pagination--option,
+.ibt-table-wrap__page {
+  color: var(--color-font-body);
+}
+
+.ibt-table-wrap__prev-next button.page.active:disabled {
+  color: var(--color-main);
+}
+
+.ibt-table-wrap__prev-next button{
+  color: var(--color-font-body);
+}
+
+.news-back-btn {
+  font-family: var(--font-family-02)!important;
+  font-size: var(--font-x-small) !important;
+  color: var(--font-color-body);
+}
+
+.news-title-detail {
+  font-size: var(--font-x-small) !important;
 }

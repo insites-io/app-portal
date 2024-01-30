@@ -19,29 +19,29 @@ metadata: {
 <section class="newsDetailsSection">
   <div class="grid-container">
     <div class="spacer xxxx-large"></div>
-    <a href="/news"><span class="subHeading colorBlack"> <b> <i class="icon-angle-left"></i> BACK TO NEWS LIST </b> </span></a>
-    <div class="spacer"></div>
+    <a href="/news"><span class="news-back-btn colorBlack"> <b> <i class="icon-angle-left"></i> BACK TO NEWS LIST </b> </span></a>
+    <div class="spacer xx-large"></div>
     
     <div class="tagButton">
       <ins-button size="small" cursor="text" solid icon="icon-tag" color="blue" label="{{ context.exports.data.item.tag }}">
       </ins-button>
     </div>
       
-    <div class="spacer"></div>
+    <div class="spacer small"></div>
     <h1 class="title">{{ context.exports.data.item.title }}</h1>
-    <div class="spacer"></div>
+    <div class="spacer small"></div>
    
-    <h4 style="text-transform: uppercase;">PUBLISHED ON {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} By {{ context.exports.data.item.author }}</h4>
-    <div class="spacer"></div>
+    <h4 class="news-title-detail" style="text-transform: uppercase;">PUBLISHED ON {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} By {{ context.exports.data.item.author }}</h4>
+    <div class="spacer x-large"></div>
     <!-- BANNER -->
     <img loading="lazy" alt="image" src="{{ context.exports.data.item.main_image.url }} "/>
-    <div class="spacer"></div>
+    <div class="spacer xxxx-large"></div>
 
     <div class="newsDetailHolder subHeading">
       <div class="grid-container">
         {{ context.exports.data.item.content }}    
       </div>
     </div>
-    <div class="spacer xxxx-large"></div>
+    <div class="spacer section"></div>
   </div>
 </section>
