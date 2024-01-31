@@ -78,9 +78,7 @@
     let amountPayable = ''
     let shippingAmount = ''
 
-    function calculatePaymentSummary(ev){
-        console.log(ev.srcElement.id)
- 
+    function calculatePaymentSummary(ev){ 
     if (ev.srcElement.id == 'tax-amount')  {
         taxAmount = ev.detail
     }else if (ev.srcElement.id == 'shipping-amount') {
