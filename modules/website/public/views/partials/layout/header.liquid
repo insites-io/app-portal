@@ -4,7 +4,6 @@
 {%- if context.environment == "staging" -%}
 <!-- start partial:layout/header  -->
 {%- endif -%}
-
 <header class="navigation-04 header colorBlack" data-test="main-header" id="main-header">
   <div class="wrapper">
     <div class="header-top-bar grid-container grid-x align-middle">
@@ -75,8 +74,11 @@
                 </ins-button>
               </a>
           {% else %}        
-          {%- graphql user_with_token = 'modules/client/account/get_user_with_password_token', email: context.current_user.email | dig: 'users','results' | first -%}
-          {%- assign user_data_default = user_with_token.default | first -%}
+          {% if context.current_user != nil %}
+            {%- graphql user_with_token = 'modules/client/account/get_user_with_password_token', email: context.current_user.email | dig: 'users','results' | first -%}
+            {%- assign user_data_default = user_with_token.default | first -%}
+
+          {% endif %}
               <a class="color-main color-font-head" href=""> 
                 <ins-dropdown 
                 label="{{ context.current_user.first_name }} {{ context.current_user.last_name }}"

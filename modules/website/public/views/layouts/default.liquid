@@ -14,6 +14,10 @@ metadata: {
 </head>
 <body>
     <div class="main-wrap">
+        {%- if context.current_user or context.modules.ecommerce.name != blank -%}
+            {% include 'modules/website/layout/header' %} 
+            {% include 'modules/website/layout/header_mobile' %}
+        {% else %}
         {%- capture header -%} {{ context.exports.layout_cache_key.cache_key | append: "-header" }} {%- endcapture -%}
         {% cache header %}
             {% include 'modules/website/layout/header' %} 
@@ -22,6 +26,7 @@ metadata: {
         {% cache header-mobile %}
             {% include 'modules/website/layout/header_mobile' %}
         {% endcache %}
+        {% endif %}
 
         {{ content_for_layout }}
     </div>
