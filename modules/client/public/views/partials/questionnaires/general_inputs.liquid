@@ -87,8 +87,10 @@
         <ins-input 
             {{disabled}}
             validate
+            id=""
             data-type="string"
             data-ui="text"
+            field="email"
             label="Personal Email*"
             name="{{ props.personal_email.name }}"
             value="{{ props.personal_email.value }}"
@@ -188,8 +190,9 @@
             data-ui="media_file"
             data-prop="attach_documents"
             label="Attach Documents"
+            max-file-size="10" 
             accepted-files=""
-            capture=""
+            accepted-files="image/*,.pdf,.csv"
             error-message="{{ form.errors['properties.attach_documents'] }}"            
             {%- if form.errors['properties.attach_documents'] != nil -%} has-error {%- endif -%}>
         </ins-input-file>

@@ -2,7 +2,15 @@
 name: questionnaires_additional_details
 resource: modules/client/questionnaires
 resource_owner: anyone
-redirect_to: /questionnaires-confirmation/{{form.id}}
+redirect_to: >
+  {%  liquid
+      if form.properties.save_exit == 'true'
+        assign redirect_url = '/questionnaires'
+      else
+        assign redirect_url = '/questionnaires-confirmation/' | append: form.id
+      endif
+  %}
+  {{ redirect_url }}
 fields:
   properties:
     contact_name:
@@ -15,6 +23,9 @@ fields:
       validation:
         presence: true
     notes:
+    save_exit:
+      property_options:
+        virtual: true
 async_callback_actions:
   delay: 0
   priority: low
@@ -42,12 +53,18 @@ async_callback_actions:
     {% include 'modules/client/events/log_event', info %}
 ---
 
+{%  liquid
+    assign props = form.fields.properties
+%}
+
 {%- form
     html-autocomplete: "off"
     html-id: "questionnaires-form"
     html-class: 'insites-form insites-form-code questionnaires-form' 
     html-novalidate: true
     html-onsubmit: "return validateQuestionnairesForm(event)" -%}   
+
+    <input name="{{ props.save_exit.name }}" id="save-exit" type="hidden" value="false" >
 
     <div class="insites-form-grid">
     

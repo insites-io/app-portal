@@ -90,12 +90,36 @@
 </div>
 
 <script>
-    let pageSizeSelect = document.getElementById('page-size-select');
+  let pageSizeSelect = document.getElementById('page-size-select');
     let per_page = "{{per_page}}";    
+    let page = "{{data.current_page}}"
+    let total_entries = "{{data.total_entries}}"
     if (pageSizeSelect) {
         pageSizeSelect.addEventListener('insValueChange', event => {
-            let url = window.location.href.replace("per_page="+per_page, "per_page="+event.detail);
-            window.location = url;
+                
+            let url = window.location.href
+            if(url.includes('per_page')) {
+                if(url.includes('page')) {     
+                    let newUrl = new URL(url)
+                    newUrl.searchParams.delete('page')
+                    newUrl.searchParams.set('per_page',event.detail)
+                    window.location = newUrl
+                }else {
+                    let url = window.location.href.replace("per_page="+per_page, "per_page="+event.detail);
+                    window.location = url;
+                }
+            }else {
+                if(url.includes('page')) {     
+                    let newUrl = new URL(url)
+                    newUrl.searchParams.delete('page')
+                    newUrl.searchParams.set('per_page',event.detail)
+                    window.location = newUrl
+                }else {
+                    url = window.location.href + "?per_page=" + event.detail
+                window.location = url;
+                }
+             
+            }
         });
     }  
 </script>
