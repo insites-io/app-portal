@@ -10,7 +10,7 @@ mutation create_faqs(
   $sub_title_details_2: String,
   $sub_title_topic_3: String,
   $sub_title_details_3: String,
-  $sub_title_topic_4: String,
+  $sub_title_topic_4: String
 ) {
   items: model_create(
     model: {

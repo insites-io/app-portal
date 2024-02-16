@@ -1489,7 +1489,7 @@ ins-tag span.ins-tag {
 }
 
 .header>div {
-    border-bottom: 1px solid var(--color-ui-03);
+    /* border-bottom: 1px solid var(--color-ui-03); */
 }
 
 .header .nav-bar ins-dropdown .ins-dropdown_menu {
@@ -1856,7 +1856,7 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
 
     ins-drawer#mobile-menu .ins-drawer-wrap .ins-content,
     ins-drawer#mobile-menu .ins-backdrop-wrap {
-        top: 106px;
+        top: 105px;
         padding-bottom: 120px;
         /* Fix for sidebar scroll overflow */
     }
@@ -2553,6 +2553,12 @@ Thank you page
 .thank-you .thank-you-img i {
     font-size: 4rem;
     color: var(--success);
+}
+
+/* Invalid Token */
+.system-pages .warning i {
+    color: var(--warning);
+    font-size: 64px!important;
 }
 
 ins-card.bg-grey .ins-card-wrap {

@@ -54,13 +54,23 @@
   id="stripe-last-name"
   value="{{ context.current_user.last_name }}"> 
 
+{% if context.environment == "production" %}
+    {% assign pk_key_value = context.constants.insites_stripe_pk_live_key %}
+{% else %}
+    {% assign pk_key_value = context.constants.stripe_pk_test_key %}
+{% endif %}
+
+<input type="hidden" id="pk_key" value="{{ pk_key_value }}" >
+
 <script>
     let payByCardField = document.getElementById('{{ cc_field_id }}');
     let emailField = document.getElementById('{{ email_field_id }}');
     let stripeFirstName = document.getElementById('stripe-first-name');
     let stripeLastName = document.getElementById('stripe-last-name');
     // Create a Stripe client.
-    let stripe = Stripe('pk_test_51JgiQgDKXN2B4Z9YLtz61lb7PDgjIPH2GtKJ6FTN8cYkwOUazMt80sQUH56Wp7ba6UwCCsOg7yTqiNZnD2psb8Oq00gTkdRuh9');
+
+    let pk_key_value = document.getElementById("pk_key");
+    let stripe = Stripe(pk_key_value.value);
 </script>
 
 {%- if context.environment == "staging" -%}

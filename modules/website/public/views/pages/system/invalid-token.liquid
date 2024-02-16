@@ -1,5 +1,5 @@
 ---
-slug: 500
+slug: invalid-token
 layout: modules/website/system_layout
 # enable_profiler: true
 max_deep_level: 1
@@ -8,12 +8,12 @@ metadata: {
     "open_graph:url": "",
     "open_graph:type": "",
     "open_graph:image": "",
-    "open_graph:title": "500 Server Error",
-    "open_graph:description": "500 Server Error",
+    "open_graph:title": "Invalid Token",
+    "open_graph:description": "Invalid Token",
     "open_graph:site_name": "",
-    "meta_title": "500 Server Error",
-    "page_title": "500 Server Error",
-    "meta_description": "500 Server Error",
+    "meta_title": "Invalid Token",
+    "page_title": "Invalid Token",
+    "meta_description": "Invalid Token",
     "canonical_url": "",
     "is_visible_to_search_engines": false,
     "sitemap_enabled": false,
@@ -26,14 +26,16 @@ metadata: {
     <div class="grid-x grid-padding-x text-center">
         <div class="small-12 cell spacer xxxx-large"></div>
         <div class="large-12 medium-12 small-12 cell text-center">
-            <h1 class="title">500</h1>
-            <h2 class="sub-title">Internal Server Error</h2>
+            <div class="system-pages warning spacer">
+                <i class="icon-alert-triangle" style="font-size: 64px!important;"></i>
+            </div>
+            <h2 class="sub-title">Invalid Token</h2>
             <div class="spacer small"></div>
             <div class="context">
-                <p>The server is unable to handle your request at this time. Please try again later.</p>
+                <p>Unfortunately, provided token is not valid anymore. Please request password instructions again.</p>
             </div>
             <div class="spacer x-large"></div>            
-            <ins-button class="margin-top-small hydrated" label="GO TO HOME PAGE" color="solid blue" onclick="document.location.href = '/';">
+            <ins-button class="margin-top-small hydrated" label="Resend the authentication email" color="solid blue" onclick="document.location.href = '/';">
             </ins-button>
         </div>
         <div class="small-12 cell spacer xxxx-large"></div>

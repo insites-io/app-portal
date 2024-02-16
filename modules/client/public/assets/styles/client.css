@@ -628,8 +628,15 @@ ins-tag.Completed span.ins-tag {
 /* Documents */
 .documents .ins-modal-wrap.show-modal,
 .documents .ins-modal-wrap.show-modal ins-card{
-    position: absolute;
-    width: 100%;
+    /* position: absolute;
+    width: 100%; */
+    top: 50px;
+    z-index: 999999;
+
+}
+
+.documents .ins-backdrop-wrap{
+    background: rgb(10 10 10 / 88%);
 }
 
 

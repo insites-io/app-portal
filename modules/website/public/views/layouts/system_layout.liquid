@@ -24,48 +24,16 @@ System page layout
         {%- endcache -%}
     </head>
     <body class="system-page flex-container flex-dir-column">
-        <div class="main-wrap">
-            <header class="header">
-                <div class="top-bar grid-container">
-                    <div class="top-bar-left">
-                        <a href="/">
-                            <img class="logo" src="{{ context.exports.global.company_logo.original | replace: ' ', '%20' }}" 
-                                alt="{{ context.exports.global.company_slogan }}" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="top-bar-right">
-                        {%- comment -%}
-                        <div class="show-for-large">
-                            {%- assign contact_no = context.exports.global.loc_1_phone | replace_regex: '[+() ]', '' | prepend: '+' -%}
-                            <a class="color-main" href="tel:{{ contact_no }}" class="font-color-head">
-                                <i class="icon-phone1"></i>
-                                <span>+{{ context.exports.global.loc_1_phone | replace: "+", ''}}</span>
-                            </a>
-                            <a class="color-main" href="mailto:{{ context.exports.global.company_email_1 }}" class="font-color-head">
-                                <i class="icon-mail1"></i>
-                                <span>{{ context.exports.global.company_email_1 }}</span>
-                            </a>
-                            {%- if context.modules.ecommerce.name != blank -%}
-                                {%- include 'modules/ecommerce/menu/header' -%}
-                            {%- endif -%}
-                        </div>
-                        <div class="hide-for-large mobile-menu-toggle">
-                            <div id="mobile-menu-btn" class="icon-menu-1"></div>
-                        </div>
-                        {%- endcomment -%}
-                    </div>
-                </div>    
-            </header>
+        <div class="">
+            {% include 'modules/website/layout/header' %} 
+            {% include 'modules/website/layout/header_mobile' %}
 
             <div class="system-content">      
                 {{ content_for_layout }}
             </div>
         </div>
-        {%- comment -%}
         {% include 'modules/website/layout/footer' %}
         {% include 'modules/website/layout/foot' %}
-        {% include 'modules/website/layout/menu_mobile' %}
-        {%- endcomment -%}
     </body>
 </html>
 

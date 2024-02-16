@@ -138,6 +138,8 @@ let ContactUs = (function () {
                           "file",
                           true
                         );
+
+                        documentFieldEl.value = uploadS3;
                         
                         const response = await this.createDatabaseFile(uploads3);
                         

@@ -1,5 +1,5 @@
 ---
-slug: thank-you
+slug: success
 layout: modules/website/system_layout
 # enable_profiler: true
 max_deep_level: 1
@@ -8,12 +8,12 @@ metadata: {
     "open_graph:url": "",
     "open_graph:type": "",
     "open_graph:image": "",
-    "open_graph:title": "Thank you | Insites",
-    "open_graph:description": "Thank you | Insites",
+    "open_graph:title": "Success",
+    "open_graph:description": "Success",
     "open_graph:site_name": "",
-    "meta_title": "Thank you | Insites",
-    "page_title": "Thank you | Insites",
-    "meta_description": "Thank you | Insites",
+    "meta_title": "Success",
+    "page_title": "Success",
+    "meta_description": "Success",
     "canonical_url": "",
     "is_visible_to_search_engines": false,
     "sitemap_enabled": false,
@@ -21,17 +21,6 @@ metadata: {
     "sitemap_order": "99", ## secondary order (ASC)
     "sitemap_changefreq": "never"
 }
-dynamic_cache:
-  layout: true
-  key: |-
-    {%- parse_json models -%}
-    [
-      "modules/website/page_header",
-      "modules/insites_core/insites_system_fields",
-      "modules/insites_site_manager/insites_global_content"
-    ]
-    {%- endparse_json -%}
-    {%- include "modules/website/cache/generate_cache_key", models: models -%}
 ---
 
 {%- comment -%}
@@ -39,9 +28,11 @@ Default 'success / thank you' page
 Design & content changes per project as needed
 {%- endcomment -%}
 
-{%- if context.environment == "staging" -%}
-<!-- start page: thank you page  -->
-{%- endif -%}
+{% assign heading = value | default: "Success Heading" %}
+{% assign message = value | default: "You can now sign in to the client portal"%}
+{% assign button_label = value | default: "Button Label Here" %}
+{% assign redirect_link = value | default: "/" %}
+
 <div class="thank-you">
     <div class="spacer xxxx-large"></div>
         <div class="grid-x grid-padding-x text-center">
@@ -51,15 +42,14 @@ Design & content changes per project as needed
                     <i class="icon-number-of-checks"></i>
                 </div>
 
-                <h1 class="heading-1">Thank You!</h1>
+                <h1 class="heading-1">{{ heading }}</h1>
                 <div class="spacer"></div>
-                <p class="subHeading">Your enquiry has been received.</p>
-
+                <p class="subHeading">{{ message }}</p>
+                <div class="spacer"></div>
+                <a href="{{ redirect_link }}">
+                    <ins-button class="margin-top-small hydrated" label="{{ button_label }}" color="solid blue"></ins-button>
+                </a>
             </div>
         </div>
     <div class="spacer xxxx-large"></div>
 </div>
-
-{%- if context.environment == "staging" -%}
-<!-- end page: thank you page  -->
-{%- endif -%}

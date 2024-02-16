@@ -182,7 +182,9 @@ authorization_policies:
                 //Add Document
                 documentsForm.action = "/api/customizations/";
                 resource_id.value = "new";           
-                method = document.querySelector("#documents-form input[name=_method]");     
+                method = document.querySelector("#documents-form input[name=_method]");  
+                var document_heading = document.getElementById("document_heading");
+                document_heading.innerText = "Add Document";   
                 if(method != null){
                     method.remove();
                 }
@@ -198,6 +200,8 @@ authorization_policies:
                 documentsForm.action = "/api/customizations/" + data[index].id;                
                 resource_id.value = data[index].id;
                 method = document.querySelector("#documents-form input[name=_method]");
+                var document_heading = document.getElementById("document_heading");
+                document_heading.innerText = "Edit Document";
                 if(method == null){
                     const el = document.createElement("input");
                     el.name = "_method";

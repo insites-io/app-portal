@@ -1576,3 +1576,21 @@ ins-card .ins-card-wrap {
   font-size: var(--font-x-small) !important;
 }
 
+
+.sign-out-wrapper{
+  padding: 12px; 
+}
+
+.sign-out-wrapper .signOutCustom .ins-button div .btn__label{
+  font-family: var(--font-family-03);
+  font-size: var(--font-medium)!important;
+  letter-spacing: normal;
+  line-height: var(--font-x-large);
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.sign-out-wrapper,ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
+  padding-left: 40px
+}
+

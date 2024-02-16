@@ -75,10 +75,10 @@
                               link="/password-reset?token={{ user_data_default.password_token | url_encode }}&amp;email={{ user_with_token.email | url_encode }}"
                               >
                               </ins-accordion-link>
-  
-                              <ins-accordion-link label="" link="" class="mobile-sign-out">
-                              {% include_form 'modules/client/sign_out' %}
-                              </ins-accordion-link>
+
+                              <div class="sign-out-wrapper">
+                                {% include_form 'modules/client/sign_out' %}
+                              </div>
                         
           
                     
