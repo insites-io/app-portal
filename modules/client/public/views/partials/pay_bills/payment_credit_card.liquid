@@ -35,12 +35,12 @@
     </div>
     <div class="spacer xx-large"></div>
 
-
+   
     {% comment %} Credit Cards {% endcomment %}  
     {% if context.current_user %}
         {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
-                        user_id: context.current_user.id
-                        size: 50 | dig: 'items' -%}
+            user_id: context.current_user.id,
+            contact_uuid: context.current_user.external_id | dig: 'items' -%}
     {% endif %}
 
     <div class="validate-credit-card" >
@@ -48,22 +48,23 @@
         <div id="credit-card-fields" class="card-fields">            
             <p class="error-message hide">Credit Card is required.</p>
             <ins-input required validate style="height:0px; display: block; overflow: hidden;"
-                field="hidden" 
+                field="" 
                 id="stripe-card"
                 name="{{ form.fields.properties.stripe_credit_card.name }}" 
                 value="{{ form.fields.properties.stripe_credit_card.value }}">
             </ins-input>
             <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">                    
                 {%- for card in cards.results -%}
+                  
                     <div class="large-4 medium-6 small-12 cell card-options">
                         <ins-credit-card 
                             data-id="{{ card.id }}" 
                             brand="{{ card.brand }}"
-                            last-four="{{ card.last4 }}"
-                            expiry-month="{{ card.exp_month }}"
-                            expiry-year="{{ card.exp_year }}"
+                            last-four="{{ card.card_last_four_digits }}"
+                            expiry-month="{{ card.card_expiry_month }}"
+                            expiry-year="{{ card.card_expiry_year }}"
                             full-year
-                            value="{{ card.gateway_id }}">
+                            value="{{ card.payment_method_token }}">
                         </ins-credit-card>
                     </div>
                 {%- endfor -%}
@@ -73,33 +74,7 @@
             Add Credit Card / Debit Card
         </div>
     </div>
-    
-    <div class="validate-credit-card" >
-    {% comment %} Credit Cards {% endcomment %}
-    <div id="credit-card-fields" class="card-fields">            
-        <p class="error-message hide">Credit Card is required.</p>
-        <ins-input required validate style="height:0px; display: block; overflow: hidden;"
-            field="hidden" 
-            id="stripe-card"
-            name="{{ form.fields.properties.stripe_credit_card.name }}" 
-            value="{{ form.fields.properties.stripe_credit_card.value }}">
-        </ins-input>
-        <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">                    
-            {%- for card in cards.results -%}
-                <div class="large-4 medium-6 small-12 cell card-options">
-                    <ins-credit-card 
-                        data-id="{{ card.id }}" 
-                        brand="{{ card.brand }}"
-                        last-four="{{ card.last4 }}"
-                        expiry-month="{{ card.exp_month }}"
-                        expiry-year="{{ card.exp_year }}"
-                        full-year
-                        value="{{ card.gateway_id }}">
-                    </ins-credit-card>
-                </div>
-            {%- endfor -%}
-        </div>
-    </div>    
+
         <div class="spacer xx-large"></div>
   
 

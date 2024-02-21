@@ -2,7 +2,7 @@ query get_customer_model (
     $id: ID,
     $page: Int = 1,
     $size: Int = 1,
-    $gateway_id: String,
+    $payment_method_token: String,
     $gateway_name: String,
     $user_id: String
     $email: String,
@@ -15,7 +15,7 @@ query get_customer_model (
         deleted_at: { exists: false }
         table: { value: "modules/insites_ecommerce/insites_customer" }
         properties: [
-          { name: "gateway_id", value: $gateway_id }
+          { name: "payment_method_token", value: $payment_method_token }
           { name: "gateway_name", value: $gateway_name }
           { name: "user_id", value: $user_id }
           { name: "email", value: $email }
@@ -28,7 +28,7 @@ query get_customer_model (
       current_page
       results {
         id 
-        gateway_id: property(name: "gateway_id") 
+        payment_method_token: property(name: "payment_method_token") 
         gateway_name: property(name: "gateway_name")
       }
     }

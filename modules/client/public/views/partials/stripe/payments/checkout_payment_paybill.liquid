@@ -41,7 +41,7 @@
     {% log "===== Customer model updated =====" %}
     
 {%- comment -%}Step 1-A.3: Customer Stripe data exist. Proceed create stripe credit card {%- endcomment -%}
-    {%- assign stripe_customer_id = customer_model.properties.gateway_id -%}
+    {%- assign stripe_customer_id = customer_model.properties.payment_method_token -%}
     {% log "Exist True ---- stripe_customer_id ----" %}
 
     {%- assign check_new = form.properties.stripe_credit_card | split: '_' | first | downcase -%}
@@ -71,7 +71,7 @@
         {% comment %} Optional: Update Credit Card, if user is logged in set user_id {% endcomment %}
         {% comment %} 
             {%- graphql current_card = "modules/ecommerce/credit_card/get_credit_card", 
-                gateway_id: charge_to_this_card,
+                payment_method_token: charge_to_this_card,
                 size: 1 | dig: 'items' | dig: 'results' | first -%}
             {%- graphql update_credit_card = 'modules/ecommerce/credit_card/update_credit_card',
                 id: current_card.id,
@@ -90,7 +90,15 @@
    
 
 {% comment %} Compute amounts {% endcomment %}
-{% assign amount = form.properties.order_value | times: 100 %}
+{% assign amount = form.properties.total_amount | times: 100 %}
+
+{% log "create_charge --- parsejson"%}
+{% log uuid, type: "uuid"%}
+{% log amount, type: "amount"%}
+{% log charge_to_this_card, type: "charge_to_this_card"%}
+{% log form, type: "form"%}
+{% log user.uuid, type: "user.uuid"%}
+{% log statement_descriptor, type: "statement_descriptor"%}
 
 {%- comment -%} STEP 2: Stripe Charge / Payment  {%- endcomment -%}
 {% parse_json "create_charge" %}
@@ -98,7 +106,7 @@
     "idempotency_key": "{{ '' | uuid }}",
     "currency": "AUD",
     "amount": "{{ amount | advanced_format: '%.0f' }}",
-    "customer": "{{ stripe_customer_id }}",
+    "customer": "cus_PbNUvLlDBC6ZqZ",
     {%- if charge_to_this_card -%}
         "source": "{{ charge_to_this_card }}",
     {%- endif -%}

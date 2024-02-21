@@ -2,8 +2,7 @@ query get_credit_card (
   $id: ID,
   $page: Int = 1,
   $size: Int = 10,
-  $gateway_id: String,
-  $gateway_customer_id: String,
+	$contact_uuid: String
   $user_id: String
 ) {
   items: records(
@@ -12,12 +11,10 @@ query get_credit_card (
     filter: {
       id: { value: $id }
       deleted_at: { exists: false }
-      table: { value: "modules/insites_ecommerce/insites_credit_card" }
+      table: { value: "modules/insites_ecommerce/payment_method" }
       properties: [
-        { name: "gateway_id", value: $gateway_id }
-        { name: "gateway_customer_id", value: $gateway_customer_id }
         { name: "user_id", value: $user_id }
-        { name: "is_enabled", value_boolean: true }
+        { name: "contact_uuid", value: $contact_uuid }
       ] 
     }
     sort: { updated_at: { order: DESC } }
@@ -27,11 +24,7 @@ query get_credit_card (
     current_page
     results {
       id
-      brand: property(name: "brand") 
-      last4: property(name: "last4") 
-      exp_month: property_int(name: "exp_month") 
-      exp_year: property_int(name: "exp_year") 
-      gateway_id: property(name: "gateway_id")        
+      properties       
     }
   }
 }

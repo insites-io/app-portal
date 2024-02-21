@@ -1,6 +1,6 @@
 mutation update_credit_card (
   $id: ID!
-  $gateway_id: String
+  $payment_method_token: String
   $gateway_customer_id: String
   $user_id: String
   $external_id: String
@@ -13,9 +13,9 @@ mutation update_credit_card (
   items: record_update(
     id: $id
     record: {
-      table: "modules/insites_ecommerce/insites_credit_card"
+      table: "modules/insites_ecommerce/payment_method"
       properties: [
-        { name: "gateway_id", value: $gateway_id }
+        { name: "payment_method_token", value: $payment_method_token }
         { name: "gateway_customer_id", value: $gateway_customer_id }
         { name: "user_id", value: $user_id }
         { name: "external_id", value: $external_id }

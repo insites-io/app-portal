@@ -1166,6 +1166,7 @@ ins-accordion .inner-content{
 
 .ins-accordion-item_header>.inner-head {
   color: var(--font-color-head);
+  border: var(--ins-border-style) var(--ins-border-thickness) var(--color-ui-04);
 }
 
 
@@ -1474,7 +1475,7 @@ ins-card.support .ins-card-wrap:hover{
 
 /* Table pagination */
 ins-table .ibt-table-wrap .pagination-wrap {
-  padding: 40px 24px 0 24px;
+  padding: 56px 24px 0 24px;
 }
 
 

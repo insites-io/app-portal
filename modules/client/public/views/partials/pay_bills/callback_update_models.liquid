@@ -21,6 +21,9 @@
 %}
 
 {% comment %} Compute amounts {% endcomment %}
+
+{% log form, type: "form properties -> callback_update_models" %}
+
 {% liquid
 
     function computed = "modules/client/pay_bills/compute_amounts", total_amount: form.properties.order_value

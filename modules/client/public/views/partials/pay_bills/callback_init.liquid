@@ -5,10 +5,11 @@
     3. Email Notification
 {% endcomment %}
 
-
 {% comment %} Get Gateway Settings from Ecommerce settings {% endcomment %}
 {% function settings = "modules/client/pay_bills/get_settings" %}
 {% assign gateway = settings.gateway_name | downcase %}
+
+{% log gateway, type: "gateway === callback_init.liquid" %}
 
 {% comment %} Step 1: Gateway / Create Payment {% endcomment %}
 {% case gateway %}
@@ -28,7 +29,6 @@
 {% comment %} Capture gateway response {% endcomment %}
 {% assign status = context.exports.payment_response.status | downcase %}
 {% assign order_id = form.id | downcase %}
-
 
 {% comment %} Step 2. Update models/records {% endcomment %}
 {% include 'modules/client/pay_bills/callback_update_models'

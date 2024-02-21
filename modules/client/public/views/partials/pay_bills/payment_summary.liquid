@@ -10,7 +10,10 @@
     if order_id
         graphql get_order = 'modules/website/trigger_api_call', name: 'modules/client/get_order', data: data 
         assign order = get_order.items.response.body | parse_json | dig: 'items','results' | first
-     
+        
+        log order, type: "payment summary -> order"
+        log form, type: "form properties -> payment_summary"
+
         function computed = "modules/client/pay_bills/compute_amounts", total_amount: order.properties.order_value
 
         assign amountPayable = computed.amount

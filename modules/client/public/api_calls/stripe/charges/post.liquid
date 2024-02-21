@@ -6,7 +6,10 @@ format: https
 trigger_condition: true
 request_type: Post
 callback: >
+
   {%- assign response_data = response.body | to_hash -%}
+  {%- log response_data, type: 'modules/insites_payments/create_charge -> response_data' -%}
+  
   {% if response_data.error %}
     {%- log response_data.error, type: 'modules/insites_payments/create_charge' -%}
   {% endif %}

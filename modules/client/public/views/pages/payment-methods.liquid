@@ -81,7 +81,7 @@ authorization_policies:
                         expiry-month="{{ card.exp_month }}"
                         expiry-year="{{ card.exp_year }}"
                         full-year
-                        value="{{ card.gateway_id }}">
+                        value="{{ card.payment_method_token }}">
                     </ins-credit-card>
                 </div>                    
             {%- endfor -%}

@@ -1,13 +1,13 @@
 ---
 name: create_card
-to: https://api.stripe.com/v1/customers/{{ data.customer_id }}/sources
+to: https://api.stripe.com/v1/customers/{{ data.payment_method_token }}/sources
 enabled: true
 trigger_condition: true
 request_type: POST
 callback: >
   {%- assign response_data = response.body | to_hash -%}
   {% if response_data.error %}
-    {%- log response_data.error, type: 'modules/client/create_card' -%}
+    {%- log response_data.error, type: 'client > api calls > stripe > cards > post.liquid == response_data' -%}
   {% endif %}
 request_headers: >
   {% if data %}

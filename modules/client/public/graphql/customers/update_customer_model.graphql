@@ -1,6 +1,6 @@
 mutation update_customer_model(
   $id: ID!
-  $gateway_id: String
+  $payment_method_token: String
   $gateway_name: String
   $user_id: String
   $external_id: String
@@ -13,7 +13,7 @@ mutation update_customer_model(
     record: {
       table: "modules/insites_ecommerce/insites_customer"
       properties: [
-        { name: "gateway_id", value: $gateway_id }
+        { name: "payment_method_token", value: $payment_method_token }
         { name: "gateway_name", value: $gateway_name }
         { name: "user_id", value: $user_id }
         { name: "external_id", value: $external_id }
