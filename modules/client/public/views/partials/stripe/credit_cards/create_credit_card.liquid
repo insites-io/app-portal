@@ -3,8 +3,6 @@
     data: stripe_card
     | dig: 'items' | dig: 'response' %}
 
-    {% log stripe_create_card, type: "create_credit_card.liquid == stripe_create_card" %}
-
     {%- assign stripe_create_card = stripe_create_card.body | parse_json -%}
     {% parse_json credit_card %}
     {

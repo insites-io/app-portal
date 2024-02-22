@@ -14,14 +14,22 @@ subject: Bill payment successful
 layout: modules/insites_core/insites_external_email_layout
 ---
 
+{% graphql get_order = 'modules/client/orders/get_order', id: data.order_id | dig: 'items','results' | first
+%}
+
 {% comment %} Compute amounts {% endcomment %}
 {%- liquid
-    function computed = "modules/client/pay_bills/compute_amounts", total_amount: data.order_info.properties.order_value
+    function computed = "modules/client/pay_bills/compute_amounts", total_amount: get_order.properties.total_amount, total_tax_amount: get_order.properties.total_tax_amount, total_shipping_amount: get_order.properties.total_shipping_amount, subtotal_amount: get_order.properties.subtotal_amount
+
     assign amount_due = computed.total_amount
     if status == 'succeeded'
         assign amount_due = 0.0
     endif
 -%}
+
+{% log computed, type: "computed - autoresponder" %}
+{% log computed.amount, type: "computed amount - autoresponder" %}
+
 
 {%- assign amountPayable = computed.amount | advanced_format: '%.2f' -%}
 {%- assign ccSurcharge = computed.cc_surcharge | advanced_format: '%.2f' -%}

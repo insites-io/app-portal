@@ -33,8 +33,6 @@ payload:
 
 {%- assign payload = context.params.payload | parse_json -%}
 
-{% log payload, type: "client > views > pages > stripe > cards > post.liquid == payload" %}
-
 {%- assign status = 200 -%}
 {% assign response = "{}" | parse_json %}
 
@@ -42,21 +40,6 @@ payload:
 {%- assign user_id = blank -%}
 {%- assign customer_email = payload.email | strip -%}
 {%- assign customer_name = payload.first_name | append: " " | append: payload.last_name -%}
-
-
-
-{% comment %} {% parse_json update_contact_data %}
-{
-  "id": "46", 
-  "email": "{{ customer_email }}",
-  "email_2": "123321",
-  "stripe_id": ""
-}
-{% endparse_json %}
-{% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/client/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json %}
-{% log update_contact, type: "client > views > pages > stripe > cards > post.liquid == update_contact" %}  {% endcomment %}
-
-
 
 
 {%- comment -%} TO DO {%- endcomment -%}
@@ -79,12 +62,6 @@ payload:
 {%- assign user_id = user_stripe_id.id -%}
 {%- assign external_id = user_stripe_id.external_id -%}
 {% assign get_stripe_id = user_stripe_id | dig: 'profiles' | first %}
-
-{% log user_id, type: "client > views > pages > stripe > cards > post.liquid == user_id" %}
-{% log external_id, type: "client > views > pages > stripe > cards > post.liquid == external_id" %}
-{% log customer_email, type: "client > views > pages > stripe > cards > post.liquid == customer_email" %}
-{% log user_stripe_id, type: "client > views > pages > stripe > cards > post.liquid == user_stripe_id" %}
-{% log get_stripe_id, type: "client > views > pages > stripe > cards > post.liquid == get_stripe_id" %}
 
 {% if get_stripe_id.stripe_id %}
   
@@ -159,7 +136,6 @@ payload:
     {% endcomment %}
 
 {% else %}
-    {% log get_stripe_id, type: "else" %}
     {%- comment -%}Step 1-B: New customer: Create Stripe customer data{%- endcomment -%}    
     {% parse_json "stripe_customer" %}
     {
@@ -173,8 +149,6 @@ payload:
         data: stripe_customer
         | dig: 'items' | dig: 'response' %}    
 
-    {% log stripe_create_customer, type: "stripe_create_customer" %}
-    
     {%- assign stripe_create_customer = stripe_create_customer.body | parse_json  -%}
     {%- assign stripe_customer_id = stripe_create_customer.id -%}
 
@@ -190,7 +164,6 @@ payload:
     {% endparse_json %}
     
     {% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/client/update_contact', data: connect_stripe_id | dig: 'items','response','body' | parse_json %}
-    {% log update_contact, type: "client > views > pages > stripe > cards > post.liquid == update_contact" %} 
 
     {% parse_json stripe_card %}
     {
@@ -199,8 +172,6 @@ payload:
         "source": "{{ payload.stripe_credit_card }}"
     }
     {% endparse_json %}
-
-    {% log stripe_card, type: "client > views > pages > stripe > cards > post.liquid == stripe_card" %} 
 
     {%- include 'modules/client/stripe/credit_cards/create_credit_card', 
         stripe_card: stripe_card -%}

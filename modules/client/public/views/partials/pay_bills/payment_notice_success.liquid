@@ -3,12 +3,14 @@
   "id": "{{payment_id}}"
 }
 {% endparse_json %}
-{% liquid
+{% comment %} {% liquid
     graphql get_payment = 'modules/website/trigger_api_call', name: 'modules/client/get_payment', data: data 
     assign payment = get_payment.items.response.body | parse_json | dig: 'items','results' | first
-%}
+%} {% endcomment %}
 
--- payment {{ payment }}
+{% liquid
+    graphql get_payment = 'modules/client/payments/get_payments', id: data.id | dig: 'items','results' | first
+%}
 
 <div class="spacer xxx-large"></div>
 <div class="grid-x grid-padding-x">
@@ -17,7 +19,7 @@
         <div class="spacer small"></div> 
  
        
-        <p>Your payment has been received with order number <strong> {% comment %}{{context.session.paybill_order_reference}} {% endcomment %} -{{ context.session.paybill_order_reference | default: '0000000000000' }}</strong></p>
+        <p>Your payment has been received with order number <strong> {% comment %}{{context.session.paybill_order_reference}} {% endcomment %} - {{ context.session.paybill_order_reference | default: '0000000000000' }}</strong></p>
     </div>
 </div>
 <div class="spacer xxxx-large"></div>
@@ -29,12 +31,12 @@
         <div>
             <h3 class="heading-3">Payment Details</h3>
             <div class="spacer small"></div>
-            <p class="font-cabin">{{ order.payment.card_brand | upcase }} **** **** **** {{ payment.properties.card_last4 }}</p>
-            {%- assign month = payment.properties.card_exp_month -%}
+            <p class="font-cabin">{{ get_payment.properties.card_brand | upcase }} **** **** **** {{ get_payment.properties.card_last4 }}</p>
+            {%- assign month = get_payment.properties.card_exp_month -%}
             {%- if month.size < 2 -%}
-                {%- assign month = "0" | append: payment.properties.card_exp_month -%}
+                {%- assign month = "0" | append: get_payment.properties.card_exp_month -%}
             {%- endif -%}
-            <p class="font-cabin">{{ month }} / {{ payment.properties.card_exp_year }}</p>
+            <p class="font-cabin">{{ month }} / {{ get_payment.properties.card_exp_year }}</p>
             <div class="spacer x-large"></div>
         </div>
         

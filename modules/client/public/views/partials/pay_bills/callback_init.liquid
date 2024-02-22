@@ -9,8 +9,6 @@
 {% function settings = "modules/client/pay_bills/get_settings" %}
 {% assign gateway = settings.gateway_name | downcase %}
 
-{% log gateway, type: "gateway === callback_init.liquid" %}
-
 {% comment %} Step 1: Gateway / Create Payment {% endcomment %}
 {% case gateway %}
     {% when 'stripe' %}
@@ -25,10 +23,16 @@
         {% log "ERROR: Payment gateway invalid / not set. Please check INS Ecommerce settings." %}
 {% endcase %}
 
-
 {% comment %} Capture gateway response {% endcomment %}
 {% assign status = context.exports.payment_response.status | downcase %}
 {% assign order_id = form.id | downcase %}
+
+{% log status, "CALLBACK INIT - STATUS" %}
+{% log order_id, "CALLBACK INIT - order_id" %}
+{% log form, "CALLBACK INIT - form" %}
+{% log settings, "CALLBACK INIT - settings" %}
+
+
 
 {% comment %} Step 2. Update models/records {% endcomment %}
 {% include 'modules/client/pay_bills/callback_update_models'
@@ -50,8 +54,8 @@
 {
     "payment_response": {{ context.exports.payment_response }},
     "customer_info": {{ customer_info }},
-    "order_id": {{ order_id }},
-    "order_info": {{ context.exports.update_order.items }}
+    "order_id": {{ order_id }}
+    {% comment %} "order_info": {{ context.exports.update_order.items }} {% endcomment %}
 }
 {% endparse_json %}
 

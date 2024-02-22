@@ -1,11 +1,10 @@
 {% comment %} Payload: total_amount {% endcomment %}
 
-{% log total_amount, type: "total amount -> compute amounts" %}
-
 {%  liquid
-    assign amount = total_amount | divided_by: 1.017
+    assign amount = subtotal_amount | plus: total_tax_amount | plus: total_shipping_amount
     assign cc_surcharge = amount | times: 0.017
     assign tax = total_tax_amount 
+    assign total_amount = amount | plus: cc_surcharge
 %}
 
 {% parse_json computed %}
@@ -16,8 +15,5 @@
     "tax": {{ tax }}
 }
 {% endparse_json %}
-
-{% log computed, type: "computed -> compute amounts" %}
-
 
 {% liquid return computed %}

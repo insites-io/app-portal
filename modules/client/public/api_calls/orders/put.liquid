@@ -10,6 +10,9 @@ request_type: PUT
 request_headers: >
     {% include 'modules/client/api_headers' %}
 ---
+
+{% log data, type: "DATA UPDATE ORDER" %}
+
 {
     "payload": {
         "id": "{{ data.id }}", 
@@ -22,10 +25,10 @@ request_headers: >
         "order_status": "{{ data.order_status }}",
         "order_payment_status": "{{ data.order_payment_status }}",
         "last_updated_by_id": "{{ data.last_updated_by_id }}",
-        "amount_due": {{ data.amount_due }},
+        "amount_due": {{ data.subtotal_amount }},
         "total_amount": {{ data.total_amount }},
-        "shipping_amount": {{ data.shipping_amount }},
-        "tax_amount": {{ data.tax_amount }},
+        "total_shipping_amount": {{ data.total_shipping_amount }},
+        "total_tax_amount": {{ data.total_tax_amount }},
         "order_value": {{ data.order_value }}        
     }
 }
