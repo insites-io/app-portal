@@ -17,9 +17,7 @@
     <div class="large-12 medium-12 small-12 cell text-center">
         <h1 class="heading-1">We've received your payment</h1>
         <div class="spacer small"></div> 
- 
-       
-        <p>Your payment has been received with order number <strong> {% comment %}{{context.session.paybill_order_reference}} {% endcomment %} - {{ context.session.paybill_order_reference | default: '0000000000000' }}</strong></p>
+        <p>Your payment has been received with order number <strong>  - {{ context.session.paybill_order_id | default: '0000000000000' }}</strong></p>
     </div>
 </div>
 <div class="spacer xxxx-large"></div>
@@ -31,12 +29,12 @@
         <div>
             <h3 class="heading-3">Payment Details</h3>
             <div class="spacer small"></div>
-            <p class="font-cabin">{{ get_payment.properties.card_brand | upcase }} **** **** **** {{ get_payment.properties.card_last4 }}</p>
-            {%- assign month = get_payment.properties.card_exp_month -%}
+            <p class="font-cabin">{{ get_payment.properties.card_brand | upcase }} **** **** **** {{ get_payment.properties.card_last_four_digits }}</p>
+            {%- assign month = get_payment.properties.card_expiry_month -%}
             {%- if month.size < 2 -%}
-                {%- assign month = "0" | append: get_payment.properties.card_exp_month -%}
+                {%- assign month = "0" | append: get_payment.properties.card_expiry_month -%}
             {%- endif -%}
-            <p class="font-cabin">{{ month }} / {{ get_payment.properties.card_exp_year }}</p>
+            <p class="font-cabin">{{ month }} / {{ get_payment.properties.card_expiry_year }}</p>
             <div class="spacer x-large"></div>
         </div>
         

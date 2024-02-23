@@ -9,7 +9,7 @@ query get_payments (
     filter: {
       id: { value: $id }
       deleted_at: { exists: false }
-      table: { value: "modules/insites_ecommerce/insites_payment" }
+      table: { value: "modules/insites_ecommerce/payment" }
     }
     sort: { updated_at: { order: DESC } }
   ) {
