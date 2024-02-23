@@ -3,10 +3,10 @@ name: add_payment
 to: 'https://{{context.location.host}}/ecommerce/api/v1/payments'
 format: http
 request_type: POST
-# callback: >
-#   {% log response, type: 'response object' %}
-#   {% assign response_hash = response.body | parse_json %}
-#   {% log response_hash, type: 'response body as hash' %} 
+callback: >
+  {% log response, type: 'add payment - response object' %}
+  {% assign response_hash = response.body | parse_json %}
+  {% log response_hash, type: 'add payment - response body as hash' %} 
 request_headers: >
     {% include 'modules/client/api_headers' %}
 ---
@@ -15,23 +15,26 @@ request_headers: >
     {{ data.payment_gateway_details }}
 {%- endcapture -%}
 
+{% log data, type: "data -- post add_payment" %}
+
 {
     "payload": {
+        "notes": "{{ data.notes | default: "notes" }}",
+        "amount": "{{ data.amount }}",
+        "source": "credit_card",
+        "status": "{{ data.payment_status }}",
+        "bank_bsb": "",
+        "currency": "{{ data.currency }}",
+        "bank_name": "",
         "date_time": "{{ data.date_time }}",
-        "payment_status": "{{ data.payment_status }}",
-        "payment_source": "{{ data.payment_source }}",
-        "amount": {{ data.amount }},
-        "order_value": {{ data.order_value }},
-        "amount_due": {{ data.amount_due }},
-        "payment_gateway_name": "{{ data.payment_gateway_name }}",
         "card_brand": "{{ data.card_brand }}",
-        "card_exp_month": "{{ data.card_exp_month }}",
-        "card_exp_year": "{{ data.card_exp_year }}",
-        "card_last4": "{{ data.card_last4 }}",
-        "payment_gateway_details": {{ payment_gateway_details | json }},
-        "order_id": "{{ data.order_id }}",
-        "currency": "{{ data.currency }}",        
-        "last_updated_by_id": "{{ data.last_updated_by_id }}",
-        "is_enabled": {{ data.is_enabled }}
+        "order_uuid": "{{ data.order_uuid }}",
+        "card_expiry_year": "{{ data.card_exp_year }}",
+        "card_expiry_month": "{{ data.card_exp_month }}",
+        "payment_method_name": "",
+        "payment_gateway_name": "{{ data.payment_gateway_name }}",
+        "bank_last_four_digits": "",
+        "card_last_four_digits": "{{ data.card_last4 }}",
+        "payment_gateway_details": "{{ data.payment_gateway_details | json }}"
     }
 }

@@ -19,18 +19,6 @@ metadata: {
   "sitemap_changefreq": "never"
 }
 ---
-
-{%- comment -%}
-payload:
-{
-    "email": "",
-    "first_name": "".
-    "last_name": "",
-    "stripe_credit_card": "" = ie. tok_12sed9Sd31o or card_8osndlknsu21
-}
-{%- endcomment -%}
-
-
 {%- assign payload = context.params.payload | parse_json -%}
 
 {%- assign status = 200 -%}
@@ -41,19 +29,6 @@ payload:
 {%- assign customer_email = payload.email | strip -%}
 {%- assign customer_name = payload.first_name | append: " " | append: payload.last_name -%}
 
-
-{%- comment -%} TO DO {%- endcomment -%}
-
-{%- comment -%} 
-    BEFORE: STEP 1 - Check Stripe Customer Data 
-{%- endcomment -%}
-{% comment %} 
-    {%- graphql stripe_customer = "modules/client/customers/get_customer_model" 
-    email: customer_email,
-    gateway_name: "Stripe" 
-    | dig: "items" | dig: "results" | first -%} 
-{% endcomment %}
-
 {%- comment -%} 
     NEW: STEP 1 - CHECK CONTACT IF STRIPE_ID HAS DETAILS 
 {%- endcomment -%}
@@ -62,6 +37,12 @@ payload:
 {%- assign user_id = user_stripe_id.id -%}
 {%- assign external_id = user_stripe_id.external_id -%}
 {% assign get_stripe_id = user_stripe_id | dig: 'profiles' | first %}
+
+{% log customer_email, type: "customer_email" %}
+{% log customer_name, type: "customer_name" %}
+{% log user_id, type: "user_id" %}
+{% log external_id, type: "external_id" %}
+{% log get_stripe_id, type: "get_stripe_id" %}
 
 {% if get_stripe_id.stripe_id %}
   
@@ -83,57 +64,6 @@ payload:
             return: true -%}
     {%- endcapture -%}
     {%- assign new_stripe_credit_card = new_stripe_credit_card | strip_newlines | strip -%}
-
-
-    {%- comment -%}
-        BEFORE: Step 1-A: Customer Stripe data exist. Proceed create stripe credit card 
-    {%- endcomment -%}
-
-    {%- comment -%}
-        BEFORE: Step 1-A.1: Update customer model data
-    {%- endcomment -%}
-
-    {% comment %} 
-        {%- graphql customer_model = "modules/client/customers/update_customer_model", 
-        id: stripe_customer.id
-        user_id: user_id,
-        name: customer_name | dig: "items" -%} 
-    {% endcomment %}
-
-    {%- comment -%}
-        BEFORE: Step 1-A.2: Customer Stripe data exist. Proceed create stripe credit card 
-    {%- endcomment -%}
-    
-    {% comment %} 
-        {%- assign stripe_customer_id = customer_model.properties.gateway_id -%}
-        {%- assign check_new = payload.stripe_credit_card | split: '_' | first | downcase -%}
-    {% endcomment %}
-
-
-
-
-
-    {%- comment -%}
-        NOW: Step 1-A: CRM Stripe ID data exist. Proceed create stripe credit card 
-    {%- endcomment -%}
-
-
-    {% comment %} 
-        check stripe id
-        tok = new card
-        
-    {% endcomment %}
-
-    {% comment %} 
-        create card
-            pass email
-            check stripe id
-            if not exist
-                create customer
-            else
-                create credit card    
-            
-    {% endcomment %}
 
 {% else %}
     {%- comment -%}Step 1-B: New customer: Create Stripe customer data{%- endcomment -%}    
@@ -175,10 +105,7 @@ payload:
 
     {%- include 'modules/client/stripe/credit_cards/create_credit_card', 
         stripe_card: stripe_card -%}
-
 {% endif %}
-
-
 
 {%- comment -%}
   Return GraphQL reposponse & status code 200 or 400

@@ -12,7 +12,7 @@
     if status == "succeeded"
         assign status = "success"
         assign order_payment_status = "Paid"
-        assign order_status = "Complete"
+        assign order_status = "Completed"
     else
         assign status = "failed"
         assign order_payment_status = "Failed"
@@ -23,7 +23,6 @@
 {% comment %} Compute amounts {% endcomment %}
 
 {% log form, type: "form properties -> callback_update_models" %}
-{% log status, type: "status -> callback_update_models" %}
 
 {% liquid
 
@@ -87,6 +86,7 @@
 }
 {% endparse_json %}
 {% assign data = data | add_hash_key: "payment_gateway_details", stripe_payment_response %}
+{% assign data = data | add_hash_key: "order_uuid", form.properties.uuid %}
 
 {%  graphql add_payment = 'modules/website/trigger_api_call', 
     name: "modules/client/add_payment",
@@ -121,10 +121,12 @@
     "order_payment_status" : "{{ order_payment_status }}",
     "amount_due" : {{ form.properties.total_amount }},
     "total_amount" : {{ form.properties.total_amount }},
-    "shipping_amount": {{ form.properties.total_shipping_amount }},
-    "tax_amount": {{ form.properties.total_tax_amount }},
+    "total_shipping_amount": {{ form.properties.total_shipping_amount }},
+    "total_tax_amount": {{ form.properties.total_tax_amount }},
     "order_value" : {{ form.properties.subtotal_amount }},
-    "last_updated_by_id": "{{ user_id }}"
+    "last_updated_by_id": "{{ user_id }}",
+    "date_time": "{{ form.properties.date_time }}",
+    "currency": "{{ form.properties.currency }}"
 }
 {% endparse_json %}
 {%  graphql update_order = 'modules/website/trigger_api_call', 
@@ -134,6 +136,9 @@
     | parse_json %}
 
 {% log update_order, type: "update_order - callback update models" %}
+
+{% log update_order.id, type: "paybill_order_id" %}
+{% log update_order.properties.order_reference, type: "paybill_order_reference" %}
 
 {% liquid
     session paybill_order_id = form.id
