@@ -17,24 +17,28 @@ request_headers: >
 
 {% log data, type: "data -- post add_payment" %}
 
+{% if data.payment_gateway_name == "Stripe" %}
+    {% assign source = "credit_card" %}
+{% endif %}
+
 {
     "payload": {
-        "notes": "{{ data.notes | default: "notes" }}",
-        "amount": "{{ data.amount }}",
-        "source": "credit_card",
-        "status": "{{ data.payment_status }}",
-        "bank_bsb": "",
+        "notes": "{{ data.notes | default: "No notes available" }}",
+        "amount": {{ data.computed.total_amount | times: 1.0 }},
+        "source": "{{ source }}",
+        "status": "{{ data.payment_status | downcase }}",
+        "bank_bsb": null,
         "currency": "{{ data.currency }}",
-        "bank_name": "",
+        "bank_name": null,
         "date_time": "{{ data.date_time }}",
         "card_brand": "{{ data.card_brand }}",
         "order_uuid": "{{ data.order_uuid }}",
-        "card_expiry_year": "{{ data.card_exp_year }}",
         "card_expiry_month": "{{ data.card_exp_month }}",
-        "payment_method_name": "",
+        "card_expiry_year": "{{ data.card_exp_year }}",
+        "payment_method_name": null,
         "payment_gateway_name": "{{ data.payment_gateway_name }}",
-        "bank_last_four_digits": "",
+        "bank_last_four_digits": null,
         "card_last_four_digits": "{{ data.card_last4 }}",
-        "payment_gateway_details": "{{ data.payment_gateway_details | json }}"
+        "payment_gateway_details": {{ payment_gateway_details | json }}
     }
 }

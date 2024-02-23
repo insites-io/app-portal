@@ -26,8 +26,8 @@
 
 {% liquid
 
-    function computed = "modules/client/pay_bills/compute_amounts", total_amount: form.properties.total_amount, total_tax_amount: form.properties.total_tax_amount
-    
+    function computed = "modules/client/pay_bills/compute_amounts", total_amount: form.properties.total_amount, total_tax_amount: form.properties.total_tax_amount, total_shipping_amount: form.properties.total_shipping_amount, subtotal_amount: form.properties.subtotal_amount
+
     if status == 'success'
         assign amount_due = 0.0
     else
@@ -63,30 +63,29 @@
     endif
 %}
 
-{% log context.current_user, type: "Current User" %}
-
 {% comment %} Step 1: Create Payment record on POS {% endcomment %}
 {% parse_json data %}
 {
-    "order_id": "{{order_id}}",
+    "order_id": "{{ order_id }}",
     "payment_source": "Payment Gateway",
-    "payment_status": "{{order_payment_status}}",
-    "payment_gateway_name": "{{settings.gateway_name}}",
+    "payment_status": "{{ order_payment_status }}",
+    "payment_gateway_name": "{{ settings.gateway_name }}",
     "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%SZ' }}",
-    "last_updated_by_id": "{{context.current_user.id}}",
+    "last_updated_by_id": "{{ context.current_user.id }}",
     "is_enabled": true,
-    "card_last4": "{{card.last4}}",
-    "card_brand": "{{card.brand}}",
+    "card_last4": "{{ card.last4 }}",
+    "card_brand": "{{ card.brand }}",
     "card_exp_month": "{{card.exp_month}}",
     "card_exp_year": "{{card.exp_year}}",
     "currency": "{{settings.currency}}",
-    "order_value": {{computed.total_amount}},
-    "amount": {{computed.total_amount}},
-    "amount_due": {{amount_due}}
+    "order_value": {{ computed.total_amount }},
+    "amount": {{ computed.total_amount }},
+    "amount_due": {{ amount_due }}
 }
 {% endparse_json %}
 {% assign data = data | add_hash_key: "payment_gateway_details", stripe_payment_response %}
 {% assign data = data | add_hash_key: "order_uuid", form.properties.uuid %}
+{% assign data = data | add_hash_key: "computed", computed %}
 
 {%  graphql add_payment = 'modules/website/trigger_api_call', 
     name: "modules/client/add_payment",
@@ -103,9 +102,6 @@
     endif
 -%}
 {% log "==== Payment Created ====" %}
-
-
-{% log form, type: "FORM - CALLBACK UPDATE MODELS" %}
 
 {% comment %} Step 2: Update Order record {% endcomment %}
 {% parse_json data %}
@@ -135,18 +131,10 @@
     | dig: 'items','response','body'
     | parse_json %}
 
-{% log update_order, type: "update_order - callback update models" %}
-
-{% log update_order.id, type: "paybill_order_id" %}
-{% log update_order.properties.order_reference, type: "paybill_order_reference" %}
-
 {% liquid
-    session paybill_order_id = form.id
-    session paybill_order_reference = form.properties.order_reference
+    session paybill_order_id = update_order.items.id
+    session paybill_order_reference = update_order.items.properties.order_reference
 %}
-{% log paybill_order_id, type: "paybill_order_id - callback update models" %}
-{% log paybill_order_reference, type: "paybill_order_reference - callback update models" %}
-
 
 {% log "==== Order Updated ====" %}
 
