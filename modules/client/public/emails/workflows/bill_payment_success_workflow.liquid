@@ -28,9 +28,6 @@ assign amount_due = computed.total_amount
     endif
 -%}
 
-{% log computed, type: "computed - workflow" %}
-{% log computed.amount, type: "computed amount - workflow" %}
-
 {%- assign amountPayable = computed.amount | advanced_format: '%.2f' -%}
 {%- assign ccSurcharge = computed.cc_surcharge | advanced_format: '%.2f' -%}
 {%- assign subTotal = computed.total_amount | default: 0.00 -%}

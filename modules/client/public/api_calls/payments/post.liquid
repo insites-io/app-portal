@@ -4,9 +4,7 @@ to: 'https://{{context.location.host}}/ecommerce/api/v1/payments'
 format: http
 request_type: POST
 callback: >
-  {% log response, type: 'add payment - response object' %}
   {% assign response_hash = response.body | parse_json %}
-  {% log response_hash, type: 'add payment - response body as hash' %} 
 request_headers: >
     {% include 'modules/client/api_headers' %}
 ---
@@ -14,8 +12,6 @@ request_headers: >
 {%- capture payment_gateway_details -%}
     {{ data.payment_gateway_details }}
 {%- endcapture -%}
-
-{% log data, type: "data -- post add_payment" %}
 
 {% if data.payment_gateway_name == "Stripe" %}
     {% assign source = "credit_card" %}

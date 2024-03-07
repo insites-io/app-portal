@@ -4,9 +4,7 @@ to: 'https://{{context.location.host}}/core/api/v1/contacts'
 format: http
 request_type: PUT
 callback: >
-  {% log response, type: 'response object -- update contact' %}
   {% assign response_hash = response.body | parse_json %}
-  {% log response_hash, type: 'response body as hash -- update contact' %} 
 request_headers: >
     {% include 'modules/client/api_headers' %}
 ---

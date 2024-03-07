@@ -117,15 +117,6 @@
                 <div class="cell spacer show-for-small-only"></div>
                 <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
                     <div>
-                        {% comment %} connect services to graphql {% endcomment %}
-                        {% comment %} {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%} {% endcomment %}
-                        {% comment %} assign var to fetch the result {% endcomment %}
-                        {% comment %} {%- assign res_soc_url = get_contact_us | dig: 'items', 'results' -%}
-                        {%- assign res_soc_url = res_soc_url | first -%}
-                         {% endcomment %}
-                         
-                        {% comment %} GET GLOBAL CONTENTS {% endcomment %}
-                        {% comment %} {%- include "modules/insites_cms/globals" -%} {% endcomment %}
                     <ul class="menu social">
 
                         {% if context.exports.global.facebook_link %}

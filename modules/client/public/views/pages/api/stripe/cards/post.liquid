@@ -3,8 +3,6 @@ slug: api/stripe/create-credit-card
 format: json
 method: post
 searchable: false
-# enable_profiler: true
-searchable: false
 metadata: {
   "status": "published",
   "open_graph:title": "Create Credit Card",
@@ -37,12 +35,6 @@ metadata: {
 {%- assign user_id = user_stripe_id.id -%}
 {%- assign external_id = user_stripe_id.external_id -%}
 {% assign get_stripe_id = user_stripe_id | dig: 'profiles' | first %}
-
-{% log customer_email, type: "customer_email" %}
-{% log customer_name, type: "customer_name" %}
-{% log user_id, type: "user_id" %}
-{% log external_id, type: "external_id" %}
-{% log get_stripe_id, type: "get_stripe_id" %}
 
 {% if get_stripe_id.stripe_id %}
   

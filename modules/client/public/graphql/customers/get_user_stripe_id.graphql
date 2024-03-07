@@ -23,8 +23,6 @@ query get_user_stripe_id($email:String, $id:ID){
       created_at
       profiles{
         id
-        # profile_type
-        # properties
         stripe_id:property(name:"stripe_id")
       }
     }

@@ -40,12 +40,6 @@
         <div class="large-9 medium-7 small-9 col1">Processing Fee (1.7%)</div>
         <div class="large-3 medium-5 small-3 col2">$<span id="cc-charge-summary">{{ ccSurcharge | default: "0.00" | round: 2}}</span></div>
         <div class="cell spacer"></div>
-        {% comment %} {{tax}} {% endcomment %}
-        {% comment %} <hr>
-        <div class="cell spacer small"></div>
-        <div class="large-9 medium-7 small-9 col1">Sub Total</div>
-        <div class="large-3 medium-5 small-3 col2">$<span id="sub-total-summary">{{ subTotal | default: "0.00" }}</span></div>        
-        <div class="cell spacer small"></div> {% endcomment %}
         <hr>
         <div class="cell spacer small"></div>
         <div class="large-5 medium-5 small-5 col1"><h3 class="heading-3">Total</h3></div>
@@ -98,9 +92,8 @@
    
     
     let ccSurcharge = amountPayable * 0.017; // 1.7% credit card surcharge
-    // let totalAmount = subTotal = amountPayable + ccSurcharge + taxAmount + shippingAmount;
     let subtotalAmount  = Number(amountPayable) + Number(taxAmount) + Number(shippingAmount)
-   let totalAmount = subTotal =  Number(amountPayable) + Number(ccSurcharge) + Number(taxAmount) + Number(shippingAmount)
+    let totalAmount = subTotal =  Number(amountPayable) + Number(ccSurcharge) + Number(taxAmount) + Number(shippingAmount)
 
         if(chargeAmountEl) 
             chargeAmountEl.innerHTML = pricify(subtotalAmount);

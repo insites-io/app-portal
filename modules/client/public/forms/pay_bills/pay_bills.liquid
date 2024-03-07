@@ -29,36 +29,18 @@ fields:
       validation: 
         presence:
           message: Shipping Amount is required  
-    # user_id:    
-    #   validation: 
-    #     presence: true
-    #user_uuid:
-    # company_id:
-    # company_uuid:
     currency:    
       validation: 
         presence: true
     date_time:    
       validation: 
         presence: true
-    # total_tax_amount:    
-    #   validation: 
-    #     presence: true
-    # total_shipping_amount:    
-    #   validation: 
-    #     presence: true
     total_amount:    
       validation: 
         presence: true
-    # amount_due:    
-    #   validation: 
-    #     presence: true
     total_discount_amount:    
       validation: 
-        presence: true
-    # is_enabled:    
-    #   validation: 
-    #     presence: true    
+        presence: true 
     order_status:
     order_payment_status:
     order_shipping_status:
@@ -76,12 +58,9 @@ default_payload: >
     "properties_attributes":{
         "user_id": "{{ context.current_user.id }}",
         "user_uuid": "{{ current_user.external_id }}",
-        {% comment %} "company_id": "", {% endcomment %}
         "company_uuid": "{{ current_user.client[0].company_uuid }}",
         "currency": "{{ settings.currency }}",
         "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}",
-        {% comment %}  "total_tax_amount": 0, {% endcomment %}
-        {% comment %}  "total_shipping_amount": 0, {% endcomment %}
         "total_discount_amount": 0,
         "is_enabled": true,
         "order_status": "Open",
@@ -117,7 +96,6 @@ callback_actions: >
     {%  assign uuid =  '' | uuid %}
     
     <input type="hidden" id="bill-total-amount" name="{{ props.total_amount.name }}" >
-    {% comment %} <input type="hidden" id="bill-amount-due" name="{{ props.amount_due.name }}" > {% endcomment %}
     <input type="hidden" id="bill-notes" name="{{ props.uuid.name }}" >
     <input type="hidden" id="bill-notes" value="{{uuid}}" name="{{ props.uuid.name }}" >
 
@@ -167,7 +145,6 @@ callback_actions: >
               field="number"
               id="tax-amount"
               name="{{ props.total_tax_amount.name }}" 
-              {% comment %} value="{{ props.total_tax_amount.value }}" {% endcomment %}
               {% if form.errors['properties.total_tax_amount'] %} has-error {% endif %}
               error-message="{{ props.total_tax_amount.validation.rules.presence.message }}">
           </ins-input>
@@ -180,7 +157,6 @@ callback_actions: >
                   field="number"   
                   id="shipping-amount"   
                   name="{{ props.total_shipping_amount.name }}" 
-                  {% comment %} value="{{ props.total_shipping_amount.value }}" {% endcomment %}
                   {% if form.errors['properties.total_shipping_amount'] %} has-error {% endif %}
                   error-message="{{ props.total_shipping_amount.validation.rules.presence.message }}">
               </ins-input>

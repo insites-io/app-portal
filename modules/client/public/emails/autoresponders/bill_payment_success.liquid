@@ -27,10 +27,6 @@ layout: modules/insites_core/insites_external_email_layout
     endif
 -%}
 
-{% log computed, type: "computed - autoresponder" %}
-{% log computed.amount, type: "computed amount - autoresponder" %}
-
-
 {%- assign amountPayable = computed.amount | advanced_format: '%.2f' -%}
 {%- assign ccSurcharge = computed.cc_surcharge | advanced_format: '%.2f' -%}
 {%- assign subTotal = computed.total_amount | default: 0.00 -%}

@@ -4,7 +4,6 @@ query get_questionnaires(
   	$id: ID
     $user_id: String
   	$year: String
-    # $not_agreement: [String!]
 ) {
     items: records(
         page: $page
@@ -16,7 +15,6 @@ query get_questionnaires(
             properties: [
                 { name: "user_id", value: $user_id }
                 { name: "year", value: $year }
-                # { name: "agreement", not_value_in: $not_agreement }
             ]    
         }
         sort: [

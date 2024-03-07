@@ -6,7 +6,6 @@ trigger_condition: true
 request_type: POST
 callback: >
   {%- assign response_data = response.body | to_hash -%}
-  {%- log response_data, type: 'response_data > create_customer' -%}
   {% if response_data.error %}
     {%- log response_data.error, type: 'post > create_customer' -%}
   {% endif %}

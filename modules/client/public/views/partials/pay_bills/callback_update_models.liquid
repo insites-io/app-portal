@@ -21,9 +21,6 @@
 %}
 
 {% comment %} Compute amounts {% endcomment %}
-
-{% log form, type: "form properties -> callback_update_models" %}
-
 {% liquid
 
     function computed = "modules/client/pay_bills/compute_amounts", total_amount: form.properties.total_amount, total_tax_amount: form.properties.total_tax_amount, total_shipping_amount: form.properties.total_shipping_amount, subtotal_amount: form.properties.subtotal_amount
@@ -101,7 +98,6 @@
         session paybill_error = stripe_payment_response
     endif
 -%}
-{% log "==== Payment Created ====" %}
 
 {% comment %} Step 2: Update Order record {% endcomment %}
 {% parse_json data %}
@@ -135,9 +131,6 @@
     session paybill_order_id = update_order.items.id
     session paybill_order_reference = update_order.items.properties.order_reference
 %}
-
-{% log "==== Order Updated ====" %}
-
 
 {% export update_order %}
 

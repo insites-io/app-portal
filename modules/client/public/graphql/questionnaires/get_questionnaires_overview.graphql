@@ -4,7 +4,6 @@ query get_questionnaires_overview(
  
     $user_id: String
   	$year: String
-    # $not_agreement: [String!]
 ) {
     items: records(
         page: $page
