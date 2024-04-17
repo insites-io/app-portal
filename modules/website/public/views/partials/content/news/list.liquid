@@ -66,10 +66,6 @@ metadata: {
                     </div>
                 {% endfor %}	
             </div>
-            
-            <div class="grid-container">
-                {% comment %}         {% include 'modules/website/layout/pagination', page_num, per_page %} {% endcomment %}
-            </div>
         </section>
 
         <ins-table no-wrap
@@ -97,13 +93,6 @@ metadata: {
             insBaseTable.querySelector(".ibt-table-wrap__pagination>span").innerHTML='Items per page';
         },600);            
     }
-
-
-
-    console.log( insBaseTable.totalCount )
-    console.log( insBaseTable.pageNumber )
-    console.log( insBaseTable.pageSize )
-
     
     insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
 

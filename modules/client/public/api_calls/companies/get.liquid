@@ -3,10 +3,6 @@ name: get_company
 to: 'https://{{context.location.host}}/core/api/v1/companies/{{data.id}}'
 format: http
 request_type: GET
-# callback: >
-#   {% log response, type: 'response object' %}
-#   {% assign response_hash = response.body | parse_json %}
-#   {% log response_hash, type: 'response body as hash' %} 
 request_headers: >
     {% include 'modules/client/api_headers' %}
 ---

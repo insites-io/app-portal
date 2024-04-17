@@ -71,10 +71,8 @@ let App = (function () {
                 //clientHeight includes the padding only
                 if (windowWidth <= mobileWindowWidthLimit) {
                     fillerHeight = fillerContainer.getElementsByClassName("mobile")[0].clientHeight;
-                    //console.log("Inner Height Used: ", fillerContainer.getElementsByClassName("mobile")[0].clientHeight);
                 } else {
                     fillerHeight = fillerContainer.getElementsByClassName("desktop")[0].clientHeight;
-                    //console.log("Inner Height Used: ", fillerContainer.getElementsByClassName("desktop")[0].clientHeight);
                 }
                 return fillerHeight;
             }

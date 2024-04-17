@@ -1,7 +1,6 @@
 ---
 slug: questionnaires
 layout: modules/client/default
-# enable_profiler: true
 searchable: false
 max_deep_level: 1
 metadata: {
@@ -183,8 +182,6 @@ authorization_policies:
     }
     function keywordInputEvent(event) {   
         if (event.detail.keyCode === 13) {
-            console.log(event.detail);
-            console.log(year.length);
             if(event.detail.value != ''){
                 let tempURL = window.location.href.replace("?year="+year, "");
                 tempURL = tempURL.replace("year="+year, "");
@@ -209,7 +206,6 @@ authorization_policies:
     let downloadPDF = document.querySelectorAll(".download-pdf");
     downloadPDF.forEach(btn => {                                            
         btn.addEventListener('insClick', async event => {   
-            console.log(event);
             btn.loading = true;
             let data = event.detail.data.split(",");
             let id = data[0];

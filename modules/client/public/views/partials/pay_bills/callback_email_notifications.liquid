@@ -1,7 +1,6 @@
 
 {%- assign status = status | downcase -%}
-{% log " --- Bill payment email notification data" %}
-
+{% comment %} " --- Bill payment email notification data" {% endcomment %} 
 {%- case status -%}
     {%- when 'succeeded' -%}
         {%- comment -%}Successful payment{%- endcomment -%}
@@ -18,7 +17,7 @@
     {%- graphql trigger = "modules/website/trigger_email_notification",
         name: email_name,
         data: data -%}
-    {% log "Bill Payment: Send autoresponder" %}
+    {% comment %} "Bill Payment: Send autoresponder" {% endcomment %}
 {%- endif -%}
 
 {%- if workflow_name -%}
@@ -26,5 +25,5 @@
     {%- graphql trigger = "modules/website/trigger_email_notification",
         name: workflow_name,
         data: data -%}
-    {% log "Bill Payment: Send Workflow" %}
+    {% comment %} "Bill Payment: Send Workflow" {% endcomment %}
 {%- endif -%}

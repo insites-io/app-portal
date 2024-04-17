@@ -8,15 +8,8 @@
 
 {%  liquid
     if order_id
-        #graphql get_order = 'modules/website/trigger_api_call', name: 'modules/client/get_order', data: data 
-        #assign order = get_order.items.response.body | parse_json | dig: 'items','results' | first
-        
         graphql get_order = 'modules/client/orders/get_order', id: data.id | dig: 'items','results' | first
               
-        log get_order, type: "payment summary -> get_order"
-
-         #function computed = "modules/client/pay_bills/compute_amounts", total_amount: get_order.properties.total_amount 
-
         assign amount = get_order.properties.subtotal_amount | plus: get_order.properties.total_tax_amount | plus: get_order.properties.total_shipping_amount
         assign cc_surcharge = get_order.properties.subtotal_amount | times: 0.017
         assign tax = get_order.properties.total_tax_amount | default: 0
@@ -104,7 +97,7 @@
         if(totalAmountEl) 
             totalAmountEl.innerHTML = pricify(totalAmount);                    
 
-        {%- comment %} Update hidden input {% endcomment %}
+        // Update hidden input 
         if(amountTotalEl) 
             amountTotalEl.value = totalAmount;
         if(orderValueEl) 

@@ -1,12 +1,3 @@
-{%- comment -%}
-    datetime
-    description
-    font_icon
-    font_icon_color
-    details
-    log
-{%- endcomment -%}
-
 {%- parse_json data -%}
 {
     "font_icon": "{{ info.font_icon | default: "icon-info" }}",
