@@ -2,7 +2,7 @@
     graphql user = 'modules/client/account/get_current_user' | dig: 'current_user'
 
     if user.client
-        assign profile = user.client[0]
+        assign profile = user.client | first
         if profile != blank and profile.is_activated
             assign verified = true
         else

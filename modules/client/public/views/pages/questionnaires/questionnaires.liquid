@@ -57,7 +57,7 @@ authorization_policies:
 
 {%  liquid
     assign years = all_questionnaires | map: "year" | sort | reverse  
-    assign latest_year = years[0]
+    assign latest_year = years | first
     assign this_year = 'now' | date: '%Y'
 
     if this_year > latest_year

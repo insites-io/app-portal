@@ -138,7 +138,7 @@ async_callback_actions:
 
       <input type="hidden" name="{{ form.fields.properties.default_address.name }}"  value="{{ data.default_address.id }}" >
       <input type="hidden" name="{{ form.fields.properties.contact_address_uuid.name }}" value="{{ data.default_address.properties.uuid }}" >
-
+      
       {% include 'modules/client/account/registration_personal_details', data: data %}
               
     </div>

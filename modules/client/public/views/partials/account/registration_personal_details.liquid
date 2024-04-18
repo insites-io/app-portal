@@ -1,4 +1,5 @@
 {%- assign props = form.fields.properties -%}
+{% assign contact = data.contact | first %}
 
 <div id="personal-details-container" class="form-group fadeIn" active>      
       
@@ -52,8 +53,8 @@
         <ins-input-tel
             id="mobile-phone"
             label="Phone" 
-            phonenum-value="{{ data.contact[0].properties.mobile_phone_number }}" 
-            country-code="{{ data.contact[0].properties.mobile_phone_country_code }}"
+            phonenum-value="{{ contact.properties.mobile_phone_number }}" 
+            country-code="{{ contact.properties.mobile_phone_country_code }}"
             phonenum-placeholder="Phone Number" 
             no-areacode
             error-message="Please use a valid phone number">

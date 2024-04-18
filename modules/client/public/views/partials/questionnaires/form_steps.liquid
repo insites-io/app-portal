@@ -1,7 +1,7 @@
-
 {%- liquid
 
     graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first
+    assign dataAgreement = data.agreement | first
 
     if context.params.slug == "questionnaires-general" or context.params.slug == "questionnaires-general-view"
         assign statusGeneral = "active"
@@ -11,7 +11,7 @@
             if data.contact_name
                 assign statusAdditional = "complete"
             endif
-            if data.agreement[0] == "I understand and agree"
+            if dataAgreement == "I understand and agree"
                 assign statusConfirmation = "complete"
             endif
         endif
@@ -20,7 +20,7 @@
         assign statusAdditional = "active"
         assign statusConfirmation = "disabled"
         if context.params.slug2
-            if data.agreement[0] == "I understand and agree"
+            if dataAgreement == "I understand and agree"
                 assign statusConfirmation = "complete"
             endif
         endif

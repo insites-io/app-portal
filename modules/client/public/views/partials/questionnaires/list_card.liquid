@@ -1,5 +1,6 @@
+{% assign data = item.agreement |  first %}
 {%-liquid
-    if item.agreement[0] == "I understand and agree"
+    if data == "I understand and agree"
         assign status = "Completed"
         assign btnLabel = "View"
         assign viewEditLink = "/questionnaires-general-view/" | append: item.id
