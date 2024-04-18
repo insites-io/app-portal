@@ -1,11 +1,11 @@
 <div class="grid-x grid-padding-x">
-    <div class="large-12 medium-12 small-12 cell text-center">
+    <div class="large-12 medium-12 small-12 cell text-center payment-notice">
         <h1 class="heading-1">Payment Failed</h1>
         <div class="spacer small"></div> 
         <p>We were unable to process the payment. <br>This could have happened for a number of reasons:</p>
         <div class="spacer x-large"></div>
         <p><b>{{ context.session.paybill_error.error.message }}</b></p>
-        <ul style="list-style-type: none;">
+        <ul>
             <li>Insufficient funds on the account</li>
             <li>Expired Credit Card</li>
             <li>The bank's fraud rules blocked the transaction</li>

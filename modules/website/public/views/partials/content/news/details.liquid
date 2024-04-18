@@ -30,7 +30,7 @@ metadata: {
     <h1 class="title">{{ context.exports.data.item.title }}</h1>
     <div class="spacer small"></div>
    
-    <h4 class="news-title-detail" style="text-transform: uppercase;">PUBLISHED ON {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} By {{ context.exports.data.item.author }}</h4>
+    <h4 class="news-title-detail">PUBLISHED ON {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} By {{ context.exports.data.item.author }}</h4>
     <div class="spacer x-large"></div>
     <!-- BANNER -->
     <img loading="lazy" alt="image" src="{{ context.exports.data.item.main_image.url }} "/>

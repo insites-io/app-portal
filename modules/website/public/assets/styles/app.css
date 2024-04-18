@@ -2716,6 +2716,10 @@ Notyf
     line-height: 24px;
 }
 
+.icon-alert-triangle {
+    font-size: 64px!important;
+}
+
 
 
 
@@ -2863,6 +2867,18 @@ screen and (min-width: 1024px) {
     }
 }
 
+/* Stripe and payments */
+#stripe-card {
+    height:0px; 
+    display: block; 
+    overflow: hidden;
+}
+
+.payment-notice ul {
+    list-style-type: none;
+}
+
+
 
 /* Custom Css */
 .ins-step_details {
@@ -2877,3 +2893,4 @@ screen and (min-width: 1024px) {
 .ins-form-field {
     background: var(--color-ui-01) !important;
 }
+

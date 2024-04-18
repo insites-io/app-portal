@@ -63,6 +63,8 @@
 }
 
 
+
+
 /* NAV */
 .navigation-04 {
     display: block; 
@@ -131,6 +133,18 @@
     z-index: 99999;
   }
 
+/*////////Registration///////*/
+
+#register-stepper, #insStepsClickEl {
+  width: 100%;
+}
+
+/*////////Policies///////*/
+
+.policies-container {
+  padding: 0px 10px
+}
+
 
 /*////////HERO BANNER///////*/
 /*////////HERO BANNER///////*/
@@ -150,7 +164,7 @@
     flex: none;
     order: 2;
     flex-grow: 0;
-    padding: 0px 10px;
+    padding: 0px;
   }
 
 /*////////HERO BANNER///////*/
@@ -608,6 +622,7 @@ background-color: #0000;
   font-size: var(--typography-xxx-large, 2.5rem);
   color: var(--color-font-inv, #FFFFFF);
   line-height: normal;
+  font-weight: 700;
 }
 
 .newsContentContainer{
@@ -1238,6 +1253,7 @@ ins-card.support .ins-card-wrap:hover{
 
 .servicesH1{
   height: 100%!important;
+  padding: 0px;
 }
 
 /* ACCORDION SIDE NAV
@@ -1326,6 +1342,10 @@ ins-card.support .ins-card-wrap:hover{
 /* FAQ SIDE NAV */
 
 /* INITIAL STYLE ON DEFAULT */
+.faq-side-nav {
+  background-color: #F9FAFB;
+}
+
 .faqSidenav .ins-accordion-link_link{
   font-family: var(--font-family-02);
   font-size: 16px;  
@@ -1522,7 +1542,9 @@ ins-card .ins-card-wrap {
 
 .footer-p {
   color: var(--color-font-body) !important;
-   font-size: 12px!important;
+  font-size: 12px!important;
+  color: #595959; 
+  font-size: 12px!important;
 }
 
 .account-created h3 {
@@ -1595,3 +1617,46 @@ ins-card .ins-card-wrap {
   padding-left: 40px
 }
 
+
+/* Pages */
+.description ul {
+  list-style-type: none; padding: 0px; margin-left: 0px
+}
+
+.imageSection-img-1 {
+  width: 80%;
+}
+
+.imageSection-img-2 {
+  width: 60%; 
+  margin-top: -100px; 
+  margin-left: 100px
+}
+
+.imageSection-img-3 {
+  width: 60%; 
+  margin-top: -100px; 
+  margin-left: 120px
+}
+
+.imageSection-img-4 {
+  width: 50%; 
+  margin-top: -170px; 
+  margin-left: 250px
+}
+
+.overlap-section-wrapper {
+  border-radius: 24px!important;
+}
+
+.section-testimonials  .slide-container{
+  background-color: #000;
+}
+
+.news-title-detail {
+  text-transform: uppercase;
+}
+
+.footer-links {
+  font-size: 12px!important
+}
