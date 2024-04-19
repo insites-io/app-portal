@@ -70,30 +70,27 @@ authorization_policies:
   
         {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
             user_id: context.current_user.id | dig: 'items' -%}
-        {%- if cards.total_entries > 0 -%}          
+    
             <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">
             {%- for card in cards.results -%}
                 <div class="large-4 medium-6 small-12 cell card-options">
                     <ins-credit-card data-id="{{ card.id }}" 
-                        brand="{{ card.brand }}"
-                        last-four="{{ card.last4 }}"
-                        expiry-month="{{ card.exp_month }}"
-                        expiry-year="{{ card.exp_year }}"
+                        brand="{{ card.properties.card_brand }}"
+                        last-four="{{ card.properties.card_last_four_digits }}"
+                        expiry-month="{{ card.properties.card_expiry_month }}"
+                        expiry-year="{{ card.properties.card_expiry_year }}"
                         full-year
-                        value="{{ card.payment_method_token }}">
+                        value="{{ card.properties.payment_method_token }}" compact>
                     </ins-credit-card>
                 </div>                    
             {%- endfor -%}
             </div>
-            {% comment %} This element 'no-card' is necessary once all the cards were removed via javascript {% endcomment %}
-            <div id="no-card" class="empty-box hide">
-                <p>Add Credit Card / Debit Card</p>            
-            </div>
-        {%- else -%}
-            <div id="no-card" class="empty-box">
-                <p>Add Credit Card / Debit Card</p>            
-            </div>
-        {%- endif -%}
+
+        {% comment %} This element 'no-card' is necessary once all the cards were removed via javascript {% endcomment %}
+        <div id="no-card" class="empty-state text-center empty-box  {% if cards.total_entries > 0 %}hide{% endif %}" >
+            Add Credit Card / Debit Card
+        </div>
+      
 
 
 

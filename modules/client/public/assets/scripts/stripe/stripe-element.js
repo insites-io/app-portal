@@ -43,6 +43,7 @@ let StripeElement = (() => {
                         insCardEl.setAttribute('last-four', token.card.last4);
                         insCardEl.setAttribute('expiry-month', token.card.exp_month);
                         insCardEl.setAttribute('expiry-year', token.card.exp_year);
+                        insCardEl.setAttribute('compact','');
                         insCardEl.value = token.card.id;
                     divEl.appendChild(insCardEl);
                     cardOptionsList.appendChild(divEl);
@@ -71,10 +72,10 @@ let StripeElement = (() => {
                         // set stripe card token to form for payment
                         this.setStripeCardField(result.token);
                         this.setButtonLoading(false);
-                        App.events.notyf('success', "Credit card has been added");
-                        this.makeCardElement(result.token);
                         card.clear();
                         stripeCardModal.close();
+                        App.events.notyf('success', "Credit card has been added");
+                        this.makeCardElement(result.token);
                     }
                 });
             },

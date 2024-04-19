@@ -9,6 +9,11 @@ let StripeServices = (function () {
         updateCreditCard: async function (payload) {
             let url = `/stripe/update-credit-card.json`;
             return await apiServices.processRequest('post', url, payload);
+        },        
+        // delete stripe card
+        deleteCreditCard: async function (payload) {
+            let url = `/stripe/delete-credit-card.json`;
+            return await apiServices.processRequest('post', url, payload)
         }
     }
 })();

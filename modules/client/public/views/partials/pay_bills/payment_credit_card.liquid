@@ -57,14 +57,13 @@
                 {%- for card in cards.results -%}
                   
                     <div class="large-4 medium-6 small-12 cell card-options">
-                        <ins-credit-card 
-                            data-id="{{ card.id }}" 
-                            brand="{{ card.brand }}"
-                            last-four="{{ card.card_last_four_digits }}"
-                            expiry-month="{{ card.card_expiry_month }}"
-                            expiry-year="{{ card.card_expiry_year }}"
+                        <ins-credit-card data-id="{{ card.id }}" 
+                            brand="{{ card.properties.card_brand }}"
+                            last-four="{{ card.properties.card_last_four_digits }}"
+                            expiry-month="{{ card.properties.card_expiry_month }}"
+                            expiry-year="{{ card.properties.card_expiry_year }}"
                             full-year
-                            value="{{ card.payment_method_token }}">
+                            value="{{ card.properties.payment_method_token }}" compact>
                         </ins-credit-card>
                     </div>
                 {%- endfor -%}
