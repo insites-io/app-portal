@@ -72,7 +72,7 @@
                               </ins-accordion-link>
   
                               <ins-accordion-link label="Change Password" 
-                              link="/password-reset?token={{ user_data_default.password_token | url_encode }}&amp;email={{ user_with_token.email | url_encode }}"
+                              link="/generate-password-token?email={{ user_with_token.email | url_encode }}"
                               >
                               </ins-accordion-link>
 

@@ -89,7 +89,7 @@
                     </ins-dropdown-item>
                 
                     <ins-dropdown-item
-                      link="/password-reset?token={{ user_data_default.password_token | url_encode }}&amp;email={{ user_with_token.email | url_encode }}"
+                      link="/generate-password-token?email={{ user_with_token.email | url_encode }}"
                       label="Change Password">
                     </ins-dropdown-item>
       

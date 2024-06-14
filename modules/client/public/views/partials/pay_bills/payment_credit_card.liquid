@@ -51,13 +51,22 @@
                 field="" 
                 id="stripe-card"
                 name="{{ form.fields.properties.stripe_credit_card.name }}" 
-                value="{{ form.fields.properties.stripe_credit_card.value }}">
+                {% if cards.results.size == 1 %}
+                    {% assign card = cards.results | first %}
+                    value="{{ card.properties.payment_method_token }}"
+                {% else %}
+                    value="{{ form.fields.properties.stripe_credit_card.value }}"  
+                {% endif %}
+                >
             </ins-input>
             <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">                    
                 {%- for card in cards.results -%}
                   
                     <div class="large-4 medium-6 small-12 cell card-options">
                         <ins-credit-card data-id="{{ card.id }}" 
+                            {% if forloop.length == 1 %}
+                                active
+                            {% endif %}
                             brand="{{ card.properties.card_brand }}"
                             last-four="{{ card.properties.card_last_four_digits }}"
                             expiry-month="{{ card.properties.card_expiry_month }}"
