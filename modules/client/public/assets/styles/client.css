@@ -58,7 +58,6 @@
     --shadow-level-4: 0px 24px 38px rgba(0, 0, 0, 0.05), 0px 11px 15px rgba(0, 0, 0, 0.1);
 }
 
-
 .heading-2,
 .heading-3 {
     line-height: 120%;
@@ -68,137 +67,58 @@
     line-height: 130%;
 }
 
+
 /*************************/
+
+
 /*  Insites Components   */
+
+
 /*************************/
+
 
 /* Insites Button */
+
 @media screen and (max-width: 639px) {
-
     ins-button button {
-        width:100%;
+        width: 100%;
     }
-
     .fixed-btn-width button {
-        width:initial;
+        width: initial;
     }
 }
 
-ins-button button.information-1.solid{
+ins-button button.information-1.solid {
     background: var(--error) !important;
 }
 
-ins-button button.information-1.solid:hover{
+ins-button button.information-1.solid:hover {
     background: var(--error-hover) !important;
 }
 
-ins-button+ins-button button{
-    margin-left:0px;
+ins-button+ins-button button {
+    margin-left: 0px;
 }
 
-/* Insites Accordion */
-.accordion-section-holder {
-    background: var(--color-ui-02);
-}
-
-.ins-accordion-item,
-.ins-accordion-link,
-.ins-accordion-item_content .ins-accordion-link,
-.ins-accordion-item_header>.inner-head{
-    /* background: var(--color-ui-02); */
-}
-
-.portal-sidebar .ins-accordion-link {
-    background: transparent;
-}
-
-.ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
-.ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
-.ins-accordion-link.active>.ins-accordion-link_link{
-    background: var(--color-main-hover-light);
-}
-
-.ins-accordion-item_content .ins-accordion-link {
-    border-bottom: unset
-}
-
-.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link,
-.ins-accordion-link:hover,
-.ins-accordion.menu .ins-accordion-item .inner-head:hover{
-    background: unset;
-}
-
-.ins-accordion.menu .ins-accordion-item .inner-head span,
-.ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
-    color: var(--font-color-sub);
-}
-
-.ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link:hover {
-    text-decoration: none
-}
-
-.ins-accordion.menu .ins-accordion-item .inner-head,
-.ins-accordion-link,
-.ins-accordion.menu ins-accordion-item:first-of-type .ins-accordion-item_header,
-.ins-accordion-item_content .inner-content {
-    border: 0;
-}
-
-.ins-accordion-link_link,
-.ins-accordion.menu .ins-accordion-item .inner-head span,
-.ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {    
-    font-weight: 400;
-    font-size: 16px;
-    font-family: var(--font-family-02);
-    color: var(--font-color-sub);
-}
-
-.ins-accordion-link.active>.ins-accordion-link_link,
-.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link span {
-    font-weight: 700;
-    color: var(--color-main);
-}
-
-.ins-accordion-link_link:hover,
-.ins-accordion.menu .ins-accordion-item .inner-head span:hover {
-    color: var(--color-main);
-    text-decoration: initial;    
-}
-
-.client-portal .ins-accordion-link_link,
-.client-portal .ins-accordion.menu .ins-accordion-item .inner-head {
-    padding: 12px 16px;
-}
-
-.ins-accordion-item_header>.inner-head{
-    line-height: 24px;
-}
-
-.ins-accordion.menu .ins-accordion-item .ins-accordion-item_header_caret-wrap span{
-    font-size: 18px;
-}
-
-.client-portal .ins-accordion-item_content.will-show {
-    margin-left: 24px
-}
 
 /* Insites Card */
-ins-card .ins-card-wrap{
+
+ins-card .ins-card-wrap {
     border-radius: 4px;
     background: var(--color-ui-01);
     height: 100%;
     display: block;
 }
 
-.ins-card-wrap:hover{
+.ins-card-wrap:hover {
     margin-bottom: 0px
 }
 
-.ins-credit-card-main-wrap{
+.ins-credit-card-main-wrap {
     padding: 0px;
 }
 
-.ins-credit-card-wrap{
+.ins-credit-card-wrap {
     position: relative;
     margin-bottom: 0px;
 }
@@ -213,7 +133,7 @@ ins-card .content {
 }
 
 #no-card .ins-card-wrap,
-#payment-details .empty-box{
+#payment-details .empty-box {
     margin: 12px 0px;
 }
 
@@ -221,20 +141,20 @@ ins-card .content {
     border: 1px solid var(--color-ui-04) !important;
 }
 
-
-
 [class^="icon-"],
 [class*=" icon-"] {
     font-size: 12px;
 }
 
 ins-button .carets {
-    font-size:14px; 
+    font-size: 14px;
     line-height: 18px;
 }
 
+
 /* Insites Modal */
-ins-modal.no-close-icon .ins-modal-head .icon-close-1{
+
+ins-modal.no-close-icon .ins-modal-head .icon-close-1 {
     display: none;
 }
 
@@ -243,12 +163,16 @@ ins-modal.no-close-icon .ins-modal-head .icon-close-1{
     padding: 0px 32px 32px;
 }
 
+
 /* Insites Loader */
+
 .ins-loader-wrap--message {
     margin-top: 24px;
 }
 
+
 /* Insites Form */
+
 .insites-form-grid .form-groups-tab {
     margin: initial !important;
 }
@@ -258,18 +182,18 @@ ins-modal.no-close-icon .ins-modal-head .icon-close-1{
     margin-bottom: initial !important;
 }
 
-.form-error, 
-.ins-form-field-wrap.is-invalid .ins-form-error, 
-.form-field-wrapper.error-recaptcha .ins-form-error, 
-.list-field-wrap.is-invalid .list-field_error{
+.form-error,
+.ins-form-field-wrap.is-invalid .ins-form-error,
+.form-field-wrapper.error-recaptcha .ins-form-error,
+.list-field-wrap.is-invalid .list-field_error {
     font-family: var(--font-family-02);
     font-size: var(--font-x-small);
     color: var(--error);
     line-height: 18px;
 }
 
-.insites-form .list-checkbox_error, 
-.insites-form .list-field_error{
+.insites-form .list-checkbox_error,
+.insites-form .list-field_error {
     margin-bottom: 0px !important;
 }
 
@@ -289,12 +213,11 @@ ins-checkbox .ins-radio-checkbox {
     margin-bottom: 8px;
 }
 
-.ins-form-field-wrap .ins-form-label{
+.ins-form-field-wrap .ins-form-label {
     min-height: unset;
 }
 
-
-.ins-form-field-wrap .ins-form-label span{
+.ins-form-field-wrap .ins-form-label span {
     display: inline-block;
 }
 
@@ -303,8 +226,8 @@ ins-checkbox .ins-radio-checkbox {
     margin-bottom: 12px !important;
 }
 
-ins-checkbox .ins-radio-checkbox .ripple-check:checked, 
-ins-radio .ins-radio-checkbox .ripple-check:checked{
+ins-checkbox .ins-radio-checkbox .ripple-check:checked,
+ins-radio .ins-radio-checkbox .ripple-check:checked {
     background: var(--color-main);
 }
 
@@ -324,8 +247,10 @@ ins-radio .ins-radio-checkbox label {
     margin-right: 40px;
 }
 
+
 /* Insites Step */
-ins-step{
+
+ins-step {
     align-self: stretch;
 }
 
@@ -338,10 +263,10 @@ ins-step{
     font-family: var(--font-family-02);
     color: var(--font-color-body);
     font-size: 14px;
-    line-height: 21px;    
+    line-height: 21px;
 }
 
-.ins-step_description{
+.ins-step_description {
     margin-top: 16px;
 }
 
@@ -359,8 +284,10 @@ ins-step{
     border-color: var(--color-ui-06);
 }
 
+
 /* Pagination */
-.paginations .form-label{
+
+.paginations .form-label {
     font-size: var(--font-x-small);
 }
 
@@ -369,7 +296,7 @@ ins-step{
     margin-left: 8px;
 }
 
-.paginations .ins-select-wrap .ins-select-value-wrap{
+.paginations .ins-select-wrap .ins-select-value-wrap {
     min-height: 24px;
     height: 24px;
 }
@@ -440,28 +367,36 @@ ins-step{
     padding: 0px;
 }
 
+
 /* Swal */
+
 .swal2-actions {
     margin: 24px auto 0px !important;
 }
 
-.swal2-popup .swal2-actions button{
+.swal2-popup .swal2-actions button {
     height: 38px;
     font-family: var(--font-family-01) !important;
     margin: 0px 8px;
 }
 
-.notyf__toast{
+.notyf__toast {
     background: var(--color-ui-08);
 }
 
-.ins-loader-wrap--state{
+.ins-loader-wrap--state {
     margin: 0 auto 24px;
 }
 
+
 /*************************/
+
+
 /*     Client Portal     */
+
+
 /*************************/
+
 a:visited,
 .body-link:visited {
     color: var(--color-main);
@@ -473,20 +408,15 @@ ul {
     font-size: 16px;
 }
 
-ul{
+ul {
     list-style-type: none;
 }
 
-.client-portal{
-    background: linear-gradient(
-    to right,
-    var(--color-ui-02) 0%,
-    var(--color-ui-02) 50%,
-    var(--color-ui-01) 50%,
-    var(--color-ui-01) 100%
-  );
+.client-portal {
+    background: linear-gradient( to right, var(--color-ui-02) 0%, var(--color-ui-02) 50%, var(--color-ui-01) 50%, var(--color-ui-01) 100%);
 }
-.wrapper .main-content{
+
+.wrapper .main-content {
     padding: 0px 24px !important;
 }
 
@@ -494,13 +424,15 @@ ul{
     min-height: initial;
 }
 
+
 /* Home Slider */
-#homepage-banner .slide-container{    
+
+#homepage-banner .slide-container {
     min-height: 460px;
     height: 460px;
 }
 
-#homepage-banner .img-wrap img{
+#homepage-banner .img-wrap img {
     min-height: 460px;
 }
 
@@ -512,7 +444,9 @@ ul{
     }
 }
 
+
 /* Questionnaire Form */
+
 .warning svg {
     width: 70px;
 }
@@ -546,11 +480,13 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
 
 @media screen and (max-width: 960px) {
     .column-2 {
-    width: calc(100% - 24px) !important;
+        width: calc(100% - 24px) !important;
     }
 }
 
+
 /* Questionnaire */
+
 .client-card ins-card .text-wrap {
     border-bottom: 1px solid var(--color-ui-04);
 }
@@ -570,15 +506,14 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
     margin-right: 4px;
 }
 
-.search-item .ins-form-field-wrap{
+.search-item .ins-form-field-wrap {
     margin-bottom: 12px;
 }
 
 .add-btn button,
-.search-item .ins-form-field-wrap .ins-form-field{
+.search-item .ins-form-field-wrap .ins-form-field {
     height: 40px;
 }
-
 
 .box {
     border: 1px solid var(--color-ui-04);
@@ -587,7 +522,7 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
     box-shadow: 1px 1px 2px #E4E6EC;
 }
 
-.box.no-item{
+.box.no-item {
     padding: 0px 24px;
 }
 
@@ -626,21 +561,22 @@ ins-tag.Completed span.ins-tag {
 
 
 /* Documents */
+
 .documents .ins-modal-wrap.show-modal,
-.documents .ins-modal-wrap.show-modal ins-card{
+.documents .ins-modal-wrap.show-modal ins-card {
     /* position: absolute;
     width: 100%; */
     top: 50px;
     z-index: 999999;
-
 }
 
-.documents .ins-backdrop-wrap{
+.documents .ins-backdrop-wrap {
     background: rgb(10 10 10 / 88%);
 }
 
 
 /* Registration Form */
+
 .agreement-text {
     max-height: 349px;
     overflow-y: scroll;
@@ -648,7 +584,9 @@ ins-tag.Completed span.ins-tag {
     border: 1px solid var(--color-ui-04);
 }
 
+
 /* Modified Scrollbar */
+
 .scrollbar::-webkit-scrollbar {
     width: 10px;
     background-color: #F2F4F8;
@@ -669,16 +607,21 @@ ins-tag.Completed span.ins-tag {
 .step-scrollbar {
     overflow-x: auto;
 }
+
 .step-scrollbar::-webkit-scrollbar-thumb {
     background-color: var(--color-ui-04);
 }
 
+
 /* Feedback Form */
+
 .feedback .insites-form.insites-form-code .insites-form-buttons ins-button button {
     margin-right: initial;
 }
 
+
 /* Pay Bill */
+
 .payment-summary {
     padding: 24px;
     background: var(--color-ui-02);
@@ -695,7 +638,9 @@ ins-tag.Completed span.ins-tag {
     text-align: right;
 }
 
+
 /* Stripe Element */
+
 @media screen and (max-width: 639px) {
     #stripe-modal .ins-modal-wrap.show-modal ins-card {
         height: 315px !important;
@@ -704,16 +649,16 @@ ins-tag.Completed span.ins-tag {
     }
 }
 
-.stripe-modal .ins-modal-wrap.show-modal .ins-modal-head{
+.stripe-modal .ins-modal-wrap.show-modal .ins-modal-head {
     padding: 16px 56px 16px 24px;
 }
 
 .stripe-modal .ins-modal-wrap.show-modal .ins-modal-body {
     position: absolute;
-    padding:24px;    
+    padding: 24px;
 }
 
-.stripe-modal .error-message{
+.stripe-modal .error-message {
     margin-top: initial;
 }
 
@@ -755,33 +700,36 @@ ins-tag.Completed span.ins-tag {
     background-color: var(--color-ui-02) !important;
 }
 
+
 /* Common */
+
 .m-0,
-.m-0 button{
+.m-0 button {
     margin: 0px !important
 }
 
 .ml-16,
-.ml-16 button{
+.ml-16 button {
     margin-left: 16px !important
 }
 
 .mr-0,
-.mr-0 button{
+.mr-0 button {
     margin-right: 0px !important;
 }
 
-.mt-0{
+.mt-0 {
     margin-top: 0px !important;
 }
 
-.mt-12{
+.mt-12 {
     margin-top: 12px;
 }
 
-.pl-16{
+.pl-16 {
     padding-left: 16px;
 }
+
 
 /* Custom Css */
 
@@ -789,7 +737,7 @@ ins-tag.Completed span.ins-tag {
     background: 0 0 !important;
 }
 
-.portal-sidebar .ins-accordion  .inner-head{
+.portal-sidebar .ins-accordion .inner-head {
     background: 0 0 !important;
 }
 

@@ -13,7 +13,6 @@ metadata: {
     {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
     {%- cache head_key -%}
     {% include 'modules/website/layout/head' %}
-    <link rel="stylesheet" href="{{ 'modules/client/styles/client.min.css' | asset_url }}" >
     {%- endcache -%}
 </head>
 <body>

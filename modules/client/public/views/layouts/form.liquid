@@ -12,7 +12,6 @@ metadata: {
     {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
     {% include 'modules/website/layout/head' %}
     {%- cache head_key -%}
-    <link rel="stylesheet" href="{{ 'modules/client/styles/client.min.css' | asset_url }}" >
     <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
     <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
     {%- include 'modules/client/insites_database/insites_database_form_scripts' -%}
