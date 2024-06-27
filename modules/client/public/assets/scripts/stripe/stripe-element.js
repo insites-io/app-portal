@@ -128,6 +128,7 @@ let StripeElement = (() => {
                 selectedEl.active = true;
                 if (stripeCard)
                     stripeCard.value = selectedEl.value;
+                    stripeCard.setAttribute('value',selectedEl.value )
             },
             async removeCard(selectedEl) {
                 let confirm = await App.events.swal('warning',

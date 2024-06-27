@@ -75,6 +75,9 @@ authorization_policies:
             {%- for card in cards.results -%}
                 <div class="large-4 medium-6 small-12 cell card-options">
                     <ins-credit-card data-id="{{ card.id }}" 
+                        {% if forloop.length == 1 %}
+                            active
+                        {% endif %}
                         brand="{{ card.properties.card_brand }}"
                         last-four="{{ card.properties.card_last_four_digits }}"
                         expiry-month="{{ card.properties.card_expiry_month }}"
