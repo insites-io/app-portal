@@ -53,6 +53,9 @@
     .fixed-btn-width button {
         width: initial;
     }
+    .newsDetailHolder {
+        padding: 0px 24px;
+    }
 }
 
 
@@ -197,6 +200,9 @@ screen and (min-width: 640px) {
     }
     h1.testiMessage {
         font-size: 24px!important;
+    }
+    .newsDetailHolder {
+        padding: 0px 60px;
     }
 }
 

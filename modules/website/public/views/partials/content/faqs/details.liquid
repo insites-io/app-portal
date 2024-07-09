@@ -1,11 +1,6 @@
 ---
 metadata: {
-    "database_name": "modules/website/faqs",
-    "layout": "details",
-    "slug": "{{ context.exports.data.item.slug }}",
-    "page_title": "{{ context.exports.data.item.question }}",
-    "label": 'Faq | Details',
-    "page_slug": "faqs"
+    partial_name: "FAQs | Details"
 }
 ---
 
@@ -30,7 +25,6 @@ metadata: {
     </div>
 </section>
 
-
 <div class="wrapper sideNavBg">
     <div class="grid-container">
             <div class="grid-container">
@@ -38,7 +32,8 @@ metadata: {
                     <div class="grid-container">
                         <div class="grid-x grid-padding-x gutter-medium">
                             
-                        {%- include 'modules/website/content/faqs/faqs-sidenav' -%}
+                        {%- include 'modules/website/content/faqs/faqs_sidenav' -%}
+
                         <div class="large-9 medium-9 small-12 cell">
                             <div class="spacer xxxx-large"></div>  
                             <div class="grid-container">
@@ -47,7 +42,7 @@ metadata: {
                                         <p class="subHeading">{{ context.exports.data.item.answer }}</p>
                                         <div class="spacer"></div>
                                             <!-- MAIN VIEW -->
-                                            <div class="blocks-sc-2col-07 wrapper bg-color-ui-01">
+                                            <div id="faqs_accordion" class="blocks-sc-2col-07 wrapper bg-color-ui-01">
                                                 <div class="grid-container">
                                                     <div class="large-12 medium-12 small-12">
                                                         <div class="staticFonts">

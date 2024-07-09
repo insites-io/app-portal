@@ -38,6 +38,12 @@ dynamic_cache:
 authorization_policies:
   - modules/client/is_user_logged_in    
 ---
+{%- comment -%} Pagination and Filters {%- endcomment -%}
+{%  liquid            
+    assign page_num = context.params.page | default: 1 | plus: 0
+    assign per_page = context.params.per_page | default: 6 | plus: 0
+%}
+
 
 {%- if context.environment == "staging" -%}
 <!-- start page: overview  -->
@@ -58,6 +64,12 @@ authorization_policies:
       </div>
     {%- endfor -%}
 
+    <ins-table no-wrap
+    static-table
+    id="insBaseTable"
+    without-search>    
+    </ins-table>
+
     </div>
   </div>
   
@@ -76,3 +88,47 @@ authorization_policies:
 {%- if context.environment == "staging" -%}
 <!-- end page: overview  -->
 {%- endif -%}
+
+<script>
+      // Pagination
+
+      var insBaseTable = document.getElementById('insBaseTable');
+
+      insBaseTable.pageSizeOptions = [6,15,30];
+      insBaseTable.totalCount = {{ data.size }};
+      insBaseTable.pageNumber = {{page_num}};
+      insBaseTable.pageSize = {{per_page}};
+
+      if(insBaseTable){
+          setTimeout(() => {
+              insBaseTable.querySelector(".ibt-table-wrap__pagination>span").innerHTML='Items per page';
+          },600);            
+      }
+
+      insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
+
+      function processTableData(){
+
+          // Get the current URL
+          const currentUrl = window.location.href;
+
+          // Remove any existing `page` and `per_page` query parameters
+          const newUrl = currentUrl.replace(/[?&]page=\d+/, '').replace(/[?&]per_page=\d+/, '');
+
+          // Set the new `page` and `per_page` values
+          const newPage = pageNumber;
+          const newPerPage = pageSize;
+
+          // Append the new `page` and `per_page` query parameters to the URL
+          const updatedUrl = `${newUrl}?page=${newPage}&per_page=${newPerPage}`;
+
+          // Navigate to the updated URL
+          window.location.href = updatedUrl;
+      }
+
+      function tablePaginationHandler(event){
+          pageSize = event.detail.pageSize;
+          pageNumber = event.detail.pageNumber;
+          processTableData()
+      }
+</script>

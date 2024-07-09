@@ -87,7 +87,7 @@
         <ins-input 
             {{disabled}}
             validate
-            id=""
+            id="personal-email-field"
             data-type="string"
             data-ui="text"
             field="email"
@@ -97,6 +97,7 @@
             error-message="{{ form.errors['properties.personal_email'] | default: 'Required' }}"            
             {% if form.errors['properties.personal_email'] != nil -%} has-error {%- endif -%} >
         </ins-input>
+        <span id="emailInvalid" class="member-error-txt-red body-x-small is_not_visible">Please provide valid email address.</span>
     </div>
 
     <!-- Field: Primary Phone -->
@@ -205,3 +206,48 @@
     </div>
 
 </div> 
+
+
+<script>
+    // EMAIL VALIDATION
+    var is_email_valid = false;
+ 
+    var personal_email = document.getElementById("personal-email-field");
+    var invalidEmail = document.getElementById("emailInvalid");
+    
+    personal_email.addEventListener('insInput', (event) => {   
+        is_email_valid = isValidEmail(event.detail.value);
+
+        if (is_email_valid == false) {
+            invalidEmail.classList.remove('is_not_visible');
+            invalidEmail.classList.add('is_visible');
+            personal_email.classList.add('has-error');
+            saveExitBtn.setAttribute('disabled',true);
+            saveNextBtn.forEach(btn => btn.setAttribute('disabled', true));
+        }else{
+            invalidEmail.classList.remove('is_visible');
+            invalidEmail.classList.add('is_not_visible');
+            personal_email.classList.remove('has-error');
+            saveExitBtn.setAttribute('disabled',false);
+            saveNextBtn.forEach(btn => btn.setAttribute('disabled', false));
+        }
+    });
+
+    function isValidEmail(email) {
+        // Regular expression for validating an Email
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Document Input
+    var document_input = document.getElementById("document-input");
+
+    // Event for when a file has been 'added'
+    document_input.addEventListener("insFileError", (file) => {
+        if(file.detail.accepted == false){
+            App.events.notyf('error', "File too big. Maximum of 10MB.");
+         }
+    });
+  
+
+</script>
