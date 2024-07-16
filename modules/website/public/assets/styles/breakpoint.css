@@ -212,6 +212,36 @@ screen and (min-width: 640px) {
     }
 }
 
+@media screen and (max-width: 950px) {
+    .user-actions-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        flex-direction: column-reverse;
+    }
+    .userSearch {
+        width: 100%;
+    }
+    .hide-spacer {
+        display: none!important;
+    }
+    .hide-for-small-medium {
+        display: none!important;
+    }
+    .show-for-small-medium {
+        display: block!important;
+    }
+    .users-table-data ins-table-td {
+        padding: 24px!important;
+    }
+    .users-table .ins-select-label-wrap {
+        display: none!important;
+    }
+    .users-table .ins-input-select {
+        margin: 0px
+    }
+}
+
 
 /********** DESKTOP LARGE - MIN 1024PX ***************/
 

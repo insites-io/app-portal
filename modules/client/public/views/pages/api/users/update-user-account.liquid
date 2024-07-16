@@ -1,0 +1,152 @@
+---
+slug: api/update-user-account
+method: post
+searchable: false
+layout: application
+max_deep_level: 3
+authorization_policies:
+metadata: {
+    page_name: "API - Update user Account",
+}
+--- 
+{% assign details = context.params %}
+
+{% comment %} ? Catch email with + {% endcomment %}
+{%- assign email = details.email | replace: " ", "+" -%}
+
+{% if details.actions == "user_account_toggle" %}
+    {% comment %} ? ACTION == user TOGGLE {% endcomment %}
+    {% assign custom_field_id = details.custom_field_id %}
+    {% if details.user_account == "false" %}
+        {% assign user_account = false %}
+    {% else %}
+        {% assign user_account = true %} 
+    {% endif %}
+
+    {% graphql update_user_account = 'modules/client/users/update_user_account', id: custom_field_id, user_account: user_account %}
+
+    {% comment %} ? SET TOKEN PASSWORD FOR INVITED{% endcomment %}
+    {%  liquid
+        graphql generated_token = 'modules/client/account/generate_user_temporary_token', email: email | dig: 'items', 'results' | first
+        if generated_token
+            log "if generated_token" 
+            log details.company_uuid, type: 'company uuid' 
+            graphql set_profile = 'modules/client/users/set_profile_to_invited_users', id: generated_token.id, token: generated_token.temporary_token, company_uuid: details.company_uuid
+            graphql set_password_token = 'modules/client/users/set_password_token_to_invited_users', id: generated_token.id, token: generated_token.temporary_token
+        endif
+    %}
+
+    {% log generated_token, type: "setprofile - generated_token" %}
+    {% log set_profile, type: "setprofile - toggle" %}
+
+    {%- graphql user_with_token = 'modules/client/account/get_user_with_password_token', email: email | dig: 'users','results' | first -%}
+    {%- assign user_data_default = user_with_token.default | first -%}
+
+   
+    {% comment %} ? user INVITE - TOGGLE ON {% endcomment %}
+    {% comment %} ? EMAIL NOTIF {% endcomment %}
+    {% if user_account == true %}
+        {%- assign user_invitation = "modules/client/user_invitation" -%}
+        {% parse_json data %}
+        {
+            "email": "{{ email }}",
+            "name": "{{ details.name }}",
+            "company": "{{ details.company }}",
+            "password_token": "{{ user_data_default.password_token }}"
+        }
+        {% endparse_json %}
+        {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
+    {% endif %}
+{% else %}
+    {% comment %} ? ACTION == ADD user {% endcomment %}
+    {% if details.is_email_found == "false" %}
+        {% assign is_email_found = false %}
+    {% else %}
+        {% assign is_email_found = true %} 
+    {% endif %}
+
+    {% log is_email_found, type: "is_email_found--" %}
+
+    {% if is_email_found == true %}
+        {% comment %} ? UPDATE CRM {% endcomment %}
+        
+        {% parse_json update_crm_data %}
+        {
+            "id": "{{ details.user_id }}",
+            "first_name": "{{ details.userFirstName }}",
+            "last_name": "{{ details.userLastName }}",
+            "email": "{{ email }}",
+            "company_uuid": "{{ details.company_uuid }}",
+            "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
+            "mobile_phone_number": "{{ details.mobile_phone_number }}",
+            "job_title": "{{ details.userPosition }}"
+        }
+        {% endparse_json %}
+
+        {% log update_crm_data, type: "update_crm_data--" %}
+
+        {% comment %} ? UPDATE CRM FIRST {% endcomment %}
+        {%  graphql add_crm_contact = 'modules/website/trigger_api_call', name: "modules/client/update_crm_via_invite_user",
+        data: update_crm_data
+        | dig: 'items','response','body'
+        | parse_json  
+        %}
+
+        {% log add_crm_contact, type: "add_crm_contact--" %}
+
+    {% else %}
+        {% comment %} ? SAVE NEW CRM {% endcomment %}
+        {% parse_json add_crm_data %}
+        {
+            "first_name": "{{ details.userFirstName }}",
+            "last_name": "{{ details.userLastName }}",
+            "email": "{{ email }}",
+            "company_uuid": "{{ details.company_uuid }}",
+            "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
+            "mobile_phone_number": "{{ details.mobile_phone_number }}",
+            "job_title": "{{ details.userPosition }}"
+        }
+        {% endparse_json %}
+
+        {% log add_crm_data, type: "add_crm_data--" %}
+    
+        {% comment %} ? ADD CRM FIRST {% endcomment %}
+        {%  graphql add_crm_contact = 'modules/website/trigger_api_call', name: "modules/client/add_crm_via_invite_user",
+        data: add_crm_data
+        | dig: 'items','response','body'
+        | parse_json  
+        %}
+
+        {% log add_crm_contact, type: "add_crm_contact--" %}
+    
+    {% endif %}   
+    {% comment %} ? CLOSING ENDIF FOR INVITE user - EMAIL EXISTS OR NOT {% endcomment %}
+
+    {% comment %} ? SET TOKEN PASSWORD FOR INVITED user {% endcomment %}
+    {%  liquid
+        graphql generated_token = 'modules/client/account/generate_user_temporary_token', email: email | dig: 'items', 'results' | first
+        if generated_token
+            graphql set_profile = 'modules/client/users/set_profile_to_invited_users', id: generated_token.id, token: generated_token.temporary_token, company_uuid: details.company_uuid
+            graphql set_password_token = 'modules/client/users/set_password_token_to_invited_users', id: generated_token.id, token: generated_token.temporary_token
+        endif
+    %}
+    {%- graphql user_with_token = 'modules/client/account/get_user_with_password_token', email: email | dig: 'users','results' | first -%}
+    {%- assign user_data_default = user_with_token.default | first -%}
+
+    {% log set_profile, type: 'set_profile'  %}
+
+    {% comment %} ? EMAIL NOTIF {% endcomment %}
+    {%- assign user_invitation = "modules/client/user_invitation" -%}
+    {% parse_json data %}
+    {
+        "email": "{{ email }}",
+        "name": "{{ details.userFirstName }} {{ details.userLastName }}",
+        "company": "{{ details.company }}",
+        "password_token": "{{ user_data_default.password_token }}"
+    }
+    {% endparse_json %}
+    {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
+
+        
+{% endif %}
+{% comment %} ? CLOSING ENDIF FOR TOGGLE OR INVITE {% endcomment %}

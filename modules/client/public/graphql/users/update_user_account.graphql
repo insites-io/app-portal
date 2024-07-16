@@ -1,0 +1,14 @@
+mutation update_member_account(
+  	$id: ID!,
+    $member_account: Boolean
+) {
+  items: record_update(
+    id: $id
+    record: {table: "modules/ins_core/crm_contact_custom_field", 
+      properties: [
+        { name: "member_account", value_boolean: $member_account}
+        ]}
+  ) {
+    id
+  }
+}

@@ -2126,3 +2126,149 @@ ins-tag.Completed span.ins-tag {
 #personal-email-field.has-error .ins-form-field-wrap .ins-form-field::placeholder {
     color: #DF1F1F!important;
 }
+
+
+/* USERS */
+
+.user-actions-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.userSearch {
+    width: 40%;
+}
+
+.primary-account-holder {
+    color: var(--support-notifications-success, #048801);
+    text-align: center;
+    /* Paragraph/body-x-small-bold */
+    font-family: var(--font-family-02);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 18px;
+    /* 150% */
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: var(----iia-alert-positive-light, rgba(4, 136, 1, 0.08));
+}
+
+.users-table-header ins-table-th {
+    padding: 24px!important;
+}
+
+.users-table-data {
+    background-color: #fff;
+}
+
+.users-table-data ins-table-td {
+    padding: 0px 24px!important;
+}
+
+.hide-for-small-medium {
+    display: table-cell;
+}
+
+.show-for-small-medium {
+    display: none;
+}
+
+.ibt-table-wrap ins-table-row:nth-child(2) {
+    background: #F8F8F8!important;
+}
+
+.users-table ins-table-row:nth-child(even) {
+    background-color: #F7F7F7;
+}
+
+.p-body {
+    color: var(--font---font-color-head, var(----ins-text-1, #000));
+    /* Paragraph/body */
+    font-family: var(--font-family-02);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.p-body-small-bold {
+    color: var(--font---font-color-head, var(----ins-text-1, #000));
+    font-family: var(--font-family-02);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.users-table .ins-select-option-wrap,
+.users-table .ins-input-select.ins-select-wrap .ins-select-value-wrap .ins-select-value-input {
+    color: var(--font---font-color-body, #575757);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: var(--font-family-02);
+    font-size: 14px!important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.users-table .ibt-table-wrap .pagination-wrap {
+    padding: 24px
+}
+
+#add-user-modal .ins-modal-wrap.show-modal ins-card .ins-card-wrap {
+    height: initial!important;
+}
+
+.addUserModal ins-card {
+    width: 600px!important;
+}
+
+.addUserModalButton {
+    display: flex;
+    gap: 16px;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.userDetails .ins-form-field-wrap,
+.userDetails .ins-select-wrap {
+    margin-bottom: 8px!important;
+}
+
+.userDetails.has-error .ins-form-field-wrap label,
+.userDetails.has-error .ins-select-wrap label {
+    color: #DF1F1F!important;
+}
+
+#user-first-name.has-error .ins-form-field-wrap label,
+#user-last-name.has-error .ins-form-field-wrap label,
+#user-email.has-error .ins-form-field-wrap label,
+#user-job-title.has-error .ins-form-field-wrap label,
+#user-department.has-error .ins-select-wrap label {
+    color: #DF1F1F!important;
+}
+
+#user-first-name.has-error .ins-form-field-wrap .ins-form-field,
+#user-last-name.has-error .ins-form-field-wrap .ins-form-field,
+#user-email.has-error .ins-form-field-wrap .ins-form-field,
+#user-job-title.has-error .ins-form-field-wrap .ins-form-field,
+#user-department.has-error .ins-select-wrap .ins-select-value-input,
+#user-department.has-error .ins-select-wrap .ins-select-value-wrap {
+    background-color: rgba(223, 31, 31, 0.10)!important;
+    border-color: #DF1F1F!important;
+    color: #DF1F1F!important;
+}
+
+#user-first-name.has-error .ins-form-field-wrap .ins-form-field::placeholder,
+#user-last-name.has-error .ins-form-field-wrap .ins-form-field::placeholder,
+#user-email.has-error .ins-form-field-wrap .ins-form-field::placeholder,
+#user-job-title.has-error .ins-form-field-wrap .ins-form-field::placeholder,
+#user-department.has-error .ins-select-wrap .ins-select-value-input::placeholder {
+    color: #DF1F1F!important;
+}
+
+.user-error-txt-red {
+    color: #DF1F1F!important;
+}
