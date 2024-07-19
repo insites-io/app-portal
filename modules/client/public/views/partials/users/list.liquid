@@ -247,7 +247,7 @@
                 
                 <ins-table-td class="hide-for-small-medium">
                     {% if item.custom_fields.primary_account_holder == true %}
-                        <ins-input-select value="Account Owner" disabled="true">
+                        <ins-input-select class="selectPermission" value="Account Owner" disabled="true">
                             <ins-input-select-option 
                             label="Account Owner" 
                             value="Account Owner" 
@@ -255,21 +255,31 @@
                             </ins-input-select-option>
                         </ins-input-select>
                     {% else %}
-                        <ins-input-select value="{{ item.custom_fields.permission_level }}">
-                            <ins-input-select-option class="form-placeholder"
+                        <ins-input-select 
+                            class="selectPermission" 
+                            value="{{ item.custom_fields.permission_level }}"
+                            data-id="{{ item.id }}"
+                            data-contact-uuid="{{ item.custom_fields.contact_uuid }}"
+                            data-name="{{ item.first_name }} {{ item.last_name }}"
+                            data-email="{{ item.email }}"
+                            data-custom-field-id="{{ item.custom_fields.id }}">
+
+                            <ins-input-select-option
                             label="Manager" 
-                            value="Manager">
-                            <span></span>
+                            value="Manager"
+                            id="option-manager">
                             </ins-input-select-option>
                         
                             <ins-input-select-option 
                             label="Staff" 
-                            value="Staff">
+                            value="Staff"
+                            id="option-staff">
                             </ins-input-select-option>
                         
                             <ins-input-select-option 
                             label="No Access" 
-                            value="No Access">
+                            value="No Access"
+                            id="option-no-access">
                             </ins-input-select-option>       
                         </ins-input-select>
                     {% endif %}
@@ -288,6 +298,7 @@
     let per_page = document.getElementById('per_page');
     let company_name = document.getElementById('company-name');
     let company_uuid = document.getElementById('company-uuid');
+    let current_permission_level = document.getElementById('current-permission-level');
 
     // table
     let insBaseTable = document.getElementById('insBaseTable');
@@ -357,11 +368,16 @@
         }
     }
 
-    // Member account toggle
-    // let field = document.getElementById('eventFieldEl');
-    var field = document.querySelectorAll('.toggleMemberAccess')
+    // Permission Level
+    
+    // options
+    var option_manager = document.querySelectorAll("#option-manager .ins-select-option-wrap")
+    var option_staff = document.querySelectorAll("#option-staff .ins-select-option-wrap")
+    var option_no_access = document.querySelectorAll("#option-no-access .ins-select-option-wrap")
+
+    var field = document.querySelectorAll('.selectPermission')
     field.forEach(e => {
-        e.addEventListener('insToggle', async (event) => {
+        e.addEventListener('insChange', async (event) => {
             // Contact ID
             let contactId = e.getAttribute('data-id');
             
@@ -377,24 +393,24 @@
             // Contact Custom Field ID
             let contactCustomFieldId = e.getAttribute('data-custom-field-id');
 
-            // Switch Value
-            let switchValue = event.detail.value
+            // Permission Level Selected Value 
+            let permissionLevelSelectedValue = event.detail
 
-            if(switchValue == "true"){
+            if(permissionLevelSelectedValue == "No Access"){
                 // REVOKE
                 let confirm = await Swal.fire({
                     icon: 'warning',
-                    title: `Revoke Member Access?`,
-                    html: `Are you sure you want to revoke <b>${contactName}'s</b> access to your Member account?`,
+                    title: `Revoke Access?`,
+                    html: `Are you sure you want to revoke <b>${contactName}'s</b> access to your company account?`,
                     confirmButtonText: `<i class="icon-trash"></i> Remove access`,
                     showCancelButton: true,
                     cancelButtonText: `<i class="icon-close-1"></i> Cancel`,
                     allowOutsideClick: false,
-                    customClass: "swal-member-account"
+                    customClass: "swal-user-account swal-remove-access"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // update
-                            url = '/update-member-account?' + 'custom_field_id=' + contactCustomFieldId + '&member_account=false' + '&actions=member_account_toggle';
+                            url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&actions=change_permission_level';
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {
@@ -403,24 +419,24 @@
                                 }
                             }, 500);
                         } else {
-                            e.setAttribute("checked", true);
+                            e.value = current_permission_level.value
                         }
                     });
             }else{
                 // GRANT
                 let confirm = await Swal.fire({
                     icon: 'warning',
-                    title: `Grant Member Access?`,
-                    html: `Are you sure you want to invite <b>${contactName}</b> to access your Member account?`,
-                    confirmButtonText: `<i class="icon-check-2"></i> Send invite`,
+                    title: `Grant ${permissionLevelSelectedValue} Access?`,
+                    html: `Are you sure you want to invite <b>${contactName}</b> to have ${permissionLevelSelectedValue} access to your company account?`,
+                    confirmButtonText: `<i class="icon-send"></i> Send invite`,
                     showCancelButton: true,
                     cancelButtonText: `<i class="icon-close-1"></i> Cancel`,
                     allowOutsideClick: false,
-                    customClass: "swal-member-account"
+                    customClass: "swal-user-account"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // update
-                            url = '/update-member-account?' + 'custom_field_id=' + contactCustomFieldId + '&member_account=true' + '&email=' + contactEmail + '&name=' + contactName + '&company=' + company_name.value + '&actions=member_account_toggle' + '&company_uuid=' + company_uuid.value;
+                            url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&email=' + contactEmail + '&name=' + contactName + '&company=' + company_name.value + '&actions=change_permission_level' + '&company_uuid=' + company_uuid.value;
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {
@@ -429,12 +445,12 @@
                                 }
                             }, 500);
                         } else {
-                            e.setAttribute("checked", false);
+                            // window.location.href = '/users';
                         }
                     });
-            }            
-        })
-    });
+                }            
+            })
+        });
 
     // User Invite Modal
     let userInviteButton = document.getElementById('user-invite-button')

@@ -55,7 +55,6 @@ query get_users(
             contact_uuid:property(name: "contact_uuid")
             account_status:property(name: "account_status")
             primary_account_holder:property_boolean(name: "primary_account_holder")
-            portal_account:property_boolean(name: "portal_account")
             permission_level:property(name: "permission_level")
         }
     }
