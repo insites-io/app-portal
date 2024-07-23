@@ -1,8 +1,14 @@
 ---
 metadata: {
-  partial_name: "Services | Details"
+    page_slug: "services",
+    slug: "{{ context.exports.data.item.slug }}",
+    page_title: "Services | {{ context.exports.data.item.service_name }}",
+    layout: "details"
 }
 ---
+{% if context.params.slug2 != context.exports.data.item.slug %}
+    {%- redirect_to '/404' -%}
+{% endif %}
 
 {% comment %} TITLE {% endcomment %}
 <section class="hero-title">

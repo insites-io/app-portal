@@ -1,10 +1,10 @@
 ---
 metadata: {
-    partial_name: "FAQs | List"
+  page_slug: "faqs",
+  page_title: "FAQs",
+  layout: "list"
 }
 ---
-
-
 {% comment %} connect services to graphql {% endcomment %}
 {%- graphql get_faq = 'modules/website/faqs/get_faqs' -%}
 {% comment %} assign var to fetch the result {% endcomment %}

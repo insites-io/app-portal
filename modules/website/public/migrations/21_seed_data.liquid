@@ -1,0 +1,374 @@
+{% comment %} ? MENU {% endcomment %}
+{% assign menu = '[
+    {"label": "About us", "order": "0", "slug": "about", "show_in_menu": true},
+    {"label": "Services", "order": "1", "slug": "services", "show_in_menu": true},
+    {"label": "FAQ", "order": "2", "slug": "faqs", "show_in_menu": true},
+    {"label": "News", "order": "3", "slug": "news", "show_in_menu": true},
+    {"label": "Contact", "order": "", "slug": "contact", "show_in_menu": true}
+]' | parse_json %}
+
+{% for item in menu %}
+    {%- graphql create_menu = "modules/website/menu/create_menu"
+        label: {{item.label}},
+        order: {{item.order}},
+        slug: {{item.slug}}
+    -%}
+{% endfor %}
+
+{%- graphql get_menu = 'modules/website/menu/get_parent_menu' | dig: 'items', 'results'-%}
+
+{% comment %} ? SUB MENU - SERVICES {% endcomment %}
+{% for sub_menu in get_menu %}
+    {% if sub_menu.label == 'Services' %}
+        {% parse_json sub_menu_services %}
+        [
+            {"label": "Customisable Style Guide", "order": "1", "slug": "customisable-style-guide"},
+            {"label": "Web Block Variations", "order": "2", "slug": "web-block-variations"},
+            {"label": "Web Components", "order": "3", "slug": "web-components"},
+            {"label": "Content Types", "order": "4", "slug": "content-types"},
+            {"label": "Fully Responsive", "order": "5", "slug": "fully-responsive"},
+            {"label": "Pre Build Pages", "order": "6", "slug": "pre-build-pages"}
+        ]
+        {% endparse_json %}
+    
+        {% for item in sub_menu_services %}
+            {%- graphql create_menu = "modules/website/menu/create_menu"
+                label: {{item.label}},
+                order: {{item.order}},
+                slug: {{item.slug}},
+                parent: {{sub_menu.id}}
+            -%}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+
+{% comment %} ? SERVICES {% endcomment %}
+{% parse_json services %}
+[
+    {
+        "service_name": "Customisable Style Guide", 
+        "slug": "customisable-style-guide",
+        "list_view_icon": "icon-clock",
+        "list_view_text": "We crafted the design system for you! It can be customised to fit your brand.",
+        "icon_1": "",
+        "sub_heading_1": "Benefits of style guide",
+        "content_block_1": "<p> We crafted the design system for you! It can be customised to fit your brand. </p>",
+        "icon_2": "icon-briefcase",
+        "sub_heading_2": "Benefits of Insites",
+        "content_block_2": "<ul><li>Publish more content, faster with unlimited users, groups and permissions</li><li>Supercharge your marketing with integrated contact forms and CRM</li><li>Generate revenue from your content with membership-only paid content</li><li>Publish content to anywhere with an integration to Zapier and over 2000 other apps</li><li>Capture user generated content with secure publishing areas for your users</li></ul>",
+        "icon_3": "icon-user",
+        "sub_heading_3": "Used By",
+        "content_block_3": "<p>Professionalize your projects (and impress your clients) with a beautiful, centralized client portal.</p><ul><li>Agencies</li><li>Schools</li><li>Law firms</li><li>Accountants</li></ul><p>The list of sectors that gain from having a dedicated client portal is not entire. Your industry isn't listed here. Not to worry! Client Portal can help you if you work with clients or consumers.</p>",
+        "icon_4": "",
+        "sub_heading_4": "Our Areas of Expertise",
+        "content_block_4": "<p>We have developed a number of successful cutting-edge solutions and gained a huge amount of experience and knowledge in developing custom ERP solutions in Logistics, Financial, Healthcare, Customer, and Business services. Moreover, we can implement social, cloud, and geo features in any future customer-centric ERP system.<br><br>Our field service management solution, developed for one of our US clients enjoys a lofty reputation among Fortune 500 equipment manufacturers.<br><br>We pay great attention to the analysis of your business processes, and offer in-house technical support and training during and after deployment.</p>",
+        "dropdown_1": "How do I track my order status?",
+        "dropdown_2": "How do I return defective or flawed items?",
+        "dropdown_3": "Can I exchange my order?"
+    },
+    {
+        "service_name": "Web Block Variations", 
+        "slug": "web-block-variations",
+        "list_view_icon": "icon-file",
+        "list_view_text": "Every web block supports all major content types, including pages, galleries, blogs, commerce, and more.",
+        "icon_1": "",
+        "sub_heading_1": "Benefits of style guide",
+        "content_block_1": "<p> We crafted the design system for you! It can be customised to fit your brand. </p>",
+        "icon_2": "icon-briefcase",
+        "sub_heading_2": "Benefits of Insites",
+        "content_block_2": "<ul><li>Publish more content, faster with unlimited users, groups and permissions</li><li>Supercharge your marketing with integrated contact forms and CRM</li><li>Generate revenue from your content with membership-only paid content</li><li>Publish content to anywhere with an integration to Zapier and over 2000 other apps</li><li>Capture user generated content with secure publishing areas for your users</li></ul>",
+        "icon_3": "icon-user",
+        "sub_heading_3": "Used By",
+        "content_block_3": "<p>Professionalize your projects (and impress your clients) with a beautiful, centralized client portal.</p><ul><li>Agencies</li><li>Schools</li><li>Law firms</li><li>Accountants</li></ul><p>The list of sectors that gain from having a dedicated client portal is not entire. Your industry isn't listed here. Not to worry! Client Portal can help you if you work with clients or consumers.</p>",
+        "icon_4": "",
+        "sub_heading_4": "Our Areas of Expertise",
+        "content_block_4": "<p>We have developed a number of successful cutting-edge solutions and gained a huge amount of experience and knowledge in developing custom ERP solutions in Logistics, Financial, Healthcare, Customer, and Business services. Moreover, we can implement social, cloud, and geo features in any future customer-centric ERP system.<br><br>Our field service management solution, developed for one of our US clients enjoys a lofty reputation among Fortune 500 equipment manufacturers.<br><br>We pay great attention to the analysis of your business processes, and offer in-house technical support and training during and after deployment.</p>",
+        "dropdown_1": "How do I track my order status?",
+        "dropdown_2": "How do I return defective or flawed items?",
+        "dropdown_3": "Can I exchange my order?"
+    },
+    {
+        "service_name": "Web Components", 
+        "slug": "web-components",
+        "list_view_icon": "icon-calendar",
+        "list_view_text": "You can change the size, text, colour and even the icon in your button. Everything you need to know, you can get your hands on.",
+        "icon_1": "",
+        "sub_heading_1": "Benefits of style guide",
+        "content_block_1": "<p> We crafted the design system for you! It can be customised to fit your brand. </p>",
+        "icon_2": "icon-briefcase",
+        "sub_heading_2": "Benefits of Insites",
+        "content_block_2": "<ul><li>Publish more content, faster with unlimited users, groups and permissions</li><li>Supercharge your marketing with integrated contact forms and CRM</li><li>Generate revenue from your content with membership-only paid content</li><li>Publish content to anywhere with an integration to Zapier and over 2000 other apps</li><li>Capture user generated content with secure publishing areas for your users</li></ul>",
+        "icon_3": "icon-user",
+        "sub_heading_3": "Used By",
+        "content_block_3": "<p>Professionalize your projects (and impress your clients) with a beautiful, centralized client portal.</p><ul><li>Agencies</li><li>Schools</li><li>Law firms</li><li>Accountants</li></ul><p>The list of sectors that gain from having a dedicated client portal is not entire. Your industry isn't listed here. Not to worry! Client Portal can help you if you work with clients or consumers.</p>",
+        "icon_4": "",
+        "sub_heading_4": "Our Areas of Expertise",
+        "content_block_4": "<p>We have developed a number of successful cutting-edge solutions and gained a huge amount of experience and knowledge in developing custom ERP solutions in Logistics, Financial, Healthcare, Customer, and Business services. Moreover, we can implement social, cloud, and geo features in any future customer-centric ERP system.<br><br>Our field service management solution, developed for one of our US clients enjoys a lofty reputation among Fortune 500 equipment manufacturers.<br><br>We pay great attention to the analysis of your business processes, and offer in-house technical support and training during and after deployment.</p>",
+        "dropdown_1": "How do I track my order status?",
+        "dropdown_2": "How do I return defective or flawed items?",
+        "dropdown_3": "Can I exchange my order?"
+    },
+    {
+        "service_name": "Content Types", 
+        "slug": "content-types",
+        "list_view_icon": "icon-email-1",
+        "list_view_text": "Add and manage text, photos, videos, audio, galleries, products, newsletter sign-ups, custom code, charts, and more.",
+        "icon_1": "",
+        "sub_heading_1": "Benefits of style guide",
+        "content_block_1": "<p> We crafted the design system for you! It can be customised to fit your brand. </p>",
+        "icon_2": "icon-briefcase",
+        "sub_heading_2": "Benefits of Insites",
+        "content_block_2": "<ul><li>Publish more content, faster with unlimited users, groups and permissions</li><li>Supercharge your marketing with integrated contact forms and CRM</li><li>Generate revenue from your content with membership-only paid content</li><li>Publish content to anywhere with an integration to Zapier and over 2000 other apps</li><li>Capture user generated content with secure publishing areas for your users</li></ul>",
+        "icon_3": "icon-user",
+        "sub_heading_3": "Used By",
+        "content_block_3": "<p>Professionalize your projects (and impress your clients) with a beautiful, centralized client portal.</p><ul><li>Agencies</li><li>Schools</li><li>Law firms</li><li>Accountants</li></ul><p>The list of sectors that gain from having a dedicated client portal is not entire. Your industry isn't listed here. Not to worry! Client Portal can help you if you work with clients or consumers.</p>",
+        "icon_4": "",
+        "sub_heading_4": "Our Areas of Expertise",
+        "content_block_4": "<p>We have developed a number of successful cutting-edge solutions and gained a huge amount of experience and knowledge in developing custom ERP solutions in Logistics, Financial, Healthcare, Customer, and Business services. Moreover, we can implement social, cloud, and geo features in any future customer-centric ERP system.<br><br>Our field service management solution, developed for one of our US clients enjoys a lofty reputation among Fortune 500 equipment manufacturers.<br><br>We pay great attention to the analysis of your business processes, and offer in-house technical support and training during and after deployment.</p>",
+        "dropdown_1": "How do I track my order status?",
+        "dropdown_2": "How do I return defective or flawed items?",
+        "dropdown_3": "Can I exchange my order?"
+    },
+    {
+        "service_name": "Fully Responsive", 
+        "slug": "fully-responsive",
+        "list_view_icon": "icon-file-plus",
+        "list_view_text": "How about the table and mobile? We have created the templates that adapt to any devices.",
+        "icon_1": "",
+        "sub_heading_1": "Benefits of style guide",
+        "content_block_1": "<p> We crafted the design system for you! It can be customised to fit your brand. </p>",
+        "icon_2": "icon-briefcase",
+        "sub_heading_2": "Benefits of Insites",
+        "content_block_2": "<ul><li>Publish more content, faster with unlimited users, groups and permissions</li><li>Supercharge your marketing with integrated contact forms and CRM</li><li>Generate revenue from your content with membership-only paid content</li><li>Publish content to anywhere with an integration to Zapier and over 2000 other apps</li><li>Capture user generated content with secure publishing areas for your users</li></ul>",
+        "icon_3": "icon-user",
+        "sub_heading_3": "Used By",
+        "content_block_3": "<p>Professionalize your projects (and impress your clients) with a beautiful, centralized client portal.</p><ul><li>Agencies</li><li>Schools</li><li>Law firms</li><li>Accountants</li></ul><p>The list of sectors that gain from having a dedicated client portal is not entire. Your industry isn't listed here. Not to worry! Client Portal can help you if you work with clients or consumers.</p>",
+        "icon_4": "",
+        "sub_heading_4": "Our Areas of Expertise",
+        "content_block_4": "<p>We have developed a number of successful cutting-edge solutions and gained a huge amount of experience and knowledge in developing custom ERP solutions in Logistics, Financial, Healthcare, Customer, and Business services. Moreover, we can implement social, cloud, and geo features in any future customer-centric ERP system.<br><br>Our field service management solution, developed for one of our US clients enjoys a lofty reputation among Fortune 500 equipment manufacturers.<br><br>We pay great attention to the analysis of your business processes, and offer in-house technical support and training during and after deployment.</p>",
+        "dropdown_1": "How do I track my order status?",
+        "dropdown_2": "How do I return defective or flawed items?",
+        "dropdown_3": "Can I exchange my order?"
+    },
+    {
+        "service_name": "Pre Build Pages", 
+        "slug": "pre-build-pages",
+        "list_view_icon": "icon-file-text",
+        "list_view_text": "How about layout & pages? We covered that for you as well of course! From blogs, pricing, our team, and more.",
+        "icon_1": "",
+        "sub_heading_1": "Benefits of style guide",
+        "content_block_1": "<p> We crafted the design system for you! It can be customised to fit your brand. </p>",
+        "icon_2": "icon-briefcase",
+        "sub_heading_2": "Benefits of Insites",
+        "content_block_2": "<ul><li>Publish more content, faster with unlimited users, groups and permissions</li><li>Supercharge your marketing with integrated contact forms and CRM</li><li>Generate revenue from your content with membership-only paid content</li><li>Publish content to anywhere with an integration to Zapier and over 2000 other apps</li><li>Capture user generated content with secure publishing areas for your users</li></ul>",
+        "icon_3": "icon-user",
+        "sub_heading_3": "Used By",
+        "content_block_3": "<p>Professionalize your projects (and impress your clients) with a beautiful, centralized client portal.</p><ul><li>Agencies</li><li>Schools</li><li>Law firms</li><li>Accountants</li></ul><p>The list of sectors that gain from having a dedicated client portal is not entire. Your industry isn't listed here. Not to worry! Client Portal can help you if you work with clients or consumers.</p>",
+        "icon_4": "",
+        "sub_heading_4": "Our Areas of Expertise",
+        "content_block_4": "<p>We have developed a number of successful cutting-edge solutions and gained a huge amount of experience and knowledge in developing custom ERP solutions in Logistics, Financial, Healthcare, Customer, and Business services. Moreover, we can implement social, cloud, and geo features in any future customer-centric ERP system.<br><br>Our field service management solution, developed for one of our US clients enjoys a lofty reputation among Fortune 500 equipment manufacturers.<br><br>We pay great attention to the analysis of your business processes, and offer in-house technical support and training during and after deployment.</p>",
+        "dropdown_1": "How do I track my order status?",
+        "dropdown_2": "How do I return defective or flawed items?",
+        "dropdown_3": "Can I exchange my order?"
+    }
+    
+]
+{% endparse_json %}
+
+{% for service in services %}
+    {%- graphql create_menu = "modules/website/services/create_services"
+        service_name: {{service.service_name}},
+        slug: {{service.slug}},
+        sort_order: {{service.sort_order}},
+        list_view_icon: {{service.list_view_icon}},
+        list_view_text: {{service.list_view_text}},
+        icon_1: {{service.icon_1}},
+        sub_heading_1: {{service.sub_heading_1}},
+        content_block_1: {{service.content_block_1}},
+        icon_2: {{service.icon_2}},
+        sub_heading_2: {{service.sub_heading_2}},
+        content_block_2: {{service.content_block_2}},
+        icon_3: {{service.icon_3}},
+        sub_heading_3: {{service.sub_heading_3}},
+        content_block_3: {{service.content_block_3}},
+        icon_4: {{service.icon_4}},
+        sub_heading_4: {{service.sub_heading_4}},
+        content_block_4: {{service.content_block_4}},
+        dropdown_1: {{service.dropdown_1}},
+        dropdown_2: {{service.dropdown_2}},
+        dropdown_3: {{service.dropdown_3}}
+    -%}
+{% endfor %}
+
+{% comment %} ? FAQs {% endcomment %}
+{% parse_json faqs %}
+[
+    {
+        "category": "FAQ Topic 1",
+        "question": "Why use a client portal?",
+        "slug": "why-use-a-client-portal",
+        "answer": "A client portal is an online system that allows clients to securely access information from a company. It is generally used to provide clients with access to their data, such as invoices or contracts, as well as any resources or support materials the company may have.",
+        "sort_order": 1,
+        "sub_topic_title_1": "How do I update the colour style guide?",
+        "sub_topic_details_1": "Select an element on your design. Select a color tile from the editor toolbar to bring up the color panel. Your brand color palettes should appear there. Select a color from the color palette to apply it to the element.",
+        "sub_topic_title_2": "How do I update the button styles?",
+        "sub_topic_details_2": "We have crafted the button style for you, you can change the button style in the Insites style guide and components pages for the developer guide. Also we have crafter the button variants for you!",
+        "sub_topic_title_3": "Can I change the components?",
+        "sub_topic_details_3": "Update components. To make sure Figma applies changes to all instances of a component, you will need to edit the main component",
+        "sub_topic_title_4": "How do I restyle the web blocks?",
+        "sub_topic_details_4": "Block styles work by adding a CSS class to the block and applying styles to the new selector. When you have selected a block style, you can open the Advanced section of the block settings sidebar and see that WordPress adds the class in the Additional CSS"
+        
+    },
+    {
+        "category": "FAQ Topic 2",
+        "question": "How to use client portal?",
+        "slug": "how-to-use-client-portal",
+        "answer": "The term is most often applied to a sharing mechanism between an organization and its clients. The organization provides a secure entry point, typically via a website, that lets its clients log into an area where they can view, download, and upload private information.",
+        "sort_order": 2,
+        "sub_topic_title_1": "",
+        "sub_topic_details_1": "",
+        "sub_topic_title_2": "",
+        "sub_topic_details_2": "",
+        "sub_topic_title_3": "",
+        "sub_topic_details_3": "",
+        "sub_topic_details_4": ""
+        
+    },
+    {
+        "category": "FAQ Topic 3",
+        "question": "Importing and exporting portals",
+        "slug": "importing-and-exporting-portals",
+        "answer": "Site Export allows you to take all of the content in a particular Site and generate an export file that can be transferred to and imported into another Cascade instance. Site Import allows users to import a Site export file back into Cascade.",
+        "sort_order": 3,
+        "sub_topic_title_1": "",
+        "sub_topic_details_1": "",
+        "sub_topic_title_2": "",
+        "sub_topic_details_2": "",
+        "sub_topic_title_3": "",
+        "sub_topic_details_3": "",
+        "sub_topic_details_4": ""
+    }
+]
+{% endparse_json %}
+
+{% for faq in faqs %}
+    {%- graphql create_faq_entry = "modules/website/faqs/create_faqs" 
+        category: {{faq.category}},
+        question: {{faq.question}},
+        slug: {{faq.slug}},
+        answer: {{faq.answer}},
+        sort_order: {{faq.sort_order}},
+        sub_topic_title_1: {{faq.sub_topic_title_1}},
+        sub_topic_details_1: {{faq.sub_topic_details_1}},
+        sub_topic_title_2: {{faq.sub_topic_title_2}},
+        sub_topic_details_2: {{faq.sub_topic_details_2}},
+        sub_topic_title_3: {{faq.sub_topic_title_3}},
+        sub_topic_details_3: {{faq.sub_topic_details_3}},
+        sub_topic_title_4: {{faq.sub_topic_title_4}},
+        sub_topic_details_4: {{faq.sub_topic_details_4}}
+    -%}
+{% endfor %}
+
+{% comment %} ? NEWS {% endcomment %}
+{% assign date = "now" | date: "%Y-%m-%d" %}
+{% assign status = "Published" %}
+
+{% parse_json news_list %}
+[
+    {
+        "title": "The Beginner's Guide to Website Development",
+        "slug": "the-beginners-guide-to-website-development",
+        "tag": "WebDev",
+        "list_view_text": "What skills do I need as a web developer? The basics of how the Internet and websites work. The basics of HTML, CSS, and JavaScript. Libraries and frameworks, like jQuery, React.js, and Bootstrap. Other programming languages, like Python and Ruby (for back-end web devs only) Git and GitHub.",
+        "author": "Mark Webber",
+        "content": "FOUNDATIONS OF WEB DEVELOPMENT<br>Web development skills can lead you to a flexible career in a variety of industries. Building for the web is limited only to your imagination, so it’s great for those excited by the creative aspects of coding.<br><br><br><br>WHO IS THIS COURSE FOR?<br>Web development is ideal for anyone interested in how humans interact with information. A successful web developer will be someone who identifies as a lifelong learner and is always up for exploring the latest trends and learning the latest techniques.HTML and CSS aren't actually classified as programming languages. And while JavaScript is a programming language, it's really forgiving. So this trio is great to start with if you're feeling intimidated by the idea of coding. It’s great for anyone who wants to use code as a creative skill."  
+    },
+    {
+        "title": "Advantages of Working Remotely",
+        "slug": "advantages-of-working-remotely",
+        "tag": "WebDev",
+        "list_view_text": "What skills do I need as a web developer? The basics of how the Internet and websites work. The basics of HTML, CSS, and JavaScript. Libraries and frameworks, like jQuery, React.js, and Bootstrap. Other programming languages, like Python and Ruby (for back-end web devs only) Git and GitHub.",
+        "author": "Mark Webber",
+        "content": ""  
+    },
+    {
+        "title": "How To Reach Customers Everywhere With Mobile SEO",
+        "slug": "how-to-reach-customers-everywhere-with-mobile-seo",
+        "tag": "SEO",
+        "list_view_text": "What skills do I need as a web developer? The basics of how the Internet and websites work. The basics of HTML, CSS, and JavaScript. Libraries and frameworks, like jQuery, React.js, and Bootstrap. Other programming languages, like Python and Ruby (for back-end web devs only) Git and GitHub.",
+        "author": "Mark Webber",
+        "content": ""  
+    },
+    {
+        "title": "Grow Your Brand with Custom Merch",
+        "slug": "grow-your-brand-with-custom-merch",
+        "tag": "Design",
+        "list_view_text": "We crafted the design system for you! and can be customised to fit your brand.",
+        "author": "Mark Webber",
+        "content": ""  
+    },
+    {
+        "title": "Charging for Gated Content on Your Website",
+        "slug": "charging-for-gated-content-on-your-website",
+        "tag": "SEO",
+        "list_view_text": "We crafted the design system for you! and can be customised to fit your brand.",
+        "author": "Mark Webber",
+        "content": ""  
+    },
+    {
+        "title": "8 mobile UX best practices every designer should consider",
+        "slug": "8-mobile-ux-best-practices-every-designer-should-consider",
+        "tag": "Design",
+        "list_view_text": "What skills do I need as a web developer? The basics of how the Internet and websites work. The basics of HTML, CSS, and JavaScript. Libraries and frameworks, like jQuery, React.js, and Bootstrap. Other programming languages, like Python and Ruby (for back-end web devs only) Git and GitHub.",
+        "author": "Mark Webber",
+        "content": ""  
+    }
+]
+{% endparse_json %}
+
+{% for news in news_list %}
+    {%- graphql create_news_entry = "modules/website/news/create_news" 
+        status: {{status}},
+        title: {{news.title}},
+        slug: {{news.slug}},
+        published_date: {{date}},
+        tag: {{news.tag}},
+        list_view_text: {{news.list_view_text}},
+        author: {{news.author}},
+        content: {{news.content}}
+    -%}
+{% endfor %}
+
+{% comment %} ? TESTIMONIALS {% endcomment %}
+{% assign allow_display_on_website = "Yes" %}
+{% assign is_shown_on_webstie = true %}
+
+{% parse_json testimonials %}
+[
+    {
+        "full_name": "Mark Davidson",
+        "location": "Byron Bay, Australia",
+        "message": "Building a website from scratch felt overwhelming, but Insites made the process a breeze. Their website templates are so versatile, I was able to create a website that perfectly captures the essence of my Byron Bay surf school. Thanks guys!"
+    },
+    {
+        "full_name": "Kylie Nguyen",
+        "location": "Perth, Australia",
+        "message": "As a small business owner in Perth, every dollar counts. Insites templates were the perfect solution! They were affordable, easy to customise, and had all the features I needed to get my business online fast. I'm so grateful!"
+    },
+    {
+        "full_name": "Zoe Bennett",
+        "location": "Melbourne, Australia",
+        "message": "Since using Insites's template, my website has become a real standout! The user interface is so intuitive, it's attracted a whole new audience and boosted my online sales.  I couldn't recommend it more!"
+    }
+]
+{% endparse_json %}
+
+{% for testimonial in testimonials %}
+    {%- graphql create_testimonials_entry = "modules/website/home/create_testimonials" 
+        full_name: {{testimonial.full_name}},
+        location: {{testimonial.location}},
+        message: {{testimonial.message}},
+        allow_display_on_website: {{allow_display_on_website}},
+        is_shown_on_webstie: {{is_shown_on_webstie}}
+    -%}
+{% endfor %}

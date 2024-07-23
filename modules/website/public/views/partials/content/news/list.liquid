@@ -1,9 +1,10 @@
 ---
 metadata: {
-  partial_name: "News | List"
+    page_slug: "news",
+    page_title: "News",
+    layout: "list"
 }
 ---
-
 {%  liquid         
     assign page_num = context.params.page | default: 1 | plus: 0
     assign per_page = context.params.per_page | default: 6 | plus: 0

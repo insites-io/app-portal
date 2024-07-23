@@ -1,8 +1,14 @@
 ---
 metadata: {
-    partial_name: "FAQs | Details"
+    page_slug: "faqs",
+    slug: "{{ context.exports.data.item.slug }}",
+    page_title: "FAQs | {{ context.exports.data.item.question }}",
+    layout: "details"
 }
 ---
+{% if context.params.slug2 != context.exports.data.item.slug %}
+    {%- redirect_to '/404' -%}
+{% endif %}
 
 {% comment %} connect services to graphql {% endcomment %}
 {%- graphql get_faq = 'modules/website/faqs/get_faqs' -%}

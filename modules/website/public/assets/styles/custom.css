@@ -1003,6 +1003,7 @@ ins-accordion .inner-content {
 .footerSubItems a {
     font-family: var(--font-family-02)!important;
     color: var(--color-font-body) !important;
+    font-size: 12px!important;
 }
 
 .staticFonts p,
