@@ -10,15 +10,14 @@
     if order_id
         graphql get_order = 'modules/client/orders/get_order', id: data.id | dig: 'items','results' | first
               
-        assign amount = get_order.properties.subtotal_amount | plus: get_order.properties.total_tax_amount | plus: get_order.properties.total_shipping_amount
+        assign amount = get_order.properties.subtotal_amount
         assign cc_surcharge = get_order.properties.subtotal_amount | times: 0.017
-        assign tax = get_order.properties.total_tax_amount | default: 0
-
+   
         assign amountPayable = amount
         assign ccSurcharge = cc_surcharge
         assign subTotal = amount
-        assign totalAmount = amount | plus: cc_surcharge
-        assign tax = tax 
+        assign gst = amount | times: 0.1
+        assign totalAmount = amount | plus: cc_surcharge | plus: gst
     endif
 %}
 
@@ -27,12 +26,28 @@
     <h2 class="heading-2">Payment Summary</h2>
     <div class="spacer x-large"></div>
     <div class="grid-x">
-        <div class="large-9 medium-7 small-9 col1">Order Value</div>
+        {% comment %} ? BILL AMOUNT {% endcomment %}
+        <div class="large-9 medium-7 small-9 col1">Bill Amount</div>
         <div class="large-3 medium-5 small-3 col2">$<span id="charge-amount-summary">{{ amountPayable | default: "0.00" | round: 2}}</span></div>
-        <div class="cell spacer x-small"></div>
+        <div class="cell spacer"></div>
+        <hr>
+        <div class="cell spacer small"></div>
+
+        {% comment %} ? SUB TOTAL {% endcomment %}
+        <div class="large-9 medium-7 small-9 col1">Sub Total</div>
+        <div class="large-3 medium-5 small-3 col2">$<span id="charge-subtotal-summary">{{ amountPayable | default: "0.00" | round: 2}}</span></div>
+        <div class="cell spacer xx-small"></div>
+
+        {% comment %} ? PROCESSING FEE {% endcomment %}
         <div class="large-9 medium-7 small-9 col1">Processing Fee (1.7%)</div>
         <div class="large-3 medium-5 small-3 col2">$<span id="cc-charge-summary">{{ ccSurcharge | default: "0.00" | round: 2}}</span></div>
-        <div class="cell spacer"></div>
+        <div class="cell spacer xx-small"></div>
+
+        {% comment %} ? GST {% endcomment %}
+        <div class="large-9 medium-7 small-9 col1">GST</div>
+        <div class="large-3 medium-5 small-3 col2">$<span id="charge-gst-summary">{{ gst | default: "0.00" | round: 2}}</span></div>
+        <div class="cell spacer small"></div>
+
         <hr>
         <div class="cell spacer small"></div>
         <div class="large-5 medium-5 small-5 col1"><h3 class="heading-3">Total</h3></div>
@@ -51,12 +66,16 @@
     let taxEl = document.getElementById('tax-amount')
     let shippingEl = document.getElementById('shipping-amount')
     let amountTotalEl = document.getElementById('bill-total-amount');
+    let amountSubtotalEl = document.getElementById('bill-subtotal-amount');
+    let amountTotalTaxEl = document.getElementById('bill-tax-amount');
     let orderValueEl = document.getElementById('bill-order-value');
     let amountDueEl = document.getElementById('bill-amount-due');
     let notesEl = document.getElementById('bill-notes');
     
 
     let chargeAmountEl = document.getElementById('charge-amount-summary');
+    let chargeSubtotal = document.getElementById('charge-subtotal-summary');
+    let chargeGstEl = document.getElementById('charge-gst-summary');
     let ccAmountEl = document.getElementById('cc-charge-summary');
     let subTotalEl = document.getElementById('sub-total-summary');
     let totalAmountEl = document.getElementById('total-amount-summary');    
@@ -74,22 +93,25 @@
     let shippingAmount = ''
 
     function calculatePaymentSummary(ev){ 
-    if (ev.srcElement.id == 'tax-amount')  {
-        taxAmount = ev.detail
-    }else if (ev.srcElement.id == 'shipping-amount') {
-        shippingAmount = ev.detail
-    }else {
+    // if (ev.srcElement.id == 'tax-amount')  {
+    //     taxAmount = ev.detail
+    // }else if (ev.srcElement.id == 'shipping-amount') {
+    //     shippingAmount = ev.detail
+    // }else {
         amountPayable = ev.detail * 1.00;
-    }
+    // }
 
    
     
     let ccSurcharge = amountPayable * 0.017; // 1.7% credit card surcharge
-    let subtotalAmount  = Number(amountPayable) + Number(taxAmount) + Number(shippingAmount)
-    let totalAmount = subTotal =  Number(amountPayable) + Number(ccSurcharge) + Number(taxAmount) + Number(shippingAmount)
+    let subtotalAmount  = Number(amountPayable); // amount payable
+    let gst = amountPayable * 0.1; // GST
+    let totalAmount = subTotal =  Number(amountPayable) + Number(ccSurcharge) + Number(gst);
 
         if(chargeAmountEl) 
             chargeAmountEl.innerHTML = pricify(subtotalAmount);
+            chargeSubtotal.innerHTML = pricify(subtotalAmount);
+            chargeGstEl.innerHTML = pricify(subtotalAmount * 0.10);
         if(ccAmountEl) 
             ccAmountEl.innerHTML = pricify(ccSurcharge);
         if(subTotalEl) 
@@ -100,12 +122,15 @@
         // Update hidden input 
         if(amountTotalEl) 
             amountTotalEl.value = totalAmount;
+            amountSubtotalEl.value = subtotalAmount;
+            amountTotalTaxEl.value = gst;
+
         if(orderValueEl) 
             orderValueEl.value = amountPayable;            
         if(amountDueEl) 
             amountDueEl.value = totalAmount;
         if(notesEl) 
-            notesEl.value = `{"amount": "${pricify(amountPayable)}", "cc-charge": "${pricify(ccSurcharge)}", "total-amount": "${pricify(totalAmount)}"}`;
+            notesEl.value = `{"subtotal-amount": "${pricify(amountPayable)}", "cc-charge": "${pricify(ccSurcharge)}",  "gst": "${pricify(gst)}",  "total-amount": "${pricify(totalAmount)}"}`;
     }
 
     function pricify(number) {
@@ -122,25 +147,6 @@
                 : valueChangeHandler(event);
         });
     }
-
-    if(taxEl) {
-        taxEl.addEventListener('insValueChange', (event) => {
-            event.detail > 0
-                ? valueChangeHandler(event)
-                : valueChangeHandler(event);
-        });
-    }
-
-    if(shippingEl) {
-        shippingEl.addEventListener('insValueChange', (event) => {
-            event.detail > 0
-                ? valueChangeHandler(event)
-                : valueChangeHandler(event);
-        });
-    }
-
-  
-
     </script>
 
 {%- endunless -%}

@@ -13,7 +13,7 @@ This is where the contents of the search page is imported/included in the forms 
 %}
 
 {%- graphql news_search_result = 'modules/website/news/search_news' 
-    schema: 'modules/website/news_database', 
+    schema: 'modules/website/news', 
     keyword: keyword, 
     page: news_page,
     size: search_per_page
@@ -44,14 +44,12 @@ This is where the contents of the search page is imported/included in the forms 
                                 <div class="newsContentContainer">
                                 <div class="spacer x-large"></div>
                                 <div class="tagButton">
-                                <ins-button 
-                                    size="small"
-                                    cursor="text" 
-                                    solid 
-                                    icon="icon-tag"
-                                    color="blue" 
-                                    label="{{ item.tag }}">
-                                    </ins-button>
+                                    <ins-tag 
+                                        label="{{ item.tag }}" 
+                                        icon="icon-tag" 
+                                        color="blue"
+                                        light=false>
+                                    </ins-tag>
                                 </div>
                                 <div class="spacer"></div>
                                 <a href="/news/{{ item.slug }}">

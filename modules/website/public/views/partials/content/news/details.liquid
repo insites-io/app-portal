@@ -19,8 +19,12 @@ metadata: {
     <div class="spacer xx-large"></div>
     
     <div class="tagButton">
-      <ins-button size="small" cursor="text" solid icon="icon-tag" color="blue" label="{{ context.exports.data.item.tag }}">
-      </ins-button>
+      <ins-tag 
+        label="{{ context.exports.data.item.tag }}" 
+        icon="icon-tag" 
+        color="blue"
+        light=false>
+      </ins-tag>
     </div>
       
     <div class="spacer small"></div>

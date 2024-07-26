@@ -1,9 +1,27 @@
 {% assign page_num = context.params.page | default: 1 %}
-{% assign per_page = context.params.per_page | default: 10 %}
+{% assign per_page = context.params.per_page | default: 9 %}
 {% assign search_user = context.params.search | default: '' %}
 
-{% comment %} ARGS FOR GRAPHQL FILTER {% endcomment %}
-{% parse_json filters %}
+{% assign total_entries = 0 %}
+
+{% comment %} ? PAH - ARGS FOR GRAPHQL FILTER {% endcomment %}
+{% parse_json pah_filters %}
+{
+    "page": 1,
+    "size": 1,
+    "company_uuid": "{{ user_details.company_uuid }}",
+    "search": "{{ search_user }}"
+}
+{% endparse_json %}
+
+{% comment %} ? GRAPHQL FOR PAH {% endcomment %}
+{% graphql get_pah_users = 'modules/client/users/get_pah_users', args: pah_filters | dig: 'items' %}
+{% assign pah_array = get_pah_users %}
+{% assign pah_total_entries = pah_array.total_entries %}
+{% assign pah_array = get_pah_users | dig: "results" %}
+ 
+{% comment %} ? NON PAH - ARGS FOR GRAPHQL FILTER {% endcomment %}
+{% parse_json non_pah_filters %}
 {
     "page": {{ page_num }},
     "size": {{ per_page }},
@@ -12,11 +30,17 @@
 }
 {% endparse_json %}
 
-{% graphql get_users_items = 'modules/client/users/get_users', args: filters | dig: 'items' %}
-{% assign get_users = get_users_items | dig: "results" %}
+{% comment %} ? GRAPHQL FOR NON PAH {% endcomment %}
+{% graphql get_non_pah_users = 'modules/client/users/get_non_pah_users', args: non_pah_filters | dig: 'items' %}
+{% assign non_pah_array = get_non_pah_users %}
+{% assign non_pah_total_entries = non_pah_array.total_entries %}
+{% assign non_pah_array = get_non_pah_users | dig: "results" %}
+
+{% comment %} ? Merge 2 arrays {% endcomment %}
+{% assign get_users = pah_array | concat: non_pah_array %}
 
 {% comment %} HIDDEN FIELDS FOR JAVASCRIPT {% endcomment %}
-<input type="hidden" id="total_entries" value="{{ get_users_items.total_entries }}">
+<input type="hidden" id="total_entries" value="{{ pah_total_entries | plus: non_pah_total_entries }}">
 <input type="hidden" id="per_page" value="{{ per_page }}">
 <input type="hidden" id="page_num" value="{{ page_num }}">
 <input type="hidden" id="get-users" value='{{ get_users | parse_json }}'>
@@ -158,6 +182,17 @@
     </div>
 </ins-modal>
 
+
+{% comment %} ? LOADER {% endcomment %}
+<div class="spacer"></div>
+<ins-loader
+    id="users-loader"
+    hidden
+    state-title="Processing"
+    state-message="Please wait, we're processing your data."
+    state-icon="processing">
+</ins-loader>
+
 <ins-table id="insBaseTable"
     static-table
     without-search
@@ -187,6 +222,7 @@
         </ins-table-row>
         
         {% for item in get_users %}
+  
             <ins-table-row class="users-table-data">
 
                 <ins-table-td class="body-small">
@@ -211,7 +247,15 @@
                                 </ins-input-select-option>
                             </ins-input-select>
                         {% else %}
-                            <ins-input-select value="{{ item.custom_fields.permission_level }}">
+                            <ins-input-select 
+                                class="selectPermission" 
+                                value="{{ item.custom_fields.permission_level }}"
+                                data-id="{{ item.id }}"
+                                data-contact-uuid="{{ item.custom_fields.contact_uuid }}"
+                                data-name="{{ item.first_name }} {{ item.last_name }}"
+                                data-email="{{ item.email }}"
+                                data-custom-field-id="{{ item.custom_fields.id }}">
+                                    
                                 <ins-input-select-option class="form-placeholder"
                                 label="Manager" 
                                 value="Manager">
@@ -257,6 +301,7 @@
                     {% else %}
                         <ins-input-select 
                             class="selectPermission" 
+                            id="{{ item.id }}"
                             value="{{ item.custom_fields.permission_level }}"
                             data-id="{{ item.id }}"
                             data-contact-uuid="{{ item.custom_fields.contact_uuid }}"
@@ -304,6 +349,9 @@
     let insBaseTable = document.getElementById('insBaseTable');
     let getusers = document.getElementById('get-users');
     getusers = getusers.value;
+
+    // loader
+    let usersLoader = document.getElementById('users-loader');
 
     // modal
     var cancelButton = document.getElementById("cancel");
@@ -371,13 +419,14 @@
     // Permission Level
     
     // options
-    var option_manager = document.querySelectorAll("#option-manager .ins-select-option-wrap")
+    var option_manager = document.querySelectorAll("#option-manager")
     var option_staff = document.querySelectorAll("#option-staff .ins-select-option-wrap")
     var option_no_access = document.querySelectorAll("#option-no-access .ins-select-option-wrap")
 
     var field = document.querySelectorAll('.selectPermission')
     field.forEach(e => {
         e.addEventListener('insChange', async (event) => {
+
             // Contact ID
             let contactId = e.getAttribute('data-id');
             
@@ -409,6 +458,7 @@
                     customClass: "swal-user-account swal-remove-access"
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            processingLoader();
                             // update
                             url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&actions=change_permission_level';
                             setTimeout(async() => {
@@ -419,7 +469,15 @@
                                 }
                             }, 500);
                         } else {
-                            e.value = current_permission_level.value
+                            // setTimeout(async() =>{
+                            //     e.value = "No Access"
+                            //     console.log(e.value)
+                            //     console.log(event)
+                            // }, 500);
+                            console.log(e.id);
+                            resetSelect(e.id)
+
+                            // cancellingLoader();
                         }
                     });
             }else{
@@ -435,6 +493,8 @@
                     customClass: "swal-user-account"
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            processingLoader();
+
                             // update
                             url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&email=' + contactEmail + '&name=' + contactName + '&company=' + company_name.value + '&actions=change_permission_level' + '&company_uuid=' + company_uuid.value;
                             setTimeout(async() => {
@@ -445,7 +505,15 @@
                                 }
                             }, 500);
                         } else {
-                            // window.location.href = '/users';
+                            // setTimeout(async() =>{
+                            //     e.value = "No Access"
+                            //     console.log(e.value)
+                            //     console.log(event)
+                            // }, 500);
+                            console.log(e.id);
+                            resetSelect(e.id)
+
+                            // cancellingLoader();
                         }
                     });
                 }            
@@ -534,6 +602,7 @@
                 url = '/update-user-account?' + 'company_uuid=' + company_uuid.value + '&company=' + company_name.value + '&user_id=' + user_id + '&email=' + user_email + '&is_email_found=' + is_email_found + '&actions=add_user' + '&userFirstName=' + userFirstName.value + '&userLastName=' + userLastName.value + '&mobile_phone_country_code=' + mobile_phone_country_code + '&mobile_phone_number=' + mobile_phone_number + '&userPosition=' + userPosition.value;
                 setTimeout(async() => {
                     let response = await apiServices.processRequest('post', url);
+                    processingLoader();
                     if(response.state == true) {
                         App.events.notyf('success', "Your invitation has been sent successfully.");
                         window.location.href = '/users';
@@ -622,5 +691,28 @@
         invalidEmail.classList.remove('is_visible');
         invalidEmail.classList.add('is_not_visible');
         userEmail.classList.remove('has-error');
+    }
+
+    function processingLoader(){
+        usersLoader.removeAttribute("hidden");
+        insBaseTable.setAttribute("hidden", true);
+    }
+
+    function cancellingLoader(){
+        usersLoader.removeAttribute("state-title");
+        usersLoader.removeAttribute("state-message");
+        usersLoader.setAttribute("state-title", "Canceling");
+        usersLoader.setAttribute("state-message", "Please wait, we're reverting your changes.");
+
+        usersLoader.removeAttribute("hidden");
+        insBaseTable.setAttribute("hidden", true);
+
+        window.location.href = '/users';
+    }
+
+    function resetSelect(id){
+        var select_id = document.getElementById(id);
+        select_id.value = "No Access";
+        console.log(select_id);
     }
 </script>

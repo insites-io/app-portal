@@ -19,7 +19,7 @@ layout: modules/insites_core/insites_external_email_layout
 
 {% comment %} Compute amounts {% endcomment %}
 {%- liquid
-    function computed = "modules/client/pay_bills/compute_amounts", total_amount: get_order.properties.total_amount, total_tax_amount: get_order.properties.total_tax_amount, total_shipping_amount: get_order.properties.total_shipping_amount, subtotal_amount: get_order.properties.subtotal_amount
+    function computed = "modules/client/pay_bills/compute_amounts", total_amount: get_order.properties.total_amount, total_tax_amount: get_order.properties.total_tax_amount, subtotal_amount: get_order.properties.subtotal_amount
 
     assign amount_due = computed.total_amount
     if status == 'succeeded'
@@ -27,26 +27,26 @@ layout: modules/insites_core/insites_external_email_layout
     endif
 -%}
 
-{%- assign amountPayable = computed.amount | advanced_format: '%.2f' -%}
+{%- assign subTotal = computed.amount | advanced_format: '%.2f' -%}
 {%- assign ccSurcharge = computed.cc_surcharge | advanced_format: '%.2f' -%}
-{%- assign subTotal = computed.total_amount | default: 0.00 -%}
+{%- assign gst = computed.tax | default: 0.00 -%}
 {%- assign totalAmount = computed.total_amount | advanced_format: '%.2f' -%}
 
-{%- assign amountPayable = amountPayable | pricify -%}
-{%- assign ccSurcharge = ccSurcharge | pricify -%}
 {%- assign subTotal = subTotal | pricify -%}
+{%- assign ccSurcharge = ccSurcharge | pricify -%}
+{%- assign gst = gst | pricify -%}
 {%- assign totalAmount  = totalAmount | pricify -%}
 
-{%- unless amountPayable contains '.' -%}
-    {%- assign amountPayable = amountPayable | append: '.00' -%}
+{%- unless subTotal contains '.' -%}
+    {%- assign subTotal = subTotal | append: '.00' -%}
 {%- endunless -%}
 
 {%- unless ccSurcharge contains '.' -%}
     {%- assign ccSurcharge = ccSurcharge | append: '.00' -%}
 {%- endunless -%}
 
-{%- unless subTotal contains '.' -%}
-    {%- assign subTotal = subTotal | append: '.00' -%}
+{%- unless gst contains '.' -%}
+    {%- assign gst = gst | append: '.00' -%}
 {%- endunless -%}
 
 {%- unless totalAmount contains '.' -%}
@@ -704,7 +704,93 @@ layout: modules/insites_core/insites_external_email_layout
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">{{ amountPayable }}</span>
+                            <span style="white-space: pre-wrap">{{ subTotal }}</span>
+                          </div>
+                          <div></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+{% comment %} <!-- spacer 16px --> {% endcomment %}
+<table class="module" role="module" data-type="spacer" border="0" cellpadding="0"
+  cellspacing="0" width="100%" style="table-layout: fixed;"
+  data-muid="bf7cb6d0-0cb0-4762-a8d0-38f7b0553216">
+  <tbody>
+    <tr>
+      <td style="padding:0px 0px 16px 0px;" role="module-content" bgcolor="">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+{% comment %} <!-- Sub Total --> {% endcomment %}
+<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
+  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  data-distribution="1,1">
+  <tbody>
+    <tr role="module-content">
+      <td height="100%" valign="top">
+        <table width="250"
+          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 16px 0px 0px;"
+          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
+          class="column column-0">
+          <tbody>
+            <tr>
+              <td style="padding:0px;margin:0px;border-spacing:0;">
+                <table class="module" role="module" data-type="text" border="0"
+                  cellpadding="0" cellspacing="0" width="100%"
+                  style="table-layout: fixed;"
+                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.2"
+                  data-mc-module-version="2019-10-22">
+                  <tbody>
+                    <tr>
+                      <td
+                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
+                        height="100%" valign="top" bgcolor="" role="module-content">
+                        <div>
+                          <div style="font-family: inherit; text-align: left"><span
+                              style="white-space: pre-wrap"><strong>Sub Total</strong></span>
+                          </div>
+                          <div></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table width="250"
+          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
+          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
+          class="column column-1">
+          <tbody>
+            <tr>
+              <td style="padding:0px;margin:0px;border-spacing:0;">
+                <table class="module" role="module" data-type="text" border="0"
+                  cellpadding="0" cellspacing="0" width="100%"
+                  style="table-layout: fixed;"
+                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.2"
+                  data-mc-module-version="2019-10-22">
+                  <tbody>
+                    <tr>
+                      <td
+                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
+                        height="100%" valign="top" bgcolor="" role="module-content">
+                        <div>
+                          <div style="font-family: inherit; text-align: left">
+                            <span style="white-space: pre-wrap">{{ subTotal }}</span>
                           </div>
                           <div></div>
                         </div>
@@ -794,7 +880,7 @@ layout: modules/insites_core/insites_external_email_layout
   </tbody>
 </table>
 
-{% comment %} <!-- Subtotal --> {% endcomment %}
+{% comment %} <!-- Tax --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
   role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
   data-distribution="1,1">
@@ -820,7 +906,7 @@ layout: modules/insites_core/insites_external_email_layout
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>Subtotal</strong></span>
+                              style="white-space: pre-wrap"><strong>GST</strong></span>
                           </div>
                           <div></div>
                         </div>
@@ -851,7 +937,7 @@ layout: modules/insites_core/insites_external_email_layout
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">{{ subTotal }}</span>
+                            <span style="white-space: pre-wrap">{{ gst }}</span>
                           </div>
                           <div></div>
                         </div>
@@ -868,7 +954,6 @@ layout: modules/insites_core/insites_external_email_layout
   </tbody>
 </table>
 
-
 {% comment %} <!-- spacer 16px --> {% endcomment %}
 <table class="module" role="module" data-type="spacer" border="0" cellpadding="0"
   cellspacing="0" width="100%" style="table-layout: fixed;"
@@ -880,7 +965,6 @@ layout: modules/insites_core/insites_external_email_layout
     </tr>
   </tbody>
 </table>
-
 
 {% comment %} <!-- Total --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"

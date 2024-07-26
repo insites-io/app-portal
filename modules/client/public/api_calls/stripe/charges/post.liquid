@@ -11,7 +11,6 @@ callback: >
     Uncomment this code when debugging error
     log response_data.error, type: 'modules/insites_payments/create_charge' 
   {% endcomment %}
-  {% endif %}
 request_headers: >
   {% if data %}
     {% if context.environment == "production" %}

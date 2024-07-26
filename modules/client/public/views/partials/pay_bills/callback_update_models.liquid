@@ -23,7 +23,7 @@
 {% comment %} Compute amounts {% endcomment %}
 {% liquid
 
-    function computed = "modules/client/pay_bills/compute_amounts", total_amount: form.properties.total_amount, total_tax_amount: form.properties.total_tax_amount, total_shipping_amount: form.properties.total_shipping_amount, subtotal_amount: form.properties.subtotal_amount
+    function computed = "modules/client/pay_bills/compute_amounts", total_amount: form.properties.total_amount, total_tax_amount: form.properties.total_tax_amount, total_shipping_amount: 0, subtotal_amount: form.properties.subtotal_amount
 
     if status == 'success'
         assign amount_due = 0.0
@@ -113,8 +113,8 @@
     "order_payment_status" : "{{ order_payment_status }}",
     "amount_due" : {{ form.properties.total_amount }},
     "total_amount" : {{ form.properties.total_amount }},
-    "total_shipping_amount": {{ form.properties.total_shipping_amount }},
-    "total_tax_amount": {{ form.properties.total_tax_amount }},
+    {% comment %} "total_shipping_amount": {{ 0 }}, {% endcomment %}
+    "total_tax_amount": {{ form.properties.total_tax_amount  }},
     "order_value" : {{ form.properties.subtotal_amount }},
     "last_updated_by_id": "{{ user_id }}",
     "date_time": "{{ form.properties.date_time }}",
@@ -154,7 +154,7 @@
             "amount_due" : "{{ amount_due }}",
             "total_amount" : "{{ computed.total_amount }}",
             "total_shipping_amount": "0",
-            "total_tax_amount": "0",
+            "total_tax_amount": "{{ form.properties.total_tax_amount }}",
             "order_value" : "{{ computed.total_amount }}"
         },
         "payment": {

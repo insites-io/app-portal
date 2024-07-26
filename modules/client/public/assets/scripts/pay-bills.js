@@ -10,15 +10,16 @@ let checkoutForm = document.getElementById('checkout-form');
 
 
 
-let Paybill = (function () {
+let Paybill = (function() {
     return {
-        validation:{
+        validation: {
             addressCardsHasError(step, error) {
                 step.querySelectorAll('.address-options ins-checkbox-card')
                     .forEach(element => {
-                        error 
-                            ? element.classList.add('is-invalid')
-                            : element.classList.remove('is-invalid')
+                        error
+                            ?
+                            element.classList.add('is-invalid') :
+                            element.classList.remove('is-invalid')
                     });
             },
             validateCreditCard(currentStep) {
@@ -38,8 +39,9 @@ let Paybill = (function () {
                 step.querySelectorAll('.card-options ins-credit-card')
                     .forEach(element => {
                         error
-                            ? element.classList.add('is-invalid')
-                            : element.classList.remove('is-invalid')
+                            ?
+                            element.classList.add('is-invalid') :
+                            element.classList.remove('is-invalid')
                     });
             },
         },
@@ -49,12 +51,12 @@ let Paybill = (function () {
                 checkoutSubmitBtn.loading = true;
                 let form = event.srcElement;
                 let validAmount = true;
-                let billAmountEl = document.getElementById('bill-amount');                
+                let billAmountEl = document.getElementById('bill-amount');
                 let isValid = await App.validation.validateForm(form);
 
-                let taxAmmount = document.getElementById('tax-amount');
+                // let taxAmmount = document.getElementById('tax-amount');
 
-                if(billAmountEl) {
+                if (billAmountEl) {
                     billAmountEl.hasError = !(billAmountEl.value && Math.sign(parseFloat(billAmountEl.value)) > 0);
                     validAmount = !billAmountEl.hasError;
                 }
@@ -62,14 +64,14 @@ let Paybill = (function () {
                 //Phone Number
                 let insPhone = document.getElementById('ins-phone-number');
                 let phoneNumber = document.getElementById('phone-number');
-                if( insPhone && phoneNumber ){
+                if (insPhone && phoneNumber) {
                     let phoneValues = await insPhone.getValues();
                     phoneNumber.value = phoneValues.country_code + " " + phoneValues.phone_number;
                 }
-                
+
                 Paybill.validation.validateCreditCard(form);
 
-                if(isValid && validAmount) {     
+                if (isValid && validAmount) {
                     //payBillAddOrder();
                     form.submit();
                 } else {
@@ -80,15 +82,15 @@ let Paybill = (function () {
             },
             selectAddressCard(addressCard) {
                 let name = addressCard.getAttribute('name');
-                    // remove error state of address cards - by field name
-                    document.getElementsByName(name).forEach(el => {
-                        el.classList.remove('is-invalid');
-                        el.removeAttribute('selected');
-                        el.selected = false;
-                    });
-                    // set selected state
-                    addressCard.setAttribute('selected', true);
-                    addressCard.selected = true;
+                // remove error state of address cards - by field name
+                document.getElementsByName(name).forEach(el => {
+                    el.classList.remove('is-invalid');
+                    el.removeAttribute('selected');
+                    el.selected = false;
+                });
+                // set selected state
+                addressCard.setAttribute('selected', true);
+                addressCard.selected = true;
                 this.fillAddressField(addressCard);
             },
             fillAddressField(addressCard) {
@@ -108,7 +110,7 @@ let Paybill = (function () {
                 let type = event.target.getAttribute('id').split('_')[0];
                 addressValueChanged = true;
                 AddressLookup.methods.unselectAddressCards(type);
-                if (sameAddressBtn) 
+                if (sameAddressBtn)
                     sameAddressBtn.checked = false;
             }
         },
@@ -117,7 +119,7 @@ let Paybill = (function () {
                 // if(addCardBtn) {
                 //     addCardBtn.addEventListener('insClick',() => cardModal.open());
                 // }
-                
+
                 //this.initShippingDetailsListener();
                 this.initAddressFieldInputListener();
                 this.initAddressBtnListener();
@@ -126,9 +128,9 @@ let Paybill = (function () {
             },
             initAddressFieldInputListener() {
                 let shippingAddressFields = document.querySelectorAll('[shipping-address-field]');
-                    this.bindAddressInputListener(shippingAddressFields);
+                this.bindAddressInputListener(shippingAddressFields);
                 let billingAddressFields = document.querySelectorAll('[billing-address-field]');
-                    this.bindAddressInputListener(billingAddressFields);
+                this.bindAddressInputListener(billingAddressFields);
             },
             bindAddressInputListener(fields) {
                 fields.forEach((field) => {
@@ -139,33 +141,33 @@ let Paybill = (function () {
             },
             initAddressCardListener() {
                 let addressCards = Array.from(document.querySelectorAll('ins-checkbox-card'));
-                    addressCards.forEach(address => {
-                        address.addEventListener('insClick', () => {
-                            Paybill.events.selectAddressCard(address);
-                        });
+                addressCards.forEach(address => {
+                    address.addEventListener('insClick', () => {
+                        Paybill.events.selectAddressCard(address);
                     });
+                });
             },
             initAddressBtnListener() {
                 let buttons = Array.from(document.getElementsByClassName('add-address-btn'));
-                    buttons.forEach(btn => {
-                        btn.addEventListener('insClick', () => {
-                            let name = btn.getAttribute('name');
-                            let fieldGroup = document.getElementById(name);
-                                fieldGroup.classList.remove('hide');
-                                fieldGroup.scrollIntoView({
-                                    behavior: "smooth",
-                                    block: "center", // vertical position
-                                    inline: "start" // horizontal position
-                                });
-                                fieldGroup.querySelector('ins-input input').focus();
+                buttons.forEach(btn => {
+                    btn.addEventListener('insClick', () => {
+                        let name = btn.getAttribute('name');
+                        let fieldGroup = document.getElementById(name);
+                        fieldGroup.classList.remove('hide');
+                        fieldGroup.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center", // vertical position
+                            inline: "start" // horizontal position
                         });
+                        fieldGroup.querySelector('ins-input input').focus();
                     });
+                });
             },
             initCardsEventListener() {
                 let iterations = 5;
                 let setStateInterval = setInterval(() => {
                     let cards = Array.from(document.getElementsByTagName('ins-credit-card'));
-                    if(cards) {
+                    if (cards) {
                         cards.forEach(element => {
                             element.addEventListener('insClick', () => {
                                 StripeElement.events.selectCard(element);
@@ -174,10 +176,10 @@ let Paybill = (function () {
                                 StripeElement.events.removeCard(element);
                             });
                         });
-                            clearInterval(setStateInterval);
+                        clearInterval(setStateInterval);
                     } else {
                         iterations++;
-                        if(iterations > 5)
+                        if (iterations > 5)
                             clearInterval(setStateInterval);
                     }
                 }, 300);
