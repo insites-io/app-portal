@@ -21,20 +21,13 @@ fields:
     uuid:
       validation: 
         presence: true
-    total_tax_amount:    
-      validation: 
-        presence:
-          message: Tax Amount is required  
-    total_shipping_amount:    
-      validation: 
-        presence:
-          message: Shipping Amount is required  
     currency:    
       validation: 
         presence: true
     date_time:    
       validation: 
         presence: true
+    total_tax_amount:
     total_amount:    
       validation: 
         presence: true
@@ -96,6 +89,9 @@ callback_actions: >
     {%  assign uuid =  '' | uuid %}
     
     <input type="hidden" id="bill-total-amount" name="{{ props.total_amount.name }}" >
+    <input type="hidden" id="bill-subtotal-amount" name="{{ props.subtotal_amount.name }}" >
+    <input type="hidden" id="bill-tax-amount" name="{{ props.total_tax_amount.name }}" >
+
     <input type="hidden" id="bill-notes" name="{{ props.uuid.name }}" >
     <input type="hidden" id="bill-notes" value="{{uuid}}" name="{{ props.uuid.name }}" >
 
@@ -136,31 +132,6 @@ callback_actions: >
             </div>
 
             <div class="spacer large"></div>
-
-        <div class="large-6 medium-12 small-12 cell">
-          <ins-input required validate account-details-field
-              class="label-input"
-              label="Tax Amount*" 
-              placeholder="Tax Amount"
-              field="number"
-              id="tax-amount"
-              name="{{ props.total_tax_amount.name }}" 
-              {% if form.errors['properties.total_tax_amount'] %} has-error {% endif %}
-              error-message="{{ props.total_tax_amount.validation.rules.presence.message }}">
-          </ins-input>
-      </div>    
-          <div class="large-6 medium-12 small-12 cell">
-              <ins-input required validate account-details-field
-                  class="label-input"
-                  label="Shipping Amount*" 
-                  placeholder="Shipping Amount"
-                  field="number"   
-                  id="shipping-amount"   
-                  name="{{ props.total_shipping_amount.name }}" 
-                  {% if form.errors['properties.total_shipping_amount'] %} has-error {% endif %}
-                  error-message="{{ props.total_shipping_amount.validation.rules.presence.message }}">
-              </ins-input>
-          </div>
         </div>
     </div>
     

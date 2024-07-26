@@ -56,6 +56,11 @@
     .newsDetailHolder {
         padding: 0px 24px;
     }
+    #add-user-modal ins-card {
+        width: auto!important;
+        padding: 0px 12px;
+        left: 0px!important;
+    }
 }
 
 

@@ -362,6 +362,34 @@ footer.blocks-footer-05 {
     line-height: 14px;
 }
 
+ins-tag span.ins-tag.blue {
+    background-color: #436CF2!important;
+    text-transform: uppercase;
+}
+
+.ins-loader-wrap--title {
+    color: #436CF2!important;
+    font-family: var(--font-family-02)!important;
+}
+
+.swal2-icon.swal2-warning {
+    color: #EC9C00 !important;
+    border: solid .25em #EC9C00 !important;
+}
+
+.ins-modal-content {
+    width: 100%;
+}
+
+.payment-methods-credit-card {
+    pointer-events: none;
+}
+
+.payment-methods-credit-card .ins-credit-card-main-wrap.compact ins-radio,
+.payment-methods-credit-card .ins-credit-card-main-wrap.compact .close-btn {
+    display: none!important;
+}
+
 
 /********************************************************** NAVIGATION *******************************************************************/
 
@@ -1000,9 +1028,12 @@ ins-accordion .inner-content {
     margin: 0;
 }
 
-.footerSubItems a {
+.footerSubItems a,
+.footerSubItems .footer-p,
+.footerSubItems span {
     font-family: var(--font-family-02)!important;
     color: var(--color-font-body) !important;
+    font-size: 14px!important;
 }
 
 .staticFonts p,

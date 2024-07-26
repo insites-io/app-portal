@@ -3,13 +3,13 @@
 {%- assign company_name = company_name | default: blank -%}
 {%- assign charge_to_this_card = false -%}
 
-{%- if context.current_user -%}
+{% if context.current_user %}
     {%- assign customer_email = context.current_user.email | strip -%}
     {%- assign customer_name = context.current_user.first_name | append: ' ' | append: context.current_user.last_name -%}
-{%- else -%}
+{% else %}
     {%- assign customer_email = form.properties.email | strip -%}
     {%- assign customer_name = form.properties.first_name | append: ' ' | append: form.properties.last_name -%}
-{%- endif -%}
+{% endif %}
 
 {%- comment -%} STEP 1: Stripe Customer  {%- endcomment -%}
 {%- graphql stripe_customer = "modules/client/customers/get_customer_model" 
@@ -18,10 +18,10 @@
     | dig: "items" | dig: "results" | first -%}
 
 {% comment %} if stripe_customer.id {% endcomment %}
-{%- if stripe_customer.id -%}
-{%- comment -%}Step 1-A: Customer Stripe data exist. Proceed payment process {%- endcomment -%}
+{% if stripe_customer.id %}
+    {%- comment -%}Step 1-A: Customer Stripe data exist. Proceed payment process {%- endcomment -%}
 
-{%- comment -%}Step 1-A.1: Get updated 'user' data{%- endcomment -%}
+    {%- comment -%}Step 1-A.1: Get updated 'user' data{%- endcomment -%}
     {%- graphql user = "modules/client/user/get_user_by_email" 
         email: customer_email
         | dig: "items" | dig: "results" | first -%}
@@ -29,17 +29,17 @@
     {%- assign customer_model_id = stripe_customer.id | downcase -%}
     {%- assign user_id = user.id -%}
 
-{%- comment -%}Step 1-A.2: Update customer model data{%- endcomment -%}
+    {%- comment -%}Step 1-A.2: Update customer model data{%- endcomment -%}
     {%- graphql customer_model = "modules/client/customers/update_customer_model", 
         id: customer_model_id
         user_id: user_id,
         name: customer_name | dig: "items" -%}
     
-{%- comment -%}Step 1-A.3: Customer Stripe data exist. Proceed create stripe credit card {%- endcomment -%}
+    {%- comment -%}Step 1-A.3: Customer Stripe data exist. Proceed create stripe credit card {%- endcomment -%}
     {%- assign stripe_customer_id = customer_model.properties.payment_method_token -%}
 
     {%- assign check_new = form.properties.stripe_credit_card | split: '_' | first | downcase -%}
-    {%- if check_new == 'tok' -%}
+    {% if check_new == 'tok' %}
         {%- comment -%}Create new card object payload {%- endcomment -%}
         {% parse_json stripe_card %}
         {
@@ -50,18 +50,18 @@
         {%- comment -%}Create new card on Stripe API {%- endcomment -%}
         
         {%- capture charge_to_this_card -%}
-            {%- if user_id -%}
+            {% if user_id %}
                 {%- assign bind_card_user_id = user_id | default: blank -%}
-            {%- endif -%}
+            {% endif %}
             {%- include 'modules/client/stripe/credit_cards/create_credit_card', 
                 stripe_card: stripe_card,
                 user_id: bind_card_user_id
                 return: true -%}
         {%- endcapture -%}
         {%- assign charge_to_this_card = charge_to_this_card | strip_newlines | strip -%}
-    {%- elsif check_new == 'card' -%}
+    {% elsif check_new == 'card' %}
         {%- assign charge_to_this_card = form.properties.stripe_credit_card -%}
-        {%- if context.current_user.id -%}
+        {% if context.current_user.id %}
         {% comment %} Optional: Update Credit Card, if user is logged in set user_id {% endcomment %}
         {% comment %} 
             {%- graphql current_card = "modules/ecommerce/credit_card/get_credit_card", 
@@ -71,13 +71,13 @@
                 id: current_card.id,
                 user_id: user_id | dig: 'items' -%}
         {% endcomment %}
-        {%- endif -%}
-    {%- endif -%}
+        {% endif %}
+    {% endif %}
     {%- comment -%}Proceed to Step 2: Payment {%- endcomment -%}
-{%- else -%}
+{% else %}
     {%- comment -%}Step 1-B: New customer: Create Stripe customer data{%- endcomment -%}
     
-{%- endif -%}
+{% endif %}
 
 {% comment %} 
     GET STRIPE ID
@@ -97,9 +97,9 @@
     "currency": "AUD",
     "amount": "{{ amount | advanced_format: '%.0f' }}",
     "customer": "{{ get_stripe_id.stripe_id }}",
-    {%- if charge_to_this_card -%}
+    {% if charge_to_this_card %}
         "source": "{{ charge_to_this_card }}",
-    {%- endif -%}
+    {% endif %}
     "description": "Insites Order ID: {{ form.id }} (Insites Customer ID: {{ user.uuid }})",
     "metadata": {
         "Insites Order ID": "{{ form.id }}",
