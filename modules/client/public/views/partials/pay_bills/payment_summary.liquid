@@ -11,12 +11,12 @@
         graphql get_order = 'modules/client/orders/get_order', id: data.id | dig: 'items','results' | first
               
         assign amount = get_order.properties.subtotal_amount
-        assign cc_surcharge = get_order.properties.subtotal_amount | times: 0.017
+        assign cc_surcharge = get_order.properties.subtotal_amount | times: 0.017 | round: 2
    
         assign amountPayable = amount
         assign ccSurcharge = cc_surcharge
         assign subTotal = amount
-        assign gst = amount | times: 0.1
+        assign gst = amount | times: 0.10
         assign totalAmount = amount | plus: cc_surcharge | plus: gst
     endif
 %}
@@ -28,30 +28,46 @@
     <div class="grid-x">
         {% comment %} ? BILL AMOUNT {% endcomment %}
         <div class="large-9 medium-7 small-9 col1">Bill Amount</div>
-        <div class="large-3 medium-5 small-3 col2">$<span id="charge-amount-summary">{{ amountPayable | default: "0.00" | round: 2}}</span></div>
+        {% assign amount_payable = amountPayable %}
+        {% assign formatted_amount_payable = amount_payable | times: 100 | floor | divided_by: 100 %}
+        {% assign formatted_amount_payable_str = formatted_amount_payable | split: '.' %}
+        {% if formatted_amount_payable_str.size == 1 %}
+            {% assign formatedAmountPayable = formatted_amount_payable_str[0] | append: ".00" %}
+        {% else %}
+            {% assign formatedAmountPayable = formatted_amount_payable_str[0] | append: formatted_amount_payable_str[1] | append: '0' | slice: 0, 2 %}
+        {% endif %}
+        <div class="large-3 medium-5 small-3 col2">$<span id="charge-amount-summary">{{ formatedAmountPayable }}</span></div>
         <div class="cell spacer"></div>
         <hr>
         <div class="cell spacer small"></div>
 
         {% comment %} ? SUB TOTAL {% endcomment %}
         <div class="large-9 medium-7 small-9 col1">Sub Total</div>
-        <div class="large-3 medium-5 small-3 col2">$<span id="charge-subtotal-summary">{{ amountPayable | default: "0.00" | round: 2}}</span></div>
+        <div class="large-3 medium-5 small-3 col2">$<span id="charge-subtotal-summary">{{ formatedAmountPayable }}</span></div>
         <div class="cell spacer xx-small"></div>
 
         {% comment %} ? PROCESSING FEE {% endcomment %}
         <div class="large-9 medium-7 small-9 col1">Processing Fee (1.7%)</div>
-        <div class="large-3 medium-5 small-3 col2">$<span id="cc-charge-summary">{{ ccSurcharge | default: "0.00" | round: 2}}</span></div>
+        <div class="large-3 medium-5 small-3 col2">$<span id="cc-charge-summary">{{ ccSurcharge | default: "0.00" }}</span></div>
         <div class="cell spacer xx-small"></div>
 
         {% comment %} ? GST {% endcomment %}
+        {% assign amount_gst = gst %}
+        {% assign formatted_amount_gst = amount_gst | times: 100 | floor | divided_by: 100 %}
+        {% assign formatted_amount_gst_str = formatted_amount_gst | split: '.' %}
+        {% if formatted_amount_gst_str.size == 1 %}
+            {% assign formatedAmountgst = formatted_amount_gst_str[0] | append: ".00" %}
+        {% else %}
+            {% assign formatedAmountgst = formatted_amount_gst_str[0] | append: formatted_amount_gst_str[1] | append: '0' | slice: 0, 2 %}
+        {% endif %}
         <div class="large-9 medium-7 small-9 col1">GST</div>
-        <div class="large-3 medium-5 small-3 col2">$<span id="charge-gst-summary">{{ gst | default: "0.00" | round: 2}}</span></div>
+        <div class="large-3 medium-5 small-3 col2">$<span id="charge-gst-summary">{{ formatedAmountgst }}</span></div>
         <div class="cell spacer small"></div>
 
         <hr>
         <div class="cell spacer small"></div>
         <div class="large-5 medium-5 small-5 col1"><h3 class="heading-3">Total</h3></div>
-        <div class="large-7 medium-7 small-7 col2"><h3 class="heading-3">$<span id="total-amount-summary">{{ totalAmount | default: "0.00" | round: 2}}</span></h3></div>        
+        <div class="large-7 medium-7 small-7 col2"><h3 class="heading-3">$<span id="total-amount-summary">{{ totalAmount | round: 2 }}</span></h3></div>        
     </div>
 </div>
 <div class="spacer xx-large"></div>

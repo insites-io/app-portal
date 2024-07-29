@@ -33,18 +33,18 @@ let StripeElement = (() => {
     return {
         methods: {
             makeCardElement(token) {
-                if(cardOptionsList && token) {
+                if (cardOptionsList && token) {
                     let grid = cardOptionsList.getAttribute('card-grid') || "large-4 medium-6 small-12";
                     let divEl = document.createElement("div");
-                        divEl.className = `${grid} cell card-options`;
+                    divEl.className = `${grid} cell card-options`;
                     let insCardEl = document.createElement("ins-credit-card");
-                        insCardEl.setAttribute('full-year', true);
-                        insCardEl.setAttribute('brand', token.card.brand);
-                        insCardEl.setAttribute('last-four', token.card.last4);
-                        insCardEl.setAttribute('expiry-month', token.card.exp_month);
-                        insCardEl.setAttribute('expiry-year', token.card.exp_year);
-                        insCardEl.setAttribute('compact','');
-                        insCardEl.value = token.card.id;
+                    insCardEl.setAttribute('full-year', true);
+                    insCardEl.setAttribute('brand', token.card.brand);
+                    insCardEl.setAttribute('last-four', token.card.last4);
+                    insCardEl.setAttribute('expiry-month', token.card.exp_month);
+                    insCardEl.setAttribute('expiry-year', token.card.exp_year);
+                    insCardEl.setAttribute('compact', '');
+                    insCardEl.value = token.card.id;
                     divEl.appendChild(insCardEl);
                     cardOptionsList.appendChild(divEl);
                     StripeElement.init.dynamicCCEventListener(insCardEl, true);
@@ -60,12 +60,12 @@ let StripeElement = (() => {
                 }
             },
             async tokenizedStripeCC() {
-                stripe.createToken(card).then(async (result) => {
+                stripe.createToken(card).then(async(result) => {
                     if (errorElement && result.error) {
                         // Inform the user if there was an error.
                         errorElement.textContent = result.error.message;
                         this.setButtonLoading(false);
-                        
+
                     } else {
                         // Send the token to your server.
                         let response = await this.createStripeCardModel(result.token);
@@ -128,7 +128,9 @@ let StripeElement = (() => {
                 selectedEl.active = true;
                 if (stripeCard)
                     stripeCard.value = selectedEl.value;
-                    stripeCard.setAttribute('value',selectedEl.value )
+                stripeCard.setAttribute('value', selectedEl.value)
+
+                console.log(stripeCard.value)
             },
             async removeCard(selectedEl) {
                 let confirm = await App.events.swal('warning',
@@ -161,7 +163,7 @@ let StripeElement = (() => {
                     element.addEventListener('insClose', () => {
                         StripeElement.events.removeCard(element);
                     });
-                    if(click && element && element.querySelector('.ins-credit-card-wrap')) 
+                    if (click && element && element.querySelector('.ins-credit-card-wrap'))
                         element.querySelector('.ins-credit-card-wrap').click();
                 }, 500);
             },
@@ -169,9 +171,9 @@ let StripeElement = (() => {
                 stripeCancelBtn.forEach(el => {
                     el.addEventListener('insClick', () => cardModal.close());
                 })
-                
+
                 // Handle real-time validation errors from the card Element.
-                card.on('change', function (event) {
+                card.on('change', function(event) {
                     if (errorElement && event.error) {
                         errorElement.textContent = event.error.message;
                     } else {

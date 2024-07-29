@@ -35,6 +35,8 @@
 {% comment %} Stripe Charge (Create Payment) response {% endcomment %}
 {% assign stripe_payment_response = context.exports.payment_response %}
 
+{% log stripe_payment_response, "-- stripe_payment_response" %}
+
 {% parse_json card %}
 {
     "last4": "{{ stripe_payment_response.source.last4 }}",
