@@ -31,7 +31,6 @@ authorization_policies:
 <!-- start page: my-details  -->
 {%- endif -%}
 
-
 {%- graphql user = 'modules/client/account/get_current_user' | dig: 'current_user' -%}  
 
 {% comment %} Check if CRM Contact was assigned already to CRM Company {% endcomment %}

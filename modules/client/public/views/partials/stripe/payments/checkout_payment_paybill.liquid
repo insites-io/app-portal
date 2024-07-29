@@ -17,8 +17,19 @@
     gateway_name: "Stripe" 
     | dig: "items" | dig: "results" | first -%}
 
+{% parse_json data %} 
+{
+    "id": "{{ context.current_user.external_id }}"
+}
+{% endparse_json %}
+{% liquid
+    graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/client/get_contact', data: data 
+    assign contact = contact_api.items.response.body | parse_json | dig: "items", "results" | first
+    assign contact = contact | dig: "contact" | first 
+%}
+
 {% comment %} if stripe_customer.id {% endcomment %}
-{% if stripe_customer.id %}
+{% if contact.id %}
     {%- comment -%}Step 1-A: Customer Stripe data exist. Proceed payment process {%- endcomment -%}
 
     {%- comment -%}Step 1-A.1: Get updated 'user' data{%- endcomment -%}
