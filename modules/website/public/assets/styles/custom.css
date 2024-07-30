@@ -382,12 +382,17 @@ ins-tag span.ins-tag.blue {
 }
 
 .payment-methods-credit-card {
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
-.payment-methods-credit-card .ins-credit-card-main-wrap.compact ins-radio,
-.payment-methods-credit-card .ins-credit-card-main-wrap.compact .close-btn {
+.payment-methods-credit-card .ins-credit-card-main-wrap.compact ins-radio {
     display: none!important;
+}
+
+.payment-methods-credit-card .ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap,
+.payment-methods-credit-card .ins-credit-card-compact-size:hover .ins-credit-card-main-wrap.compact .ins-credit-card-wrap {
+    border: var(--ins-border-style) var(--ins-border-thickness) var(--ins-border-color);
+    cursor: default;
 }
 
 

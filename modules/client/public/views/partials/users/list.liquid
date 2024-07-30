@@ -65,6 +65,21 @@
     </div>
 </div>
 
+<ins-input-select id="select" label="test">
+    <ins-input-select-option label="TEST 1" value="1"></ins-input-select-option>
+    <ins-input-select-option label="TEST 2" value="2"></ins-input-select-option>
+    <ins-input-select-option label="TEST 3" value="3"></ins-input-select-option>
+  </ins-input-select>
+  
+  <button onclick="test()">test</button>
+
+
+  <script>
+    function test(){
+      document.getElementById("select").setValue("3");
+    }
+  </script>
+
 {% comment %} ? Add user modal {% endcomment %}
 <ins-modal id="add-user-modal"
     data=""
@@ -254,7 +269,8 @@
                                 data-contact-uuid="{{ item.custom_fields.contact_uuid }}"
                                 data-name="{{ item.first_name }} {{ item.last_name }}"
                                 data-email="{{ item.email }}"
-                                data-custom-field-id="{{ item.custom_fields.id }}">
+                                data-custom-field-id="{{ item.custom_fields.id }}"
+                                data-permission-level-previous-value="{{ item.custom_fields.permission_level }}">
                                     
                                 <ins-input-select-option class="form-placeholder"
                                 label="Manager" 
@@ -307,7 +323,8 @@
                             data-contact-uuid="{{ item.custom_fields.contact_uuid }}"
                             data-name="{{ item.first_name }} {{ item.last_name }}"
                             data-email="{{ item.email }}"
-                            data-custom-field-id="{{ item.custom_fields.id }}">
+                            data-custom-field-id="{{ item.custom_fields.id }}"
+                            data-permission-level-previous-value="{{ item.custom_fields.permission_level }}">
 
                             <ins-input-select-option
                             label="Manager" 
@@ -325,7 +342,7 @@
                             label="No Access" 
                             value="No Access"
                             id="option-no-access">
-                            </ins-input-select-option>       
+                            </ins-input-select-option>      
                         </ins-input-select>
                     {% endif %}
                 </ins-table-td>
@@ -420,12 +437,18 @@
     
     // options
     var option_manager = document.querySelectorAll("#option-manager")
-    var option_staff = document.querySelectorAll("#option-staff .ins-select-option-wrap")
-    var option_no_access = document.querySelectorAll("#option-no-access .ins-select-option-wrap")
-
+    var option_staff = document.querySelectorAll("#option-staff")
+    var option_no_access = document.querySelectorAll("#option-no-access")
+    var previousPermissionLevelValue = ''
+    
     var field = document.querySelectorAll('.selectPermission')
     field.forEach(e => {
         e.addEventListener('insChange', async (event) => {
+
+            // previous value
+            previousPermissionLevelValue = e.getAttribute('data-permission-level-previous-value');
+  
+            console.log(e);
 
             // Contact ID
             let contactId = e.getAttribute('data-id');
@@ -469,15 +492,8 @@
                                 }
                             }, 500);
                         } else {
-                            // setTimeout(async() =>{
-                            //     e.value = "No Access"
-                            //     console.log(e.value)
-                            //     console.log(event)
-                            // }, 500);
                             console.log(e.id);
-                            resetSelect(e.id)
-
-                            // cancellingLoader();
+                            resetSelect(e)
                         }
                     });
             }else{
@@ -505,15 +521,7 @@
                                 }
                             }, 500);
                         } else {
-                            // setTimeout(async() =>{
-                            //     e.value = "No Access"
-                            //     console.log(e.value)
-                            //     console.log(event)
-                            // }, 500);
-                            console.log(e.id);
-                            resetSelect(e.id)
-
-                            // cancellingLoader();
+                            resetSelect(e)
                         }
                     });
                 }            
@@ -710,9 +718,7 @@
         window.location.href = '/users';
     }
 
-    function resetSelect(id){
-        var select_id = document.getElementById(id);
-        select_id.value = "No Access";
-        console.log(select_id);
+    function resetSelect(e){
+        e.setValue(previousPermissionLevelValue);
     }
 </script>
