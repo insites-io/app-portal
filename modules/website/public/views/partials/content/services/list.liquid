@@ -5,9 +5,9 @@ metadata: {
   layout: "list"
 }
 ---
-{% comment %} connect services to graphql {% endcomment %}
+{% comment %} ? connect services to graphql {% endcomment %}
 {%- graphql get_services = 'modules/website/services/get_services' -%}
-{% comment %} assign var to fetch the result {% endcomment %}
+{% comment %} ? assign var to fetch the result {% endcomment %}
 {%- assign res_services = get_services | dig: 'items', 'results' -%}
 {%- include 'modules/website/content/hero_title' -%}
 

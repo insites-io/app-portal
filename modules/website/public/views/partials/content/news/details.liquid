@@ -6,6 +6,38 @@ metadata: {
     layout: "details"
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR NEWS IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE CAN BE DELETED ONCE IMAGES ON NEWS DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% parse_json news_details %}
+[
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_details_1.jpg' | asset_url }}",
+        "slug": "the-beginners-guide-to-website-development"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_details_2.jpg' | asset_url }}",
+        "slug": "advantages-of-working-remotely"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_details_3.jpg' | asset_url }}",
+        "slug": "how-to-reach-customers-everywhere-with-mobile-seo"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_details_4.jpg' | asset_url }}",
+        "slug": "grow-your-brand-with-custom-merch"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_details_5.jpg' | asset_url }}",
+        "slug": "charging-for-gated-content-on-your-website"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_details_6.jpg' | asset_url }}",
+        "slug": "8-mobile-ux-best-practices-every-designer-should-consider"
+    }
+]
+{% endparse_json %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE NEWS DATABASE IS POPULATED {% endcomment %}
+
 {% if context.exports.data.item.status != "Published" %}
     <script>
       window.location.href = "{{ '/404' }}"
@@ -33,8 +65,19 @@ metadata: {
    
     <h4 class="news-title-detail">PUBLISHED ON {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} By {{ context.exports.data.item.author }}</h4>
     <div class="spacer x-large"></div>
-    <!-- BANNER -->
-    <img loading="lazy" alt="image" src="{{ context.exports.data.item.main_image.url }} "/>
+    
+    {% comment %} ? BANNER {% endcomment %}
+    {% if context.exports.data.item.main_image.url %}
+      <img loading="lazy" alt="image" src="{{ context.exports.data.item.main_image.url }} "/>
+    {% else %}
+        {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+        {% for news in news_details %}
+            {% if context.exports.data.item.slug == news.slug %}
+                <img loading="lazy" alt="image" src="{{ news.image }}"/>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    
     <div class="spacer xxxx-large"></div>
 
     <div class="newsDetailHolder subHeading">

@@ -5,18 +5,48 @@ metadata: {
     layout: "list"
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR NEWS IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE CAN BE DELETED ONCE IMAGES ON NEWS DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% parse_json news_list %}
+[
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_1.jpg' | asset_url }}",
+        "slug": "the-beginners-guide-to-website-development"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_2.jpg' | asset_url }}",
+        "slug": "advantages-of-working-remotely"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_3.jpg' | asset_url }}",
+        "slug": "how-to-reach-customers-everywhere-with-mobile-seo"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_4.jpg' | asset_url }}",
+        "slug": "grow-your-brand-with-custom-merch"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_5.jpg' | asset_url }}",
+        "slug": "charging-for-gated-content-on-your-website"
+    },
+    {
+        "image": "{{ 'modules/website/images/default-images/news/news_6.jpg' | asset_url }}",
+        "slug": "8-mobile-ux-best-practices-every-designer-should-consider"
+    }
+]
+{% endparse_json %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE NEWS DATABASE IS POPULATED {% endcomment %}
+
 {%  liquid         
     assign page_num = context.params.page | default: 1 | plus: 0
     assign per_page = context.params.per_page | default: 6 | plus: 0
 %}
-
 
 {%- graphql get_news = 'modules/website/news/get_news', page: page_num, size: per_page -%}
 {% comment %} assign var to fetch the result   page-size-options {% endcomment %}
 {%- assign res_news = get_news | dig: 'items', 'results' -%}
 
 {% include 'modules/website/content/search/searchpage_banner' %}
-
 
 <div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
     <div class="our-team grid-container main-container" data-test="page-our-team-list">     
@@ -28,7 +58,16 @@ metadata: {
                         <div class="card"> 
                             <div class="newsImageContainer">
                                 <a href="/news/{{ item.slug }}">
-                                    <img loading="lazy" alt="image" src="{{ item.list_view_image.url }}"/>
+                                    {% if item.list_view_image.url %}
+                                        <img loading="lazy" alt="image" src="{{ item.list_view_image.url }}"/>
+                                    {% else %}
+                                        {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                                        {% for news in news_list %}
+                                            {% if item.slug == news.slug %}
+                                                <img loading="lazy" alt="image" src="{{ news.image }}"/>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
                                 </a>
                             </div>
                             <div class="newsContentContainer">

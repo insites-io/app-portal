@@ -1,17 +1,49 @@
-{%- graphql hero = 'modules/website/home/get_homepage_sliders' -%}
-{%- assign res = hero | dig: 'items', 'results' -%}
+{% comment %} ? FETCHING HOMEPAGE SLIDER DATABASE {% endcomment %}
+{%- graphql homepage_sliders = 'modules/website/home/get_homepage_sliders' -%}
+{%- assign res_homepage_sliders = homepage_sliders | dig: 'items', 'results' -%}
+
+{% comment %} ? THIS IS TO SET DEFAULT VALUES IF THE HOMEPAGE SLIDER DATABASE IS EMPTY {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE CAN BE DELETED ONCE HOMEPAGE SLIDER DATABASE IS POPULATED BY THE USERS{% endcomment %}
+  {% if homepage_sliders.items.total_entries == 0 %}
+    {% parse_json res_homepage_sliders %}
+    [
+      {
+        "title": "The ideal portal for your customers", 
+        "short_text": "Unified client portal will help you to professionally manage your projects (and to wow your clients).",
+        "image": {
+          "versions": {
+            "Mobile": "{{ 'modules/website/images/default-images/banners/client-portal-banner-1.jpeg' | asset_url }}",
+            "Desktop": "{{ 'modules/website/images/default-images/banners/client-portal-banner-1.jpeg' | asset_url }}"
+          }
+        }
+      },
+      {
+        "title": "The ideal portal for your customers", 
+        "short_text": "Unified client portal will help you to professionally manage your projects (and to wow your clients).",
+        "image": {
+          "versions": {
+            "Mobile": "{{ 'modules/website/images/default-images/banners/client-portal-banner-2.jpeg' | asset_url }}",
+            "Desktop": "{{ 'modules/website/images/default-images/banners/client-portal-banner-2.jpeg' | asset_url }}"
+          }
+        }
+      }
+    ]
+    {% endparse_json %}
+  {% endif %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE HOMEPAGE SLIDER DATABASE IS POPULATED {% endcomment %}
+
 <div class="carousel-holder">
     <div class="blocks-hero-01 homepage-banner-wrap">
         <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner" transition="700" duration="5000"
           data-test="homepage-slider">
           <div id="homepage-banner">
-          {%- for item in res -%}
-            <!-- item -->
+          {%- for item in res_homepage_sliders -%}
+            {% comment %} ? item  {% endcomment %}
             <div class="slide-container">
               <div class="img-wrap">
-                <!-- desktop image -->
+                {% comment %} ? desktop image  {% endcomment %}
                 <img  loading="lazy" src="{{ item.image.versions.Desktop }}" alt="desktop image" class="hide-for-small-only">
-                <!-- mobile image -->
+                {% comment %} ? mobile image  {% endcomment %}
                 <img  loading="lazy" src="{{ item.image.versions.Mobile }}" alt="mobile image" class="show-for-small-only">
               </div>         
               <div class="slide-content wrapper vertical-align-middle">
@@ -29,7 +61,7 @@
                 </div>
               </div>
             </div>
-            <!-- /item -->
+            {% comment %} ? item {% endcomment %}
           {%- endfor -%}
           
           </div>

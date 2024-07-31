@@ -6,11 +6,201 @@ metadata: {
     layout: "details"
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR SERVICES IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE CAN BE DELETED ONCE IMAGES ON SERVICES DATABASE IS POPULATED BY THE USER{% endcomment %}
+
+    {% comment %} ? connect services to graphql {% endcomment %}
+    {%- graphql get_services = 'modules/website/services/get_services' -%}
+    {% comment %} ? assign var to fetch the result {% endcomment %}
+    {%- assign res_services = get_services | dig: 'items', 'results' -%}
+
+    {% for service in res_services %}
+        {% comment %} ? CUSTOMISABLE STYLE GUIDE {% endcomment %}
+        {% if service.slug == "customisable-style-guide" %}
+
+            {% if service.created_at == service.updated_at %}
+                {% assign is_default_image = true %}
+                {% parse_json customisable_style_guide %}
+                [
+                    {
+                        "service_name": "Customisable Style Guide", 
+                        "slug": "customisable-style-guide",
+                        "image_1": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_1.png' | asset_url }}"
+                        },
+                        "image_2": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_2.png' | asset_url }}"
+                        },
+                        "image_3": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_3.png' | asset_url }}"
+                        },
+                        "image_4": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_4.png' | asset_url }}"
+                        }
+                    }
+                ]
+                {% endparse_json %}
+
+                {% for customisable_style_guide_img in customisable_style_guide %}
+                    {% assign image_1 = customisable_style_guide_img.image_1.url %}
+                    {% assign image_2 = customisable_style_guide_img.image_2.url %}
+                    {% assign image_3 = customisable_style_guide_img.image_3.url %}
+                    {% assign image_4 = customisable_style_guide_img.image_4.url %}
+                {% endfor %}          
+            {% endif %}
+
+        {% comment %} ? WEB BLOCK VARIATIONS {% endcomment %}
+        {% elsif service.slug == "web-block-variations" %}
+
+            {% if service.created_at == service.updated_at %}
+                {% assign is_default_image = true %}
+                {% parse_json web_block_variations %}
+                [
+                    {
+                        "service_name": "Web Block Variations", 
+                        "slug": "web-block-variations",
+                        "image_1": {
+                            "url": "{{ 'modules/website/images/default-images/services/web-blocks-image-1.png' | asset_url }}"
+                        }
+                    }
+                ]
+                {% endparse_json %}
+
+                {% for web_block_variations_img in web_block_variations %}
+                    {% assign image_1 = web_block_variations_img.image_1.url %}
+                    {% assign image_2 = "No Image" %}
+                    {% assign image_3 = "No Image" %}
+                    {% assign image_4 = "No Image" %}
+                {% endfor %}          
+            {% endif %}
+
+        {% comment %} ? WEB COMPONENTS {% endcomment %}
+        {% elsif service.slug == "web-components" %}
+
+            {% if service.created_at == service.updated_at %}
+                {% assign is_default_image = true %}
+                {% parse_json web_components %}
+                [
+                    {
+                        "service_name": "Web Components", 
+                        "slug": "web-components",
+                        "image_1": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_1.png' | asset_url }}"
+                        },
+                        "image_2": {
+                            "url": "{{ 'modules/website/images/default-images/services/web-components-image-2.jpg' | asset_url }}"
+                        },
+                        "image_3": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_4.png' | asset_url }}"
+                        }
+                    }
+                ]
+                {% endparse_json %}
+
+                {% for web_components_img in web_components %}
+                    {% assign image_1 = web_components_img.image_1.url %}
+                    {% assign image_2 = web_components_img.image_2.url %}
+                    {% assign image_3 = web_components_img.image_3.url %}
+                    {% assign image_4 = "No Image" %}
+                {% endfor %}          
+            {% endif %}
+
+        {% comment %} ? CONTENT TYPES {% endcomment %}
+        {% elsif service.slug == "content-types" %}
+
+            {% if service.created_at == service.updated_at %}
+                {% assign is_default_image = true %}
+                {% parse_json content_types %}
+                [
+                    {
+                        "service_name": "Content Types", 
+                        "slug": "content-types",
+                        "image_1": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_4.png' | asset_url }}"
+                        }
+                    }
+                ]
+                {% endparse_json %}
+
+                {% for content_types_img in content_types %}
+                    {% assign image_1 = content_types_img.image_1.url %}
+                    {% assign image_2 = "No Image" %}
+                    {% assign image_3 = "No Image" %}
+                    {% assign image_4 = "No Image" %}
+                {% endfor %}          
+            {% endif %}
+
+        {% comment %} ? FULLY RESPONSIVE {% endcomment %}
+        {% elsif service.slug == "fully-responsive" %}
+
+            {% if service.created_at == service.updated_at %}
+                {% assign is_default_image = true %}
+                {% parse_json fully_responsive %}
+                [
+                    {
+                        "service_name": "Fully Responsive", 
+                        "slug": "fully-responsive",
+                        "image_1": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_4.png' | asset_url }}"
+                        },
+                        "image_2": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_1.png' | asset_url }}"
+                        },
+                        "image_3": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_3.png' | asset_url }}"
+                        }
+                    }
+                ]
+                {% endparse_json %}
+
+                {% for fully_responsive_img in fully_responsive %}
+                    {% assign image_1 = fully_responsive_img.image_1.url %}
+                    {% assign image_2 = fully_responsive_img.image_2.url %}
+                    {% assign image_3 = fully_responsive_img.image_3.url %}
+                    {% assign image_4 = "No Image" %}
+                {% endfor %}          
+            {% endif %}
+
+        {% comment %} ? Pre Built Pages {% endcomment %}
+        {% elsif service.slug == "pre-build-pages" %}
+
+            {% if service.created_at == service.updated_at %}
+                {% assign is_default_image = true %}
+                {% parse_json pre_built_pages %}
+                [
+                    {
+                        "service_name": "Pre Built Pages", 
+                        "slug": "pre-build-pages",
+                        "image_1": {
+                            "url": "{{ 'modules/website/images/default-images/services/web-components-image-2.jpg' | asset_url }}"
+                        },
+                        "image_2": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_3.png' | asset_url }}"
+                        },
+                        "image_3": {
+                            "url": "{{ 'modules/website/images/default-images/services/image_2.png' | asset_url }}"
+                        }
+                    }
+                ]
+                {% endparse_json %}
+
+                {% for pre_built_pages_img in pre_built_pages %}
+                    {% assign image_1 = pre_built_pages_img.image_1.url %}
+                    {% assign image_2 = pre_built_pages_img.image_2.url %}
+                    {% assign image_3 = pre_built_pages_img.image_3.url %}
+                    {% assign image_4 = "No Image" %}
+                {% endfor %}          
+            {% endif %}
+
+        {% endif %}
+    {% endfor %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE IMAGES ON SERVICES DATABASE IS POPULATED {% endcomment %}
+
 {% if context.params.slug2 != context.exports.data.item.slug %}
     {%- redirect_to '/404' -%}
 {% endif %}
 
-{% comment %} TITLE {% endcomment %}
+{% comment %} ? TITLE {% endcomment %}
 <section class="hero-title">
     <div class="blocks-sc-2col-08 wrapper ">    
         <div class="grid-container">  
@@ -27,8 +217,8 @@ metadata: {
 
 <div class="spacer section"></div>
 
-{% comment %} CONTENT BLOCK 1 {% endcomment %}
-{% if context.exports.data.item.sub_heading_1 != nil and context.exports.data.item.content_block_1 != nil%}
+{% comment %} ? CONTENT BLOCK 1 {% endcomment %}
+{% if context.exports.data.item.sub_heading_1 or context.exports.data.item.content_block_1 %}
     <section class="section-1 staticFonts">
         <div class="blocks-sc-2col-02 wrapper bg-color-ui-01">
             <div class="about-us grid-container" data-test="page-about-us">
@@ -50,9 +240,16 @@ metadata: {
                 </div>
                 <div class="spacer xxx-large show-for-small-only"></div>
                 <div class="large-5 large-offset-2 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell">
-                    {% if context.exports.data.item.image_1.url != nil%}
-                        <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_1.url }}"/>
-                        <div class="spacer xxx-large show-for-small-only"></div>
+                    {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                    {% if is_default_image == true %}
+                        {% if image_1 != "No Image" %}
+                            <img loading="lazy" alt="image" src="{{ image_1 }}"/>
+                        {% endif %}
+                    {% else %}
+                        {% if context.exports.data.item.image_1.url != nil %}
+                            <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_1.url }}"/>
+                            <div class="spacer xxx-large show-for-small-only"></div>
+                        {% endif %}
                     {% endif %}
                 </div>
                 </div>
@@ -62,8 +259,8 @@ metadata: {
     <div class="spacer xxxx-large"></div>
 {% endif %}
 
-{% comment %} CONTENT BLOCK 2 {% endcomment %}
-{% if context.exports.data.item.sub_heading_2 != nil and context.exports.data.item.content_block_2 != nil%}
+{% comment %} ? CONTENT BLOCK 2 {% endcomment %}
+{% if context.exports.data.item.sub_heading_2 or context.exports.data.item.content_block_2 %}
     <div class="spacer xxxx-large show-for-small-only"></div>    
     <section class="section-2 staticFonts">
         <div class="blocks-sc-2col-02 wrapper bg-color-ui-01">
@@ -86,9 +283,16 @@ metadata: {
                     </div>
                     <div class="spacer xxx-large show-for-small-only"></div>
                     <div class="large-5 large-offset-2 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell">
-                        {% if context.exports.data.item.image_2.url != nil%}
-                            <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_2.url }}"/>
-                            <div class="spacer xxx-large show-for-small-only"></div>
+                        {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                        {% if is_default_image == true %}
+                            {% if image_2 != "No Image" %}
+                                <img loading="lazy" alt="image" src="{{ image_2 }}"/>
+                            {% endif %}
+                        {% else %}
+                            {% if context.exports.data.item.image_2.url != nil %}
+                                <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_2.url }}"/>
+                                <div class="spacer xxx-large show-for-small-only"></div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
@@ -98,17 +302,24 @@ metadata: {
     </section>
 {% endif %}
 
-{% comment %} CONTENT BLOCK 3 {% endcomment %}
-{% if context.exports.data.item.sub_heading_3 != nil and context.exports.data.item.content_block_3 != nil%}
+{% comment %} ? CONTENT BLOCK 3 {% endcomment %}
+{% if context.exports.data.item.sub_heading_3 or context.exports.data.item.content_block_3 %}
     <div class="spacer xxxx-large show-for-small-only"></div>
     <section class="section-3 staticFonts">
         <div class="blocks-sc-2col-03 wrapper bg-color-ui-01">
             <div class="about-us grid-container" data-test="page-about-us">
                 <div class="grid-x">
                     <div class="large-5 medium-5 small-12 cell">
-                        {% if context.exports.data.item.image_3.url != nil%}
-                            <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_3.url }}"/>
-                            <div class="spacer xxx-large show-for-small-only"></div>
+                        {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                        {% if is_default_image == true %}
+                            {% if image_3 != "No Image" %}
+                                <img loading="lazy" alt="image" src="{{ image_3 }}"/>
+                            {% endif %}
+                        {% else %}
+                            {% if context.exports.data.item.image_3.url != nil %}
+                                <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_3.url }}"/>
+                                <div class="spacer xxx-large show-for-small-only"></div>
+                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="large-5 medium-6 small-12 large-offset-2 medium-offset-1 cell">
@@ -131,8 +342,8 @@ metadata: {
     </section>
 {% endif %}
 
-{% comment %} CONTENT BLOCK 4 {% endcomment %}
-{% if context.exports.data.item.sub_heading_4 != nil and context.exports.data.item.content_block_4 != nil%}
+{% comment %} ? CONTENT BLOCK 4 {% endcomment %}
+{% if context.exports.data.item.sub_heading_4 or context.exports.data.item.content_block_4 %}
     <div class="spacer xxxx-large show-for-small-only"></div>
     <section class="section-4 staticFonts">
         <div class="blocks-sc-2col-02 wrapper bg-color-ui-01">
@@ -152,9 +363,16 @@ metadata: {
                         {% endif %}
                     </div>
                     <div class="large-5 large-offset-2 medium-5 medium-offset-1 small-12 large-order-2 medium-order-2 small-order-1 cell">
-                        {% if context.exports.data.item.image_4.url != nil%}
-                            <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_4.url }}"/>
-                            <div class="spacer xxx-large show-for-small-only"></div>
+                        {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                        {% if is_default_image == true %}
+                            {% if image_4 != "No Image" %}
+                                <img loading="lazy" alt="image" src="{{ image_4 }}"/>
+                            {% endif %}
+                        {% else %}
+                            {% if context.exports.data.item.image_4.url != nil %}
+                                <img loading="lazy" alt="image" src="{{ context.exports.data.item.image_4.url }}"/>
+                                <div class="spacer xxx-large show-for-small-only"></div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
