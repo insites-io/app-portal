@@ -94,20 +94,12 @@
     let shippingAmount = ''
 
     function calculatePaymentSummary(ev){ 
-    // if (ev.srcElement.id == 'tax-amount')  {
-    //     taxAmount = ev.detail
-    // }else if (ev.srcElement.id == 'shipping-amount') {
-    //     shippingAmount = ev.detail
-    // }else {
         amountPayable = ev.detail * 1.00;
-    // }
-
-   
     
-    let ccSurcharge = amountPayable * 0.017; // 1.7% credit card surcharge
-    let subtotalAmount  = Number(amountPayable); // amount payable
-    let gst = amountPayable * 0.1; // GST
-    let totalAmount = subTotal =  Number(amountPayable) + Number(ccSurcharge) + Number(gst);
+        let ccSurcharge = amountPayable * 0.017; // 1.7% credit card surcharge
+        let subtotalAmount  = Number(amountPayable); // amount payable
+        let gst = amountPayable * 0.1; // GST
+        let totalAmount = subTotal =  Number(amountPayable) + Number(ccSurcharge) + Number(gst);
 
         if(chargeAmountEl) 
             chargeAmountEl.innerHTML = "$" + pricify(subtotalAmount);

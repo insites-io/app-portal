@@ -10,14 +10,13 @@ metadata: {
 {% comment %} ? THIS BLOCK OF CODE CAN BE DELETED ONCE IMAGES ON SERVICES DATABASE IS POPULATED BY THE USER{% endcomment %}
 
     {% comment %} ? connect services to graphql {% endcomment %}
-    {%- graphql get_services = 'modules/website/services/get_services' -%}
+    {%- graphql get_service = 'modules/website/services/get_service', slug: context.exports.data.item.slug  -%}
     {% comment %} ? assign var to fetch the result {% endcomment %}
-    {%- assign res_services = get_services | dig: 'items', 'results' -%}
+    {%- assign res_service = get_service | dig: 'items', 'results' -%}
 
-    {% for service in res_services %}
+    {% for service in res_service %}
         {% comment %} ? CUSTOMISABLE STYLE GUIDE {% endcomment %}
-        {% if service.slug == "customisable-style-guide" %}
-
+        {% if context.exports.data.item.slug == "customisable-style-guide" %}
             {% if service.created_at == service.updated_at %}
                 {% assign is_default_image = true %}
                 {% parse_json customisable_style_guide %}
@@ -50,7 +49,7 @@ metadata: {
             {% endif %}
 
         {% comment %} ? WEB BLOCK VARIATIONS {% endcomment %}
-        {% elsif service.slug == "web-block-variations" %}
+        {% elsif context.exports.data.item.slug == "web-block-variations" %}
 
             {% if service.created_at == service.updated_at %}
                 {% assign is_default_image = true %}
@@ -75,7 +74,7 @@ metadata: {
             {% endif %}
 
         {% comment %} ? WEB COMPONENTS {% endcomment %}
-        {% elsif service.slug == "web-components" %}
+        {% elsif context.exports.data.item.slug == "web-components" %}
 
             {% if service.created_at == service.updated_at %}
                 {% assign is_default_image = true %}
@@ -106,7 +105,7 @@ metadata: {
             {% endif %}
 
         {% comment %} ? CONTENT TYPES {% endcomment %}
-        {% elsif service.slug == "content-types" %}
+        {% elsif context.exports.data.item.slug == "content-types" %}
 
             {% if service.created_at == service.updated_at %}
                 {% assign is_default_image = true %}
@@ -131,7 +130,7 @@ metadata: {
             {% endif %}
 
         {% comment %} ? FULLY RESPONSIVE {% endcomment %}
-        {% elsif service.slug == "fully-responsive" %}
+        {% elsif context.exports.data.item.slug == "fully-responsive" %}
 
             {% if service.created_at == service.updated_at %}
                 {% assign is_default_image = true %}
@@ -162,7 +161,7 @@ metadata: {
             {% endif %}
 
         {% comment %} ? Pre Built Pages {% endcomment %}
-        {% elsif service.slug == "pre-build-pages" %}
+        {% elsif context.exports.data.item.slug == "pre-build-pages" %}
 
             {% if service.created_at == service.updated_at %}
                 {% assign is_default_image = true %}
