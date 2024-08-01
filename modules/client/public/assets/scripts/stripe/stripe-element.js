@@ -129,8 +129,6 @@ let StripeElement = (() => {
                 if (stripeCard)
                     stripeCard.value = selectedEl.value;
                 stripeCard.setAttribute('value', selectedEl.value)
-
-                console.log(stripeCard.value)
             },
             async removeCard(selectedEl) {
                 let confirm = await App.events.swal('warning',

@@ -54,8 +54,6 @@ let Paybill = (function() {
                 let billAmountEl = document.getElementById('bill-amount');
                 let isValid = await App.validation.validateForm(form);
 
-                // let taxAmmount = document.getElementById('tax-amount');
-
                 if (billAmountEl) {
                     billAmountEl.hasError = !(billAmountEl.value && Math.sign(parseFloat(billAmountEl.value)) > 0);
                     validAmount = !billAmountEl.hasError;
