@@ -34,14 +34,13 @@ flash_alert: Failed to submit form. Please try again.
 flash_notice: Successfully submitted form.
 metadata:
   label: Contact us
-  database:
-    name: modules/website/contact_us
   properties:
     email:
       step: 1
       label: Email Address
       hidden: false
       weight: 2
+      columns: '2'
       is_enabled: true
       ui_element: input
       prefill_key:
@@ -56,6 +55,7 @@ metadata:
       label: Message
       hidden: false
       weight: 4
+      columns: '1'
       is_enabled: true
       ui_element: input
       prefill_key:
@@ -70,6 +70,7 @@ metadata:
       label: Document
       hidden: false
       weight: 5
+      columns: '1'
       is_enabled: true
       ui_element: file_multiple
       auto_upload: false
@@ -85,6 +86,7 @@ metadata:
       label: Last Name
       hidden: false
       weight: 1
+      columns: '2'
       is_enabled: true
       ui_element: input
       prefill_key:
@@ -99,6 +101,7 @@ metadata:
       label: First Name
       hidden: false
       weight: 0
+      columns: '2'
       is_enabled: true
       ui_element: input
       prefill_key:
@@ -113,6 +116,7 @@ metadata:
       label: Mobile Phone
       hidden: false
       weight: 3
+      columns: '2'
       is_enabled: true
       ui_element: input
       prefill_key:
@@ -124,6 +128,7 @@ metadata:
       visibility_conditions: []
   form_groups: []
   buttons_color:
+  database_name: modules/website/contact_us
   buttons_alignment: Left
   show_button_icons: false
   submit_button_icon:
@@ -132,14 +137,13 @@ metadata:
 redirect_to: "/thank-you"
 resource: modules/website/contact_us
 resource_owner: anyone
-spam_protection:
-  recaptcha_v2: {}
+spam_protection: {}
 ---
 {%- form html-class: 'insites-form insites-form-code' html-name: 'modules/ins_forms/contact_us' html-novalidate: 'novalidate' html-data-form: 'modules/website/contact_us' -%}
 
 <div class="insites-form-grid">
 	<!-- Field: First Name -->
-	<div class="{%- if form.metadata.properties.first_name.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+	<div class="column-2">
 		<ins-input 
 			id="0"
 			data-type="string"
@@ -154,9 +158,10 @@ spam_protection:
 			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'first_name' -%} 
 			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'first_name' -%}>
 		</ins-input>
+	
 	</div>
 	<!-- Field: Last Name -->
-	<div class="{%- if form.metadata.properties.last_name.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+	<div class="column-2">
 		<ins-input 
 			id="1"
 			data-type="string"
@@ -171,9 +176,10 @@ spam_protection:
 			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'last_name' -%} 
 			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'last_name' -%}>
 		</ins-input>
+	
 	</div>
 	<!-- Field: Email Address -->
-	<div class="{%- if form.metadata.properties.email.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+	<div class="column-2">
 		<ins-input 
 			id="2"
 			data-type="string"
@@ -188,9 +194,10 @@ spam_protection:
 			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'email' -%} 
 			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'email' -%}>
 		</ins-input>
+	
 	</div>
 	<!-- Field: Mobile Phone -->
-	<div class="{%- if form.metadata.properties.mobile_phone.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+	<div class="column-2">
 		<ins-input 
 			id="3"
 			data-type="string"
@@ -205,9 +212,10 @@ spam_protection:
 			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'mobile_phone' -%} 
 			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'mobile_phone' -%}>
 		</ins-input>
+	
 	</div>
 	<!-- Field: Message -->
-	<div class="{%- if form.metadata.properties.message.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+	<div class="column-1">
 		<ins-input 
 			id="4"
 			data-type="string"
@@ -222,9 +230,10 @@ spam_protection:
 			{%- include 'modules/insites_forms/form_code/validation/type', form: form, name: 'message' -%} 
 			{%- include 'modules/insites_forms/form_code/validation/length', form: form, name: 'message' -%}>
 		</ins-input>
+	
 	</div>
 	<!-- Field: Document -->
-	<div class="{%- if form.metadata.properties.document.two_columns == true -%}column-2{%- else -%}column-1{%- endif -%}">
+	<div class="column-1">
 		<ins-input-file
 			id="5"
 			data-multiple="true"
@@ -232,7 +241,7 @@ spam_protection:
 			data-type="array"
 			data-ui="file_multiple"
 			data-prop="document"
-			label="Document"
+			label="{%- include 'modules/insites_forms/form_code/label', form: form, name: 'document' -%}"
 			accepted-files=""
 			capture=""
 			max-files="10"
@@ -242,14 +251,12 @@ spam_protection:
 			{%- include 'modules/insites_forms/form_code/validation/required', form: form, name: 'document' -%}
 			{%- if form.errors['properties.document'] != nil -%} has-error {%- endif -%}>
 		</ins-input-file>
+	
 	</div>
 
 </div>
 
 <div class="insites-form-grid">
-	<div class="column-1">
-		{%- spam_protection 'recaptcha_v2' -%}
-	</div>
 	<div class="insites-form-buttons column-1 left">
 		<ins-button type="submit" icon="" label="SUBMIT" solid></ins-button>
 	</div>
@@ -269,7 +276,7 @@ spam_protection:
                     setTimeout(() => {
                         let fixValue = parseFloat(inputEl.value || 0).toFixed(1).toString()
                         inputEl.value = fixValue.endsWith('.0') ? fixValue.slice(0, -2) : fixValue
-                    }, 10)
+                    }, 20)
                 })
             })
         })

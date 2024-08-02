@@ -6,7 +6,7 @@ metadata: {
 }
 ---
 {% comment %} ? THIS IS TO SET DEFAULT VALUES FOR NEWS IMAGE {% endcomment %}
-{% comment %} ? THIS BLOCK OF CODE CAN BE DELETED ONCE IMAGES ON NEWS DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE IMAGES ON NEWS DATABASE IS POPULATED BY THE USER{% endcomment %}
 {% parse_json news_list %}
 [
     {
@@ -23,11 +23,11 @@ metadata: {
     },
     {
         "image": "{{ 'modules/website/images/default-images/news/news_4.jpg' | asset_url }}",
-        "slug": "grow-your-brand-with-custom-merch"
+        "slug": "elevate-your-brand-with-expert-design"
     },
     {
         "image": "{{ 'modules/website/images/default-images/news/news_5.jpg' | asset_url }}",
-        "slug": "charging-for-gated-content-on-your-website"
+        "slug": "design-as-storytelling-crafting-narratives-through-visuals"
     },
     {
         "image": "{{ 'modules/website/images/default-images/news/news_6.jpg' | asset_url }}",
@@ -85,7 +85,16 @@ metadata: {
                                     <h3 class="subHeading">{{ item.title }}</h3>
                                 </div>
                             </a>
-                            <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ item.author }}</p>
+                            {% comment %} ? FETCHING AUTHOR NAME BASED ON EXTERNAL ID: item.author {% endcomment %}
+                            {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
+                            {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
+
+                            {% if item.author %}
+                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ get_author.first_name }} {{ get_author.last_name }}</p>
+                            {% else %}
+                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY MARK WEBBER</p>
+                            {% endif %}                        
+
                             <div class="spacer small"></div>
                             <div class="description">
                                 {{ item.list_view_text }}

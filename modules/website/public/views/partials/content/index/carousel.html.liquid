@@ -3,7 +3,7 @@
 {%- assign res_homepage_sliders = homepage_sliders | dig: 'items', 'results' -%}
 
 {% comment %} ? THIS IS TO SET DEFAULT VALUES IF THE HOMEPAGE SLIDER DATABASE IS EMPTY {% endcomment %}
-{% comment %} ? THIS BLOCK OF CODE CAN BE DELETED ONCE HOMEPAGE SLIDER DATABASE IS POPULATED BY THE USERS{% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE HOMEPAGE SLIDER DATABASE IS POPULATED BY THE USERS{% endcomment %}
   {% if homepage_sliders.items.total_entries == 0 %}
     {% parse_json res_homepage_sliders %}
     [

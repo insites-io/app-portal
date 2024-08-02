@@ -1,4 +1,4 @@
-name: modules/website/news
+name: news
 metadata:
   label: "News"
   groups: [{"id":"1de48179-e8bd-4542-9e4a-e4e323203346","name":"SEO Settings","weight":0},{"id":"d30e85d1-4d50-4fe5-9829-d8a6755c027c","name":"Article Details","weight":1},{"id":"02bb4c46-b71b-48c2-8462-b2623a2649f1","name":"Article Content","weight":2}]

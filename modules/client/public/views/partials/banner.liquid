@@ -1,4 +1,29 @@
-{%- graphql data = "modules/client/banners/get_banner", size: 10 | dig: "items","results" -%}
+{% comment %} ? FETCHING CLIENT BANNER {% endcomment %}
+{%- graphql client_banner = 'modules/client/banners/get_banner' -%}
+{%- assign data = client_banner | dig: 'items', 'results' -%}
+
+{% comment %} ? THIS IS TO SET DEFAULT VALUES IF THE CLIENT BANNER DATABASE IS EMPTY {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE CLIENT BANNER DATABASE IS POPULATED BY THE USERS{% endcomment %}
+{% if client_banner.items.total_entries == 0 %}
+    {% parse_json data %}
+    [
+      {
+        "main_text": "The ideal portal for your customers", 
+        "sub_text": "Unified client portal will help you to professionally manage your projects (and to wow your clients).",
+        "desktop_image": {
+            "url": "{{ 'modules/website/images/default-images/banners/client-portal-banner-3.jpg' | asset_url }}"
+        },
+        "mobile_image": {
+            "url": "{{ 'modules/website/images/default-images/banners/client-portal-banner-3.jpg' | asset_url }}"
+        },
+        "button_link": "",
+        "button_label": ""
+      }
+    ]
+    {% endparse_json %}
+  {% endif %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE CLIENT BANNER DATABASE IS POPULATED {% endcomment %}
+
 
 {%- if data.size > 0 -%}
 <div class="homepage-banner-wrap">
@@ -29,7 +54,7 @@
                     {%- comment -%}Slide Text{%- endcomment -%}
                     <div class="slide-content wrapper vertical-align-middle">
                         <div class="grid-x grid-container">
-                            <div class="large-6 large-offset-1 medium-12 small-12 cell">
+                            <div class="large-8 large-offset-1 medium-12 small-12 cell">
                                 <h1 class="heading heading-1">{{ item.main_text }}</h1>
                                 <div class="spacer"></div>
                                 <p>{{ item.sub_text }}</p>

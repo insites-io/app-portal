@@ -7,7 +7,7 @@ metadata: {
 }
 ---
 {% comment %} ? THIS IS TO SET DEFAULT VALUES FOR SERVICES IMAGE {% endcomment %}
-{% comment %} ? THIS BLOCK OF CODE CAN BE DELETED ONCE IMAGES ON SERVICES DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE IMAGES ON SERVICES DATABASE IS POPULATED BY THE USER {% endcomment %}
 
     {% comment %} ? connect services to graphql {% endcomment %}
     {%- graphql get_service = 'modules/website/services/get_service', slug: context.exports.data.item.slug  -%}
@@ -25,16 +25,16 @@ metadata: {
                         "service_name": "Customisable Style Guide", 
                         "slug": "customisable-style-guide",
                         "image_1": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_1.png' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/customisable_style_guide_1.webp' | asset_url }}"
                         },
                         "image_2": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_2.png' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/customisable_style_guide_2.webp' | asset_url }}"
                         },
                         "image_3": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_3.png' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/customisable_style_guide_3.webp' | asset_url }}"
                         },
                         "image_4": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_4.png' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/customisable_style_guide_4.webp' | asset_url }}"
                         }
                     }
                 ]
@@ -50,7 +50,6 @@ metadata: {
 
         {% comment %} ? WEB BLOCK VARIATIONS {% endcomment %}
         {% elsif context.exports.data.item.slug == "web-block-variations" %}
-
             {% if service.created_at == service.updated_at %}
                 {% assign is_default_image = true %}
                 {% parse_json web_block_variations %}
@@ -59,7 +58,16 @@ metadata: {
                         "service_name": "Web Block Variations", 
                         "slug": "web-block-variations",
                         "image_1": {
-                            "url": "{{ 'modules/website/images/default-images/services/web-blocks-image-1.png' | asset_url }}"
+                            "url": "No Image"
+                        },
+                        "image_2": {
+                            "url": "{{ 'modules/website/images/default-images/services/web_block_variations_2_v2.webp' | asset_url }}"
+                        },
+                        "image_3": {
+                            "url": "{{ 'modules/website/images/default-images/services/web_block_variations_3_v2.webp' | asset_url }}"
+                        },
+                        "image_4": {
+                            "url": "No Image"
                         }
                     }
                 ]
@@ -67,9 +75,9 @@ metadata: {
 
                 {% for web_block_variations_img in web_block_variations %}
                     {% assign image_1 = web_block_variations_img.image_1.url %}
-                    {% assign image_2 = "No Image" %}
-                    {% assign image_3 = "No Image" %}
-                    {% assign image_4 = "No Image" %}
+                    {% assign image_2 = web_block_variations_img.image_2.url %}
+                    {% assign image_3 = web_block_variations_img.image_3.url %}
+                    {% assign image_4 = web_block_variations_img.image_4.url %}
                 {% endfor %}          
             {% endif %}
 
@@ -84,13 +92,16 @@ metadata: {
                         "service_name": "Web Components", 
                         "slug": "web-components",
                         "image_1": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_1.png' | asset_url }}"
+                            "url": "No Image"
                         },
                         "image_2": {
-                            "url": "{{ 'modules/website/images/default-images/services/web-components-image-2.jpg' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/web_components_2.webp' | asset_url }}"
                         },
                         "image_3": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_4.png' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/web_components_3.webp' | asset_url }}"
+                        },
+                        "image_4": {
+                            "url": "No Image"
                         }
                     }
                 ]
@@ -100,7 +111,7 @@ metadata: {
                     {% assign image_1 = web_components_img.image_1.url %}
                     {% assign image_2 = web_components_img.image_2.url %}
                     {% assign image_3 = web_components_img.image_3.url %}
-                    {% assign image_4 = "No Image" %}
+                    {% assign image_4 = web_components_img.image_4.url %}
                 {% endfor %}          
             {% endif %}
 
@@ -115,7 +126,16 @@ metadata: {
                         "service_name": "Content Types", 
                         "slug": "content-types",
                         "image_1": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_4.png' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/content_types_1.webp' | asset_url }}"
+                        },
+                        "image_2": {
+                            "url": "No Image"
+                        },
+                        "image_3": {
+                            "url": "No Image"
+                        },
+                        "image_4": {
+                            "url": "No Image"
                         }
                     }
                 ]
@@ -123,9 +143,9 @@ metadata: {
 
                 {% for content_types_img in content_types %}
                     {% assign image_1 = content_types_img.image_1.url %}
-                    {% assign image_2 = "No Image" %}
-                    {% assign image_3 = "No Image" %}
-                    {% assign image_4 = "No Image" %}
+                    {% assign image_2 = content_types_img.image_2.url %}
+                    {% assign image_3 = content_types_img.image_3.url %}
+                    {% assign image_4 = content_types_img.image_4.url %}
                 {% endfor %}          
             {% endif %}
 
@@ -140,13 +160,16 @@ metadata: {
                         "service_name": "Fully Responsive", 
                         "slug": "fully-responsive",
                         "image_1": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_4.png' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/fully_responsive_1.webp' | asset_url }}"
                         },
                         "image_2": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_1.png' | asset_url }}"
+                            "url": "No Image"
                         },
                         "image_3": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_3.png' | asset_url }}"
+                            "url": "No Image"
+                        },
+                        "image_4": {
+                            "url": "No Image"
                         }
                     }
                 ]
@@ -156,12 +179,12 @@ metadata: {
                     {% assign image_1 = fully_responsive_img.image_1.url %}
                     {% assign image_2 = fully_responsive_img.image_2.url %}
                     {% assign image_3 = fully_responsive_img.image_3.url %}
-                    {% assign image_4 = "No Image" %}
+                    {% assign image_4 = fully_responsive_img.image_4.url %}
                 {% endfor %}          
             {% endif %}
 
         {% comment %} ? Pre Built Pages {% endcomment %}
-        {% elsif context.exports.data.item.slug == "pre-build-pages" %}
+        {% elsif context.exports.data.item.slug == "pre-built-pages" %}
 
             {% if service.created_at == service.updated_at %}
                 {% assign is_default_image = true %}
@@ -169,15 +192,18 @@ metadata: {
                 [
                     {
                         "service_name": "Pre Built Pages", 
-                        "slug": "pre-build-pages",
+                        "slug": "pre-built-pages",
                         "image_1": {
-                            "url": "{{ 'modules/website/images/default-images/services/web-components-image-2.jpg' | asset_url }}"
+                            "url": "{{ 'modules/website/images/default-images/services/pre_built_pages_1.webp' | asset_url }}"
                         },
                         "image_2": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_3.png' | asset_url }}"
+                            "url": "No Image"
                         },
                         "image_3": {
-                            "url": "{{ 'modules/website/images/default-images/services/image_2.png' | asset_url }}"
+                            "url": "No Image"
+                        },
+                        "image_4": {
+                            "url": "No Image"
                         }
                     }
                 ]
@@ -185,8 +211,8 @@ metadata: {
 
                 {% for pre_built_pages_img in pre_built_pages %}
                     {% assign image_1 = pre_built_pages_img.image_1.url %}
-                    {% assign image_2 = pre_built_pages_img.image_2.url %}
-                    {% assign image_3 = pre_built_pages_img.image_3.url %}
+                    {% assign image_2 = "No Image" %}
+                    {% assign image_3 = "No Image" %}
                     {% assign image_4 = "No Image" %}
                 {% endfor %}          
             {% endif %}
@@ -381,8 +407,11 @@ metadata: {
     </section>
 {% endif %}
 
+{% comment %} ? REMOVED ONLY FOR THIS UPDATE {% endcomment %}
+ {% comment %} 
 {%- if context.params.slug2 == "customisable-style-guide" -%}
 	{%- include 'modules/website/content/services/services_details_static' -%}
 {% endif %}
+ {% endcomment %}
 
 <div class="spacer section"></div>

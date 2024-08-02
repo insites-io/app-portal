@@ -1,4 +1,6 @@
 mutation create_news(
+  $meta_title: String,
+  $meta_description: String,
   $status: String,
   $title: String,
   $slug: String,
@@ -12,6 +14,14 @@ mutation create_news(
     model: {
       model_schema_name: "modules/website/news",
       properties: [
+        { 
+          name: "meta_title",
+          value: $meta_title 
+        },
+        { 
+          name: "meta_description",
+          value: $meta_description
+        },
         { 
           name: "status",
           value: $status 

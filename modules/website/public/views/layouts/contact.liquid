@@ -154,12 +154,24 @@ Contact Us layout
                             {%- assign key_enable = "loc_1_" | append: day | append: "_enable" -%}
                             {%- assign key_open = "loc_1_" | append: day | append: "_open" -%}
                             {%- assign key_close = "loc_1_" | append: day | append: "_close" -%}
-                                
+                         
                             <div class="small-12 cell grid-x {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
                                 <div class="small-4 cell">{{ days_name[forloop.index0] }}:</div>
                                 <div class="small-8 cell">
-                                    {% if global[key_enable] == 'false' or global[key_enable] == false %}
-                                        Closed
+                                    {% if global[key_enable] == 'false' or global[key_enable] == false or global[key_enable] == nil %}
+
+                                        {% comment %} ? THIS IS TO SET DEFAULT VALUE FOR OPENING HOURS {% endcomment %}
+                                        {% if global[key_enable] == nil %}
+                                            {% comment %} ? THIS VALUE MOSTLY AIMS TO POPULATE UPON INSTALLATION {% endcomment %}
+                                            {% if days_name[forloop.index0] == "Sunday" or days_name[forloop.index0] == "Saturday"  %}
+                                                Closed
+                                            {% else %}                                        
+                                                <p>7:00 AM - 4:00 PM</p>
+                                            {% endif %}
+                                        {% else %}
+                                            {% comment %} ? THIS VALUE TARGETS IF THE SETTING OF OPENING HOURS IS FALSE {% endcomment %}
+                                            Closed       
+                                        {% endif %}
                                     {% else %}
                                         <p>{{ global[key_open] | date: "%I:%M %p" }} - {{ global[key_close] | date: "%I:%M %p" }}</p>
                                     {% endif %}                                
