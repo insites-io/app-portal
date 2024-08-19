@@ -7,7 +7,7 @@ trigger_condition: true
 request_type: PUT
 callback: >
     {% assign response_hash = response.body | parse_json %}
-    {% graphql create_contact_custom_field = "modules/client/account/create_contact_custom_field", contact_uuid: response_hash.items.uuid %}
+    {% graphql create_contact_custom_field = "modules/client/account/create_contact_custom_field", contact_uuid: response_hash.items.uuid, permission_level: data.permission_level %}
     {% log create_contact_custom_field, type: "create_contact_custom_field -- put" %}
 request_headers: >
     {% include 'modules/website/api_headers' %}
@@ -19,6 +19,5 @@ request_headers: >
     "email": "{{ data.email }}", //REQUIRED
     "company_uuid": "{{ data.company_uuid }}",
     "work_phone_country_code": "{{ data.mobile_phone_country_code }}",
-    "work_phone_number": "{{ data.mobile_phone_number }}",
-    "job_title": "{{ data.job_title }}"
+    "work_phone_number": "{{ data.mobile_phone_number }}"
 }

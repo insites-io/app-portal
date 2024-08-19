@@ -61,7 +61,7 @@
     </div>
 
     <div class="userAddButton">
-        <ins-button type="button" id="user-invite-button" label="Add new user" icon="icon-user-plus" solid ></ins-button>
+        <ins-button type="button" id="user-invite-button" label="Invite new user" icon="icon-user-plus" solid ></ins-button>
     </div>
 </div>
 
@@ -74,10 +74,10 @@
 
     <div class="inviteUserModalBodyContainer">
         <div class="add-user-details">
-            <h3 class="heading-3">Add new contact</h3>
+            <h3 class="heading-3">Invite new user</h3>
             <div class="spacer xx-small"></div>
             <p class="p-body">
-                Please fill in the details below to invite a new contact to your company.
+                Please fill in the details below to invite a new user to your company account.
             </p>
             <div class="spacer"></div>
 
@@ -89,10 +89,21 @@
                         label="Email Address*"
                         name=""
                         value=""
-                        placeholder="Email Address">
+                        placeholder="Enter Email Address">
                     </ins-input>
                     <span id="emailRequired" class="user-error-txt-red body-x-small is_not_visible">Required</span>
-                    <span id="emailExists" class="user-error-txt-red body-x-small is_not_visible">The email address is already used.</span>
+            
+                    {% comment %} ? ERROR MESSAGE {% endcomment %}
+                    <div id="emailExists" class="emailExistsMessage is_not_visible">
+                        <div class="emailExistsMessageIcon">
+                            <i class="icon-warning"></i>
+                        </div>
+                        <div class="emailExistsMessageDetails">
+                            <span class="body-x-small">
+                                This email already exists in our system. If you send an invite, an invitation link will be sent to the registered address to create a new password and their details will be updated based on what you enter here. 
+                            </span>
+                        </div>
+                    </div>
                     <span id="emailInvalid" class="user-error-txt-red body-x-small is_not_visible">Invalid Email.</span>
                 </div>
             </div>
@@ -109,7 +120,7 @@
                         name="" 
                         value=""
                         class=""
-                        placeholder="First Name">
+                        placeholder="Enter First Name">
                     </ins-input>
                     <span id="firstNameRequired" class="user-error-txt-red body-x-small is_not_visible">Required</span>
                 </div>
@@ -121,7 +132,7 @@
                         label="Last Name*"
                         name="" 
                         value=""
-                        placeholder="Last Name">
+                        placeholder="Enter Last Name">
                     </ins-input>
                     <span id="lastNameRequired" class="user-error-txt-red body-x-small is_not_visible">Required</span>
                 </div>
@@ -137,7 +148,7 @@
                         label="Phone" 
                         phonenum-value="" 
                         country-code=""
-                        phonenum-placeholder="Phone Number" 
+                        phonenum-placeholder="1300 000 000" 
                         no-areacode>
                     </ins-input-tel>
                 </div>
@@ -145,13 +156,29 @@
             
                 {% comment %} ? Position {% endcomment %}
                 <div class="userDetails">
-                    <ins-input 
-                        id="user-position"
-                        label="Position"
-                        name="" 
-                        value=""
-                        placeholder="Position">
-                    </ins-input>
+                    <ins-input-select 
+                        class="" 
+                        label="Permission Level"
+                        id="user-permission-level"
+                        value="Manager">
+                            
+                        <ins-input-select-option class="form-placeholder"
+                        label="Manager" 
+                        value="Manager">
+                        <span></span>
+                        </ins-input-select-option>
+                    
+                        <ins-input-select-option 
+                        label="Staff" 
+                        value="Staff">
+                        </ins-input-select-option>
+                    
+                        <ins-input-select-option 
+                        label="No Access" 
+                        value="No Access">
+                        </ins-input-select-option>       
+                    </ins-input-select>
+         
                 </div>
             </div>
         </div>
@@ -239,7 +266,7 @@
                         <span><b>Permission Level:</b></span>
                         <div class="spacer x-small"></div>
                         {% if item.custom_fields.primary_account_holder == true %}
-                            <ins-input-select value="Account Owner" disabled="true">
+                            <ins-input-select class="account_owner_select" value="Account Owner" disabled="true">
                                 <ins-input-select-option 
                                 label="Account Owner" 
                                 value="Account Owner" 
@@ -292,7 +319,7 @@
                 
                 <ins-table-td class="hide-for-small-medium">
                     {% if item.custom_fields.primary_account_holder == true %}
-                        <ins-input-select class="selectPermission" value="Account Owner" disabled="true">
+                        <ins-input-select class="account_owner_select" value="Account Owner" disabled="true">
                             <ins-input-select-option 
                             label="Account Owner" 
                             value="Account Owner" 
@@ -522,7 +549,7 @@
     var userLastName = document.getElementById('user-last-name');
     var userEmail = document.getElementById('user-email');
     var userContact = document.getElementById('user-mobile-phone');
-    var userPosition = document.getElementById('user-position');
+    var userPermission = document.getElementById('user-permission-level');
     let is_email_found = false;
     let user_id = '';
     let user_email = '';
@@ -589,7 +616,7 @@
         sendInviteButton.loading = true;
         if (userFirstName.value != '' && userLastName.value != '' && is_email_valid == true){
             setTimeout(async() => {
-                url = '/update-user-account?' + 'company_uuid=' + company_uuid.value + '&company=' + company_name.value + '&user_id=' + user_id + '&email=' + user_email + '&is_email_found=' + is_email_found + '&actions=add_user' + '&userFirstName=' + userFirstName.value + '&userLastName=' + userLastName.value + '&mobile_phone_country_code=' + mobile_phone_country_code + '&mobile_phone_number=' + mobile_phone_number + '&userPosition=' + userPosition.value;
+                url = '/update-user-account?' + 'company_uuid=' + company_uuid.value + '&company=' + company_name.value + '&user_id=' + user_id + '&email=' + user_email + '&is_email_found=' + is_email_found + '&actions=add_user' + '&userFirstName=' + userFirstName.value + '&userLastName=' + userLastName.value + '&mobile_phone_country_code=' + mobile_phone_country_code + '&mobile_phone_number=' + mobile_phone_number + '&userPermission=' + userPermission.value;
                 setTimeout(async() => {
                     let response = await apiServices.processRequest('post', url);
                     processingLoader();
@@ -654,7 +681,7 @@
         invalidEmail.classList.add('is_not_visible');
         existEmail.classList.remove('is_not_visible');
         existEmail.classList.add('is_visible');
-        userEmail.classList.add('has-error');
+        userEmail.classList.remove('has-error');
     }
 
     function errorOnEmailRequired(){

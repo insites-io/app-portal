@@ -1,5 +1,6 @@
 mutation create_contact_custom_field(
-  $contact_uuid: String!
+  $contact_uuid: String!,
+  $permission_level: String
 ) {
   items: record_create(
     record: {
@@ -7,7 +8,7 @@ mutation create_contact_custom_field(
     	properties: [
         { name: "contact_uuid", value: $contact_uuid }
         { name: "primary_account_holder", value_boolean: false }
-        { name: "permission_level", value: "No Access"}
+        { name: "permission_level", value: $permission_level }
       ]
     }
   ) {

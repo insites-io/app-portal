@@ -381,10 +381,6 @@ ins-tag span.ins-tag.blue {
     width: 100%;
 }
 
-.payment-methods-credit-card {
-    /* pointer-events: none; */
-}
-
 .payment-methods-credit-card .ins-credit-card-main-wrap.compact ins-radio {
     display: none!important;
 }
@@ -2255,10 +2251,11 @@ ins-tag.Completed span.ins-tag {
 
 #add-user-modal .ins-modal-wrap.show-modal ins-card .ins-card-wrap {
     height: initial!important;
+    border-radius: 4px!important;
 }
 
 .addUserModal ins-card {
-    width: 600px!important;
+    width: 495px!important;
 }
 
 .addUserModalButton {
@@ -2336,4 +2333,37 @@ ins-tag.Completed span.ins-tag {
 .swal-remove-access .swal2-actions button.swal2-confirm {
     background-color: #DF1F1F!important;
     border-color: #DF1F1F!important;
+}
+
+.emailExistsMessage {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: rgba(251, 172, 19, 0.10);
+    margin: 8px 0px;
+}
+
+.emailExistsMessageIcon {
+    color: #CC8700;
+}
+
+.emailExistsMessageDetails {
+    color: var(--font---font-color-body, #575757);
+    font-size: 12px!important;
+    font-family: var(--font-family-01);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.account_owner_select .icon-caret-down {
+    display: none;
+}
+
+.account_owner_select .ins-input-select.ins-select-wrap .ins-select-value-wrap .ins-select-value-input {
+    color: var(--ins-color-ink40)!important;
+}
+
+.account_owner_select .ins-input-select.ins-select-wrap .ins-select-value-wrap .ins-select-value-input:hover {
+    cursor: not-allowed !important;
 }

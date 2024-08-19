@@ -65,7 +65,7 @@ metadata: {
             "company_uuid": "{{ details.company_uuid }}",
             "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
             "mobile_phone_number": "{{ details.mobile_phone_number }}",
-            "job_title": "{{ details.userPosition }}"
+            "permission_level": "{{ details.userPermission }}"
         }
         {% endparse_json %}
         {% comment %} ? UPDATE CRM FIRST {% endcomment %}
@@ -84,7 +84,7 @@ metadata: {
             "company_uuid": "{{ details.company_uuid }}",
             "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
             "mobile_phone_number": "{{ details.mobile_phone_number }}",
-            "job_title": "{{ details.userPosition }}"
+            "permission_level": "{{ details.userPermission }}"
         }
         {% endparse_json %}
         {% comment %} ? ADD CRM FIRST {% endcomment %}
