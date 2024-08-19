@@ -15,7 +15,6 @@
           {%- assign parent = parent | add_hash_key: "child", get_child_menu -%}
           {%- assign menus = menus | add_to_array: parent -%}
         {% endfor %}
-   
     
         <ul class="vertical menu">
           {% for menu in menus %}
@@ -29,7 +28,7 @@
                             {%- assign res_services =  menu.child -%}
           
                             {% for item in res_services %} 
-                              <ins-accordion-link class="colorBlack" label="{{ item.label }}" link="/{{menu.slug}}/{{ item.slug }}" link-target="_self">
+                              <ins-accordion-link class="colorBlack" label="{{ item.label }}" link="/{{ menu.slug }}/{{ item.slug }}" link-target="_self">
                               </ins-accordion-link>
                             {% endfor %} 
           
@@ -39,7 +38,7 @@
                   </li>
             {% else %}
                 <li class="no-submenu mobile-menu-style">
-                    <a class="colorBlack" href="/{{menu.slug}}">
+                    <a class="colorBlack" href="/{{ menu.slug }}">
                     {{menu.label}}
                     </a>
                 </li>

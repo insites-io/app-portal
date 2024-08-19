@@ -26,12 +26,15 @@ metadata: {
 authorization_policies:
   - modules/client/is_user_logged_in
 ---
+{% function get_stripe_settings = "modules/client/stripe/get_stripe_settings" %}
+
 
 {%- if context.environment == "staging" -%}
 <!-- start page: Pay a Bill  -->
 {%- endif -%}
 
-<div class="pay-bills">
+{% if get_stripe_settings.account_id != ''  %}
+  <div class="pay-bills">
     {%- if context.flash.notice == "Success-PayBill" -%}
       {% comment %} Payment Notice {% endcomment %} 
       {%  liquid
@@ -46,7 +49,13 @@ authorization_policies:
       {%- include_form "modules/client/pay_bills" -%} 
     {%- endif -%}
     
-</div>
+  </div>
+{% else %}
+  <div id="no-card" class="empty-state text-center empty-box  {% if cards.total_entries > 0 %}hide{% endif %}" >
+    Please set-up Stripe on your account.
+  </div>
+{% endif %}
+
 
 {%- if context.environment == "staging" -%}
 <!-- end page: Pay a Bill  -->

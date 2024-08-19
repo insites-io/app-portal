@@ -221,9 +221,9 @@ metadata: {
     {% endfor %}
 {% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE IMAGES ON SERVICES DATABASE IS POPULATED {% endcomment %}
 
-{% if context.params.slug2 != context.exports.data.item.slug %}
+{%- if context.params.slug2 != context.exports.data.item.slug -%}
     {%- redirect_to '/404' -%}
-{% endif %}
+{%- endif -%}
 
 {% comment %} ? TITLE {% endcomment %}
 <section class="hero-title">
