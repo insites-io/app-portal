@@ -397,7 +397,7 @@ ins-tag span.ins-tag.blue {
 .navigation-04 {
     display: block;
     position: relative;
-    z-index: 999999;
+    z-index: 9999;
     background-color: var(--color-ui-01, #FFFFFF);
     width: 100%;
     transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
@@ -584,6 +584,14 @@ ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__page {
 
 
 /********************************************************** CUSTOM CSS - WEBSITE *******************************************************************/
+
+.body-x-small {
+    font-family: var(--font-family-02);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+}
 
 .customNav .ins-dropdown_menu-card {
     width: 250px;
@@ -1964,6 +1972,12 @@ ins-tag.Completed span.ins-tag {
     background: rgb(10 10 10 / 88%);
 }
 
+.ins-modal-wrap.show-modal ins-card {
+    top: 10%;
+    z-index: 9999 !important;
+    overflow-y: scroll !important;
+}
+
 
 /* Registration Form */
 
@@ -2350,7 +2364,7 @@ ins-tag.Completed span.ins-tag {
 .emailExistsMessageDetails {
     color: var(--font---font-color-body, #575757);
     font-size: 12px!important;
-    font-family: var(--font-family-01);
+    font-family: var(--font-family-02);
     font-style: normal;
     font-weight: 400;
     line-height: 18px;
