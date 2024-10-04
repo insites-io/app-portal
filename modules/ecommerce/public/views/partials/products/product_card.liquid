@@ -1,0 +1,24 @@
+    
+    <div class="wrap">
+        <img  src="{{ product.product_image.url }}" alt="{{ product.product_name }}" >
+        <div class="spacer medium"></div>
+        <div class="container grid-y">
+            <div class="details">
+                <h6>{{ product.product_name }}</h6>
+                <div class="spacer x-small"></div>
+                <p>{{ product.category | default: 'Category' }}</p>
+                <div class="spacer"></div>
+                <p class="product-current-price">${{ product.regular_price | default: '0.00' }}</p>
+                {% if purchase_date  %}
+                <div class="spacer"></div>
+                <p class="body-x-small">Purchase Date: {{purchase_date | date: '%d/%m/%Y'}}</p>
+                <div class="spacer"></div>
+                {% endif %}
+            </div>
+            <div class="buttons">
+                <ins-button class="full" label="Add to Cart" solid color="blue" icon="icon-shopping-cart"></ins-button>
+                <div class="spacer x-small"></div>
+                <ins-button class="full" label="View Details" outlined icon="icon-eye"></ins-button>
+            </div>
+        </div>
+    </div>

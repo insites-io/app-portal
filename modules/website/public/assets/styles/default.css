@@ -44,9 +44,9 @@
     --color-gradiant2: linear-gradient(90deg, #8C1EE3 0%, #C71EE3 100%);
     --color-gradiant3: linear-gradient(90deg, #E3351E 0%, #F07B26 100%);
     /* Font family */
-    --font-family-01: 'Lato', sans-serif;
+    --font-family-01: 'Roboto', sans-serif;
     /* usually on heading */
-    --font-family-02: 'Lato', sans-serif;
+    --font-family-02: 'Work Sans', sans-serif;
     /* usually on sub-heading */
     --font-family-03: 'Cabin', sans-serif;
     /* usually on paragraph & buttons */
@@ -774,8 +774,8 @@ ins-button button[type=button].primary.outlined,
 ins-button button.blue.outlined,
 ins-button button.primary.outlined {
     background: none;
-    border: 1px solid var(--color-main-hover);
-    color: var(--color-main-hover);
+    border: 1px solid var(--color-main);
+    color: var(--color-main);
 }
 
 
@@ -1105,6 +1105,7 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 }
 
 .font-color-head,
+.font-color-head *,
 .font-color-head:visited {
     color: var(--font-color-head);
 }

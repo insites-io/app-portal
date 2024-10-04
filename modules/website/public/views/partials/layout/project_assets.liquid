@@ -19,3 +19,11 @@ Project Assets - Holds app css and js
     <link rel="preload" as="style" href="{{ 'modules/website/styles/breakpoint.min.css' | asset_url }}" >
     <link rel="stylesheet" href="{{ 'modules/website/styles/breakpoint.min.css' | asset_url }}" >
 {%- endif -%}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {%- if context.environment == "staging" -%}
+        <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.css' | asset_url }}" >
+    {%- else -%}
+         <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.min.css' | asset_url }}" >
+    {%- endif -%}
+{%- endif -%}
