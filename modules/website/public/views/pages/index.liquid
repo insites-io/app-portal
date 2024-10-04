@@ -27,9 +27,23 @@ metadata: {
 {%- assign device_used = context.device.device_type -%}
 
 {% include 'modules/website/content/index/carousel' %} 
-{% include 'modules/website/content/index/overlap_section' %} 
+{% comment %} {% include 'modules/website/content/index/beautiful_centralised' %}  {% endcomment %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/new_arrivals' %} 
+{% endif %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/whats_hot' %}
+{% endif %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/cart_drawer' %} 
+{% endif %}
+
+{% comment %} {% include 'modules/website/content/index/overlap_section' %} 
 {% include 'modules/website/content/index/client_section' %}
-{% include 'modules/website/content/index/testimonials' %} 
+{% include 'modules/website/content/index/testimonials' %}  {% endcomment %}
 
 {%- if context.environment == "staging" -%}
     <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.js' | asset_url }}" >
