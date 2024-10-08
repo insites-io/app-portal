@@ -1533,7 +1533,7 @@ ins-button+ins-button button {
     margin-bottom: 0px;
 }
 
-.ins-card-wrap:not(.overview div):hover {
+.ins-card-wrap:not(.no-hover-border div):hover {
     border: 1px solid var(--color-main);
     box-shadow: var(--shadow-level-2);
 }

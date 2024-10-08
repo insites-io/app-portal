@@ -1,10 +1,7 @@
-query get_categories (
-  $id: ID,
+query get_subcategories (
   $page: Int = 1,
-  $size: Int = 50,
+  $size: Int = 20,
   $parent_category_uuids: [String!]
-  # $slug: String = "",
-  # $parent_ids: [String!],
   $sort_by: [RecordsSortInput!] = {
       properties: [
           { name: "category_name", order: ASC }
@@ -15,14 +12,11 @@ query get_categories (
     page: $page
     per_page: $size
     filter: {
-      id: { value: $id }
       deleted_at: { exists: false }
       table: { value: "modules/insites_ecommerce/category" }
       properties: [
         { name: "status", value: "enabled" }
-        { name: "parent_category_uuids", value_array: $parent_category_uuids }
-        #{ name: "slug", value: $slug }
-        #{ name: "parent_ids", array_overlaps: $parent_ids }
+        { name: "parent_category_uuids", array_overlaps: $parent_category_uuids }
       ] 
     }
     sort: $sort_by
@@ -36,7 +30,7 @@ query get_categories (
 			uuid: property(name: "uuid")
       slug: property(name: "slug")
       category_name: property(name: "category_name")
-      parent_category_uuids: property(name: "parent_category_uuids")      
+      parent_category_uuids: property_array(name: "parent_category_uuids")      
     }
   }
 }
