@@ -30,15 +30,15 @@ metadata: {
 {% comment %} {% include 'modules/website/content/index/beautiful_centralised' %}  {% endcomment %}
 
 {% if context.constants.ecommerce_addon == 'true' %}
-    {% include 'modules/ecommerce/new_arrivals' %} 
+    {% include 'modules/ecommerce/blocks/new_arrivals' %} 
 {% endif %}
 
 {% if context.constants.ecommerce_addon == 'true' %}
-    {% include 'modules/ecommerce/whats_hot' %}
+    {% include 'modules/ecommerce/blocks/whats_hot' %}
 {% endif %}
 
 {% if context.constants.ecommerce_addon == 'true' %}
-    {% include 'modules/ecommerce/cart_drawer' %} 
+    {% include 'modules/ecommerce/carts/cart_drawer' %} 
 {% endif %}
 
 {% comment %} {% include 'modules/website/content/index/overlap_section' %} 

@@ -45,6 +45,10 @@
       <div class="show-for-large large-9 medium-6 small-12 cell text-right">
         <div class="header-links">
 
+        {% if context.constants.ecommerce_addon == 'true' %}
+            <ins-button id="mega-menu-btn" label="Shop" icon-right="icon-angle-down"></ins-button>
+        {% endif %}
+
         {% for menu in menus %}
 
           {%- if menu.child.size > 0 -%}
@@ -123,6 +127,9 @@
   </div>
 </header>
 
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/menu/mega_menu' %}
+{% endif %}
 
 
 {%- if context.environment == "staging" -%}
