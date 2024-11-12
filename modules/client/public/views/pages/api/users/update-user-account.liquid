@@ -16,10 +16,16 @@ metadata: {
 
 {% if details.actions == "change_permission_level" %}
     {% comment %} ? ACTION == user TOGGLE {% endcomment %}
-    {% assign custom_field_id = details.custom_field_id %}
+    
+    {% if details.custom_field_id != "" %}
+        {% assign custom_field_id = details.custom_field_id %}
+    {% else %}
+        {% graphql create_contact_custom_field = "modules/client/account/create_contact_custom_field", contact_uuid: details.contact_uuid %}
+        {% assign custom_field_id = create_contact_custom_field.items.id %}
+    {% endif %}
 
     {% graphql update_user_account = 'modules/client/users/update_user_account', id: custom_field_id, permission_level: details.permission_level %}
-
+    
     {% comment %} ? SET TOKEN PASSWORD FOR INVITED{% endcomment %}
     {%  liquid
         graphql generated_token = 'modules/client/account/generate_user_temporary_token', email: email | dig: 'items', 'results' | first

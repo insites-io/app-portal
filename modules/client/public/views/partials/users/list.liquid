@@ -282,7 +282,10 @@
                                 data-name="{{ item.first_name }} {{ item.last_name }}"
                                 data-email="{{ item.email }}"
                                 data-custom-field-id="{{ item.custom_fields.id }}"
-                                data-permission-level-previous-value="{{ item.custom_fields.permission_level }}">
+                                data-permission-level-previous-value="{{ item.custom_fields.permission_level }}"
+                                data-uuid="{{ item.external_id }}"
+                                data-uuid="{{ item.external_id }}"
+                                >
                                     
                                 <ins-input-select-option class="form-placeholder"
                                 label="Manager" 
@@ -464,7 +467,7 @@
             let contactId = e.getAttribute('data-id');
             
             // Contact UUID
-            let contactUuid = e.getAttribute('data-contact-uuid');
+            let contactUuid = e.getAttribute('data-uuid');
 
             // Contact Name
             let contactName = e.getAttribute('data-name');
@@ -493,7 +496,7 @@
                         if (result.isConfirmed) {
                             processingLoader();
                             // update
-                            url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&actions=change_permission_level';
+                            url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&actions=change_permission_level' + '&contact_uuid=' + contactUuid;
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {
@@ -521,7 +524,7 @@
                             processingLoader();
 
                             // update
-                            url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&email=' + contactEmail + '&name=' + contactName + '&company=' + company_name.value + '&actions=change_permission_level' + '&company_uuid=' + company_uuid.value;
+                            url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&email=' + contactEmail + '&name=' + contactName + '&company=' + company_name.value + '&actions=change_permission_level' + '&company_uuid=' + company_uuid.value +'&contact_uuid=' + contactUuid;
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {

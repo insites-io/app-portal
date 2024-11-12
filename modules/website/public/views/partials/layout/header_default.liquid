@@ -9,7 +9,7 @@
       <div class="large-2 medium-3 small-9 cell">
         <a href="/">
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
-          {% if context.exports.global.company_logo == nil or context.exports.global.company_logo contains "client-logo.png" %}
+          {% if context.exports.global.company_logo == nil  %}
               {% comment %} ? DEFAULT {% endcomment %}
               <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo">
           {% else %}
