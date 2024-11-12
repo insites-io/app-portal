@@ -145,12 +145,9 @@ async_callback_actions:
         graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
     %} 
     
-    {% comment %} Verification Token {% endcomment %}
+    {% comment %} Generate user temporary token {% endcomment %}
     {%  liquid
-        graphql g = 'modules/client/account/generate_user_temporary_token', email: form.email 
-        if g.items.results[0]
-          graphql res = 'modules/client/account/set_email_verification_token', id: g.items.results[0].id, token: g.items.results[0].temporary_token
-        endif
+        graphql temporary_token = 'modules/client/account/generate_user_temporary_token', email: form.email 
     %}
    
     {% comment %} Create Event Stream {% endcomment %}
