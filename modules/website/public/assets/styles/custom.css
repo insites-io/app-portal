@@ -391,6 +391,15 @@ ins-tag span.ins-tag.blue {
     cursor: default;
 }
 
+@media screen and (max-width: 639px) { 
+    .add-credit-card {
+        align-items: flex-start !important;
+    }
+}
+ 
+.card-form-cancel {
+    margin-right: 16px;
+}
 
 /********************************************************** NAVIGATION *******************************************************************/
 
@@ -853,6 +862,17 @@ ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__page {
     color: #000000;
 }
 
+.signOutCustom button {
+    display: flex;
+}
+
+
+.signOutCustom button:hover {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+
 .servicesMenuSubitems .ins-accordion-link {
     padding: 0px;
 }
@@ -1064,6 +1084,10 @@ ins-accordion .inner-content {
     border: var(--ins-border-style) var(--ins-border-thickness) var(--color-ui-04);
 }
 
+.active-parent-accordion .ins-accordion-item .ins-accordion-item_header .inner-head{
+    background: var(--color-main-hover-light) !important;
+}
+
 #services_static_content .ins-accordion-item_content .inner-content,
 #faqs_accordion .ins-accordion-item_content .inner-content {
     border: var(--ins-border-style) var(--ins-border-thickness) var(--color-ui-04)!important;
@@ -1219,6 +1243,10 @@ ins-card .ins-card-wrap {
     color: var(--font-color-head) !important;
 }
 
+.mobile-menu-style ins-accordion .menu ins-accordion-item .open .ins-accordion-item_content .inner-content ins-accordion-link .ins-accordion-link {
+    border-bottom: 1px solid #EBEBEB;
+}
+
 .sign-in-button a {
     color: var(--color-main) !important;
 }
@@ -1254,12 +1282,13 @@ ins-card .ins-card-wrap {
 }
 
 .sign-out-wrapper .signOutCustom .ins-button div .btn__label {
-    font-family: var(--font-family-03);
-    font-size: var(--font-medium)!important;
-    letter-spacing: normal;
-    line-height: var(--font-x-large);
-    font-weight: 700;
-    text-transform: capitalize;
+    color:  #323232;
+    font-family: "Work Sans";
+    font-size: 16px !important;
+    font-style: normal;
+    font-weight: 400 !important;
+    line-height: 24px;
+    text-transform: capitalize; 
 }
 
 .sign-out-wrapper,
@@ -1547,6 +1576,11 @@ ins-card .content {
     width: 100%;
 }
 
+ins-modal .ins-modal-wrap ins-card .ins-card-wrap:not(.no-hover-border div):hover {
+    border: none !important;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10);
+}
+
 #no-card .ins-card-wrap,
 #payment-details .empty-box {
     margin: 12px 0px;
@@ -1565,6 +1599,10 @@ ins-button .carets {
 /* Insites Modal */
 
 ins-modal.no-close-icon .ins-modal-head .icon-close-1 {
+    display: none;
+}
+
+#submit-modal .ins-modal-wrap ins-card .ins-card-wrap .ins-modal-content .ins-modal-head  span {
     display: none;
 }
 
@@ -1649,7 +1687,11 @@ ins-radio .ins-radio-checkbox label,
 
 ins-checkbox .ins-radio-checkbox label,
 ins-radio .ins-radio-checkbox label {
-    color: var(--font-color-head);
+    font-family: "Work Sans";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--color-ui-06, #575757);
 }
 
 .ins-radio.ins-radio-checkbox {
@@ -1957,6 +1999,23 @@ ins-tag.Completed span.ins-tag {
     color: var(--text-3);
 }
 
+#search-year .ins-input-wrap .input-wrap input::-webkit-outer-spin-button,
+#search-year .ins-input-wrap .input-wrap input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#search-year .ins-input-wrap .input-wrap input::placeholder,
+#search-description   .ins-input-wrap .input-wrap input::placeholder{
+    color:  #84848F;
+    font-family: "Work Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+ 
+
 
 /* Documents */
 
@@ -2058,7 +2117,6 @@ ins-tag.Completed span.ins-tag {
 }
 
 .stripe-modal .ins-modal-wrap.show-modal .ins-modal-body {
-    position: absolute;
     padding: 24px;
 }
 
@@ -2139,6 +2197,10 @@ ins-tag.Completed span.ins-tag {
 
 .portal-sidebar .ins-accordion ins-accordion-item .ins-accordion-item {
     background: 0 0 !important;
+}
+
+.portal-sidebar .ins-accordion ins-accordion-item .open .ins-accordion-item_header .inner-head {
+    background: var(--color-main-hover-light) !important;
 }
 
 .portal-sidebar .ins-accordion .inner-head {
@@ -2265,7 +2327,7 @@ ins-tag.Completed span.ins-tag {
 
 #add-user-modal .ins-modal-wrap.show-modal ins-card .ins-card-wrap {
     height: initial!important;
-    border-radius: 4px!important;
+    border-radius: 24px!important;
 }
 
 .addUserModal ins-card {

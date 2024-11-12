@@ -34,23 +34,13 @@ authorization_policies:
 
 <div class="feedback">    
  
-        {%- if context.params.page == "thank-you" -%}
-        <div class="spacer x-large"></div>
-
-        {%- parse_json messageInfo -%}
-        {
-            "title" : "Thank You!",
-            "type": "success",
-            "message": "<p>Your feedback has been submitted.</p>"
-        }
-        {%- endparse_json -%}
-        {%- include 'modules/client/system/form_result', messageInfo: messageInfo -%}
-
+        {% if context.flash.notice == "Successfully submitted form." %}
+            {% include 'modules/client/system/thank-you-feedback' %}
     {%- else -%}
         {% comment %} {%- include_form 'modules/client/feedback' -%} {% endcomment %}
 
         <div class="column-1">
-            <h2 class="heading-2">How did we do? </h2>
+            <h2 class="heading-2">How Did We Do?</h2>
             <div class="spacer x-large"></div>
             <p>Please share how your experience with us is going. We’d love to hear from you.</p>
         </div>

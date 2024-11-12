@@ -398,6 +398,7 @@ SweetAlert Style
 
 .swal2-popup {
     padding: 2rem !important;
+    border-radius: 24px !important;
 }
 
 .swal2-popup .swal2-actions {
@@ -983,7 +984,11 @@ ins-editor .ins-editor {
 ins-checkbox.inline .ins-radio-checkbox label .ins-checkbox-radio-label,
 ins-radio.inline .ins-radio-checkbox label .ins-checkbox-radio-label {
     display: inline;
+    font-family: "Work Sans";
+    font-size: 14px;
+    font-weight: 400;
     line-height: normal;
+	color: var(--color-ui-06, #575757);
 }
 
 ins-checkbox .ins-radio-checkbox .ripple-check:checked::after,
@@ -2469,6 +2474,10 @@ Contact Us
 .contact-us .contact-details {
     font-size: var(--font-small);
     line-height: 17px;
+}
+
+.contact-us .contact-details a{ 
+    color: #436CF2;
 }
 
 .contact-us .contact-details li {
