@@ -1,7 +1,7 @@
 mutation create_services(
   $service_name: String,
   $slug: String,
-  $sort_order: Int,
+  $sort_order: Int!,
   $list_view_icon: String,
   $list_view_text: String,
   $icon_1: String,

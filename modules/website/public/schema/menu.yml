@@ -1,4 +1,4 @@
-name: modules/website/menu
+name: menu
 metadata:
   label: "Menu"
   groups: []

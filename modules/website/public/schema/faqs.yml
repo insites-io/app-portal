@@ -1,4 +1,4 @@
-name: modules/website/faqs
+name: faqs
 metadata:
   label: "Faqs"
   groups: [{"id":"0aba0268-a2bf-40c3-962e-4ada9a8e0fd5","name":"FAQ Content","weight":0}]

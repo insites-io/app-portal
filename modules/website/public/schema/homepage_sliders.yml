@@ -1,4 +1,4 @@
-name: modules/website/homepage_sliders
+name: homepage_sliders
 metadata:
   label: "Homepage Sliders"
   groups: [{"id":"ae8be35b-771a-4c74-be78-4524e4c209ce","name":"Post Settings","weight":0},{"id":"99c710e1-f148-40c0-a4a0-ec8dc1016f99","name":"Content","weight":1},{"id":"116c9fb6-aee7-405f-baf3-d7c99ff0eaa5","name":"Media","weight":2}]

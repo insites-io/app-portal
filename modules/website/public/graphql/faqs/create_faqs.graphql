@@ -3,7 +3,7 @@ mutation create_faqs(
   $question: String,
   $slug: String,
   $answer: String,
-  $sort_order: Int,
+  $sort_order: Int!,
   $sub_topic_title_1: String,
   $sub_topic_details_1: String,
   $sub_topic_title_2: String,
