@@ -3,7 +3,7 @@ mutation create_faqs(
   $question: String,
   $slug: String,
   $answer: String,
-  $sort_order: Int!,
+  $sort_order: Int,
   $sub_topic_title_1: String,
   $sub_topic_details_1: String,
   $sub_topic_title_2: String,
@@ -13,9 +13,9 @@ mutation create_faqs(
   $sub_topic_title_4: String,
   $sub_topic_details_4: String
 ) {
-  items: model_create(
-    model: {
-      model_schema_name: "modules/website/faqs",
+  items: record_create(
+    record: {
+      table: "modules/website/faqs",
       properties: [
         { 
           name: "category",
@@ -35,7 +35,7 @@ mutation create_faqs(
         },
         { 
           name: "sort_order",
-          value: $sort_order
+          value_int: $sort_order
         },
         { 
           name: "sub_topic_title_1",

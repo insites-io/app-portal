@@ -1,7 +1,7 @@
 mutation create_services(
   $service_name: String,
   $slug: String,
-  $sort_order: Int!,
+  $sort_order: Int,
   $list_view_icon: String,
   $list_view_text: String,
   $icon_1: String,
@@ -20,9 +20,9 @@ mutation create_services(
   $dropdown_2: String,
   $dropdown_3: String
 ) {
-  items: model_create(
-    model: {
-      model_schema_name: "modules/website/services",
+  items: record_create(
+    record: {
+      table: "modules/website/services",
       properties: [
         { 
           name: "service_name",
@@ -34,7 +34,7 @@ mutation create_services(
         },
         { 
           name: "sort_order",
-          value: $sort_order 
+          value_int: $sort_order 
         },
         { 
           name: "add_to_homepage",

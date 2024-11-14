@@ -10,9 +10,9 @@ mutation create_news(
   $author: String,
   $content: String
 ) {
-  items: model_create(
-    model: {
-      model_schema_name: "modules/website/news",
+  items: record_create(
+    record: {
+      table: "modules/website/news",
       properties: [
         { 
           name: "meta_title",

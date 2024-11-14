@@ -1,5 +1,5 @@
 query get_author(
-    $external_id: String!
+    $external_id: ID!
 ){
   items: users(
     page: 1,

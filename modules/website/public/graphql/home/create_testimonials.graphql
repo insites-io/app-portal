@@ -5,9 +5,9 @@ mutation create_testimonials(
   $allow_display_on_website: String,
   $is_shown_on_webstie: Boolean
 ) {
-  items: model_create(
-    model: {
-      model_schema_name: "modules/website/testimonials",
+  items: record_create(
+    record: {
+      table: "modules/website/testimonials",
       properties: [
         { 
           name: "full_name",

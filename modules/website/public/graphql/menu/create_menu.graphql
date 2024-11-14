@@ -5,9 +5,9 @@ mutation create_menu(
   $parent: String
  
 ) {
-  items: model_create(
-    model: {
-      model_schema_name: "modules/website/menu",
+  items: record_create(
+    record: {
+      table: "modules/website/menu",
       properties: [
         { 
           name: "label",
