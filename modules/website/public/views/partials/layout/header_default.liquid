@@ -74,10 +74,31 @@
             Contact
           </a>
 
+          {% comment %} Get the user uuid and cart count {% endcomment %}
+          {%  liquid
+            if context.session.user_uuid and context.session.user_uuid != ''
+                assign user_uuid = context.session.user_uuid
+            else
+                graphql user = 'modules/client/account/get_current_user'
+                session user_uuid = user.current_user.external_id
+                assign user_uuid = user.current_user.external_id
+            endif
+
+            if user_uuid != ''
+              graphql user_cart = 'modules/ecommerce/carts/get_user_cart',  contact_uuid: user_uuid | dig: 'items','results' | first 
+            endif
+          %}
+
+          <i class="icon-shopping-cart" onclick="openDrawer()"></i>
+          <span class="cart-count 
+            {% if user_cart.items.size == 0 or user_uuid == null %}zero-cart-count{% endif %} 
+            {% if context.params.slug == 'products' and context.session.user_uuid == null %}default{% endif %}
+            {% if context.params.slug != 'products' and user_uud != null %}default{% endif %}">{{ user_cart.items.size }}
+          </span>
+          <span class="vertical-line"></span>
          
         {% if context.current_user == nil %}
          
-    
         </div>
               <a class="" href="/sign-in">           
                 <ins-button label="SIGN IN" icon="icon-user"></ins-button>
@@ -128,3 +149,10 @@
 {% if context.constants.ecommerce_addon == 'true' %}
     {% include 'modules/ecommerce/menu/mega_menu' %}
 {% endif %}
+
+<script>
+  function openDrawer(){
+    console.log('open drawer')
+    cartDrawer.setDrawerState(true);
+  }
+</script>
