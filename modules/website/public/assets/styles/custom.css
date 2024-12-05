@@ -1401,7 +1401,7 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 }
 
 .ins-form-field {
-    background: var(--color-ui-01) !important;
+    background: var(--color-ui-01);
 }
 
 #services_static_content .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,

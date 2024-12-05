@@ -45,11 +45,11 @@ metadata: {
 {% include 'modules/website/content/index/client_section' %}
 {% include 'modules/website/content/index/testimonials' %}  {% endcomment %}
 
-{%- if context.environment == "staging" -%}
+{% comment %} {%- if context.environment == "staging" -%}
     <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.js' | asset_url }}" >
     <script src="{{ 'modules/website/scripts/app.js' | asset_url }}"></script>
 {% else %}
     <!-- minified --> 
     <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.min.js' | asset_url }}" >
     <script src="{{ 'modules/website/scripts/app.min.js' | asset_url }}"></script>
-{%- endif -%}
+{%- endif -%} {% endcomment %}

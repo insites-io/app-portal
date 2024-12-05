@@ -25,7 +25,7 @@ Project Assets - Holds app css and js
         {% comment %} <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/style-ecommerce.css' | asset_url }}" > {% endcomment %}
         <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.css' | asset_url }}" >
     {%- else -%}
-        <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/style-ecommerce.min.css' | asset_url }}" >
+        {% comment %} <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/style-ecommerce.min.css' | asset_url }}" > {% endcomment %}
         <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.min.css' | asset_url }}" >
     {%- endif -%}
 {%- endif -%}

@@ -1,5 +1,8 @@
+{% comment %} Used in Ecommerce Template {% endcomment %}
+
 {% comment %} ? GET GLOBAL CONTENT {% endcomment %}
 {%- include "modules/insites_cms/globals" -%}
+{%- assign global = context.exports.global -%}
 
 {%- if context.environment == "staging" -%}
 {% comment %} ? start partial:layout/header {% endcomment %}
@@ -11,12 +14,12 @@
       <div class="large-2 medium-3 small-9 cell">
         <a href="/">
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
-          {% if context.exports.global.company_logo == nil or context.exports.global.company_logo contains "client-logo.png" %}
+          {% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
               {% comment %} ? DEFAULT {% endcomment %}
               <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo">
           {% else %}
               {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
-              <img class="logo" src="{{ context.exports.global.company_logo }}" alt="Logo">
+              <img class="logo" src="{{ global.company_logo }}" alt="Logo">
           {% endif %}
         </a>
       </div>

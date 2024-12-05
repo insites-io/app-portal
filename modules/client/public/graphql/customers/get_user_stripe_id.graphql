@@ -21,9 +21,11 @@ query get_user_stripe_id($email:String, $id:ID){
       external_id      
       deleted_at
       created_at
-      profiles{
+      profiles(profile_type: "modules/insites_core/crm_contact"){
         id
-        stripe_id:property(name:"stripe_id")
+        stripe_id: property(name: "stripe_id")
+        company_uuid: property(name: "company_uuid")
+        #properties
       }
     }
   }
