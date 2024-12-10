@@ -110,6 +110,12 @@
 }
 
 
+ins-button button.ins-button.size--normal.is-loading {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 /*********************************************** [Foundation Style Customization / Overwrite] *************************************************/
 
 .blocks-sc-3col-02.wrapper {
