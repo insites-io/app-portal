@@ -88,13 +88,12 @@
               graphql user_cart = 'modules/ecommerce/carts/get_user_cart',  contact_uuid: user_uuid | dig: 'items','results' | first 
             endif
           %}
-
-          <i class="icon-shopping-cart" onclick="openDrawer()"></i>
-          <span class="cart-count 
-            {% if user_cart.items.size == 0 or user_uuid == null %}zero-cart-count{% endif %} 
-            {% if context.params.slug == 'products' and context.session.user_uuid == null %}default{% endif %}
-            {% if context.params.slug != 'products' and user_uud != null %}default{% endif %}">{{ user_cart.items.size }}
-          </span>
+          <a role="button" onclick="openDrawer()">
+            <i class="icon-shopping-cart"></i>
+            <span class="cart-count 
+              {% if user_cart.items.size == 0 or user_uuid == null %}zero-cart-count{% endif %}">{{ user_cart.items.size }}
+            </span>
+          </a>
           <span class="vertical-line"></span>
          
         {% if context.current_user == nil %}
