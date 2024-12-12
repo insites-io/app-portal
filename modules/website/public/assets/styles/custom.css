@@ -95,6 +95,11 @@
     display: none !important;
 }
 
+ins-button.checkout-btn {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
 #mega-menu-btn button.ins-button {
     padding: 2px 8px 0px 8px !important;
 }
