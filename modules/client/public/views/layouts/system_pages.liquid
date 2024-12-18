@@ -59,6 +59,9 @@ metadata: {
       {{ content_for_layout }}
       <div class="spacer xxxx-large"></div>
     </div>
+
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% include 'modules/ecommerce/carts/cart_drawer' %}
   </div>
 
     {% comment %} 

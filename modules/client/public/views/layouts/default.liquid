@@ -49,6 +49,9 @@ metadata: {
         {% comment %} ? Delete line of code below this comment once Installed and Menu Database is Populated {% endcomment %}
         {% include 'modules/website/layout/header_mobile_default' %}
 
+        {% comment %} ? For ecommerce cart drawer {% endcomment %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+
         {%- if context.params.slug == 'client-portal' and context.params.slug2 == null  -%}
         {%- comment -%} Carousel - Slider {%- endcomment -%}
         {%- include 'modules/client/banner', size: 10 -%}        
