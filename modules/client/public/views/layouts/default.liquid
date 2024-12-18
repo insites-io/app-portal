@@ -48,9 +48,7 @@ metadata: {
 
         {% comment %} ? Delete line of code below this comment once Installed and Menu Database is Populated {% endcomment %}
         {% include 'modules/website/layout/header_mobile_default' %}
-
-        {% comment %} ? For ecommerce cart drawer {% endcomment %}
-        {% include 'modules/ecommerce/carts/cart_drawer' %}
+        
 
         {%- if context.params.slug == 'client-portal' and context.params.slug2 == null  -%}
         {%- comment -%} Carousel - Slider {%- endcomment -%}
@@ -92,6 +90,11 @@ metadata: {
     
     {% comment %} ? Delete line of code below this comment once Installed and Menu Database is Populated {% endcomment %}
     {% include 'modules/website/layout/footer' %}
+
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% endif %}
 
 </body>
 </html>
