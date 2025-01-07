@@ -47,7 +47,7 @@
         width: initial;
         vertical-align: middle;
     }
-    ins-button button {
+    ins-button button:not(.inline button) {
         width: 100%;
     }
     .fixed-btn-width button {
