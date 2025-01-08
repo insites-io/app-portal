@@ -123,6 +123,13 @@
                       link="/my-details"
                       label="My Details">
                     </ins-dropdown-item>
+
+                    {% if context.constants.ecommerce_addon == 'true' %}
+                    <ins-dropdown-item
+                      link="/order-history"
+                      label="Order History">
+                    </ins-dropdown-item>
+                    {% endif %}
                 
                     <ins-dropdown-item
                       link="/generate-password-token?email={{ user_with_token.email | url_encode }}"
