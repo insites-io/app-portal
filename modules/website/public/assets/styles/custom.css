@@ -1484,7 +1484,8 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 
 .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
 .ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
-.ins-accordion-link.active>.ins-accordion-link_link {
+.ins-accordion-link.active>.ins-accordion-link_link,
+.portal-sidebar .ins-accordion-item.open .ins-accordion-item_header {
     background: var(--color-main-hover-light);
 }
 
@@ -1524,8 +1525,8 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 }
 
 .ins-accordion-link.active>.ins-accordion-link_link,
-.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link span {
-    font-weight: 700;
+.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link span,
+.portal-sidebar .ins-accordion-item.open .ins-accordion-item_header span.heading {
     color: var(--color-main);
 }
 
