@@ -95,6 +95,10 @@
     display: none !important;
 }
 
+.two-digits-count {
+    padding: 3px 5px !important;
+}
+
 ins-button.checkout-btn {
     display: flex !important;
     justify-content: flex-end !important;
