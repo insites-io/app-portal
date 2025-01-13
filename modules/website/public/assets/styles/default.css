@@ -1543,7 +1543,7 @@ ins-tag span.ins-tag {
     text-align: left;
 }
 @media screen and (max-width: 1448px) {
-    .header-top-bar ins-dropdown .ins-dropdown_menu {
+    .header-top-bar ins-dropdown.profileNav .ins-dropdown_menu {
         right: 0;
     }
 }
