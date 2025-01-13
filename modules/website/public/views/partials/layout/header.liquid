@@ -80,24 +80,29 @@
 
         {% comment %} Get the user uuid and cart count {% endcomment %}
         {%  liquid
-          if context.session.user_uuid and context.session.user_uuid != ''
-              assign user_uuid = context.session.user_uuid
-          else
-              graphql user = 'modules/client/account/get_current_user'
-              session user_uuid = user.current_user.external_id
-              assign user_uuid = user.current_user.external_id
-          endif
+              assign guest_user = true
+              assign user_cart = null
 
-          if user_uuid != ''
-            graphql user_cart = 'modules/ecommerce/carts/get_user_cart',  contact_uuid: user_uuid | dig: 'items','results' | first 
-          else
-            assign user_cart = null
-          endif
-        %}
+              graphql user = 'modules/client/account/get_current_user'
+
+              if user
+                session user_uuid = user.current_user.external_id
+                assign user_uuid = user.current_user.external_id
+              else  
+                assign user_uuid = null
+              endif
+  
+              if user_uuid != null
+                graphql user_cart = 'modules/ecommerce/carts/get_user_cart',  contact_uuid: user_uuid | dig: 'items','results' | first 
+                assign guest_user = false
+              endif
+          %}
+
+        <input type="hidden" id="guest-user-flag" value={{ guest_user }}>
 
         <a role="button" onclick="openDrawer()">
           <i class="icon-shopping-cart"></i>
-          <span class="cart-count 
+          <span id="cart-count" class="cart-count 
             {% if user_cart == null or user_cart == null or user_cart.items.size == 0 %}zero-cart-count{% endif %}">{{ user_cart.items.size }}
           </span>
         </a>
@@ -172,6 +177,33 @@
 {%- endif -%}
 
 <script>
+  const guestUserEl = document.getElementById('guest-user-flag'); 
+
+  if (guestUserEl && window.localStorage) {
+    const guestUserFlag = guestUserEl.value
+
+    if (guestUserFlag === 'true') {
+      // Get Cart Count from LocalStorage
+      const guest_cart = localStorage.getItem('carts');
+
+      if (guest_cart) {
+        const parsedCart = JSON.parse(guest_cart);
+        const cartCount = parsedCart.length;
+
+        // Update the cart count dynamically in the HTML
+        const cartCountElement = document.getElementById('cart-count');
+        if (cartCountElement) {
+          cartCountElement.innerHTML = cartCount; // Update the displayed cart count
+          if (cartCount === 0) {
+            cartCountElement.classList.add('zero-cart-count'); // Apply the 'zero-cart-count' class if empty
+          } else {
+            cartCountElement.classList.remove('zero-cart-count'); // Remove the class if cart has items
+          }
+        }
+      }
+    } 
+  }
+
   function openDrawer(){
     console.log('open drawer')
     cartDrawer.setDrawerState(true);
