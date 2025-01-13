@@ -1269,10 +1269,6 @@ ins-card .ins-card-wrap {
     font-family: var(--font-family-02) !important;
 }
 
-.mobile-menu-style a {
-    color: var(--font-color-head) !important;
-}
-
 .sign-in-button a {
     color: var(--color-main) !important;
 }
@@ -1304,21 +1300,24 @@ ins-card .ins-card-wrap {
 }
 
 .sign-out-wrapper {
-    padding: 12px;
+    padding: 12px 24px;
 }
 
+.sign-out-wrapper .signOutCustom .ins-button {
+    padding: 0px;
+}
 .sign-out-wrapper .signOutCustom .ins-button div .btn__label {
-    font-family: var(--font-family-03);
-    font-size: var(--font-medium)!important;
-    letter-spacing: normal;
-    line-height: var(--font-x-large);
-    font-weight: 700;
-    text-transform: capitalize;
+    color: var(--font-color-body);
+    font-family: var(--font-family-02);
+    font-size: 16px !important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    text-align: initial;
+    text-transform: initial;
 }
-
-.sign-out-wrapper,
-ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
-    padding-left: 40px
+.sign-out-wrapper ins-button button.ins-button  {
+    text-align: initial;
 }
 
 .description ul {
@@ -1501,7 +1500,7 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 
 .ins-accordion.menu .ins-accordion-item .inner-head span,
 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
-    color: var(--font-color-sub);
+    color: var(--font-color-body);
 }
 
 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link:hover {

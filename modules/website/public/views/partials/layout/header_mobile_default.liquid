@@ -7,6 +7,17 @@
 <ins-drawer no-padding id="mobile-menu" show-header="false" class="mobileNav hide-for-large hide-for-small" >
     <div>
         <ul class="vertical menu">
+          <li class="mobile-menu-style">
+              <ins-accordion menu>
+                <ins-accordion-item class="colorBlack has-subitems" heading="Shop" link="#" open-icon="icon-plus" close-icon="icon-minus" link-target="_self">  
+                {% for category in context.exports.parent_categories %}
+                  <ins-accordion-link class="colorBlack" label="{{category.category_name}}" link="/products/{{category.slug}}" link-target="_self">
+                  </ins-accordion-link>
+                {% endfor %}                                    
+                </ins-accordion-item>
+              </ins-accordion>
+          </li>
+
           <li class="no-submenu mobile-menu-style">
               <a class="colorBlack" href="/about">
               about
@@ -71,6 +82,9 @@
                         {%- assign user_data_default = user_with_token.default | first -%}
 
                               <ins-accordion-link label="My Details" link="/my-details">
+                              </ins-accordion-link>
+
+                              <ins-accordion-link label="Order History" link="/order-history">
                               </ins-accordion-link>
   
                               <ins-accordion-link label="Change Password" 
