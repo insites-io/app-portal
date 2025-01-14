@@ -2111,6 +2111,8 @@ footer .bottom-footer a:focus {
 
 /* Homepage Banner */
 
+#homepage-banner-carousel .slide-container,
+#homepage-banner-testimonials .slide-container,
 #homepage-banner .slide-container {
     background-size: cover;
     position: relative;
@@ -2119,21 +2121,29 @@ footer .bottom-footer a:focus {
     min-height: 600px;
 }
 
+#homepage-banner-carousel .slide-container .wrapper .grid-x,
+#homepage-banner-testimonials .slide-container .wrapper .grid-x,
 #homepage-banner .slide-container .wrapper .grid-x {
     width: 100%;
     /* max-width: 1024px; */
 }
 
+#homepage-banner-carousel .img-wrap,
+#homepage-banner-testimonials .img-wrap,
 #homepage-banner .img-wrap {
     position: relative;
 }
 
+#homepage-banner-carousel .img-wrap img,
+#homepage-banner-testimonials .img-wrap img,
 #homepage-banner .img-wrap img {
     width: 100%;
     min-height: 600px;
     object-fit: cover;
 }
 
+#homepage-banner-carousel .slide-content,
+#homepage-banner-testimonials .slide-content,
 #homepage-banner .slide-content {
     position: absolute;
     z-index: 1;
@@ -2144,7 +2154,11 @@ footer .bottom-footer a:focus {
     height: 100%;
 }
 
+#homepage-banner-carousel .heading-1,
+#homepage-banner-testimonials .heading-1,
 #homepage-banner .heading-1,
+#homepage-banner-carousel p,
+#homepage-banner-testimonials p,
 #homepage-banner p {
     color: var(--font-color-inv);
 }
@@ -2154,7 +2168,12 @@ footer .bottom-footer a:focus {
         font-size: 3rem;
         line-height: 52px;
     }
+
+    #homepage-banner-carousel .slide-container,
+    #homepage-banner-testimonials .slide-container,
     #homepage-banner .slide-container,
+    #homepage-banner-carousel .img-wrap img,
+    #homepage-banner-testimonials .img-wrap img,
     #homepage-banner .img-wrap img {
         min-height: 430px;
     }
@@ -2165,7 +2184,12 @@ footer .bottom-footer a:focus {
         font-size: 2.25rem;
         line-height: 42px;
     }
+
+    #homepage-banner-carousel .slide-container,
+    #homepage-banner-testimonials .slide-container,
     #homepage-banner .slide-container,
+    #homepage-banner-carousel .img-wrap img,
+    #homepage-banner-testimonials .img-wrap img,
     #homepage-banner .img-wrap img {
         min-height: 310px;
     }
@@ -2176,7 +2200,12 @@ footer .bottom-footer a:focus {
         font-size: 2rem;
         line-height: 39px;
     }
+
+    #homepage-banner-carousel .slide-container,
+    #homepage-banner-testimonials .slide-container,
     #homepage-banner .slide-container,
+    #homepage-banner-carousel .img-wrap img,
+    #homepage-banner-testimonials .img-wrap img,
     #homepage-banner .img-wrap img {
         min-height: 382px;
     }
