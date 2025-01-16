@@ -4,7 +4,8 @@ resource: Session
 resource_owner: anyone
 flash_notice: 'Successful'
 flash_alert: 'Sorry-SignIn'
-redirect_to: sign-in
+redirect_to: >
+  {{ form.redirect }}
 fields:
   email:
     validation: 
@@ -67,14 +68,18 @@ fields:
     {%- endif -%}
     </div>
 
-    <input type="hidden" 
-        name="{{ form.fields.redirect.name }}" 
-        value="{{ context.page.slug }}" >
+    
 
     <div class="small-12 cell text-center">
 			<ins-button id="submit-btn" label="SIGN IN" class="full" solid color="blue" type="submit" ></ins-button>
       <div class="spacer small"></div>
-      <a href="/register"><ins-button type="button" label="Client registration" class="full" outlined color="blue" ></ins-button></a>
+      {% if context.constants.ecommerce_addon == 'true' and context.params.slug == 'checkout' %}
+        <p>Not a member? <a href="/register">Join Us</a></p>      
+        <input type="hidden" name="{{ form.fields.redirect.name }}" value="checkout" >      
+      {% else %}
+        <a href="/register"><ins-button type="button" label="Client registration" class="full" outlined color="blue" ></ins-button></a>
+        <input type="hidden" name="{{ form.fields.redirect.name }}" value="client-portal" >
+      {% endif %}
 		</div>
 
 	</div>

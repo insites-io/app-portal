@@ -1114,7 +1114,9 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
     color: var(--font-color-sub);
 }
 
-.font-color-body {
+.font-color-body,
+a.font-color-body,
+a.font-color-body:visited {
     color: var(--font-color-body);
 }
 
