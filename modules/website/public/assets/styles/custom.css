@@ -2438,3 +2438,22 @@ ins-tag.Completed span.ins-tag {
 .account_owner_select .ins-input-select.ins-select-wrap .ins-select-value-wrap .ins-select-value-input:hover {
     cursor: not-allowed !important;
 }
+
+.header-mobile {
+    display: flex;
+    align-items: center;
+}
+
+.header-top-bar .header-mobile a{
+    padding-right: 0 !important;
+}
+
+.header-mobile .icon-shopping-cart {
+    font-size: 16px !important;
+}
+
+.header-mobile .vertical-line {
+  margin: 0 12px !important
+}
+
+
