@@ -103,10 +103,10 @@
         <a role="button" onclick="openDrawer()">
           <i class="icon-shopping-cart"></i>
           <span id="cart-count" class="cart-count 
-            {% if user_cart == null or user_cart.items.size == 0 %}zero-cart-count
+            {% if user_cart == null or user_cart.items.size == 0 %}hide
             {% elsif user_cart.items.size > 9 %}two-digits-count
             {% endif %}
-          ">{{ user_cart.items.size }}</span>
+          ">{{ user_cart.items.size | default: 0 }}</span>
         </a>
 
         <span class="vertical-line"></span>
@@ -167,7 +167,7 @@
           <a role="button" onclick="openDrawer()">
             <i class="icon-shopping-cart"></i>
             <span id="cart-count" class="cart-count 
-              {% if user_cart == null or user_cart.items.size == 0 %}zero-cart-count
+              {% if user_cart == null or user_cart.items.size == 0 %}hide
               {% elsif user_cart.items.size > 9 %}two-digits-count
               {% endif %}
             ">{{ user_cart.items.size }}</span>
@@ -210,9 +210,9 @@
         if (cartCountElement) {
           cartCountElement.innerHTML = cartCount; // Update the displayed cart count
           if (cartCount === 0) {
-            cartCountElement.classList.add('zero-cart-count'); // Apply the 'zero-cart-count' class if empty
+            cartCountElement.classList.add('hide'); // Apply the 'zero-cart-count' class if empty
           } else {
-            cartCountElement.classList.remove('zero-cart-count'); // Remove the class if cart has items
+            cartCountElement.classList.remove('hide'); // Remove the class if cart has items
           }
         }
       }
