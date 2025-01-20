@@ -74,6 +74,7 @@
             Contact
           </a>
 
+        {% if context.constants.ecommerce_addon == 'true' %}
           {% comment %} Get the user uuid and cart count {% endcomment %}
           {%  liquid
               assign guest_user = true
@@ -105,6 +106,7 @@
             ">{{ user_cart.items.size | default: 0 }}</span>
           </a>
           <span class="vertical-line"></span>
+        {% endif %}
          
         {% if context.current_user == nil %}
          
@@ -175,8 +177,8 @@
 </header>
 
 {% if context.constants.ecommerce_addon == 'true' %}
+
     {% include 'modules/ecommerce/menu/mega_menu' %}
-{% endif %}
 
 <script>
   const guestUserEl = document.getElementById('guest-user-flag');
@@ -205,9 +207,5 @@
       }
     }
   }
-
-  function openDrawer(){
-    console.log('open drawer')
-    cartDrawer.setDrawerState(true);
-  }
 </script>
+{% endif %}

@@ -78,6 +78,7 @@
          
         {% endfor %}
 
+      {% if context.constants.ecommerce_addon == 'true' %}
         {% comment %} Get the user uuid and cart count {% endcomment %}
         {%  liquid
               assign guest_user = true
@@ -110,6 +111,7 @@
         </a>
 
         <span class="vertical-line"></span>
+      {% endif %}
 
     
           {% if context.current_user == nil %}
@@ -191,6 +193,8 @@
 {% comment %} ? end partial:layout/header {% endcomment %}
 {%- endif -%}
 
+{% if context.constants.ecommerce_addon == 'true' %}
+
 <script>
   const guestUserEl = document.getElementById('guest-user-flag'); 
 
@@ -217,11 +221,6 @@
         }
       }
     } 
-  }
-
-  function openDrawer(){
-    console.log('open drawer')
-    cartDrawer.setDrawerState(true);
-  }
+  }  
 </script>
-
+{% endif %}
