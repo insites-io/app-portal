@@ -6,7 +6,7 @@
 <header class="navigation-04 header colorBlack" data-test="main-header" id="main-header">
   <div class="wrapper">
     <div class="header-top-bar grid-container grid-x align-middle">
-      <div class="large-2 medium-3 small-9 cell">
+      <div class="large-2 medium-3 small-8 cell">
         <a href="/">
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
           {% if context.exports.global.company_logo == nil or context.exports.global.company_logo contains "client-logo.png" %}
@@ -99,7 +99,7 @@
 
           <a role="button" onclick="openDrawer()">
             <i class="icon-shopping-cart"></i>
-            <span id="cart-count" class="cart-count 
+            <span class="cart-count 
               {% if user_cart == null or user_cart.items.size == 0 %}hide
               {% elsif user_cart.items.size > 9 %}two-digits-count
               {% endif %}
@@ -157,18 +157,16 @@
           {% endif %}
 
       </div>
-      <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-3 cell vertical-align-middle align-right">
-        <div class="header-mobile">
+      <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-4 cell vertical-align-middle align-right">
+        <div class="header-mobile grid-x">
           <a role="button" onclick="openDrawer()">
             <i class="icon-shopping-cart"></i>
-            <span id="cart-count" class="cart-count 
+            <span class="cart-count 
               {% if user_cart == null or user_cart.items.size == 0 %}hide
               {% elsif user_cart.items.size > 9 %}two-digits-count
               {% endif %}
             ">{{ user_cart.items.size }}</span>
           </a>
-  
-          <span class="vertical-line"></span>
           <div id="mobile-menu-btn" class="icon-menu-1"></div>
         </div>
       </div>
@@ -177,7 +175,6 @@
 </header>
 
 {% if context.constants.ecommerce_addon == 'true' %}
-
     {% include 'modules/ecommerce/menu/mega_menu' %}
 
 <script>
