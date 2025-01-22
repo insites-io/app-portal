@@ -57,7 +57,9 @@ metadata: {
         {% include 'modules/website/layout/header_mobile_default' %}
 
         {% comment %} ? For ecommerce cart drawer {% endcomment %}
-        {% include 'modules/ecommerce/carts/cart_drawer' %}
+        {% if context.constants.ecommerce_addon == 'true' %}
+            {% include 'modules/ecommerce/carts/cart_drawer' %}
+        {% endif %}
         
         <div class="wrapper bg-color-main">
             <div class="grid-container">

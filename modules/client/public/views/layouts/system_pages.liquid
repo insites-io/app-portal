@@ -61,7 +61,10 @@ metadata: {
     </div>
 
     {% comment %} ? For ecommerce cart drawer {% endcomment %}
-    {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% endif %}
+
   </div>
 
     {% comment %} 

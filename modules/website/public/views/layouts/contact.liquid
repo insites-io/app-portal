@@ -52,7 +52,9 @@ Contact Us layout
 </head>
 <body>
     {% comment %} ? For ecommerce cart drawer {% endcomment %}
-    {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% endif %}
 
     {% comment %} Globals {% endcomment %}
     {%- include "modules/insites_cms/globals" -%}
