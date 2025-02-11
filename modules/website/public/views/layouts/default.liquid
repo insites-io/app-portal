@@ -49,6 +49,28 @@ metadata: {
         {% include 'modules/website/layout/header_mobile_default' %}
 
         {{ content_for_layout }}
+
+        {% comment %} ? For ecommerce cart drawer {% endcomment %}
+        {% if context.constants.ecommerce_addon == 'true' %}
+            {% include 'modules/ecommerce/carts/cart_drawer' %} 
+            <script>
+                //Trigger a click event on a child <a> element when clicking anywhere inside an element '.product-cards .cell' 
+                //(except for ins-buttonn element and its children)
+                const productWrappers = document.querySelectorAll('.product-cards .cell');
+                if(productWrappers.length > 0){
+                    productWrappers.forEach(wrapper => {
+                        wrapper.addEventListener('click', function (event) {
+                            if (!event.target.closest('ins-button')) {
+                                const link = this.querySelector('a');
+                                if (link) {
+                                    link.click();
+                                }
+                            }
+                        });
+                    });
+                }
+            </script>
+        {% endif %}
     </div>
 
     {% comment %} 

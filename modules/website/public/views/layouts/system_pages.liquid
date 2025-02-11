@@ -65,6 +65,12 @@ System page layout
         {% comment %} ? Delete line of code below this comment once Installed and Menu Database is Populated {% endcomment %}
         {% include 'modules/website/layout/header_mobile_default' %}
 
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+      {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% endif %}
+    
+    
     <div class="wrapper">
       <div class="system-content grid-container">
         <div class="spacer xxxx-large"></div>

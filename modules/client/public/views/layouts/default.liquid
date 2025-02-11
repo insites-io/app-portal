@@ -48,6 +48,7 @@ metadata: {
 
         {% comment %} ? Delete line of code below this comment once Installed and Menu Database is Populated {% endcomment %}
         {% include 'modules/website/layout/header_mobile_default' %}
+        
 
         {%- if context.params.slug == 'client-portal' and context.params.slug2 == null  -%}
         {%- comment -%} Carousel - Slider {%- endcomment -%}
@@ -89,6 +90,29 @@ metadata: {
     
     {% comment %} ? Delete line of code below this comment once Installed and Menu Database is Populated {% endcomment %}
     {% include 'modules/website/layout/footer' %}
+
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+        <script>
+            //Trigger a click event on a child <a> element when clicking anywhere inside an element '.product-cards .cell' 
+            //(except for ins-buttonn element and its children)
+            var productWrappers = document.querySelectorAll('.product-cards .cell');
+            productWrappers = (productWrappers.length > 0)? productWrappers : document.querySelectorAll('.purchase-again .grid-x');
+            if(productWrappers.length > 0){
+                productWrappers.forEach(wrapper => {
+                    wrapper.addEventListener('click', function (event) {
+                        if (!event.target.closest('ins-button')) {
+                            const link = this.querySelector('a');
+                            if (link) {
+                                link.click();
+                            }
+                        }
+                    });
+                });
+            }
+        </script>
+    {% endif %}
 
 </body>
 </html>

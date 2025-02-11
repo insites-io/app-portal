@@ -44,9 +44,9 @@
     --color-gradiant2: linear-gradient(90deg, #8C1EE3 0%, #C71EE3 100%);
     --color-gradiant3: linear-gradient(90deg, #E3351E 0%, #F07B26 100%);
     /* Font family */
-    --font-family-01: 'Lato', sans-serif;
+    --font-family-01: 'Roboto', sans-serif;
     /* usually on heading */
-    --font-family-02: 'Lato', sans-serif;
+    --font-family-02: 'Work Sans', sans-serif;
     /* usually on sub-heading */
     --font-family-03: 'Cabin', sans-serif;
     /* usually on paragraph & buttons */
@@ -775,8 +775,8 @@ ins-button button[type=button].primary.outlined,
 ins-button button.blue.outlined,
 ins-button button.primary.outlined {
     background: none;
-    border: 1px solid var(--color-main-hover);
-    color: var(--color-main-hover);
+    border: 1px solid var(--color-main);
+    color: var(--color-main);
 }
 
 
@@ -1110,6 +1110,7 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 }
 
 .font-color-head,
+.font-color-head *,
 .font-color-head:visited {
     color: var(--font-color-head);
 }
@@ -1118,7 +1119,9 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
     color: var(--font-color-sub);
 }
 
-.font-color-body {
+.font-color-body,
+a.font-color-body,
+a.font-color-body:visited {
     color: var(--font-color-body);
 }
 
@@ -1546,6 +1549,11 @@ ins-tag span.ins-tag {
     /* right: 0; */
     text-align: left;
 }
+@media screen and (max-width: 1448px) {
+    .header-top-bar ins-dropdown.profileNav .ins-dropdown_menu {
+        right: 0;
+    }
+}
 
 .header-top-bar .cart-count,
 .header .top-bar .cart-count {
@@ -1673,7 +1681,7 @@ ins-tag span.ins-tag {
 .header-top-bar .ins-dropdown_menu .btn__label,
 .header .top-bar .ins-dropdown_menu .btn__label {
     display: block;
-    padding: 18px 25px;
+    padding: 15px 16px;
     color: var(--font-color-body);
     font-family: var(--font-family-01);
     font-size: var(--font-medium);
@@ -1799,18 +1807,14 @@ ins-drawer#mobile-menu ul {
     margin-left: 0;
 }
 
-ins-drawer#mobile-menu .menu li {
+ins-drawer#mobile-menu .menu li,
+ins-drawer#mobile-menu .inner-content .ins-accordion-link {
     border-bottom: 1px solid #EBEBEB;
 }
-
-ins-drawer#mobile-menu .menu li:first-child {
-    border-top: 1px solid #EBEBEB;
+ins-drawer#mobile-menu ins-accordion-link:last-child .ins-accordion-link{
+    border-bottom: 0px;
 }
 
-ins-drawer#mobile-menu .inner-content li,
-ins-drawer#mobile-menu .inner-content .ins-accordion-link {
-    padding-left: 1rem;
-}
 
 ins-drawer#mobile-menu .menu li:last-child {
     border-bottom: none;
@@ -1844,8 +1848,14 @@ ins-drawer#mobile-menu .menu li.small i {
 }
 
 ins-drawer#mobile-menu .menu li a {
-    padding: 20px 0.9375rem;
-    color: var(--font-color-body);
+    padding: 18px 24px;
+}
+ins-drawer#mobile-menu .menu a {
+    color: var(--font-color-head) !important;
+}
+ins-drawer#mobile-menu .ins-accordion-link a,
+ins-drawer#mobile-menu .ins-accordion-link a span{
+    color: var(--font-color-body) !important; 
 }
 
 ins-drawer#mobile-menu .ins-accordion-item>.ins-accordion-item_header>.inner-head .heading {
@@ -1896,7 +1906,7 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
     ins-drawer#mobile-menu .ins-drawer-wrap .ins-content,
     ins-drawer#mobile-menu .ins-backdrop-wrap {
         top: 105px;
-        padding-bottom: 120px;
+        padding-bottom: 105px;
         /* Fix for sidebar scroll overflow */
     }
     .top-bar .top-bar-left,
@@ -2115,6 +2125,8 @@ footer .bottom-footer a:focus {
 
 /* Homepage Banner */
 
+#homepage-banner-carousel .slide-container,
+#homepage-banner-testimonials .slide-container,
 #homepage-banner .slide-container {
     background-size: cover;
     position: relative;
@@ -2123,21 +2135,29 @@ footer .bottom-footer a:focus {
     min-height: 600px;
 }
 
+#homepage-banner-carousel .slide-container .wrapper .grid-x,
+#homepage-banner-testimonials .slide-container .wrapper .grid-x,
 #homepage-banner .slide-container .wrapper .grid-x {
     width: 100%;
     /* max-width: 1024px; */
 }
 
+#homepage-banner-carousel .img-wrap,
+#homepage-banner-testimonials .img-wrap,
 #homepage-banner .img-wrap {
     position: relative;
 }
 
+#homepage-banner-carousel .img-wrap img,
+#homepage-banner-testimonials .img-wrap img,
 #homepage-banner .img-wrap img {
     width: 100%;
     min-height: 600px;
     object-fit: cover;
 }
 
+#homepage-banner-carousel .slide-content,
+#homepage-banner-testimonials .slide-content,
 #homepage-banner .slide-content {
     position: absolute;
     z-index: 1;
@@ -2148,7 +2168,11 @@ footer .bottom-footer a:focus {
     height: 100%;
 }
 
+#homepage-banner-carousel .heading-1,
+#homepage-banner-testimonials .heading-1,
 #homepage-banner .heading-1,
+#homepage-banner-carousel p,
+#homepage-banner-testimonials p,
 #homepage-banner p {
     color: var(--font-color-inv);
 }
@@ -2158,7 +2182,12 @@ footer .bottom-footer a:focus {
         font-size: 3rem;
         line-height: 52px;
     }
+
+    #homepage-banner-carousel .slide-container,
+    #homepage-banner-testimonials .slide-container,
     #homepage-banner .slide-container,
+    #homepage-banner-carousel .img-wrap img,
+    #homepage-banner-testimonials .img-wrap img,
     #homepage-banner .img-wrap img {
         min-height: 430px;
     }
@@ -2169,7 +2198,12 @@ footer .bottom-footer a:focus {
         font-size: 2.25rem;
         line-height: 42px;
     }
+
+    #homepage-banner-carousel .slide-container,
+    #homepage-banner-testimonials .slide-container,
     #homepage-banner .slide-container,
+    #homepage-banner-carousel .img-wrap img,
+    #homepage-banner-testimonials .img-wrap img,
     #homepage-banner .img-wrap img {
         min-height: 310px;
     }
@@ -2180,7 +2214,12 @@ footer .bottom-footer a:focus {
         font-size: 2rem;
         line-height: 39px;
     }
+
+    #homepage-banner-carousel .slide-container,
+    #homepage-banner-testimonials .slide-container,
     #homepage-banner .slide-container,
+    #homepage-banner-carousel .img-wrap img,
+    #homepage-banner-testimonials .img-wrap img,
     #homepage-banner .img-wrap img {
         min-height: 382px;
     }

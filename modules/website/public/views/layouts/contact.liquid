@@ -43,8 +43,7 @@ Contact Us layout
     {% endcomment %}
 
     {% comment %} ? Delete the next 2 line of codes below this comment once Installed and Menu Database is Populated {% endcomment %}
-    {% include 'modules/website/layout/head' %}
-    {% include 'modules/website/layout/googlemaps' %}
+    {% include 'modules/website/layout/head' %}    
 
     <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
     <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
@@ -52,6 +51,10 @@ Contact Us layout
     <title>Contact Us</title>
 </head>
 <body>
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% endif %}
 
     {% comment %} Globals {% endcomment %}
     {%- include "modules/insites_cms/globals" -%}

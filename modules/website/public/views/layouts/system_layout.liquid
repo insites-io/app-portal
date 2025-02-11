@@ -57,9 +57,14 @@ System page layout
             {% comment %} ? Delete line of code below this comment once Installed and Menu Database is Populated {% endcomment %}
             {% include 'modules/website/layout/header_mobile_default' %}
 
+            {% comment %} ? For ecommerce cart drawer {% endcomment %}
+            {% if context.constants.ecommerce_addon == 'true' %}
+                {% include 'modules/ecommerce/carts/cart_drawer' %}
+            {% endif %}
+
             <div class="system-content">      
                 {{ content_for_layout }}
-            </div>
+            </div> 
         </div>
         {% include 'modules/website/layout/footer' %}
         {% include 'modules/website/layout/foot' %}
