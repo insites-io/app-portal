@@ -39,7 +39,6 @@
     {% comment %} Credit Cards {% endcomment %}  
     {% if context.current_user %}
         {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
-            user_id: context.current_user.id,
             contact_uuid: context.current_user.external_id | dig: 'items' -%}
     {% endif %}
 

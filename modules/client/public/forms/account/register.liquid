@@ -149,7 +149,7 @@ async_callback_actions:
     {%  liquid
         graphql temporary_token = 'modules/client/account/generate_user_temporary_token', email: form.email 
     %}
-   
+    
     {% comment %} Create Event Stream {% endcomment %}
     {% parse_json info %}
     {

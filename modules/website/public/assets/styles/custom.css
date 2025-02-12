@@ -1058,10 +1058,15 @@ ins-accordion .inner-content {
 }
 
 .footerSubItems a,
-.footerSubItems .footer-p,
-.footerSubItems span {
+.footerSubItems .footer-p {
     font-family: var(--font-family-02)!important;
     color: var(--color-font-body) !important;
+    font-size: 14px!important;
+}
+
+.footerSubItems span {
+    font-family: var(--font-family-02)!important;
+    color: inherit !important;
     font-size: 14px!important;
 }
 
@@ -1100,6 +1105,16 @@ ins-accordion .inner-content {
 .signOut .ins-accordion-link {
     display: none;
 }
+
+.signOutCustom button:hover {
+    background-color: #e9f8f4 !important;
+    color: #3159DB !important;
+}
+
+.signOutCustom button:hover  .btn__label{
+    color: #3159DB !important;
+}
+
 
 .signOutHolder form ins-button div .btn__label {
     font-family: var(--font-family-01)!important;
@@ -2443,3 +2458,4 @@ ins-tag.Completed span.ins-tag {
 .account_owner_select .ins-input-select.ins-select-wrap .ins-select-value-wrap .ins-select-value-input:hover {
     cursor: not-allowed !important;
 }
+

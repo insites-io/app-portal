@@ -324,7 +324,7 @@ authorization_policies:
 
 {%- if context.flash.notice == "Success-Documents" -%}
 <script>
-let msg = "{{ context.session.document_notice_message | default: 'Document successfully added' }}";
+let msg = "{{ context.session.document_notice_message | default: 'Document successfully added.' }}";
 setTimeout(() => {
     App.events.notyf('success', msg);
 }, 200);

@@ -3,6 +3,7 @@
     data: stripe_card
     | dig: 'items' | dig: 'response' %}
 
+    {% log stripe_create_card, type: 'stripe_create_card' %}
     {%- assign stripe_create_card = stripe_create_card.body | parse_json -%}
     {% parse_json credit_card %}
     {
@@ -23,10 +24,12 @@
         "bank_account_last_four_digits": ""
     }
     {% endparse_json %}
+    {% log credit_card , type: 'credit_card' %}
     {% comment %} Create pOS credit card model {% endcomment %}
     {% graphql card_model = "modules/client/credit_cards/create_credit_card"
-        args: credit_card | dig: "items" %}
+        args: credit_card  %}
     
+        {% log card_model, type: 'card_model' %}
 
 {%- comment -%}Return Stripe Card ID{%- endcomment -%}
 {%- if return == true -%}

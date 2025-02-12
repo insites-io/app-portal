@@ -32,7 +32,6 @@ authorization_policies:
 {%- endif -%}
 
 {% function get_stripe_settings = "modules/client/stripe/get_stripe_settings" %}
-
 {%- liquid
     graphql user = 'modules/client/account/get_current_user' | dig: 'current_user'
 
@@ -57,8 +56,6 @@ authorization_policies:
         endif
     endif    
 -%}
-
-
 {% if get_stripe_settings.account_id != '' %}
     <div id="credit-card-fields">
         <div class="grid-x">
@@ -67,10 +64,10 @@ authorization_policies:
             <div class="spacer small-12 show-for-small-only"></div>
             <ins-button id="add-credit-card" class="add-credit-card large-4 medium-5 small-12 vertical-align-middle align-right fixed-btn-width" label="Add Credit Card" icon="icon-plus" ></ins-button>
         </div>
+        
         <div class="spacer x-large"></div>
             {%- graphql cards = "modules/client/credit_cards/get_credit_card", 
-                user_id: context.current_user.id | dig: 'items' -%}
-        
+                contact_uuid: context.current_user.external_id | dig: 'items' -%}
                 <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">
                 {%- for card in cards.results -%}
                     <div class="large-4 medium-6 small-12 cell card-options payment-methods-credit-card">

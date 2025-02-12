@@ -1,6 +1,5 @@
 mutation create_credit_card (
   $uuid: String
-  $user_id: String 
   $currency: String
   $bank_name: String
   $card_brand: String
@@ -20,7 +19,6 @@ mutation create_credit_card (
       table: "modules/insites_ecommerce/payment_method"
       properties: [
         { name: "uuid", value: $uuid }
-        { name: "user_id", value: $user_id } 
         { name: "currency", value: $currency }
         { name: "bank_name", value: $bank_name }
         { name: "card_brand", value: $card_brand }

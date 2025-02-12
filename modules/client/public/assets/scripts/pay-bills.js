@@ -73,7 +73,7 @@ let Paybill = (function() {
                     //payBillAddOrder();
                     form.submit();
                 } else {
-                    App.events.notyf("error", "Please check missing fields");
+                    App.events.notyf("error", "Please check missing fields.");
                     checkoutSubmitBtn.loading = false
                 }
                 return false;
