@@ -20,17 +20,6 @@ metadata: {
     "sitemap_order": "99", ## secondary order (ASC)
     "sitemap_changefreq": "never"
 }
-dynamic_cache:
-  layout: true
-  key: |-
-    {%- parse_json models -%}
-    [
-      "modules/website/page_header",
-      "modules/insites_core/insites_system_fields",
-      "modules/insites_site_manager/insites_global_content"
-    ]
-    {%- endparse_json -%}
-    {%- include "modules/website/cache/generate_cache_key", models: models -%}
 ---
 
 {%- comment -%}
