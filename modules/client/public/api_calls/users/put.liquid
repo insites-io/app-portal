@@ -10,7 +10,7 @@ callback: >
     {% graphql get_user_custom_field = "modules/client/users/get_user_custom_field", contact_uuid:  response_hash.items.uuid | dig: 'records', 'results' %}
     
     # Check if Custom field exist 
-    {%  if get_user_custom_field %}  
+    {%  if get_user_custom_field.size > 0  %}  
         {%  assign user_custom_field =  get_user_custom_field | first %}
         {%  assign user_custom_field_id = user_custom_field.id %}
         {% graphql update_user_custom_field = "modules/client/account/update_user_custom_field", id: user_custom_field_id, permission_level: data.permission_level %}

@@ -10,8 +10,6 @@ metadata: {
 }
 --- 
 
-{% log 'test begin' %}
-
 {% assign details = context.params %}
 {% comment %} ? Catch email with + {% endcomment %}
 {%- assign email = details.email | replace: " ", "+" -%}
@@ -80,9 +78,7 @@ metadata: {
         | dig: 'items','response','body'
         | parse_json  
         %}
-        {% log add_crm_contact, type: 'crm' %}
     {% else %}
-        {% log 'test1' %}
         {% comment %} ? SAVE NEW CRM {% endcomment %}
         {% parse_json add_crm_data %}
         {
@@ -101,7 +97,6 @@ metadata: {
         | dig: 'items','response','body'
         | parse_json  
         %}
-        {% log add_crm_contact %}
     {% endif %}   
     {% comment %} ? CLOSING ENDIF FOR INVITE user - EMAIL EXISTS OR NOT {% endcomment %}
 
