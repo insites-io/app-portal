@@ -20,7 +20,13 @@ request_headers: >
         "suburb": "{{data.company_suburb}}",
         "state": "{{data.company_state}}",
         "country": "{{data.company_country}}",      
-        "default_address": true
+        "default_address": true,
+        "latitude": "{{props.company_latitude}}",
+        "longitude": "{{props.company_longitude}}", 
+        "geojson": {
+            "type": "Point",
+            "coordinates": [{{props.company_longitude | default: 0}}, {{props.company_latitude | default: 0}}]
+        }
         }
     ]
 }
