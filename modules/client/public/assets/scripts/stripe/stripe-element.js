@@ -56,7 +56,7 @@ let StripeElement = (() => {
                     this.setButtonLoading(true);
                     this.tokenizedStripeCC();
                 } else {
-                    App.events.notyf('error', "Email is required");
+                    App.events.notyf('error', "Email is required.");
                 }
             },
             async tokenizedStripeCC() {
@@ -74,7 +74,7 @@ let StripeElement = (() => {
                         this.setButtonLoading(false);
                         card.clear();
                         stripeCardModal.close();
-                        App.events.notyf('success', "Credit card has been added");
+                        App.events.notyf('success', "Credit card has been added.");
                         this.makeCardElement(result.token);
                     }
                 });
@@ -147,7 +147,7 @@ let StripeElement = (() => {
                     if (selectedEl.active && stripeCard)
                         stripeCard.value = "";
                     selectedEl.parentNode.remove();
-                    App.events.notyf('success', "Credit card has been removed");
+                    App.events.notyf('success', "Credit card has been removed.");
                     StripeElement.methods.checkCardCount();
                 }
             },

@@ -1,4 +1,4 @@
-mutation set_email_verification_token(
+mutation create_user_profile(
   $id: ID!
   $token: String!
 ) {
@@ -16,7 +16,6 @@ mutation set_email_verification_token(
         }
       ]
     }
-    form_name: "modules/client/set_email_verification_token"
   ) {
     id
   }

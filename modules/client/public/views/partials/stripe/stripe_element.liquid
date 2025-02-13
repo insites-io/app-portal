@@ -9,7 +9,7 @@
         <div class="form-row">
             <div id="card-element">
               <!-- A Stripe Element will be inserted here. -->
-            </div>
+        </div>
             <div id="card-errors" class="error-message">
             </div>
         </div>
@@ -54,12 +54,8 @@
   id="stripe-last-name"
   value="{{ context.current_user.last_name }}"> 
 
-{% if context.environment == "production" %}
-    {% assign pk_key_value = context.constants.insites_stripe_pk_live_key %}
-{% else %}
-    {% assign pk_key_value = context.constants.stripe_pk_test_key %}
-{% endif %}
-
+{% comment %} Get stripe key via get_stripe_settings function {% endcomment %}
+{% assign pk_key_value = get_stripe_settings.pk_key %}
 <input type="hidden" id="pk_key" value="{{ pk_key_value }}" >
 
 <script>

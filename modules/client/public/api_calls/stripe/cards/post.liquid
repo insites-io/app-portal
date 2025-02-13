@@ -14,15 +14,10 @@ callback: >
   {% endif %}
 request_headers: >
   {% if data %}
-    {% if context.environment == "production" %}
-      {% assign stripe_sk_key = context.constants.insites_stripe_sk_live_key %}
-    {% else %}
-      {% assign stripe_sk_key = context.constants.stripe_sk_test_key %}
-    {% endif %}
-
+    {%- include 'modules/client/stripe/get_stripe_settings' -%}
     {
       "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": "Bearer {{ stripe_sk_key }}"
+      "Authorization": "Bearer {{ context.exports.stripe.data.sk_key }}"
     }
   {% endif %}
 ---

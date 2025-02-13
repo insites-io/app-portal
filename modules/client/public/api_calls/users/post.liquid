@@ -7,8 +7,17 @@ trigger_condition: true
 request_type: POST
 callback: >
     {% assign response_hash = response.body | parse_json %}
-    {% graphql create_contact_custom_field = "modules/client/account/create_contact_custom_field", contact_uuid: response_hash.items.uuid, permission_level: data.permission_level %}
-    {% log create_contact_custom_field, type: "create_contact_custom_field -- post" %}
+    {% graphql get_user_custom_field = "modules/client/users/get_user_custom_field", contact_uuid:  response_hash.items.uuid | dig: 'records', 'results' %}
+    
+    # Check if Custom field exist 
+    {%  if get_user_custom_field.size > 0 %}  
+        {%  assign user_custom_field =  get_user_custom_field | first %}
+        {%  assign user_custom_field_id = user_custom_field.id %}
+        {% graphql update_user_custom_field = "modules/client/account/update_user_custom_field", id: user_custom_field_id, permission_level: data.permission_level %}
+    {% else %}
+        {% graphql create_contact_custom_field = "modules/client/account/create_contact_custom_field", contact_uuid: response_hash.items.uuid, permission_level: data.permission_level %}
+    {% endif %}
+
 request_headers: >
     {% include 'modules/website/api_headers' %}
 ---

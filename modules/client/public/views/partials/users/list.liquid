@@ -472,6 +472,9 @@
             // Contact Name
             let contactName = e.getAttribute('data-name');
 
+            let nameVal = contactName
+            let cleanedName = nameVal.replace(/\s+/g, ' ').trim();  
+
             // Contact Email
             let contactEmail = e.getAttribute('data-email');
 
@@ -486,7 +489,7 @@
                 let confirm = await Swal.fire({
                     icon: 'warning',
                     title: `Revoke Access?`,
-                    html: `Are you sure you want to revoke <b>${contactName}'s</b> access to your company account?`,
+                    html: `Are you sure you want to revoke <b>${cleanedName}'s</b> access to your company account?`,
                     confirmButtonText: `<i class="icon-trash"></i> Remove access`,
                     showCancelButton: true,
                     cancelButtonText: `<i class="icon-close-1"></i> Cancel`,
@@ -500,7 +503,7 @@
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {
-                                    App.events.notyf('success', "Successfully removed access");
+                                    App.events.notyf('success', "Successfully removed access.");
                                     window.location.href = '/users';
                                 }
                             }, 500);
@@ -513,7 +516,7 @@
                 let confirm = await Swal.fire({
                     icon: 'warning',
                     title: `Grant ${permissionLevelSelectedValue} Access?`,
-                    html: `Are you sure you want to invite <b>${contactName}</b> to have ${permissionLevelSelectedValue} access to your company account?`,
+                    html: `Are you sure you want to invite <b>${cleanedName}</b> to have ${permissionLevelSelectedValue} access to your company account?`,
                     confirmButtonText: `<i class="icon-send"></i> Send invite`,
                     showCancelButton: true,
                     cancelButtonText: `<i class="icon-close-1"></i> Cancel`,
