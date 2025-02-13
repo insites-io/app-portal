@@ -73,7 +73,6 @@ callback_actions: |-
         assign company_uuid = add_company.items.properties.uuid
       endif
 
-      graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: context.current_user.id, company_uuid: company_uuid       
   %}   
 async_callback_actions:
   delay: 0

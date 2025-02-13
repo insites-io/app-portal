@@ -28,11 +28,12 @@ authorization_policies:
 ---
     
 {%- graphql user = 'modules/client/account/get_current_user' | dig: 'current_user' -%}
+{% assign user_company_uuid =  user | dig: 'crm_contact' | first  %}
 
 {% comment %} Get CRM -> Company from v5 API {% endcomment %}
 {% parse_json data %} 
 {
-  "id": "{{user.client[0].company_uuid}}"
+  "id": "{{ user_company_uuid.company_uuid }}"
 }
 {% endparse_json %}
 {% liquid

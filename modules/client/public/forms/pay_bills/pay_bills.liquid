@@ -45,13 +45,15 @@ fields:
           virtual: true            
 default_payload: >
   {% graphql current_user = 'modules/client/account/get_current_user' | dig: 'current_user' %}
+  {% assign user_company_uuid =  current_user | dig: 'crm_contact' | first  %}
+
   {% function settings = "modules/client/pay_bills/get_settings" %}
   {%  assign uuid =  '' | uuid %}
   {
     "properties_attributes":{
         "user_id": "{{ context.current_user.id }}",
         "user_uuid": "{{ current_user.external_id }}",
-        "company_uuid": "{{ current_user.client[0].company_uuid }}",
+        "company_uuid": "{{ user_company_uuid.company_uuid }}",
         "currency": "{{ settings.currency }}",
         "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}",
         "total_discount_amount": 0,
@@ -66,7 +68,6 @@ callback_actions: >
       context: context,
       form: form -%}  
 ---
-
 {%- assign props = form.fields.properties -%}
 
 {%- liquid

@@ -48,7 +48,7 @@ metadata: {
             "password_token": "{{ user_data_default.password_token }}"
         }
         {% endparse_json %}
-        {% comment %} {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%} {% endcomment %}
+        {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
     {% endif %}
 {% else %}
     {% comment %} ? ACTION == ADD user {% endcomment %}
@@ -121,7 +121,7 @@ metadata: {
         "password_token": "{{ user_data_default.password_token }}"
     }
     {% endparse_json %}
-    {% comment %} {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%} {% endcomment %}
+    {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
         
 {% endif %}
 {% comment %} ? CLOSING ENDIF FOR TOGGLE OR INVITE {% endcomment %}

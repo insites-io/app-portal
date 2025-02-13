@@ -141,7 +141,6 @@ async_callback_actions:
     {% endparse_json %}
 
     {%  liquid                      
-        graphql set_company_uuid = 'modules/client/account/set_company_uuid', id: form.id, company_uuid: add_company.items.uuid 
         graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/client/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
         graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/client/add_contact_address', data: data | dig: 'items','response','body' | parse_json
     %} 
@@ -153,7 +152,7 @@ async_callback_actions:
 
     {% comment %} Create user profile {% endcomment %}
     {%  liquid
-        graphql res = 'modules/client/account/create_user_profile', id: temporary_token.id, token: temporary_token.temporary_token
+        graphql create_user_profile = 'modules/client/account/create_user_profile', id: temporary_token.id, token: temporary_token.temporary_token
     %}
     
     {% comment %} Create Event Stream {% endcomment %}

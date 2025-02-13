@@ -1,7 +1,6 @@
 mutation set_profile_to_invited_users(
   $id: ID!
   $token: String!
-  $company_uuid: String
 ) {
   user_update(
     id: $id
@@ -13,7 +12,6 @@ mutation set_profile_to_invited_users(
             properties: [
               { name: "is_enabled", value_boolean: true}
               { name: "is_activated", value_boolean: true}
-              { name: "company_uuid", value: $company_uuid }
               { name: "verification_token", value: $token }
             ]
           }

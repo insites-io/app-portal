@@ -21,7 +21,6 @@ query get_current_user {
     ) {
       is_enabled: property_boolean(name: "is_enabled")
       is_activated: property_boolean(name: "is_activated")
-      company_uuid: property(name: "company_uuid")
     }
   }
 }
