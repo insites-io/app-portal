@@ -22,6 +22,7 @@
     "id": "{{ context.current_user.external_id }}"
 }
 {% endparse_json %}
+
 {% liquid
     graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/client/get_contact', data: data 
     assign contact = contact_api.items.response.body | parse_json | dig: "items", "results" | first

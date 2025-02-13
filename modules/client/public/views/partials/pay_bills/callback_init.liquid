@@ -5,6 +5,8 @@
     3. Email Notification
 {% endcomment %}
 
+{% log form, type: "Form" %}
+
 {% comment %} Get Gateway Settings from Ecommerce settings {% endcomment %}
 {% function settings = "modules/client/pay_bills/get_settings" %}
 {% assign gateway = settings.gateway_name | downcase %}
@@ -43,6 +45,7 @@
     "last_name": "{{ context.current_user.last_name }}"
 }
 {% endparse_json %}
+
 {% parse_json data %}
 {
     "payment_response": {{ context.exports.payment_response }},

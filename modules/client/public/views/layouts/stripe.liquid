@@ -1,0 +1,35 @@
+---
+metadata: {
+    layout_name: form
+}
+---
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    {%- include 'modules/website/layout/technical_head' -%}
+    
+    <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
+    <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
+    {% comment %} Insites Database Form Scripts {% endcomment %}
+    <link rel="stylesheet" href="https://components.insites.io/tools/css/InsitesForm.min.css">
+    {%- include 'modules/insites_forms/form_scripts' -%}
+</head>
+<body>
+    <div class="main-wrap">
+        <div class="wrapper">
+            <div class="grid-container">
+                <div class="grid-x gutter-medium grid-padding-x">
+                    <div class="large-12 medium-7 small-12 cell bg-color-ui-01 main-content">
+                        <div class="spacer xxxx-large"></div>
+                        {{ content_for_layout }}
+                        <div class="spacer xxxx-large"></div>
+                    </div>
+                </div>
+            </div>
+        </div>                       
+    </div>
+
+    {%- include 'modules/website/layout/technical_foot' -%}
+
+    </body>
+</html>

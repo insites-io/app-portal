@@ -133,9 +133,9 @@
 
 {% export update_order %}
 
-
+{% comment %} ? UNCOMMENT ON WORKING INSTANCE {% endcomment %}
 {% comment %} Step 3. Create Event Stream {% endcomment %}
-{% parse_json info %}
+{% comment %} {% parse_json info %}
 {
     "description": "Bills Payment",
     "log": {
@@ -173,5 +173,5 @@
         }
     }
 }
-{% endparse_json %}
-{% include 'modules/client/events/log_event', info %}
+{% endparse_json %} {% endcomment %}
+{% comment %} {% include 'modules/client/events/log_event', info %} {% endcomment %}
