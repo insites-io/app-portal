@@ -27,15 +27,26 @@ metadata: {
 {%- assign device_used = context.device.device_type -%}
 
 {% include 'modules/website/content/index/carousel' %} 
-{% include 'modules/website/content/index/overlap_section' %} 
-{% include 'modules/website/content/index/client_section' %}
-{% include 'modules/website/content/index/testimonials' %} 
+{% include 'modules/website/content/index/beautiful_centralised' %}
 
-{%- if context.environment == "staging" -%}
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/new_arrivals' %} 
+{% endif %}
+
+{% include 'modules/website/content/index/overlap_section' %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/whats_hot' %}
+{% endif %}
+
+{% include 'modules/website/content/index/client_section' %}
+{% include 'modules/website/content/index/testimonials' %}
+
+{% comment %} {%- if context.environment == "staging" -%}
     <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.js' | asset_url }}" >
     <script src="{{ 'modules/website/scripts/app.js' | asset_url }}"></script>
 {% else %}
     <!-- minified --> 
     <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.min.js' | asset_url }}" >
     <script src="{{ 'modules/website/scripts/app.min.js' | asset_url }}"></script>
-{%- endif -%}
+{%- endif -%} {% endcomment %}

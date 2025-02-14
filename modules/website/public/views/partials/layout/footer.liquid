@@ -12,10 +12,10 @@
                         {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
                         {% if context.exports.global.company_logo == nil or context.exports.global.company_logo contains "client-logo.png" %}
                             {% comment %} ? DEFAULT {% endcomment %}
-                            <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo">
+                            <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo" height="56" width="119">
                         {% else %}
                             {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
-                            <img class="logo" src="{{ context.exports.global.company_logo }}" alt="Logo">
+                            <img class="logo" src="{{ context.exports.global.company_logo }}" alt="Logo" height="56" width="119">
                         {% endif %}
                     </div>
                 </div>
@@ -203,7 +203,7 @@
                 </div>
                 <div class="small-12 cell spacer show-for-small-only"></div>
                 <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
-                    <p class="subHeading footer-p"> Powered by <a class="footer-links"target="_blank" href="https://www.insites.io/">Insites</a>.</p>
+                    <p class="subHeading footer-p"> Powered by <a class="footer-links" target="_blank" href="https://www.insites.io/">Insites</a>.</p>
                 </div>
             </div>
         </div>

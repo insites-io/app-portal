@@ -34,9 +34,9 @@
 
 <div class="carousel-holder">
     <div class="blocks-hero-01 homepage-banner-wrap">
-        <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner" transition="700" duration="5000"
+        <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner-carousel" transition="700" duration="5000"
           data-test="homepage-slider">
-          <div id="homepage-banner">
+          <div id="homepage-banner-carousel">
           {%- for item in res_homepage_sliders -%}
             {% comment %} ? item  {% endcomment %}
             <div class="slide-container">
@@ -53,7 +53,7 @@
                     <div class="spacer"></div>
                     <p class="subHeading cusLongText">{{ item.short_text }}</p>
                     <div class="spacer"></div>
-                    <a href='{{ item.link }}' target="">
+                    <a href='{{ item.link }}' target="_self">
                       <ins-button solid label="Learn More">
                       </ins-button>
                     </a>

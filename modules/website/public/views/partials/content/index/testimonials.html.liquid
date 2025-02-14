@@ -3,9 +3,9 @@
 
 <section class="section-testimonials">
     <div class="blocks-hero-01 homepage-banner-wrap">
-        <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner" transition="700" duration="5000"
+        <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner-testimonials" transition="700" duration="5000"
           data-test="homepage-slider">
-          <div id="homepage-banner">
+          <div id="homepage-banner-testimonials">
             {% for item in res_testimonial %}
             <!-- item -->
             <div class="slide-container">
@@ -15,13 +15,13 @@
               <div class="slide-content wrapper vertical-align-middle">
                 <div class="grid-x">
                   <div class="large-12 medium-12 small-12 cell colorWhite">
-                    <h1 class="testiLabel">TESTIMONIALS</h1>
+                    <h2 class="testiLabel">TESTIMONIALS</h2>
                     <div class="spacer"></div>
-                    <h1 class="testiMessage">{{  item.message  }}</h1>
+                    <p class="testiMessage">{{  item.message  }}</p>
                     <div class="spacer"></div>
-                    <h1 class="testiName">{{ item.full_name }}</h1>
+                    <p class="testiName">{{ item.full_name }}</p>
                     <div class="spacer x-small"></div>
-                    <h1 class="testiLoc"> {{ item.location }}</h1>
+                    <p class="testiLoc"> {{ item.location }}</p>
                   </div>
                 </div>
               </div>

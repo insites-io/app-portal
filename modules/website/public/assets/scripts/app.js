@@ -62,19 +62,6 @@ let App = (function () {
                     ? text.trim().replace(/[ ]/g, "-").replace(/[_]/g, "")
                     : '';
                 return InsitesUtil.removeWhitespace(kebab);
-            },
-            getFillerHeight() {
-                /* Get the width of the window to check if it will get the height of the filler for the mobile or desktop then return it. */
-                let windowWidth = window.innerWidth;
-                let fillerContainer = document.getElementById("head-filler");
-                let fillerHeight = 0;
-                //clientHeight includes the padding only
-                if (windowWidth <= mobileWindowWidthLimit) {
-                    fillerHeight = fillerContainer.getElementsByClassName("mobile")[0].clientHeight;
-                } else {
-                    fillerHeight = fillerContainer.getElementsByClassName("desktop")[0].clientHeight;
-                }
-                return fillerHeight;
             }
         },
         // Validation functions
@@ -248,7 +235,7 @@ let App = (function () {
             },
             checkScrollStatus(scrollPosition) {
                 let mainHeader = document.getElementById('main-header');
-                let fillerGuide = App.data.getFillerHeight();
+                let fillerGuide = 0; //App.data.getFillerHeight();
                 // Check if guide is breached before initiating animation
                 if (scrollPosition > fillerGuide) {
                     if (scrollPosition <= lastKnownScrollPosition) {

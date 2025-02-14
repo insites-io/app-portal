@@ -10,8 +10,31 @@ metadata: {
 {%- endif -%}
 
 <head>
+<<<<<<< HEAD
     {% include 'modules/website/layout/head' %}
     {% include 'modules/website/layout/googlemaps' %}
+=======
+    {%- comment -%}
+    We try to limit assets that are part of the head / technical head to
+    minimize page size & improve page performance.
+
+    Assets like 'Google Map API', should only be referenced as needed.
+    - Managed on the 'page / layout' level
+    {%- endcomment -%}
+
+    {% comment %} 
+        ? Enable Caching for Head and Google Maps after Installation
+        ? Remove the comment once Installed and Menu Database is Populated 
+        {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
+        {%- cache head_key -%}
+             {% include 'modules/website/layout/head' %}
+            {% include 'modules/website/layout/googlemaps' %}
+        {%- endcache -%}
+    {% endcomment %}
+
+    {% comment %} ? Delete the next 2 line of codes below this comment once Installed and Menu Database is Populated {% endcomment %}
+    {% include 'modules/website/layout/head' %}    
+>>>>>>> uat
 
     <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
     <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
@@ -19,6 +42,10 @@ metadata: {
     <title>Contact Us</title>
 </head>
 <body>
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% endif %}
 
     {% comment %} Globals {% endcomment %}
     {%- include "modules/insites_cms/globals" -%}
