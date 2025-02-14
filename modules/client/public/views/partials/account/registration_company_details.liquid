@@ -103,9 +103,9 @@ Inputs will have values only on /my-company-details page
       %}
 
       <div class="column-2">
-        <ins-input form-address-field 
+        <ins-input form-address-field validate
             id="company_address_1"
-            label="Address 1"
+            label="Address 1*"
             name="{{ props.company_address_1.name }}" 
             value="{{ default_address.address_1 }}" 
             {% if form.errors['company_address_1'] %} has-error {% endif %}
@@ -127,9 +127,9 @@ Inputs will have values only on /my-company-details page
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field 
+        <ins-input form-address-field validate
             id="company_suburb"
-            label="Suburb"
+            label="Suburb*"
             name="{{ props.company_suburb.name }}" 
             value="{{ default_address.suburb }}" 
             {% if form.errors['company_suburb'] %} has-error {% endif %}
@@ -139,9 +139,9 @@ Inputs will have values only on /my-company-details page
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field 
+        <ins-input form-address-field validate
             id="company_state"
-            label="State"
+            label="State*"
             name="{{ props.company_state.name }}" 
             value="{{ default_address.state }}" 
             {% if form.errors['company_state'] %} has-error {% endif %}
@@ -151,9 +151,9 @@ Inputs will have values only on /my-company-details page
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field 
+        <ins-input form-address-field validate
             id="company_postcode"
-            label="ZIP / Postalcode"
+            label="ZIP / Postalcode*"
             name="{{ props.company_postcode.name }}" 
             value="{{ default_address.postcode }}" 
             {% if form.errors['company_postcode'] %} has-error {% endif %}
@@ -163,9 +163,9 @@ Inputs will have values only on /my-company-details page
       </div>
 
       <div class="column-2">
-        <ins-input form-address-field 
+        <ins-input form-address-field validate
             id="company_country"
-            label="Country"
+            label="Country*"
             name="{{ props.company_country.name }}" 
             value="{{ default_address.country }}" 
             {% if form.errors['company_country'] %} has-error {% endif %}

@@ -35,21 +35,36 @@ fields:
 
     # CRM Address (Contact) Fields
     address_1:
+      validation: 
+        presence: 
+          message: Address 1 is required
       property_options:
         virtual: true
     address_2:
       property_options:
         virtual: true
     suburb:
+      validation: 
+        presence: 
+          message: Suburb is required
       property_options:
         virtual: true
     state:
+      validation: 
+        presence: 
+          message: State is required
       property_options:
         virtual: true
     postcode:
+      validation: 
+        presence: 
+          message: Postcode is required
       property_options:
         virtual: true
     country:
+      validation: 
+        presence: 
+          message: Country is required
       property_options:
         virtual: true
     latitude:

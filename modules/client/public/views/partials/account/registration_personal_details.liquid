@@ -88,8 +88,9 @@
 
       <div class="column-2">
         <ins-input form-address-field 
+            validate
             id="contact_address_1"
-            label="Address 1"
+            label="Address 1*"
             name="{{ props.address_1.name }}" 
             value="{{ default_address.properties.address_1 }}" 
             {% if form.errors['address_1'] %} has-error {% endif %}
@@ -112,8 +113,9 @@
 
       <div class="column-2">
         <ins-input form-address-field 
+            validate
             id="contact_suburb"
-            label="Suburb"
+            label="Suburb*"
             name="{{ props.suburb.name }}" 
             value="{{ default_address.properties.suburb }}" 
             {% if form.errors['suburb'] %} has-error {% endif %}
@@ -124,8 +126,9 @@
 
       <div class="column-2">
         <ins-input form-address-field 
+            validate
             id="contact_state"
-            label="State"
+            label="State*"
             name="{{ props.state.name }}" 
             value="{{ default_address.properties.state }}" 
             {% if form.errors['state'] %} has-error {% endif %}
@@ -136,8 +139,9 @@
 
       <div class="column-2">
         <ins-input form-address-field 
+            validate
             id="contact_postcode"
-            label="ZIP / Postal Code"
+            label="ZIP / Postal Code*"
             name="{{ props.postcode.name }}" 
             value="{{ default_address.properties.postcode }}" 
             {% if form.errors['postcode'] %} has-error {% endif %}
@@ -148,8 +152,9 @@
 
       <div class="column-2">
         <ins-input form-address-field 
+            validate
             id="contact_country"
-            label="Country"
+            label="Country*"
             name="{{ props.country.name }}" 
             value="{{ default_address.properties.country }}" 
             {% if form.errors['country'] %} has-error {% endif %}
