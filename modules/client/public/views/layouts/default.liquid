@@ -11,8 +11,8 @@ metadata: {
 </head>
 <body>
     <div class="main-wrap">
-        {% include 'modules/website/layout/header_default' %} 
-        {% include 'modules/website/layout/header_mobile_default' %}
+        {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/layout/header_mobile' %}
         {%- if context.params.slug == 'client-portal' and context.params.slug2 == null  -%}
         {%- comment -%} Carousel - Slider {%- endcomment -%}
         {%- include 'modules/client/layouts/banner', size: 10 -%}        

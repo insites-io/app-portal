@@ -221,4 +221,8 @@ metadata: {
     document.getElementById("year-container").innerHTML = new Date().getFullYear();
 </script>
 
-{%- include 'modules/website/layout/foot' -%}
+{%- comment -%}
+Technical footer:
+Contains all the scripts imported right before the </body> tag
+{%- endcomment -%}
+{%- include 'modules/website/layout/technical_foot' -%}

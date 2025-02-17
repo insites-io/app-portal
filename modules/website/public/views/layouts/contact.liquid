@@ -65,8 +65,8 @@ metadata: {
     {% assign map_key = data.items.response.body | parse_json | dig: 'items', 'results' | first | dig: 'key' %}
 
     <div class="main-wrap">
-        {% include 'modules/website/layout/header_default' %} 
-        {% include 'modules/website/layout/header_mobile_default' %}
+        {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/layout/header_mobile' %}
         
         {% include 'modules/website/content/hero_title' %} 
 

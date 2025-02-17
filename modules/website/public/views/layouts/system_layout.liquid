@@ -10,8 +10,8 @@ metadata: {
     </head>
     <body class="system-page flex-container flex-dir-column">
         <div class="">
-            {% include 'modules/website/layout/header_default' %} 
-            {% include 'modules/website/layout/header_mobile_default' %}
+            {% include 'modules/website/layout/header' %} 
+            {% include 'modules/website/layout/header_mobile' %}
 
             {% comment %} ? For ecommerce cart drawer {% endcomment %}
             {% if context.constants.ecommerce_addon == 'true' %}

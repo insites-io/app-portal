@@ -10,9 +10,16 @@ metadata: {
 <meta content="{{ context.authenticity_token }}" name="csrf-token">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-{%- include 'modules/insites_cms/seo' -%}
-{%- include 'modules/website/layout/technical_head' -%}
-{%- include 'modules/website/layout/pixel_tracking' -%}
+{% liquid
+    include 'modules/insites_cms/seo'
+    include 'modules/website/layout/technical-head/google-fonts'
+    include 'modules/website/layout/technical-head/favicons'
+    include 'modules/website/layout/technical-head/msapplication'
+    include 'modules/website/layout/technical-head/vendor-assets'
+    include 'modules/website/layout/technical-head/insites-assets'
+    include 'modules/website/layout/project_assets'
+    include 'modules/website/layout/pixel_tracking'
+%}
 
 {%- if context.environment == "staging" -%}
 <!-- end partial:layout/head  -->
