@@ -1,0 +1,11 @@
+{%- graphql user = 'modules/client/account/get_current_user' | dig: 'current_user' -%}  
+{% assign client_profile =  user | dig: 'client' | first  %}
+
+{% assign has_profile = true %}
+
+{% if client_profile.size == null  %}
+    {% assign has_profile = false %}
+{% endif %}
+
+
+{% return has_profile %}

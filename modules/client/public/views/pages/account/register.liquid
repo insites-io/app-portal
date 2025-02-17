@@ -21,6 +21,8 @@ metadata: {
     "sitemap_order": "0", ## secondary order (ASC)
     "sitemap_changefreq": "never"
 }
+authorization_policies:
+  - modules/client/has_client_profile   
 ---
     
 {%- if context.current_user -%}

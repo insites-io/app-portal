@@ -114,9 +114,10 @@
       {% endif %}
 
     
-          {% if context.current_user == nil %}
-         
-    
+        {% comment %} Check if current user has profile {% endcomment %}
+        {% function has_profile = "modules/website/layout/check_if_user_has_profile" %}
+
+        {% if has_profile == false  %}
         </div>
               <a class="" href="/sign-in">           
                 <ins-button label="SIGN IN" icon="icon-user"></ins-button>
