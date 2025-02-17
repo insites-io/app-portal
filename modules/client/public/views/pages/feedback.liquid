@@ -27,11 +27,6 @@ authorization_policies:
   - modules/client/is_user_logged_in
 ---
 
-{%- if context.environment == "staging" -%}
-<!-- start page: feedback  -->
-{%- endif -%}
-
-
 <div class="feedback">    
  
         {% if context.flash.notice == "Successfully submitted form." %}
@@ -51,8 +46,3 @@ authorization_policies:
     {%- endif -%}    
 
 </div>
-
-
-{%- if context.environment == "staging" -%}
-<!-- end page: feedback  -->
-{%- endif -%}

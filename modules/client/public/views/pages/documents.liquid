@@ -26,11 +26,6 @@ metadata: {
 authorization_policies:
   - modules/client/is_user_logged_in
 ---
-
-{%- if context.environment == "staging" -%}
-<!-- start page: documents  -->
-{%- endif -%}
-
 {%- comment -%} Pagination and Filters {%- endcomment -%}
 {%  liquid            
     assign page_num = context.params.page | default: 1 | plus: 0
@@ -330,8 +325,3 @@ setTimeout(() => {
 }, 200);
 </script>
 {% endif -%}
-
-
-{%- if context.environment == "staging" -%}
-<!-- end page: documents  -->
-{%- endif -%}

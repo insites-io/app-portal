@@ -3,11 +3,6 @@ slug: contact
 layout: modules/website/contact
 ---
     
-{%- if context.environment == "staging" -%}
-<!-- start page: contact-us  -->
-{%- endif -%}
-    
-
     {% comment %} connect services to graphql {% endcomment %}
     {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
     {% comment %} assign var to fetch the result {% endcomment %}
@@ -26,6 +21,3 @@ layout: modules/website/contact
     {% comment %} this form is from form builder {% endcomment %}
     {%- include_form 'modules/ins_forms/contact_us' -%}
 
-{%- if context.environment == "staging" -%}
-<!-- end page: contact-us  -->
-{%- endif -%}

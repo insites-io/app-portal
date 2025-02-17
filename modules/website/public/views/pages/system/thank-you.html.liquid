@@ -27,9 +27,6 @@ Default 'success / thank you' page
 Design & content changes per project as needed
 {%- endcomment -%}
 
-{%- if context.environment == "staging" -%}
-<!-- start page: thank you page  -->
-{%- endif -%}
 <div class="thank-you">
     <div class="spacer xxxx-large"></div>
         <div class="grid-x grid-padding-x text-center">
@@ -47,7 +44,3 @@ Design & content changes per project as needed
         </div>
     <div class="spacer xxxx-large"></div>
 </div>
-
-{%- if context.environment == "staging" -%}
-<!-- end page: thank you page  -->
-{%- endif -%}

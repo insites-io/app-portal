@@ -10,10 +10,6 @@ metadata: {
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
 
-{%- if context.environment == "staging" -%}
-{% comment %} ? start partial:layout/header {% endcomment %}
-{%- endif -%}
-
 <header class="navigation-04 header colorBlack" data-test="main-header" id="main-header">
   <div class="wrapper">
     <div class="header-top-bar grid-container grid-x align-middle">
@@ -194,10 +190,6 @@ metadata: {
     {% include 'modules/ecommerce/menu/mega_menu' %}
 {% endif %}
 
-
-{%- if context.environment == "staging" -%}
-{% comment %} ? end partial:layout/header {% endcomment %}
-{%- endif -%}
 
 {% if context.constants.ecommerce_addon == 'true' %}
 

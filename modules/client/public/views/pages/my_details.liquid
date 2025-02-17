@@ -27,10 +27,6 @@ authorization_policies:
   - modules/client/is_user_logged_in
 ---
 
-{%- if context.environment == "staging" -%}
-<!-- start page: my-details  -->
-{%- endif -%}
-
 {%- graphql user = 'modules/client/account/get_current_user' | dig: 'current_user' -%}  
 {% assign user_company_uuid =  user | dig: 'crm_contact' | first  %}
 
@@ -141,7 +137,3 @@ setTimeout(() => {
 }, 200);
 </script>
 {% endif -%}
-
-{%- if context.environment == "staging" -%}
-<!-- end page: my-details  -->
-{%- endif -%}

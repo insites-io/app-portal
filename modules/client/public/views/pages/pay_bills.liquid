@@ -28,11 +28,6 @@ authorization_policies:
 ---
 {% function get_stripe_settings = "modules/client/stripe/get_stripe_settings" %}
 
-
-{%- if context.environment == "staging" -%}
-<!-- start page: Pay a Bill  -->
-{%- endif -%}
-
 {% if get_stripe_settings.account_id != ''  %}
   <div class="pay-bills">
     {%- if context.flash.notice == "Success-PayBill" -%}
@@ -55,11 +50,6 @@ authorization_policies:
     Please set-up Stripe on your account.
   </div>
 {% endif %}
-
-
-{%- if context.environment == "staging" -%}
-<!-- end page: Pay a Bill  -->
-{%- endif -%}
 
 <!-- Stripe Element -->
 {%- include 'modules/client/stripe/stripe_element',

@@ -24,11 +24,6 @@ metadata: {
 authorization_policies:
   - modules/client/is_user_logged_in
 ---
-{%- if context.environment == "staging" -%}
-<!-- start page: overview  -->
-{%- endif -%}
-
-
 {%- graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first -%}
 
 {%- parse_json form -%}
@@ -71,10 +66,6 @@ authorization_policies:
       </div>
   </div>
 </div>
-
-{%- if context.environment == "staging" -%}
-<!-- end page: overview  -->
-{%- endif -%}
 
 <script>
   <!-- Set Contact Number value -->
