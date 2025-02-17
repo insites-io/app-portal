@@ -579,7 +579,8 @@ metadata: {
     userEmail.addEventListener('insInput', async (event) => {
         let url = '/check-user-email?'+ 'email='+ event.detail.value ;
         let response = await apiServices.processRequest('get', url);
-     
+        let data = response.data
+
         if(response.data.has_email == true) {
             // EMAIL EXISTS
             is_email_found = true;
@@ -588,6 +589,7 @@ metadata: {
 
             // Show Error message = Email Exists
             errorOnEmailFound();
+            prefillDetails(data)
             is_email_valid = true;
         }else{
             // EMAIL DOES NOT EXIST
@@ -737,6 +739,15 @@ metadata: {
         insBaseTable.setAttribute("hidden", true);
 
         window.location.href = '/users';
+    }
+
+    function prefillDetails(data) {
+         userFirstName.value = data.first_name
+         userLastName.value = data.last_name
+         userContact.setCountryCode('+' + data.work_phone_country_code)
+         userContact.setAttribute('areacode-value',  data.work_phone_country_code);
+         userContact.setAttribute('phonenum-value', data.work_phone_number)
+         mobile_phone_number = data.work_phone_number
     }
 
     function resetSelect(e){
