@@ -101,7 +101,7 @@ authorization_policies:
 
         {% if data.has_next_page %}
             <div class="spacer"></div>        
-            {%- include "modules/client/paginations", page_num, per_page -%}
+            {%- include "modules/layouts/client/paginations", page_num, per_page -%}
         {% endif %}
         
     </div>

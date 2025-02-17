@@ -1,3 +1,9 @@
+---
+metadata: {
+    partial_name: 'Client | User details'
+}
+---
+
 {% comment %} ? GET USER {% endcomment %}
 {%- graphql user = 'modules/client/account/get_current_user' | dig: 'current_user' -%}
 {% graphql get_user_custom_field = 'modules/client/account/get_contact_custom_fields', contact_uuid: user.external_id  | dig: 'items', 'results' | first %}

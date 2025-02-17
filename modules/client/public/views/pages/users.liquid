@@ -26,7 +26,7 @@ authorization_policies:
   - modules/client/is_user_logged_in    
 ---
 {% comment %} ? GET USER DETAILS {% endcomment %}
-{% function user_details = "modules/client/user_details" %}
+{% function user_details = "modules/client/users/user_details" %}
 
 {% if user_details.is_primary_account_holder == true %}
     <h1>Users</h1>

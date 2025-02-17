@@ -15,7 +15,7 @@ metadata: {
         {% include 'modules/website/layout/header_mobile_default' %}
         {%- if context.params.slug == 'client-portal' and context.params.slug2 == null  -%}
         {%- comment -%} Carousel - Slider {%- endcomment -%}
-        {%- include 'modules/client/banner', size: 10 -%}        
+        {%- include 'modules/client/layouts/banner', size: 10 -%}        
         {%- else -%}
         <div class="wrapper bg-color-main">
             <div class="grid-container">

@@ -1,3 +1,9 @@
+---
+metadata: {
+    partial_name: 'Website | Layout | Check if user has profile'
+}
+---
+
 {%- graphql user = 'modules/client/account/get_current_user' | dig: 'current_user' -%}  
 {% assign client_profile =  user | dig: 'client' | first  %}
 

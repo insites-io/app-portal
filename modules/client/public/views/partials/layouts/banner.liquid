@@ -1,3 +1,9 @@
+---
+metadata: {
+    partial_name: 'Client | Banner'
+}
+---
+
 {% comment %} ? FETCHING CLIENT BANNER {% endcomment %}
 {%- graphql client_banner = 'modules/client/banners/get_banner' -%}
 {%- assign data = client_banner | dig: 'items', 'results' -%}

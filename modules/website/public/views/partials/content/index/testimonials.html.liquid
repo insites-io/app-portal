@@ -1,3 +1,9 @@
+---
+metadata: {
+    partial_name: "Website | Index | Testimonials",
+}
+---
+
 {%- graphql get_testimonials = 'modules/website/home/get_testimonials' -%}
 {%- assign res_testimonial = get_testimonials | dig: 'items', 'results' -%}
 

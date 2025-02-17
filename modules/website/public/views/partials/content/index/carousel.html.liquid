@@ -1,3 +1,9 @@
+---
+metadata: {
+    partial_name: "Website | Index | Carousel",
+}
+---
+
 {% comment %} ? FETCHING HOMEPAGE SLIDER DATABASE {% endcomment %}
 {%- graphql homepage_sliders = 'modules/website/home/get_homepage_sliders' -%}
 {%- assign res_homepage_sliders = homepage_sliders | dig: 'items', 'results' -%}

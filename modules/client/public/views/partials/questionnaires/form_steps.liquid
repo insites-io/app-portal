@@ -1,3 +1,9 @@
+---
+metadata: {
+    partial_name: 'Client | Questionnaires | Form steps'
+}
+---
+
 {%- liquid
 
     graphql data = "modules/client/questionnaires/get_questionnaires", id: {{context.params.slug2}} | dig: "items","results" | first
