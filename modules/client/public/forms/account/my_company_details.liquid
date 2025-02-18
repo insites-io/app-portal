@@ -98,37 +98,40 @@ async_callback_actions:
   max_attempts: 2
   content: |-
     {% comment %} Create Event Stream {% endcomment %}
-    {% parse_json info %}
-    {
-      "description": "My Company Details Updated",
-      "log": {
-        "user": {
-          "id": "{{ context.current_user.id }}",
-          "email": "{{ context.current_user.email }}",
-          "first_name": "{{ context.current_user.first_name }}",
-          "last_name": "{{ context.current_user.last_name }}"
-        },
-        "company":{
-          "company_name": "{{ form.properties.company_name }}",
-          "registered_business_number": "{{ form.properties.registered_business_number }}",
-          "email_1": "{{ form.properties.email_1 }}",
-          "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
-          "mobile_phone_number": "{{ form.properties.mobile_phone_number }}"
-        },
-        "company_address":{
-          "address_1": "{{ form.properties.company_address_1 }}",
-          "address_2": "{{ form.properties.company_address_2 }}",
-          "suburb": "{{ form.properties.company_suburb }}",
-          "state": "{{ form.properties.company_state }}",
-          "postcode": "{{ form.properties.company_postcode }}",
-          "country": "{{ form.properties.company_country }}"
-        }      
+    {%- assign current_user_name =  context.current_user.first_name | append: ' ' | append: context.current_user.last_name | default: context.current_user.email -%}
+    {%- capture description -%} My <a target="_blank" href="/admin/insites#/crm/companies/{{ form.properties.company_uuid }}">Company details</a> Updated - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> {%- endcapture -%}
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+
+    {% capture log_info %}
+      {
+          "user": {
+            "id": "{{ context.current_user.id }}",
+            "email": "{{ context.current_user.email }}",
+            "first_name": "{{ context.current_user.first_name }}",
+            "last_name": "{{ context.current_user.last_name }}"
+          },
+          "company":{
+            "company_name": "{{ form.properties.company_name }}",
+            "registered_business_number": "{{ form.properties.registered_business_number }}",
+            "email_1": "{{ form.properties.email_1 }}",
+            "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
+            "mobile_phone_number": "{{ form.properties.mobile_phone_number }}"
+          },
+          "company_address":{
+            "address_1": "{{ form.properties.company_address_1 }}",
+            "address_2": "{{ form.properties.company_address_2 }}",
+            "suburb": "{{ form.properties.company_suburb }}",
+            "state": "{{ form.properties.company_state }}",
+            "postcode": "{{ form.properties.company_postcode }}",
+            "country": "{{ form.properties.company_country }}"
+          }      
       }
-    }
-    {% endparse_json %}
+    {% endcapture %}
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
     {% include 'modules/client/events/log_event', info %}
 ---
-
 {%- form 
     html-id: "my-company-details-form"
     html-class: 'insites-form insites-form-code' 

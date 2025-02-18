@@ -194,41 +194,45 @@ async_callback_actions:
     %}
     
     {% comment %} Create Event Stream {% endcomment %}
-    {% parse_json info %}
-    {
-      "description": "New Registration",
-      "log": {
-        "first_name": "{{ form.first_name }}",
-        "last_name": "{{ form.last_name }}",
-        "email": "{{ form.email }}",
-        "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
-        "mobile_phone_number": "{{ form.properties.mobile_phone_number }}",
-        "contact_address":{
-          "address_1": "{{ form.properties.address_1 }}",
-          "address_2": "{{ form.properties.address_2 }}",
-          "suburb": "{{ form.properties.suburb }}",
-          "state": "{{ form.properties.state }}",
-          "postcode": "{{ form.properties.postcode }}",
-          "country": "{{ form.properties.country }}"
-        },
-        "company":{
-          "company_name": "{{ form.properties.company_name }}",
-          "registered_business_number": "{{ form.properties.registered_business_number }}",
-          "email_1": "{{ form.properties.email_1 }}",
-          "mobile_phone_country_code": "{{ form.properties.company_mobile_phone_country_code }}",
-          "mobile_phone_number": "{{ form.properties.company_mobile_phone_number }}"
-        },
-        "company_address":{
-          "address_1": "{{ form.properties.company_address_1 }}",
-          "address_2": "{{ form.properties.company_address_2 }}",
-          "suburb": "{{ form.properties.company_suburb }}",
-          "state": "{{ form.properties.company_state }}",
-          "postcode": "{{ form.properties.company_postcode }}",
-          "country": "{{ form.properties.company_country }}"
-        }        
+    {%- assign current_user_name =  form.first_name | append: ' ' | append: form.last_name | default: form.email -%}
+    {%- capture description -%} New Registration - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ form.id }}">{{ current_user_name  | default: form.email }}</a> {%- endcapture -%}
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+
+    {% capture log_info %}
+      {
+          "first_name": "{{ form.first_name }}",
+          "last_name": "{{ form.last_name }}",
+          "email": "{{ form.email }}",
+          "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
+          "mobile_phone_number": "{{ form.properties.mobile_phone_number }}",
+          "contact_address":{
+            "address_1": "{{ form.properties.address_1 }}",
+            "address_2": "{{ form.properties.address_2 }}",
+            "suburb": "{{ form.properties.suburb }}",
+            "state": "{{ form.properties.state }}",
+            "postcode": "{{ form.properties.postcode }}",
+            "country": "{{ form.properties.country }}"
+          },
+          "company":{
+            "company_name": "{{ form.properties.company_name }}",
+            "registered_business_number": "{{ form.properties.registered_business_number }}",
+            "email_1": "{{ form.properties.email_1 }}",
+            "mobile_phone_country_code": "{{ form.properties.company_mobile_phone_country_code }}",
+            "mobile_phone_number": "{{ form.properties.company_mobile_phone_number }}"
+          },
+          "company_address":{
+            "address_1": "{{ form.properties.company_address_1 }}",
+            "address_2": "{{ form.properties.company_address_2 }}",
+            "suburb": "{{ form.properties.company_suburb }}",
+            "state": "{{ form.properties.company_state }}",
+            "postcode": "{{ form.properties.company_postcode }}",
+            "country": "{{ form.properties.company_country }}"
+          }        
       }
-    }
-    {% endparse_json %}
+    {% endcapture %}
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
     {% include 'modules/client/events/log_event', info %}
 ---
 

@@ -17,10 +17,17 @@ async_callback_actions:
     {% include 'modules/client/questionnaires/pdf_generator', questionnaire_id: form.id %} 
 
     {% comment %} Create Event Stream {% endcomment %}
-    {% parse_json info %}
-    {
-      "description": "New Questionnaire Added",
-      "log": {
+    {% graphql get_questionaire_table_id = 'modules/client/questionnaires/get_questionaires_table' | dig: 'admin_tables', 'results' %}
+    {%  assign questionaire_table_id = get_questionaire_table_id | first  %}
+
+    {%- assign current_user_name =  context.current_user.first_name | append: ' ' | append: context.current_user.last_name | default: context.current_user.email -%}
+    {%- capture description -%} New <a target="_blank" href="/admin/insites/#/databases/{{ questionaire_table_id.id }}/items/{{ form.id }}">Questionnaires</a> Added - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> {%- endcapture -%}
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+
+
+    {% capture log_info %}
+      {
         "user": {
           "id": "{{ context.current_user.id }}",
           "email": "{{ context.current_user.email }}",
@@ -28,9 +35,10 @@ async_callback_actions:
           "last_name": "{{ context.current_user.last_name }}"
         },
         "id": "{{ form.id }}"
-      }
-    }    
-    {% endparse_json %}
+      }    
+    {% endcapture %}
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
     {% include 'modules/client/events/log_event', info %}  
 ---
 

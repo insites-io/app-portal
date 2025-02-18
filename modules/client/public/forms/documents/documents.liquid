@@ -38,21 +38,34 @@ async_callback_actions:
   max_attempts: 2
   content: |-
     {% comment %} Create Event Stream {% endcomment %}
-    {% parse_json info %}
-    {
-      "description": "{{form.notice_message}}",
-      "log": {
-        "user": {
-          "id": "{{ context.current_user.id }}",
-          "email": "{{ context.current_user.email }}",
-          "first_name": "{{ context.current_user.first_name }}",
-          "last_name": "{{ context.current_user.last_name }}"
-        },
-        "description": "{{ form.properties.description }}",
-        "notes": "{{ form.properties.notes }}"
+    {% graphql get_document_table_id = 'modules/client/documents/get_document_table_id' | dig: 'admin_tables', 'results' %}
+    {%  assign document_table_id = get_document_table_id | first  %}
+    
+    {% if form.notice_message == 'Document successfully added' %} 
+      {%- capture notice_message -%} <a target="_blank" href="/admin/insites/#/databases/{{ document_table_id.id }}/items/{{ form.id }}">Document</a> successfully added {%- endcapture -%}
+      {% else  %}
+      {%- capture notice_message -%} <a target="_blank" href="/admin/insites/#/databases/{{ document_table_id.id }}/items/{{ form.id }}">Document</a> successfully updated {%- endcapture -%}
+    {% endif %}
+
+    {%- assign current_user_name =  context.current_user.first_name | append: ' ' | append: context.current_user.last_name | default: context.current_user.email -%}
+    {%- capture description -%} {{ notice_message }} - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> {%- endcapture -%}
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+    
+    {% capture log_info %}
+      {
+          "user": {
+            "id": "{{ context.current_user.id }}",
+            "email": "{{ context.current_user.email }}",
+            "first_name": "{{ context.current_user.first_name }}",
+            "last_name": "{{ context.current_user.last_name }}"
+          },
+          "description": "{{ form.properties.description }}",
+          "notes": "{{ form.properties.notes }}"
       }
-    }
-    {% endparse_json %}
+    {% endcapture %}
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
     {% include 'modules/client/events/log_event', info %}  
 email_notifications:
   - modules/client/document_workflow

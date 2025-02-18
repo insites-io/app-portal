@@ -52,10 +52,16 @@ async_callback_actions:
   max_attempts: 2
   content: |-
     {% comment %} Create Event Stream {% endcomment %}
-    {% parse_json info %}
+    {% graphql get_questionaire_table_id = 'modules/client/questionnaires/get_questionaires_table' | dig: 'admin_tables', 'results' %}
+    {%  assign questionaire_table_id = get_questionaire_table_id | first  %}
+
+    {%- assign current_user_name =  context.current_user.first_name | append: ' ' | append: context.current_user.last_name | default: context.current_user.email -%}
+    {%- capture description -%} <a target="_blank" href="/admin/insites/#/databases/{{ questionaire_table_id.id }}/items/{{ form.id }}">Questionnaires</a> - General - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> {%- endcapture -%}
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+
+    {% capture log_info %}
     {
-      "description": "Questionnaires - General",
-      "log": {
         "user": {
           "id": "{{ context.current_user.id }}",
           "email": "{{ context.current_user.email }}",
@@ -71,9 +77,10 @@ async_callback_actions:
         "primary_phone": "{{ form.properties.primary_phone }}",
         "previous_job": "{{ form.properties.previous_job }}",
         "service_of_interest": {{ form.properties.service_of_interest }}
-      }
     }    
-    {% endparse_json %}
+    {% endcapture %}
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
     {% include 'modules/client/events/log_event', info %}
 ---
 
@@ -87,7 +94,6 @@ async_callback_actions:
     endif
     assign year_now = 'now' | date: '%Y'    
 %}
-
 {%- form
     html-autocomplete: "off"
     html-id: "questionnaires-form"

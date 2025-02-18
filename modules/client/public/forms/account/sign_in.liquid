@@ -20,6 +20,35 @@ fields:
   redirect:
     property_options:
         virtual: true
+        
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {%- graphql user = "modules/client/account/get_user_by_email" 
+        email: form.email
+        | dig: "items" | dig: "results" | first -%}
+    {%- assign current_user_name =  user.first_name | append: ' ' | append: user.last_name | default: user.email -%}
+    {%- capture description -%}<a target="_blank" href="/admin/insites/#/crm/contacts/{{ user.id }}">{{ current_user_name  | default: user.email }}</a> logged in to the client portal {%- endcapture -%}
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+
+    {% capture log_info %}
+      {
+          "user": {
+            "id": "{{ user.id }}",
+            "email": "{{ user.email }}",
+            "first_name": "{{ user.first_name }}",
+            "last_name": "{{ user.last_name }}"
+          }
+      }
+    {% endcapture %}
+
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
+    {% include 'modules/client/events/log_event', info %}
 ---
 
 {%- form 

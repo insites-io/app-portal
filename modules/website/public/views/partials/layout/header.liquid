@@ -169,14 +169,16 @@ metadata: {
       </div>
       <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-4 cell vertical-align-middle align-right">
         <div class="header-mobile grid-x">
-          <a role="button" onclick="openDrawer()">
-            <i class="icon-shopping-cart"></i>
-            <span class="cart-count 
-              {% if user_cart == null or user_cart.items.size == 0 %}hide
-              {% elsif user_cart.items.size > 9 %}two-digits-count
-              {% endif %}
-            ">{{ user_cart.items.size }}</span>
-          </a>
+          {% if context.constants.ecommerce_addon == 'true' %}
+            <a role="button" onclick="openDrawer()">
+              <i class="icon-shopping-cart"></i>
+              <span class="cart-count 
+                {% if user_cart == null or user_cart.items.size == 0 %}hide
+                {% elsif user_cart.items.size > 9 %}two-digits-count
+                {% endif %}
+              ">{{ user_cart.items.size }}</span>
+            </a>
+          {% endif %}
   
           <div id="mobile-menu-btn" class="icon-menu-1"></div>
         </div>

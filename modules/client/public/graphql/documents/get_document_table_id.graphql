@@ -1,0 +1,8 @@
+query get_document_table_id {
+  admin_tables(filter: {name: {value: "modules/client/documents"}}) {
+    results {
+      id
+      name
+    }
+  }
+}
