@@ -11,10 +11,6 @@ metadata: {
 %}
 
 
-{%- if context.environment == "staging" -%}
-<!-- start page: overview  -->
-{%- endif -%} 
-
 {%- graphql data = "modules/client/questionnaires/get_questionnaires_overview", user_id: context.current_user.id, not_agreement: "I understand and agree", size: 6 | dig: "items","results" -%}
 <div class="questionnaire">
 {%- if data.size > 0 -%}
@@ -51,11 +47,6 @@ metadata: {
   </div>
 {%- endif -%}
 </div>
-
-
-{%- if context.environment == "staging" -%}
-<!-- end page: overview  -->
-{%- endif -%}
 
 {%- if data.size > 6 -%}
 <script>

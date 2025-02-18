@@ -54,9 +54,6 @@ callback_actions: >
   {% endparse_json %}
   {% include 'modules/client/events/log_event', info %}
 ---
-{%- if context.environment == "staging" -%}
-  <!-- start form:modules/insites_forms/forms/contact_us  -->
-{%- endif -%}
 
 {% form 
  html-autocomplete: "off"
@@ -186,6 +183,4 @@ callback_actions: >
   </div>
 {% endform %}
 
-{%- if context.environment == "staging" -%}
-  <!-- end form:modules/insites_forms/forms/contact_us  -->
-{%- endif -%}
+

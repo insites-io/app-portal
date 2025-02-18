@@ -27,10 +27,6 @@ authorization_policies:
   - modules/client/is_user_logged_in  
 ---
 
-{%- if context.environment == "staging" -%}
-<!-- start page: overview  -->
-{%- endif -%}
-
 {%- comment -%} Pagination and Filters {%- endcomment -%}
 {%  liquid            
     assign page_num = context.params.page | default: 1 | plus: 0
@@ -238,7 +234,3 @@ authorization_policies:
   <script src="{{ 'modules/client/services/apiServices.min.js' | asset_url }}"></script>
 {%- endif -%}
 
-
-{%- if context.environment == "staging" -%}
-<!-- end page: overview  -->
-{%- endif -%}
