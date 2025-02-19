@@ -295,6 +295,51 @@ let App = (function () {
                         }
                     });
                 }
+            },
+
+            clearFunctionSearch() {
+  
+                setTimeout(() => {
+                    // Select all elements with the class 'search-input'
+                    const inputElementContainers = document.querySelectorAll('.search-bars');
+            
+                    inputElementContainers.forEach(inputElementContainer => {
+                    const inputElement = inputElementContainer.getElementsByTagName('input')[0];
+                    
+                    let iconElement = inputElementContainer.querySelector('.icon-search-1');
+
+                    if(iconElement == null) {
+                       iconElement = inputElementContainer.querySelector('.icon-search');
+                    }
+            
+                    inputElement.addEventListener('input', function () {
+                        let closeIcon = inputElementContainer.querySelector('.icon-close-1');
+            
+                        if (inputElement.value.trim() !== "") {
+                        if (!closeIcon) {
+                            closeIcon = document.createElement('i');
+                            closeIcon.classList.add('icon-close-1', 'icon-wrap', 'icon-close-active','icon-close-style');
+                            iconElement.parentNode.insertBefore(closeIcon, iconElement); 
+                        }
+                        } else {
+                        if (closeIcon) {
+                            closeIcon.remove();
+                        }
+                        }
+                    });
+            
+                    inputElementContainer.addEventListener('click', function(event) {
+                        if (event.target.classList.contains('icon-close-1')) {
+                        inputElement.value = ""; 
+                        let closeIcon = inputElementContainer.querySelector('.icon-close-1');
+                        if (closeIcon) {
+                            closeIcon.remove(); 
+                        }
+                        }
+                    });
+                    });
+                }, 300);
+ 
             }
 
         }
@@ -309,4 +354,5 @@ setTimeout(() => {
     App.init.initScrollToTopBtn();
     App.init.initMobileMenu();
     App.init.initScrollMenu();
+    App.init.clearFunctionSearch();
 }, 200);
