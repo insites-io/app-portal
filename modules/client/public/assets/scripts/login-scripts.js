@@ -49,7 +49,7 @@ let LoginScript = (function () {
                     }
                 } else {
                     field.hasError = true;
-                    field.errorMessage = "Password is required";
+                    field.errorMessage = "Password is required.";
                 }
             },
             validatePasswordConfirm(field){
@@ -86,6 +86,24 @@ let LoginScript = (function () {
                                     this.validatePasswordField(field);
                                 }
                             } else if(field.field === 'email'){
+
+                                var is_email_valid = true
+                                var requiredEmail = document.getElementById("emailRequired");
+                                var emailInvalid = document.getElementById("emailInvalid")
+                                requiredEmail.classList.add('is_not_visible');
+                                emailInvalid.classList.add('is_not_visible');
+
+                          
+                                if(field.value == '') {
+                                    requiredEmail.classList.add('is_visible');
+                                    requiredEmail.classList.remove('is_not_visible');
+                                }else {
+                                    is_email_valid = this.isValidEmail(field.value);
+                                    if(is_email_valid == false){ 
+                                        emailInvalid.classList.add('is_visible');
+                                        emailInvalid.classList.remove('is_not_visible');
+                                    }
+                                }
                                 App.validation.validateEmail(field);
                             } else{
                                 App.validation.validateInput(field);
@@ -94,6 +112,11 @@ let LoginScript = (function () {
                     }
                 }
                 return App.validation.checkInvalidFields(containerEl);
+            },
+            isValidEmail(email) {
+                // Regular expression for validating an Email
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
             },
             async validateForm(event, groupElem) {
                 event ? event.preventDefault(): '';

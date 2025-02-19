@@ -112,6 +112,24 @@ let UserProfileScript = (function () {
                                     this.validatePasswordField(field);
                                 }
                             } else if (field.field === 'email') {
+                                console.log('test')
+                                var is_email_valid = true
+                                var requiredEmail = document.getElementById("emailRequired");
+                                var emailInvalid = document.getElementById("emailInvalid")
+                                requiredEmail.classList.add('is_not_visible');
+                                emailInvalid.classList.add('is_not_visible');
+
+                                
+                                if(field.value == '') {
+                                    requiredEmail.classList.add('is_visible');
+                                    requiredEmail.classList.remove('is_not_visible');
+                                }else {
+                                    is_email_valid = this.isValidEmail(field.value);
+                                    if(is_email_valid == false){ 
+                                        emailInvalid.classList.add('is_visible');
+                                        emailInvalid.classList.remove('is_not_visible');
+                                    }
+                                }
                                 App.validation.validateEmail(field);
                             } else {
                                 App.validation.validateInput(field);
@@ -120,6 +138,11 @@ let UserProfileScript = (function () {
                     }
                 }
                 return App.validation.checkInvalidFields(containerEl);
+            },
+            isValidEmail(email) {
+                // Regular expression for validating an Email
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
             },
             async validateForm(event) {
                 /* Validation and scripts done before submission of forms */
@@ -135,18 +158,20 @@ let UserProfileScript = (function () {
                 if (formId == 'user-profile-form' || formId == 'user-company-form') {
                     //Validation for User profile/company
                     this.validateTelField();
+                    if(await this.validationForm(formElem)){ 
+                        //Phone Fields
+                        let mobileFields = contactMobileFields;
+                        let values = await mobileFields.inputTel.getValues();
+                        mobileFields.country_code.value = values.country_code;
+                        mobileFields.phone_number.value = values.phone_number;
 
-                    //Phone Fields
-                    let mobileFields = contactMobileFields;
-                    let values = await mobileFields.inputTel.getValues();
-                    mobileFields.country_code.value = values.country_code;
-                    mobileFields.phone_number.value = values.phone_number;
-
-                    if (await App.validation.validateForm(formElem)) {                        
-                        this.disableFormButtons(formElem);
-                        customerProfileForm.updateProfileBtn.loading = true;
-                        formElem.submit();
+                        if (await App.validation.validateForm(formElem)) {                        
+                            this.disableFormButtons(formElem);
+                            customerProfileForm.updateProfileBtn.loading = true;
+                            formElem.submit();
+                        }
                     }
+
                 } else if (formId == 'user-password-form') {
                     // Validation and function for update of password
                     if (await this.validationForm(formElem)) {
