@@ -53,7 +53,7 @@ metadata: {
 <input type="hidden" id="search-user" value="{{ search_user }}">
 <input type="hidden" id="company-name" value="{{ user_details.company_name }}">
 <input type="hidden" id="company-uuid" value="{{ user_details.company_uuid }}">
-
+<input type="hidden" id="get-users-count" value='{{ get_users.size }}'>
 {% comment %} SEARCH {% endcomment %}
 
 <div class="user-actions-container">
@@ -229,7 +229,11 @@ metadata: {
 <ins-table id="insBaseTable"
     static-table
     without-search
-    class="users-table">
+    {% if get_users.size == 0 %}
+    without-pagination
+    {% endif %}
+    class="users-table"
+    >
 
     {% if get_users.size == 0 %}
         {% comment %} ? EMPTY STATE {% endcomment %}
@@ -403,7 +407,7 @@ metadata: {
     insBaseTable.totalCount = total_entries.value;
     insBaseTable.pageNumber = page_num.value;
     insBaseTable.pageSize = per_page.value;
-
+        
     function processTableData(){
         // Get the current URL
         const currentUrl = window.location.href;

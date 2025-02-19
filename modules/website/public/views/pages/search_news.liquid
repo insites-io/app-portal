@@ -93,6 +93,9 @@ This is where the contents of the search page is imported/included in the forms 
         <ins-table no-wrap
         static-table
         id="insBaseTable"
+        {% if news_search_result.items.total_entries == 0 %}
+            without-pagination
+        {% endif %}
         without-search>
         </ins-table>
     </div>

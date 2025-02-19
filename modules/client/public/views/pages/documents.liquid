@@ -54,6 +54,8 @@ authorization_policies:
 
     <div class="spacer xxx-large"></div>
     
+    <input type="hidden" id="get-document-count" value='{{ data.total_entries }}'>
+
     {% if data.total_entries > 0 or params.search %}
 
     <div class="grid-x">
@@ -146,6 +148,9 @@ authorization_policies:
     <ins-table no-wrap
     static-table
     id="insBaseTable"
+    {% if data.total_entries == 0 %}
+        without-pagination
+    {% endif %}
     without-search>    
     </ins-table>
 
@@ -156,6 +161,7 @@ authorization_policies:
     let submitFormBtn = document.getElementById('submit-form-btn');
     let noticeMessage = document.getElementById('notice-message');
 
+   
     <!-- File Upload -->
     let insFileUploaderEl = document.getElementById('document-input');
     let documentFieldEl = document.getElementById('document');
@@ -270,9 +276,6 @@ authorization_policies:
     }
 
     // Pagination
-
-    var insBaseTable = document.getElementById('insBaseTable');
-
     insBaseTable.pageSizeOptions = [6,15,30];
     insBaseTable.totalCount = {{ data.total_entries }};
     insBaseTable.pageNumber = {{page_num}};

@@ -250,6 +250,14 @@ let App = (function () {
                     mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
                 }
                 lastKnownScrollPosition = scrollPosition;
+            },
+            showTablePagination(tableName, itemCount) {
+                var insBaseTable = document.getElementById(tableName);
+                if(itemCount == 0 || !itemCount) {
+                    insBaseTable.setAttribute('without-pagination','')
+                    return false
+                }
+                return true
             }
         },
         // Initialize elements & event listeners
