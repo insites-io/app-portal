@@ -518,3 +518,75 @@
         is_shown_on_webstie: {{is_shown_on_webstie}}
     -%}
 {% endfor %}
+
+
+{% comment %} Defaul CMS -> Company Details {% endcomment %}
+{% comment %} Check first if there is an exisiting CMS Global record {% endcomment %}
+{%- graphql get_cms_global_record = "modules/website/cms/check_cms_global" | dig: "items", "results" | first %}
+{% if get_cms_global_record == blank %}
+  {%- graphql create_testimonials_entry = "modules/website/cms/create_cms_details" ,
+  loc_1_email: "combinate_test@combinate.me",
+  loc_1_country: "Australia",
+  loc_1_fri_open: null,
+  loc_1_mon_open: "07:00",
+  loc_1_postcode: "2026",
+  loc_1_sat_open: "09:00",
+  loc_1_sun_open: "06:00",
+  loc_1_thu_open: null,
+  loc_1_timezone: null,
+  loc_1_tue_open: "07:00",
+  loc_1_wed_open: "08:00",
+  loc_1_address_1: "11 Wilson Street, South Yarra",
+  loc_1_mon_close: "14:30",
+  loc_1_sat_close: "19:00",
+  loc_1_sun_close: "16:30",
+  loc_1_thu_close: null,
+  loc_1_tue_close: "14:00",
+  loc_1_wed_close: "19:00",
+  loc_1_fri_enable: false,
+  loc_1_mon_enable: true,
+  loc_1_sat_enable: true,
+  loc_1_sun_enable: true,
+  loc_1_thu_enable: false,
+  loc_1_tue_enable: true,
+  loc_1_wed_enable: true,
+  loc_1_phone_number: "12345678",
+  loc_1_phone_country_code: "61",
+  loc_1_state: "VIC",
+  loc_1_postcode: "3141"
+  %}
+  {% else %}
+    {%- graphql create_testimonials_entry = "modules/website/cms/update_global_details" ,
+      id: get_cms_global_record.id
+      loc_1_email: "combinate_test@combinate.me",
+      loc_1_country: "Australia",
+      loc_1_fri_open: null,
+      loc_1_mon_open: "07:00",
+      loc_1_postcode: "2026",
+      loc_1_sat_open: "09:00",
+      loc_1_sun_open: "06:00",
+      loc_1_thu_open: null,
+      loc_1_timezone: null,
+      loc_1_tue_open: "07:00",
+      loc_1_wed_open: "08:00",
+      loc_1_address_1: "11 Wilson Street, South Yarra",
+      loc_1_mon_close: "14:30",
+      loc_1_sat_close: "19:00",
+      loc_1_sun_close: "16:30",
+      loc_1_thu_close: null,
+      loc_1_tue_close: "14:00",
+      loc_1_wed_close: "19:00",
+      loc_1_fri_enable: false,
+      loc_1_mon_enable: true,
+      loc_1_sat_enable: true,
+      loc_1_sun_enable: true,
+      loc_1_thu_enable: false,
+      loc_1_tue_enable: true,
+      loc_1_wed_enable: true,
+      loc_1_phone_number: "12345678",
+      loc_1_phone_country_code: "61",
+      loc_1_state: "VIC",
+      loc_1_postcode: "3141"
+    %}
+{% endif %}
+
