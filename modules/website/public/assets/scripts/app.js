@@ -319,6 +319,13 @@ let App = (function () {
                     if(iconElement == null) {
                        iconElement = inputElementContainer.querySelector('.icon-search');
                     }
+
+                    if (inputElement.value.trim() !== "") {
+                        let closeIcon = document.createElement('i');
+                        closeIcon.classList.add('icon-close-1', 'icon-wrap', 'icon-close-active','icon-close-style');
+                        inputElementContainer.querySelector('.input-wrap').insertBefore(closeIcon, iconElement);
+                      }
+                
             
                     inputElement.addEventListener('input', function () {
                         let closeIcon = inputElementContainer.querySelector('.icon-close-1');
@@ -343,6 +350,17 @@ let App = (function () {
                         if (closeIcon) {
                             closeIcon.remove(); 
                         }
+                        if (window.location.search) {
+                            // Check if the current page is the "search" page
+                            if (window.location.pathname === '/search') {
+                                // Redirect to the "news" page
+                                window.location.href = '/news';
+                            } else {
+                                // If not the "search" page, just reload without query parameters
+                                window.history.replaceState(null, null, window.location.pathname);
+                                window.location.reload();
+                            }
+                        }
                         }
                     });
                     });
@@ -359,8 +377,8 @@ window.App = App;
 
 // Set timeout, make sure INS components has been loaded
 setTimeout(() => {
+    App.init.clearFunctionSearch();
     App.init.initScrollToTopBtn();
     App.init.initMobileMenu();
     App.init.initScrollMenu();
-    App.init.clearFunctionSearch();
 }, 200);
