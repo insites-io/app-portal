@@ -95,11 +95,6 @@ authorization_policies:
         {%- assign key = key | plus: 1 -%} 
         {%- endfor -%}
         </div>
-
-        {% if data.has_next_page %}
-            <div class="spacer"></div>        
-            {%- include "modules/layouts/client/paginations", page_num, per_page -%}
-        {% endif %}
         
     </div>
 
@@ -195,7 +190,7 @@ authorization_policies:
                     method.remove();
                 }
                 submitFormBtn.label = "Add Document";
-                noticeMessage.value = "Document successfully added";
+                noticeMessage.value = "Document successfully added.";
                 description.value = "";
                 documentFieldEl.value = "";
                 notes.value = "";
@@ -233,7 +228,7 @@ authorization_policies:
                 insFileUploaderEl.setFiles(value);
 
                 submitFormBtn.label = "Update";
-                noticeMessage.value = "Document successfully updated";
+                noticeMessage.value = "Document successfully updated.";
             }
         });            
     });

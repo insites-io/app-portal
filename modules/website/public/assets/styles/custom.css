@@ -382,7 +382,7 @@ footer.blocks-footer-05 {
 }
 
 .footer-links i {
-    color: var(--font-color-body);
+    color: inherit !important
 }
 
 .blocks-footer-05 .menu li,
@@ -463,6 +463,10 @@ ins-tag span.ins-tag.blue {
  
 .card-form-cancel {
     margin-right: 16px;
+}
+
+.card-form-submit button {
+    margin-bottom: 16px !important;
 }
 
 /********************************************************** NAVIGATION *******************************************************************/
@@ -1171,7 +1175,7 @@ ins-accordion .inner-content {
 }
 
 .signOutCustom button:hover {
-    background-color: #e9f8f4 !important;
+    background-color: #e8f3fc !important;
     color: #3159DB !important;
 }
 
@@ -2054,7 +2058,7 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
 }
 
 .empty-box {
-    background: var(--color-ui-02);
+    background: #fff;
     border: 1px solid var(--color-ui-04);
     padding: 24px;
     border-radius: 4px;
@@ -2134,6 +2138,9 @@ ins-tag.Completed span.ins-tag {
     border: 1px solid var(--color-ui-04);
 }
 
+.change-password-form {
+    flex-direction: column !important;
+}
 
 /* Modified Scrollbar */
 
