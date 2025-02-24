@@ -34,7 +34,7 @@ style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightn
 %}
 
 {%- assign full_map_url = base_map_url 
-    | append: "?center=Australia" | append: address 
+    | append: "?center=" | append: address 
     | append: "&zoom=15&size=390x300&maptype=roadmap&" 
     | append: marker_position 
     | append: "&key=" | append: key 

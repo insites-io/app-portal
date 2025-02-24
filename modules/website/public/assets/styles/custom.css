@@ -2556,3 +2556,7 @@ ins-tag.Completed span.ins-tag {
 }
 
 
+.ElementsApp .InputElement {
+    font-weight: 400 !important;
+    color: green !important;
+}

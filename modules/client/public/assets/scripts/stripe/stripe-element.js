@@ -14,6 +14,7 @@ let style = {
         color: '#404040',
         fontFamily: '"Work Sans", sans-serif',
         fontSmoothing: 'antialiased',
+        fontWeight: '400',
         fontSize: '14px',
         '::placeholder': {
             color: '#8C94A4'
