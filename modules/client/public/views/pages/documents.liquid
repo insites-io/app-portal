@@ -220,8 +220,15 @@ authorization_policies:
                 //Preview existing file
                 let imageExtsions = ["jpg", "jpeg", "jfif", "pjpeg", "pjp", "apng", "png", "avif", "gif", "svg", "webp", "bmp", "ico", "tif", "tiff"];
                 let type = imageExtsions.includes(data[index].file.extension)? "image" : "file";
+
+                // Remove spaces, convert to lowercase, and replace invalid characters
+                let fileName = data[index].file.file_name
+                    .replace(/\s+/g, '-')      // Replace spaces with hyphens
+                    .toLowerCase()             // Convert to lowercase
+                    .replace(/[^a-z0-9\-\_\.]+/g, '');  // Remove any non-alphanumeric characters, except hyphen, underscore, and period
+
                 value = [{
-                    name: data[index].file.file_name,
+                    name: fileName,
                     type: `"${type}/${data[index].file.extension}"`,
                     url: data[index].file.url
                 }]

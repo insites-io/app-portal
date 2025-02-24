@@ -2109,6 +2109,9 @@ ins-tag.Completed span.ins-tag {
 
 
 /* Documents */
+#submit-form-btn button.ins-button.size--normal.is-loading {
+    display: block !important;
+}
 
 .documents .ins-modal-wrap.show-modal,
 .documents .ins-modal-wrap.show-modal ins-card {
