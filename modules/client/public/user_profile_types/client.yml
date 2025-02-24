@@ -9,13 +9,6 @@ properties:
     label: "Is Enabled"
     weight: 1
     options: []
-- name: is_activated
-  type: boolean
-  metadata:
-    type: "toggle"
-    label: "Is Activated"
-    weight: 2
-    options: []
 - name: verification_token
   type: string
 - name: primary_account_holder
