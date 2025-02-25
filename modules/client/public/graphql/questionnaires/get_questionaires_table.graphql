@@ -1,8 +1,0 @@
-query get_questionaires_table {
-  admin_tables(filter: {name: {value: "modules/client/questionnaires"}}) {
-    results {
-      id
-      name
-    }
-  }
-}

@@ -1,0 +1,116 @@
+---
+name: sign_in
+resource: Session
+resource_owner: anyone
+flash_notice: 'Successful'
+flash_alert: 'Sorry-SignIn'
+redirect_to: >
+  {{ form.redirect }}
+fields:
+  email:
+    validation: 
+      presence:
+        message: Please use a valid email address
+      email: 
+        message: Please use a valid email address
+  password:
+    validation: 
+      presence:
+        message: Password is required
+  redirect:
+    property_options:
+        virtual: true
+        
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {%- graphql user = "modules/portal/account/get_user_by_email" 
+        email: form.email
+        | dig: "items" | dig: "results" | first -%}
+    {%- assign current_user_name =  user.first_name | append: ' ' | append: user.last_name | default: user.email -%}
+    {%- capture description -%}<a target="_blank" href="/admin/insites/#/crm/contacts/{{ user.id }}">{{ current_user_name  | default: user.email }}</a> logged in to the portal {%- endcapture -%}
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+
+    {% capture log_info %}
+      {
+          "user": {
+            "id": "{{ user.id }}",
+            "email": "{{ user.email }}",
+            "first_name": "{{ user.first_name }}",
+            "last_name": "{{ user.last_name }}"
+          }
+      }
+    {% endcapture %}
+
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
+    {% include 'modules/portal/events/log_event', info %}
+---
+
+{%- form 
+	html-id: "sign-in-form"
+	html-novalidate: true
+  html-enctype="multipart/form-data"
+  html-onsubmit:"return LoginScript.methods.validateForm(event);" -%}
+	
+	<div class="grid-x grid-padding-x">
+		<div class="small-12 cell">
+			<ins-input validate
+				id="email"
+        label="Email"
+        field="email"
+        name="{{ form.fields.email.name }}" 
+        value="{{ form.fields.email.value }}" 
+        {% if form.errors['email'] %} has-error {% endif %}
+        error-message="{{ form.fields.email.validation.rules.presence.message }}"
+        placeholder="Email">
+			</ins-input>
+
+      <ins-input validate
+          id="password"
+          label="Password"
+          field="password"
+          name="{{ form.fields.password.name }}" 
+          value="{{ form.fields.password.value }}" 
+          placeholder="Password">
+      </ins-input>
+    </div>
+
+    {%- if form.errors -%}
+    <div class="small-12 cell">
+			<p class="warning">{{ form.errors['password'] }}</p>
+		</div>
+  	{%- endif -%}
+
+		<div class="cell grid-x">
+			<div class="cell text-right">
+				<a class="font-color-body" href="/forgot-password">Forgot your password?</a>
+			</div>
+		</div>
+		<div class="small-12 cell spacer x-large">
+    {%- if context.flash.alert and context.flash.alert != 'Sorry-SignIn' -%}
+      <div class="spacer small"></div>
+    {%- endif -%}
+    </div>
+
+    
+
+    <div class="small-12 cell text-center">
+			<ins-button id="submit-btn" label="SIGN IN" class="full" solid color="blue" type="submit" ></ins-button>
+      <div class="spacer small"></div>
+      {% if context.constants.ecommerce_addon == 'true' and context.params.slug == 'checkout' %}
+        <p>Not a member? <a href="/register">Join Us</a></p>      
+        <input type="hidden" name="{{ form.fields.redirect.name }}" value="checkout" >      
+      {% else %}
+        <a href="/register"><ins-button type="button" label="Client registration" class="full" outlined color="blue" ></ins-button></a>
+        <input type="hidden" name="{{ form.fields.redirect.name }}" value="portal" >
+      {% endif %}
+		</div>
+
+	</div>
+
+{%- endform -%}

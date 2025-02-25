@@ -1,0 +1,16 @@
+---
+metadata: {
+    partial_name: 'Portal | Paybills | Get settings'
+}
+---
+
+{% comment %} This is temporary settings. Will update this once v5 endpoint is available {% endcomment %}
+
+{% parse_json settings %}
+{
+    "currency": "AUD",
+    "gateway_name": "Stripe"
+}
+{% endparse_json %}
+
+{% liquid return settings %}

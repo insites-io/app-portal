@@ -4,7 +4,7 @@ metadata: {
 }
 ---
 
-{%- graphql data = 'modules/website/trigger_api_call', name: 'modules/client/get_google_maps_api_key' -%}
+{%- graphql data = 'modules/website/trigger_api_call', name: 'modules/portal/get_google_maps_api_key' -%}
 {%- assign key = data.items.response.body | parse_json | dig: 'items', 'results' | first | dig: 'key' -%}
 
 <script>

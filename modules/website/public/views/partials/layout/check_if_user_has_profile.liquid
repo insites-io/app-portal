@@ -4,7 +4,7 @@ metadata: {
 }
 ---
 
-{%- graphql user = 'modules/client/account/get_current_user' | dig: 'current_user' -%}  
+{%- graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user' -%}  
 {% assign client_profile =  user | dig: 'client' | first  %}
 
 {% assign has_profile = true %}

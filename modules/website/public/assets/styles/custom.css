@@ -1588,8 +1588,8 @@ ins-card .ins-card-wrap {
     text-decoration: initial;
 }
 
-.client-portal .ins-accordion-link_link,
-.client-portal .ins-accordion.menu .ins-accordion-item .inner-head {
+.portal .ins-accordion-link_link,
+.portal .ins-accordion.menu .ins-accordion-item .inner-head {
     padding: 12px 16px;
     background-color: #f9fafb;
 }
@@ -1602,7 +1602,7 @@ ins-card .ins-card-wrap {
     font-size: 18px;
 }
 
-.client-portal .ins-accordion-item_content.will-show {
+.portal .ins-accordion-item_content.will-show {
     margin-left: 24px
 }
 
@@ -1929,7 +1929,7 @@ ul {
     font-size: 16px;
 }
 
-.client-portal {
+.portal {
     background: linear-gradient( to right, var(--color-ui-02) 0%, var(--color-ui-02) 50%, var(--color-ui-01) 50%, var(--color-ui-01) 100%);
 }
 
@@ -2110,7 +2110,7 @@ ins-tag.Completed span.ins-tag {
 
 /* Documents */
 #submit-form-btn button.ins-button.size--normal.is-loading {
-    display: block !important;
+    display:inline !important;
 }
 
 .documents .ins-modal-wrap.show-modal,
@@ -2211,6 +2211,10 @@ ins-tag.Completed span.ins-tag {
 
 .stripe-modal .ins-modal-wrap.show-modal .ins-modal-head {
     padding: 16px 56px 16px 24px;
+}
+
+#add-cc-button button.ins-button.size--normal.is-loading {
+    display: inline !important;
 }
 
 .stripe-modal .ins-modal-wrap.show-modal .ins-modal-body {
