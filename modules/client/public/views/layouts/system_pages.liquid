@@ -1,0 +1,40 @@
+---
+metadata: {
+    layout_name: system_pages
+}
+---
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <link rel="stylesheet" href="{{ 'modules/client/styles/client.min.css' | asset_url }}" >
+  <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
+  <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
+  {%- include 'modules/client/insites_database/insites_database_form_scripts' -%}
+</head>
+<body class="system-page flex-container flex-dir-column">
+
+  <div class="wrapper {%- if context.flash.notice != blank -%} {% else %} sign-up-bg{% endif %}">
+    <div class="system-content grid-container">
+      {%- if context.flash.notice != blank -%} 
+        <div class="spacer large"></div>
+        {% else %}
+        <div class="spacer xxxx-large"></div>
+      {% endif %}
+   
+    
+      <div class="spacer section"></div>
+
+      {{ content_for_layout }}
+      <div class="spacer section"></div>
+      {%- if context.flash.notice != blank -%} 
+        <div class="spacer large"></div>
+      {% endif %}
+      
+    </div>
+  </div>
+
+  {% include 'modules/website/layout/footer' %}
+    
+</body>
+</html>
