@@ -178,7 +178,6 @@ authorization_policies:
     openFormBtn.forEach(field => {
         field.addEventListener('insClick', () => {
             modalForm.open();
-            submitFormBtn.loading = true;          
             if(field.getAttribute("id") == "add-document-btn"){
                 //Add Document
                 documentsForm.action = "/api/customizations/";

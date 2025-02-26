@@ -97,7 +97,7 @@ p,
 .body-paragraph {
     font-family: var(--font-family-03);
     font-style: normal;
-    font-weight: 400;
+    font-weight: 400 !important;
     font-size: var(--font-small);
     line-height: var(--font-x-large);
     color: var(--font-color-body);

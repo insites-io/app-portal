@@ -13,7 +13,7 @@ let style = {
     base: {
         color: '#404040',
         fontFamily: '"Work Sans", sans-serif',
-        fontSmoothing: 'antialiased',
+        '-webkit-font-smoothing': 'antialiased',
         fontWeight: '400',
         fontSize: '14px',
         '::placeholder': {
@@ -190,6 +190,21 @@ let StripeElement = (() => {
                 card = elements.create('card', { style: style });
                 // Add an instance of the card Element into the `card-element` <div>.
                 card.mount('#card-element');
+
+                  // After creating the card element, inject global styles into iframe
+                  let iframe = document.querySelector('#card-element iframe');
+                  let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+  
+                  // Create a style element for global styles
+                  let globalStyle = iframeDoc.createElement('style');
+                  globalStyle.textContent = `
+                      * {
+                          font-weight: 400 !important;
+                          -webkit-font-smoothing: antialiased !important;  /* For Chrome and Safari on macOS */
+                          -moz-osx-font-smoothing: grayscale !important;   /* For Firefox on macOS */
+                      }
+                  `;
+                  iframeDoc.head.appendChild(globalStyle);
                 StripeElement.init.eventListeners();
             }
         }
