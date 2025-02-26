@@ -156,7 +156,6 @@ authorization_policies:
     let documentsForm = document.querySelector('form.documents-form');
     let submitFormBtn = document.getElementById('submit-form-btn');
     let noticeMessage = document.getElementById('notice-message');
-
    
     <!-- File Upload -->
     let insFileUploaderEl = document.getElementById('document-input');
@@ -179,7 +178,7 @@ authorization_policies:
     openFormBtn.forEach(field => {
         field.addEventListener('insClick', () => {
             modalForm.open();
-            submitFormBtn.loading = false;          
+            submitFormBtn.loading = true;          
             if(field.getAttribute("id") == "add-document-btn"){
                 //Add Document
                 documentsForm.action = "/api/customizations/";

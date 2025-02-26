@@ -120,10 +120,8 @@ ins-button.checkout-btn {
 }
 
 
-ins-button button.ins-button.size--normal.is-loading {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+ins-button button .spinner {
+    margin: 0 auto;
 }
 
 /*********************************************** [Foundation Style Customization / Overwrite] *************************************************/
@@ -2109,10 +2107,6 @@ ins-tag.Completed span.ins-tag {
 
 
 /* Documents */
-#submit-form-btn button.ins-button.size--normal.is-loading {
-    display:inline !important;
-}
-
 .documents .ins-modal-wrap.show-modal,
 .documents .ins-modal-wrap.show-modal ins-card {
     /* position: absolute;
@@ -2211,10 +2205,6 @@ ins-tag.Completed span.ins-tag {
 
 .stripe-modal .ins-modal-wrap.show-modal .ins-modal-head {
     padding: 16px 56px 16px 24px;
-}
-
-#add-cc-button button.ins-button.size--normal.is-loading {
-    display: inline !important;
 }
 
 .stripe-modal .ins-modal-wrap.show-modal .ins-modal-body {

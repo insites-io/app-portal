@@ -149,12 +149,12 @@ metadata: {
         <ins-input form-address-field 
             validate
             id="contact_postcode"
-            label="ZIP / Postal Code*"
+            label="ZIP / Postcode*"
             name="{{ props.postcode.name }}" 
             value="{{ default_address.properties.postcode }}" 
             {% if form.errors['postcode'] %} has-error {% endif %}
             error-message="{{ props.postcode.validation.rules.presence.message }}"
-            placeholder="ZIP / Postal Code">
+            placeholder="ZIP / Postcode">
         </ins-input>
       </div>
 

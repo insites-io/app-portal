@@ -159,12 +159,12 @@ Inputs will have values only on /my-company-details page
       <div class="column-2">
         <ins-input form-address-field validate
             id="company_postcode"
-            label="ZIP / Postalcode*"
+            label="ZIP / Postcode*"
             name="{{ props.company_postcode.name }}" 
             value="{{ default_address.postcode }}" 
             {% if form.errors['company_postcode'] %} has-error {% endif %}
             error-message="{{ props.company_postcode.validation.rules.presence.message }}"
-            placeholder="ZIP / Postalcode">
+            placeholder="ZIP / Postcode">
         </ins-input>
       </div>
 
