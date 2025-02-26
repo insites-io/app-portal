@@ -51,7 +51,7 @@ async_callback_actions:
     {%- capture description -%} {{ notice_message }} - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> {%- endcapture -%}
     {%- assign payload = '{}' | parse_json -%}
     {%- assign payload = payload | add_hash_key: "description", description -%}
-    
+
     {% capture log_info %}
       {
           "user": {
@@ -61,11 +61,13 @@ async_callback_actions:
             "last_name": "{{ context.current_user.last_name }}"
           },
           "description": "{{ form.properties.description }}",
-          "notes": "{{ form.properties.notes }}"
+          "notes": "{{ form.properties.notes }}",
+          "contact_uuid": "{{ context.current_user.external_id }}"
       }
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}
     {%- assign info = payload | add_hash_key: "log", log_info_json -%}
+    
     {% include 'modules/portal/events/log_event', info %}  
 email_notifications:
   - modules/portal/document_workflow

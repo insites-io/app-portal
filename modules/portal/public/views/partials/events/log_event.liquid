@@ -13,6 +13,9 @@ metadata: {
 {%- endparse_json -%}
 {%- assign data = data | add_hash_key: "log", info.log -%}
 {%- assign data = data | add_hash_key: "description", info.description | default: "" -%}
+{%- assign data = data | add_hash_key: "module_source",  "insites_core" -%}
+{%- assign data = data | add_hash_key: "module_feature", "crm_contact" -%}
+{%- assign data = data | add_hash_key: "request_type", "internal" -%}
 
 {% log data %}
 {%- graphql add_events = 'modules/website/trigger_api_call', name: "modules/portal/add_events", data: data -%}

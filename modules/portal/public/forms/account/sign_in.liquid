@@ -42,7 +42,8 @@ async_callback_actions:
             "email": "{{ user.email }}",
             "first_name": "{{ user.first_name }}",
             "last_name": "{{ user.last_name }}"
-          }
+          },
+          "contact_uuid": "{{ user.uuid }}"
       }
     {% endcapture %}
 

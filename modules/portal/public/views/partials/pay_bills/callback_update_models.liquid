@@ -148,6 +148,7 @@ metadata: {
 {% capture log_info %}
 {
     "description": "Bills Payment",
+    "contact_uuid": "{{ context.current_user.external_id }}",
     "log": {
         "user": {
             "id": "{{ user_id }}",
@@ -186,4 +187,5 @@ metadata: {
 {% endcapture %}
 {%- assign log_info_json = log_info | parse_json -%}
 {%- assign info = payload | add_hash_key: "log", log_info_json -%}
+{% log payload %}
 {% include 'modules/portal/events/log_event', info %}

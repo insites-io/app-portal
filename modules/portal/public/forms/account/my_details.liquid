@@ -138,7 +138,8 @@ async_callback_actions:
           "state": "{{ form.properties.state }}",
           "postcode": "{{ form.properties.postcode }}",
           "country": "{{ form.properties.country }}"
-        }      
+        },
+        "contact_uuid": "{{ context.current_user.external_id }}"   
     }
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}

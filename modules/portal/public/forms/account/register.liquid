@@ -195,6 +195,9 @@ async_callback_actions:
     
     {% comment %} Create Event Stream {% endcomment %}
     {%- assign current_user_name =  form.first_name | append: ' ' | append: form.last_name | default: form.email -%}
+    {%- graphql user_details = "modules/portal/account/get_user_by_email" 
+        email: form.email
+        | dig: "items" | dig: "results" | first -%}
     {%- capture description -%} New Registration - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ form.id }}">{{ current_user_name  | default: form.email }}</a> {%- endcapture -%}
     {%- assign payload = '{}' | parse_json -%}
     {%- assign payload = payload | add_hash_key: "description", description -%}
@@ -228,7 +231,8 @@ async_callback_actions:
             "state": "{{ form.properties.company_state }}",
             "postcode": "{{ form.properties.company_postcode }}",
             "country": "{{ form.properties.company_country }}"
-          }        
+          },
+          "contact_uuid": "{{ user_details.uuid }}"     
       }
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}

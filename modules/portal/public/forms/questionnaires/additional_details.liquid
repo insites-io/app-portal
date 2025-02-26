@@ -36,7 +36,7 @@ async_callback_actions:
     {%  assign questionaire_table_id = get_questionaire_table_id | first  %}
 
     {%- assign current_user_name =  context.current_user.first_name | append: ' ' | append: context.current_user.last_name | default: context.current_user.email -%}
-    {%- capture description -%} <a target="_blank" href="/admin/insites/#/databases/{{ questionaire_table_id.id }}/items/{{ form.id }}">Questionnaires</a> - Additional Details - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> {%- endcapture -%}
+    {%- capture description -%} <a target="_blank" href="/admin/insites/#/databases/{{ questionaire_table_id.id }}/items/{{ form.id }}">Questionnaires</a> - Additional Details ( Step 2 of 3) - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> {%- endcapture -%}
     {%- assign payload = '{}' | parse_json -%}
     {%- assign payload = payload | add_hash_key: "description", description -%}
 
@@ -53,7 +53,8 @@ async_callback_actions:
           "contact_name": "{{ form.properties.contact_name }}",
           "contact_number": "{{ form.properties.contact_number }}",
           "update_site": "{{ form.properties.update_site }}",
-          "notes": "{{ form.properties.notes }}"
+          "notes": "{{ form.properties.notes }}",
+          "contact_uuid": "{{ context.current_user.external_id }}"
       }    
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}
