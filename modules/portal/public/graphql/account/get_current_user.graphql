@@ -20,7 +20,6 @@ query get_current_user {
       profile_type: "modules/portal/portal"
     ) {
       is_enabled: property_boolean(name: "is_enabled")
-      is_activated: property_boolean(name: "is_activated")
     }
   }
 }
