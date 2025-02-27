@@ -73,8 +73,8 @@ callback_actions: >
 {%- liquid
     graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user'
 
-    if user.client
-        assign profile = user.client[0]
+    if user.portal
+        assign profile = user.portal[0]
         if profile != blank and profile.is_activated
             assign verified = true
         else

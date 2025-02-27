@@ -6,7 +6,7 @@ name: has_client_profile
 
     session user_uuid = data.current_user.external_id
 
-    if data.current_user.client == blank
+    if data.current_user.portal == blank
         graphql logout = 'modules/portal/session/delete_current_session'
         echo true    
     else 

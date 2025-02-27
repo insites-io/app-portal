@@ -31,7 +31,7 @@ authorization_policies:
 {% assign user_company_uuid =  user | dig: 'crm_contact' | first  %}
 
 {% comment %} Check if CRM Contact was assigned already to CRM Company {% endcomment %}
-{%- if user.crm_contact[0].company_uuid != user.client[0].company_uuid -%}
+{%- if user.crm_contact[0].company_uuid != user.portal[0].company_uuid -%}
   {%- parse_json data -%}
   {
     "company_uuid": "{{ user_company_uuid.company_uuid }}",
@@ -45,8 +45,8 @@ authorization_policies:
 
 {% comment %} Check if user verified their account {% endcomment %}
 {%- liquid
-    if user.client
-        assign profile = user.client[0]
+    if user.portal
+        assign profile = user.portal[0]
         if profile != blank and profile.is_activated
             assign verified = true
         else

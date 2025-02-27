@@ -25,7 +25,7 @@ query get_user_by_email (
       first_name
       last_name
       
-      client: profiles(
+      portal: profiles(
         profile_type: "modules/portal/portal"
       ) {
         is_enabled: property_boolean(name: "is_enabled")

@@ -16,7 +16,7 @@ query get_current_user {
       mobile_phone_country_code: property(name: "mobile_phone_country_code")
     }
     
-    client: profiles(
+    portal: profiles(
       profile_type: "modules/portal/portal"
     ) {
       is_enabled: property_boolean(name: "is_enabled")

@@ -28,7 +28,7 @@ metadata: {
 {% assign user_id = user_with_token.id %}
 {% assign token_valid = token | is_token_valid: user_id %}
 
-{% if user_id == blank or token_valid == false or user_with_token.client[0].verification_token != params.token %}
+{% if user_id == blank or token_valid == false or user_with_token.portal[0].verification_token != params.token %}
 
     <div class="sign-up">
         <div class="grid-x align-center">
@@ -42,7 +42,7 @@ metadata: {
     </div>
 
 {% else %}
-    {% graphql verifyResult = 'modules/portal/account/verify_email', id: user_id, token: user_with_token.client[0].verification_token %}
+    {% graphql verifyResult = 'modules/portal/account/verify_email', id: user_id, token: user_with_token.portal[0].verification_token %}
 
     {% if verifyResult.items  %}
 
