@@ -10,17 +10,17 @@
     if order_id
         graphql get_order = 'modules/client/orders/get_order', id: data.id | dig: 'items','results' | first
               
-        assign amount = get_order.properties.subtotal_amount
-        assign cc_surcharge = get_order.properties.subtotal_amount | times: 0.017 | round: 2
+        assign total_discount = get_order.properties.total_discount_amount | times: 1 | default: 0
+        assign amount = get_order.properties.subtotal_amount | minus: total_discount 
+        assign cc_surcharge = amount | times: 0.017 | round: 2
    
-        assign amountPayable = amount
+        assign amountPayable = get_order.properties.subtotal_amount
         assign ccSurcharge = cc_surcharge
         assign subTotal = amount
         assign gst = amount | times: 0.10
         assign totalAmount = amount | plus: cc_surcharge | plus: gst
     endif
 %}
-
 {%- comment -%}Payment Summary{%- endcomment -%}
 <div class="payment-summary">
     <h2 class="heading-2">Payment Summary</h2>
@@ -29,13 +29,34 @@
         {% comment %} ? BILL AMOUNT {% endcomment %}
         <div class="large-9 medium-7 small-9 col1">Bill Amount</div>
         <div class="large-3 medium-5 small-3 col2"><span id="charge-amount-summary">{{ amountPayable | default: "0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
-        <div class="cell spacer"></div>
+   
+        {% comment %} ? Discount {% endcomment %}
+        {% if is_discount_code_enabled %}
+            <div class="cell spacer xx-small"></div>
+            <div class="large-9 medium-7 small-9 col1">Discount</div>
+            <div class="large-3 medium-5 small-3 col2"><span id="discount-summary">({{ total_discount | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }})</span></div>
+            <div class="cell spacer small"></div>
+        {% else %}
+            {% comment %} ? AFTER PAYMENT SUMMARY {% endcomment %}
+            {% if context.flash.notice == "Success-PayBill" %}
+                {% if get_order.properties.total_discount_amount == 0.0 or get_order.properties.total_discount_amount == "0.0" %}
+                    <div class="cell spacer small"></div>
+                {% else %}
+                    <div class="cell spacer xx-small"></div>
+                    <div class="large-9 medium-7 small-9 col1">Discount</div>
+                    <div class="large-3 medium-5 small-3 col2"><span id="discount-summary">({{ total_discount | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }})</span></div>
+                    <div class="cell spacer small"></div>
+                {% endif %}
+            {% else %}
+                <div class="cell spacer small"></div>    
+            {% endif %}
+        {% endif %}
         <hr>
         <div class="cell spacer small"></div>
 
         {% comment %} ? SUB TOTAL {% endcomment %}
         <div class="large-9 medium-7 small-9 col1">Sub Total</div>
-        <div class="large-3 medium-5 small-3 col2"><span id="charge-subtotal-summary">{{ amountPayable | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
+        <div class="large-3 medium-5 small-3 col2"><span id="charge-subtotal-summary">{{ subTotal | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
         <div class="cell spacer xx-small"></div>
 
         {% comment %} ? PROCESSING FEE {% endcomment %}
@@ -46,6 +67,7 @@
         {% comment %} ? GST {% endcomment %}
         <div class="large-9 medium-7 small-9 col1">GST</div>
         <div class="large-3 medium-5 small-3 col2"><span id="charge-gst-summary">{{ gst | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
+
         <div class="cell spacer small"></div>
 
         <hr>
@@ -72,7 +94,6 @@
     let orderValueEl = document.getElementById('bill-order-value');
     let amountDueEl = document.getElementById('bill-amount-due');
     let notesEl = document.getElementById('bill-notes');
-    
 
     let chargeAmountEl = document.getElementById('charge-amount-summary');
     let chargeSubtotal = document.getElementById('charge-subtotal-summary');
@@ -94,12 +115,24 @@
     let shippingAmount = ''
 
     function calculatePaymentSummary(ev){ 
-        amountPayable = ev.detail * 1.00;
-    
-        let ccSurcharge = amountPayable * 0.017; // 1.7% credit card surcharge
-        let subtotalAmount  = Number(amountPayable); // amount payable
-        let gst = amountPayable * 0.1; // GST
-        let totalAmount = subTotal =  Number(amountPayable) + Number(ccSurcharge) + Number(gst);
+        
+        // If discount is enabled
+        let discountAmount = 0;
+        if(isDiscountCodeEnabled.value == "true"){
+            // Check if Amount and Discount Code are Populated
+            if(billTotalAmount.value != "" && discountCodeField.value != ''){
+				applyDiscount.removeAttribute("disabled");
+			}else{
+				applyDiscount.setAttribute("disabled", true);
+			}
+        }
+
+        amountPayable = (ev.detail * 1.00);
+
+        let ccSurcharge = (amountPayable - discountAmount) * 0.017; // 1.7% credit card surcharge
+        let subtotalAmount  = Number(amountPayable - discountAmount); // amount payable
+        let gst = (amountPayable - discountAmount) * 0.1; // GST
+        let totalAmount = (Number(amountPayable - discountAmount) + Number(ccSurcharge) + Number(gst));
 
         if(chargeAmountEl) 
             chargeAmountEl.innerHTML = "$" + pricify(subtotalAmount);

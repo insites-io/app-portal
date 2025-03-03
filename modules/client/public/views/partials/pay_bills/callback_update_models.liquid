@@ -75,14 +75,16 @@
     "card_exp_month": "{{card.exp_month}}",
     "card_exp_year": "{{card.exp_year}}",
     "currency": "{{settings.currency}}",
-    "order_value": {{ computed.total_amount }},
-    "amount": {{ computed.total_amount }},
-    "amount_due": {{ amount_due }}
+    "order_value": {{ form.properties.total_amount }},
+    "amount": {{ form.properties.total_amount }},
+    "amount_due": {{ form.properties.total_amount }}
 }
 {% endparse_json %}
 {% assign data = data | add_hash_key: "payment_gateway_details", stripe_payment_response %}
 {% assign data = data | add_hash_key: "order_uuid", form.properties.uuid %}
 {% assign data = data | add_hash_key: "computed", computed %}
+
+{% log data, type: "Add Payment" %}
 
 {%  graphql add_payment = 'modules/website/trigger_api_call', 
     name: "modules/client/add_payment",
@@ -117,9 +119,17 @@
     "order_value" : {{ form.properties.subtotal_amount }},
     "last_updated_by_id": "{{ user_id }}",
     "date_time": "{{ form.properties.date_time }}",
-    "currency": "{{ form.properties.currency }}"
+    "currency": "{{ form.properties.currency }}",
+    {% if form.properties.is_discount_code_enabled == "true" %}
+        "discount_code_uuids": {{ form.properties.discount_code_uuids }},
+    {% endif %}
+    "total_discount_amount": {{ form.properties.total_discount_amount }},
+    "is_discount_code_enabled": "{{ form.properties.is_discount_code_enabled }}"
 }
 {% endparse_json %}
+
+{% log data, type: "data - callback" %}
+
 {%  graphql update_order = 'modules/website/trigger_api_call', 
     name: "modules/client/update_order",
     data: data

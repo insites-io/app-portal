@@ -42,7 +42,23 @@ fields:
     # Other Details 
     stripe_credit_card:
       property_options:
-          virtual: true            
+          virtual: true
+    is_discount_code_enabled:
+      property_options:
+          virtual: true  
+    discount_code:
+      property_options:
+          virtual: true  
+    discount_id:
+      property_options:
+          virtual: true  
+    discount_code_uuids:
+      property_options:
+          virtual: true 
+    discount_usage_count:
+      property_options:
+          virtual: true 
+
 default_payload: >
   {% graphql current_user = 'modules/client/account/get_current_user' | dig: 'current_user' %}
   {% function settings = "modules/client/pay_bills/get_settings" %}
@@ -54,7 +70,6 @@ default_payload: >
         "company_uuid": "{{ current_user.client[0].company_uuid }}",
         "currency": "{{ settings.currency }}",
         "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}",
-        "total_discount_amount": 0,
         "is_enabled": true,
         "order_status": "Open",
         "order_payment_status": "Pending Funds",
@@ -91,9 +106,8 @@ callback_actions: >
     <input type="hidden" id="bill-total-amount" name="{{ props.total_amount.name }}" >
     <input type="hidden" id="bill-subtotal-amount" name="{{ props.subtotal_amount.name }}" >
     <input type="hidden" id="bill-tax-amount" name="{{ props.total_tax_amount.name }}" >
-
     <input type="hidden" id="bill-notes" name="{{ props.uuid.name }}" >
-    <input type="hidden" id="bill-notes" value="{{uuid}}" name="{{ props.uuid.name }}" >
+	<input type="hidden" id="bill-notes" value="{{uuid}}" name="{{ props.uuid.name }}" >
 
     <!-- Invoice Details -->
     <div id="invoice-details">
@@ -134,7 +148,312 @@ callback_actions: >
             <div class="spacer large"></div>
         </div>
     </div>
+
+    {% comment %} ? DICOUNT CODE BLOCK {% endcomment %}
+    {% assign is_discount_code_enabled = true %} {% comment %} ! Change the value to false if disabled {% endcomment %}
+    {% assign total_discount_amount = 0 %} {% comment %} ! Always assign to 0, regardless if discount is enabled or disabled {% endcomment %}
+	<input type="hidden" id="is-discount-code-enabled" name="{{ props.is_discount_code_enabled.name }}" value="{{ is_discount_code_enabled }}"> 
+
+    {% if is_discount_code_enabled %}
+		<div class="grid-x discount_code_field_container">
+            <div class="large-3 cell">
+                <ins-input 
+                    id="discount_code_field_input"
+                    data-type="string"
+                    data-ui="input"
+                    label="Discount Code*"
+                    tooltip="Click Apply Button to use Discount Code."
+                    name="{{ props.discount_code.name }}"
+					value="{{ discount_code }}"
+                    placeholder="Please enter both letters and numbers">
+                </ins-input>
+            </div>
+
+            <div class="large-4 cell">
+                <ins-button type="button" solid 
+                    id="apply_discount"
+                    label="Apply"
+                    icon="icon-check"
+					disabled>
+                </ins-button>
+
+                <ins-button type="button" outlined 
+                  id="reset_discount"
+                  label="Remove"
+                  icon="icon-close"
+				  disabled>
+              </ins-button>
+            </div>
+        </div>
+        <div id="discount_code_required_label" class="isNotVisible custom_error">Required.</div>
+        <div id="discount_code_not_valid" class="isNotVisible custom_error">Discount Code is Not Valid.</div>
+        <div id="discount_code_limit" class="isNotVisible custom_error">Discount Code usage reached it's limit.</div>
+        <div id="discount_code_apply_button" class="isNotVisible custom_error">Click Apply Button to use Discount Code.</div>
+
+		{% comment %} Discount Field Holders {% endcomment %}
+		{% comment %} <input type="" id="discount-code" name="{{ props.discount_code.name }}" value="{{ discount_code }}"> {% endcomment %}
+		<input type="hidden" id="bill-total-discount-amount" name="{{ props.total_discount_amount.name }}" value="{{ total_discount_amount }}">
+		<input type="hidden" id="discount-id" name="{{ props.discount_id.name }}" value="{{ discount_id }}">
+		<input type="hidden" id="discount-code-uuid" name="{{ props.discount_code_uuids.name }}" value="{{ discount_code_id }}">
+		<input type="hidden" id="discount-usage-count" name="{{ props.discount_usage_count.name }}" value="{{ discount_usage_count }}"> 
+    {% endif %}
+    {% comment %} ? END OF DISCOUNT CODE BLOCK {% endcomment %}
     
     {% include 'modules/client/pay_bills/payment_credit_card' %}
     
 {% endform %}
+
+<script>
+	// check if discount is enabled
+	var isDiscountCodeEnabled = document.getElementById("is-discount-code-enabled");
+
+	// NOTE THIS Script will run only if discount code enabled
+	if(isDiscountCodeEnabled.value === "true"){
+
+		// Discount hidden fields
+		var discountAmountEl = document.getElementById("bill-total-discount-amount");
+		var discountIdEl = document.getElementById("discount-id");
+        var discountCodeUuidEl = document.getElementById("discount-code-uuid");
+		var discountUsageCountEl = document.getElementById("discount-usage-count");
+
+		// Error handler labels
+		var discountRequiredLabel = document.getElementById("discount_code_required_label");
+		var discountNotValidLabel = document.getElementById("discount_code_not_valid");
+		var discountLimitLabel = document.getElementById("discount_code_limit");
+		var discountApplyButtonLabel = document.getElementById("discount_code_apply_button");
+
+		// summary labels
+		// var chargeLabel = document.getElementById("charge-amount-summary");
+		var totalDiscountLabel = document.getElementById("discount-summary");
+		var totalSummaryLabel = document.getElementById("total-amount-summary");
+
+		// amount
+		var billTotalAmount = document.getElementById("bill-amount");
+
+		// discount code field
+		var discountCodeField = document.getElementById("discount_code_field_input");
+
+		// discount code button
+		var applyDiscount = document.getElementById("apply_discount");
+
+		// reset discount code button
+        var resetDiscount = document.getElementById("reset_discount");
+
+		// DISCOUNT CODE APPLICATION
+		var is_promoCode_validated = false;
+		var res_discountType = '';
+		var res_discountValue = '';
+		var res_discountCode = '';
+		var res_discountUsageCount = '';
+		var res_discountUsageLimit = '';
+		var res_discountId = '';
+		var res_discountCodeUuid = '';
+
+		var totalAmount = 0;
+		var computedDiscountAmount = 0;
+		var computedTotalAmount = 0;
+		var computedSubtotalAmount = 0;
+		var computedGSTAmount = 0;
+
+		// apply the discount code on button click
+		applyDiscount.addEventListener('insClick', event => {
+			applyDiscountCode();
+		});
+
+		// apply the discount code on button click
+		resetDiscount.addEventListener('insClick', event => {
+			removeDiscountCode();
+		});
+
+		discountCodeField.addEventListener('insValueChange', () => {
+			if(billTotalAmount.value != "" && discountCodeField.value != ''){
+				applyDiscount.removeAttribute("disabled");
+			}else{
+				applyDiscount.setAttribute("disabled", true);
+			}
+        });
+		
+		function disableElements(){
+			applyDiscount.setAttribute("disabled", true);
+			applyDiscount.label = "Applied";
+
+			discountCodeField.setAttribute("disabled", true);
+
+			billTotalAmount.setAttribute("disabled", true);
+		}
+
+		function enableElements(){
+			applyDiscount.label = "Apply";
+
+			discountCodeField.setAttribute("disabled", false);
+			discountCodeField.value = '';
+
+			billTotalAmount.setAttribute("disabled", false);
+		}
+
+		function removeDiscountCode(){
+			enableElements();
+
+			// Enable Reset Discount Button
+			resetDiscount.setAttribute("disabled", true);
+
+			// Reset Value Field Related to Discount
+			discountIdEl.value = '';
+			discountCodeUuidEl.value = '';
+			discountUsageCountEl.value = '';
+			discountAmountEl.value = 0;
+
+			setValues(billTotalAmount.value, 0);
+			App.events.notyf("success", "Promo code removed.");
+		}
+
+		function setValues(totalAmountVal, discountAmountVal){
+			console.log(totalAmountVal, discountAmountVal);
+
+			ccSurcharge = parseFloat((totalAmountVal - discountAmountVal) * 0.017).toFixed(2); // 1.7% credit card surcharge
+			subtotalAmount  = parseFloat(totalAmountVal - discountAmountVal).toFixed(2); // amount payable
+			gst = parseFloat((totalAmount - discountAmountVal) * 0.1).toFixed(2); // GST
+			let totalValue = parseFloat(Number(totalAmountVal - discountAmountVal) + Number(ccSurcharge) + Number(gst)).toFixed(2);
+
+			// LABEL SUMMARY
+			let chargeAmountEl = document.getElementById('charge-amount-summary');
+			let chargeSubtotal = document.getElementById('charge-subtotal-summary');
+			let chargeGstEl = document.getElementById('charge-gst-summary');
+			let ccAmountEl = document.getElementById('cc-charge-summary');
+			let totalAmountEl = document.getElementById('total-amount-summary');    
+
+			console.log(ccSurcharge, "ccSurcharge");
+			console.log(subtotalAmount, "subtotalAmount");
+			console.log(gst, "gst");
+			console.log(totalValue, "totalValue");
+
+			chargeAmountEl.textContent = "$" + totalAmount;
+			chargeSubtotal.textContent = "$" + subtotalAmount;
+			chargeGstEl.textContent = "$" + gst;
+			ccAmountEl.textContent = "$" + ccSurcharge;
+			totalAmountEl.textContent = "$" + totalValue;
+			totalDiscountLabel.textContent = "($" + parseFloat(discountAmountVal).toFixed(2) + ")";
+			App.events.notyf("success", "Promo code applied.");
+
+			// Update hidden fields
+			amountTotalEl.value = totalValue;
+			amountSubtotalEl.value = totalAmountVal;
+			amountTotalTaxEl.value = gst;
+           
+			amountDueEl.value = totalValue;
+			notesEl.value = `{"subtotal-amount": "${pricify(totalAmountVal)}", "cc-charge": "${pricify(ccSurcharge)}",  "gst": "${pricify(gst)}",  "total-amount": "${pricify(totalValue)}"}`;
+		}
+
+		// apply discount code functionality
+		function applyDiscountCode(){
+			if(billTotalAmount.value == 0){
+				// Error to apply discount code, amount must be not 0 or blank
+				App.events.notyf("error", "Please enter an Amount before applying discount code.");
+			}else{
+				// Continue Applying the discount code.
+				applyDiscount.loading = true;
+			
+				var url = '/client/discount/apply_discount?' + 'discount_code=' + discountCodeField.value;
+				setTimeout(async() => {
+					let response = await apiServices.processRequest('post', url);
+					if(response.data.id) { 
+
+					console.log(response.data);
+
+						disableElements();
+
+						// Enable Reset Discount
+						resetDiscount.removeAttribute("disabled");
+
+                        // SET REQUIRED ERROR
+                        discountRequiredLabel.classList.add("isNotVisible");
+                        discountCodeField.removeAttribute('has-error', "true");
+						resetErrorHandler();
+						
+						// Assign the values
+						res_discountType = response.data.discount_type;
+						res_discountValue = response.data.discount_value;
+						res_discountCode = response.data.discount_code;
+						res_discountUsageCount = response.data.usage_count;
+						res_discountUsageLimit = response.data.usage_limit;
+						res_discountId = response.data.id;
+						res_discountCodeUuid = response.data.uuid;
+
+						// // GET TOTAL AMOUNT
+						totalAmount = parseFloat(billTotalAmount.value).toFixed(2);
+						computedDiscountAmount = 0;
+						computedTotalAmount = 0;
+						computedSubtotalAmount = 0;
+						computedGSTAmount = 0;
+
+						// CHECK IF DISCOUNT IS LIMIT
+						if (res_discountUsageCount == res_discountUsageLimit){
+							// SET LIMIT ERROR
+							discountLimitLabel.classList.remove("isNotVisible"); 
+							discountCodeField.setAttribute('has-error', "true");
+							is_promoCode_validated = false;
+							App.events.notyf("error", "Promo code applied reached it's maximum usage limit.");
+						}else{
+							// UNSET LIMIT ERROR
+							discountLimitLabel.classList.add("isNotVisible"); 
+							discountCodeField.removeAttribute('has-error', "true");
+
+							// COMPUTE PERCENTAGE
+							console.log(res_discountType, "res_discountType");
+							console.log(res_discountValue, "res_discountValue");
+							if(res_discountType == 'percentage'){
+								// COMPUTED DISCOUNT
+								computedDiscountAmount = parseFloat(parseFloat(res_discountValue / 100) * parseFloat(totalAmount)).toFixed(2);
+							}
+							// COMPUTE FIXED AMOUNT
+							else{
+								computedDiscountAmount = parseFloat(res_discountValue);
+							}
+
+							// BEGIN COMPUTE
+							computedTotalAmount = parseFloat(parseFloat(totalAmount) - parseFloat(computedDiscountAmount)).toFixed(2);
+							computedGSTAmount = parseFloat(computedTotalAmount / 11).toFixed(2);
+							computedSubtotalAmount = (parseFloat(computedTotalAmount) - parseFloat(computedGSTAmount)).toFixed(2);
+
+							// .. discount details
+							discountIdEl.value = res_discountId;
+							discountCodeUuidEl.value = res_discountCodeUuid;
+							discountUsageCountEl.value = res_discountUsageCount;
+							discountAmountEl.value = computedDiscountAmount;
+
+							// SET VALUES
+							setValues(totalAmount, computedDiscountAmount)
+
+
+							is_promoCode_validated = true;
+						}
+					}else{
+						discountCodeField.setAttribute('has-error', "true");
+
+						if(discountCodeField.value != ''){
+							App.events.notyf("error", "Discount Code applied is not valid.");
+							discountRequiredLabel.classList.add("isNotVisible"); 
+							discountNotValidLabel.classList.remove("isNotVisible");
+						}else{
+							App.events.notyf("error", "Please enter Discount Code.");
+							discountRequiredLabel.classList.remove("isNotVisible");
+							discountNotValidLabel.classList.add("isNotVisible");
+						}
+					}
+				}, 500);
+
+				applyDiscount.loading = false;
+			}
+		}
+
+		// reset discount code on button click
+		function resetErrorHandler(){
+			discountCodeField.setAttribute('has-error', "false");
+            discountRequiredLabel.classList.add("isNotVisible");
+            discountNotValidLabel.classList.add("isNotVisible");
+			discountLimitLabel.classList.add("isNotVisible");
+            discountApplyButtonLabel.classList.add("isNotVisible");
+		}
+    }
+
+</script>

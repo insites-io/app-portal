@@ -2459,3 +2459,61 @@ ins-tag.Completed span.ins-tag {
     cursor: not-allowed !important;
 }
 
+
+/** DISCOUNT **/
+
+.discount_code_field_container {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+#discount_code_field_input .ins-form-field-wrap{
+    margin-bottom: 0px;
+}
+
+.discount_code_field_container button {
+    margin-top: 25px;
+}
+
+.discount_code_field_container button .btn__icon, 
+.discount_code_field_container button[type=button] .btn__icon, 
+.discount_code_field_container button[type=reset] .btn__icon, 
+.discount_code_field_container button[type=submit] .btn__icon {
+    margin-right: 8px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    font-size: 12px!important;
+    vertical-align: middle;
+    position: initial;
+    margin-top: 3px;
+}
+
+.custom_error{
+    font-family: var(--font-family-02);
+    font-size: var(--font-x-small);
+    color: var(--error);
+    line-height: 18px;
+}
+
+.isNotVisible {
+    display: none;
+}
+
+ins-input[disabled] .ins-form-field{
+    background-color: #F2F2F2;
+}
+
+.discount-summary-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+}
+
+.discount-code-details-container {
+    display: flex;
+    gap: 8px;
+}

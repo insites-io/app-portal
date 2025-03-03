@@ -22,16 +22,9 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly",
     "heading": "Pay a Bill"
-}   
-authorization_policies:
-  # - modules/client/is_user_logged_in
+}
 ---
 {% function get_stripe_settings = "modules/client/stripe/get_stripe_settings" %}
-
-
-{%- if context.environment == "staging" -%}
-<!-- start page: Pay a Bill  -->
-{%- endif -%}
 
 {% if get_stripe_settings.account_id != ''  %}
   <div class="pay-bills">
@@ -56,11 +49,6 @@ authorization_policies:
   </div>
 {% endif %}
 
-
-{%- if context.environment == "staging" -%}
-<!-- end page: Pay a Bill  -->
-{%- endif -%}
-
 <!-- Stripe Element -->
 {%- include 'modules/client/stripe/stripe_element',
     cc_field_id: "checkout-credit-card"
@@ -68,6 +56,7 @@ authorization_policies:
 <!-- END Stripe Element -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
 {%- if context.environment == "staging" -%}
   <script src="{{ 'modules/client/scripts/pay-bills.js' | asset_url }}"></script>
   <script src="{{ 'modules/client/services/stripeServices.js' | asset_url }}"></script>

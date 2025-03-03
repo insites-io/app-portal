@@ -9,6 +9,8 @@ request_headers: >
     {% include 'modules/client/api_headers' %}
 ---
 
+{% log data, type: "Add Payment - API" %}
+
 {%- capture payment_gateway_details -%}
     {{ data.payment_gateway_details }}
 {%- endcapture -%}
@@ -20,7 +22,7 @@ request_headers: >
 {
     "payload": {
         "notes": "{{ data.notes | default: "No notes available" }}",
-        "amount": {{ data.computed.total_amount | times: 1.0 }},
+        "amount": {{ data.amount | times: 1.0 }},
         "source": "{{ source }}",
         "status": "{{ data.payment_status | downcase }}",
         "bank_bsb": null,
