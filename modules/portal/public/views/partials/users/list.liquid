@@ -553,13 +553,6 @@ metadata: {
             })
         });
 
-    // User Invite Modal
-    let userInviteButton = document.getElementById('user-invite-button')
-    userInviteButton.addEventListener('click', () => {
-        modal = document.getElementById('add-user-modal');
-        modal.open()
-    })
-
     // DETAILS
     var userFirstName = document.getElementById('user-first-name');
     var userLastName = document.getElementById('user-last-name');
@@ -569,6 +562,15 @@ metadata: {
     let is_email_found = false;
     let user_id = '';
     let user_email = '';
+
+    // User Invite Modal
+    let userInviteButton = document.getElementById('user-invite-button')
+    userInviteButton.addEventListener('click', () => {
+        modal = document.getElementById('add-user-modal');
+        clearInput();
+        modal.open()
+    })
+
 
     // VALIDATAIONS
     let is_email_valid = false;
@@ -580,43 +582,47 @@ metadata: {
     var invalidEmail = document.getElementById("emailInvalid");
     var existEmail = document.getElementById("emailExists");
    
-    userEmail.addEventListener('insInput', async (event) => {
+    userEmail.addEventListener('insInput', (event) => {
         let url = '/check-user-email?'+ 'email='+ event.detail.value ;
-        let response = await apiServices.processRequest('get', url);
-        let data = response.data
+        setTimeout( async () => {
+            let response = await apiServices.processRequest('get', url);
+            let data = response.data
+                  
+            if(response.data.has_email == true) {
+                // EMAIL EXISTS
+                is_email_found = true;
 
-        if(response.data.has_email == true) {
-            // EMAIL EXISTS
-            is_email_found = true;
+                user_id = response.data.id;
 
-            user_id = response.data.id;
-
-            // Show Error message = Email Exists
-            errorOnEmailFound();
-            prefillDetails(data)
-            is_email_valid = true;
-        }else{
-            // EMAIL DOES NOT EXIST
-            is_email_found = false;
-
-            // Check if inputed email is valid
-            is_email_valid = isValidEmail(userEmail.value);
-
-            if(userEmail.value == ''){
-                errorOnEmailRequired();
-                is_email_valid = false;
+                // Show Error message = Email Exists
+                errorOnEmailFound();
+                prefillDetails(data)
+                is_email_valid = true;
             }else{
-                if(is_email_valid == false){
-                    errorOnInvalidEmail();
+                // EMAIL DOES NOT EXIST
+                is_email_found = false;
+
+                // Check if inputed email is valid
+                is_email_valid = isValidEmail(userEmail.value);
+
+                if(userEmail.value == ''){
+                    errorOnEmailRequired();
+                    is_email_valid = false;
                 }else{
-                    noErrorOnEmail();
-                    is_email_valid = true;
+                    if(is_email_valid == false){
+                        errorOnInvalidEmail();
+                    }else{
+                        noErrorOnEmail();
+                        is_email_valid = true;
+                    }
                 }
             }
-        }
 
-        // save input email
-        user_email = userEmail.value.toLowerCase();
+            // save input email
+            user_email = userEmail.value.toLowerCase();
+        },500)
+       
+
     });
 
     // TEL
@@ -748,10 +754,41 @@ metadata: {
     function prefillDetails(data) {
          userFirstName.value = data.first_name
          userLastName.value = data.last_name
-         userContact.setCountryCode('+' + data.work_phone_country_code)
-         userContact.setAttribute('areacode-value',  data.work_phone_country_code);
-         userContact.setAttribute('phonenum-value', data.work_phone_number)
-         mobile_phone_number = data.work_phone_number
+         console.log(data)
+
+         if(data.work_phone_country_code && data.work_phone_number) {
+            userContact.setCountryCode('+' + data.work_phone_country_code)
+            userContact.setAttribute('areacode-value',  data.work_phone_country_code);
+            userContact.setAttribute('phonenum-value', data.work_phone_number)
+            mobile_phone_number = data.work_phone_number
+         } else {
+            userContact.setCountryCode("")
+            userContact.setAttribute('areacode-value', "");
+            userContact.setAttribute('phonenum-value',"")
+            mobile_phone_number = ""
+         }
+
+    }
+
+    function clearInput () {
+        userFirstName.value = ""
+        userLastName.value = ""
+        userEmail.value = ""
+        userContact.setCountryCode("")
+        userContact.setAttribute('areacode-value', "");
+        userContact.setAttribute('phonenum-value',"")
+        mobile_phone_number = ""
+
+        noErrorOnEmail();
+
+        requiredFirstName.classList.remove('is_visible');
+        requiredFirstName.classList.add('is_not_visible');
+        userFirstName.classList.remove('has-error');
+      
+        requiredLastName.classList.remove('is_visible');
+        requiredLastName.classList.add('is_not_visible');
+        userLastName.classList.remove('has-error');
+
     }
 
     function resetSelect(e){

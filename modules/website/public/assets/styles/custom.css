@@ -2473,6 +2473,10 @@ ins-tag.Completed span.ins-tag {
     color: #DF1F1F!important;
 }
 
+#user-permission-level .ins-input-select-wrap .ins-input-select .ins-select-options-wrap {
+    margin-bottom: -5px !important;
+}
+
 .swal-user-account .swal2-title {
     color: var(--font---font-color-head, #000);
     text-align: center;
