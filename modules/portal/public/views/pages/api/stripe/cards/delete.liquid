@@ -17,7 +17,6 @@ metadata: {
   sitemap_order: 9999, ## secondary order (ASC)
   sitemap_changefreq: "never"
 }
-
 authorization_policies:
   - modules/portal/is_user_logged_in
 ---
@@ -27,6 +26,8 @@ authorization_policies:
 
 {%- graphql response = 'modules/portal/credit_cards/delete_credit_card',
     id: payload.id-%}
+
+{% log response, type: 'delete_credit_card' %}
 
 {%- comment -%}Status code 400: API or GraphQL error{%- endcomment -%}
 {%- assign result = '{}' | parse_json -%}

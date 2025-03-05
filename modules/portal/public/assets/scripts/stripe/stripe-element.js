@@ -12,8 +12,7 @@ let card;
 let style = {
     base: {
         color: '#404040',
-        fontFamily: '"Work Sans", sans-serif',
-        '-webkit-font-smoothing': 'antialiased',
+        fontFamily: '"Work Sans", sans-serif', '-webkit-font-smoothing': 'antialiased',
         fontWeight: '400',
         fontSize: '14px',
         '::placeholder': {
@@ -37,15 +36,15 @@ let StripeElement = (() => {
                 if (cardOptionsList && token) {
                     let grid = cardOptionsList.getAttribute('card-grid') || "large-4 medium-6 small-12";
                     let divEl = document.createElement("div");
-                    divEl.className = `${grid} cell card-options`;
+                        divEl.className = `${grid} cell card-options`;
                     let insCardEl = document.createElement("ins-credit-card");
-                    insCardEl.setAttribute('full-year', true);
-                    insCardEl.setAttribute('brand', token.card.brand);
-                    insCardEl.setAttribute('last-four', token.card.last4);
-                    insCardEl.setAttribute('expiry-month', token.card.exp_month);
-                    insCardEl.setAttribute('expiry-year', token.card.exp_year);
-                    insCardEl.setAttribute('compact', '');
-                    insCardEl.value = token.card.id;
+                        insCardEl.setAttribute('full-year', true);
+                        insCardEl.setAttribute('brand', token.card.brand);
+                        insCardEl.setAttribute('last-four', token.card.last4);
+                        insCardEl.setAttribute('expiry-month', token.card.exp_month);
+                        insCardEl.setAttribute('expiry-year', token.card.exp_year);
+                        insCardEl.setAttribute('compact', '');
+                        insCardEl.value = token.card.id;
                     divEl.appendChild(insCardEl);
                     cardOptionsList.appendChild(divEl);
                     StripeElement.init.dynamicCCEventListener(insCardEl, true);
@@ -66,17 +65,22 @@ let StripeElement = (() => {
                         // Inform the user if there was an error.
                         errorElement.textContent = result.error.message;
                         this.setButtonLoading(false);
-
                     } else {
                         // Send the token to your server.
                         let response = await this.createStripeCardModel(result.token);
                         // set stripe card token to form for payment
                         this.setStripeCardField(result.token);
                         this.setButtonLoading(false);
-                        card.clear();
-                        stripeCardModal.close();
                         App.events.notyf('success', "Credit card has been added.");
                         this.makeCardElement(result.token);
+                        card.clear();
+                        stripeCardModal.close();
+                        if(guestAddCardForm){
+                            guestAddCardForm.classList.add("hide");
+                        }
+                        if(submitButtons){
+                            submitButtons.classList.remove("hide");
+                        }
                     }
                 });
             },
@@ -96,6 +100,9 @@ let StripeElement = (() => {
                     "last_name": stripeLastName.value,
                     "creditcard": token.id
                 }
+                if(token?.card?.brand){
+                    data.card_brand = token.card.brand;
+                }
                 let response = await StripeModel.creditcard.createCreditCard(data);
                 // Insert the token ID into the form checkout - Optional if no element / not checkout form
                 if (response.state && payByCardField)
@@ -110,9 +117,9 @@ let StripeElement = (() => {
             checkCardCount() {
                 let cards = cardFields.querySelectorAll('.card-options');
                 if (cards.length === 0)
-                    noCardNotif.classList.remove('hide');
+                    if(noCardNotif) noCardNotif.classList.remove('hide'); 
                 else
-                    noCardNotif.classList.add('hide');
+                    if(noCardNotif) noCardNotif.classList.add('hide');
             }
         },
         events: {
@@ -170,7 +177,6 @@ let StripeElement = (() => {
                 stripeCancelBtn.forEach(el => {
                     el.addEventListener('insClick', () => cardModal.close());
                 })
-
                 // Handle real-time validation errors from the card Element.
                 card.on('change', function(event) {
                     if (errorElement && event.error) {
