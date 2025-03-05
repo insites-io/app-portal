@@ -6,7 +6,8 @@ let StripeModel = (() => {
                     "email": data.email,
                     "first_name": stripeFirstName.value,
                     "last_name": stripeLastName.value,
-                    "stripe_credit_card": data.creditcard
+                    "stripe_credit_card": data.creditcard,
+                    "card_brand": data.card_brand
                 }
                 let response = await StripeServices.createCreditCard({ 'payload': payload });
                 if(response.state) {

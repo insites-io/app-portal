@@ -34,7 +34,7 @@ let StripeElement = (() => {
         methods: {
             makeCardElement(token) {
                 if (cardOptionsList && token) {
-                    let grid = cardOptionsList.getAttribute('card-grid') || "large-4 medium-6 small-12";
+                    let grid = cardOptionsList.getAttribute('card-grid') || "large-6 medium-6 small-12";
                     let divEl = document.createElement("div");
                         divEl.className = `${grid} cell card-options`;
                     let insCardEl = document.createElement("ins-credit-card");
@@ -98,10 +98,8 @@ let StripeElement = (() => {
                     "email": emailField.value,
                     "first_name": stripeFirstName.value,
                     "last_name": stripeLastName.value,
-                    "creditcard": token.id
-                }
-                if(token?.card?.brand){
-                    data.card_brand = token.card.brand;
+                    "creditcard": token.id,
+                    "card_brand": token.card.brand
                 }
                 let response = await StripeModel.creditcard.createCreditCard(data);
                 // Insert the token ID into the form checkout - Optional if no element / not checkout form
@@ -197,20 +195,20 @@ let StripeElement = (() => {
                 // Add an instance of the card Element into the `card-element` <div>.
                 card.mount('#card-element');
 
-                  // After creating the card element, inject global styles into iframe
-                  let iframe = document.querySelector('#card-element iframe');
-                  let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-  
-                  // Create a style element for global styles
-                  let globalStyle = iframeDoc.createElement('style');
-                  globalStyle.textContent = `
-                      * {
-                          font-weight: 400 !important;
-                          -webkit-font-smoothing: antialiased !important;  /* For Chrome and Safari on macOS */
-                          -moz-osx-font-smoothing: grayscale !important;   /* For Firefox on macOS */
-                      }
-                  `;
-                  iframeDoc.head.appendChild(globalStyle);
+                // After creating the card element, inject global styles into iframe
+                //let iframe = document.querySelector('#card-element iframe');
+                //let iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                // Create a style element for global styles
+                //let globalStyle = iframeDoc.createElement('style');
+                //globalStyle.textContent = `
+                    //* {
+                        //font-weight: 400 !important;
+                        //-webkit-font-smoothing: antialiased !important;  /* For Chrome and Safari on macOS */
+                        //-moz-osx-font-smoothing: grayscale !important;   /* For Firefox on macOS */
+                    //}
+                //`;
+                //iframeDoc.head.appendChild(globalStyle);
                 StripeElement.init.eventListeners();
             }
         }
