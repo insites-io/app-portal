@@ -487,7 +487,6 @@
 
 {% comment %} ? TESTIMONIALS {% endcomment %}
 {% assign allow_display_on_website = "Yes" %}
-{% assign is_shown_on_webstie = true %}
 
 {% parse_json testimonials %}
 [
@@ -514,8 +513,7 @@
         full_name: {{testimonial.full_name}},
         location: {{testimonial.location}},
         message: {{testimonial.message}},
-        allow_display_on_website: {{allow_display_on_website}},
-        is_shown_on_webstie: {{is_shown_on_webstie}}
+        allow_display_on_website: {{allow_display_on_website}}
     -%}
 {% endfor %}
 

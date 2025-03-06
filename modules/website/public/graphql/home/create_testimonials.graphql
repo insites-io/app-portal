@@ -3,7 +3,6 @@ mutation create_testimonials(
   $location: String,
   $message: String,
   $allow_display_on_website: String,
-  $is_shown_on_webstie: Boolean
 ) {
   items: record_create(
     record: {
@@ -24,10 +23,6 @@ mutation create_testimonials(
         { 
           name: "allow_display_on_website",
           value: $allow_display_on_website 
-        },
-        { 
-          name: "is_shown_on_webstie",
-          value_boolean: $is_shown_on_webstie 
         }
       ]
     }
