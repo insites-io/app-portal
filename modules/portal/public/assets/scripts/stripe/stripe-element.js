@@ -114,10 +114,12 @@ let StripeElement = (() => {
             },
             checkCardCount() {
                 let cards = cardFields.querySelectorAll('.card-options');
-                if (cards.length <= 0)
+                if (cards.length <= 0){
                     if(noCardNotif) noCardNotif.classList.remove('hide'); 
-                else
+                }
+                else{
                     if(noCardNotif) noCardNotif.classList.add('hide');
+                }
             }
         },
         events: {
