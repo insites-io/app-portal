@@ -518,7 +518,7 @@
 {% endfor %}
 
 
-{% comment %} Defaul CMS -> Company Details {% endcomment %}
+{% comment %} Defaul CMS Global -> Company Details {% endcomment %}
 {% comment %} Check first if there is an exisiting CMS Global record {% endcomment %}
 {%- graphql get_cms_global_record = "modules/website/cms/check_cms_global" | dig: "items", "results" | first %}
 {% if get_cms_global_record == blank %}
