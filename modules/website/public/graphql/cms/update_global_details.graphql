@@ -53,6 +53,14 @@ mutation update_global_content(
   $loc_1_fax_country_code: String
   $loc_1_fax_area_code: String
   $loc_1_fax_number: String
+
+    # Social media
+  $facebook_link: String
+  $youtube_link: String
+  $twitter_link: String
+  $linkedin_link: String
+  $instagram_link: String
+  $pinterest_link: String
 ) {
   items: record_update(
     id: $id
@@ -111,6 +119,13 @@ mutation update_global_content(
         { name: "loc_1_fax_country_code", value: $loc_1_fax_country_code }
         { name: "loc_1_fax_area_code", value: $loc_1_fax_area_code }
         { name: "loc_1_fax_number", value: $loc_1_fax_number }
+                # Social media
+        { name: "facebook_link", value: $facebook_link }
+        { name: "youtube_link", value: $youtube_link }
+        { name: "twitter_link", value: $twitter_link }
+        { name: "linkedin_link", value: $linkedin_link }
+        { name: "instagram_link", value: $instagram_link }
+        { name: "pinterest_link", value: $pinterest_link }
       ]
     }
   ) {
