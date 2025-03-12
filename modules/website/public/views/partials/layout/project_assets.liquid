@@ -11,8 +11,8 @@ Project Assets - Holds app css and js
 {%- if context.environment == "staging" -%}
     <link rel="preload" as="style" href="{{ 'modules/website/styles/default.css' | asset_url }}" >
     <link rel="stylesheet" href="{{ 'modules/website/styles/default.css' | asset_url }}" > 
-    <link rel="preload" as="style" href="{{ 'modules/website/styles/custom.css' | asset_url }}" >
-    <link rel="stylesheet" href="{{ 'modules/website/styles/custom.css' | asset_url }}" >
+    {% comment %} <link rel="preload" as="style" href="{{ 'modules/website/styles/custom.css' | asset_url }}" >
+    <link rel="stylesheet" href="{{ 'modules/website/styles/custom.css' | asset_url }}" > {% endcomment %}
     <link rel="preload" as="style" href="{{ 'modules/website/styles/breakpoint.css' | asset_url }}" >
     <link rel="stylesheet" href="{{ 'modules/website/styles/breakpoint.css' | asset_url }}" >
 {%- else -%}

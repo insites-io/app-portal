@@ -240,10 +240,10 @@ let App = (function () {
                 if (scrollPosition > fillerGuide) {
                     if (scrollPosition <= lastKnownScrollPosition) {
                         //show Menu
-                        mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
+                        // mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
                     } else {
                         //hide Menu
-                        mainHeader.style.transform = "translate3d(0px, -162px, 0px)";
+                        // mainHeader.style.transform = "translate3d(0px, -162px, 0px)";
                     }
                 } else {
                     //If less than the Guide put back Header to initial looks
