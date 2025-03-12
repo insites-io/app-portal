@@ -27,6 +27,8 @@ metadata: {
 {%- assign device_used = context.device.device_type -%}
 
 {% include 'modules/website/content/index/hero_banner' %} 
+{% include 'modules/website/content/index/client_section' %}
+
 {% include 'modules/website/content/index/beautiful_centralised' %}
 
 {% if context.constants.ecommerce_addon == 'true' %}
@@ -39,5 +41,4 @@ metadata: {
     {% include 'modules/ecommerce/blocks/whats_hot' %}
 {% endif %}
 
-{% include 'modules/website/content/index/client_section' %}
 {% include 'modules/website/content/index/testimonials' %}
