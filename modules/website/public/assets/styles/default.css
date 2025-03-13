@@ -9,7 +9,7 @@
     --color-main-hover: #3044FF;
     --color-sub1-hover: #7E16D0;
     --color-sub2-hover: #D32F19;
-    --color-main-hover-light: rgba(17, 110, 195, 0.1);
+    --color-main-hover-light: rgba(48, 68, 255, 0.06);
     --color-sub1-hover-light: rgba(126, 22, 208, 0.1);
     --color-sub2-hover-light: rgba(211, 47, 25, 0.1);
     --font-color-link-hovered: #FFFFFF99;
@@ -26,7 +26,7 @@
     --error-hover-light: rgba(255, 51, 102, 0.1);
     --warning-hover-light: rgba(255, 166, 57, 0.1);
     /* Font colors */
-    --font-color-head: #000000;
+    --font-color-head: #05051D;
     --font-color-sub: #323232;
     --font-color-body: #575757;
     --font-color-link: #ffff;
@@ -2052,6 +2052,108 @@ footer .bottom-footer a {
     line-height: var(--font-medium);
 }
 
+/********** [Components] **********/
+
+.slider-container {
+    width: 100%; 
+    overflow: hidden; 
+    position: relative;
+  }
+  
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease; 
+    margin-bottom: 50px;
+}
+  
+.slider-item {
+    padding: 24px;
+    background-color: #fff;
+    box-sizing: border-box; 
+    border-radius: 14px;
+}
+
+  
+.slider-item p {
+    white-space: normal;
+    color: var(--font-color-body, #575757);
+    font-family: var(--font-family-02, Archivo);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; 
+}
+  
+.slider-item h6 {
+    color: var(--font-color-head);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%; 
+    letter-spacing: 0.16px;
+    margin-bottom: 8px;
+}
+  
+.slider-item img {
+      max-width: 48px;
+      margin-bottom: 16px;
+}
+
+
+.dynamic-slider-buttons {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+  
+.dynamic-slider-buttons i {
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 100px;
+}
+@media screen and (max-width: 639px) {
+    .slider-item {
+      flex: 0 0 100%; 
+    }
+    .slider-track {
+      gap: 0%; 
+    }
+  }
+  
+  @media screen and (min-width: 640px) and (max-width: 930px) {
+    .slider-item {
+      flex: 0 0 48%;
+    }
+    .slider-track {
+      gap: 4%; 
+    }
+  }
+  
+  @media screen and (min-width: 931px) and (max-width: 1299px) {
+    .slider-item {
+      flex: 0 0 32%; 
+    }
+    .slider-track {
+      gap: 3%; 
+    }
+  }
+  
+  @media screen and (min-width: 1300px) {
+    .slider-item {
+      flex: 0 0 23%; 
+    }
+    .slider-track {
+      gap: 3%; 
+    }
+  }
+
+.dynamic-slider-buttons i:hover {
+    background:  var(--color-main-hover-light,rgba(48, 68, 255, 0.06));
+}
+
 
 /********** [Home Page] **********/
 
@@ -2113,6 +2215,99 @@ footer .bottom-footer a {
     max-width: 150px; 
     height: auto; 
 }
+/********** [Home Page - Adaptive Section] **********/
+
+.adaptive-portal-section {
+    position: relative;
+}
+
+.adaptive-portal-section .adaptive-portal-img {
+    max-height: 850px;
+}
+
+.adaptive-portal-section .adaptive-portal-banner {
+    display: flex;
+    flex-direction: row;
+}
+
+.adaptive-portal-section .adaptive-portal-banner img{
+    width: 40%;
+}
+
+
+.adaptive-portal-section .adaptive-portal-banner .adaptive-portal-info {
+    width: 60%;
+}
+
+
+
+.adaptive-portal-section .adaptive-portal-info {
+    background: var(--color-ui-02);
+}
+
+.adaptive-portal-section .adaptive-portal-info  .adaptive-portal-cta {
+    margin-left: 10%;
+    width: 60%;
+}
+
+.adaptive-portal-section .adaptive-portal-info h2 {
+    color: var(--color-bg1);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; 
+}
+
+.adaptive-portal-section .adaptive-portal-info p { 
+    color: var(--font-color-body, #575757);
+    font-family: var(--font-family-02, "Archivo");
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; 
+}
+
+.adaptive-portal-section .adaptive-portal-info ins-button button { 
+    color: var(--font-color-link) !important;
+    border-radius: 14px;
+    background: var(--Gradient---color-gradient1, linear-gradient(95deg, #0095FF 6.51%, #3044FF 94.43%)); 
+    padding: 11px 24px;   
+}
+
+.adaptive-portal-section .adaptive-portal-info ins-button button span { 
+    color: var(--color-ui-01-font-color-inv, #FFF);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    text-transform: capitalize;
+}
+
+.adaptive-portal-section .adaptive-portal-info ins-button button i { 
+    position: relative;
+    top: -2px;
+}
+
+
+.adaptive-portal-section .adaptive-portal-info ins-button button:hover { 
+    background: #2331B7;
+}
+
+.adaptive-portal-section .dynamic-slider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 15%;
+}
+
+.adaptive-portal-section .dynamic-slider .slider-item:hover {
+    box-shadow: 0px 24px 38px 0px rgba(0, 0, 0, 0.05), 0px 11px 15px 0px rgba(0, 0, 0, 0.10);
+}
+
+
+ 
 /********** [About Us] **********/
 
 .about-us .about-section-title {
@@ -2171,15 +2366,9 @@ footer .bottom-footer a {
     padding-right: 0;
 }
 
-
-/* Dynamid content table = 2 column */
-
 .dynamic-content table td+td {
     width: 50%;
 }
-
-
-/* device lower smaller than tablet */
 
 @media screen and (max-width: 1023px) {
     .dynamic-content table td {

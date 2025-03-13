@@ -1,0 +1,134 @@
+{% assign record = data | dig: 'items' %} 
+{%- assign data = data | dig: 'items', 'results' -%}
+
+<div class="dynamic-slider">
+    <div class="wrapper">
+        <div class="grid-container grid-x">
+            <div class="dynamic-slider-buttons">
+                <i class="icon-arrow-left prev"  id="prevButton" style="display:none;"></i>
+                <i class="icon-arrow-right next" id="nextButton" ></i>
+            </div>
+        
+            <div class="slider-container">
+                <div class="slider-track">
+                    {% for item in data %}
+                        <div class="slider-item">
+                            <img src="{{ item.icon.url }}" alt="">
+                            <h6>{{ item.business_title }}</h6>
+                            <p>{{ item.business_description }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spacer large"></div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  let currentIndex = 0; // Start at the first item
+  const sliderTrack = document.querySelector('.slider-track');
+  const items = document.querySelectorAll('.slider-item');
+  const totalItems = items.length;
+  const prevButton = document.querySelector('#prevButton');
+  const nextButton = document.querySelector('#nextButton');
+  const sliderContainer = document.querySelector('.slider-container');
+  let containerWidth = sliderContainer.offsetWidth;
+  let itemToShow = 4; // Default to 4 items for larger screens
+
+  // Function to update button visibility
+  function updateButtonsVisibility() {
+    if (totalItems <= itemToShow) {
+      nextButton.style.display = 'none';
+    } else {
+      if (currentIndex < totalItems - itemToShow) {
+        nextButton.style.display = 'inline-block';
+      } else {
+        nextButton.style.display = 'none';
+      }
+    }
+
+    if (currentIndex === 0) {
+      prevButton.style.display = 'none';
+    } else {
+      prevButton.style.display = 'inline-block';
+    }
+  }
+
+  // Function to go to next slide
+  function nextSlide() {
+    if (currentIndex < totalItems - itemToShow) {
+      currentIndex++;
+      updateSliderPosition();
+      updateButtonsVisibility();
+    }
+  }
+
+  // Function to go to previous slide
+  function prevSlide() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSliderPosition();
+      updateButtonsVisibility();
+    }
+  }
+
+  // Function to update item width dynamically based on screen size
+  function updateItemWidth() {
+    const visibleItems = itemToShow;
+    const gap = 3; // Gap between items, in percentage
+    const itemWidth = (containerWidth - (visibleItems - 1) * (gap / 100) * containerWidth) / visibleItems;
+
+    items.forEach(item => {
+      item.style.flex = `0 0 ${itemWidth}px`; 
+    });
+
+    sliderTrack.style.gap = `${gap}%`;
+  }
+
+  // Function to update the slider position based on currentIndex
+  function updateSliderPosition() {
+    const visibleItems = itemToShow; 
+    const gap = 3; // Gap between items
+    const itemWidth = (containerWidth - (visibleItems - 1) * (gap / 100) * containerWidth) / visibleItems;
+    const slideWidth = itemWidth + (gap / 100) * containerWidth;
+
+    let offset = currentIndex * slideWidth;
+
+    // Fix for cutoff issue: Prevent going past the last item
+    if (currentIndex === totalItems - visibleItems) {
+      offset = (totalItems - visibleItems) * slideWidth;
+    }
+
+    sliderTrack.style.transform = `translateX(-${offset}px)`;
+  }
+
+  // Handle screen resizing and adjust the number of visible items
+  window.addEventListener('resize', () => {
+    containerWidth = sliderContainer.offsetWidth; // Update container width
+    if (containerWidth <= 639) {
+      itemToShow = 1; // Show 1 item on small screens
+    } else if (containerWidth <= 930) {
+      itemToShow = 2; // Show 2 items on medium screens (640px to 930px)
+    } else if (containerWidth <= 1299) {
+      itemToShow = 3; // Show 3 items on larger screens (931px to 1299px)
+    } else {
+      itemToShow = 4; // Show 4 items on very large screens (>= 1300px)
+    }
+    updateItemWidth(); // Update item width based on screen size
+    updateSliderPosition(); // Update slider position
+    updateButtonsVisibility(); // Update button visibility
+  });
+
+  // Initialize the slider
+  updateButtonsVisibility();
+  updateItemWidth();
+  updateSliderPosition();
+
+  // Event listeners for Next and Prev buttons
+  nextButton.addEventListener('click', nextSlide);
+  prevButton.addEventListener('click', prevSlide);
+});
+</script>
