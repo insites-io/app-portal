@@ -9,101 +9,73 @@ request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
 
-{
-    "payload": {
-        "id": "{{ data.id }}", 
-        "order_reference": "{{ data.order_reference }}", 
-        "order_status": "{{ data.order_status }}",
-        "order_shipping_status": "",
-        "order_payment_status": "{{ data.order_payment_status }}",
-        "order_contact_uuid": "",
-        "order_contact_first_name": "{{ data.order_first_name }}", 
-        "order_contact_last_name": "{{ data.order_last_name }}", 
-        "order_contact_email": "{{ data.order_email }}",
-        "order_contact_phone_country_code": "",
-        "order_contact_phone_number": "",
-        "order_company_uuid": "",
-        "order_company_name": "",
-        "order_company_email": "",
-        "order_company_phone_country_code": "",
-        "order_company_phone_number": "{{ data.order_phone }}",
-        "date_time": "{{ data.date_time }}",
-        "notes": "",
-        "currency": "{{ data.currency }}",
-        "subtotal_amount": {{ data.order_value | times: 1.0 }},
-        "total_tax_amount": {{ data.total_tax_amount | times: 1.0 }},
-        "total_shipping_amount": {{ data.total_shipping_amount | times: 1.0 }},
-        "total_amount": {{ data.total_amount | times: 1.0 }},
-        "total_amount_paid": {{ data.total_amount | times: 1.0 }},
-        "total_discount_amount": {{ data.total_discount_amount | times: 1.0 | default: 0.0 }}
+{%- 
+    liquid 
 
-        {% comment %} 
+    assign data = '{}' | parse_json
+    assign payload = '{}' | parse_json
 
-        Only include params that is needed during oder update process
+    if data.id 
+        assign payload = payload | add_hash_key: 'id', data.id
+    endif
+    if data.order_reference
+        assign payload = payload | add_hash_key: 'order_reference', data.order_reference
+    endif
+    if data.date_time 
+        assign payload = payload | add_hash_key: 'date_time', data.date_time
+    endif
+    if data.order_status 
+        assign payload = payload | add_hash_key: 'order_status', data.order_status
+    endif
+    if data.order_payment_status 
+        assign payload = payload | add_hash_key: 'order_payment_status', data.order_payment_status
+    endif
+    if data.order_first_name 
+        assign payload = payload | add_hash_key: 'order_contact_first_name', data.order_first_name
+    endif
+    if data.order_last_name 
+        assign payload = payload | add_hash_key: 'order_contact_last_name', data.order_last_name
+    endif
+    if data.order_email
+        assign payload = payload | add_hash_key: 'order_contact_email', data.order_email
+    endif
+    if data.order_phone
+        assign payload = payload | add_hash_key: 'order_company_phone_number', data.order_phone
+    endif
+    if data.currency 
+        assign payload = payload | add_hash_key: 'currency', data.currency
+    endif
+    if data.order_value 
+        assign payload = payload | add_hash_key: 'subtotal_amount', data.order_value
+    endif
+    if data.total_tax_amount
+        assign temp_total_tax_amount = data.total_tax_amount | times: 1.0
+        assign payload = payload | add_hash_key: 'total_tax_amount', temp_total_tax_amount
+    endif
+    if data.total_shipping_amount
+        assign temp_total_shipping_amount = data.total_shipping_amount | times: 1.9
+        assign payload = payload | add_hash_key: 'total_shipping_amount', temp_total_shipping_amount
+    endif
+    if data.total_amount
+        assign temp_total_amount = data.total_amount | times: 1.0
+        assign payload = payload | add_hash_key: 'total_amount', temp_total_amount
+    endif
+    if data.total_amount
+        assign temp_total_amount = data.total_amount | times: 1.0
+        assign payload = payload | add_hash_key: 'total_amount_paid', temp_total_amount
+    endif
+    if data.total_discount_amount
+        assign temp_total_discount_amount = data.total_discount_amount | times: 1.0 | default: 0.0
+        assign payload = payload | add_hash_key: 'total_discount_amount', temp_total_discount_amount
+    endif
+    if data.shipping_company_name
+        assign payload = payload | add_hash_key: 'shipping_company_name', data.shipping_company_name
+    endif
+    if data.billing_company_name
+        assign payload = payload | add_hash_key: 'billing_company_name', data.billing_company_name
+    endif
 
-        "billing_address_1": "",
-        "billing_address_2": "",
-        "billing_address_3": "",
-        "billing_city": "",
-        "billing_county": "",
-        "billing_district": "",
-        "billing_suburb": "",
-        "billing_state": "",
-        "billing_country": "",
-        "billing_country_code": "",
-        "billing_postcode": "",
-        "billing_latitude": "",
-        "billing_longitude": "",
-        "billing_geojson": "",
-        "billing_contact_uuid": "",
-        "billing_contact_first_name": "",
-        "billing_contact_last_name": "",
-        "billing_contact_email": "",
-        "billing_contact_phone_country_code": "",
-        "billing_contact_phone_number": "",
-        "billing_company_uuid": "",
-        "billing_company_name": "",
-        "billing_company_email": "",
-        "billing_company_phone_number": "",
-        "billing_company_phone_country_code": "",
-        "shipping_company_uuid": "",
-        "shipping_company_email": "",
-        "shipping_company_phone_number": "",
-        "shipping_company_phone_country_code": "",
-        "shipping_company_name": "",
-        "shipping_address_1": "",
-        "shipping_address_2": "",
-        "shipping_address_3": "",
-        "shipping_city": "",
-        "shipping_county": "",
-        "shipping_district": "",
-        "shipping_suburb": "",
-        "shipping_state": "",
-        "shipping_postcode": "",
-        "shipping_country": "",
-        "shipping_country_code": "",
-        "shipping_instructions": "",
-        "shipping_contact_uuid": "",
-        "shipping_contact_first_name": "",
-        "shipping_contact_last_name": "",
-        "shipping_contact_email": "",
-        "shipping_contact_phone_country_code": "",
-        "shipping_contact_phone_number": "",
-        "shipping_latitude": "",
-        "shipping_longitude": "",
-        "shipping_geojson": "", 
-        "freight_supplier_name": "",
-        "freight_method": "",
-        "freight_option": "",
-        "freight_tracking_code": "",
-        "freight_tracking_link": "",
-        "freight_delivered_date_time": "", 
-        "tax_invoice_upload": "",
-        "picking_slip_upload": "",
-        "packaging_label_upload": "",
-        "is_scheduled": false,
-        "is_recurring": false,
-        "recurring_group_id": "",
-        "opportunity_uuid": "" {% endcomment %}
-    }
-}
+    assign data = data | add_hash_key: 'payload', payload
+
+-%}
+{{ data }}
