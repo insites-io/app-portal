@@ -97,12 +97,23 @@ body {
 body,
 p,
 .body-paragraph {
-    font-family: var(--font-family-03);
+    font-family: var(--font-family-02, "Archivo");
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400 !important;
-    font-size: var(--font-small);
-    line-height: var(--font-x-large);
-    color: var(--font-color-body);
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.p-white {
+    color: var(--font-color-inv, #FFF);
+}
+
+.p-dark {
+    color: var(--font-color-body, #575757);
+}
+
+.p-long-desc {
+    font-size: 18px;
 }
 
 body,
@@ -198,7 +209,13 @@ h1,
 
 h2,
 .heading-2 {
-    font-size: var(--font-xx-large);
+    font-size: 42px;
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; 
 }
 
 h3,
@@ -218,7 +235,13 @@ h5,
 
 h6,
 .heading-6 {
-    font-size: var(--font-small);
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%; 
+    letter-spacing: 0.16px;
 }
 
 @media screen and (min-width: 640px) and (max-width: 1023px) {
@@ -2253,15 +2276,6 @@ footer .bottom-footer a {
     width: 60%;
 }
 
-.adaptive-portal-section .adaptive-portal-info h2 {
-    color: var(--color-bg1);
-    font-family: var(--font-family-01, "DM Sans");
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 120%; 
-}
-
 .adaptive-portal-section .adaptive-portal-info p { 
     color: var(--font-color-body, #575757);
     font-family: var(--font-family-02, "Archivo");
@@ -2310,7 +2324,49 @@ footer .bottom-footer a {
 }
 
 
- 
+/********** [Unlock Efficiency Section] **********/
+.unlock-efficiency-section {
+    background: var(--color-ui-02);
+}
+
+.unlock-efficiency-section .portal-benefits-cards img {
+    max-width: 48px;
+    margin-bottom: 24px;
+}
+
+.unlock-efficiency-section .portal-benefits-cards h6 { 
+    margin-bottom: 8px;
+}
+
+.unlock-efficiency-section .portal-benefits-cards p { 
+    margin-bottom: 40px;
+}
+
+.unlock-efficiency-section .portal-benefits-cards i { 
+    align-self: flex-end;
+    margin-top: auto;
+    font-size: 24px;
+    transition: transform 0.3s ease, color 0.3s ease; 
+} 
+.unlock-efficiency-section .portal-benefits-cards {
+    padding: 24px;
+    border-radius: 14px;
+    background: var(--color-ui-01, #FFF);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.5s ease-in-out; 
+}
+
+.unlock-efficiency-section .portal-benefits-cards:hover {
+    box-shadow: 0px 24px 38px 0px rgba(0, 0, 0, 0.05), 0px 11px 15px 0px rgba(0, 0, 0, 0.10);
+}
+
+.unlock-efficiency-section .portal-benefits-cards:hover i{ 
+    transform: translateX(10px);
+    color: var(--color-main-hover);
+}
+
 /********** [About Us] **********/
 
 .about-us .about-section-title {
