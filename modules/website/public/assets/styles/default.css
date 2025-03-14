@@ -2058,6 +2058,8 @@ footer .bottom-footer a {
     width: 100%; 
     overflow: hidden; 
     position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   
 .slider-track {
@@ -2071,6 +2073,7 @@ footer .bottom-footer a {
     background-color: #fff;
     box-sizing: border-box; 
     border-radius: 14px;
+    transition: box-shadow 0.4s ease-in; 
 }
 
   

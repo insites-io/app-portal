@@ -78,11 +78,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to update item width dynamically based on screen size
   function updateItemWidth() {
     const visibleItems = itemToShow;
-    const gap = 3; // Gap between items, in percentage
-    const itemWidth = (containerWidth - (visibleItems - 1) * (gap / 100) * containerWidth) / visibleItems;
+    const gap = 2; // Gap between items, in percentage
+    const paddingLeft = 10; // Adjust for padding left
+    const paddingRight = 10; // Adjust for padding right
+
+    // Adjust the item width calculation to take padding into account
+    const itemWidth = (containerWidth - paddingLeft - paddingRight - (visibleItems - 1) * (gap / 100) * containerWidth) / visibleItems;
 
     items.forEach(item => {
-      item.style.flex = `0 0 ${itemWidth}px`; 
+        item.style.flex = `0 0 ${itemWidth}px`;
     });
 
     sliderTrack.style.gap = `${gap}%`;
