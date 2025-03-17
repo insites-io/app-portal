@@ -15,14 +15,9 @@ metadata: {
             <div class="grid-x grid-padding-x gutter-medium">
                 <div class="large-4 medium-6 small-12 cell text-left">
                     <div class="img-logo img-full">
-                        {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
-                        {% if context.exports.global.company_logo == nil or context.exports.global.company_logo contains "client-logo.png" %}
-                            {% comment %} ? DEFAULT {% endcomment %}
+                       
                             <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo" height="56" width="119">
-                        {% else %}
-                            {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
-                            <img class="logo" src="{{ context.exports.global.company_logo }}" alt="Logo" height="56" width="119">
-                        {% endif %}
+                       
                     </div>
                 </div>
                 <div class="small-12 cell spacer xxx-large hide-for-medium"></div>
@@ -31,7 +26,7 @@ metadata: {
                 <div class="large-2 medium-6 small-12 cell">
                     <ul class="vertical menu">
                         <li>
-                            <p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">Quick Links</p>
+                            <p class="footer-link-main-label" data-test="">Quick Links</p>
                             <div class="spacer"></div>
                         </li>
                         <li class="">
@@ -60,7 +55,7 @@ metadata: {
                     
                     <ul class="vertical menu">
                         <li>
-                            <p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">Services</p>
+                            <p class="footer-link-main-label" data-test="">Features</p>
                             <div class="spacer"></div>
                         </li>
                         {% comment %} connect services to graphql {% endcomment %}
@@ -84,7 +79,7 @@ metadata: {
                     <div class="spacer xxxx-large show-for-small-only"></div>
                     
                     <ul class="vertical menu">
-                    <li><p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">External Links</p>
+                    <li><p class="footer-link-main-label" data-test="">External Links</p>
                         <div class="spacer"></div>
                     </li>
                     <li>
@@ -137,7 +132,7 @@ metadata: {
                         {% if context.exports.global.facebook_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
-                                <i class="icon-facebook-stroke "></i>
+                                <i class="icon-facebook-square"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -145,7 +140,7 @@ metadata: {
                         {% if context.exports.global.twitter_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="twitter" rel="noreferrer">
-                                <i class="icon-social-x"></i>
+                                <i class="icon-social-x-square"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -153,7 +148,7 @@ metadata: {
                         {% if context.exports.global.linkedin_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="linkedin" rel="noreferrer">
-                                <i class="icon-linkedin-stroke "></i>
+                                <i class="icon-linkedin"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -161,7 +156,7 @@ metadata: {
                         {% if context.exports.global.instagram_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.instagram_link }}" data-test="" target="_blank" title="instagram" rel="noreferrer">
-                                <i class="icon-instagram"></i>
+                                <i class="icon-instagram-square"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -169,7 +164,7 @@ metadata: {
                         {% if context.exports.global.youtube_link  %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.youtube_link }}" data-test="" target="_blank" title="youtube" rel="noreferrer">
-                                <i class="icon-youtube-stroke"></i>
+                                <i class="icon-youtube-square"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -177,7 +172,7 @@ metadata: {
                         {% if context.exports.global.pinterest_link  %}
                             <li>
                                 <a class="footer-links iconHover" href="{{ context.exports.global.pinterest_link }}" data-test="" target="_blank" title="pinterest" rel="noreferrer">
-                                    <i class="icon-pinterest"></i>
+                                    <i class="icon-pinterest-square"></i>
                                 </a>
                             </li>
                             {% endif %}

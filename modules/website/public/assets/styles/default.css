@@ -1930,8 +1930,39 @@ footer .heading {
     display: block;
 }
 
+.footer-link-main-label {
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-02, "Archivo");
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; 
+}
+.footer-links  {
+    color: var(--font-color-body, #575757);
+    font-family: var(--font-family-02, Archivo);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; 
+}
+
+.footer-links:hover {
+    color:  #3044FF;
+}
+
+.footer-p {
+    color: var(--font-color-body, #575757);
+    font-family: var(--font-family-02, "Archivo");
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 21px */ 
+}
+
 footer .social {
-    justify-content: space-between;
+    gap: 24px;
+    justify-content: flex-end;
 }
 
 footer .social [class*="icon-"] {
@@ -1963,27 +1994,9 @@ footer .menu a {
     }
 }
 
-footer a,
-footer .body-link {
-    color: var(--font-color-head);
-}
 
-footer a.active,
-footer .body-link.active,
-footer a:hover,
-footer .body-link:hover,
-footer a:focus,
-footer .body-link:focus {
-    color: var(--color-main);
-}
 
-footer .bottom-footer,
-footer .bottom-footer p,
-footer .bottom-footer a {
-    color: var(--font-color-inv);
-    font-size: 12px;
-    line-height: 15px;
-}
+
 
 .scroll-to-top-btn {
     position: fixed;
