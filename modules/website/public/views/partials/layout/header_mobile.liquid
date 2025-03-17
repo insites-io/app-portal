@@ -3,10 +3,19 @@ metadata: {
     partial_name: 'Website | Layout | Header mobile'
 }
 ---
+  {% function has_profile = "modules/website/layout/check_if_user_has_profile" %}
 
-<div class="navigation-05b drawer-holder mobile-menu-container">
+<div id="mobileMenuContainer" class="navigation-05b drawer-holder mobile-menu-container">
 <ins-drawer no-padding id="mobile-menu" show-header="false" class="mobileNav hide-for-large hide-for-small" >
     <div>
+      <div class="mobile-menu-button-container">
+        <div class="wrapper">
+          <div id="mobile-menu-wrapper-dynamic" class="grid-container grid-x align-middle">
+            <div id="mobile-menu-btn-close" class="icon-close-1"></div>
+          </div>
+        </div>
+      </div>
+      
         {%- assign menus = '[]' | parse_json -%}
         {%- graphql get_menu = 'modules/website/menu/get_parent_menu' | dig: 'items', 'results'-%}
   
@@ -22,7 +31,7 @@ metadata: {
           {%- assign menus = menus | add_to_array: parent -%}
         {% endfor %}
     
-        <ul class="vertical menu">
+        <ul class="vertical menu navlinks">
           {% for menu in menus %}
 
             {%- if menu.child.size > 0 -%}
@@ -44,7 +53,7 @@ metadata: {
                   </li>
             {% else %}
                 <li class="no-submenu mobile-menu-style">
-                    <a class="colorBlack" href="/{{ menu.slug }}">
+                    <a href="/{{ menu.slug }}">
                     {{menu.label}}
                     </a>
                 </li>
@@ -55,18 +64,9 @@ metadata: {
   
           <!-- /normal list -->     
         {% comment %} Check if current user has profile {% endcomment %}
-        {% function has_profile = "modules/website/layout/check_if_user_has_profile" %}
-
         {% if has_profile == false  %}
-          <li class="no-submenu mobile-menu-style sign-in-button">
-              <a href="/sign-in">     
-            <i class="icon-user"></i>  Sign In
-            </a>
-          </li>
-          <li class="no-submenu mobile-menu-style">
-              <a href="/register" class="colorBlack">
-              <ins-button class="register-mobile-button" label="REGISTER" type="submit" size="normal" solid></ins-button>
-            </a>
+          <li class="no-submenu mobile-menu-style mobile-register">
+            <a class="nav-register-btn" href="">Create account</a>
           </li>
           {% else %}
               <li class="mobile-menu-style">

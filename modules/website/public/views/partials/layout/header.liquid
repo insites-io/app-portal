@@ -11,7 +11,7 @@ metadata: {
 {%- assign global = context.exports.global -%}
 
 <header  id="main-header">
-  <div class="wrapper">
+  <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
       <div class="large-2 medium-3 small-8 cell">
         <a href="/">
@@ -26,24 +26,54 @@ metadata: {
         </a>
       </div>
 
-      <div class="large-10 medium-3 small-8 cell">
+      {%- assign menus = '[]' | parse_json -%}
+      {%- graphql get_menu = 'modules/website/menu/get_parent_menu' | dig: 'items', 'results'-%}
+
+      {% assign menu_data = get_menu | parse_json %}
+    
+      {% for menu_item in menu_data %}
+        {%- assign parent = '{}' | parse_json -%}
+        {%- assign parent = parent | add_hash_key: "label", menu_item.label -%}
+        {%- assign parent = parent | add_hash_key: "slug", menu_item.slug -%}
+
+        {%- graphql get_child_menu = 'modules/website/menu/get_child_menu', parent_id: menu_item.id | dig: 'items', 'results' -%}
+        {%- assign parent = parent | add_hash_key: "child", get_child_menu -%}
+        {%- assign menus = menus | add_to_array: parent -%}
+      {% endfor %}
+
+      <div class="large-10 medium-3 small-8 cell hide-nav-medium">
           <div class="navlinks">
-            <a href="">About us</a>
-
-            <ins-dropdown label="Features">
-              <ins-dropdown-item label="Easy-to-use intuitive interface" link="/returns"></ins-dropdown-item>
-              <ins-dropdown-item label="Prebuilt & custom components" link="/service-request"></ins-dropdown-item>
-              <ins-dropdown-item label="Fully customisable to fit your needs" link="/service-request"></ins-dropdown-item>
-              <ins-dropdown-item label="Multi-user access" link="/service-request"></ins-dropdown-item>
-            </ins-dropdown>
-
-            <a href="">FAQ</a>
-            <a href="">News</a>
-            <a href="">Contact</a>
+            {% for menu in menus %}
+              {%- if menu.child.size > 0 -%}
+                <a class="nav-dropdown-link" href="/{{menu.slug}}">
+                <ins-dropdown 
+                  label="{{menu.label}}"
+                  >
+                    {%- assign res_services = menu.child -%}
+                    
+                    {% for item in res_services %}
+                      <ins-dropdown-item
+                        link="/{{menu.slug}}/{{ item.slug }}"
+                        label="{{ item.label }}">
+                      </ins-dropdown-item>
+                    {% endfor %} 
+                </ins-dropdown>
+              </a>
+              {% else %}
+    
+              <a href="/{{menu.slug}}">
+                {{menu.label}}
+              </a>
+              {% endif %}
+            {% endfor %}
             <a class="nav-sign-in-btn" href="">Sign in</a>
             <a class="nav-register-btn" href="">Create account</a>
 
           </div>
+      </div>
+
+      <div class="hide-for-large mobile-menu-toggle large-0 medium-1 small-1 cell ">
+        <div id="mobile-menu-btn" class="icon-menu-1"></div>
       </div>
 
       

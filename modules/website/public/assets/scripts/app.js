@@ -4,7 +4,11 @@ const scrollTopBtn = document.getElementById('scroll-to-top');
 
 // Mobile Menu
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenuBtnClose = document.getElementById('mobile-menu-btn-close')
 const mobileMenuDrawer = document.getElementById('mobile-menu');
+const mobileMenuContainer = document.getElementById('mobileMenuContainer')
+const mainHeaderWrapper = document.getElementById('mainHeaderWrapper')
+const mobileMenuWrapperDynamic = document.getElementById('mobile-menu-wrapper-dynamic')
 
 let lastKnownScrollPosition = window.pageYOffset || document.body.scrollTop;
 const mobileWindowWidthLimit = 1023;
@@ -224,6 +228,11 @@ let App = (function () {
             toggleDrawerMenu() {
                 let state = !mobileMenuDrawer.isOpen ? true : false;
                 mobileMenuDrawer.setDrawerState(state);
+                if (state) {
+                    mobileMenuContainer.style.display = 'block'
+                    mobileMenuContainer.classList.remove('mobile-menu-container')
+                }
+                mobileMenuWrapperDynamic.style.height = `${mainHeaderWrapper.clientHeight}px`
             },
             toggleMobileMenuBtnIcon() {
                 let state = mobileMenuDrawer.isOpen ? true : false;
@@ -277,10 +286,15 @@ let App = (function () {
             },
             // Mobile Menu
             initMobileMenu() {
-                if (mobileMenuBtn && mobileMenuDrawer) {
+                if (mobileMenuBtn && mobileMenuDrawer && mobileMenuBtnClose) {
                     mobileMenuBtn.addEventListener('click', () => {
                         App.events.toggleDrawerMenu();
                     });
+
+                    mobileMenuBtnClose.addEventListener('click', () => {
+                        App.events.toggleDrawerMenu();
+                    })
+
                     mobileMenuDrawer.addEventListener('insToggle', () => {
                         App.events.toggleMobileMenuBtnIcon();
                     });
