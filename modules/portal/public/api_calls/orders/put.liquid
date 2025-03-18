@@ -12,7 +12,7 @@ request_headers: >
 {%- 
     liquid 
 
-    assign data = '{}' | parse_json
+    assign api_data = '{}' | parse_json
     assign payload = '{}' | parse_json
 
     if data.id 
@@ -75,7 +75,8 @@ request_headers: >
         assign payload = payload | add_hash_key: 'billing_company_name', data.billing_company_name
     endif
 
-    assign data = data | add_hash_key: 'payload', payload
+    assign api_data = api_data | add_hash_key: 'payload', payload
 
 -%}
-{{ data }}
+{%- log api_data, type: "Update Order API Payload" -%}
+{{ api_data }}
