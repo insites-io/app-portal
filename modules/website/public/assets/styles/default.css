@@ -1698,7 +1698,8 @@ ins-tag span.ins-tag {
 #main-header {
     width: 100%;
     padding: 24px 0px;
-    background: var(--color-bg1, #05051D); /* Transparent background */
+    background: var(--color-bg1, #05051D);
+    transition: background-color 0.3s ease;
 }
 
 #main-header ins-dropdown {
@@ -1790,35 +1791,43 @@ ins-tag span.ins-tag {
     justify-content: flex-end;
 }
 
-@media screen and (max-width: 1066px) and (min-width: 1024px) {
+@media screen and (max-width: 1066px) and (min-width: 1029px) {
     #main-header ins-dropdown {
         padding: 8px ;
     }
 }
 
-@media screen and (max-width: 1023px) { 
+@media screen and (max-width: 1028px) { 
     .hide-nav-medium {
         display: none;
     }
-
     .mobile-menu-toggle {
-        display: flex;
+        display: flex !important;
         align-items: flex-end;
         margin-left: auto;
         flex-direction: row;
         justify-content: flex-end;
     }
 
+    #main-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9;
+        background-color: transparent;
+        transition: transform 0.3s ease-in-out, background-color 0.3s ease; 
+      }
+
 
 } 
-    
-
-
 
 /********** [Mobile Menu] **********/
 
+
 .mobile-menu-toggle {
     position: relative;
+    display: none;
 }
 
 #mobile-menu-btn {
@@ -2311,13 +2320,76 @@ footer .menu a {
 }
 
 .hero-banner-img {
-    margin-top: -20%
+    position: relative;
+    z-index: 2;
+    top: -300px;
+}
+
+.hero-banner-img + * {
+    margin-top: 0; /* Ensure the next section doesn't have extra margin */
+}
+
+.negative-offset-hero {
+    margin-top: -300px;
+}
+
+@media screen and (max-width: 745px){  
+    .negative-offset-hero {
+        margin-top: -200px;
+    }
+
+    .hero-banner-img {
+        position: relative;
+        z-index: 2;
+        top: -200px;
+    }
+    
+}
+
+@media screen and (max-width: 600px) and (min-width: 520){  
+    .hero-home-banner {
+        height: 80vh;
+    }
+    
+}
+
+@media screen and (max-width: 519px) {  
+    .hero-home-banner {
+        height: 80vh;
+    }
+
+    .negative-offset-hero {
+        margin-top: -116px;
+    }
+
+    .hero-banner-img {
+        position: relative;
+        z-index: 2;
+        top: -116px;
+    }
+
+    .hero-banner-img img {
+        height: 200px;
+        width: 100%;
+    }
+    
+}
+
+
+@media screen and (max-width: 1028px) {
+    .hero-home-banner {
+        padding-top: 32px;
+    }
+
+    .hero-home-banner .hero-main-text {
+        font-size: 48px;
+    }
 }
 
 /********** [Home Page - Client Section] **********/
 .client-logo-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 100%;
     flex-wrap: wrap;
 }
@@ -2331,6 +2403,7 @@ footer .menu a {
 
 .adaptive-portal-section {
     position: relative;
+    min-height: 700px;
 }
 
 .adaptive-portal-section .adaptive-portal-img {
@@ -2343,12 +2416,12 @@ footer .menu a {
 }
 
 .adaptive-portal-section .adaptive-portal-banner img{
-    width: 40%;
+    width: 50%;
 }
 
 
 .adaptive-portal-section .adaptive-portal-banner .adaptive-portal-info {
-    width: 60%;
+    width: 50%;
 }
 
 
@@ -2402,11 +2475,42 @@ footer .menu a {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 15%;
+    bottom: 0;
 }
 
 .adaptive-portal-section .dynamic-slider .slider-item:hover {
     box-shadow: 0px 24px 38px 0px rgba(0, 0, 0, 0.05), 0px 11px 15px 0px rgba(0, 0, 0, 0.10);
+}
+
+@media (max-width: 1130px) { 
+    .adaptive-portal-section .adaptive-portal-info h2 {
+        font-size: 40px;
+    }
+
+    .adaptive-portal-section .dynamic-slider { 
+        bottom: -40px;
+    }
+}
+
+@media (max-width: 1130px) {  
+    .adaptive-portal-section .adaptive-portal-banner {
+        flex-direction: column;
+    }
+
+    .adaptive-portal-section .adaptive-portal-banner img {
+        width: 100%;
+    }
+
+    .adaptive-portal-section .adaptive-portal-banner .adaptive-portal-info {
+        width: 100%;
+        height: 700px;
+    }
+
+    .adaptive-portal-section .adaptive-portal-info .adaptive-portal-cta {
+        margin-left: 0;
+        padding: 0 24px;
+        width: 100%;
+    }
 }
 
 

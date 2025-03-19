@@ -317,7 +317,48 @@ let App = (function () {
                         }
                     });
                 }
+                
             },
+
+            initMobileSticyMenu() {
+                let lastScrollTop = 0;
+                const navbar = document.getElementById('main-header');
+                
+                // Function to check if the screen is mobile size
+                function isMobile() {
+                  return window.innerWidth <= 1029;
+                }
+                
+                window.addEventListener('scroll', function () {
+                  // Only apply the background color change if it's a mobile device
+                  if (isMobile()) {
+                    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                
+                    // Scroll Down: Hide navbar
+                    if (currentScroll > lastScrollTop && currentScroll > navbar.offsetHeight) {
+                      navbar.style.transform = 'translateY(-100%)'; // Hide navbar
+                    }
+                    // Scroll Up: Show navbar
+                    else if (currentScroll < lastScrollTop) {
+                      navbar.style.transform = 'translateY(0)'; // Show navbar
+                    }
+                
+                    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative values
+                
+                    // Change navbar background color on scroll (only for mobile)
+                    if (currentScroll > 50) { // If scrolled down more than 50px
+                      navbar.style.backgroundColor = '#05051D'; // Semi-transparent black background
+                    } else {
+                      navbar.style.backgroundColor = 'transparent'; // Transparent when at the top
+                    }
+                  } else {
+                    // If not on mobile, ensure navbar background is solid on desktop
+                    navbar.style.backgroundColor = '#05051D'; // Solid color on desktop
+                    navbar.style.transform = 'translateY(0)'; // Ensure navbar is visible
+                  }
+                });
+            },
+            
 
             clearFunctionSearch() {
   
@@ -395,4 +436,5 @@ setTimeout(() => {
     App.init.initScrollToTopBtn();
     App.init.initMobileMenu();
     App.init.initScrollMenu();
+    App.init.initMobileSticyMenu();
 }, 200);
