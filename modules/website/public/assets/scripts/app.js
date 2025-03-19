@@ -320,7 +320,7 @@ let App = (function () {
                 
             },
 
-            initMobileSticyMenu() {
+            initMobileStickyMenu() {
                 let lastScrollTop = 0;
                 const navbar = document.getElementById('main-header');
                 
@@ -329,11 +329,13 @@ let App = (function () {
                   return window.innerWidth <= 1029;
                 }
                 
-                window.addEventListener('scroll', function () {
-                  // Only apply the background color change if it's a mobile device
-                  if (isMobile()) {
-                    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                // Function to handle navbar behavior on scroll
+                function handleScroll() {
+                  if (!navbar) return; // Ensure navbar exists
                 
+                  let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                
+                  if (isMobile()) {
                     // Scroll Down: Hide navbar
                     if (currentScroll > lastScrollTop && currentScroll > navbar.offsetHeight) {
                       navbar.style.transform = 'translateY(-100%)'; // Hide navbar
@@ -343,20 +345,22 @@ let App = (function () {
                       navbar.style.transform = 'translateY(0)'; // Show navbar
                     }
                 
-                    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative values
+                    lastScrollTop = Math.max(0, currentScroll); // Prevent negative values
                 
                     // Change navbar background color on scroll (only for mobile)
-                    if (currentScroll > 50) { // If scrolled down more than 50px
-                      navbar.style.backgroundColor = '#05051D'; // Semi-transparent black background
-                    } else {
-                      navbar.style.backgroundColor = 'transparent'; // Transparent when at the top
-                    }
+                    navbar.style.backgroundColor = currentScroll > 50 ? '#05051D' : 'transparent';
                   } else {
-                    // If not on mobile, ensure navbar background is solid on desktop
-                    navbar.style.backgroundColor = '#05051D'; // Solid color on desktop
-                    navbar.style.transform = 'translateY(0)'; // Ensure navbar is visible
+                    // Ensure navbar background is solid and visible on desktop
+                    navbar.style.backgroundColor = '#05051D';
+                    navbar.style.transform = 'translateY(0)';
                   }
-                });
+                }
+                
+                // **Run once immediately to apply correct background**
+                handleScroll();
+                
+                // Attach the scroll event listener
+                window.addEventListener('scroll', handleScroll);
             },
             
 
@@ -436,5 +440,5 @@ setTimeout(() => {
     App.init.initScrollToTopBtn();
     App.init.initMobileMenu();
     App.init.initScrollMenu();
-    App.init.initMobileSticyMenu();
+    App.init.initMobileStickyMenu();
 }, 200);

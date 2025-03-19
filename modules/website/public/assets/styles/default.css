@@ -2076,6 +2076,12 @@ footer .menu a {
     }
 }
 
+@media screen and (max-width: 639px) { 
+    .footer-p { 
+        text-align: left;
+    }
+}
+
 
 
 
@@ -2391,7 +2397,7 @@ footer .menu a {
     }
 
     .hero-home-banner .hero-main-text {
-        font-size: 48px;
+        font-size: 42px;
     }
 }
 
