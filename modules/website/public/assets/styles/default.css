@@ -2176,25 +2176,31 @@ footer .menu a {
     width: 100%; 
     overflow: hidden; 
     position: relative;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  
+}
+
 .slider-track {
     display: flex;
     transition: transform 0.5s ease; 
     margin-bottom: 50px;
 }
-  
+
+
+
+.slider-item-container  {
+    padding: 16px;
+}
+
 .slider-item {
     padding: 24px;
     background-color: #fff;
     box-sizing: border-box; 
     border-radius: 14px;
     transition: box-shadow 0.4s ease-in; 
+    height: 100%;
+    width: 100%;
 }
 
-  
+
 .slider-item p {
     white-space: normal;
     color: var(--font-color-body, #575757);
@@ -2204,7 +2210,7 @@ footer .menu a {
     font-weight: 400;
     line-height: 150%; 
 }
-  
+
 .slider-item h6 {
     color: var(--font-color-head);
     font-family: var(--font-family-01, "DM Sans");
@@ -2215,12 +2221,11 @@ footer .menu a {
     letter-spacing: 0.16px;
     margin-bottom: 8px;
 }
-  
-.slider-item img {
-      max-width: 48px;
-      margin-bottom: 16px;
-}
 
+.slider-item img {
+    max-width: 48px;
+    margin-bottom: 16px;
+}
 
 .dynamic-slider-buttons {
     margin-left: auto;
@@ -2229,12 +2234,13 @@ footer .menu a {
     gap: 16px;
     margin-bottom: 24px;
 }
-  
+
 .dynamic-slider-buttons i {
     font-size: 24px;
     padding: 10px;
     border-radius: 100px;
 }
+
 @media screen and (max-width: 639px) {
     .slider-item {
       flex: 0 0 100%; 
@@ -2242,39 +2248,42 @@ footer .menu a {
     .slider-track {
       gap: 0%; 
     }
-  }
+}
   
-  @media screen and (min-width: 640px) and (max-width: 930px) {
+@media screen and (min-width: 640px) and (max-width: 930px) {
     .slider-item {
       flex: 0 0 48%;
     }
     .slider-track {
       gap: 4%; 
     }
-  }
+}
   
-  @media screen and (min-width: 931px) and (max-width: 1299px) {
+@media screen and (min-width: 931px) and (max-width: 1299px) {
     .slider-item {
       flex: 0 0 32%; 
     }
     .slider-track {
       gap: 3%; 
     }
-  }
+}
   
-  @media screen and (min-width: 1300px) {
+@media screen and (min-width: 1300px) {
     .slider-item {
       flex: 0 0 23%; 
     }
     .slider-track {
       gap: 3%; 
     }
-  }
-
-.dynamic-slider-buttons i:hover {
-    background:  var(--color-main-hover-light,rgba(48, 68, 255, 0.06));
 }
 
+.dynamic-slider-buttons i:hover {
+    background: var(--color-main-hover-light, rgba(48, 68, 255, 0.06));
+}
+
+.slider-wrapper {
+    padding: 0 10px;
+}
 
 /********** [Home Page] **********/
 
