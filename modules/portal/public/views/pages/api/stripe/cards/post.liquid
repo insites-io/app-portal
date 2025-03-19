@@ -174,15 +174,16 @@ metadata: {
             {% log "Error: Logged-in user has no CRM data" %}
         {% endif %}
 
-        {% parse_json stripe_card %}
-        {
-            "contact_uuid": "{{ user_uuid }}",
-            "payment_method_token":  "{{ stripe_customer_id }}",
-            "source": "{{ payload.stripe_credit_card }}"
-        }
-        {% endparse_json %}
-
-        {%- include 'modules/portal/stripe/credit_cards/create_credit_card', stripe_card: stripe_card -%}      
+        {%- if stripe_customer_id -%}
+            {% parse_json stripe_card %}
+            {
+                "contact_uuid": "{{ user_uuid }}",
+                "payment_method_token":  "{{ stripe_customer_id }}",
+                "source": "{{ payload.stripe_credit_card }}"
+            }
+            {% endparse_json %}
+            {%- include 'modules/portal/stripe/credit_cards/create_credit_card', stripe_card: stripe_card -%}      
+        {% endif %}
 
     {% endif %}
 
