@@ -36,24 +36,28 @@ document.addEventListener('DOMContentLoaded', function () {
   const nextButton = document.querySelector('#nextButton');
   const sliderContainer = document.querySelector('.slider-container');
   let containerWidth = sliderContainer.offsetWidth;
-  let itemToShow = 4; 
+  let itemToShow = getItemToShow(); // Initialize correctly
+
+  function getItemToShow() {
+    if (containerWidth <= 639) {
+      return 1;
+    } else if (containerWidth <= 930) {
+      return 2;
+    } else if (containerWidth <= 1299) {
+      return 3;
+    } else {
+      return 4;
+    }
+  }
 
   function updateButtonsVisibility() {
     if (totalItems <= itemToShow) {
       nextButton.style.display = 'none';
     } else {
-      if (currentIndex < totalItems - itemToShow) {
-        nextButton.style.display = 'inline-block';
-      } else {
-        nextButton.style.display = 'none';
-      }
+      nextButton.style.display = currentIndex < totalItems - itemToShow ? 'inline-block' : 'none';
     }
 
-    if (currentIndex === 0) {
-      prevButton.style.display = 'none';
-    } else {
-      prevButton.style.display = 'inline-block';
-    }
+    prevButton.style.display = currentIndex === 0 ? 'none' : 'inline-block';
   }
 
   function nextSlide() {
@@ -73,54 +77,47 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateItemWidth() {
-    const visibleItems = itemToShow;
-    const gap = 2; 
-    const paddingLeft = 10; 
-    const paddingRight = 10; 
-
-    const itemWidth = (containerWidth - paddingLeft - paddingRight - (visibleItems - 1) * (gap / 100) * containerWidth) / visibleItems;
+    const gap = 2;
+    const paddingLeft = 10;
+    const paddingRight = 10;
+    const itemWidth = (containerWidth - paddingLeft - paddingRight - (itemToShow - 1) * (gap / 100) * containerWidth) / itemToShow;
 
     items.forEach(item => {
-        item.style.flex = `0 0 ${itemWidth}px`;
+      item.style.flex = `0 0 ${itemWidth}px`;
     });
 
     sliderTrack.style.gap = `${gap}%`;
   }
 
   function updateSliderPosition() {
-    const visibleItems = itemToShow; 
-    const gap = 3; 
-    const itemWidth = (containerWidth - (visibleItems - 1) * (gap / 100) * containerWidth) / visibleItems;
-    const slideWidth = itemWidth + (gap / 100) * containerWidth;
+    const gapPercentage = (itemToShow === 1) ? 0 : 3; // No gap when showing one item
+    const padding = 20;
+    const totalGap = (itemToShow - 1) * ((gapPercentage / 100) * containerWidth);
+    const itemWidth = (itemToShow === 1)
+        ? containerWidth - padding
+        : (containerWidth - padding - totalGap) / itemToShow;
+    const slideWidth = itemWidth + ((itemToShow === 1) ? 0 : (gapPercentage / 100) * containerWidth);
 
     let offset = currentIndex * slideWidth;
-
-    if (currentIndex === totalItems - visibleItems) {
-      offset = (totalItems - visibleItems) * slideWidth;
+    if (currentIndex > totalItems - itemToShow) {
+        currentIndex = totalItems - itemToShow;
     }
 
     sliderTrack.style.transform = `translateX(-${offset}px)`;
-  }
+}
 
   window.addEventListener('resize', () => {
-    containerWidth = sliderContainer.offsetWidth; 
-    if (containerWidth <= 639) {
-      itemToShow = 1; 
-    } else if (containerWidth <= 930) {
-      itemToShow = 2; 
-    } else if (containerWidth <= 1299) {
-      itemToShow = 3; 
-    } else {
-      itemToShow = 4; 
-    }
-    updateItemWidth(); 
-    updateSliderPosition(); 
-    updateButtonsVisibility(); 
+    containerWidth = sliderContainer.offsetWidth;
+    itemToShow = getItemToShow(); // Update on resize
+    updateItemWidth();
+    updateSliderPosition();
+    updateButtonsVisibility();
   });
 
-  updateButtonsVisibility();
+  itemToShow = getItemToShow(); // Set correct value on load
   updateItemWidth();
   updateSliderPosition();
+  updateButtonsVisibility();
 
   nextButton.addEventListener('click', nextSlide);
   prevButton.addEventListener('click', prevSlide);
