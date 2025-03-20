@@ -53,7 +53,8 @@ metadata: {
 {
     "payment_response": {{ context.exports.payment_response }},
     "customer_info": {{ customer_info }},
-    "order_id": {{ order_id }}
+    "order_id": {{ order_id }},
+    "order_uuid": "{{  context.session.order_uuid }}"
 }
 {% endparse_json %}
 

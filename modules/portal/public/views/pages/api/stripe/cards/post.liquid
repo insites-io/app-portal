@@ -48,7 +48,7 @@ metadata: {
         endif
     endif
 
-    graphql user_exist = "modules/ecommerce/user/get_user_by_email", email: customer_email | dig: "items"
+    graphql user_exist = "modules/portal/user/get_user_by_email", email: customer_email | dig: "items"
 
     if user_exist.total_entries > 0
         assign email_exist = true
@@ -87,8 +87,9 @@ metadata: {
             "mobile_phone_country_code": "{{ context.session.billing_contact_phone_country_code }}"
         }
         {%- endparse_json -%}
-        {%- graphql new_user = 'modules/ecommerce/user/create_user', args: new_user_data -%}
-
+        {% comment %} {%- graphql new_user = 'modules/ecommerce/user/create_user', args: new_user_data -%} {% endcomment %}
+        {%- graphql new_user = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact', data: new_user_data | dig: 'items','response','body' | parse_json -%}
+        {% log new_user %}
         {%- assign user = new_user.user -%}
         {%- assign user_uuid = user.user_uuid -%}
         {%- assign user_id = user.id -%}
@@ -105,7 +106,7 @@ metadata: {
             "mobile_phone_country_code": "{{ context.session.billing_contact_phone_country_code }}"
         }
         {%- endparse_json -%}    
-        {%- graphql update_contact = 'modules/ecommerce/system/trigger_api_call', name: 'modules/portal/update_contact', data: crm_data | dig: 'items','response','body' | parse_json -%}
+        {%- graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: crm_data | dig: 'items','response','body' | parse_json -%}
 
     {% endif %}
 
