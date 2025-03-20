@@ -1702,6 +1702,7 @@ ins-tag span.ins-tag {
     transition: background-color 0.3s ease;
 }
 
+
 #main-header ins-dropdown {
     display: inline-block;
     padding: 8px 24px;
@@ -1773,6 +1774,41 @@ ins-tag span.ins-tag {
     background: var(--font-color-inv);
     box-shadow: 0px 12px 12px 0px rgba(0, 0, 0, 0.05), 0px 2px 5px 0px rgba(0, 0, 0, 0.10);
 }
+
+#main-header.light-header {
+    background-color: #fff !important;
+}
+
+#main-header.light-header .navlinks a { 
+    color: var(--font-color-head);
+}
+
+#main-header.light-header .navlinks a:hover, 
+#main-header.light-header ins-dropdown:hover, 
+#main-header.light-header ins-dropdown .ins-dropdown:hover {  
+    color: #575757;
+}
+
+#main-header.light-header ins-dropdown .ins-dropdown_menu a:hover  {
+    background: var(--Brand---color-main-hover-light, rgba(48, 68, 255, 0.06));
+    color: var(--color-main-hover);
+}
+
+#main-header.light-header .navlinks .nav-sign-in-btn { 
+    color: var(--color-main);
+}
+
+#main-header.light-header .navlinks .nav-sign-in-btn:hover {
+    color: #2331B7 !important;
+    background:  rgba(48, 68, 255, 0.06);
+}
+
+#main-header.light-header .mobile-menu-toggle #mobile-menu-btn {
+    color: var(--font-color-inv, #fff);
+}
+
+
+
 
 .mobile-menu-toggle #mobile-menu-btn {
     color: var(--font-color-inv, #fff);
@@ -2178,6 +2214,7 @@ footer .menu a {
 
 /********** [Components] **********/
 
+/********** [Dynamic slider] **********/
 .slider-container {
     width: 100%; 
     overflow: hidden; 
@@ -2289,6 +2326,21 @@ footer .menu a {
 
 .slider-wrapper {
     padding: 0 10px;
+}
+
+
+/********** [Page hero banner] **********/
+.page-hero-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.page-hero-container p {
+    width: 50%;
+    text-align: center;
+    color: #575757;
 }
 
 /********** [Home Page] **********/
@@ -2404,7 +2456,7 @@ footer .menu a {
 /********** [Home Page - Client Section] **********/
 .client-logo-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
 }
@@ -2414,6 +2466,13 @@ footer .menu a {
     max-width: 150px; 
     height: auto; 
 }
+
+@media screen and (max-width: 1029px) { 
+    .client-logo-container {
+        justify-content: space-evenly;
+    }
+}
+
 /********** [Home Page - Adaptive Section] **********/
 
 .adaptive-portal-section {

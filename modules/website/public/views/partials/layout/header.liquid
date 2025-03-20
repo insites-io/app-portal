@@ -4,13 +4,11 @@ metadata: {
 }
 ---
 
-{% comment %} Used in Ecommerce Template {% endcomment %}
-
 {% comment %} ? GET GLOBAL CONTENT {% endcomment %}
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
 
-<header  id="main-header">
+<header  id="main-header" {% if dark == blank %} class="light-header" {% endif %}>
   <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
       <div class="large-2 medium-3 small-8 cell">
@@ -21,7 +19,11 @@ metadata: {
               <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo" height="56" width="119">
           {% else %}
               {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
-              <img class="logo" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
+              {% if dark == blank %} 
+                  <img class="logo" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
+                {% else %}
+                  <img class="logo" src="{{ global.alternate_company_logo }}" alt="Logo" height="56" width="119">
+              {% endif %}
           {% endif %}
         </a>
       </div>
@@ -80,9 +82,3 @@ metadata: {
     </div>
   </div>
 </header>
-
-    
-
-<script>
-
-</script>
