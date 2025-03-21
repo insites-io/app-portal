@@ -3,79 +3,52 @@ metadata: {
     partial_name: "Website | About | Our team",
 }
 ---
-  
+
+{%- graphql get_our_team = 'modules/website/about_us/get_our_team' | dig: 'items', 'results' -%}
+
+
 <section class="about-us-our-team">
 
-<div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
-  <div class="spacer section"></div>
-    <h2 class="text-center"> Our amazing team</h2>
-    <div class="spacer"></div>
-    <p class="text-center subHeading">It's a team where everyone feels respected and valued, and where there is trust among members.</p>
-    <div class="spacer x-large"></div>
-      <div class="our-team grid-container main-container" data-test="page-our-team-list">
+<div class="wrapper">
+  <div class="spacer section show-for-large"></div>
+  <div class="spacer xxx-large show-for-small-only"></div>
+    <div class="grid-container grid-x">
+      <div class="large-6 medium-6 small-12 cell">
+        <h2> Our amazing team</h2>
+        <div class="spacer"></div>
+        <p class="subHeading">A team where everyone feels valued and trusts each other.</p>
+      </div>
+      <div class="large-6 medium-6 small-12 cell">
+        <p class="subHeading">A great team works like a machine, combining unique skills in a supportive environment with clear communication and trust, leading to amazing results.</p>
+        <br>
+        <br>
+        <p class="subHeading">An amazing team is one that knows how to work together and make the most of their An amazing team values communication, collaboration, and trust, creating a supportive environment where everyone thrives and contributes to success.</p>
+      </div>
+    </div>
+  
+    <div class="spacer xxxx-large"></div>
+      <div class="our-team grid-container main-container">
         <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
           <!-- segment -->
-          <div class="large-3 medium-6 small-12 cell text-center" data-test="our-team-list-card">
-            
-              <img loading="lazy" alt="team1" class="ourTeamImg" src="{{ 'modules/website/images/about-us/team-1@2x.jpg' | asset_url }} ">
-            <div class="ourTeamCardHolder">
-              <div class="spacer"></div>
-                <h3 class="colorWhite">Robert Fox</h3>
-              <div class="spacer x-small"></div>
-               <p class="colorWhite"><strong>CEO</strong></p>
-               <div class="spacer x-small"></div>
+          {% for item in get_our_team %} 
+            <div class="large-3 medium-6 small-12 cell">
+              <img loading="lazy" alt="team1" class="ourTeamImg" src="{{ item.photo.url }} ">
+              <div class="our-team-card">
+                <div class="spacer"></div>
+                  <h5>{{ item.name }}</h5>
+                  <div class="spacer x-small"></div>
+                <p class="subHeading"><strong>{{ item.occupation }}</strong></p>
+                <div class="spacer x-small"></div>
+              </div>
             </div>
-          </div>
+        {% endfor %}
           <!-- /segment -->
 
-          <!-- segment -->
-          <div class="large-3 medium-6 small-12 cell text-center" data-test="our-team-list-card">
-              <img loading="lazy" alt="team2" class="ourTeamImg" src="{{ 'modules/website/images/about-us/team-2@2x.jpg' | asset_url }} ">
-            <div class="ourTeamCardHolder">
-              <div class="spacer"></div>
-                <h3 class="colorWhite">Wade Warren</h3>
-              <div class="spacer x-small"></div>
-                <p class="colorWhite"><strong>COO</strong></p>
-                <div class="spacer x-small"></div>
-            </div>
-          </div>
-          <!-- /segment -->
-          
-          <!-- segment -->
-          <div class="large-3 medium-6 small-12 cell text-center" data-test="our-team-list-card">
-              <img loading="lazy" alt="team3" class="ourTeamImg" src="{{ 'modules/website/images/about-us/team-3@2x.jpg' | asset_url }} ">
-            <div class="ourTeamCardHolder">
-              <div class="spacer"></div>
-                <h3 class="colorWhite">Jane Cooper</h3>
-              <div class="spacer x-small"></div>
-                <p class="colorWhite"><strong>Head of Sales</strong></p>
-                <div class="spacer x-small"></div>
-            </div>
-          </div>
-          <!-- /segment -->
-          
-          <!-- segment -->
-          <div class="large-3 medium-6 small-12 cell text-center" data-test="our-team-list-card">
-              <img loading="lazy" alt="team4" class="ourTeamImg" src="{{ 'modules/website/images/about-us/team-4@2x.jpg' | asset_url }} ">
-            <div class="ourTeamCardHolder">
-              <div class="spacer"></div>
-                <h3 class="colorWhite">Stepher James</h3>
-              <div class="spacer x-small"></div>
-                <p class="colorWhite"><strong>Head of Marketing</strong></p>
-                <div class="spacer x-small"></div>
-            </div>
-          </div>
+        
           <!-- /segment -->
         </div>     
-      </div>
-        
-      <div class="spacer xxxx-large"></div>
-
-      <div class="grid-container">
-          <p class="subHeading our-team-desc">A great team is like a well-oiled machine, working together to achieve amazing results. It starts with having the right people in place, with each member bringing their own unique skills and talents to the group. Once the team is assembled, the next step is to create an environment where everyone feels comfortable and supported. This means having clear communication and trust between team members, as well as setting expectations for everyone. It also means providing the resources and tools needed for success and recognizing the contributions of individual members. With all of these elements in place, a team can work together to create something truly amazing.</p>
-          <div class="spacer"></div>
-          <p class="subHeading our-team-desc"> An amazing team is one that knows how to work together and make the most of their individual strengths. They understand the importance of communication, collaboration, and trust. They understand that working together is more effective than working alone and that everyone has something to contribute. They respect each other's opinions and work together to find the best solutions. They are supportive of each other, celebrating successes and helping each other out in difficult times. An amazing team is a group of people who have come together and created an environment where everyone can thrive.</p>    
-      </div>       
+      </div>  
   </div>
 </section>
-<div class="spacer section"></div>
+<div class="spacer section show-for-large"></div>
+<div class="spacer xxx-large show-for-small-only"></div>
