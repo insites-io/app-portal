@@ -1846,17 +1846,17 @@ ins-tag span.ins-tag {
     }
 
     #main-header {
-        position: fixed;
-        top: 0;
-        left: 0;
         width: 100%;
         z-index: 9;
         background-color: transparent;
-        transition: transform 0.3s ease-in-out, background-color 0.3s ease; 
+        transition: transform 0.3s ease-in-out, background-color 0.3s ease, position 0.3s ease; 
       }
-
-
 } 
+
+
+ #main-header.no-light-header {
+    background-color: #05051D; 
+}
 
 /********** [Mobile Menu] **********/
 
@@ -3270,7 +3270,7 @@ Notyf
     font-style: normal;
     font-weight: bold;
     color: var(--color-ui-04);
-    font-size: 9.375rem;
+    font-size: 150px;
     line-height: 180px;
 }
 
@@ -3278,7 +3278,7 @@ Notyf
     font-family: var(--font-family-01);
     font-style: normal;
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: 48px;
     color: var(--font-color-head);
     line-height: 48px;
 }
@@ -3292,10 +3292,25 @@ Notyf
     font-family: var(--font-family-02);
     font-style: normal;
     font-weight: normal;
-    font-size: 0.875rem;
+    font-size: 16px;
     line-height: 24px;
+    font-weight: 400;
+    color: #575757;
 }
 
 .icon-alert-triangle {
     font-size: 64px!important;
+}
+
+.system-btn {
+    padding: 11px 24px;
+    font-weight: 700;
+    font-size: 14px;  
+    color: var(--font-color-link) !important;
+    border-radius: 14px;
+    background: var(--Gradient---color-gradient1, linear-gradient(95deg, #0095FF 6.51%, #3044FF 94.43%));
+}
+
+.system-btn:hover {
+    background: #2331B7;
 }

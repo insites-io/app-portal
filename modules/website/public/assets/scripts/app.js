@@ -300,70 +300,67 @@ let App = (function () {
                     });
                 }
             },
-            // Scrolling Event for Menu
-            initScrollMenu() {
-                let mainHeader = document.getElementById('main-header');
-                let ticking = false;
-
-                if (mainHeader) {
-                    document.addEventListener('scroll', function (e) {
-                        //this is done to avoid throtling the function too much
-                        if (!ticking) {
-                            window.requestAnimationFrame(function () {
-                                App.events.checkScrollStatus(window.scrollY);
-                                ticking = false;
-                            });
-                            ticking = true;
-                        }
-                    });
-                }
-                
-            },
-
             initMobileStickyMenu() {
                 let lastScrollTop = 0;
                 const navbar = document.getElementById('main-header');
                 
                 // Function to check if the screen is mobile size
                 function isMobile() {
-                  return window.innerWidth <= 1029;
+                    return window.innerWidth <= 1029;
                 }
-                
+            
                 // Function to handle navbar behavior on scroll
                 function handleScroll() {
-                  if (!navbar) return; // Ensure navbar exists
-                
-                  let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-                
-                  if (isMobile()) {
-                    // Scroll Down: Hide navbar
-                    if (currentScroll > lastScrollTop && currentScroll > navbar.offsetHeight) {
-                      navbar.style.transform = 'translateY(-100%)'; // Hide navbar
+                    if (!navbar) return; // Ensure navbar exists
+            
+                    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+                    // Check if navbar has 'light-header' class
+                    const hasLightHeader = navbar.classList.contains('light-header');
+            
+                    if (isMobile()) {
+                        // If we're at the top of the page (scroll = 0)
+                        if (currentScroll === 0) {
+                            // If navbar doesn't have the 'light-header' class, set background color to #05051D
+                            if (!hasLightHeader) {
+                                navbar.classList.add('no-light-header'); // Add no-light-header class to set background to #05051D
+                            } else {
+                                navbar.classList.remove('no-light-header'); // Remove no-light-header class to make background transparent
+                            }
+                            navbar.style.position = 'relative'; // Return to normal flow
+                            navbar.style.transform = 'translateY(0)'; // Ensure the navbar is visible
+                        }
+                        // Scroll Down: Hide navbar and fix it to the top
+                        else if (currentScroll > lastScrollTop && currentScroll > navbar.offsetHeight) {
+                            navbar.style.position = 'fixed'; // Make navbar fixed when scrolling down
+                            navbar.style.transform = 'translateY(-100%)'; // Hide navbar
+                        }
+                        // Scroll Up: Show navbar and keep it fixed
+                        else if (currentScroll < lastScrollTop) {
+                            navbar.style.position = 'fixed'; // Keep it fixed even when scrolling up
+                            navbar.style.transform = 'translateY(0)'; // Show navbar
+                        }
+            
+                        // If we're not at the top, adjust navbar background color (for mobile)
+                        if (currentScroll > 50) {
+                            navbar.style.backgroundColor = '#05051D'; // Change background to #05051D when scrolling
+                        }
+            
+                        lastScrollTop = Math.max(0, currentScroll); // Prevent negative values
+                    } else {
+                        // For desktop, navbar should always have a solid background color
+                        navbar.style.backgroundColor = '#05051D';
+                        navbar.style.position = 'relative'; // Make sure it's not fixed on desktop
+                        navbar.style.transform = 'translateY(0)';
                     }
-                    // Scroll Up: Show navbar
-                    else if (currentScroll < lastScrollTop) {
-                      navbar.style.transform = 'translateY(0)'; // Show navbar
-                    }
-                
-                    lastScrollTop = Math.max(0, currentScroll); // Prevent negative values
-                
-                    // Change navbar background color on scroll (only for mobile)
-                    navbar.style.backgroundColor = currentScroll > 50 ? '#05051D' : 'transparent';
-                  } else {
-                    // Ensure navbar background is solid and visible on desktop
-                    navbar.style.backgroundColor = '#05051D';
-                    navbar.style.transform = 'translateY(0)';
-                  }
                 }
-                
-                // **Run once immediately to apply correct background**
+            
+                // **Run once immediately to apply correct background before scroll events**
                 handleScroll();
-                
+            
                 // Attach the scroll event listener
                 window.addEventListener('scroll', handleScroll);
             },
-            
-
             clearFunctionSearch() {
   
                 setTimeout(() => {
@@ -439,6 +436,5 @@ setTimeout(() => {
     App.init.clearFunctionSearch();
     App.init.initScrollToTopBtn();
     App.init.initMobileMenu();
-    App.init.initScrollMenu();
     App.init.initMobileStickyMenu();
 }, 200);

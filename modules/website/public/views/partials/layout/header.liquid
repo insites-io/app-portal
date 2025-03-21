@@ -8,7 +8,7 @@ metadata: {
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
 
-<header  id="main-header" {% if dark == blank %} class="light-header" {% endif %}>
+<header  id="main-header" {% if dark == blank %} class="light-header" {% else %} class="no-light-header" {% endif %}>
   <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
       <div class="large-2 medium-3 small-8 cell">
