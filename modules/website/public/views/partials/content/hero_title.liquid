@@ -15,11 +15,11 @@ metadata: {
 {% elsif slug_name == 'faqs' or slug_name == 'faq-details' %}
     {% assign header = 'Frequently asked questions' %}  
 {% elsif slug_name == 'privacy-policy' %}
-    Privacy Policy
+    {% assign header = 'Privacy policy' %}  
 {% elsif slug_name == 'contact-us' %}
     {% assign header = 'Get in touch' %}  
 {% elsif slug_name == 'terms-and-conditions' %}
-    Terms & Conditions
+    {% assign header = 'Terms & conditions' %}  
 {% else %}
     Test Page
 {% endif %}
