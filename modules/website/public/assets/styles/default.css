@@ -3158,6 +3158,27 @@ footer .menu a {
 Contact Us
 */
 
+.contact-us-wrapper {
+    background: linear-gradient(to right, var(--color-ui-02, #F9FAFB) 60%, white 40%);
+
+}
+
+.contact-us-details-wrapper {
+    background: #fff;
+    padding-left: 50px;
+}
+
+.contact-us-details-wrapper .google-map-img img {
+    width: 100%;
+    height: 300px;
+    object-fit: fill;
+}
+
+.contact-us-form-container {
+    padding-right: 48px;
+}
+
+
 .contact-us #contact-google-map {
     width: 100%;
     height: 300px;
@@ -3167,9 +3188,27 @@ Contact Us
     margin-bottom: 1rem;
 }
 
+.contact-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(4, auto);  
+    gap: 24px; 
+    list-style: none;
+    padding: 0;
+}
+
 .contact-us .contact-details {
     font-size: var(--font-small);
     line-height: 17px;
+}
+
+.contact-details .menu {
+    gap: 24px;
+}
+
+.contact-details .menu a{
+    padding: 0;
+    font-size: 22px;
 }
 
 .contact-us .contact-details a{ 
@@ -3181,11 +3220,13 @@ Contact Us
     padding-left: 30px;
 }
 
-.contact-us .contact-details i {
-    /*padding-right: 15px;*/
-    position: absolute;
-    left: 0px;
-    top: 3px;
+.contact-heading {
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-02, Archivo);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
 }
 
 .contact-us .opening-hours,
@@ -3195,9 +3236,9 @@ Contact Us
     font-family: var(--font-family-02);
 }
 
-.contact-us .opening-hours .bold,
-.contact-us .opening-hours .bold p {
-    font-weight: 700;
+.contact-us-details-container  .opening-hours .bold,
+.contact-us-details-container  .opening-hours .bold p {
+    font-weight: 700 !important;
 }
 
 .ins-input-tel-wrap .iti .iti__flag-container .iti__selected-flag {
@@ -3205,15 +3246,52 @@ Contact Us
     line-height: 20px;
 }
 
+.contact-us-form-container .insites-form-wrap .insites-form-grid ins-button button {
+    padding: 0 24px;
+    font-weight: 700;
+    font-size: 14px;  
+    color: var(--font-color-link) !important;
+    border-radius: 14px;
+    background: var(--Gradient---color-gradient1, linear-gradient(95deg, #0095FF 6.51%, #3044FF 94.43%));
+}
 
-/**
-Contact Us
-*/
+.contact-us-form-container .insites-form-wrap .insites-form-grid ins-button button .btn__label {
+    text-transform: none;
+    color: var(--font-color-inv, #FFF);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; 
+}
+
+.contact-us-form-container .insites-form-wrap .insites-form-grid ins-button button:hover {
+    background: #2331B7;
+}
 
 @media screen and (max-width: 639px) {
     #subscribe-form .subscribe-component {
         width: 100%;
         text-align: left;
+    }
+
+    .contact-us-wrapper {
+        background: linear-gradient(to bottom, var(--color-ui-02, #F9FAFB) 40%, white 46%);
+    }
+    .contact-us-form-container {
+        padding-right: 0;
+    }
+
+    .contact-us-details-wrapper { 
+        padding-left: 0;
+    }
+
+    .contact-details {
+        display: flex;
+        flex-direction: column;
+    }
+    .contact-us-form-container .insites-form-wrap .insites-form-grid ins-button  { 
+        width: 100%;
     }
 }
 
