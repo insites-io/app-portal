@@ -12,8 +12,12 @@ metadata: {
 
 {% assign get_category = get_faq | dig: 'items', 'results' %}
 {% assign get_category = get_category | map: "category" | uniq %}
-{%- include 'modules/website/content/hero_title' -%}
+{% assign description = "Check out the answers to your questions about our portal and how it all works!" %}
+{% include 'modules/website/content/hero_title', description: description %} 
 
+{% if context.params.slug2 == blank %}
+    {% redirect_to 'faqs/general' %}
+{% endif %}
 <div class="wrapper sideNavBg">
     <div class="grid-container">
             <div class="grid-container">

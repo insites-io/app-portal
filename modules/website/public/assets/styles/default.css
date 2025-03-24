@@ -225,9 +225,14 @@ h3,
 
 h4,
 .heading-4 {
-    font-size: var(--font-large);
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%; 
+    letter-spacing: 0.32px;
 }
-
 h5,
 .heading-5 {
     color: var(--font-color-head, #05051D);
@@ -2833,6 +2838,77 @@ footer .menu a {
     .about-us-section-content-1 .about-us img { 
         width: 100%;
     }
+}
+
+/********** [FAQ] **********/
+.faq-sidenav .ins-accordion-link {
+    border: none;
+}
+
+.faq-sidenav .ins-accordion-link.active>.ins-accordion-link_link {
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-02, Archivo);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; 
+}
+
+.faq-sidenav .ins-accordion-link:hover {
+    background-color: transparent;
+}
+
+.faq-sidenav .ins-accordion-link.active>.ins-accordion-link_link:hover { 
+    color: var(--color-main);
+    text-decoration: none;
+}
+
+
+.faq-sidenav .set-active .ins-accordion-link a {
+    font-weight: 700;
+    border-radius: 16px;
+    text-decoration: none;
+    background: rgba(67, 108, 242, 0.1);
+    color: var(--color-main) !important;
+}
+
+.faq-content-questions .ins-accordion .ins-accordion-item .ins-accordion-item_header .inner-head .heading {
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-02, Archivo);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+}
+
+.faq-content-questions .ins-accordion .ins-accordion-item .ins-accordion-item_header .inner-head {
+    padding: 24px;
+    border: none !important;
+    border-bottom: 1px solid var(--color-ui-04, #DFDFDF) !important;
+    transition: border-bottom ease-in .3s;
+}
+.faq-content-questions .ins-accordion .ins-accordion-item.open .ins-accordion-item_header .inner-head { 
+    border: none !important;
+}
+
+.faq-content-questions .ins-accordion .ins-accordion-item.open .ins-accordion-item_header .inner-head:hover { 
+    border: none !important;
+}
+
+
+.faq-content-questions .ins-accordion .ins-accordion-item .ins-accordion-item_header .inner-head:hover {
+    border: none;
+    border-bottom: 1px solid #3044FF !important;
+    background:  rgba(48, 68, 255, 0.06);
+}
+.faq-content-questions .ins-accordion-item_content .inner-content {
+    border: none;
+    border-bottom: 1px solid #3044FF;
+    background:  rgba(48, 68, 255, 0.06);
+}
+
+.faq-content-questions .ins-accordion-item.open>.ins-accordion-item_header>.inner-head {
+    background:  rgba(48, 68, 255, 0.06);
 }
 
 

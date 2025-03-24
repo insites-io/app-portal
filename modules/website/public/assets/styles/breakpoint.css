@@ -129,9 +129,6 @@ screen and (min-width: 640px) {
     .custGridContainer {
         padding: 20px!important;
     }
-    .sideNavBg {
-        background: #fff;
-    }
     .faqSidenav .ins-accordion-link_link {
         padding: 14px 0px!important;
     }
@@ -169,9 +166,6 @@ screen and (min-width: 640px) {
     }
     .testiLabel {
         font-size: 14px;
-    }
-    .sideNavBg {
-        background: #fff;
     }
 }
 
@@ -248,9 +242,7 @@ screen and (min-width: 640px) {
         font-size: 18px;
         letter-spacing: 0.1em;
     }
-    .sideNavBg {
-        background: linear-gradient(90deg, #fafbfb 50%, #fff 50%)!important;
-    }
+
 }
 
 @media screen and (min-width: 1440px) {
