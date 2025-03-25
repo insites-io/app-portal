@@ -46,18 +46,53 @@ metadata: {
 {% comment %} assign var to fetch the result   page-size-options {% endcomment %}
 {%- assign res_news = get_news | dig: 'items', 'results' -%}
 
-{% include 'modules/website/content/search/searchpage_banner' %}
+{% comment %} {% include 'modules/website/content/search/searchpage_banner' %} {% endcomment %}
+        
+{% assign description = "Stay updated with the latest news, insights, and updates. Explore articles on industry trends, company announcements, and expert opinions—all in one place." %}
+{% include 'modules/website/content/hero_title', description: description %} 
 
-<div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
-    <div class="our-team grid-container main-container" data-test="page-our-team-list">     
-        <div class="spacer section"></div>
+<div class="wrapper">
+    <div class="spacer section"></div>
+    <div class="awards-filter-container">
+        <div class="grid-container">
+            <div class="grid-x gutter-medium grid-padding-x">
+                <div class="large-8 medium-12 small-12 cell">
+                    <ins-filter id="awards-filter">
+                        <ins-filter-item
+                            name="Tag"
+                            options='["All", "Design", "Web development", "Technology","SEO"]'>
+                        </ins-filter-item>
+
+                        <ins-filter-item
+                            name="Sort by"
+                            options='["Newest First", "Oldest first", "Most popular", "Alphabetical (A-Z)","Alphabetical (Z-A)"]'>
+                        </ins-filter-item>
+                    </ins-filter>
+                </div>
+                <div class="large-4 medium-12 small-12 cell">
+                    <div class="">
+                        <ins-input                 
+                            id="filter-description"
+                            class="search-award"
+                            placeholder="Search news"
+                            icon-event
+                            icon="icon-search-1">
+                        </ins-input>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="spacer xxxx-large"></div>
+    <div class="grid-container">     
         <section class="news-content">
             <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
                 {% for item in res_news %}
-                    <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
-                        <div class="card"> 
-                            <div class="newsImageContainer">
-                                <a href="/news/{{ item.slug }}">
+                    <div class="large-4 medium-6 small-12 cell">
+                        <a href="/news/{{ item.slug }}" class="news-main-link-container">
+                            <div class="card"> 
+                                <div class="newsImageContainer">
                                     {% if item.list_view_image.url %}
                                         <img loading="lazy" alt="image" src="{{ item.list_view_image.url }}"/>
                                     {% else %}
@@ -68,47 +103,58 @@ metadata: {
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
-                                </a>
-                            </div>
-                            <div class="newsContentContainer">
-                            <div class="tagButton">
-                                <ins-tag 
-                                    label="{{ item.tag }}" 
-                                    icon="icon-tag" 
-                                    color="blue"
-                                    light=false>
-                                </ins-tag>
-                            </div>
-                            <div class="spacer"></div>
-                            <a href="/news/{{ item.slug }}">
-                                <div class="newsTitle">
-                                    <h3 class="subHeading">{{ item.title }}</h3>
                                 </div>
-                            </a>
-                            {% comment %} ? FETCHING AUTHOR NAME BASED ON EXTERNAL ID: item.author {% endcomment %}
-                            {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
-                            {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
-
-                            {% if item.author %}
-                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ get_author.first_name }} {{ get_author.last_name }}</p>
-                            {% else %}
-                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY MARK WEBBER</p>
-                            {% endif %}                        
-
-                            <div class="spacer small"></div>
-                            <div class="description">
-                                {{ item.list_view_text }}
+                                <div class="spacer large"></div>
+                                <div class="news-author">
+                                    {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
+                                    {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
+                                    {% if item.author %}
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}, by {{ get_author.first_name }} {{ get_author.last_name }}</p>
+                                    {% else %}
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}, by Mark Webber</p>
+                                    {% endif %}                  
+                                </div>
+                                <div class="newsContentContainer">
+                                    <div class="news-content">
+                                        <div class="spacer x-small"></div>
+                                            <div class="newsTitle">
+                                                <h5>{{ item.title }}</h5>
+                                            </div>
+                                        <div class="spacer x-small"></div>
+                                        <div class="description">
+                                            <p class="subHeading">{{ item.list_view_text }}</p>
+                                        </div>
+                                        <div class="spacer small"></div>
+                                        <div class="tagButton">
+                                            <ins-tag 
+                                                label="{{ item.tag }}" 
+                                                icon="icon-star" 
+                                                class="news-tag"
+                                                {% if item.tag == 'WebDev'%}
+                                                    color="green"
+                                                {% endif %}
+                                                {% if item.tag == 'SEO'%}
+                                                    color="red"
+                                                {% endif %}
+                                                {% if item.tag == 'Design'%}
+                                                    color="blue"
+                                                {% endif %}
+                                                >
+                                            </ins-tag>
+                                        </div> 
+                                    </div>
+                                    <div class="news-link">
+                                        <i class="icon-arrow-up-right"></i> 
+                                    </div>
+                                </div>
                             </div>
-                            <div class="spacer small"></div>
-                            <div class="custom-publish-info">
-                                <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
-                        </div>
-                        </div>
+                        </a>
                     </div>
                 {% endfor %}	
             </div>
         </section>
-
+        
+        <div class="spacer xxxx-large"></div>
         <ins-table no-wrap
         static-table
         id="insBaseTable"
