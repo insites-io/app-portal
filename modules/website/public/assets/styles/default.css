@@ -80,9 +80,9 @@
     /* spacers */
     --container-max-width: 1440px;
     --container-max-width-half: 616px;
-    --container-padding-xx-large: 24px;
-    --container-padding-x-large: 24px;
-    --container-padding-large: 24px;
+    --container-padding-xx-large: 192px;
+    --container-padding-x-large: 96px;
+    --container-padding-large: 48px;
     --container-padding-medium: 32px;
     --container-padding-small: 24px;
 }
@@ -402,6 +402,8 @@ screen and (min-width: 640px) {
     position: relative;
     padding-left: 0;
     padding-right: 0;
+    margin: 0 !important;
+    max-width: 100%;
 }
 
 .wrapper .wrapper {
@@ -446,6 +448,97 @@ screen and (min-width: 640px) {
 
 .grid-container-half {
     max-width: var(--container-max-width-half);
+}
+
+/* Full banner layout (Use this on full width banner contents inorder for the layout margin/padding to be applied inside of the banner */
+
+@media screen and (min-width: 1440px) {
+    .full-width-banner-content-left-only {
+        padding-left: var(--container-padding-xx-large);
+    }
+
+    .full-width-banner-content-right-only {
+        padding-right: var(--container-padding-xx-large);
+    }
+
+    .full-width-banner-content {
+        padding-right: var(--container-padding-xx-large);
+        padding-left: var(--container-padding-xx-large);
+    }
+    
+    
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1439px) {
+    .full-width-banner-content-left-only {
+        padding-left: var(--container-padding-x-large);
+    }
+
+    .full-width-banner-content-right-only {
+        padding-right: var(--container-padding-x-large);
+    }
+
+    .full-width-banner-content {
+        padding-right: var(--container-padding-x-large);
+        padding-left: var(--container-padding-x-large);
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+    .full-width-banner-content-left-only {
+        padding-left: var(--container-padding-large);
+    }
+
+    .full-width-banner-content-right-only {
+        padding-right: var(--container-padding-large);
+    }
+
+    .full-width-banner-content {
+        padding-right: var(--container-padding-large);
+        padding-left: var(--container-padding-large);
+    }
+}
+
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+    .full-width-banner-content-left-only {
+        padding-left: var(--container-padding-medium);
+    }
+
+    .full-width-banner-content-right-only {
+        padding-right: var(--container-padding-medium);
+    }
+    
+    .full-width-banner-content-left-only,
+    .full-width-banner-content-right-only {
+        width: 50%;
+    }
+
+    .full-width-banner-content {
+        width: 50%;
+        padding-left: var(--container-padding-medium);
+        padding-right: var(--container-padding-medium);
+    }
+        
+}
+
+@media screen and (max-width: 639px) {
+    .full-width-banner-content-left-only {
+        padding-left: var(--container-padding-small);
+        padding-right: var(--container-padding-small);
+        width: 100%;
+    }    
+
+    .full-width-banner-content-right-only {
+        padding-left: var(--container-padding-small);
+        padding-right: var(--container-padding-small);
+        width: 100%;
+    }    
+
+    .full-width-banner-content {
+        padding-left: var(--container-padding-small);
+        padding-right: var(--container-padding-small);
+        width: 100%;
+    }   
 }
 
 
@@ -2531,6 +2624,26 @@ footer .menu a {
 }
 
 
+/* Search bar */
+#search-input .ins-input-wrap .input-wrap .icon-close-1{
+    background: #fff;
+    border: none;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding: 10px;
+    right: 7%;
+    color: var(--font-color-body, #575757);
+    transition:  border-color .25s ease-in-out;
+    top: 3px
+}
+
+#search-input .ins-input-wrap .input-wrap .icon-close-1:hover {
+    color: var(--color-main-hover);
+    cursor: pointer;
+}
+
 /********** [Home Page] **********/
 
 .hero-home-banner {
@@ -3287,6 +3400,102 @@ footer .menu a {
     color: #2331B7;
     padding: 17px;
 }
+
+.news-details-holder ul {
+    list-style: disc;
+}
+
+.news-details-holder {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.news-details-holder img {
+    border-radius: 20px;
+}
+
+.news-details-holder h6 {
+    font-size: 18px; 
+}
+
+.news-header-container {
+    display: flex;
+}
+
+.news-header-container .newsContentContainer {
+    position: relative;
+    flex-direction: column;
+    width: 55%;
+}
+
+.news-header-container .news-header-img-container {
+    width: 45%;
+}
+
+
+.news-header-container .news-header-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.news-back-link {
+    color: var(--color-main, #3044FF) !important;
+    font-family: var(----font-family-01, "DM Sans");
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; 
+}
+
+.news-back-link i {
+    position: relative;
+    top: 1px;
+    margin-right: 8px;
+}
+
+.news-header-container .description p {
+    font-size: 18px;
+}
+
+.news-header-container .news-author p {
+    font-size: 12px;
+}
+
+.news-header-container .news-content {
+    width: 70%;
+}
+
+@media screen and (min-width: 640px) and (max-width: 1023px) {    
+    .news-header-container .news-header-img-container {
+        width: 50%;
+    }
+
+    .news-details-holder { 
+        padding: 0 32px;
+    }
+    
+}
+
+@media screen and (max-width: 639px) {
+    .news-header-container {
+        flex-direction: column;
+    }
+
+    .news-header-container .news-header-img-container {
+        width: 100%;
+    }
+
+    .news-header-container .news-content {
+        width: 100%;
+        margin-bottom: 56px;
+    }
+
+    .news-details-holder {
+        padding: 0 24px;
+    }
+}
+
 
 /********** [Services - INS DB] **********/
 

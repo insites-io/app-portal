@@ -1,7 +1,10 @@
 query get_news(
     $page: Int = 1, 
     $size: Int = 9,
-    $keyword: String
+    $keyword: String,
+    $tag: String,
+    $sort: String,
+    $field: String
 ) {
     items: records(
         page: $page
@@ -10,12 +13,38 @@ query get_news(
             table: { value: "modules/website/news" }
             deleted_at: { exists: false }
             properties: [
-                { name: "name", contains: $keyword }
+                { name: "tag", value: $tag } 
               	{ name: "status", contains: "Published"}
+            ],
+            or: [
+            {
+            properties: [
+                { 
+                name: "title",
+                contains: $keyword
+                }
             ]
+            },
+            {
+            properties: [
+                { 
+                name: "content",
+                contains: $keyword
+                }
+            ]
+            },
+            {
+            properties:[
+                {
+                name: "list_view_text",
+                contains: $keyword
+                }
+            ]
+            }
+        ]
         }
         sort: [
-            { properties: { name: "order", order: ASC } }
+            { properties: { name: $field , order: $sort } }
         ]
     ) {
         total_entries
@@ -28,7 +57,7 @@ query get_news(
           slug: property(name: "slug")
           tag: property(name: "tag")
           author:property(name: "author")
-		    published_date:property(name: "published_date")
+		  published_date:property(name: "published_date")
           content:property(name: "content")
           list_view_text:property(name: "list_view_text")
 

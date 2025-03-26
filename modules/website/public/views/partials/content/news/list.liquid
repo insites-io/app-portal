@@ -40,9 +40,23 @@ metadata: {
 {%  liquid         
     assign page_num = context.params.page | default: 1 | plus: 0
     assign per_page = context.params.per_page | default: 6 | plus: 0
+    assign keyword = context.params.search | default: ""
+    assign tag = context.params.tag | default: ""
+    assign sort =  context.params.sort | default: "DESC"
+    assign field = "" | default: "published_date" 
+    if sort == "A-Z"
+        assign field = "title" 
+        assign sort = "ASC"
+    endif
+
+    if sort == "Z-A"
+        assign field = "title" 
+        assign sort = "DESC"
+    endif
+
 %}
 
-{%- graphql get_news = 'modules/website/news/get_news', page: page_num, size: per_page -%}
+{%- graphql get_news = 'modules/website/news/get_news', page: page_num, size: per_page, keyword: keyword, tag: tag, sort: sort, field: field -%}
 {% comment %} assign var to fetch the result   page-size-options {% endcomment %}
 {%- assign res_news = get_news | dig: 'items', 'results' -%}
 
@@ -53,30 +67,50 @@ metadata: {
 
 <div class="wrapper">
     <div class="spacer section"></div>
-    <div class="awards-filter-container">
+    <div class="news-filter-container">
         <div class="grid-container">
             <div class="grid-x gutter-medium grid-padding-x">
                 <div class="large-8 medium-12 small-12 cell">
-                    <ins-filter id="awards-filter">
+                    <ins-filter id="news-filter">
                         <ins-filter-item
                             name="Tag"
-                            options='["All", "Design", "Web development", "Technology","SEO"]'>
+                            options='["All", "Design", "Web development", "Technology","SEO"]'
+                            selected="{{ context.params.tag }}">
                         </ins-filter-item>
-
                         <ins-filter-item
                             name="Sort by"
-                            options='["Newest First", "Oldest first", "Most popular", "Alphabetical (A-Z)","Alphabetical (Z-A)"]'>
+                            options='["Newest First", "Oldest first", "Alphabetical (A-Z)","Alphabetical (Z-A)"]'
+                            {% liquid 
+                                if context.params.sort == "DESC"
+                                    assign sort_val = "Newest First"
+                                endif
+
+                                if context.params.sort == "ASC"
+                                    assign sort_val  = "Oldest first"
+                                endif
+
+                                if context.params.sort == 'A-Z'
+                                    assign sort_val = "Alphabetical (A-Z)"
+                                endif
+
+                                if context.params.sort == 'Z-A'
+                                    assign sort_val = "Alphabetical (Z-A)" 
+                                endif             
+                            %}
+                            selected="{{ sort_val }}">
                         </ins-filter-item>
                     </ins-filter>
                 </div>
                 <div class="large-4 medium-12 small-12 cell">
                     <div class="">
                         <ins-input                 
-                            id="filter-description"
+                            id="search-input"
                             class="search-award"
                             placeholder="Search news"
                             icon-event
-                            icon="icon-search-1">
+                            icon="icon-search-1"
+                            error-message="Search Keyword cannot be blank"
+                            value="{{ context.params.search }}">
                         </ins-input>
                     </div>
                 </div>
@@ -85,6 +119,19 @@ metadata: {
         </div>
     </div>
     <div class="spacer xxxx-large"></div>
+
+{% if get_news.items.total_entries == 0 %}
+    <div class="grid-container">
+        <div class="grid-x align-center">
+            {% if context.params.search != blank %}
+                <p class="subHeading">No results found for keyword "<strong>{{ keyword  }}</strong>"</p>
+            {% else %}
+                <p class="subHeading">No results found</p>    
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
     <div class="grid-container">     
         <section class="news-content">
             <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
@@ -130,7 +177,7 @@ metadata: {
                                                 label="{{ item.tag }}" 
                                                 icon="icon-star" 
                                                 class="news-tag"
-                                                {% if item.tag == 'WebDev'%}
+                                                {% if item.tag == 'Web Development'%}
                                                     color="green"
                                                 {% endif %}
                                                 {% if item.tag == 'SEO'%}
@@ -207,4 +254,147 @@ metadata: {
         pageNumber = event.detail.pageNumber;
         processTableData()
     }
+
+    // Search functionality
+    var searchKey = document.getElementById('search-input');
+
+    function goToSearch() {
+        var empty = checkIfEmpty(searchKey.value);
+        if (!empty) {
+            // Get current URL
+            var currentUrl = new URL(window.location.href);
+            
+            // Add or update the 'search' parameter
+            currentUrl.searchParams.set('search', searchKey.value);
+            
+            // Navigate to the updated URL
+            window.location.href = currentUrl.toString();
+        }
+    }
+
+    function checkIfEmpty(searchString) {
+        if (searchString === "") {
+            searchKey.setAttribute("has-error", "");
+            return true;
+        } else {
+            searchKey.removeAttribute("has-error");
+            return false;
+        }
+    }
+
+    searchKey.addEventListener('insIconClick', goToSearch);
+
+    searchKey.addEventListener('insInput', e => {
+        if (e.detail.keyCode === 13) goToSearch();
+    });
+
+    searchKey.addEventListener('insValueChange', e => {
+        checkIfEmpty(searchKey.value);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(() => {
+        console.log('test')
+      const inputElementContainer = document.getElementById('search-input');
+      const inputElement = inputElementContainer.getElementsByTagName('input')[0];
+      const iconSearchElement = inputElementContainer.querySelector('.icon-wrap.icon-search-1');
+
+      if (!inputElement || !iconSearchElement) {
+        return;
+      }
+
+    
+      if (inputElement.value.trim() !== "") {
+        let closeIcon = document.createElement('i');
+        closeIcon.classList.add('icon-close-1', 'additional-class');
+        inputElementContainer.querySelector('.input-wrap').insertBefore(closeIcon, iconSearchElement);
+        closeIcon.style.display = 'flex'; 
+      }
+
+      inputElement.addEventListener('input', function () {
+        let closeIcon = inputElementContainer.querySelector('.icon-close-1');
+
+        if (inputElement.value.trim() !== "") {
+          if (!closeIcon) {
+            closeIcon = document.createElement('i');
+            closeIcon.classList.add('icon-close-1', 'additional-class');
+            inputElementContainer.querySelector('.input-wrap').insertBefore(closeIcon, iconSearchElement);
+          }
+          closeIcon.style.display = 'flex'; 
+        } else {
+          if (closeIcon) {
+            closeIcon.remove(); 
+          }
+        }
+      });
+
+      inputElement.addEventListener('click', function () {
+        let closeIcon = inputElementContainer.querySelector('.icon-close-1');
+        if (inputElement.value.trim() !== "") {
+          if (!closeIcon) {
+            closeIcon = document.createElement('i');
+            closeIcon.classList.add('icon-close-1', 'additional-class');
+            inputElementContainer.querySelector('.input-wrap').insertBefore(closeIcon, iconSearchElement);
+          }
+          closeIcon.style.display = 'flex'; 
+        }
+      });
+
+   
+      inputElementContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('icon-close-1')) {
+          inputElement.value = "";
+          let closeIcon = inputElementContainer.querySelector('.icon-close-1');
+          if (closeIcon) {
+            closeIcon.remove(); 
+            inputElementContainer.value = ""
+          }
+        }
+      });
+
+    }, 300);
+  });
+    
+
+    //filter function
+    let filterEl = document.getElementById('news-filter');
+
+    filterEl.addEventListener('insFilterApply', (event) => {
+        console.log(event);
+        
+        var currentUrl = new URL(window.location.href);
+
+        // Handling the 'tag' parameter
+        var tag = event.detail.Tag;
+        if (tag) {
+            if (tag === 'all') {
+                // If the tag is 'all', clear the 'tag' parameter
+                currentUrl.searchParams.delete('tag');
+            } else {
+                // Otherwise, add or update the 'tag' parameter
+                currentUrl.searchParams.set('tag', tag);
+            }
+        }
+
+        // Handling the 'sort' parameter
+        var sortObj = event.detail;
+        var sort = sortObj["Sort by"];
+        if (sort) {
+            if (sort === 'Newest First') {
+                sort = "DESC";
+            } else if (sort === "Oldest first") {
+                sort = "ASC";
+            } else if (sort === "Alphabetical (A-Z)") {
+                sort = "A-Z";
+            } else {
+                sort = "Z-A";
+            }
+            // Add or update the 'sort' parameter
+            currentUrl.searchParams.set('sort', sort);
+        }
+
+        // Now navigate to the updated URL (after both 'tag' and 'sort' have been updated)
+        window.location.href = currentUrl.toString();
+    });
 </script>
+

@@ -1416,6 +1416,10 @@ ins-card .ins-card-wrap {
     padding: 0px 104px;
 }
 
+.newsDetailHolder ul {
+    list-style: disc;
+}
+
 .footer-links {
     font-size: 12px!important
 }
