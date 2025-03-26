@@ -1,0 +1,25 @@
+---
+metadata: {
+  page_slug: "features",
+  page_title: "Features",
+  layout: "list"
+}
+---
+{%- graphql get_features = 'modules/website/features/get_features' -%}
+{%- assign features =  get_features | dig: 'items', 'results'  -%}
+
+{% assign description = "Streamline communication between companies and clients, making information access easier for both." %}
+{% include 'modules/website/content/hero_title', description: description %} 
+
+<div class="spacer section"></div>
+
+<section class="features-section">  
+  <div class="features-list-container">
+    <div class="features-list-content full-width-banner-content-left-only">
+      {% include 'modules/website/content/components/features_card_list', data: features, full: false %}
+    </div>
+    <div class="features-list-image">
+      <img src="{{ 'modules/website/images/features/main-image.webp' | asset_url }}" alt="">
+    </div>
+  </div>
+</section>

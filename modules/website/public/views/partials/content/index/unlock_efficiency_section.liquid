@@ -1,5 +1,5 @@
-{%- graphql get_portal_benefits = 'modules/website/home/unlock_efficiency/get_portal_benefits' -%}
-{%- assign portal_benefits =  get_portal_benefits | dig: 'items', 'results'  -%}
+{%- graphql get_features = 'modules/website/features/get_features' -%}
+{%- assign features =  get_features | dig: 'items', 'results'  -%}
 
 
 <div class="unlock-efficiency-section">
@@ -14,22 +14,6 @@
             </div>
         </div>
     </div>
-
-    <div class="wrapper">
-        <div class="grid-container grid-x grid-padding-x grid-padding-y">
-            {% for data in portal_benefits %}
-                <div class="large-3 medium-6 small-12 cell">
-                    <a href="">
-                        <div class="portal-benefits-cards">
-                            <img src="{{ data.icon.url }}" alt="">
-                            <h6>{{ data.benefit_title }}</h6>
-                            <p>{{ data.benefit_description }}</p>
-                            <i class="icon-arrow-right"></i>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    {% include 'modules/website/content/components/features_card_list', data: features, full: true, home: true %}
     <div class="spacer section"></div>
 </div>  

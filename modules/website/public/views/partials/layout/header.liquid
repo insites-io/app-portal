@@ -43,20 +43,21 @@ metadata: {
         {%- assign menus = menus | add_to_array: parent -%}
       {% endfor %}
 
+      {%- graphql get_features = 'modules/website/features/get_features' -%}
+      {%- assign features =  get_features | dig: 'items', 'results'  -%}
+
       <div class="large-10 medium-3 small-8 cell hide-nav-medium">
           <div class="navlinks">
             {% for menu in menus %}
-              {%- if menu.child.size > 0 -%}
+              {%- if menu.slug == "features" -%}
                 <a class="nav-dropdown-link" href="/{{menu.slug}}">
                 <ins-dropdown 
                   label="{{menu.label}}"
                   >
-                    {%- assign res_services = menu.child -%}
-                    
-                    {% for item in res_services %}
+                    {% for item in features %}
                       <ins-dropdown-item
                         link="/{{menu.slug}}/{{ item.slug }}"
-                        label="{{ item.label }}">
+                        label="{{ item.card_title }}">
                       </ins-dropdown-item>
                     {% endfor %} 
                 </ins-dropdown>
@@ -74,7 +75,10 @@ metadata: {
           </div>
       </div>
 
-      <div class="mobile-menu-toggle large-0 medium-1 small-1 cell ">
+      <div class="mobile-menu-toggle large-0 medium-3 small-3 cell ">
+        {% if context.current_user == blank %}
+          <a class="nav-sign-in-btn" href="">Sign in</a>
+        {% endif %}
         <div id="mobile-menu-btn" class="icon-menu-1"></div>
       </div>
 

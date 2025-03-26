@@ -52,20 +52,18 @@ metadata: {
                 <div class="large-3 medium-6 small-12 cell">
                     <div class="spacer show-for-small-only"></div>
                     <div class="spacer xxxx-large show-for-small-only"></div>
-                    
+
+                    {%- graphql get_features = 'modules/website/features/get_features' -%}
+                    {%- assign features =  get_features | dig: 'items', 'results'  -%}
+
                     <ul class="vertical menu">
                         <li>
                             <p class="footer-link-main-label" data-test="">Features</p>
                             <div class="spacer"></div>
-                        </li>
-                        {% comment %} connect services to graphql {% endcomment %}
-                        {%- graphql get_services = 'modules/website/services/get_services' -%}
-                        {% comment %} assign var to fetch the result {% endcomment %}
-                        {%- assign res_services = get_services | dig: 'items', 'results' -%}
-                        
-                        {% for item in res_services %}
+                        </li>   
+                        {% for item in features %}
                           <li>
-                              <a href="/services/{{ item.slug }}" class="footer-links color-font-head" data-test="">{{ item.service_name }}</a>
+                              <a href="/services/{{ item.slug }}" class="footer-links color-font-head" data-test="">{{ item.card_title }}</a>
                               <div class="spacer small"></div>
                           </li>
                         {% endfor %}

@@ -80,7 +80,7 @@
     /* spacers */
     --container-max-width: 1440px;
     --container-max-width-half: 616px;
-    --container-padding-xx-large: 192px;
+    --container-padding-xx-large: 96px;
     --container-padding-x-large: 96px;
     --container-padding-large: 48px;
     --container-padding-medium: 32px;
@@ -2031,6 +2031,7 @@ ins-tag span.ins-tag {
 
 #main-header  ins-dropdown .ins-dropdown_menu a { 
     padding: 12px 24px !important;
+    color: var(--font-color-head, #05051D); 
 }
 
 #main-header .nav-dropdown-link {
@@ -2047,6 +2048,22 @@ ins-tag span.ins-tag {
     border: 1px solid var(--font-color-inv);
     background: var(--font-color-inv);
     box-shadow: 0px 12px 12px 0px rgba(0, 0, 0, 0.05), 0px 2px 5px 0px rgba(0, 0, 0, 0.10);
+}
+
+#main-header .mobile-menu-toggle .nav-sign-in-btn {
+    color: #ffff;
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 24px;
+}
+
+#main-header .mobile-menu-toggle {
+    align-items: center;
+}
+
+#main-header.mobile-menu-toggle #mobile-menu-btn {
+    padding: 8px;
+    border-radius: 4px;
 }
 
 #main-header.light-header {
@@ -2078,7 +2095,17 @@ ins-tag span.ins-tag {
 }
 
 #main-header.light-header .mobile-menu-toggle #mobile-menu-btn {
-    color: var(--font-color-inv, #fff);
+    color: var(--Brand---color-main, #3044FF);
+    padding: 8px;
+    background:  rgba(48, 68, 255, 0.06);
+    border-radius: 4px;
+}
+
+#main-header.light-header .mobile-menu-toggle .nav-sign-in-btn {
+    color: var(--color-main);
+    font-weight: 700;
+    font-size: 14px;
+    margin-right: 24px;
 }
 
 
@@ -2604,6 +2631,12 @@ footer .menu a {
 
 
 /********** [Page hero banner] **********/
+
+.hero-title {
+    position: relative;
+    z-index: -10;
+}
+
 .page-hero-container {
     display: flex;
     flex-direction: column;
@@ -2894,26 +2927,28 @@ footer .menu a {
     background: var(--color-ui-02);
 }
 
-.unlock-efficiency-section .portal-benefits-cards img {
+.portal-benefits-cards img {
     max-width: 48px;
     margin-bottom: 24px;
 }
 
-.unlock-efficiency-section .portal-benefits-cards h6 { 
+.portal-benefits-cards h6 { 
     margin-bottom: 8px;
 }
 
-.unlock-efficiency-section .portal-benefits-cards p { 
+.portal-benefits-cards p { 
     margin-bottom: 40px;
 }
 
-.unlock-efficiency-section .portal-benefits-cards i { 
+.portal-benefits-cards i { 
     align-self: flex-end;
     margin-top: auto;
     font-size: 24px;
     transition: transform 0.3s ease, color 0.3s ease; 
+    color: var(--font-color-head, #05051D);
 } 
-.unlock-efficiency-section .portal-benefits-cards {
+
+.portal-benefits-cards {
     padding: 24px;
     border-radius: 14px;
     background: var(--color-ui-01, #FFF);
@@ -2923,11 +2958,11 @@ footer .menu a {
     transition: box-shadow 0.5s ease-in-out; 
 }
 
-.unlock-efficiency-section .portal-benefits-cards:hover {
+.portal-benefits-cards:hover {
     box-shadow: 0px 24px 38px 0px rgba(0, 0, 0, 0.05), 0px 11px 15px 0px rgba(0, 0, 0, 0.10);
 }
 
-.unlock-efficiency-section .portal-benefits-cards:hover i{ 
+.portal-benefits-cards:hover i{ 
     transform: translateX(10px);
     color: var(--color-main-hover);
 }
@@ -3497,115 +3532,113 @@ footer .menu a {
 }
 
 
-/********** [Services - INS DB] **********/
+/********** [Features - INS DB] **********/
 
-.service-heading {
-    position: relative;
-}
-
-.service-heading .placeholder-img {
-    background: #909090;
-}
-
-.service-heading h1,
-.service-heading p {
-    color: var(--font-color-inv);
-}
-
-.service-list a,
-.service-list .body-link {
-    color: var(--font-color-head);
-}
-
-.service-list .ins-card-wrap {
-    padding: 48px 56px;
-    height: 100%;
-    box-shadow: 0px 12px 12px rgba(140, 148, 164, 0.14), 0px 2px 5px rgba(140, 148, 164, 0.2);
-}
-
-@media screen and (max-width: 1024px) {
-    .service-list .ins-card-wrap {
-        padding: 32px;
-    }
-}
-
-.service-list .content {
-    color: var(--font-color-body);
+.features-list-container {
     display: flex;
-    flex-direction: column;
-    height: 100%
+    max-height: 850px;
 }
 
-.service-list .content .body-link {
-    margin-top: auto;
-    font-family: var(--font-family-02);
-    font-weight: 600;
+.features-list-content  {
+    padding-top: 120px;
+    padding-bottom: 120px;
+    width: 55%;
+    background: var(--color-ui-02, #F9FAFB);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
 }
 
-.service-list .content .body-link i {
-    margin-left: 12px;
-    font-weight: 600;
-}
-
-.service-list a {
+.features-list-content a {
+    width: 40%;
     display: block;
+}
+
+.features-list-image {
+    width: 45%;
+}
+
+.features-list-image img { 
     height: 100%;
+    width: 100%;    
 }
 
-.service-list a:hover .content .name,
-.service-list a:focus .content .name,
-.service-list a:hover .content .body-link,
-.service-list a:focus .content .body-link {
-    color: var(--color-main);
+.features-list-content .portal-benefits-cards p {
+    margin-bottom: 0;
 }
 
-.service-list a:hover .ins-card-wrap,
-.service-list a:focus .ins-card-wrap {
-    border-color: var(--color-main);
+.features-banner-details-container {
+    display: flex;
 }
 
-
-/* Service Details */
-
-.service-details .image-wrap img {
-    border-radius: 5px;
+.features-banner-details {
+    display: flex;
+    align-items: center;
 }
 
-.service-details .content .dynamic-content:last-child .spacer.x-large {
-    display: none;
+.features-banner-details {
+    width: 45%;
 }
 
-.service-details .image-wrap,
-.service-details .product-heading {
+.features-banner-details-image {
+    width: 55%;
+}
+
+.features-details-wrapper {
+    background: var(--color-ui-02, #F9FAFB);
+}
+
+#feature-button button {
+    border-radius: 14px;
+    border: 1px solid var(--color-main, #3044FF);
+}
+
+#feature-button button span {
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 14px;
+    text-transform: none;
+}
+
+#feature-button button i:before {
     position: relative;
+    top: -1px;
 }
 
-.service-details .content-wrap {
-    text-align: center;
-    /* padding: 0 40px; */
-}
-
-.service-details .content-wrap.overlay {
-    padding: 0 0;
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-}
-
-@media screen and (max-width: 639px) {
-    .service-details .content-wrap.overlay {
-        position: absolute;
-        color: var(--font-color-body);
-        text-align: left;
-        margin-bottom: 30px;
-        padding: 0 20px;
+@media screen and (max-width: 950px) and (min-width: 640px) { 
+    .features-list-container {
+        flex-direction: column;
+        max-height: unset;
     }
-    .service-details .content-wrap.overlay .font-heading {
-        color: var(--color-main);
-        ;
+
+    .features-list-content, .features-list-image {
+        width: 100%;
+        height: 550px;
+    }
+
+    .features-list-content a {
+        width: 45%;
     }
 }
 
+@media screen and (max-width: 639px) {  
+    .features-list-container {
+        flex-direction: column;
+        max-height: unset;
+    }
+
+    .features-list-content, .features-list-image {
+        width: 100%;
+    }
+
+    .features-list-image img {
+        max-height: 550px;
+    }
+
+    .features-list-content a {
+        width: 100%;
+    }
+}
 
 /**
 Contact Us
@@ -3748,7 +3781,6 @@ Contact Us
     }
 }
 
-
 /**********
  [Terms & Conditions / Privacy Policy]
 **********/
@@ -3821,7 +3853,6 @@ Contact Us
     line-height: 39px;
     font-weight: 600;
 }
-
 
 /* Sub list styling */
 

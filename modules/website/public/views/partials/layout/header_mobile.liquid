@@ -30,24 +30,22 @@ metadata: {
           {%- assign parent = parent | add_hash_key: "child", get_child_menu -%}
           {%- assign menus = menus | add_to_array: parent -%}
         {% endfor %}
+
+        {%- graphql get_features = 'modules/website/features/get_features' -%}
+        {%- assign features =  get_features | dig: 'items', 'results'  -%}
     
         <ul class="vertical menu navlinks">
           {% for menu in menus %}
 
-            {%- if menu.child.size > 0 -%}
+            {%- if menu.slug == "features" -%}
                 <li class="mobile-menu-style">
                     <ins-accordion menu>
                       <ins-accordion-item class="colorBlack" heading="{{menu.label}}" link="#" open-icon="icon-plus" close-icon="icon-minus" link-target="_self"
                         class="has-subitems">
-                         
-                            {%- assign res_services =  menu.child -%}
-          
-                            {% for item in res_services %} 
-                              <ins-accordion-link class="colorBlack" label="{{ item.label }}" link="/{{ menu.slug }}/{{ item.slug }}" link-target="_self">
+                            {% for item in features %} 
+                              <ins-accordion-link class="colorBlack" label="{{ item.card_title }}" link="/{{ menu.slug }}/{{ item.slug }}" link-target="_self">
                               </ins-accordion-link>
                             {% endfor %} 
-          
-                    
                       </ins-accordion-item>
                     </ins-accordion>
                   </li>
