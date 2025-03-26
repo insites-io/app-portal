@@ -108,33 +108,38 @@ metadata: {
 {% comment %} Step 2: Update Order record {% endcomment %}
 {% parse_json data %}
 {
-    "id": "{{ form.id }}",
-    "order_reference": "{{ form.properties.order_reference }}",
-    "user_id": "{{ user_id }}",
-    "order_email": "{{ email }}",
-    "order_first_name": "{{ first_name }}",
-    "order_last_name": "{{ last_name }}",
-    "order_phone": "{{ phone_number }}",
-    "order_status": "{{ order_status }}",
-    "order_payment_status" : "{{ order_payment_status }}",
-    "amount_due" : {{ form.properties.total_amount }},
-    "total_amount" : {{ form.properties.total_amount }},
-    "total_tax_amount": {{ form.properties.total_tax_amount  }},
-    "order_value" : {{ form.properties.subtotal_amount }},
-    "last_updated_by_id": "{{ user_id }}",
-    "date_time": "{{ form.properties.date_time }}",
-    "currency": "{{ form.properties.currency }}"
+    "payload": {
+        "id": "{{ form.id  | default: "" }}",
+        "order_reference": "{{ form.properties.order_reference | default: "" }}",
+        "order_email": "{{ email | default: "" }}",
+        "order_first_name": "{{ first_name | default: "" }}",
+        "order_last_name": "{{ last_name | default: ""  }}",
+        "order_phone": "{{ phone_number | default: "" }}",
+        "order_status": "{{ order_status | default: "" }}",
+        "order_payment_status" : "{{ order_payment_status | default: "" }}",
+        "total_amount" : {{ form.properties.total_amount |  times: 1.0 | default: 0.0   }},
+        "total_tax_amount": {{ form.properties.total_tax_amount | times: 1.0 | default: 0.0   }},
+        "date_time": "{{ form.properties.date_time | default: "" }}",
+        "currency": "{{ form.properties.currency | default: "" }}",
+        "subtotal_amount": {{ form.properties.subtotal_amount| times: 1.0  | default: 0.0 }},
+        "total_amount_paid": {{ form.properties.total_amount | times: 1.0  | default: 0.0 }},
+        "total_discount_amount": {{ form.properties.total_discount_amount | times: 1.0 | default: 0.0 }}
+    }
 }
 {% endparse_json %}
+
 {%  graphql update_order = 'modules/website/trigger_api_call', 
     name: "modules/portal/update_order",
     data: data
     | dig: 'items','response','body'
     | parse_json %}
 
+    {% log update_order, type: 'order_id' %}
+
 {% liquid
     session paybill_order_id = update_order.items.id
     session paybill_order_reference = update_order.items.properties.order_reference
+    session order_uuid = update_order.items.properties.uuid
 %}
 
 {% export update_order %}

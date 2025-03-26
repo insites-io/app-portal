@@ -31,6 +31,23 @@ query get_user_by_email (
         is_enabled: property_boolean(name: "is_enabled")
         is_activated: property_boolean(name: "is_activated")
       }
+
+      ## INS ECO Customer
+      customer: profiles(
+        profile_type: "modules/ecommerce/customer"
+      ) {
+        is_enabled: property_boolean(name: "is_enabled")
+        is_activated: property_boolean(name: "is_activated")
+      }
+
+      ## CRM
+      crm_contact: profiles(
+        profile_type: "modules/insites_core/crm_contact"
+      ) {
+        id
+				user_uuid: property(name: "uuid")
+      }
+
     }
   }
 }
