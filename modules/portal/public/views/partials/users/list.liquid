@@ -259,7 +259,8 @@ metadata: {
         </ins-table-row>
         
         {% for item in get_users %}
-  
+            {% assign portal_profile = item.portal | first  %}
+            {% assign contact_profile = item.contact | first  %}
             <ins-table-row class="users-table-data">
 
                 <ins-table-td class="body-small">
@@ -275,7 +276,7 @@ metadata: {
                     <div class="show-for-small-medium">
                         <span><b>Permission Level:</b></span>
                         <div class="spacer x-small"></div>
-                        {% if item.custom_fields.primary_account_holder == true %}
+                        {% if portal_profile.primary_account_holder == true %}
                             <ins-input-select class="account_owner_select" value="Account Owner" disabled="true">
                                 <ins-input-select-option 
                                 label="Account Owner" 
@@ -286,14 +287,12 @@ metadata: {
                         {% else %}
                             <ins-input-select 
                                 class="selectPermission" 
-                                value="{{ item.custom_fields.permission_level }}"
+                                value="{{ portal_profile.permission_level }}"
                                 data-id="{{ item.id }}"
-                                data-contact-uuid="{{ item.custom_fields.contact_uuid }}"
+                                data-contact-uuid="{{ item.external_id }}"
                                 data-name="{{ item.first_name }} {{ item.last_name }}"
                                 data-email="{{ item.email }}"
-                                data-custom-field-id="{{ item.custom_fields.id }}"
-                                data-permission-level-previous-value="{{ item.custom_fields.permission_level }}"
-                                data-uuid="{{ item.external_id }}"
+                                data-permission-level-previous-value="{{ portal_profile.permission_level }}"
                                 data-uuid="{{ item.external_id }}"
                                 >
                                     
@@ -316,7 +315,7 @@ metadata: {
                         {% endif %}
                     </div>
 
-                    {% if item.custom_fields.primary_account_holder == true %}
+                    {% if portal_profile.primary_account_holder == true %}
                         <div class="spacer x-small"></div>
                         <span class="primary-account-holder">Account Owner</span>
                         <div class="hide-for-small-medium">
@@ -331,7 +330,7 @@ metadata: {
                 </ins-table-td>
                 
                 <ins-table-td class="hide-for-small-medium">
-                    {% if item.custom_fields.primary_account_holder == true %}
+                    {% if portal_profile.primary_account_holder == true %}
                         <ins-input-select class="account_owner_select" value="Account Owner" disabled="true">
                             <ins-input-select-option 
                             label="Account Owner" 
@@ -343,13 +342,12 @@ metadata: {
                         <ins-input-select 
                             class="selectPermission" 
                             id="{{ item.id }}"
-                            value="{{ item.custom_fields.permission_level }}"
+                            value="{{ portal_profile.permission_level }}"
                             data-id="{{ item.id }}"
-                            data-contact-uuid="{{ item.custom_fields.contact_uuid }}"
+                            data-contact-uuid="{{ item.external_id }}"
                             data-name="{{ item.first_name }} {{ item.last_name }}"
                             data-email="{{ item.email }}"
-                            data-custom-field-id="{{ item.custom_fields.id }}"
-                            data-permission-level-previous-value="{{ item.custom_fields.permission_level }}">
+                            data-permission-level-previous-value="{{ portal_profile.permission_level }}">
 
                             <ins-input-select-option
                             label="Manager" 
@@ -509,7 +507,7 @@ metadata: {
                         if (result.isConfirmed) {
                             processingLoader();
                             // update
-                            url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&actions=change_permission_level' + '&contact_uuid=' + contactUuid;
+                            url = '/update-user-account?'  + '&permission_level=' + permissionLevelSelectedValue + '&actions=change_permission_level' + '&email=' + contactEmail;
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {
@@ -535,9 +533,8 @@ metadata: {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             processingLoader();
-
                             // update
-                            url = '/update-user-account?' + 'custom_field_id=' + contactCustomFieldId + '&permission_level=' + permissionLevelSelectedValue + '&email=' + contactEmail + '&name=' + contactName + '&company=' + company_name.value + '&actions=change_permission_level' + '&company_uuid=' + company_uuid.value +'&contact_uuid=' + contactUuid;
+                            url = '/update-user-account?' + '&permission_level=' + permissionLevelSelectedValue + '&email=' + contactEmail + '&name=' + contactName + '&company=' + company_name.value + '&actions=change_permission_level' + '&company_uuid=' + company_uuid.value +'&contact_uuid=' + contactUuid;
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {

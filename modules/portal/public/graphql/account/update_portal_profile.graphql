@@ -1,0 +1,23 @@
+mutation update_portal_profile(
+  $id: ID!
+  $permission_level: String!
+) {
+  user_update(
+    id: $id
+    user: {
+      profiles: [
+        {
+          name: "modules/portal/portal",
+          values: {
+            properties: [
+                { name: "primary_account_holder", value_boolean: false }
+                { name: "permission_level", value: $permission_level }
+            ]
+          }
+        }
+      ]
+    }
+  ) {
+    id
+  }
+}

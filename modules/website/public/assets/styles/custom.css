@@ -1524,6 +1524,16 @@ ins-card .ins-card-wrap {
 #contancUsContainer .insites-form-buttons {
     align-items: center !important;
 }
+
+#contancUsContainer .mobile_phone ins-input-tel .ins-input-tel-wrap .row-col-container .column-3 {
+    flex: 1;
+    float: right;
+    padding-right: 0 !important;
+}
+
+#contancUsContainer .mobile_phone ins-input-tel .ins-input-tel-wrap .row-col-container .column-1 { 
+    flex: 0 0 auto !important;
+}
 /********************************************************** CUSTOM CSS - PORTAL *******************************************************************/
 
 
