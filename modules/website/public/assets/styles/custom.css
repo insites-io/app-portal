@@ -1927,7 +1927,7 @@ ins-step {
 
 a:visited,
 .body-link:visited {
-    color: var(--color-main);
+   color: var(--color-ui-06);
 }
 
 p,

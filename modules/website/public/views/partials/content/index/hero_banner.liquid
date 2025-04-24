@@ -3,7 +3,13 @@
     <div class="wrapper">
         <div class="grid-container grid-x align-middle">
             <div class="large-8 medium-7 small-12 cell">
-                <h1 class="hero-main-text">The ideal portal for <br> your <span id="banner-dynamic-word">clients</span></h1>
+              <h1 class="hero-main-text">
+                The ideal portal for <br> your
+                <span id="banner-dynamic-word">
+                  <span class="word current">clients</span>
+                  <span class="word next">members</span>
+                </span>
+              </h1>
             </div>
             <div class="large-4 medium-5 small-12 cell">
                 <div class="hero-text-container">
@@ -29,54 +35,77 @@
 
 <style>
 #banner-dynamic-word {
-  display: inline-block;
+ display: inline-block;
+  position: relative;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: baseline; /* changed from bottom */
+  line-height: inherit; /* matches surrounding text */
+  top: 5px;
+  left: 8px
+}
+
+#banner-dynamic-word .word {
+  display: block;
+  height: 1em;
   font-weight: bold;
-  opacity: 1;
-  transition: opacity 0.5s linear;
   background: linear-gradient(135deg, #88FF6C 0%, #3F93FF 96.83%);
-  -webkit-background-clip: text; /* For Safari */
-  background-clip: text; /* For modern browsers */
-  color: transparent; /* Make the text color transparent so the gradient shows */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* position: absolute; */
+  left: 0;
+  width: 100%;
+  transition: transform 0.4s ease-in-out;
 }
 
-.hero-text-container {
-  margin-top: 20px;
-  font-size: 18px;
+#banner-dynamic-word .current {
+  top: 0;
+  transform: translateY(0);
 }
 
-/* Rollup Animation */
-@keyframes rollup {
-  0% {
-    transform: translateY(0); /* Start in original position */
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-20px); /* Move up */
-    opacity: 0; /* Fade out */
-  }
+#banner-dynamic-word .next {
+  top: 100%;
+  transform: translateY(0);
 }
 </style>
 
 <script>
-const words = ['members', 'users', 'customers', 'clients'];
-const wordElement = document.getElementById('banner-dynamic-word');
+document.addEventListener('DOMContentLoaded', function () {
+  const words = ['clients', 'members', 'users', 'customers'];
+  let index = 0;
 
-let index = 0;
+  const wordWrapper = document.getElementById('banner-dynamic-word');
+  const currentWord = wordWrapper.querySelector('.current');
+  const nextWord = wordWrapper.querySelector('.next');
 
-function changeWord() {
-  setInterval(() => {
-    wordElement.style.animation = 'rollup .3s linear forwards';
+  function rollWords() {
+    index = (index + 1) % words.length;
+    nextWord.textContent = words[index];
 
+    // Animate scroll up
+    currentWord.style.transform = 'translateY(-100%)';
+    nextWord.style.transform = 'translateY(-100%)';
+
+    // After animation, reset positions
     setTimeout(() => {
-      wordElement.textContent = words[index];
-      index = (index + 1) % words.length; 
+      currentWord.textContent = words[index];
 
-     
-      wordElement.style.animation = ''; 
-    }, 300); 
-  }, 2000); 
-}
+      // Reset transforms instantly
+      currentWord.style.transition = 'none';
+      nextWord.style.transition = 'none';
+      currentWord.style.transform = 'translateY(0)';
+      nextWord.style.transform = 'translateY(0)';
 
-changeWord();
+      // Force reflow
+      void currentWord.offsetWidth;
 
+      // Reapply transitions
+      currentWord.style.transition = 'transform 0.4s ease-in-out';
+      nextWord.style.transition = 'transform 0.4s ease-in-out';
+    }, 400);
+  }
+
+  setInterval(rollWords, 2000);
+});
 </script>
