@@ -42,25 +42,37 @@ metadata: {
                                                         <div class="faq-content-questions">
                                                             <ins-accordion class="subHeading"> 
                                                                 {% if context.exports.data.item.sub_topic_title_1 != nil and context.exports.data.item.sub_topic_details_1 != nil %}
-                                                                <ins-accordion-item heading="{{ context.exports.data.item.sub_topic_title_1 }}">
+                                                                <ins-accordion-item   
+                                                                open-icon="icon-plus"
+                                                                close-icon="icon-minus"
+                                                                heading="{{ context.exports.data.item.sub_topic_title_1 }}">
                                                                     {{ context.exports.data.item.sub_topic_details_1 }}
                                                                 </ins-accordion-item>  
                                                                 {% endif %}   
                                                                 
                                                                 {% if context.exports.data.item.sub_topic_title_2 != nil and context.exports.data.item.sub_topic_details_2 != nil %}
-                                                                <ins-accordion-item heading="{{ context.exports.data.item.sub_topic_title_2 }}">
+                                                                <ins-accordion-item 
+                                                                open-icon="icon-plus"
+                                                                close-icon="icon-minus" 
+                                                                heading="{{ context.exports.data.item.sub_topic_title_2 }}">
                                                                     {{ context.exports.data.item.sub_topic_details_2 }}
                                                                 </ins-accordion-item>  
                                                                 {% endif %}   
                                                                 
                                                                 {% if context.exports.data.item.sub_topic_title_3 != nil and context.exports.data.item.sub_topic_details_3 != nil %}
-                                                                <ins-accordion-item heading="{{ context.exports.data.item.sub_topic_title_3 }}">
+                                                                <ins-accordion-item 
+                                                                open-icon="icon-plus"
+                                                                close-icon="icon-minus"
+                                                                heading="{{ context.exports.data.item.sub_topic_title_3 }}">
                                                                     {{ context.exports.data.item.sub_topic_details_3 }}
                                                                 </ins-accordion-item>  
                                                                 {% endif %}  
 
                                                                 {% if context.exports.data.item.sub_topic_title_4 != nil and context.exports.data.item.sub_topic_details_4 != nil %}
-                                                                <ins-accordion-item heading="{{ context.exports.data.item.sub_topic_title_4 }}">
+                                                                <ins-accordion-item 
+                                                                open-icon="icon-plus"
+                                                                close-icon="icon-minus"
+                                                                heading="{{ context.exports.data.item.sub_topic_title_4 }}">
                                                                     {{ context.exports.data.item.sub_topic_details_4 }}
                                                                 </ins-accordion-item>  
                                                                 {% endif %}               

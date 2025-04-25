@@ -19,10 +19,10 @@ metadata: {
         <p class="subHeading">A team where everyone feels valued and trusts each other.</p>
       </div>
       <div class="large-6 medium-6 small-12 cell">
-        <p class="subHeading">A great team works like a machine, combining unique skills in a supportive environment with clear communication and trust, leading to amazing results.</p>
+        <p class="subHeading">A great team works like a machine, combining unique skills in a supportive environment, clear communication, and trust, leading to excellent results.</p>
         <br>
         <br>
-        <p class="subHeading">An amazing team is one that knows how to work together and make the most of their An amazing team values communication, collaboration, and trust, creating a supportive environment where everyone thrives and contributes to success.</p>
+        <p class="subHeading">A fantastic team knows how to work together and make the most of it. An excellent team values communication, collaboration, and trust, creating a supportive environment where everyone thrives and contributes to success.</p>
       </div>
     </div>
   
@@ -32,12 +32,15 @@ metadata: {
           <!-- segment -->
           {% for item in get_our_team %} 
             <div class="large-3 medium-6 small-12 cell">
-              <img loading="lazy" alt="team1" class="ourTeamImg" src="{{ item.photo.url }} ">
+              <div class="team-image-wrapper">
+                <img loading="lazy" alt="team1" class="ourTeamImg" src="{{ item.photo.url }} ">
+                <div class="overlay"></div>
+              </div>
               <div class="our-team-card">
                 <div class="spacer"></div>
                   <h5>{{ item.name }}</h5>
                   <div class="spacer x-small"></div>
-                <p class="subHeading"><strong>{{ item.occupation }}</strong></p>
+                <p class="subHeading">{{ item.occupation }}</p>
                 <div class="spacer x-small"></div>
               </div>
             </div>

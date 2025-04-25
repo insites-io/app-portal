@@ -71,7 +71,7 @@ metadata: {
                     <ins-filter id="news-filter">
                         <ins-filter-item
                             name="Tag"
-                            options='["All", "Design", "Web development", "Technology","SEO"]'
+                            options='["All", "Design","SEO", "Technology", "Web development"]'
                             selected="{{ context.params.tag }}">
                         </ins-filter-item>
                         <ins-filter-item
@@ -133,7 +133,7 @@ metadata: {
         <section class="news-content">
             <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
                 {% for item in res_news %}
-                    <div class="large-4 medium-6 small-12 cell">
+                    <div class="large-4 medium-6 small-12 cell news-cards">
                         <a href="/news/{{ item.slug }}" class="news-main-link-container">
                             <div class="card"> 
                                 <div class="newsImageContainer">
@@ -152,10 +152,10 @@ metadata: {
                                 <div class="news-author">
                                     {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
                                     {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
-                                    {% if item.author %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}, by {{ get_author.first_name }} {{ get_author.last_name }}</p>
+                                    {% if item.author != blank %}
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ get_author.first_name }} {{ get_author.last_name }}</p>
                                     {% else %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}, by Mark Webber</p>
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by Mark Webber</p>
                                     {% endif %}                  
                                 </div>
                                 <div class="newsContentContainer">
@@ -166,9 +166,8 @@ metadata: {
                                             </div>
                                         <div class="spacer x-small"></div>
                                         <div class="description">
-                                            <p class="subHeading">{{ item.list_view_text }}</p>
+                                            <p class="subHeading p-two-line">{{ item.list_view_text }}</p>
                                         </div>
-                                        <div class="spacer small"></div>
                                         <div class="tagButton">
                                             <ins-tag 
                                                 label="{{ item.tag }}" 
