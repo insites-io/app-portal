@@ -196,7 +196,7 @@ layout: modules/website/contact
                                 {% else %}
                                                 
                                 <div class="spacer xxx-large"></div>
-                                <h5>Opening Hours</h5>
+                                <h5>Opening hours</h5>
                                 <div class="spacer large"></div>
                                 <div class="grid-x opening-hours">
         
@@ -210,7 +210,7 @@ layout: modules/website/contact
                                     {%- assign key_close = "loc_1_" | append: day | append: "_close" -%}
                                     
                                     <div class="small-12 cell grid-x  {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
-                                        <div class="small-6 cell">{{ days_name[forloop.index0] }}:</div>
+                                        <div class="small-6 cell">{{ days_name[forloop.index0] }}</div>
                                         <div class="small-6 cell">
                                             {% if global[key_enable] == 'false' or global[key_enable] == false or global[key_enable] == nil %}
         
@@ -218,13 +218,13 @@ layout: modules/website/contact
                                                 {% if global[key_enable] == nil %}
                                                     {% comment %} ? THIS VALUE MOSTLY AIMS TO POPULATE UPON INSTALLATION {% endcomment %}
                                                     {% if days_name[forloop.index0] == "Sunday" or days_name[forloop.index0] == "Saturday"  %}
-                                                        Closed
+                                                        <p class="subHeading">Closed</p>   
                                                     {% else %}                                        
                                                         <p class="subHeading">7:00 AM - 4:00 PM</p>
                                                     {% endif %}
                                                 {% else %}
                                                     {% comment %} ? THIS VALUE TARGETS IF THE SETTING OF OPENING HOURS IS FALSE {% endcomment %}
-                                                    Closed       
+                                                    <p class="subHeading">Closed</p>   
                                                 {% endif %}
                                             {% else %}
                                                 <p class="subHeading">{{ global[key_open] | date: "%I:%M %p" }} - {{ global[key_close] | date: "%I:%M %p" }}</p>

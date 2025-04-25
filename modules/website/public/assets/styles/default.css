@@ -3772,7 +3772,7 @@ Contact Us
 .contact-us-details-wrapper .google-map-img img {
     width: 100%;
     height: 300px;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .contact-us-form-container {
@@ -3848,7 +3848,7 @@ Contact Us
 }
 
 .contact-us-form-container .insites-form-wrap .insites-form-grid ins-button button {
-    padding: 0 24px;
+    padding: 11px 24px;
     font-weight: 700;
     font-size: 14px;  
     color: var(--font-color-link) !important;
