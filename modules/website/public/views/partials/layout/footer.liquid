@@ -30,7 +30,7 @@ metadata: {
                             <div class="spacer"></div>
                         </li>
                         <li class="">
-                            <a class="footer-links color-font-head" data-test="" href="/about">About us</a>
+                            <a class="footer-links color-font-head" data-test="" href="/about-us">About us</a>
                             <div class="spacer small"></div>
                         </li>
                         <li>
@@ -50,8 +50,7 @@ metadata: {
     
                 <!-- SERVICES -->
                 <div class="large-3 medium-6 small-12 cell">
-                    <div class="spacer show-for-small-only"></div>
-                    <div class="spacer xxxx-large show-for-small-only"></div>
+                    <div class="spacer x-large show-for-small-only"></div>
 
                     {%- graphql get_features = 'modules/website/features/get_features' -%}
                     {%- assign features =  get_features | dig: 'items', 'results'  -%}
@@ -73,8 +72,7 @@ metadata: {
 
                 <!-- EXTERNAL LINKS -->
                 <div class="large-2 medium-6 small-12 cell">
-                    <div class="spacer show-for-small-only"></div>
-                    <div class="spacer xxxx-large show-for-small-only"></div>
+                    <div class="spacer x-large show-for-small-only"></div>
                     
                     <ul class="vertical menu">
                     <li><p class="footer-link-main-label" data-test="">External links</p>

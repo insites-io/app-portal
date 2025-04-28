@@ -8,10 +8,13 @@ metadata: {
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
 
-<header  id="main-header" {% if dark == blank %} class="light-header" {% else %} class="no-light-header" {% endif %}>
+<header  id="main-header" 
+  {% if dark == blank %} class="light-header {%  if border == true %} border-bottom-nav  {% endif %}" {% else %} class="no-light-header" {% endif %}
+  
+  >
   <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
-      <div class="large-2 medium-3 small-8 cell">
+      <div class="large-2 medium-3 small-7 cell">
         <a href="/">
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
           {% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
@@ -69,15 +72,15 @@ metadata: {
               </a>
               {% endif %}
             {% endfor %}
-            <a class="nav-sign-in-btn" href="">Sign in</a>
+            <a class="nav-sign-in-btn" href="/sign-in">Sign in</a>
             <a class="nav-register-btn" href="">Create account</a>
 
           </div>
       </div>
 
-      <div class="mobile-menu-toggle large-0 medium-3 small-3 cell ">
+      <div class="mobile-menu-toggle large-0 medium-3 small-5 cell ">
         {% if context.current_user == blank %}
-          <a class="nav-sign-in-btn" href="">Sign in</a>
+          <a class="nav-sign-in-btn" href="/sign-in">Sign in</a>
         {% endif %}
         <div id="mobile-menu-btn" class="icon-menu-1"></div>
       </div>
