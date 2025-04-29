@@ -1,0 +1,99 @@
+---
+slug: sand
+---
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Full-Screen Hero Banner with Overlapping Image</title>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+    
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f9f9f9;
+          line-height: 1.6;
+        }
+    
+        .hero {
+  position: relative;
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  color: white;
+  height: 600px; /* fixed height instead of 90vh */
+  padding: 100px 20px 80px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+    
+        .hero h1 {
+          font-size: 48px;
+          margin-bottom: 20px;
+        }
+    
+        .hero p {
+          font-size: 20px;
+          opacity: 0.9;
+        }
+    
+        .overlap-image {
+  max-width: 90%;
+  margin: -60px auto 40px;
+  display: block;
+  z-index: 2;
+  position: relative;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+    
+        .content {
+          padding: 40px 20px;
+          max-width: 800px;
+          margin: 0 auto 60px;
+          background-color: white;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+    
+        .content h2 {
+          font-size: 32px;
+          margin-bottom: 20px;
+          color: #333;
+        }
+    
+        .content p {
+          font-size: 18px;
+          color: #555;
+        }
+      </style>
+    </head>
+    <body>
+    
+      <section class="hero">
+        <h1>Welcome to Our Website</h1>
+        <p>Delivering innovation one step at a time</p>
+      </section>
+    
+      <img src="{{ 'modules/website/images/home/hero-banner-d.webp' | asset_url  }}" alt="" class="overlap-image">
+    
+      <section class="content">
+        <h2>About Our Mission</h2>
+        <p>
+          We are a forward-thinking company dedicated to helping people and organizations harness the power of technology. 
+          Our team of professionals is committed to delivering quality products and services that drive impact and growth.
+        </p>
+        <p>
+          Whether you're a startup or an enterprise, we tailor our solutions to meet your needs. Join us as we shape the future together.
+        </p>
+      </section>
+    
+    </body>
+    </html>
+    

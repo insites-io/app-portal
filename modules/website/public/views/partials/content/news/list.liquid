@@ -138,12 +138,12 @@ metadata: {
                             <div class="card"> 
                                 <div class="newsImageContainer">
                                     {% if item.list_view_image.url %}
-                                        <img loading="lazy" alt="image" src="{{ item.list_view_image.url }}"/>
+                                        <img loading="lazy" alt="image" src="{{ item.list_view_image.url }}">
                                     {% else %}
                                         {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
                                         {% for news in news_list %}
                                             {% if item.slug == news.slug %}
-                                                <img loading="lazy" alt="image" src="{{ news.image }}"/>
+                                                <img loading="lazy" alt="image" src="{{ news.image }}">
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
@@ -290,7 +290,6 @@ metadata: {
 
     document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
-        console.log('test')
       const inputElementContainer = document.getElementById('search-input');
       const inputElement = inputElementContainer.getElementsByTagName('input')[0];
       const iconSearchElement = inputElementContainer.querySelector('.icon-wrap.icon-search-1');

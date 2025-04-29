@@ -9,33 +9,30 @@ metadata: {
 
 
 <div class="testimonials-section">
-    <div class="homepagepage-testimonial-wrap">
-        <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner-testimonials" transition="700" duration="5000"
-          data-test="homepage-slider">
-          <div id="homepage-banner-testimonials">
-            {% for item in res_testimonial %}
-            <!-- item -->
-            <div class="slide-container">
-              <div class="img-wrap">
-              </div>
-  
-              <div class="slide-content vertical-align-middle">
-                  <h2 class="testiLabel">What our clients say</h2>
-                  <div class="spacer"></div>
-                  <p class="testiMessage">{{  item.message  }}</p>
-                  <div class="spacer xxxx-large"></div>
-                  <p class="testiName">{{ item.full_name }}</p>
-                  <div class="spacer x-small"></div>
-                  <p class="testiPos"> {{ item.location }}</p>
-                  
-              </div>
+  <div class="homepagepage-testimonial-wrap">
+      <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner-testimonials" transition="700" duration="5000"
+        data-test="homepage-slider">
+        <div id="homepage-banner-testimonials">
+          {% for item in res_testimonial %}
+          <!-- item -->
+          <div class="slide-container">
+            <div class="slide-content vertical-align-middle">
+                <h2 class="testiLabel">What our clients say</h2>
+                <div class="spacer"></div>
+                <p class="testiMessage">{{  item.message  }}</p>
+                <div class="spacer xxxx-large"></div>
+                <p class="testiName">{{ item.full_name }}</p>
+                <div class="spacer x-small"></div>
+                <p class="testiPos"> {{ item.location }}</p>
+                
             </div>
-            <!-- /item -->
-          {% endfor %}
           </div>
-        </ins-carousel>
-    </div>
-    <div class="testimonial-image">
-      <img src="{{ 'modules/website/images/home/testimonial/testimonial-bg@1.5x.webp' | asset_url  }}" alt="">
-    </div>
+          <!-- /item -->
+        {% endfor %}
+        </div>
+      </ins-carousel>
+  </div>
+  <div class="testimonial-image">
+    <img src="{{ 'modules/website/images/home/testimonial/testimonial-bg@1.5x.webp' | asset_url  }}" alt="">
+  </div>
 </div>

@@ -14,7 +14,7 @@ metadata: {
   >
   <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
-      <div class="large-2 medium-3 small-7 cell">
+      <div class="large-1 medium-3 small-7 cell">
         <a href="/">
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
           {% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
@@ -49,7 +49,7 @@ metadata: {
       {%- graphql get_features = 'modules/website/features/get_features' -%}
       {%- assign features =  get_features | dig: 'items', 'results'  -%}
 
-      <div class="large-10 medium-3 small-8 cell hide-nav-medium">
+      <div class="large-11 medium-3 small-8 cell hide-nav-medium">
           <div class="navlinks">
             {% for menu in menus %}
               {%- if menu.slug == "features" -%}

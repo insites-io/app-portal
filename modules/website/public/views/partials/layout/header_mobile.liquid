@@ -44,8 +44,7 @@ metadata: {
             {%- if menu.slug == "features" -%}
                 <li class="mobile-menu-style">
                     <ins-accordion menu>
-                      <ins-accordion-item class="colorBlack" heading="{{menu.label}}" link="#" open-icon="icon-plus" close-icon="icon-minus" link-target="_self"
-                        class="has-subitems">
+                      <ins-accordion-item class="colorBlack has-subitems" heading="{{menu.label}}" link="#" open-icon="icon-plus" close-icon="icon-minus" link-target="_self">
                             {% for item in features %} 
                               <ins-accordion-link class="colorBlack" label="{{ item.card_title }}" link="/{{ menu.slug }}/{{ item.slug }}" link-target="_self">
                               </ins-accordion-link>

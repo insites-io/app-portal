@@ -112,7 +112,6 @@ let UserProfileScript = (function () {
                                     this.validatePasswordField(field);
                                 }
                             } else if (field.field === 'email') {
-                                console.log('test')
                                 var is_email_valid = true
                                 var requiredEmail = document.getElementById("emailRequired");
                                 var emailInvalid = document.getElementById("emailInvalid")

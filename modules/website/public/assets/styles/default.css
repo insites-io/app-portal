@@ -1016,10 +1016,6 @@ ins-button button.sub1.outlined {
     color: var(--color-sub1-hover);
 }
 
-
-/* Button color="sub2" */
-
-
 /* Solid button */
 
 ins-button button.sub2.solid,
@@ -1868,7 +1864,6 @@ ins-tag span.ins-tag {
 }
 
 .header-top-bar ins-dropdown .ins-dropdown_menu {
-    /* right: 0; */
     text-align: left;
 }
 @media screen and (max-width: 1448px) {
@@ -2334,7 +2329,6 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
     ins-drawer#mobile-menu .ins-backdrop-wrap {
         top: 0;
         padding-bottom: 105px;
-        /* Fix for sidebar scroll overflow */
     }
     .top-bar .top-bar-left,
     .top-bar .top-bar-right {
@@ -2414,7 +2408,7 @@ footer .heading {
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%; /* 21px */ 
+    line-height: 150%; 
 }
 
 footer .social {
@@ -2695,6 +2689,42 @@ footer .menu a {
     font-size: 18px;
 }
 
+
+#banner-dynamic-word {
+    display: inline-block;
+    position: relative;
+    height: 1em;
+    overflow: hidden;
+    vertical-align: baseline; 
+    line-height: inherit;
+    top: 5px;
+    left: 8px
+}
+
+#banner-dynamic-word .word {
+    display: block;
+    height: 1em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #88FF6C 0%, #3F93FF 96.83%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* position: absolute; */
+    left: 0;
+    width: 100%;
+    transition: transform 0.4s ease-in-out;
+}
+
+#banner-dynamic-word .current {
+    top: 0;
+    transform: translateY(0);
+}
+
+#banner-dynamic-word .next {
+    top: 100%;
+    transform: translateY(0);
+}
+
 @media screen and (max-width: 639px) { 
     .page-hero-container p {
         width: 100%;
@@ -2727,7 +2757,7 @@ footer .menu a {
 
 .hero-home-banner {
     background: var(--color-bg1, #05051D);
-    height: 80vh;
+    height: 800px;
 }
 
 .hero-home-banner .hero-main-text {
@@ -2737,10 +2767,6 @@ footer .menu a {
     font-style: normal;
     font-weight: 700;
     line-height: 120%; 
-}
-
-.hero-text-container .hero-text {
-
 }
 
 .hero-text-container .hero-text p{
@@ -2769,73 +2795,58 @@ footer .menu a {
     position: relative;
     top: 1px;
     display: inline-block;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing */
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-banner-img {
     position: relative;
     z-index: 2;
-    top: -300px;
+    /* bottom: 300px; */
+    margin: -400px auto 40px;
+    display: block;
 }
 
 .hero-banner-img + * {
-    margin-top: 0; /* Ensure the next section doesn't have extra margin */
-}
-
-.negative-offset-hero {
-    margin-top: -300px;
-}
-
-@media screen and (max-width: 745px){  
-    .negative-offset-hero {
-        margin-top: -200px;
-    }
-
-    .hero-banner-img {
-        position: relative;
-        z-index: 2;
-        top: -200px;
-    }
-    
-}
-
-@media screen and (max-width: 600px) and (min-width: 520){  
-    .hero-home-banner {
-        height: 80vh;
-    }
-    
-}
-
-@media screen and (max-width: 519px) {  
-    .hero-home-banner {
-        height: 60vh;
-    }
-
-    .negative-offset-hero {
-        margin-top: -116px;
-    }
-
-    .hero-banner-img {
-        position: relative;
-        z-index: 2;
-        top: -116px;
-    }
-
-    .hero-banner-img img {
-        height: 200px;
-        width: 100%;
-    }
-    
+    margin-top: 0; 
 }
 
 
 @media screen and (max-width: 1028px) {
-    .hero-home-banner {
-        padding-top: 32px;
-    }
-
     .hero-home-banner .hero-main-text {
         font-size: 42px;
+    }
+}
+
+@media screen and (max-width: 1100px) and (min-width: 640px) { 
+    .hero-spacer {
+        padding-bottom: 80px !important;
+    }
+
+    .hero-home-banner {
+        height: 600px;
+    }
+    
+    .hero-banner-img {
+        margin: -250px auto 40px;
+    }
+}
+
+@media screen and (max-width: 639px)  { 
+    .hero-banner-img img {
+        width: 100%;
+        height: 250px;
+    }
+
+    .hero-spacer {
+        padding-bottom: 80px !important;
+    }
+
+    .hero-home-banner {
+        height: 600px;
+    }
+
+    .hero-banner-img {
+        margin: -200px auto 40px;
     }
 }
 

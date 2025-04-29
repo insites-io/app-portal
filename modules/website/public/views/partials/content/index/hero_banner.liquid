@@ -1,5 +1,5 @@
 <div class="hero-home-banner" style="background-image: url('{{ 'modules/website/images/home/hero-bg.webp' | asset_url  }}'); background-size:cover;">
-<div class="spacer section"></div>
+<div class="spacer section hero-spacer"></div>
     <div class="wrapper">
         <div class="grid-container grid-x align-middle">
             <div class="large-8 medium-7 small-12 cell">
@@ -32,43 +32,6 @@
         </div>
     </div>
 </div>
-
-<style>
-#banner-dynamic-word {
- display: inline-block;
-  position: relative;
-  height: 1em;
-  overflow: hidden;
-  vertical-align: baseline; /* changed from bottom */
-  line-height: inherit; /* matches surrounding text */
-  top: 5px;
-  left: 8px
-}
-
-#banner-dynamic-word .word {
-  display: block;
-  height: 1em;
-  font-weight: bold;
-  background: linear-gradient(135deg, #88FF6C 0%, #3F93FF 96.83%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  /* position: absolute; */
-  left: 0;
-  width: 100%;
-  transition: transform 0.4s ease-in-out;
-}
-
-#banner-dynamic-word .current {
-  top: 0;
-  transform: translateY(0);
-}
-
-#banner-dynamic-word .next {
-  top: 100%;
-  transform: translateY(0);
-}
-</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
