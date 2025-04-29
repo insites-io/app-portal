@@ -54,6 +54,10 @@ metadata: {
         assign sort = "DESC"
     endif
 
+    if tag == "All"
+        assign tag = ""
+    endif
+
 %}
 
 {%- graphql get_news = 'modules/website/news/get_news', page: page_num, size: per_page, keyword: keyword, tag: tag, sort: sort, field: field -%}
@@ -138,12 +142,12 @@ metadata: {
                             <div class="card"> 
                                 <div class="newsImageContainer">
                                     {% if item.list_view_image.url %}
-                                        <img loading="lazy" alt="image" src="{{ item.list_view_image.url }}">
+                                        <img width="500" height="500" alt="image" src="{{ item.list_view_image.url }}">
                                     {% else %}
                                         {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
                                         {% for news in news_list %}
                                             {% if item.slug == news.slug %}
-                                                <img loading="lazy" alt="image" src="{{ news.image }}">
+                                                <img width="500" height="500" alt="image" src="{{ news.image }}">
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}

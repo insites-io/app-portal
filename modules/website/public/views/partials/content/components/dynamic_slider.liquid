@@ -1,3 +1,9 @@
+---
+metadata: {
+    partial_name: "Website | Components | Dynamic slider",
+}
+---
+
 {% assign record = data | dig: 'items' %} 
 {%- assign data = data | dig: 'items', 'results' -%}
 
@@ -14,7 +20,7 @@
                     {% for item in data %}
                       <div class="slider-item-container">
                         <div class="slider-item">
-                            <img src="{{ item.icon.url }}" alt="">
+                            <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
                             <h6>{{ item.business_title }}</h6>
                             <p>{{ item.business_description }}</p>
                         </div>

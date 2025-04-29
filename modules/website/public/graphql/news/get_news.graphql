@@ -3,8 +3,8 @@ query get_news(
     $size: Int = 9,
     $keyword: String,
     $tag: String,
-    $sort: String,
-    $field: String
+    $sort: SortOrderEnum!,
+    $field: String!
 ) {
     items: records(
         page: $page

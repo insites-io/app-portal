@@ -1,6 +1,6 @@
 <div class="adaptive-portal-section">
         <div class="adaptive-portal-banner">
-            <img class="adaptive-portal-img" loading="lazy" alt="apative portal image" src="{{ 'modules/website/images/home/adaptive_portal.webp' | asset_url }} ">         
+            <img class="adaptive-portal-img" loading="lazy" width="640" height="360" alt="Apative portal image" src="{{ 'modules/website/images/home/adaptive_portal.webp' | asset_url }} ">         
             <div class="adaptive-portal-info">
                 <div class="adaptive-portal-cta">
                     <div class="spacer xxxx-large"></div>
@@ -16,7 +16,6 @@
         {%- graphql get_business_needs = 'modules/website/home/adaptive_portal/get_business_needs' -%}
 
         {% include 'modules/website/content/components/dynamic_slider', data: get_business_needs, record_to_show: 4 %}
-  
 </div>
 
 

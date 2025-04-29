@@ -35,12 +35,12 @@ metadata: {
           {% for item in get_our_team %} 
             <div class="large-3 medium-6 small-12 cell">
               <div class="team-image-wrapper">
-                <img loading="lazy" alt="team1" class="ourTeamImg" src="{{ item.photo.url }} ">
+                <img loading="lazy" width="500" height="500" alt="team1" class="ourTeamImg" src="{{ item.photo.url }} ">
                 <div class="overlay"></div>
               </div>
               <div class="our-team-card">
                 <div class="spacer"></div>
-                  <h5>{{ item.name }}</h5>
+                  <p class="heading-5">{{ item.name }}</p>
                   <div class="spacer x-small"></div>
                 <p class="subHeading">{{ item.occupation }}</p>
                 <div class="spacer x-small"></div>

@@ -165,7 +165,7 @@ a.color-main:hover,
 
 /* a:visited,
 .body-link:visited {
-    color: var(--color-ui-06);
+    color: var(--color-ui-06); to review
 } */
 
 a.font-color-head:hover,
@@ -243,13 +243,13 @@ h4,
 }
 h5,
 .heading-5 {
-    color: var(--font-color-head, #05051D);
-    font-family: var(--font-family-01, "DM Sans");
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 130%; 
-    letter-spacing: 0.24px;
+    color: var(--font-color-head, #05051D) !important;
+    font-family: var(--font-family-01, "DM Sans") !important;
+    font-size: 24px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 130% !important; 
+    letter-spacing: 0.24px !important;
 }
 
 h6,
@@ -261,6 +261,29 @@ h6,
     font-weight: 700;
     line-height: 130%; 
     letter-spacing: 0.16px;
+}
+
+
+img {
+    width: 100%;
+}
+
+.image-d {
+    display: block;
+}
+
+.image-m {
+    display: none;
+}
+
+@media screen and (max-width: 639px) {  
+    .image-d {
+        display: none;
+    }
+
+    .image-m {
+        display: block;
+    }
 }
 
 
@@ -1810,6 +1833,11 @@ ins-tag span.ins-tag {
     height: 56px;
 }
 
+.logo {
+    width: auto !important;
+    max-height: 56px !important;
+}
+
 .top-bar,
 .header-top-bar {
     background-color: var(--color-ui-01);
@@ -2084,6 +2112,12 @@ ins-tag span.ins-tag {
     border-radius: 4px;
 }
 
+#main-header .mobile-menu-toggle #mobile-menu-btn { 
+    background: rgba(255, 255, 255, 0.06);
+    padding: 8px;
+    border-radius: 4px;
+}
+
 #main-header.light-header {
     background-color: #fff !important;
 }
@@ -2129,6 +2163,7 @@ ins-tag span.ins-tag {
     font-size: 14px;
     margin-right: 24px;
 }
+
 
 
 
@@ -2758,6 +2793,16 @@ footer .menu a {
 .hero-home-banner {
     background: var(--color-bg1, #05051D);
     height: 800px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    object-fit: fill;
+    z-index: 0;
+    height: 100%;
+    bottom: -150px;
 }
 
 .hero-home-banner .hero-main-text {
@@ -2801,13 +2846,16 @@ footer .menu a {
 .hero-banner-img {
     position: relative;
     z-index: 2;
-    /* bottom: 300px; */
     margin: -400px auto 40px;
     display: block;
 }
 
 .hero-banner-img + * {
     margin-top: 0; 
+}
+
+.hero-banner-img img {
+    border-radius: 20px;
 }
 
 
@@ -2835,6 +2883,7 @@ footer .menu a {
     .hero-banner-img img {
         width: 100%;
         height: 250px;
+        object-fit: cover;
     }
 
     .hero-spacer {
@@ -2876,8 +2925,6 @@ footer .menu a {
         gap: 40px;
     }
 }
-
-
 
 /********** [Home Page - Adaptive Section] **********/
 
@@ -2993,7 +3040,6 @@ footer .menu a {
         width: 100%;
     }
 }
-
 
 /********** [Unlock Efficiency Section] **********/
 .unlock-efficiency-section {
@@ -3253,6 +3299,26 @@ footer .menu a {
 .our-team-card p{
     font-size: 14px;
     font-weight: 400;
+}
+
+.support-heading {
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%;
+    letter-spacing: 0.16px;
+}
+
+.our-team-name {
+    color: var(--font-color-head, #05051D);
+    font-family: var(--font-family-01, "DM Sans");
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 130%;
+    letter-spacing: 0.24px;
 }
 
 @media screen and (max-width: 639px) { 

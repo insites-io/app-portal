@@ -1,6 +1,24 @@
-<div class="hero-home-banner" style="background-image: url('{{ 'modules/website/images/home/hero-bg.webp' | asset_url  }}'); background-size:cover;">
-<div class="spacer section hero-spacer"></div>
-    <div class="wrapper">
+<div class="hero-home-banner" height="800">
+  <img
+    src="{{ 'modules/website/images/home/hero-bg.webp' | asset_url  }}"
+    alt="Hero background"
+    width="1000"
+    height="800"
+    fetchpriority="high"
+    class="hero-bg image-d"
+  />
+
+  <img
+    src="{{ 'modules/website/images/home/hero-bg.webp' | asset_url  }}"
+    alt="Hero background"
+    width="650"
+    height="430"
+    fetchpriority="high"
+    class="hero-bg image-m"
+  />
+
+<div class="spacer section hero-spacer" style="position: relative; z-index: 1;"></div>
+    <div class="wrapper" style="position: relative; z-index: 1;">
         <div class="grid-container grid-x align-middle">
             <div class="large-8 medium-7 small-12 cell">
               <h1 class="hero-main-text">
@@ -28,7 +46,12 @@
 <div class="hero-banner-img">
     <div class="wrapper">
         <div class="grid-container grid-x align-middle">
-        <img src="{{ 'modules/website/images/home/hero-banner-d.webp' | asset_url  }}" alt="">
+        <img width="1000" height="800" fetchpriority="high" class="image-d"
+          src="{{ 'modules/website/images/home/hero-banner-d.webp' | asset_url  }}" alt="Homepage banner">
+        </div>
+
+        <img width="650" height="430" fetchpriority="high" class="image-m"
+          src="{{ 'modules/website/images/home/hero-banner-m.webp' | asset_url  }}" alt="Homepage banner">
         </div>
     </div>
 </div>
@@ -46,24 +69,19 @@ document.addEventListener('DOMContentLoaded', function () {
     index = (index + 1) % words.length;
     nextWord.textContent = words[index];
 
-    // Animate scroll up
     currentWord.style.transform = 'translateY(-100%)';
     nextWord.style.transform = 'translateY(-100%)';
 
-    // After animation, reset positions
     setTimeout(() => {
       currentWord.textContent = words[index];
 
-      // Reset transforms instantly
       currentWord.style.transition = 'none';
       nextWord.style.transition = 'none';
       currentWord.style.transform = 'translateY(0)';
       nextWord.style.transform = 'translateY(0)';
 
-      // Force reflow
       void currentWord.offsetWidth;
 
-      // Reapply transitions
       currentWord.style.transition = 'transform 0.4s ease-in-out';
       nextWord.style.transition = 'transform 0.4s ease-in-out';
     }, 400);
