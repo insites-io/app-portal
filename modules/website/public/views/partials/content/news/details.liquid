@@ -65,9 +65,9 @@ metadata: {
             {%- graphql get_author = 'modules/website/news/get_author', external_id: context.exports.data.item.author -%}
             {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
             {% if context.exports.data.item.author != blank %}
-                <p class="subHeading">Published on {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} by {{ get_author.first_name }} {{ get_author.last_name }}</p>
+                <p class="subHeading news-author-details">Published on {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} by {{ get_author.first_name }} {{ get_author.last_name }}</p>
             {% else %}
-                <p class="subHeading">Published on {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} by Mark Webber</p>
+                <p class="subHeading news-author-details">Published on {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} by Mark Webber</p>
             {% endif %}                  
           </div>
           <div class="spacer medium"></div>
