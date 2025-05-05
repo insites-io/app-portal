@@ -9,16 +9,91 @@ metadata: {
 <div class="client-section">
   <div class="wrapper">
     <div class="grid-container grid-x gutter-medium grid-padding-x text-center">
-      <div class="client-logo-container">
+      {% comment %} <div class="client-logo-container">
         <img loading="lazy" width="150" height="150" alt="client 1" src="{{ 'modules/website/images/home/clients/client_logo_01.webp' | asset_url }} ">
         <img loading="lazy" width="150" height="150"  alt="client 2" src="{{ 'modules/website/images/home/clients/client_logo_02.webp' | asset_url }} ">
         <img loading="lazy" width="150" height="150" alt="client 3" src="{{ 'modules/website/images/home/clients/client_logo_03.webp' | asset_url }} ">
         <img loading="lazy" width="150" height="150" alt="client 4" src="{{ 'modules/website/images/home/clients/client_logo_04.webp' | asset_url }} ">
         <img loading="lazy" width="150" height="150" alt="client 5" src="{{ 'modules/website/images/home/clients/client_logo_05.webp' | asset_url }} ">
-      </div>
+      </div> {% endcomment %}
+
+      <div class="image-container">
+  <div class="image-row">
+    <img loading="lazy" width="150" height="150" alt="client 1" src="{{ 'modules/website/images/home/clients/client_logo_01.webp' | asset_url }} ">
+        <img loading="lazy" width="150" height="150"  alt="client 2" src="{{ 'modules/website/images/home/clients/client_logo_02.webp' | asset_url }} ">
+  </div>
+
+  <div class="image-row">
+    <img loading="lazy" width="150" height="150" alt="client 3" src="{{ 'modules/website/images/home/clients/client_logo_03.webp' | asset_url }} ">
+    <img loading="lazy" width="150" height="150" alt="client 4" src="{{ 'modules/website/images/home/clients/client_logo_04.webp' | asset_url }} ">
+  </div>
+
+  <div class="image-center">
+    <img loading="lazy" width="150" height="150" alt="client 5" src="{{ 'modules/website/images/home/clients/client_logo_05.webp' | asset_url }} ">
+    </div>
+</div>
     </div>
   </div>
 </div>
 <div class="spacer section"></div>
 
 
+<style>.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Image sizing */
+.image-row img,
+.image-center img {
+  max-width: 150px;
+  max-height: 48px;
+  object-fit: contain;
+}
+
+/* Mobile (default) */
+.image-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.image-center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Tablet view: allow wrapping */
+@media (min-width: 639px) and (max-width: 1023px) {
+  .image-container {
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .image-row,
+  .image-center {
+    margin: 0;
+    display: contents;
+  }
+}
+
+/* Desktop view: one row, evenly spaced */
+@media (min-width: 1024px) {
+  .image-container {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .image-row,
+  .image-center {
+    display: contents;
+    margin: 0;
+  }
+}
+</style>
