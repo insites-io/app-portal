@@ -59,7 +59,7 @@
     data: data %} 
 
 {% comment %} ? UPDATE DISCOUNT USAGE COUNT {% endcomment %}
-{% if form.properties.is_discount_code_enabled == "true" %}
+{% comment %} {% if form.properties.is_discount_code_enabled == "true" %}
     {% assign discount_id = form.properties.discount_id %}
     {% assign usage_count = form.properties.discount_usage_count | default: 0 %}
     {% assign usage_count = usage_count | plus: 1 %}
@@ -70,4 +70,4 @@
     {% graphql update_usage_count = 'modules/client/discount/update_discount_usage_limit', id: discount_id, usage_count: usage_count %}
     
     {% log update_usage_count, type:"update_usage_count" %}    
-{% endif %}
+{% endif %} {% endcomment %}

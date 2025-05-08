@@ -9,14 +9,6 @@ request_headers: >
     {% include 'modules/client/api_headers' %}
 ---
 
-{% log data, type: "Update Order" %}
-
-{% if data.is_discount_code_enabled == "false" %}
-    {% assign is_discount_code_enabled = false %}
-{% else %}
-    {% assign is_discount_code_enabled = true %}
-{% endif %}
-
 {
     "payload": {
         "id": "{{ data.id }}", 
@@ -43,12 +35,6 @@ request_headers: >
         "total_shipping_amount": {{ data.total_shipping_amount | times: 1.0 }},
         "total_amount": {{ data.total_amount | times: 1.0 }},
         "total_amount_paid": {{ data.total_amount | times: 1.0 }},
-        {% comment %} "discount_code_uuids": ["f06f6c0c-90ca-4658-bc3a-bef46cbc3c0d"], {% endcomment %}
-        {% if is_discount_code_enabled %}
-            {% if data.discount_code_uuids.size != 0 %}
-                "discount_code_uuids": {{ data.discount_code_uuids | default: "" }},
-            {% endif %}
-        {% endif %}
         "total_discount_amount": {{ data.total_discount_amount | times: 1.0 | default: 0.0 }}
 
 

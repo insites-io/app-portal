@@ -1,0 +1,22 @@
+---
+name: add_discount
+to: 'https://{{context.location.host}}/ecommerce/api/v1/orders/discounts'
+format: http
+request_type: POST
+callback: >
+  {% assign response_hash = response.body | parse_json %}
+request_headers: >
+    {% include 'modules/client/api_headers' %}
+---
+{% log data, type: "add discount" %}
+
+{% comment %} {
+    "payload": {
+        "discount_uuid": "5c6b51fc-8212-4ca9-88c7-88a9e761988e",
+        "discount_name": "Discount-Large",
+        "discount_type": "fixed_amount",
+        "discount_value": 5,
+        "discount_code": "123-7",
+        "order_uuid": "a69acff3-f703-4738-a1a7-526ef876ed3f"
+    }
+} {% endcomment %}

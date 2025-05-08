@@ -120,21 +120,39 @@
     "last_updated_by_id": "{{ user_id }}",
     "date_time": "{{ form.properties.date_time }}",
     "currency": "{{ form.properties.currency }}",
-    {% if form.properties.is_discount_code_enabled == "true" %}
-        "discount_code_uuids": {{ form.properties.discount_code_uuids }},
-    {% endif %}
     "total_discount_amount": {{ form.properties.total_discount_amount }},
     "is_discount_code_enabled": "{{ form.properties.is_discount_code_enabled }}"
 }
 {% endparse_json %}
-
-{% log data, type: "data - callback" %}
-
 {%  graphql update_order = 'modules/website/trigger_api_call', 
     name: "modules/client/update_order",
     data: data
     | dig: 'items','response','body'
     | parse_json %}
+
+{% comment %} ? add order discount {% endcomment %}
+
+{% log form, type: "form - callback" %}
+{% log update_order, "type - update_order "%}
+{% parse_json data_order_discount %}
+{
+    "discount_uuid": "{{ form.properties.discount_code_uuids }}",
+    "discount_name": "{{ form.properties.discount_name }}",
+    "discount_type": "{{ form.properties.discount_type }}",
+    "discount_value": "{{ form.properties.discount_value }}",
+    "discount_code": "{{ form.properties.discount_percentage }}",
+    "order_uuid": "{{ form.properties.order_uuid }}"
+}
+{% endparse_json %}
+
+{% comment %} {%  graphql add_discount = 'modules/website/trigger_api_call', 
+    name: "modules/client/add_discount",
+    data: data
+    | dig: 'items','response','body'
+    | parse_json %} {% endcomment %}
+
+ {% comment %} {{ form.properties.discount_code_uuids }} {% endcomment %}
+
 
 {% liquid
     session paybill_order_id = update_order.items.id
