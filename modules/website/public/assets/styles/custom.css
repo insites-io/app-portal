@@ -62,6 +62,68 @@
 }
 
 
+/* HEADER */
+.vertical-line {
+    border-left: 1px solid var(--color-ui-04); height: 24px; margin: 0 8px;
+}
+
+.header-links .icon-shopping-cart,
+.header-mobile .icon-shopping-cart {
+    color: var(--font-color-head);
+    font-size: 16px !important;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.header-links .icon-shopping-cart:hover,
+.header-mobile .icon-shopping-cart:hover {
+    color: var(--color-main) !important;
+}
+
+.header-links .cart-count,
+.header-mobile .cart-count {
+    padding: 3px 8px;
+    position: absolute;
+    background: var(--color-sub2);
+    border-radius: 50%;
+    color: white;
+    font-size: .625rem;
+    line-height: normal;
+    right: 13px;
+    top: -1px;
+    width: 20px;
+}
+.header-mobile .cart-count {
+    right: -3px;
+}
+
+.zero-cart-count {
+    display: none !important;
+}
+
+.two-digits-count {
+    padding: 3px 5px !important;
+}
+
+ins-button.checkout-btn {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+#mega-menu-btn button.ins-button {
+    padding: 2px 8px 0px 8px !important;
+}
+
+#mega-menu-btn button:hover.ins-button >div .btn__label,
+#mega-menu-btn button:hover.ins-button >div .btn__icon:before {
+    color: var(--color-main) !important;
+}
+
+
+ins-button button .spinner {
+    margin: 0 auto;
+}
+
 /*********************************************** [Foundation Style Customization / Overwrite] *************************************************/
 
 .blocks-sc-3col-02.wrapper {
@@ -318,7 +380,7 @@ footer.blocks-footer-05 {
 }
 
 .footer-links i {
-    color: var(--font-color-body);
+    color: inherit !important
 }
 
 .blocks-footer-05 .menu li,
@@ -401,6 +463,10 @@ ins-tag span.ins-tag.blue {
     margin-right: 16px;
 }
 
+.card-form-submit button {
+    margin-bottom: 16px !important;
+}
+
 /********************************************************** NAVIGATION *******************************************************************/
 
 .navigation-04 {
@@ -433,7 +499,7 @@ ins-tag span.ins-tag.blue {
     font-size: 14px;
     font-weight: 700;
     /* color: var(--color-font-body, #595959); */
-    padding: 8px 24px;
+    padding: 8px;
     /* margin-left: 8px; */
 }
 
@@ -453,7 +519,7 @@ ins-tag span.ins-tag.blue {
 
 .navigation-04.header {
     border-bottom: 1px solid var(--color-ui-03, #F2F4F8);
-    ;
+    z-index: 999 !important;
 }
 
 .navigation-04 .header-top-bar ins-button.hide-for-small-only {
@@ -852,7 +918,7 @@ ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__page {
 }
 
 .profileNav .ins-dropdown_menu-card a {
-    padding: 18px 25px;
+    padding: 12px 16px;
     margin: 0px;
     color: #000000;
 }
@@ -1107,7 +1173,7 @@ ins-accordion .inner-content {
 }
 
 .signOutCustom button:hover {
-    background-color: #e9f8f4 !important;
+    background-color: #e8f3fc !important;
     color: #3159DB !important;
 }
 
@@ -1254,14 +1320,6 @@ ins-card .ins-card-wrap {
     font-family: var(--font-family-02) !important;
 }
 
-.mobile-menu-style a {
-    color: var(--font-color-head) !important;
-}
-
-.mobile-menu-style ins-accordion .menu ins-accordion-item .open .ins-accordion-item_content .inner-content ins-accordion-link .ins-accordion-link {
-    border-bottom: 1px solid #EBEBEB;
-}
-
 .sign-in-button a {
     color: var(--color-main) !important;
 }
@@ -1293,22 +1351,24 @@ ins-card .ins-card-wrap {
 }
 
 .sign-out-wrapper {
-    padding: 12px;
+    padding: 12px 24px;
 }
 
+.sign-out-wrapper .signOutCustom .ins-button {
+    padding: 0px;
+}
 .sign-out-wrapper .signOutCustom .ins-button div .btn__label {
-    color:  #323232;
-    font-family: "Work Sans";
+    color: var(--font-color-body);
+    font-family: var(--font-family-02);
     font-size: 16px !important;
     font-style: normal;
-    font-weight: 400 !important;
-    line-height: 24px;
-    text-transform: capitalize; 
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    text-align: initial;
+    text-transform: initial;
 }
-
-.sign-out-wrapper,
-ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
-    padding-left: 40px
+.sign-out-wrapper ins-button button.ins-button  {
+    text-align: initial;
 }
 
 .description ul {
@@ -1354,6 +1414,10 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 
 .newsDetailHolder {
     padding: 0px 104px;
+}
+
+.newsDetailHolder ul {
+    list-style: disc;
 }
 
 .footer-links {
@@ -1445,7 +1509,7 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 }
 
 .ins-form-field {
-    background: var(--color-ui-01) !important;
+    background: var(--color-ui-01);
 }
 
 #services_static_content .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
@@ -1459,6 +1523,11 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 }
 
 
+/********************************************************** Contact us *******************************************************************/
+
+#contancUsContainer .insites-form-buttons {
+    align-items: center !important;
+}
 /********************************************************** CUSTOM CSS - PORTAL *******************************************************************/
 
 
@@ -1474,7 +1543,8 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 
 .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
 .ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
-.ins-accordion-link.active>.ins-accordion-link_link {
+.ins-accordion-link.active>.ins-accordion-link_link,
+.portal-sidebar .ins-accordion-item.open .ins-accordion-item_header {
     background: var(--color-main-hover-light);
 }
 
@@ -1490,7 +1560,7 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 
 .ins-accordion.menu .ins-accordion-item .inner-head span,
 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
-    color: var(--font-color-sub);
+    color: var(--font-color-body);
 }
 
 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link:hover {
@@ -1514,8 +1584,8 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
 }
 
 .ins-accordion-link.active>.ins-accordion-link_link,
-.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link span {
-    font-weight: 700;
+.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link span,
+.portal-sidebar .ins-accordion-item.open .ins-accordion-item_header span.heading {
     color: var(--color-main);
 }
 
@@ -1525,8 +1595,8 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
     text-decoration: initial;
 }
 
-.client-portal .ins-accordion-link_link,
-.client-portal .ins-accordion.menu .ins-accordion-item .inner-head {
+.portal .ins-accordion-link_link,
+.portal .ins-accordion.menu .ins-accordion-item .inner-head {
     padding: 12px 16px;
     background-color: #f9fafb;
 }
@@ -1539,7 +1609,7 @@ ins-drawer#mobile-menu .ins-accordion-item_content .ins-accordion-link {
     font-size: 18px;
 }
 
-.client-portal .ins-accordion-item_content.will-show {
+.portal .ins-accordion-item_content.will-show {
     margin-left: 24px
 }
 
@@ -1577,7 +1647,7 @@ ins-button+ins-button button {
     margin-bottom: 0px;
 }
 
-.ins-card-wrap:hover {
+.ins-card-wrap:not(.no-hover-border div):hover {
     border: 1px solid var(--color-main);
     box-shadow: var(--shadow-level-2);
 }
@@ -1857,7 +1927,7 @@ ins-step {
 
 a:visited,
 .body-link:visited {
-    color: var(--color-main);
+   color: var(--color-ui-06);
 }
 
 p,
@@ -1866,7 +1936,7 @@ ul {
     font-size: 16px;
 }
 
-.client-portal {
+.portal {
     background: linear-gradient( to right, var(--color-ui-02) 0%, var(--color-ui-02) 50%, var(--color-ui-01) 50%, var(--color-ui-01) 100%);
 }
 
@@ -1951,7 +2021,6 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
 }
 
 .questionnaire ins-card p {
-    font-weight: 700;
     font-family: var(--font-family-02);
     line-height: 16px;
     font-size: var(--font-small) !important;
@@ -1970,6 +2039,20 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
     height: 40px;
 }
 
+.icon-close-style {
+    background: #fff !important;
+    border: none !important;
+    position: absolute !important;
+    display: flex !important;
+    align-items: center !important;
+    font-size: 16px !important;
+    padding: 0 !important;
+    right: 0% !important;
+    margin-right: 30px !important;
+    color: var(--color-font-body) !important;
+    transition: border-color .25sease-in-out !important;
+}
+
 .box {
     border: 1px solid var(--color-ui-04);
     padding: 24px;
@@ -1982,7 +2065,7 @@ ins-input-tel.hideCountryCode .col-container.column-3 {
 }
 
 .empty-box {
-    background: var(--color-ui-02);
+    background: #fff;
     border: 1px solid var(--color-ui-04);
     padding: 24px;
     border-radius: 4px;
@@ -2033,7 +2116,6 @@ ins-tag.Completed span.ins-tag {
 
 
 /* Documents */
-
 .documents .ins-modal-wrap.show-modal,
 .documents .ins-modal-wrap.show-modal ins-card {
     /* position: absolute;
@@ -2062,6 +2144,9 @@ ins-tag.Completed span.ins-tag {
     border: 1px solid var(--color-ui-04);
 }
 
+.change-password-form {
+    flex-direction: column !important;
+}
 
 /* Modified Scrollbar */
 
@@ -2397,6 +2482,10 @@ ins-tag.Completed span.ins-tag {
     color: #DF1F1F!important;
 }
 
+#user-permission-level .ins-input-select-wrap .ins-input-select .ins-select-options-wrap {
+    margin-bottom: -5px !important;
+}
+
 .swal-user-account .swal2-title {
     color: var(--font---font-color-head, #000);
     text-align: center;
@@ -2460,6 +2549,7 @@ ins-tag.Completed span.ins-tag {
 }
 
 
+<<<<<<< HEAD
 /** DISCOUNT **/
 
 .discount_code_field_container {
@@ -2517,3 +2607,26 @@ ins-input[disabled] .ins-form-field{
     display: flex;
     gap: 8px;
 }
+=======
+.header-mobile.grid-x {
+    gap: 24px;
+}
+
+.header-top-bar .header-mobile a{
+    padding-right: 0 !important;
+}
+
+.header-mobile .icon-shopping-cart {
+    font-size: 16px !important;
+}
+
+.header-mobile .vertical-line {
+  margin: 0 12px !important
+}
+
+
+.ElementsApp .InputElement {
+    font-weight: 400 !important;
+    color: green !important;
+}
+>>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f

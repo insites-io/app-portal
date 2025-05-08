@@ -4,7 +4,11 @@ const scrollTopBtn = document.getElementById('scroll-to-top');
 
 // Mobile Menu
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenuBtnClose = document.getElementById('mobile-menu-btn-close')
 const mobileMenuDrawer = document.getElementById('mobile-menu');
+const mobileMenuContainer = document.getElementById('mobileMenuContainer')
+const mainHeaderWrapper = document.getElementById('mainHeaderWrapper')
+const mobileMenuWrapperDynamic = document.getElementById('mobile-menu-wrapper-dynamic')
 
 let lastKnownScrollPosition = window.pageYOffset || document.body.scrollTop;
 const mobileWindowWidthLimit = 1023;
@@ -62,19 +66,6 @@ let App = (function () {
                     ? text.trim().replace(/[ ]/g, "-").replace(/[_]/g, "")
                     : '';
                 return InsitesUtil.removeWhitespace(kebab);
-            },
-            getFillerHeight() {
-                /* Get the width of the window to check if it will get the height of the filler for the mobile or desktop then return it. */
-                let windowWidth = window.innerWidth;
-                let fillerContainer = document.getElementById("head-filler");
-                let fillerHeight = 0;
-                //clientHeight includes the padding only
-                if (windowWidth <= mobileWindowWidthLimit) {
-                    fillerHeight = fillerContainer.getElementsByClassName("mobile")[0].clientHeight;
-                } else {
-                    fillerHeight = fillerContainer.getElementsByClassName("desktop")[0].clientHeight;
-                }
-                return fillerHeight;
             }
         },
         // Validation functions
@@ -237,6 +228,11 @@ let App = (function () {
             toggleDrawerMenu() {
                 let state = !mobileMenuDrawer.isOpen ? true : false;
                 mobileMenuDrawer.setDrawerState(state);
+                if (state) {
+                    mobileMenuContainer.style.display = 'block'
+                    mobileMenuContainer.classList.remove('mobile-menu-container')
+                }
+                mobileMenuWrapperDynamic.style.height = `${mainHeaderWrapper.clientHeight}px`
             },
             toggleMobileMenuBtnIcon() {
                 let state = mobileMenuDrawer.isOpen ? true : false;
@@ -248,21 +244,29 @@ let App = (function () {
             },
             checkScrollStatus(scrollPosition) {
                 let mainHeader = document.getElementById('main-header');
-                let fillerGuide = App.data.getFillerHeight();
+                let fillerGuide = 0; //App.data.getFillerHeight();
                 // Check if guide is breached before initiating animation
                 if (scrollPosition > fillerGuide) {
                     if (scrollPosition <= lastKnownScrollPosition) {
                         //show Menu
-                        mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
+                        // mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
                     } else {
                         //hide Menu
-                        mainHeader.style.transform = "translate3d(0px, -162px, 0px)";
+                        // mainHeader.style.transform = "translate3d(0px, -162px, 0px)";
                     }
                 } else {
                     //If less than the Guide put back Header to initial looks
                     mainHeader.style.transform = "translate3d(0px, 0px, 0px)";
                 }
                 lastKnownScrollPosition = scrollPosition;
+            },
+            showTablePagination(tableName, itemCount) {
+                var insBaseTable = document.getElementById(tableName);
+                if(itemCount == 0 || !itemCount) {
+                    insBaseTable.setAttribute('without-pagination','')
+                    return false
+                }
+                return true
             }
         },
         // Initialize elements & event listeners
@@ -282,32 +286,142 @@ let App = (function () {
             },
             // Mobile Menu
             initMobileMenu() {
-                if (mobileMenuBtn && mobileMenuDrawer) {
+                if (mobileMenuBtn && mobileMenuDrawer && mobileMenuBtnClose) {
                     mobileMenuBtn.addEventListener('click', () => {
                         App.events.toggleDrawerMenu();
                     });
+
+                    mobileMenuBtnClose.addEventListener('click', () => {
+                        App.events.toggleDrawerMenu();
+                    })
+
                     mobileMenuDrawer.addEventListener('insToggle', () => {
                         App.events.toggleMobileMenuBtnIcon();
                     });
                 }
             },
-            // Scrolling Event for Menu
-            initScrollMenu() {
-                let mainHeader = document.getElementById('main-header');
-                let ticking = false;
+            initMobileStickyMenu() {
+                let lastScrollTop = 0;
+                const navbar = document.getElementById('main-header');
+                
+                // Function to check if the screen is mobile size
+                function isMobile() {
+                    return window.innerWidth <= 1029;
+                }
+            
+                // Function to handle navbar behavior on scroll
+                function handleScroll() {
+                    if (!navbar) return; // Ensure navbar exists
+            
+                    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+                    // Check if navbar has 'light-header' class
+                    const hasLightHeader = navbar.classList.contains('light-header');
+            
+                    if (isMobile()) {
+                        // If we're at the top of the page (scroll = 0)
+                        if (currentScroll === 0) {
+                            // If navbar doesn't have the 'light-header' class, set background color to #05051D
+                            if (!hasLightHeader) {
+                                navbar.classList.add('no-light-header'); // Add no-light-header class to set background to #05051D
+                            } else {
+                                navbar.classList.remove('no-light-header'); // Remove no-light-header class to make background transparent
+                            }
+                            navbar.style.position = 'relative'; // Return to normal flow
+                            navbar.style.transform = 'translateY(0)'; // Ensure the navbar is visible
+                        }
+                        // Scroll Down: Hide navbar and fix it to the top
+                        else if (currentScroll > lastScrollTop && currentScroll > navbar.offsetHeight) {
+                            navbar.style.position = 'fixed'; // Make navbar fixed when scrolling down
+                            navbar.style.transform = 'translateY(-100%)'; // Hide navbar
+                        }
+                        // Scroll Up: Show navbar and keep it fixed
+                        else if (currentScroll < lastScrollTop) {
+                            navbar.style.position = 'fixed'; // Keep it fixed even when scrolling up
+                            navbar.style.transform = 'translateY(0)'; // Show navbar
+                        }
+            
+                        // If we're not at the top, adjust navbar background color (for mobile)
+                        if (currentScroll > 50) {
+                            navbar.style.backgroundColor = '#05051D'; // Change background to #05051D when scrolling
+                        }
+            
+                        lastScrollTop = Math.max(0, currentScroll); // Prevent negative values
+                    } else {
+                        // For desktop, navbar should always have a solid background color
+                        navbar.style.backgroundColor = '#05051D';
+                        navbar.style.position = 'relative'; // Make sure it's not fixed on desktop
+                        navbar.style.transform = 'translateY(0)';
+                    }
+                }
+            
+                // **Run once immediately to apply correct background before scroll events**
+                handleScroll();
+            
+                // Attach the scroll event listener
+                window.addEventListener('scroll', handleScroll);
+            },
+            clearFunctionSearch() {
+  
+                setTimeout(() => {
+                    // Select all elements with the class 'search-input'
+                    const inputElementContainers = document.querySelectorAll('.search-bars');
+            
+                    inputElementContainers.forEach(inputElementContainer => {
+                    const inputElement = inputElementContainer.getElementsByTagName('input')[0];
+                    
+                    let iconElement = inputElementContainer.querySelector('.icon-search-1');
 
-                if (mainHeader) {
-                    document.addEventListener('scroll', function (e) {
-                        //this is done to avoid throtling the function too much
-                        if (!ticking) {
-                            window.requestAnimationFrame(function () {
-                                App.events.checkScrollStatus(window.scrollY);
-                                ticking = false;
-                            });
-                            ticking = true;
+                    if(iconElement == null) {
+                       iconElement = inputElementContainer.querySelector('.icon-search');
+                    }
+
+                    if (inputElement.value.trim() !== "") {
+                        let closeIcon = document.createElement('i');
+                        closeIcon.classList.add('icon-close-1', 'icon-wrap', 'icon-close-active','icon-close-style');
+                        inputElementContainer.querySelector('.input-wrap').insertBefore(closeIcon, iconElement);
+                      }
+                
+            
+                    inputElement.addEventListener('input', function () {
+                        let closeIcon = inputElementContainer.querySelector('.icon-close-1');
+            
+                        if (inputElement.value.trim() !== "") {
+                        if (!closeIcon) {
+                            closeIcon = document.createElement('i');
+                            closeIcon.classList.add('icon-close-1', 'icon-wrap', 'icon-close-active','icon-close-style');
+                            iconElement.parentNode.insertBefore(closeIcon, iconElement); 
+                        }
+                        } else {
+                        if (closeIcon) {
+                            closeIcon.remove();
+                        }
                         }
                     });
-                }
+            
+                    inputElementContainer.addEventListener('click', function(event) {
+                        if (event.target.classList.contains('icon-close-1')) {
+                        inputElement.value = ""; 
+                        let closeIcon = inputElementContainer.querySelector('.icon-close-1');
+                        if (closeIcon) {
+                            closeIcon.remove(); 
+                        }
+                        if (window.location.search) {
+                            // Check if the current page is the "search" page
+                            if (window.location.pathname === '/search') {
+                                // Redirect to the "news" page
+                                window.location.href = '/news';
+                            } else {
+                                // If not the "search" page, just reload without query parameters
+                                window.history.replaceState(null, null, window.location.pathname);
+                                window.location.reload();
+                            }
+                        }
+                        }
+                    });
+                    });
+                }, 300);
+ 
             }
 
         }
@@ -319,7 +433,8 @@ window.App = App;
 
 // Set timeout, make sure INS components has been loaded
 setTimeout(() => {
+    App.init.clearFunctionSearch();
     App.init.initScrollToTopBtn();
     App.init.initMobileMenu();
-    App.init.initScrollMenu();
+    App.init.initMobileStickyMenu();
 }, 200);

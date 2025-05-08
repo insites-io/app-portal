@@ -1,0 +1,59 @@
+---
+metadata: {
+    partial_name: "Website | About | Our team",
+}
+---
+
+{%- graphql get_our_team = 'modules/website/about_us/get_our_team' | dig: 'items', 'results' -%}
+
+
+<section class="about-us-our-team">
+
+<div class="wrapper">
+  <div class="spacer section show-for-medium"></div>
+  <div class="spacer xxx-large show-for-small-only"></div>
+    <div class="grid-container grid-x">
+      <div class="large-6 medium-6 small-12 cell">
+        <h2> Our amazing team</h2>
+        <div class="spacer"></div>
+        <p class="subHeading subHeadingMain">A team where everyone feels valued and trusts each other.</p>
+        <div class="spacer xxx-large show-for-small-only"></div>
+      </div>
+      <div class="large-6 medium-6 small-12 cell">
+        <div class="description-content">
+          <p class="subHeading">A great team works like a machine, combining unique skills in a supportive environment, clear communication, and trust, leading to excellent results.</p>
+          <br>
+          <p class="subHeading">A fantastic team knows how to work together and make the most of it. An excellent team values communication, collaboration, and trust, creating a supportive environment where everyone thrives and contributes to success.</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="spacer xxxx-large"></div>
+      <div class="our-team grid-container main-container">
+        <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
+          <!-- segment -->
+          {% for item in get_our_team %} 
+            <div class="large-3 medium-6 small-12 cell">
+              <div class="team-image-wrapper">
+                <img loading="lazy" width="500" height="500" alt="team1" class="ourTeamImg" src="{{ item.photo.url }} ">
+                <div class="overlay"></div>
+              </div>
+              <div class="our-team-card">
+                <div class="spacer"></div>
+                  <p class="heading-5">{{ item.name }}</p>
+                  <div class="spacer x-small"></div>
+                <p class="subHeading">{{ item.occupation }}</p>
+                <div class="spacer x-small"></div>
+              </div>
+            </div>
+        {% endfor %}
+          <!-- /segment -->
+
+        
+          <!-- /segment -->
+        </div>     
+      </div>  
+  </div>
+</section>
+<div class="spacer section show-for-medium"></div>
+<div class="spacer xxx-large show-for-small-only"></div>

@@ -1,0 +1,23 @@
+mutation create_user_profile(
+  $id: ID!
+  $token: String!
+) {
+  user_update(
+    id: $id
+    user: {
+      profiles: [
+        {
+          name: "modules/portal/portal",
+          values: {
+            properties: [
+              { name: "verification_token", value: $token }
+              { name: "is_enabled", value_boolean: true }
+            ]
+          }
+        }
+      ]
+    }
+  ) {
+    id
+  }
+}

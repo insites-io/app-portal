@@ -1,0 +1,17 @@
+---
+metadata: {
+    partial_name: 'Website | Layout | Check if user has profile'
+}
+---
+
+{%- graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user' -%}  
+{% assign client_profile =  user | dig: 'portal' | first  %}
+
+{% assign has_profile = true %}
+
+{% if client_profile.size == null  %}
+    {% assign has_profile = false %}
+{% endif %}
+
+
+{% return has_profile %}

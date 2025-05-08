@@ -1,0 +1,48 @@
+---
+metadata: {
+    partial_name: "Website | Components | Features card list",
+}
+---
+
+{% if full %}
+    {% if home %}
+        <div class="wrapper">
+            <div class="features-container">
+                {% for item in data %}
+                        <a class="features-item-link" href="features/{{ item.slug }}">
+                            <div class="portal-benefits-cards">
+                                <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                                <p class="heading-6">{{ item.card_title }}</p>
+                                <p class="subHeading">{{ item.card_short_description }}</p>
+                                <i class="icon-arrow-right"></i>
+                            </div>
+                        </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+    <div class="wrapper">
+        <div class="features-container">
+                {% for item in data %}
+                    <div class="features-item-link">
+                        <div class="portal-benefits-cards">
+                            <img loading="lazy" width="50" height="50" src="{{ item.details_icon.url }}" alt="">
+                            <p class="heading-6">{{ item.heading }}</p>
+                            <p class="subHeading">{{ item.short_description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    {% endif %}
+{% else %}
+    {% for item in data %}
+        <a href="features/{{ item.slug }}">
+            <div class="portal-benefits-cards">
+                <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                <p class="heading-6">{{ item.card_title }}</p>
+                <p class="subHeading">{{ item.card_short_description }}</p>
+                <i class="icon-arrow-right"></i>
+            </div>
+        </a>
+    {% endfor %}
+{% endif %}

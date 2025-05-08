@@ -1,0 +1,32 @@
+mutation create_testimonials(
+  $full_name: String,
+  $location: String,
+  $message: String,
+  $allow_display_on_website: String,
+) {
+  items: record_create(
+    record: {
+      table: "modules/website/testimonials",
+      properties: [
+        { 
+          name: "full_name",
+          value: $full_name 
+        },
+        { 
+          name: "location",
+          value: $location 
+        },
+        { 
+          name: "message",
+          value: $message 
+        },
+        { 
+          name: "allow_display_on_website",
+          value: $allow_display_on_website 
+        }
+      ]
+    }
+  ) {
+    id
+  }
+}

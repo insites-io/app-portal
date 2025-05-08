@@ -1,0 +1,44 @@
+---
+metadata: {
+    layout_name: default_dark
+}
+---
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    {% include 'modules/website/layout/head' %}
+</head>
+<body>
+    <div class="main-wrap">      
+        {% include 'modules/website/layout/header', dark: true %} 
+        {% include 'modules/website/layout/header_mobile' %}
+
+        {{ content_for_layout }}
+
+        {% comment %} ? For ecommerce cart drawer {% endcomment %}
+        {% if context.constants.ecommerce_addon == 'true' %}
+            {% include 'modules/ecommerce/carts/cart_drawer' %} 
+            <script>
+                //Trigger a click event on a child <a> element when clicking anywhere inside an element '.product-cards .cell' 
+                //(except for ins-buttonn element and its children)
+                const productWrappers = document.querySelectorAll('.product-cards .cell');
+                if(productWrappers.length > 0){
+                    productWrappers.forEach(wrapper => {
+                        wrapper.addEventListener('click', function (event) {
+                            if (!event.target.closest('ins-button')) {
+                                const link = this.querySelector('a');
+                                if (link) {
+                                    link.click();
+                                }
+                            }
+                        });
+                    });
+                }
+            </script>
+        {% endif %}
+    </div>
+    
+    {% include 'modules/website/layout/footer' %}
+
+</body>
+</html>

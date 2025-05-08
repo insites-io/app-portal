@@ -1,0 +1,44 @@
+---
+metadata: {
+    partial_name: 'Website | Global | Hero title'
+}
+---
+
+{%- assign slug_name = context.params.slug -%}
+
+{% if slug_name == 'about-us' %}
+   {% assign header = 'About us' %} 
+{% elsif slug_name == 'features' %}
+    {% assign header = 'Features' %}  
+{% elsif slug_name == 'services-details' %}
+    Customisable Style Guide
+{% elsif slug_name == 'faqs' or slug_name == 'faq-details' %}
+    {% assign header = 'Frequently asked questions' %}  
+{% elsif slug_name == 'privacy-policy' %}
+    {% assign header = 'Privacy policy' %}  
+{% elsif slug_name == 'contact-us' %}
+    {% assign header = 'Get in touch' %}  
+{% elsif slug_name == 'terms-and-conditions' %}
+    {% assign header = 'Terms & conditions' %}  
+{% elsif slug_name == 'news' %}
+    {% assign header = 'News' %}  
+{% else %}
+    Test Page
+{% endif %}
+
+<section class="hero-title">
+    <div class="wrapper">    
+        <div class="spacer xxx-large"></div>
+        <div class="grid-container">        
+            <div class="page-hero-container">
+                <h2>
+                    {{ header }}
+                </h2>
+                <p>{{ description }}</p>
+            </div>
+
+        </div>
+        <div class="spacer section show-for-medium"></div>
+        <div class="spacer xxx-large show-for-small-only"></div>
+    </div>
+</section>

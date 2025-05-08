@@ -1,0 +1,40 @@
+query get_features_details (
+    $page: Int = 1, 
+    $size: Int = 10,
+    $parent_id: String
+) {
+    items: records(
+        page: $page
+        per_page: $size
+        filter: {
+            table: { value: "modules/website/features" }
+            deleted_at: { exists: false }
+            properties: [
+                { name: "enabled", value_boolean: true }
+                { name: "parent", value: $parent_id }
+            ]
+        }
+        sort: [
+            { properties: { name: "details_order", order: ASC } }
+        ]
+    ) {
+        total_entries
+        total_pages
+        per_page
+        current_page
+        results {
+            id
+            updated_at
+            created_at
+            deleted_at
+            heading: property(name: "heading")
+            short_description: property(name: "short_description")
+            details_icon: property_upload(name: "details_icon") {
+                url
+                file_name
+                extension
+                versions
+            }
+        }
+    }
+}

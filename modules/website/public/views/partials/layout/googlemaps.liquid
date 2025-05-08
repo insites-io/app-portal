@@ -1,0 +1,15 @@
+---
+metadata: {
+    partial_name: 'Website | Layout | Googlemaps'
+}
+---
+
+{%- graphql data = 'modules/website/trigger_api_call', name: 'modules/portal/get_google_maps_api_key' -%}
+{%- assign key = data.items.response.body | parse_json | dig: 'items', 'results' | first | dig: 'key' -%}
+
+<script>
+    async function googleMapCallback(){
+        //Callback is required but do nothing here
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{key}}&libraries=places&v=3.exp&loading=async&callback=googleMapCallback"></script>    

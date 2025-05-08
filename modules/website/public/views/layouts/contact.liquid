@@ -1,0 +1,54 @@
+---
+metadata: {
+    layout_name: contact
+}
+---
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<head>
+    {%- comment -%}
+    We try to limit assets that are part of the head / technical head to
+    minimize page size & improve page performance.
+
+    Assets like 'Google Map API', should only be referenced as needed.
+    - Managed on the 'page / layout' level
+        {% include 'modules/website/layout/googlemaps' %}
+    {% endcomment %}
+    
+
+    {% comment %} ? Delete the next 2 line of codes below this comment once Installed and Menu Database is Populated {% endcomment %}
+    {% include 'modules/website/layout/head' %}    
+
+    <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
+    <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
+    {%- include 'modules/insites_forms/form_code' -%}
+    
+</head>
+<body>
+
+    <div class="main-wrap">
+        {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/layout/header_mobile' %}
+        
+        {% assign description = "Contact us about anything related to our company or features." %}
+        {% include 'modules/website/content/hero_title', description: description %}         
+        {{ content_for_layout }}
+
+    </div>
+    {% include 'modules/website/layout/footer' %}
+    <script>
+        function mapsSelector() {
+            if /* if we're on iOS, open in Apple Maps */
+                ((navigator.platform.indexOf("iPhone") != -1) ||
+                (navigator.platform.indexOf("iPad") != -1) ||
+                (navigator.platform.indexOf("iPod") != -1))
+                window.open("maps://www.google.com/maps/place/{{ loc_1_address_full | url_encode }}");
+            else /* else use Google */
+                window.open("https://www.google.com/maps/place/{{ loc_1_address_full | url_encode}}");
+        }
+    </script>
+
+</body>
+</html>

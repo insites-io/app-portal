@@ -1,0 +1,247 @@
+---
+slug: contact-us
+layout: modules/website/contact
+---
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% endif %}
+
+    {% comment %} Globals {% endcomment %}
+    {%- include "modules/insites_cms/globals" -%}
+    {%- assign global = context.exports.global -%}
+    {% comment %} Set full address using loc_1 {% endcomment %}
+    {%  liquid
+        assign loc_1_address_full = ""
+        if global.loc_1_address_1 and global.loc_1_address_1 != ''
+            assign loc_1_address_full = global.loc_1_address_1 | append : ", "
+        endif
+        if global.loc_1_address_2 and global.loc_1_address_2 != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_address_2 | append : ", "
+        endif
+        if global.loc_1_city and global.loc_1_city != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_city | append : " "
+        endif
+        if global.loc_1_state and global.loc_1_state != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_state | append : " "
+        endif
+        if global.loc_1_postcode and global.loc_1_postcode != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_postcode | append : " "
+        endif
+        if global.loc_1_country and global.loc_1_country != ''
+            assign loc_1_address_full = loc_1_address_full | append: global.loc_1_country 
+        endif
+    %}
+
+    {% comment %} Google map key {% endcomment %}
+    {% graphql data = 'modules/website/trigger_api_call', name: 'modules/portal/get_google_maps_api_key' %}
+    {% assign map_key = data.items.response.body | parse_json | dig: 'items', 'results' | first | dig: 'key' %}
+
+
+    {% comment %} connect services to graphql {% endcomment %}
+    {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+    {% comment %} assign var to fetch the result {% endcomment %}
+    {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
+    {%- assign res_contact = res_contact | first -%}
+    
+    <div class="contact-us-content-wrapper">
+        <div class="contact-us-wrapper">
+            <div class="wrapper">
+                <div class="grid-container">
+                    <div class="grid-x">
+                        <div class="large-6 medium-6 small-12 cell">
+                            <div class="spacer xx-large"></div>
+                            <h4>Send a message</h4>
+                            <div class="spacer small"></div>
+                            <p class="subHeading">Let us know how we can help.</p>
+                            <div class="spacer xx-large"></div>
+                            <div class="contact-us-form-container">
+                                {%- include_form 'modules/ins_forms/contact_us' -%}
+                                <div class="spacer xx-large show-for-small-only"></div> 
+                            </div>
+                        </div>
+                        <div class="large-6 medium-6 small-12 cell contact-us-details-wrapper">  
+                            <div class="spacer xx-large"></div>
+                            <div class="contact-us-details-container">
+                                <div class="contact-us-details">
+                                    <ul class="contact-details no-bullet color-main">
+                                        {%- if global.loc_1_phone_number -%}
+                                            <li class="phone-container">
+                                                {%- comment -%}
+                                                IF the phone number is a '1800', or no country code, etc.. just remove regex
+                                                Data needs to be standard. If it will contain the country code, or not.
+                                                {%- endcomment -%}
+                                                {%- assign contact_no = global.loc_1_phone_number | replace_regex: '[+() ]', '' | prepend: '+' -%}
+                                                {% assign phone_number = global.loc_1_phone_number %}         
+                                                <p class="contact-heading">Phone</p>  
+                                                <div class="spacer small"></div>                                                    
+                                                <a class="color-main subHeading" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
+                                                    +{{ global.loc_1_phone_country_code }}
+                                                    {{ phone_number | slice: 0, 3 }} 
+                                                    {{ phone_number | slice: 3, 4 }} 
+                                                    {{ phone_number | slice: 6, 10 }}
+                                                </a>
+                                            </li>
+                                            {%- endif -%}
+                                        
+
+                                        {%- if global.loc_1_email -%}
+                                            <li class="email-container">
+                                                <p class="contact-heading">Email</p>  
+                                                <div class="spacer small"></div>  
+                                                <a class="color-main subHeading" href="mailto:{{ global.loc_1_email }}"
+                                                    data-test="contact-us-contact-number">
+                                                    {{ global.loc_1_email }}
+                                                </a>
+                                            </li>
+                                        {%- endif -%}
+
+                                        <li class="address-container">
+                                            {%- if loc_1_address_full != "" -%}
+                                            <p class="contact-heading">Location</p>  
+                                            <div class="spacer small"></div>  
+                                            <a target="_blank" class="color-main subHeading" onclick="mapsSelector()">                                    
+                                             
+                                                {{ loc_1_address_full }}                                    
+                                            </a>
+                                            {% endif %}
+                                        </li>
+
+                                        <li>
+                                            <p class="contact-heading">Social media</p>  
+                                            <div class="spacer small"></div>  
+                                            <ul class="menu social">
+                                                {% if context.exports.global.facebook_link %}
+                                                <li>
+                                                    <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
+                                                        <i class="icon-facebook-square"></i>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+
+                                                {% if context.exports.global.twitter_link %}
+                                                <li>
+                                                    <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="twitter" rel="noreferrer">
+                                                        <i class="icon-social-x-square"></i>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+
+                                                {% if context.exports.global.linkedin_link %}
+                                                <li>
+                                                    <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="linkedin" rel="noreferrer">
+                                                        <i class="icon-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+
+                                                {% if context.exports.global.instagram_link %}
+                                                <li>
+                                                    <a class="footer-links iconHover" href="{{ context.exports.global.instagram_link }}" data-test="" target="_blank" title="instagram" rel="noreferrer">
+                                                        <i class="icon-instagram-square"></i>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+
+                                                {% if context.exports.global.youtube_link  %}
+                                                <li>
+                                                    <a class="footer-links iconHover" href="{{ context.exports.global.youtube_link }}" data-test="" target="_blank" title="youtube" rel="noreferrer">
+                                                        <i class="icon-youtube-square"></i>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+
+                                                {% if context.exports.global.pinterest_link  %}
+                                                    <li>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.pinterest_link }}" data-test="" target="_blank" title="pinterest" rel="noreferrer">
+                                                            <i class="icon-pinterest-square"></i>
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+
+                                                {% if context.exports.global.other_1_link  %}
+                                                    <li>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.other_1_link }}" data-test="" target="_blank" title="other link 1" rel="noreferrer">
+                                                            <i class="icon-share-2"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+
+                                                {% if context.exports.global.other_2_link  %}
+                                                    <li>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.other_2_link }}" data-test="" target="_blank" title="other link 2" rel="noreferrer">
+                                                            <i class="icon-share-2"></i>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+
+                                            </ul>
+                                        </li>
+  
+                                    </ul>
+                                </div>
+                                <div class="spacer"></div>
+                                {%- if loc_1_address_full != "" -%}
+                                    <a target="_blank"
+                                    href="https://www.google.com/maps/place/{{ loc_1_address_full  | url_encode }}"
+                                    class="color-main">
+                                    {%- include 'modules/website/map/google-map-static', key: map_key, address: loc_1_address_full -%}
+                                </a>
+                                {% endif %}                                              
+                                {% if loc_1_mon_open != null and  loc_1_tue_open != null and loc_1_wed_open != null  
+                                    and loc_1_thu_open != null  and loc_1_fri_open != null  and loc_1_sat_open != null  
+                                    and loc_1_sun_close != null  
+                                    %}
+                                    
+                                {% else %}
+                                                
+                                <div class="spacer xxx-large"></div>
+                                <h5>Opening hours</h5>
+                                <div class="spacer large"></div>
+                                <div class="grid-x opening-hours">
+        
+                                    {%- assign days_name = "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday" | split: "," -%}
+                                    {%- assign global_days = "sun,mon,tue,wed,thu,fri,sat" | split: "," -%}
+                                    {%- assign current_day = "today" | date: "%A" -%}
+                                    
+                                    {%- for day in global_days -%}
+                                    {%- assign key_enable = "loc_1_" | append: day | append: "_enable" -%}
+                                    {%- assign key_open = "loc_1_" | append: day | append: "_open" -%}
+                                    {%- assign key_close = "loc_1_" | append: day | append: "_close" -%}
+                                    
+                                    <div class="small-12 cell grid-x  {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
+                                        <div class="small-6 cell">{{ days_name[forloop.index0] }}</div>
+                                        <div class="small-6 cell">
+                                            {% if global[key_enable] == 'false' or global[key_enable] == false or global[key_enable] == nil %}
+        
+                                                {% comment %} ? THIS IS TO SET DEFAULT VALUE FOR OPENING HOURS {% endcomment %}
+                                                {% if global[key_enable] == nil %}
+                                                    {% comment %} ? THIS VALUE MOSTLY AIMS TO POPULATE UPON INSTALLATION {% endcomment %}
+                                                    {% if days_name[forloop.index0] == "Sunday" or days_name[forloop.index0] == "Saturday"  %}
+                                                        <p class="subHeading">Closed</p>   
+                                                    {% else %}                                        
+                                                        <p class="subHeading">7:00 AM - 4:00 PM</p>
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% comment %} ? THIS VALUE TARGETS IF THE SETTING OF OPENING HOURS IS FALSE {% endcomment %}
+                                                    <p class="subHeading">Closed</p>   
+                                                {% endif %}
+                                            {% else %}
+                                                <p class="subHeading">{{ global[key_open] | date: "%I:%M %p" }} - {{ global[key_close] | date: "%I:%M %p" }}</p>
+                                            {% endif %}                                
+                                        </div>
+                                    </div>
+                                    <div class="small-12 cell spacer x-small"></div>
+                                    {%- endfor -%}
+                                </div>
+                                {% endif %}
+                      
+                            </div>
+                            <div class="spacer xx-large"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    

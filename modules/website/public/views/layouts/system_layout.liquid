@@ -1,0 +1,28 @@
+---
+metadata: {
+    layout_name: system_layout
+}
+---
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        {% include 'modules/website/layout/head' %}
+    </head>
+    <body class="system-page flex-container flex-dir-column">
+        <div class="">
+            {% include 'modules/website/layout/header', border: true %} 
+            {% include 'modules/website/layout/header_mobile' %}
+
+            {% comment %} ? For ecommerce cart drawer {% endcomment %}
+            {% if context.constants.ecommerce_addon == 'true' %}
+                {% include 'modules/ecommerce/carts/cart_drawer' %}
+            {% endif %}
+
+            <div class="system-content">      
+                {{ content_for_layout }}
+            </div> 
+        </div>
+        {% include 'modules/website/layout/footer' %}
+    </body>
+</html>
+

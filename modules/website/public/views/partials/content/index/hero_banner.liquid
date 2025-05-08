@@ -1,0 +1,92 @@
+<div class="hero-home-banner" height="800">
+  <img
+    src="{{ 'modules/website/images/home/hero-bg.webp' | asset_url  }}"
+    alt="Hero background"
+    width="1000"
+    height="800"
+    fetchpriority="high"
+    class="hero-bg image-d"
+  />
+
+  <img
+    src="{{ 'modules/website/images/home/hero-bg.webp' | asset_url  }}"
+    alt="Hero background"
+    width="650"
+    height="430"
+    fetchpriority="high"
+    class="hero-bg image-m"
+  />
+
+<div class="spacer section hero-spacer"></div>
+    <div class="wrapper">
+        <div class="grid-container grid-x align-middle">
+            <div class="large-8 medium-7 small-12 cell">
+              <h1 class="hero-main-text">
+                The ideal portal for <br> your
+                <span id="banner-dynamic-word">
+                  <span class="word current">clients</span>
+                  <span class="word next">members</span>
+                </span>
+              </h1>
+            </div>
+            <div class="large-4 medium-5 small-12 cell">
+                <div class="hero-text-container">
+                    <div class="hero-text">
+                        <p>A unified portal will help you to professionally manage your projects (and to wow your clients).</p>
+                        <div class="spacer medium"></div>
+                        <a href="">Explore features <i class="icon-arrow-forward"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="hero-banner-img">
+    <div class="wrapper">
+        <div class="grid-container grid-x align-middle">
+          <img width="1000" height="800" fetchpriority="high" class="image-d"
+            src="{{ 'modules/website/images/home/hero-banner-d.webp' | asset_url  }}" alt="Homepage banner">
+        </div>
+
+        <img width="650" height="430" fetchpriority="high" class="image-m"
+          src="{{ 'modules/website/images/home/hero-banner-m.webp' | asset_url  }}" alt="Homepage banner">
+    </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const words = ['clients', 'members', 'users', 'customers'];
+  let index = 0;
+
+  const wordWrapper = document.getElementById('banner-dynamic-word');
+  const currentWord = wordWrapper.querySelector('.current');
+  const nextWord = wordWrapper.querySelector('.next');
+
+  function rollWords() {
+    index = (index + 1) % words.length;
+    nextWord.textContent = words[index];
+
+    currentWord.style.transform = 'translateY(-100%)';
+    nextWord.style.transform = 'translateY(-100%)';
+
+    setTimeout(() => {
+      currentWord.textContent = words[index];
+
+      currentWord.style.transition = 'none';
+      nextWord.style.transition = 'none';
+      currentWord.style.transform = 'translateY(0)';
+      nextWord.style.transform = 'translateY(0)';
+
+      void currentWord.offsetWidth;
+
+      currentWord.style.transition = 'transform 0.4s ease-in-out';
+      nextWord.style.transition = 'transform 0.4s ease-in-out';
+    }, 400);
+  }
+
+  setInterval(rollWords, 2000);
+});
+</script>

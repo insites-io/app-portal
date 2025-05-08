@@ -1,0 +1,39 @@
+query get_business_needs(
+    $page: Int = 1, 
+    $size: Int = 10,
+) {
+    items: records(
+        page: $page
+        per_page: $size
+        filter: {
+            table: { value: "modules/website/our_team" }
+            deleted_at: { exists: false }
+            properties: [
+                { name: "enabled", value_boolean: true }
+            ]
+        }
+        sort: [
+            { properties: { name: "order", order: ASC } }
+        ]
+    ) {
+        total_entries
+        total_pages
+        per_page
+        current_page
+        results {
+            id
+            updated_at
+            created_at
+            deleted_at
+            name: property(name: "name")
+            occupation: property(name: "occupation")
+            ## photo
+            photo: property_upload(name: "photo") {
+                url
+                file_name
+                extension
+                versions
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+name: portal
+metadata:
+  label: "Portal"
+properties:
+- name: is_enabled
+  type: boolean
+  metadata:
+    type: "toggle"
+    label: "Is Enabled"
+    weight: 1
+    options: []
+- name: verification_token
+  type: string
+- name: primary_account_holder
+  type: boolean
+  metadata:
+    type: "toggle"
+    label: "Primary account holder"
+    weight: 1
+    options: []
+- name: permission_level
+  type: string     
+  metadata:
+    type: "string"
+    label: "Permission Level"
+    weight: 1
