@@ -1,10 +1,6 @@
 ---
 slug: pay-bills
-<<<<<<< HEAD:modules/client/public/views/pages/pay_bills.liquid
-layout: modules/client/stripe
-=======
 layout: modules/portal/form
->>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f:modules/portal/public/views/pages/pay_bills.liquid
 searchable: false
 max_deep_level: 1
 metadata: {
@@ -26,17 +22,11 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly",
     "heading": "Pay a Bill"
-<<<<<<< HEAD:modules/client/public/views/pages/pay_bills.liquid
-}
----
-{% function get_stripe_settings = "modules/client/stripe/get_stripe_settings" %}
-=======
 }   
 authorization_policies:
   - modules/portal/is_user_logged_in
 ---
 {% function get_stripe_settings = "modules/portal/stripe/get_stripe_settings" %}
->>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f:modules/portal/public/views/pages/pay_bills.liquid
 
 {% if get_stripe_settings.account_id != ''  %}
   <div class="pay-bills">

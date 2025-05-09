@@ -1548,7 +1548,7 @@ ins-card .ins-card-wrap {
     background: var(--color-main-hover-light);
 }
 
-.ins-accordion-item_content .ins-accordion-link {
+/* .ins-accordion-item_content .ins-accordion-link {
     border-bottom: unset
 }
 
@@ -1556,7 +1556,7 @@ ins-card .ins-card-wrap {
 .ins-accordion-link:hover,
 .ins-accordion.menu .ins-accordion-item .inner-head:hover {
     background: unset;
-}
+} */
 
 .ins-accordion.menu .ins-accordion-item .inner-head span,
 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
@@ -2549,65 +2549,6 @@ ins-tag.Completed span.ins-tag {
 }
 
 
-<<<<<<< HEAD
-/** DISCOUNT **/
-
-.discount_code_field_container {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    gap: 32px;
-}
-
-#discount_code_field_input .ins-form-field-wrap{
-    margin-bottom: 0px;
-}
-
-.discount_code_field_container button {
-    margin-top: 25px;
-}
-
-.discount_code_field_container button .btn__icon, 
-.discount_code_field_container button[type=button] .btn__icon, 
-.discount_code_field_container button[type=reset] .btn__icon, 
-.discount_code_field_container button[type=submit] .btn__icon {
-    margin-right: 8px;
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    font-size: 12px!important;
-    vertical-align: middle;
-    position: initial;
-    margin-top: 3px;
-}
-
-.custom_error{
-    font-family: var(--font-family-02);
-    font-size: var(--font-x-small);
-    color: var(--error);
-    line-height: 18px;
-}
-
-.isNotVisible {
-    display: none;
-}
-
-ins-input[disabled] .ins-form-field{
-    background-color: #F2F2F2;
-}
-
-.discount-summary-details {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    align-items: center;
-}
-
-.discount-code-details-container {
-    display: flex;
-    gap: 8px;
-}
-=======
 .header-mobile.grid-x {
     gap: 24px;
 }
@@ -2629,4 +2570,3 @@ ins-input[disabled] .ins-form-field{
     font-weight: 400 !important;
     color: green !important;
 }
->>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f

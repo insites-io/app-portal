@@ -4404,3 +4404,136 @@ Notyf
 .system-btn:hover {
     background: #2331B7;
 }
+
+/********** [Portal] **********/
+.portal-wrap{
+    min-height: initial;
+}
+
+.sidebar-padding{
+    padding: 80px 24px 80px 48px!important;
+}
+
+.main-content{
+    padding: 80px 48px 80px 24px!important;
+}
+
+.main-content-mobile{
+    padding: 56px 24px!important;
+}
+
+/*** Side Bar Accordion ***/
+.accordion-section-holder {
+    background: var(--color-ui-02);
+}
+
+.portal-sidebar a{
+    font-family: var(--font-family-02);
+}
+
+/* Remove Underline on Hover */
+.portal-sidebar .ins-accordion-link_link:hover,
+.portal-mobile-nav .ins-accordion-link_link:hover {
+    text-decoration: none!important
+}
+
+/* Remove Accordion Border */
+.portal-sidebar .ins-accordion.menu .ins-accordion-item .inner-head,
+.portal-sidebar .ins-accordion-link,
+.portal-sidebar .ins-accordion.menu ins-accordion-item:first-of-type .ins-accordion-item_header,
+.portal-sidebar .ins-accordion-item_content .inner-content {
+    border: 0;
+}
+
+/* Active Sidenav */
+.portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link{
+    background: var(--color-main-hover-light);
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: var(--color-main);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+}
+/* On hover */
+.portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link:hover{
+    color: var(--font-color-head);
+}
+
+/* Inactive Sidenav */
+.portal-sidebar .ins-accordion-link>.ins-accordion-link_link{
+    color: var(--font-color-head);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+}
+/* On hover */
+.portal-sidebar .ins-accordion-link>.ins-accordion-link_link:hover{
+    color: var(--color-main-hover);
+}
+
+/* Accordion Background */
+.portal-sidebar .ins-accordion-link,
+.portal-mobile-nav .ins-accordion-link {
+    background: transparent;
+}
+
+/* Accordion Mobile */
+.portal-mobile-nav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head a{
+    color: black;
+}
+
+.portal-mobile-nav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head{
+    color: black
+}
+
+/* Accordion Mobile Border */
+.portal-mobile-nav .ins-accordion-item_header>.inner-head,
+.portal-mobile-nav .ins-accordion-item_header>.inner-head:hover{
+    border-color: transparent;
+}
+
+.portal-mobile-nav .ins-accordion-item_header {
+    padding-top: 0px;
+    border-top: 1px solid #F3F4F4;
+}
+
+.portal-mobile-nav .ins-accordion-item_header>.inner-head{
+    padding: 24px;
+    background-color: var(--color-ui-02);
+}
+
+/* Accordion Mobile Nav > Label */
+.portal-mobile-nav .ins-accordion-item_header>.inner-head a{
+    color: var(--font-color-body);
+    font-family: var(--font-family-01);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 21px */
+}
+
+/* Accordion Inner Content */
+.portal-mobile-nav .ins-accordion-item_content .inner-content{
+    padding: 0px;
+}
+
+/* Accordion Mobile > Inner Content > Items / Link */
+.portal-mobile-nav .ins-accordion-item_content .ins-accordion-link_link{
+    padding: 24px;
+}
+
+/* Accordion Mobile Icon */
+.portal-mobile-nav .ins-accordion-item_header .open-icon{
+    padding: 4px 24px;
+}
+
+.portal-mobile-nav .ins-accordion-item_header_caret-wrap {
+    right: 0px;
+}
+
+.is_hidden{
+    display: none;
+}

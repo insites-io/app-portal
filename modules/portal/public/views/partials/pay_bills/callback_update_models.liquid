@@ -110,26 +110,6 @@ metadata: {
 {% comment %} Step 2: Update Order record {% endcomment %}
 {% parse_json data %}
 {
-<<<<<<< HEAD:modules/client/public/views/partials/pay_bills/callback_update_models.liquid
-    "id": "{{ form.id }}",
-    "order_reference": "{{ form.properties.order_reference }}",
-    "user_id": "{{ user_id }}",
-    "order_email": "{{ email }}",
-    "order_first_name": "{{ first_name }}",
-    "order_last_name": "{{ last_name }}",
-    "order_phone": "{{ phone_number }}",
-    "order_status": "{{ order_status }}",
-    "order_payment_status" : "{{ order_payment_status }}",
-    "amount_due" : {{ form.properties.total_amount }},
-    "total_amount" : {{ form.properties.total_amount }},
-    "total_tax_amount": {{ form.properties.total_tax_amount  }},
-    "order_value" : {{ form.properties.subtotal_amount }},
-    "last_updated_by_id": "{{ user_id }}",
-    "date_time": "{{ form.properties.date_time }}",
-    "currency": "{{ form.properties.currency }}",
-    "total_discount_amount": {{ form.properties.total_discount_amount }},
-    "is_discount_code_enabled": "{{ form.properties.is_discount_code_enabled }}"
-=======
     "payload": {
         "id": "{{ form.id  | default: "" }}",
         "order_reference": "{{ form.properties.order_reference | default: "" }}",
@@ -147,7 +127,6 @@ metadata: {
         "total_amount_paid": {{ form.properties.total_amount | times: 1.0  | default: 0.0 }},
         "total_discount_amount": {{ form.properties.total_discount_amount | times: 1.0 | default: 0.0 }}
     }
->>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f:modules/portal/public/views/partials/pay_bills/callback_update_models.liquid
 }
 {% endparse_json %}
 
@@ -157,33 +136,7 @@ metadata: {
     | dig: 'items','response','body'
     | parse_json %}
 
-<<<<<<< HEAD:modules/client/public/views/partials/pay_bills/callback_update_models.liquid
-{% comment %} ? add order discount {% endcomment %}
-
-{% log form, type: "form - callback" %}
-{% log update_order, "type - update_order "%}
-{% parse_json data_order_discount %}
-{
-    "discount_uuid": "{{ form.properties.discount_code_uuids }}",
-    "discount_name": "{{ form.properties.discount_name }}",
-    "discount_type": "{{ form.properties.discount_type }}",
-    "discount_value": "{{ form.properties.discount_value }}",
-    "discount_code": "{{ form.properties.discount_percentage }}",
-    "order_uuid": "{{ form.properties.order_uuid }}"
-}
-{% endparse_json %}
-
-{% comment %} {%  graphql add_discount = 'modules/website/trigger_api_call', 
-    name: "modules/client/add_discount",
-    data: data
-    | dig: 'items','response','body'
-    | parse_json %} {% endcomment %}
-
- {% comment %} {{ form.properties.discount_code_uuids }} {% endcomment %}
-
-=======
     {% log update_order, type: 'order_id' %}
->>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f:modules/portal/public/views/partials/pay_bills/callback_update_models.liquid
 
 {% liquid
     session paybill_order_id = update_order.items.id
@@ -195,15 +148,11 @@ metadata: {
 
 {% comment %} ? UNCOMMENT ON WORKING INSTANCE {% endcomment %}
 {% comment %} Step 3. Create Event Stream {% endcomment %}
-<<<<<<< HEAD:modules/client/public/views/partials/pay_bills/callback_update_models.liquid
-{% comment %} {% parse_json info %}
-=======
 {%- assign current_user_name =  context.current_user.first_name | append: ' ' | append: context.current_user.last_name | default: context.current_user.email -%}
 {%- capture description -%} Bills <a target="_blank" href="/admin/insites/#/ecommerce/orders/{{ form.properties.uuid}}">Payment</a> - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> {%- endcapture -%}
 {%- assign payload = '{}' | parse_json -%}
 {%- assign payload = payload | add_hash_key: "description", description -%}
 {% capture log_info %}
->>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f:modules/portal/public/views/partials/pay_bills/callback_update_models.liquid
 {
     "description": "Bills Payment",
     "contact_uuid": "{{ context.current_user.external_id }}",
@@ -242,13 +191,8 @@ metadata: {
         }
     }
 }
-<<<<<<< HEAD:modules/client/public/views/partials/pay_bills/callback_update_models.liquid
-{% endparse_json %} {% endcomment %}
-{% comment %} {% include 'modules/client/events/log_event', info %} {% endcomment %}
-=======
 {% endcapture %}
 {%- assign log_info_json = log_info | parse_json -%}
 {%- assign info = payload | add_hash_key: "log", log_info_json -%}
 {% log payload %}
 {% include 'modules/portal/events/log_event', info %}
->>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f:modules/portal/public/views/partials/pay_bills/callback_update_models.liquid

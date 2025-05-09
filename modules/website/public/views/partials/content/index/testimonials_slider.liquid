@@ -7,7 +7,6 @@ metadata: {
 {%- graphql get_testimonials = 'modules/website/home/get_testimonials' -%}
 {%- assign res_testimonial = get_testimonials | dig: 'items', 'results' -%}
 
-
 <div class="testimonials-section">
   <div class="homepagepage-testimonial-wrap">
       <ins-carousel no-carousel-button loop layout="1" bind-to="homepage-banner-testimonials" transition="700" duration="5000"
@@ -32,6 +31,6 @@ metadata: {
       </ins-carousel>
   </div>
   <div class="testimonial-image">
-    <img width="1000" height="800" src="{{ 'modules/website/images/home/testimonial/testimonial-bg@1.5x.webp' | asset_url  }}" alt="Testimonial image">
+    <img width="1000" height="800" src="{{ 'modules/website/images/home/testimonial/testimonial-bg.webp' | asset_url  }}" alt="Testimonial image">
   </div>
 </div>

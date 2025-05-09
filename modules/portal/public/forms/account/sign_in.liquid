@@ -105,9 +105,6 @@ async_callback_actions:
     <div class="small-12 cell text-center">
 			<ins-button id="submit-btn" label="Log In" class="full" solid color="blue" type="submit" ></ins-button>
       <div class="spacer small"></div>
-<<<<<<< HEAD:modules/client/public/forms/account/sign_in.liquid
-      <a href="/register"><ins-button id="regsiter-btn" type="button" label="Sign up" class="full" outlined color="blue" ></ins-button></a>
-=======
       {% if context.constants.ecommerce_addon == 'true' and context.params.slug == 'checkout' %}
         <p>Not a member? <a href="/register">Join Us</a></p>      
         <input type="hidden" name="{{ form.fields.redirect.name }}" value="checkout" >      
@@ -115,7 +112,6 @@ async_callback_actions:
         <a href="/register"><ins-button type="button" label="Client registration" class="full" outlined color="blue" ></ins-button></a>
         <input type="hidden" name="{{ form.fields.redirect.name }}" value="portal" >
       {% endif %}
->>>>>>> 477c86f799c68aab34739ee023750fd93f9f315f:modules/portal/public/forms/account/sign_in.liquid
 		</div>
 
 	</div>
