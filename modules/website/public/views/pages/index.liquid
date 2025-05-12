@@ -28,8 +28,18 @@ metadata: {
 
 {% include 'modules/website/content/index/hero_banner' %} 
 {% include 'modules/website/content/index/client_section' %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/new_arrivals' %} 
+{% endif %}
+
 {% include 'modules/website/content/index/adaptive_protal_section' %}
 {% include 'modules/website/content/index/unlock_efficiency_section' %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/whats_hot' %}
+{% endif %}
+
 {% include 'modules/website/content/index/testimonials_slider' %}
 
 
