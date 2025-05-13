@@ -51,6 +51,11 @@ metadata: {
 
       <div class="large-11 medium-3 small-8 cell hide-nav-medium">
           <div class="navlinks">
+
+            {% if context.constants.ecommerce_addon == 'true' %}
+              <ins-button id="mega-menu-btn" label="Shop" icon-right="icon-angle-down"></ins-button>
+            {% endif %}
+
             {% for menu in menus %}
               {%- if menu.slug == "features" -%}
                 <a class="nav-dropdown-link" href="/{{menu.slug}}">
@@ -89,3 +94,39 @@ metadata: {
     </div>
   </div>
 </header>
+
+{% if context.constants.ecommerce_addon == 'true' %}
+  {% include 'modules/ecommerce/menu/mega_menu' %}
+{% endif %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+  <script src="{{ 'modules/ecommerce/scripts/mega_menu_close.js' | asset_url }}"></script>
+<script>
+  const guestUserEl = document.getElementById('guest-user-flag'); 
+
+  if (guestUserEl && window.localStorage) {
+    const guestUserFlag = guestUserEl.value
+
+    if (guestUserFlag === 'true') {
+      // Get Cart Count from LocalStorage
+      const guest_cart = localStorage.getItem('carts');
+
+      if (guest_cart) {
+        const parsedCart = JSON.parse(guest_cart);
+        const cartCount = parsedCart.length;
+
+        // Update the cart count dynamically in the HTML
+        const cartCountElement = document.getElementById('cart-count');
+        if (cartCountElement) {
+          cartCountElement.innerHTML = cartCount; // Update the displayed cart count
+          if (cartCount === 0) {
+            cartCountElement.classList.add('hide'); // Apply the 'zero-cart-count' class if empty
+          } else {
+            cartCountElement.classList.remove('hide'); // Remove the class if cart has items
+          }
+        }
+      }
+    } 
+  }  
+</script>
+{% endif %}

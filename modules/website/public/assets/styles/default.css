@@ -148,7 +148,9 @@ footer {
 }
 
 a,
-.body-link {
+.body-link,
+#mega-menu-btn button.ins-button span,
+#mega-menu-btn button.blue {
     font-family: var(--font-family-01);
     color: var(--font-color-link);
     font-weight: 400;
