@@ -27,14 +27,12 @@ authorization_policies:
 ---
 
 {% comment %} Overview {% endcomment %}
-{% if context.constants.ecommerce_addon == 'true' %}
-    {% include 'modules/ecommerce/overview/overview' %}
-{% endif %}
+{% include 'modules/portal/overview/overview' %}
 
 {% comment %} Incomplete Forms {% endcomment %}
-{% include 'modules/portal/overview/incomplete_forms' %}
+{% comment %} {% include 'modules/portal/overview/incomplete_forms' %} {% endcomment %}
 
 {% comment %} Purchase Again {% endcomment %}
 {% if context.constants.ecommerce_addon == 'true' %}
-    {% include 'modules/ecommerce/overview/purchase_again' %}
+    {% comment %} {% include 'modules/ecommerce/overview/purchase_again' %} {% endcomment %}
 {% endif %}

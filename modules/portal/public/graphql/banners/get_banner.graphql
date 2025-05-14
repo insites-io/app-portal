@@ -1,6 +1,6 @@
 query get_banner(
     $page: Int = 1, 
-    $size: Int = 10,
+    $size: Int = 1,
     $keyword: String
 ) {
     items: records(
@@ -9,10 +9,6 @@ query get_banner(
         filter: {
             table: { value: "modules/portal/portal_banners" }
             deleted_at: { exists: false }
-            properties: [
-                { name: "is_enabled", value_boolean: true }
-                { name: "main_text", contains: $keyword }
-            ]
         }
         sort: [
             { properties: { name: "sort_order", order: ASC } }

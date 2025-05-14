@@ -228,7 +228,7 @@ h2,
 
 h3,
 .heading-3 {
-    font-size: var(--font-x-large);
+    font-size: var(--font-xxx-large);
 }
 
 h4,
@@ -927,8 +927,9 @@ ins-button button[type=reset].blue.solid,
 ins-button button[type=reset].primary.solid,
 ins-button button[type=submit].blue.solid,
 ins-button button[type=submit].primary.solid {
-    background-color: var(--color-main);
-    color: var(--font-color-inv);
+    color: var(--font-color-link);
+    border-radius: 14px;
+    background: var(--Gradient---color-gradient1, linear-gradient(95deg, #0095FF 6.51%, #3044FF 94.43%));
 }
 
 ins-button button[type=reset].blue.solid:not([disabled]):hover,
@@ -4532,6 +4533,81 @@ Notyf
 
 .portal-mobile-nav .ins-accordion-item_header_caret-wrap {
     right: 0px;
+}
+
+/*** Overview ***/
+.overview-banner{
+    display: flex;
+    gap: 40px;
+    border-radius: 14px;
+    background: var(--color-ui-02);
+    min-height: 199px;
+}
+
+.overview-details,
+.overview-image{
+    width: 100%;
+}
+
+.overview-image img{
+    height: 100%;
+    object-fit: cover;
+    border-bottom-right-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.overview-details{
+    padding: 24px;
+}
+
+@media screen and (max-width: 1023px) {  
+    .overview-banner{
+        flex-direction: column;
+    }
+
+    .overview-image img{
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 14px;
+        border-bottom-left-radius: 14px;
+    }
+    
+}
+
+.overview-cards{
+    border-radius: 14px;
+    border: 1px solid var(--color-ui-04);
+    background: var(--color-ui-01);
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.10);
+    padding: 24px 24px 16px 24px;
+}
+
+.overview-card-header{
+    color: var(--font---font-color-head, #05051D);
+    text-align: center;
+    font-family: Archivo;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+}
+
+.overview-card-icon-header{
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+}
+
+.overview-button{
+    text-align: right;
+}
+
+.overview-button ins-button button.ins-button.size--small span{
+    font-family: var(--font-family-01)!important;
+    font-size: 12px!important;
+    font-style: normal!important;
+    font-weight: 700!important;
+    line-height: 120%!important;
+    text-transform: none;
 }
 
 .is_hidden{
