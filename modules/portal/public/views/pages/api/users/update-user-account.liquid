@@ -16,15 +16,6 @@ metadata: {
 {% if details.actions == "change_permission_level" %}
     {% comment %} ? ACTION == user TOGGLE {% endcomment %}
     
-    {% if details.custom_field_id != "" %}
-        {% assign custom_field_id = details.custom_field_id %}
-    {% else %}
-        {% graphql create_contact_custom_field = "modules/portal/account/create_contact_custom_field", contact_uuid: details.contact_uuid %}
-        {% assign custom_field_id = create_contact_custom_field.items.id %}
-    {% endif %}
-
-    {% graphql update_user_account = 'modules/portal/users/update_user_account', id: custom_field_id, permission_level: details.permission_level %}
-    
     {% comment %} ? SET TOKEN PASSWORD FOR INVITED{% endcomment %}
     {%  liquid
         graphql generated_token = 'modules/portal/account/generate_user_temporary_token', email: email | dig: 'items', 'results' | first
@@ -50,6 +41,9 @@ metadata: {
         {% endparse_json %}
         {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
     {% endif %}
+    
+    {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  permission_level:  details.permission_level  %}
+    
 {% else %}
     {% comment %} ? ACTION == ADD user {% endcomment %}
     {% if details.is_email_found == "false" %}
@@ -79,6 +73,8 @@ metadata: {
         | dig: 'items','response','body'
         | parse_json  
         %}
+        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id, permission_level:  details.userPermission  %}
+
     {% else %}
         {% comment %} ? SAVE NEW CRM {% endcomment %}
         {% parse_json add_crm_data %}
