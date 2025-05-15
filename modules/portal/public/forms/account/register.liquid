@@ -198,9 +198,11 @@ async_callback_actions:
     {%- graphql user_details = "modules/portal/account/get_user_by_email" 
         email: form.email
         | dig: "items" | dig: "results" | first -%}
-    {%- capture description -%} New Registration - <a target="_blank" href="/admin/insites/#/crm/contacts/{{ form.id }}">{{ current_user_name  | default: form.email }}</a> {%- endcapture -%}
+    {%- capture description -%} <a target="_blank" href="/admin/insites/#/crm/contacts/{{ form.id }}">{{ current_user_name  | default: form.email }}</a> has submitted  a registration for <a target="_blank" href="/admin/insites#/crm/companies/{{ form.properties.company_uuid }}">{{ form.properties.company_name }}</a> {%- endcapture -%}
     {%- assign payload = '{}' | parse_json -%}
     {%- assign payload = payload | add_hash_key: "description", description -%}
+    {%- assign payload = payload | add_hash_key: "font_icon", "icon-completed-outcomes" -%}
+    {%- assign payload = payload | add_hash_key: "font_icon_color", "#289AFF" -%}
 
     {% capture log_info %}
       {
@@ -232,11 +234,12 @@ async_callback_actions:
             "postcode": "{{ form.properties.company_postcode }}",
             "country": "{{ form.properties.company_country }}"
           },
-          "contact_uuid": "{{ user_details.uuid }}"     
+          "contact_uuid": "{{ user_details.uuid }}"   
       }
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}
     {%- assign info = payload | add_hash_key: "log", log_info_json -%}
+    {% log payload %}
     {% include 'modules/portal/events/log_event', info %}
 ---
 

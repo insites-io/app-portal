@@ -69,7 +69,8 @@ metadata: {
             "company_uuid": "{{ details.company_uuid }}",
             "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
             "mobile_phone_number": "{{ details.mobile_phone_number }}",
-            "permission_level": "{{ details.userPermission }}"
+            "permission_level": "{{ details.userPermission }}",
+            "company": "{{ details.company }}",
         }
         {% endparse_json %}
         {% comment %} ? UPDATE CRM FIRST {% endcomment %}
@@ -88,7 +89,8 @@ metadata: {
             "company_uuid": "{{ details.company_uuid }}",
             "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
             "mobile_phone_number": "{{ details.mobile_phone_number }}",
-            "permission_level": "{{ details.userPermission }}"
+            "permission_level": "{{ details.userPermission }}",
+            "company": "{{ details.company }}"
         }
         {% endparse_json %}
         {% comment %} ? ADD CRM FIRST {% endcomment %}
@@ -97,6 +99,11 @@ metadata: {
         | dig: 'items','response','body'
         | parse_json  
         %}
+
+        {% log add_crm_contact %}
+
+        {% include 'modules/portal/users/invite_user_event_stream', data: add_crm_data  %}
+        
     {% endif %}   
     {% comment %} ? CLOSING ENDIF FOR INVITE user - EMAIL EXISTS OR NOT {% endcomment %}
 
