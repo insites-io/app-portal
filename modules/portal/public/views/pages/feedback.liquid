@@ -27,22 +27,15 @@ authorization_policies:
   - modules/portal/is_user_logged_in
 ---
 
-<div class="feedback">    
+<div class="feedback">        
+    <div class="column-1">
+        <h2 class="heading-2">How Did We Do?</h2>
+        <div class="spacer"></div>
+        <p class="p-dark">Please share how your experience with us is going. We’d love to hear from you.</p>
+    </div>
+    <div class="spacer xxx-large"></div>
  
-        {% if context.flash.notice == "Successfully submitted form." %}
-            {% include 'modules/portal/system/thank-you-feedback' %}
-    {%- else -%}
-        {% comment %} {%- include_form 'modules/portal/feedback' -%} {% endcomment %}
-
-        <div class="column-1">
-            <h2 class="heading-2">How Did We Do?</h2>
-            <div class="spacer x-large"></div>
-            <p>Please share how your experience with us is going. We’d love to hear from you.</p>
-        </div>
-        <div class="spacer x-large"></div>
-        {% comment %} this form is from form builder {% endcomment %}
-        {%- include_form 'modules/ins_forms/client_feedback', test: 'this is a variable' -%}
-
-    {%- endif -%}    
-
+    {% comment %} this form is from form builder {% endcomment %}
+    {%- include_form 'modules/portal/feedback', test: 'this is a variable' -%}
+ 
 </div>

@@ -20,7 +20,11 @@ Inputs will have values only on /my-company-details page
       <input type="hidden" id="company_latitude" name="{{ form.fields.properties.company_latitude.name }}" value="{{ default_address.properties.company_latitude }}" >
 
       <div class="column-1">
-          <h2 class="heading-2">Company Details</h2>
+          <h3 class="heading-3">My company details</h3>
+          <div class="spacer"></div>
+          <p class="p-dark">View and update essential company account information, including address, contact details, and business identifiers.</p>
+          <div class="spacer xxx-large"></div>
+          <h5 class="heading-5">Company details</h5>
           <div class="spacer x-large"></div>
       </div>
 
@@ -182,10 +186,11 @@ Inputs will have values only on /my-company-details page
 
       {% if params.slug == 'my-company-details' %}
 
-      <div class="column-1">      
-        <div class="spacer small"></div>
-        <ins-button type="submit" id="submit-btn" label="Update Details" icon="icon-check-2" solid ></ins-button>
-      </div>
+        <div class="column-1 text-right">      
+          <div class="spacer small"></div>
+          <ins-button type="submit" id="submit-btn" label="Update Details" icon="icon-check-2" solid ></ins-button>
+          <div class="spacer xxxx-large"></div>
+        </div>
 
       {% else %}
 

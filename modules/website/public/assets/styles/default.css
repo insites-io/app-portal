@@ -139,12 +139,23 @@ footer {
     line-height: var(--font-x-large);
 }
 
+.body-large-bold{
+    color: #05051D;
+    text-align: center;
+    font-family: var(--font-family-02);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 27px */
+}
+
 .body-small {
-    font-family: var(--font-family-03);
+    font-family: var(--font-family-02);
     font-style: normal;
     font-weight: 400;
-    font-size: var(--font-x-small);
+    font-size: var(--font-small);
     line-height: normal;
+    color: #05051D;
 }
 
 a,
@@ -422,7 +433,15 @@ screen and (min-width: 640px) {
 }
 
 .main-wrap {
-    min-height: 90vh;
+    /* min-height: 90vh; */
+}
+
+.insites-form.insites-form-code .insites-form-buttons ins-button button{
+    margin-right: 0px!important;
+}
+
+ins-radio-group .radio-horizontal > div{
+    gap: 40px!important;
 }
 
 .wrapper {
@@ -591,14 +610,13 @@ SweetAlert Style
 }
 
 .swal2-popup .swal2-actions button {
-    font-family: var(--font-family-03) !important;
+    font-family: var(--font-family-01) !important;
     font-style: normal !important;
-    font-weight: 600 !important;
-    font-size: var(--font-x-small) !important;
+    font-weight: 700 !important;
+    font-size: 14px!important;
     line-height: var(--font-x-small) !important;
-    text-transform: uppercase !important;
-    border-radius: 4px;
-    letter-spacing: 1px;
+    text-transform: none !important;
+    border-radius: 14px;
     padding: 10px 16px;
     margin: 0 12px;
 }
@@ -693,9 +711,9 @@ ins-button button.ins-button.size--large span {
 .button-default,
 ins-button button.ins-button,
 ins-button button.ins-button span {
-    font-family: var(--font-family-03);
+    font-family: var(--font-family-01);
     font-weight: 700;
-    font-size: var(--font-x-small);
+    font-size: var(--font-small);
     line-height: var(--font-large);
     letter-spacing: 0 !important;
     text-transform: uppercase;
@@ -981,6 +999,7 @@ ins-button button.primary.outlined {
     background: none;
     border: 1px solid var(--color-main);
     color: var(--color-main);
+    border-radius: 14px;
 }
 
 
@@ -4610,6 +4629,48 @@ Notyf
     text-transform: none;
 }
 
+ins-input-tel .ins-input-tel-wrap .column-3 {
+    flex: 1 !important;
+    float: right!important;
+    padding-right: 0 !important;
+}
+
+ins-input-tel .ins-input-tel-wrap .column-1,
+.insites-form.insites-form-code ins-input-tel .column-1:not(.insites-form.insites-form-code.insites-form-grid.col-container.column-1) { 
+    flex: 0 0 auto !important;
+}
+
+ins-button button.ins-button span{
+    text-transform: none;
+}
+
+.request-table-header ins-table-th{
+    padding: 16px 24px;
+    align-content: center;
+}
+
+.request-table-data ins-table-td{
+    padding: 11px 16px 11px 24px!important;
+    align-content: center!important;
+}
+
+ins-table-row:nth-child(even) {
+    background-color: var(--color-ui-02);
+}
+
+.request-table .ibt-table-wrap.no-label .ibt-table-wrap__no-heading{
+    border-radius: 14px;
+}
+
+
+/* HIDDEN ELEMENTS */
 .is_hidden{
     display: none;
+}
+
+
+
+/* EMPTY STATE HOLDER */
+.empty-state{
+    padding: 80px 24px;
 }

@@ -28,11 +28,3 @@ authorization_policies:
 
 {% comment %} Overview {% endcomment %}
 {% include 'modules/portal/overview/overview' %}
-
-{% comment %} Incomplete Forms {% endcomment %}
-{% comment %} {% include 'modules/portal/overview/incomplete_forms' %} {% endcomment %}
-
-{% comment %} Purchase Again {% endcomment %}
-{% if context.constants.ecommerce_addon == 'true' %}
-    {% comment %} {% include 'modules/ecommerce/overview/purchase_again' %} {% endcomment %}
-{% endif %}
