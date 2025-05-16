@@ -16,20 +16,21 @@ query get_non_pah_users(
             { last_name: { contains: $search } }
             { name: { contains: $search } }
         ]
-        profiles: {
+        profiles: [
+          {
             name: "modules/insites_core/crm_contact"
             properties:[
-                { name: "company_uuid", value: $company_uuid }
-                { name: "is_archived", value_boolean: false }
-            ]
-        }
-        related_records: {
-            join: {foreign_property: "contact_uuid", join_on_property: "external_id"}, 
-            filter: {
-                properties: {name: "primary_account_holder", not_value_boolean: true}, 
-                table: {value: "modules/ins_core/crm_contact_custom_field"}
-            }
-        }
+                  { name: "company_uuid", value: $company_uuid }
+                  { name: "is_archived", value_boolean: false }
+              ]
+          }
+          {
+            name: "modules/portal/portal"
+            properties:[
+                  { name: "primary_account_holder", not_value_boolean: true }
+              ]
+          }
+        ]
     }
     sort:{
         first_name:{ order:ASC }
@@ -46,24 +47,20 @@ query get_non_pah_users(
         created_at
 
         #Profiles
-        profiles(profile_type: "modules/insites_core/crm_contact"){
+        contact: profiles(profile_type: "modules/insites_core/crm_contact"){
             id
             profile_type
             company_uuid:property(name:"company_uuid")
             is_archived:property_boolean(name:"is_archived")
         }
 
-        #Custom Fields
-        custom_fields: related_record(
-            table: "modules/ins_core/crm_contact_custom_field"
-            foreign_property: "contact_uuid"
-            join_on_property: "external_id"
-        ) {
+   		portal: profiles(profile_type: "modules/portal/portal"){
             id
-            contact_uuid:property(name: "contact_uuid")
-            account_status:property(name: "account_status")
-            primary_account_holder:property_boolean(name: "primary_account_holder")
-            permission_level:property(name: "permission_level")
+            profile_type
+ 			is_enabled:property(name:"is_enabled")
+            permission_level:property(name:"permission_level")
+            verification_token:property(name:"verification_token")
+            primary_account_holder:property_boolean(name:"primary_account_holder")
         }
     }
   }

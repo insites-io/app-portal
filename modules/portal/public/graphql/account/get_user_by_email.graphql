@@ -46,8 +46,16 @@ query get_user_by_email (
       ) {
         id
 				user_uuid: property(name: "uuid")
+        company_uuid: property(name: "company_uuid")
+        company: related_record(
+         table: "modules/insites_core/crm_company"
+          foreign_property: "uuid"
+          join_on_property: "company_uuid"
+          ) {
+            company_name: property(name: "company_name")
+          }
+        
       }
-
     }
   }
 }

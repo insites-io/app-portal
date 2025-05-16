@@ -81,8 +81,54 @@ default_payload: >
 callback_actions: >
   {%- include 'modules/portal/pay_bills/callback_init', 
       context: context,
-      form: form -%}  
+      form: form -%}
+ 
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: >
+    {% comment %} Create Event Stream {% endcomment %}
+    {%- graphql user = "modules/portal/account/get_user_by_email" 
+        email: context.current_user.email 
+        | dig: "items" | dig: "results" | first -%}
+    {%- assign crm_contact = user.crm_contact | first -%}
+    {%- assign current_user_name = user.first_name | append: ' ' | append: user.last_name | default: user.email -%}
+    {%- capture description -%}
+      <a target="_blank" href="/admin/insites/#/crm/contacts/{{ user.id }}">{{ current_user_name | default: user.email }}</a> 
+      from 
+      <a target="_blank" href="/admin/insites#/crm/companies/{{ crm_contact.company_uuid }}">{{ crm_contact.company.company_name }}</a> 
+      completed a payment for 
+      <a target="_blank" href="/admin/insites#/ecommerce/orders/{{ form.properties.uuid }}">{{ form.properties.order_reference }}</a>
+    {%- endcapture -%}
+
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+    {%- assign payload = payload | add_hash_key: "font_icon", "icon-settings-1" -%}
+    {%- assign payload = payload | add_hash_key: "font_icon_color", "#6B45FF" -%}
+
+    {% capture log_info -%}
+    {
+      "user": {
+        "id": "{{ user.id }}",
+        "email": "{{ user.email }}",
+        "first_name": "{{ user.first_name }}",
+        "last_name": "{{ user.last_name }}"
+      },
+      "order": {
+        "uuid": "{{ form.properties.uuid }}"
+      },
+      "contact_uuid": "{{ user.uuid }}"
+    }
+    {%- endcapture %}
+
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
+    {% include 'modules/portal/events/log_event', info %}
+
+
 ---
+	
 {%- assign props = form.fields.properties -%}
 
 {%- liquid

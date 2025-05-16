@@ -1,6 +1,6 @@
 ---
 metadata: {
-    layout_name: default_dark
+    layout_name: website_default
 }
 ---
 <!doctype html>
@@ -10,7 +10,7 @@ metadata: {
 </head>
 <body>
     <div class="main-wrap">      
-        {% include 'modules/website/layout/header', dark: true %} 
+        {% include 'modules/website/layout/header' %} 
         {% include 'modules/website/layout/header_mobile' %}
 
         {{ content_for_layout }}

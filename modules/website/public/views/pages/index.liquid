@@ -1,20 +1,20 @@
 ---
 slug: /
-layout: modules/website/dark_layout
+layout: modules/website/website_default_dark
 searchable: true
 max_deep_level: 1
 metadata: {
     "status": "published",
-    "page_name": "Portal",
+    "page_name": "Insites Website & Portal",
     "open_graph:url": "",
     "open_graph:type": "",
     "open_graph:image": "",
-    "open_graph:title": "Portal",
-    "open_graph:description": "Portal",
+    "open_graph:title": "Insites Website & Portal",
+    "open_graph:description": "Adaptive Website & Portal to grow with your business.",
     "open_graph:site_name": "",
-    "meta_title": "Portal",
-    "page_title": "Portal",
-    "meta_description": "Portal",
+    "meta_title": "Website & Portal for any business | Insites",
+    "page_title": "Insites Website & Portal",
+    "meta_description": "Adaptive Website & Portal to grow with your business.",
     "canonical_url": "",
     "is_visible_to_search_engines": true,
     "sitemap_enabled": true,
@@ -28,8 +28,18 @@ metadata: {
 
 {% include 'modules/website/content/index/hero_banner' %} 
 {% include 'modules/website/content/index/client_section' %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/new_arrivals' %} 
+{% endif %}
+
 {% include 'modules/website/content/index/adaptive_protal_section' %}
 {% include 'modules/website/content/index/unlock_efficiency_section' %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/whats_hot' %}
+{% endif %}
+
 {% include 'modules/website/content/index/testimonials_slider' %}
 
 
