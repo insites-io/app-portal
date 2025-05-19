@@ -20,6 +20,7 @@ query get_current_user {
       profile_type: "modules/portal/portal"
     ) {
       is_enabled: property_boolean(name: "is_enabled")
+      primary_account_holder: property_boolean(name: "primary_account_holder")
     }
   }
 }
