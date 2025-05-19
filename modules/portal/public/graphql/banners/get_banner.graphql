@@ -1,7 +1,6 @@
 query get_banner(
     $page: Int = 1, 
     $size: Int = 1,
-    $keyword: String
 ) {
     items: records(
         page: $page
