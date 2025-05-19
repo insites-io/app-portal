@@ -53,12 +53,13 @@ metadata: {
             error-message="{{ form.errors['email'] }}"
             placeholder="Email">
         </ins-input>
-        <span id="emailRequired" class="user-error-txt-red body-x-small is_not_visible">Email address is required.</span>
-        <span id="emailInvalid" class="user-error-txt-red body-x-small is_not_visible">Invalid email address.</span>  
+        <span id="emailRequired" class="user-error-txt-red body-x-small is_hidden">Email address is required.</span>
+        <span id="emailInvalid" class="user-error-txt-red body-x-small is_hidden">Invalid email address.</span>  
       </div>
 
       <div class="column-2">
         <ins-input-tel
+            class="mobile_phone"
             id="mobile-phone"
             label="Phone" 
             phonenum-value="{{ contact.properties.mobile_phone_number }}" 
@@ -172,10 +173,10 @@ metadata: {
       </div>
 
     {% if context.params.slug == 'my-details' %}
-    <div class="column-1">      
-      <div class="spacer small"></div>
-      <ins-button type="submit" id="submit-personal-details" label="Update Details" icon="icon-check-2" solid ></ins-button>
-    </div>
+      <div class="column-1 text-right">      
+        <div class="spacer small"></div>
+        <ins-button type="submit" id="submit-personal-details" label="Update Details" icon="icon-check-2" solid ></ins-button>
+      </div>
     {% else %}
 
       <div class="column-1">

@@ -111,12 +111,12 @@ async_callback_actions:
      
       {% if context.constants.ecommerce_addon == 'true' and context.params.slug == 'checkout' %}
         <div class="spacer x-large"></div>
-        <p>Not a member? <a href="/register">Join Us</a></p>      
+        <p>Not a member? <a href="/create-account">Join Us</a></p>      
         <input type="hidden" name="{{ form.fields.redirect.name }}" value="checkout" >      
       {% else %}
         <div class="spacer small"></div>
-        <a href="/register"><ins-button type="button" label="Client registration" class="full" outlined color="blue" ></ins-button></a>
-        <input type="hidden" name="{{ form.fields.redirect.name }}" value="portal" >
+        <a href="/create-account"><ins-button type="button" label="Client registration" class="full" outlined color="blue" ></ins-button></a>
+        <input type="hidden" name="{{ form.fields.redirect.name }}" value="overview" >
       {% endif %}
 
 		</div>

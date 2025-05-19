@@ -1,0 +1,216 @@
+---
+metadata: {
+    partial_name: 'Portal | Overview | Overview'
+}
+---
+{%- graphql portal_banner = 'modules/portal/banners/get_banner' | dig: "items", "results" | first -%}
+
+<div class="overview-banner">
+    <div class="overview-details"> 
+        <h5 class="heading-5">{{ portal_banner.main_text }}</h5>
+        <div class="spacer x-small"></div>  
+        <p class="p-dark">{{ portal_banner.sub_text }}</p>
+        <div class="spacer"></div>
+        <a href="{{ portal_banner.button_link }}">
+            <ins-button type="button" label="{{ portal_banner.button_label }}" icon-right="icon-arrow-forward" class="m-0" solid></ins-button>
+        </a>
+    </div>
+    <div class="overview-image"> 
+        <img src="{{ portal_banner.desktop_image.url }}" alt="">
+    </div>
+</div>
+
+<div class="spacer xxxx-large"></div>
+
+{% comment %} ? Overview Cards {% endcomment %}
+{% parse_json card_details_result %}
+[
+    {
+        "card-icon": "icon-notepad-1", 
+        "card-header": "Projects", 
+        "card-body": "24"
+      },
+      {
+        "card-icon": "icon-task-list-1", 
+        "card-header": "Open Task", 
+        "card-body": "12"
+      },
+      {
+        "card-icon": "icon-check-circle-1", 
+        "card-header": "Completed Task", 
+        "card-body": "6"
+      }
+]
+{% endparse_json %}
+
+<div class="overview-cards-container">
+    <h3 class="heading-3">Overview</h3>
+    <div class="spacer"></div>
+    <div class="test grid-x grid-padding-y grid-padding-x">
+        {% for details in card_details_result %}
+            <div class="large-4 cell">
+                <div class="overview-cards">
+                    <div class="overview-card-icon-header">
+                        <i class="{{ details.card-icon }}"></i>
+                        <span class="overview-card-header">
+                            {{ details.card-header }}
+                        </span>
+                    </div>
+                    <div class="spacer x-small"></div>
+                    <div class="overview-card-body">
+                        <h4 class="heading-4">{{ details.card-body }}</h4>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="overview-button">
+                        <ins-button 
+                            size="small"
+                            label="View details">
+                        </ins-button>
+                    </div>
+                </div>
+            </div> 
+            <div class="spacer"></div>
+        {% endfor %}
+    </div>  
+</div>
+
+<div class="spacer xxxx-large"></div>
+
+<div class="request-table">
+    {% assign page_num = context.params.page | default: 1 | plus: 0 %}
+    {% assign per_page = context.params.per_page | default: 10 | plus: 0 %}    
+    
+    {%- graphql get_total_entries = 'modules/portal/overview/get_request', page: page_num, size: per_page | dig: "items" -%}
+
+    {%- graphql request_result = 'modules/portal/overview/get_request', page: page_num, size: per_page | dig: "items", "results" -%}
+
+    {% comment %} HIDDEN FIELDS FOR JAVASCRIPT {% endcomment %}
+    <input type="hidden" id="total_entries" value="{{ get_total_entries.total_entries }}">
+    <input type="hidden" id="per_page" value="{{ per_page }}">
+    <input type="hidden" id="page_num" value="{{ page_num }}">
+
+    <h3 class="heading-3">Request</h3>
+    <div class="spacer"></div>
+
+    <ins-loader
+        id="users-loader"
+        hidden
+        state-title="Processing"
+        state-message="Please wait, we're processing your data."
+        state-icon="processing">
+    </ins-loader>
+
+    <ins-table id="insBaseTable"
+        static-table
+        without-search
+        {% if request_result.size == 0 or request_result == '' or request_result == nil %}
+            without-pagination
+        {% endif %}
+        class="request-table">
+
+        {% if request_result.size == 0 or request_result == '' or request_result == nil %}
+            {% comment %} ? EMPTY STATE {% endcomment %}
+            <div class="empty-state text-center empty-box p-body">
+                <p class="body-large-bold">No request submitted.</p>
+                <div class="spacer"></div>
+                <ins-button type="button" label="Add request" icon="icon-plus" class="m-0" solid></ins-button>
+   
+            </div> 
+        {% else %}
+            {% comment %} ? NOT EMPTY STATE {% endcomment %}
+            <ins-table-row class="request-table-header">
+                <ins-table-th class="p-body-small-bold">
+                    Description
+                </ins-table-th>
+
+                <ins-table-th class="p-body-small-bold">
+                    Request Type
+                </ins-table-th>
+
+                <ins-table-th class="p-body-small-bold">
+                    Requested by
+                </ins-table-th>
+
+                <ins-table-th class="p-body-small-bold">
+                    Date Requested
+                </ins-table-th>
+            </ins-table-row>
+            
+            {% for item in request_result %}
+    
+                <ins-table-row class="request-table-data">
+
+                    <ins-table-td class="body-small p-body">
+                        {{ item.description}}
+                    </ins-table-td>
+
+                    <ins-table-td class="body-small p-body">
+                        {{ item.type}}
+                    </ins-table-td>
+
+                    <ins-table-td class="body-small p-body">
+                        {{ item.requested_by}}
+                    </ins-table-td>
+
+                    <ins-table-td class="body-small p-body">
+                        {{ item.created_at}}
+                    </ins-table-td>
+
+                </ins-table-row>
+            {% endfor %}
+        {% endif %}
+        
+    </ins-table>
+
+</div>
+
+<script>
+    // hidden fields
+    var total = document.getElementById('total_entries');
+    var page_num = document.getElementById('page_num');
+    var per_page = document.getElementById('per_page');
+    
+    console.log(total.value, "total");
+    console.log(page_num.value, "page_num");
+    console.log(per_page.value, "per_page");
+    // table
+    var insBaseTable = document.getElementById('insBaseTable');
+    
+    // loader
+    var usersLoader = document.getElementById('users-loader');
+  
+    insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
+
+    insBaseTable.pageSizeOptions = [10,20,30];
+    insBaseTable.totalCount = total.value;
+    insBaseTable.pageNumber = page_num.value;
+    insBaseTable.pageSize = per_page.value;
+        
+    function processTableData(){
+        // Get the current URL
+        const currentUrl = window.location.href;
+
+        // Remove any existing `page` and `per_page` query parameters
+        const newUrl = currentUrl.replace(/[?&]page=\d+/, '').replace(/[?&]per_page=\d+/, '').replace(/portal&/, "portal?");
+
+        // Set the new `page` and `per_page` values
+        const newPage = pageNumber;
+        const newPerPage = pageSize;
+
+        var updatedUrl = `${newUrl}?page=${newPage}&per_page=${newPerPage}`;
+        // console.log(updatedUrl);
+
+        // Navigate to the updated URL
+        window.location.href = updatedUrl;
+    }
+
+    function tablePaginationHandler(event){
+        console.log(event);
+        pageSize = event.detail.pageSize;
+        pageNumber = event.detail.pageNumber;
+        console.log(pageSize, "pageSize");
+        console.log(pageNumber, "pageNumber");
+        
+        processTableData();
+    }
+</script>

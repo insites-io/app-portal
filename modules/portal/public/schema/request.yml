@@ -1,0 +1,31 @@
+name: request
+metadata:
+  label: "Request"
+  groups: []
+  is_archived: false
+properties:
+- name: description
+  type: string
+  metadata:
+    label: "Description"
+    weight: 0
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: requested_by
+  type: string
+  metadata:
+    label: "Requested By"
+    weight: 1
+    ui_element: "input"
+    is_required: false
+    is_shown_in_table: false
+- name: type
+  type: string
+  metadata:
+    label: "Type"
+    weight: 2
+    options: ["Bug","Feature request","Change request"]
+    ui_element: "select"
+    is_required: false
+    is_shown_in_table: false

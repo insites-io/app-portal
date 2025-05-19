@@ -139,12 +139,23 @@ footer {
     line-height: var(--font-x-large);
 }
 
+.body-large-bold{
+    color: #05051D;
+    text-align: center;
+    font-family: var(--font-family-02);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 27px */
+}
+
 .body-small {
-    font-family: var(--font-family-03);
+    font-family: var(--font-family-02);
     font-style: normal;
     font-weight: 400;
-    font-size: var(--font-x-small);
+    font-size: var(--font-small);
     line-height: normal;
+    color: #05051D;
 }
 
 a,
@@ -230,7 +241,7 @@ h2,
 
 h3,
 .heading-3 {
-    font-size: var(--font-x-large);
+    font-size: var(--font-xxx-large);
 }
 
 h4,
@@ -424,7 +435,15 @@ screen and (min-width: 640px) {
 }
 
 .main-wrap {
-    min-height: 90vh;
+    /* min-height: 90vh; */
+}
+
+.insites-form.insites-form-code .insites-form-buttons ins-button button{
+    margin-right: 0px!important;
+}
+
+ins-radio-group .radio-horizontal > div{
+    gap: 40px!important;
 }
 
 .wrapper {
@@ -593,14 +612,13 @@ SweetAlert Style
 }
 
 .swal2-popup .swal2-actions button {
-    font-family: var(--font-family-03) !important;
+    font-family: var(--font-family-01) !important;
     font-style: normal !important;
-    font-weight: 600 !important;
-    font-size: var(--font-x-small) !important;
+    font-weight: 700 !important;
+    font-size: 14px!important;
     line-height: var(--font-x-small) !important;
-    text-transform: uppercase !important;
-    border-radius: 4px;
-    letter-spacing: 1px;
+    text-transform: none !important;
+    border-radius: 14px;
     padding: 10px 16px;
     margin: 0 12px;
 }
@@ -695,9 +713,9 @@ ins-button button.ins-button.size--large span {
 .button-default,
 ins-button button.ins-button,
 ins-button button.ins-button span {
-    font-family: var(--font-family-03);
+    font-family: var(--font-family-01);
     font-weight: 700;
-    font-size: var(--font-x-small);
+    font-size: var(--font-small);
     line-height: var(--font-large);
     letter-spacing: 0 !important;
     text-transform: uppercase;
@@ -929,8 +947,9 @@ ins-button button[type=reset].blue.solid,
 ins-button button[type=reset].primary.solid,
 ins-button button[type=submit].blue.solid,
 ins-button button[type=submit].primary.solid {
-    background-color: var(--color-main);
-    color: var(--font-color-inv);
+    color: var(--font-color-link);
+    border-radius: 14px;
+    background: var(--Gradient---color-gradient1, linear-gradient(95deg, #0095FF 6.51%, #3044FF 94.43%));
 }
 
 ins-button button[type=reset].blue.solid:not([disabled]):hover,
@@ -982,6 +1001,7 @@ ins-button button.primary.outlined {
     background: none;
     border: 1px solid var(--color-main);
     color: var(--color-main);
+    border-radius: 14px;
 }
 
 
@@ -4536,6 +4556,123 @@ Notyf
     right: 0px;
 }
 
+/*** Overview ***/
+.overview-banner{
+    display: flex;
+    gap: 40px;
+    border-radius: 14px;
+    background: var(--color-ui-02);
+    min-height: 199px;
+}
+
+.overview-details,
+.overview-image{
+    width: 100%;
+}
+
+.overview-image img{
+    height: 100%;
+    object-fit: cover;
+    border-bottom-right-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.overview-details{
+    padding: 24px;
+}
+
+@media screen and (max-width: 1023px) {  
+    .overview-banner{
+        flex-direction: column;
+    }
+
+    .overview-image img{
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 14px;
+        border-bottom-left-radius: 14px;
+    }
+    
+}
+
+.overview-cards{
+    border-radius: 14px;
+    border: 1px solid var(--color-ui-04);
+    background: var(--color-ui-01);
+    box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.10);
+    padding: 24px 24px 16px 24px;
+}
+
+.overview-card-header{
+    color: var(--font---font-color-head, #05051D);
+    text-align: center;
+    font-family: Archivo;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+}
+
+.overview-card-icon-header{
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+}
+
+.overview-button{
+    text-align: right;
+}
+
+.overview-button ins-button button.ins-button.size--small span{
+    font-family: var(--font-family-01)!important;
+    font-size: 12px!important;
+    font-style: normal!important;
+    font-weight: 700!important;
+    line-height: 120%!important;
+    text-transform: none;
+}
+
+ins-input-tel .ins-input-tel-wrap .column-3 {
+    flex: 1 !important;
+    float: right!important;
+    padding-right: 0 !important;
+}
+
+ins-input-tel .ins-input-tel-wrap .column-1,
+.insites-form.insites-form-code ins-input-tel .column-1:not(.insites-form.insites-form-code.insites-form-grid.col-container.column-1) { 
+    flex: 0 0 auto !important;
+}
+
+ins-button button.ins-button span{
+    text-transform: none;
+}
+
+.request-table-header ins-table-th{
+    padding: 16px 24px;
+    align-content: center;
+}
+
+.request-table-data ins-table-td{
+    padding: 11px 16px 11px 24px!important;
+    align-content: center!important;
+}
+
+ins-table-row:nth-child(even) {
+    background-color: var(--color-ui-02);
+}
+
+.request-table .ibt-table-wrap.no-label .ibt-table-wrap__no-heading{
+    border-radius: 14px;
+}
+
+
+/* HIDDEN ELEMENTS */
 .is_hidden{
     display: none;
+}
+
+
+
+/* EMPTY STATE HOLDER */
+.empty-state{
+    padding: 80px 24px;
 }

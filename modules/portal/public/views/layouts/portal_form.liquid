@@ -1,0 +1,46 @@
+---
+metadata: {
+    layout_name: portal_form
+}
+---
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    {% include 'modules/website/layout/head' %}
+
+    <script type="module" src="https://components.insites.io/v2/latest/insites.esm.js"></script>
+    <script nomodule src="https://components.insites.io/v2/latest/insites.js"></script>
+    {%- include 'modules/portal/insites_database/insites_database_form_scripts' -%}
+    {%- include 'modules/insites_forms/form_code' -%}
+
+</head>
+<body>
+    <div class="main-wrap">
+        {% include 'modules/website/layout/header' %} 
+        {% include 'modules/website/layout/header_mobile' %}
+
+        <div class="grid-x gutter-medium grid-padding-x">
+            {% comment %} ? Desktop Sidebar {% endcomment %}
+            <div class="large-3 medium-5 small-12 cell bg-color-ui-02 sidebar-padding hide-for-small-only">
+                {% include 'modules/portal/layouts/sidebar' %}
+            </div>
+            {% comment %} ? Mobile Sidebar {% endcomment %}
+            <div class="large-3 medium-5 small-12 bg-color-ui-02 show-for-small-only">
+                {% include 'modules/portal/layouts/sidebar' %}
+            </div>
+
+            {% comment %} ? Content Layout {% endcomment %}
+            <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content">
+                {{ content_for_layout }}
+            </div>
+
+            {% comment %} ? Mobile Content Layout {% endcomment %}
+            {% comment %} <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content-mobile show-for-small-only">
+                {{ content_for_layout }}
+            </div> {% endcomment %}
+        </div>   
+    </div>
+    
+{% include 'modules/website/layout/footer' %}
+</body>
+</html>

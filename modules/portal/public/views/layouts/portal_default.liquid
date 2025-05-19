@@ -1,6 +1,6 @@
 ---
 metadata: {
-    layout_name: default
+    layout_name: portal_default
 }
 ---
 {% comment %} Layout for pages without form {% endcomment %}
@@ -25,14 +25,14 @@ metadata: {
             </div>
 
             {% comment %} ? Content Layout {% endcomment %}
-            <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content hide-for-small-only">
+            <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content">
                 {{ content_for_layout }}
             </div>
 
             {% comment %} ? Mobile Content Layout {% endcomment %}
-            <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content-mobile show-for-small-only">
+            {% comment %} <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content-mobile show-for-small-only">
                 {{ content_for_layout }}
-            </div>
+            </div> {% endcomment %}
         </div>       
     </div>
     {% include 'modules/website/layout/footer' %}

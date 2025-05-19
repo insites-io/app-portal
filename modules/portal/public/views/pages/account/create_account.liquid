@@ -1,6 +1,6 @@
 ---
-slug: register
-layout: modules/portal/system_pages
+slug: create-account
+layout: modules/portal/portal_system_pages
 searchable: false
 max_deep_level: 1
 metadata: {
@@ -8,12 +8,12 @@ metadata: {
     "open_graph:url": "{{ context.exports.global.company_url | strip }}",
     "open_graph:type": "",
     "open_graph:image": "",
-    "open_graph:title": "Register",
-    "open_graph:description": "Register",
+    "open_graph:title": "",
+    "open_graph:description": "",
     "open_graph:site_name": "{{ context.exports.global.company_name | strip }}",
-    "meta_title": "Register",
-    "page_title": "Register | Insites",
-    "meta_description": "Register",
+    "meta_title": "",
+    "page_title": "Create Account | Insites Portal",
+    "meta_description": "",
     "canonical_url": "",
     "is_visible_to_search_engines": false,
     "sitemap_enabled": false,
@@ -27,7 +27,7 @@ authorization_policies:
     
 {%- if context.current_user -%}
     
-    {%- redirect_to '/portal' -%} 
+    {%- redirect_to '/overview' -%} 
     
 {%- endif -%} 
 
@@ -36,7 +36,7 @@ authorization_policies:
     <div class="spacer xxx-large"></div>
     {%- include 'modules/portal/account/registration_steps' -%}
     <div class="spacer x-large"></div>    
-    {%- include_form 'modules/portal/register' -%}
+    {%- include_form 'modules/portal/create_account' -%}
 </div>
 
 

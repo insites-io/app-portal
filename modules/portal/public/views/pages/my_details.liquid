@@ -1,27 +1,27 @@
 ---
 slug: my-details
-layout: modules/portal/form
+layout: modules/portal/portal_form
 searchable: false
 max_deep_level: 1
 metadata: {
     "status": "published",
-    "page_name": "My Details",
+    "page_name": "My Details | Insites Portal",
     "open_graph:url": "{{ context.exports.global.company_url | strip }}",
     "open_graph:type": "",
     "open_graph:image": "",
-    "open_graph:title": "My Details",
-    "open_graph:description": "My Details",
+    "open_graph:title": "",
+    "open_graph:description": "",
     "open_graph:site_name": "{{ context.exports.global.company_name | strip }}",
-    "meta_title": "My Details",
-    "page_title": "My Details | Insites",
-    "meta_description": "My Details",
+    "meta_title": "",
+    "page_title": "My Details | Insites Portal",
+    "meta_description": "",
     "canonical_url": "",
     "is_visible_to_search_engines": false,
     "sitemap_enabled": false,
     "sitemap_priority": "1.0",## primary order (DESC)
     "sitemap_order": "0", ## secondary order (ASC)
     "sitemap_changefreq": "never",
-    "heading": "My Details"
+    "heading": ""
 }
 authorization_policies:
   - modules/portal/is_user_logged_in
@@ -96,17 +96,20 @@ authorization_policies:
 
 <div class="my-details">    
 
-    <h2 class="heading-2">Account Information</h2>
-    
+    <h3 class="heading-3">My details</h3>
+    <div class="spacer"></div>
+    <p class="p-dark">Update your personal information, contact details, and preferences in your profile.</p>
+
      {%- if verified == false -%}
       <div class="small-12 cell text-center">
       </div>
     {%- endif -%} 
+    <div class="spacer xxx-large"></div>
+    <h5 class="heading-5">Account information</h5>
     <div class="spacer x-large"></div>
     {%- include_form 'modules/portal/my_details', id: user.id, data: contact -%}
-        
     {%- include_form 'modules/portal/change_password', id: user.id -%}
-    <div class="spacer x-large"></div>
+    <div class="spacer xxxx-large"></div>
 </div>
 
 

@@ -115,18 +115,18 @@ let UserProfileScript = (function () {
                                 var is_email_valid = true
                                 var requiredEmail = document.getElementById("emailRequired");
                                 var emailInvalid = document.getElementById("emailInvalid")
-                                requiredEmail.classList.add('is_not_visible');
-                                emailInvalid.classList.add('is_not_visible');
+                                requiredEmail.classList.add('is_hidden');
+                                emailInvalid.classList.add('is_hidden');
 
                                 
                                 if(field.value == '') {
                                     requiredEmail.classList.add('is_visible');
-                                    requiredEmail.classList.remove('is_not_visible');
+                                    requiredEmail.classList.remove('is_hidden');
                                 }else {
                                     is_email_valid = this.isValidEmail(field.value);
                                     if(is_email_valid == false){ 
                                         emailInvalid.classList.add('is_visible');
-                                        emailInvalid.classList.remove('is_not_visible');
+                                        emailInvalid.classList.remove('is_hidden');
                                     }
                                 }
                                 App.validation.validateEmail(field);
@@ -175,9 +175,9 @@ let UserProfileScript = (function () {
                     // Validation and function for update of password
                     if (await this.validationForm(formElem)) {
                         let confirm = await App.events.swal('warning',
-                            'Change Password?',
+                            'Change your password?',
                             'You will be logged out after changing your password.',
-                            'Submit');
+                            'Submit changes');
                         if (confirm) {
                             this.disableFormButtons(formElem);
                             customerProfileForm.updatePasswordBtn.loading = true;
