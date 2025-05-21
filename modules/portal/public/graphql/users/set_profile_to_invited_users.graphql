@@ -10,8 +10,7 @@ mutation set_profile_to_invited_users(
           name: "modules/portal/portal",
           values: {
             properties: [
-              { name: "is_enabled", value_boolean: true}
-              { name: "is_activated", value_boolean: true}
+              { name: "is_enabled", value_boolean: false}
               { name: "verification_token", value: $token }
             ]
           }

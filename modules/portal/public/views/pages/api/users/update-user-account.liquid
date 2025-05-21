@@ -13,6 +13,7 @@ metadata: {
 {% assign details = context.params %}
 {% comment %} ? Catch email with + {% endcomment %}
 {%- assign email = details.email | replace: " ", "+" -%}
+{% log details, type: "testdata"%}
 {% if details.actions == "change_permission_level" %}
     {% comment %} ? ACTION == user TOGGLE {% endcomment %}
     
@@ -36,13 +37,14 @@ metadata: {
             "email": "{{ email }}",
             "name": "{{ details.name }}",
             "company": "{{ details.company }}",
-            "password_token": "{{ user_data_default.password_token }}"
+            "password_token": "{{ user_data_default.password_token }}",
+            "company_uuid": "{{ details.company_uuid }}"
         }
         {% endparse_json %}
         {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
     {% endif %}
     
-    {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  permission_level:  details.permission_level  %}
+    {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  invitation_status: "Invited"  %}
     
 {% else %}
     {% comment %} ? ACTION == ADD user {% endcomment %}
@@ -64,7 +66,7 @@ metadata: {
             "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
             "mobile_phone_number": "{{ details.mobile_phone_number }}",
             "permission_level": "{{ details.userPermission }}",
-            "company": "{{ details.company }}",
+            "company": "{{ details.company }}"
         }
         {% endparse_json %}
         {% comment %} ? UPDATE CRM FIRST {% endcomment %}
@@ -73,7 +75,7 @@ metadata: {
         | dig: 'items','response','body'
         | parse_json  
         %}
-        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id, permission_level:  details.userPermission  %}
+        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id,  invitation_status: "Invited"  %}
 
     {% else %}
         {% comment %} ? SAVE NEW CRM {% endcomment %}
@@ -107,7 +109,7 @@ metadata: {
     {%  liquid
         graphql generated_token = 'modules/portal/account/generate_user_temporary_token', email: email | dig: 'items', 'results' | first
         if generated_token
-            graphql set_profile = 'modules/portal/users/set_profile_to_invited_users', id: generated_token.id, token: generated_token.temporary_token, company_uuid: details.company_uuid
+            graphql set_profile = 'modules/portal/users/set_profile_to_invited_users', id: generated_token.id, token: generated_token.temporary_token
             graphql set_password_token = 'modules/portal/users/set_password_token_to_invited_users', id: generated_token.id, token: generated_token.temporary_token
         endif
     %}
@@ -121,7 +123,9 @@ metadata: {
         "email": "{{ email }}",
         "name": "{{ details.userFirstName }} {{ details.userLastName }}",
         "company": "{{ details.company }}",
-        "password_token": "{{ user_data_default.password_token }}"
+        "password_token": "{{ user_data_default.password_token }}",
+        "company_uuid": "{{ details.company_uuid }}",
+        "permission_level": "{{ details.userPermission }}"
     }
     {% endparse_json %}
     {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}

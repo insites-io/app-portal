@@ -5,9 +5,6 @@ format: http
 enabled: true
 trigger_condition: true
 request_type: PUT
-callback: >
-    {% assign response_hash = response.body | parse_json %}
-    {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: response_hash.items.id  permission_level:  data.permission_level  %}
 request_headers: >
     {% include 'modules/website/api_headers' %}
 ---
@@ -16,7 +13,6 @@ request_headers: >
     "first_name": "{{ data.first_name }} ",
     "last_name": "{{ data.last_name }} ",
     "email": "{{ data.email }}", //REQUIRED
-    "company_uuid": "{{ data.company_uuid }}",
     "work_phone_country_code": "{{ data.mobile_phone_country_code }}",
     "work_phone_number": "{{ data.mobile_phone_number }}"
 }
