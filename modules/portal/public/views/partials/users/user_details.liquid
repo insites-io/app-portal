@@ -10,6 +10,7 @@ metadata: {
 
 {% comment %} ? GET COMPANY DETAILS {% endcomment %}
 {% assign get_company_details = user | dig: 'crm_contact' | first %}
+{% assign portal_profile = user | dig: 'portal' | first %}
 
 {% parse_json data %} 
 {
@@ -26,7 +27,7 @@ metadata: {
 {% assign user_external_id = user.external_id %}
 {% assign company_name = company_details.properties.company_name %}
 {% assign company_uuid = company_details.properties.uuid %}
-{% assign is_primary_account_holder = get_user_custom_field.primary_account_holder %}
+{% assign is_primary_account_holder = portal_profile.primary_account_holder %}
 
 {% parse_json user_and_company_details %} 
 {
@@ -38,4 +39,4 @@ metadata: {
 }
 {% endparse_json %}
 
-{% return get_user_custom_field %}
+{% return user_and_company_details %}
