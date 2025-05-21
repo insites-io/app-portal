@@ -158,15 +158,29 @@ async_callback_actions:
 
     <!-- Invoice Details -->
     <div id="invoice-details">
-        <h2 class="heading-2">Invoice Details</h2>
+        <div class="column-1">
+          <h3 class="heading-3 large-8 medium-7 small-12">Pay bills</h3>
+          <div class="spacer"></div>
+          <p class="p-dark">Quickly and easily pay your bills online with our streamlined payment process.</p>
+        </div>
+        <div class="spacer xxx-large"></div>
+
+        {%- graphql cards = "modules/portal/credit_cards/get_credit_card", 
+        contact_uuid: context.current_user.external_id | dig: 'items' -%}
+
+        <div class="add_credit_card_details_container">
+            <div>
+                <h5 class="heading-5">Bill details</h5>
+            </div>
+        </div>
         <div class="spacer x-large"></div>
 
         <div class="grid-x grid-padding-x invoice-details">
             <div class="large-6 medium-12 small-12 cell">
                 <ins-input required validate account-details-field
                     class="label-input"
-                    label="Order Reference*" 
-                    placeholder="Order Reference"
+                    label="Reference*" 
+                    placeholder="Reference"
                     field="text"
                     id="invoice-number"
                     name="{{ props.order_reference.name }}" 
@@ -179,9 +193,9 @@ async_callback_actions:
             <div class="large-6 medium-12 small-12 cell">
                 <ins-input required validate account-details-field
                     class="label-input"
-                    label="Amount Excluding Tax*" 
-                    placeholder="Amount Excluding Tax"
-                    field="number"
+                    label="Amount including tax*" 
+                    placeholder="$0.00"
+                    field="text"
                     id="bill-amount"
                     name="temp_order_value"
                     min="1"
@@ -195,11 +209,12 @@ async_callback_actions:
             <div class="spacer large"></div>
         </div>
     </div>
+    <div class="spacer xxx-large"></div>
 
     {% comment %} ? DICOUNT CODE BLOCK {% endcomment %}
-    {% assign is_discount_code_enabled = true %} {% comment %} ! Change the value to false if disabled {% endcomment %}
+    {% assign is_discount_code_enabled = false %} {% comment %} ! Change the value to false if disabled {% endcomment %}
     {% assign total_discount_amount = 0 %} {% comment %} ! Always assign to 0, regardless if discount is enabled or disabled {% endcomment %}
-	<input type="hidden" id="is-discount-code-enabled" name="{{ props.is_discount_code_enabled.name }}" value="{{ is_discount_code_enabled }}"> 
+	  <input type="hidden" id="is-discount-code-enabled" name="{{ props.is_discount_code_enabled.name }}" value="{{ is_discount_code_enabled }}"> 
 
     {% if is_discount_code_enabled %}
 		<div class="grid-x discount_code_field_container">
@@ -253,6 +268,56 @@ async_callback_actions:
 <script>
 	// check if discount is enabled
 	var isDiscountCodeEnabled = document.getElementById("is-discount-code-enabled");
+
+  // FORMAT BILL AMOUNT
+  const billAmount = document.getElementById('bill-amount')
+
+  // PREVENT LETTERS
+  billAmount.addEventListener('keydown', function (e) {
+    console.log("KEY")
+    const key = e.key;
+
+    // Allow: digits, decimal point, control keys
+    const allowedKeys = [
+      'Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete', 'Home', 'End', '.', // control keys
+    ];
+
+    const isNumberKey = /\d/.test(key);
+    const isAllowed = allowedKeys.includes(key);
+
+    // Block letters (anything that is not a digit or allowed key)
+    if (!isNumberKey && !isAllowed) {
+      e.preventDefault();
+    }
+
+    // Optional: prevent multiple decimals
+    if (key === '.' && input.value.includes('.')) {
+      e.preventDefault();
+    }
+  });
+    
+  // ADD "," on Thousands
+  billAmount.addEventListener('insBlur', event => {
+   
+    // Get cursor position
+    const position = billAmount.selectionStart;
+
+    // Remove all non-digit characters (except for minus if needed)
+    const raw = billAmount.value.replace(/[^0-9.]/g, '');
+
+    // Return early if not a valid number
+    if (isNaN(raw)) return;
+
+    // Format number with commas
+    const formatted = Number(raw).toLocaleString();
+
+    // Update input value
+    billAmount.value = formatted;
+    console.log(formatted);
+
+
+  });
+
 
 	// NOTE THIS Script will run only if discount code enabled
 	if(isDiscountCodeEnabled.value === "true"){

@@ -18,42 +18,24 @@ metadata: {
 -%}
 
 <div id="payment-details">
-    <div class="spacer xx-large"></div>
-    <div class="grid-x grid-padding-x">
-        <div class="large-6 medium-12 small-12 cell">
-            <h2 class="heading-2">Credit Card Details</h2>
-        </div>        
-        <div class="large-6 medium-12 small-12 cell text-right show-for-large">
-            <ins-button type="button"
-                class="add-credit-card"
-                icon="icon-plus"
-                label="Add Credit Card">
-            </ins-button>
+    {%- graphql cards = "modules/portal/credit_cards/get_credit_card", 
+    contact_uuid: context.current_user.external_id | dig: 'items' -%}
+
+    <div class="add_credit_card_details_container">
+        <div>
+            <h5 class="heading-5">Payment methods</h5>
         </div>
-        <div class="cell hide-for-large">
-            <div class="spacer"></div>
-            <ins-button type="button"
-                class="add-credit-card fixed-btn-width"
-                icon="icon-plus"
-                label="Add Credit Card">
-            </ins-button>
+        <div id="add-credit-card-button-holder" class="{% if cards.total_entries == 0 %}hide{% endif %}">
+            <ins-button id="add-credit-card" class="add-credit-card" type="button" label="Add credit card" icon="icon-plus" class="m-0" solid></ins-button>         
         </div>
     </div>
-    <div class="spacer xx-large show-for-large"></div>
-    <div class="spacer x-large show-for-small-only"></div>
-
-   
-    {% comment %} Credit Cards {% endcomment %}  
-    {% if context.current_user %}
-        {%- graphql cards = "modules/portal/credit_cards/get_credit_card", 
-            contact_uuid: context.current_user.external_id | dig: 'items' -%}
-    {% endif %}
+    <div class="spacer x-large"></div>  
 
     <div class="validate-credit-card" >
         {% comment %} Credit Cards {% endcomment %}
         <div id="credit-card-fields" class="card-fields">            
             <p class="error-message hide">Credit Card is required.</p>
-            <ins-input required validate
+            <ins-input required validate hidden
                 field="" 
                 id="stripe-card"
                 name="{{ form.fields.properties.stripe_credit_card.name }}" 
@@ -84,24 +66,23 @@ metadata: {
                 {%- endfor -%}
             </div>
         </div>        
-        <div id="no-card" class="empty-state text-center empty-box  {% if cards.total_entries > 0 %}hide{% endif %}" >
-            Add Credit Card / Debit Card
+        {% comment %} ? EMPTY STATE {% endcomment %}
+        <div id="no-card" class="empty-state text-center empty-box p-body {% if cards.total_entries > 0 %}hide{% endif %}">
+            <p class="body-large-bold">No cards added.</p>
+            <div class="spacer"></div>
+            <ins-button id="add-credit-card" class="add-credit-card" type="button" label="Add credit card" icon="icon-plus" class="m-0" solid></ins-button>
         </div>
     </div>
-
-        <div class="spacer xx-large"></div>
-  
-
+    <div class="spacer xxx-large"></div>
 
     {% include 'modules/portal/pay_bills/payment_summary' %}
-
 
     <div class="insites-form-grid">
         <div class="insites-form-buttons column-1 text-right">
             <ins-button solid type="submit"
                 id="checkout-submit-btn"
                 icon="icon-check-2"
-                label="Pay Bill">
+                label="Pay bill">
             </ins-button>
         </div>
     </div>

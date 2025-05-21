@@ -56,38 +56,50 @@ authorization_policies:
 -%}
 {% if get_stripe_settings.account_id != '' %}
     <div id="credit-card-fields">
-        <div class="grid-x">
-            <h2 class="heading-2 large-8 medium-7 small-12">Credit Card Details</h2>
-            <div class="show-for-large spacer x-large"></div>    
-            <div class="spacer small-12 show-for-small-only"></div>
-            <ins-button id="add-credit-card" class="add-credit-card large-4 medium-5 small-12 vertical-align-middle align-right fixed-btn-width" label="Add Credit Card" icon="icon-plus" ></ins-button>
+        <div class="column-1">
+            <h3 class="heading-3 large-8 medium-7 small-12">Payment methods</h3>
+            <div class="spacer"></div>
+            <p class="p-dark">Securely manage and update your preferred payment methods for a seamless checkout experience.</p>
         </div>
-        
-        <div class="spacer x-large"></div>
-            {%- graphql cards = "modules/portal/credit_cards/get_credit_card", 
-                contact_uuid: context.current_user.external_id | dig: 'items' -%}
-                <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">
-                {%- for card in cards.results -%}
-                    <div class="large-4 medium-6 small-12 cell card-options payment-methods-credit-card">
-                        <ins-credit-card data-id="{{ card.id }}" 
-                            {% if forloop.length == 1 %}
-                                active
-                            {% endif %}
-                            brand="{{ card.properties.card_brand }}"
-                            last-four="{{ card.properties.card_last_four_digits }}"
-                            expiry-month="{{ card.properties.card_expiry_month }}"
-                            expiry-year="{{ card.properties.card_expiry_year }}"
-                            full-year
-                            value="{{ card.properties.payment_method_token }}" compact>
-                        </ins-credit-card>
-                    </div>                    
-                {%- endfor -%}
-                </div>
-    
-            {% comment %} This element 'no-card' is necessary once all the cards were removed via javascript {% endcomment %}
-            <div id="no-card" class="empty-state text-center empty-box  {% if cards.total_entries > 0 %}hide{% endif %}" >
-                Add Credit Card / Debit Card
+        <div class="spacer xxx-large"></div>
+
+        {%- graphql cards = "modules/portal/credit_cards/get_credit_card", 
+        contact_uuid: context.current_user.external_id | dig: 'items' -%}
+
+        <div class="add_credit_card_details_container">
+            <div>
+                <h5 class="heading-5">Credit card details</h5>
             </div>
+            <div id="add-credit-card-button-holder" class="{% if cards.total_entries == 0 %}hide{% endif %}">
+                <ins-button id="add-credit-card" class="add-credit-card" type="button" label="Add credit card" icon="icon-plus" class="m-0" solid></ins-button>         
+            </div>
+        </div>
+        <div class="spacer x-large"></div>   
+        <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">
+            {%- for card in cards.results -%}
+                <div class="large-4 medium-6 small-12 cell card-options payment-methods-credit-card">
+                    <ins-credit-card data-id="{{ card.id }}" 
+                        {% if forloop.length == 1 %}
+                            active
+                        {% endif %}
+                        brand="{{ card.properties.card_brand }}"
+                        last-four="{{ card.properties.card_last_four_digits }}"
+                        expiry-month="{{ card.properties.card_expiry_month }}"
+                        expiry-year="{{ card.properties.card_expiry_year }}"
+                        full-year
+                        value="{{ card.properties.payment_method_token }}" compact>
+                    </ins-credit-card>
+                </div>                    
+            {%- endfor -%}
+        </div>
+    
+        {% comment %} This element 'no-card' is necessary once all the cards were removed via javascript {% endcomment %}
+        {% comment %} ? EMPTY STATE {% endcomment %}
+        <div id="no-card" class="empty-state text-center empty-box p-body {% if cards.total_entries > 0 %}hide{% endif %}">
+            <p class="body-large-bold">No cards added.</p>
+            <div class="spacer"></div>
+            <ins-button id="add-credit-card" class="add-credit-card" type="button" label="Add credit card" icon="icon-plus" class="m-0" solid></ins-button>
+        </div> 
         <div class="spacer x-large"></div>
     </div>
 {% else %}

@@ -2,6 +2,7 @@ let stripeCard = document.getElementById('stripe-card');
 let stripeCardModal = document.getElementById('stripe-modal');
 let cardOptionsList = document.getElementById('card-options-list');
 let noCardNotif = document.getElementById('no-card');
+let cardHolder = document.getElementById('add-credit-card-button-holder');
 let cardFields = document.getElementById('credit-card-fields');
 
 // Create an instance of Elements.
@@ -34,7 +35,7 @@ let StripeElement = (() => {
         methods: {
             makeCardElement(token) {
                 if (cardOptionsList && token) {
-                    let grid = cardOptionsList.getAttribute('card-grid') || "large-6 medium-6 small-12";
+                    let grid = cardOptionsList.getAttribute('card-grid') || "large-4 medium-6 small-12";
                     let divEl = document.createElement("div");
                         divEl.className = `${grid} cell card-options`;
                     let insCardEl = document.createElement("ins-credit-card");
@@ -116,9 +117,11 @@ let StripeElement = (() => {
                 let cards = cardFields.querySelectorAll('.card-options');
                 if (cards.length <= 0){
                     if(noCardNotif) noCardNotif.classList.remove('hide'); 
+                    if(cardHolder) cardHolder.classList.add('hide');
                 }
                 else{
                     if(noCardNotif) noCardNotif.classList.add('hide');
+                    if(cardHolder) cardHolder.classList.remove('hide');  
                 }
             }
         },

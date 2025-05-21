@@ -10,11 +10,11 @@ metadata: {
 <div class="accordion-section-holder hide-for-small-only">
     <div class="portal-sidebar">                            
         <ins-accordion-link label="Overview" link="/overview" link-target="_self" {%if params.slug == 'overview'-%}active{%- endif-%} ></ins-accordion-link>
-        <ins-accordion-link label="My Details" link="/my-details" link-target="_self" {%if params.slug == 'my-details'-%}active{%- endif-%}></ins-accordion-link>
-        <ins-accordion-link label="My Company Details" link="/my-company-details" link-target="_self" {%if params.slug == 'my-company-details'-%}active{%- endif-%}></ins-accordion-link>
+        <ins-accordion-link label="My details" link="/my-details" link-target="_self" {%if params.slug == 'my-details'-%}active{%- endif-%}></ins-accordion-link>
+        <ins-accordion-link label="My company details" link="/my-company-details" link-target="_self" {%if params.slug == 'my-company-details'-%}active{%- endif-%}></ins-accordion-link>
         <ins-accordion-link label="Feedback" link="/feedback" link-target="_self" {%if params.slug == 'feedback'-%}active{%- endif-%}></ins-accordion-link>
-        <ins-accordion-link label="Payment Methods" link="/payment-methods" link-target="_self" {%if params.slug == 'payment-methods'-%}active{%- endif-%}></ins-accordion-link>
-        <ins-accordion-link label="Pay a Bill" link="/pay-bills" link-target="_self" {%if params.slug == 'pay-bills'-%}active{%- endif-%}></ins-accordion-link>
+        <ins-accordion-link label="Payment methods" link="/payment-methods" link-target="_self" {%if params.slug == 'payment-methods'-%}active{%- endif-%}></ins-accordion-link>
+        <ins-accordion-link label="Pay a bill" link="/pay-bills" link-target="_self" {%if params.slug == 'pay-bills'-%}active{%- endif-%}></ins-accordion-link>
         {% if user_details.is_primary_account_holder != false %}
             <ins-accordion-link label="Users" link="/users" link-target="_self" {%if params.slug == 'users'-%}active{%- endif-%}></ins-accordion-link>
         {% endif %}

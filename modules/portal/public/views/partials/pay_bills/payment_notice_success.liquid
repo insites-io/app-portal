@@ -28,7 +28,7 @@ metadata: {
 
         {%- comment -%} Payment Details {%- endcomment -%}
         <div>
-            <h3 class="heading-3">Payment Details</h3>
+            <h5 class="heading-5">Payment method</h5>
             <div class="spacer small"></div>
             <p class="font-cabin">{{ get_payment.properties.card_brand | upcase }} **** **** **** {{ get_payment.properties.card_last_four_digits }}</p>
             {%- assign month = get_payment.properties.card_expiry_month -%}

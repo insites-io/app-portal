@@ -4664,6 +4664,79 @@ ins-table-row:nth-child(even) {
     border-radius: 14px;
 }
 
+/* STRIPE */
+
+.stripe-modal .ins-modal-wrap.show-modal .ins-modal-head h1 {
+    color: var(--font---font-color-head, #05051D)!important;
+
+    /* Heading/heading-5 */
+    font-family: var(----font-family-01, "DM Sans")!important;
+    font-size: 24px!important;
+    font-style: normal!important;
+    font-weight: 700!important;
+    line-height: 130%!important; /* 31.2px */
+    letter-spacing: 0.24px!important;
+}
+
+.stripe-modal .ins-modal-wrap.show-modal .ins-modal-head{
+    border-bottom: 0px!important;
+}
+
+.stripe-modal ins-button button .btn__icon, 
+.stripe-modal ins-button button[type=button] .btn__icon{
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.add_credit_card_details_container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.invoice-details .ins-form-field-wrap,
+.validate-credit-card .ins-credit-card-compact-size{
+    margin-bottom: 0px!important;
+}
+
+.p-body{
+    color: #575757;
+    font-family: var(----font-family-02);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+}
+
+.p-body-bold{
+    color: #575757;
+    font-family: var(--font-family-02);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+}
+
+.order-total{
+    color: #05051D;
+    font-family: var(--font-family-02);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* Pay Bill */
+
+.payment-summary {
+    padding: 24px;
+    background: #F9FAFB;
+}
+
+.payment-summary .p-body {
+    text-align: right;
+}
+
+
 
 /* HIDDEN ELEMENTS */
 .is_hidden{
@@ -4675,4 +4748,7 @@ ins-table-row:nth-child(even) {
 /* EMPTY STATE HOLDER */
 .empty-state{
     padding: 80px 24px;
+    border-radius: 4px;
+    border: 1px solid #DFDFDF;
+    background: #fff;
 }

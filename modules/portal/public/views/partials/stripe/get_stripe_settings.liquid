@@ -20,9 +20,12 @@ metadata: {
 
 {% parse_json data %}
 {
-    "account_id": "{{response.account_id}}",
+    {% comment %} "account_id": "{{response.account_id}}",
     "pk_key": "{{pk_key}}",
-    "sk_key": "{{sk_key}}"
+    "sk_key": "{{sk_key}}" {% endcomment %}
+    "account_id": "acct_1JgiQgDKXN2B4Z9Y",
+    "pk_key": "pk_test_51JgiQgDKXN2B4Z9YLtz61lb7PDgjIPH2GtKJ6FTN8cYkwOUazMt80sQUH56Wp7ba6UwCCsOg7yTqiNZnD2psb8Oq00gTkdRuh9",
+    "sk_key": "sk_test_51JgiQgDKXN2B4Z9YSwmpDpWT1RZLnJJJZHgRxwzGgh0zSGH33DBqvQl6n2O0tIFlmZfuCO2mSM7pl0bbsoEfa3ku00vV0KrVU9"
 }
 {% endparse_json %}
   
