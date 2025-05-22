@@ -2148,7 +2148,7 @@ ins-tag.Completed span.ins-tag {
 /* Registration Form */
 
 .agreement-text {
-    max-height: 349px;
+    max-height: 450px;
     overflow-y: scroll;
     padding: 24px;
     border: 1px solid var(--color-ui-04);

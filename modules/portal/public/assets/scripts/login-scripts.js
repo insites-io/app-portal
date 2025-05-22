@@ -153,7 +153,7 @@ let LoginScript = (function () {
                             case 'error':{ //email is used
                                 let emailElem = document.getElementById('email');
                                 emailElem.hasError = true;
-                                emailElem.errorMessage = "Email has already been used.";    
+                                emailElem.errorMessage = "This email has already used. Please login on your account";    
                             }break;
                         }
                     }

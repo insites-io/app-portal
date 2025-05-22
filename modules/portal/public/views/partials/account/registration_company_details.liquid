@@ -14,19 +14,32 @@ Inputs will have values only on /my-company-details page
 
 {%- assign props = form.fields.properties -%}
 
-<div id="company-details-container" class="form-group fadeIn {% if params.slug != 'my-company-details' %}hide{% endif %}" active>    
+<div id="company-details-container" class="form-group fadeIn {% if params.slug != 'my-company-details' %} hide {% endif %}" active>    
 
       <input type="hidden" id="company_longitude" name="{{ form.fields.properties.company_longitude.name }}" value="{{ default_address.properties.company_longitude }}" >
       <input type="hidden" id="company_latitude" name="{{ form.fields.properties.company_latitude.name }}" value="{{ default_address.properties.company_latitude }}" >
 
-      <div class="column-1">
+
+      {% if context.params.slug == 'create-account' %}
+        <div class="column-1">
+            <div class="create-an-account-div">
+              <h4 class="heading-4">Create an account</h4>
+              <div class="spacer small"></div>
+              <p class="p-dark p-body">Sign up now to create your account and gain secure access to the portal.</p>
+              <div class="spacer x-large"></div>
+              <h5 class="heading-5">Company details</h5>
+            </div>
+        </div> 
+      {% else %}
+        <div class="column-1">
           <h3 class="heading-3">My company details</h3>
           <div class="spacer"></div>
           <p class="p-dark">View and update essential company account information, including address, contact details, and business identifiers.</p>
           <div class="spacer xxx-large"></div>
           <h5 class="heading-5">Company details</h5>
           <div class="spacer x-large"></div>
-      </div>
+        </div>
+      {% endif %}
 
       <div class="column-2">
         <ins-input validate
@@ -197,9 +210,9 @@ Inputs will have values only on /my-company-details page
       <div class="column-1">      
       <div class="spacer small"></div>
       <div class="grid-x">
-          <div class="cell large-6 medium-6 small-12"><ins-button id="back-to-step-1" type="button" label="BACK" icon="icon-arrow-back" outlined ></ins-button></div>
+          <div class="cell large-6 medium-6 small-12"><ins-button id="back-to-step-1" type="button" label="Back" icon="icon-arrow-back" outlined ></ins-button></div>
           <div class="cell show-for-small-only spacer"></div>
-          <div class="cell large-6 medium-6 small-12 text-right"><ins-button id="submit-company-details" class="submit-btn" type="submit" label="NEXT" icon-right="icon-arrow-forward" solid ></ins-button></div>
+          <div class="cell large-6 medium-6 small-12 text-right"><ins-button id="submit-company-details" class="submit-btn" type="submit" label="Next" icon-right="icon-arrow-forward" solid ></ins-button></div>
       </div>  
       </div>
 

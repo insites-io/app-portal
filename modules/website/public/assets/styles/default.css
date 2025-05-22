@@ -1860,6 +1860,11 @@ ins-tag span.ins-tag {
     max-height: 35px !important;
 }
 
+.logo-accounts{
+    width: auto !important;
+    max-height: 50px !important;
+}
+
 .top-bar,
 .header-top-bar {
     background-color: var(--color-ui-01);
@@ -4736,7 +4741,74 @@ ins-table-row:nth-child(even) {
     text-align: right;
 }
 
+/* Account */
+.layout-background{
+    background-image: url("../images/login-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+ 
+}
 
+.account-body{
+    height: calc(100vh);
+}
+
+.create-account-container{
+    padding: 0px 40px 0px 128px;
+    /* align-content: center; */
+}
+
+.account-container-logo{
+    padding: 0px 128px
+}
+
+.account-container{
+    padding: 0px 128px;
+    align-content: center;
+    height: calc(70vh);
+}
+
+.login-bg{
+    height: 100%;
+}
+
+.ins-step_details{
+    margin: 0px -24px;
+}
+
+.create-an-account-div{
+    padding-right: 217px;
+}
+
+#register-stepper .ins-step_description{
+    color: #575757;
+    text-align: center;
+    font-family: var(--font-family-02);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 21px */
+}
+
+.agreement-text {
+    max-height: 450px;
+    overflow-y: scroll;
+    padding: 24px;
+    border: 1px solid var(--color-ui-04);
+}
+
+.forgot-password .ins-form-field-wrap{
+    margin-bottom: 0px!important
+}
+
+.a-label{
+    color: #3044FF;
+    font-family: var(--font-family-02);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
 
 /* HIDDEN ELEMENTS */
 .is_hidden{
