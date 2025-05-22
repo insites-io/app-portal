@@ -14,9 +14,10 @@
     --color-sub2-hover-light: rgba(211, 47, 25, 0.1);
     --font-color-link-hovered: #FFFFFF99;
     /* Support/Notification Colors */
-    --success: #37B68F;
+    --success: #0CAC52;
     --error: #FF3366;
     --warning: #FFA639;
+    --color-info: #436CF2;
     /* Support/Notification Colors Hover*/
     --success-hover: #2B8D6F;
     --error-hover: #FF0040;
@@ -4491,7 +4492,7 @@ Notyf
 /* Inactive Sidenav */
 .portal-sidebar .ins-accordion-link>.ins-accordion-link_link{
     color: var(--font-color-head);
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px; /* 150% */
