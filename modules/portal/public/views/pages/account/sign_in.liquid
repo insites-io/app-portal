@@ -1,6 +1,6 @@
 ---
 slug: sign-in
-layout: modules/portal/portal_system_pages
+layout: modules/portal/portal_account
 searchable: true
 max_deep_level: 1
 metadata: {
@@ -29,9 +29,11 @@ authorization_policies:
     {%- redirect_to '/overview' -%} 
 {%- endif -%} 
 
-<div class="sign-up grid-x grid-padding-x">
-    <div class="large-offset-4 large-4 medium-offset-3 medium-6 small-12 cell sign-in-container">
-        <h1 class="heading-1 text-center">Log In</h1>
+<div class="sign-up grid-x">
+    <div class="large-8 cell sign-in-field">
+        <h3 class="heading-3">Sign in</h3>
+        <div class="spacer x-small"></div>
+        <p class="p-body p-dark">Log in to your account for access to your services.</p>
         <div class="spacer x-large"></div>
         {%- include_form 'modules/portal/sign_in' -%}
     </div>
@@ -45,3 +47,12 @@ authorization_policies:
     <script src="{{ 'modules/portal/services/apiServices.min.js' | asset_url }}"></script>
     <script src="{{ 'modules/portal/scripts/login-scripts.min.js' | asset_url }}"></script>
 {%- endif -%}
+
+{%- if context.flash.alert == "Sorry-SignIn"-%}
+    <script>
+    setTimeout(() => {
+        App.events.notyf('error', "Please check your email and password.");
+    }, 200);
+    </script>
+{% endif -%}
+    

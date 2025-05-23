@@ -25,26 +25,27 @@ metadata: {
 
         {% comment %} ? Content Layout - Create Account {% endcomment %}
         {% if context.params.slug == 'create-account' %}
-            <div class="large-7 bg-color-ui-01 create-account-container">
+            <div class="large-7 medium-7 small-12 bg-color-ui-01 create-account-container">
                 {% comment %} ? LOGO {% endcomment %}
-                <div class="large-12 medium-3 small-7 cell">
-                    <div class="spacer x-large"></div>
+                <div class="large-12 medium-12 small-12 cell">
+                    <div class="spacer x-large hide-for-small-only"></div>
                     <a href="/">
                         <img class="logo-accounts" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
                     </a>
-                    <div class="spacer x-large"></div>
+                    <div class="spacer x-large hide-for-small-only"></div>
+                    <div class="spacer xxx-large show-for-small-only"></div>
                 </div>
                 {{ content_for_layout }}
-                <div class="spacer x-large"></div>
+                <div class="spacer x-large hide-for-small-only"></div>
             </div>    
         {% else %}
-            <div class="large-7 bg-color-ui-01">
+            <div class="large-7 small-12 bg-color-ui-01">
                 <div class="account-container-logo">
-                    <div class="spacer x-large"></div>
+                    <div class="spacer x-large hide-for-small-only"></div>
                     <a href="/">
                         <img class="logo-accounts" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
                     </a>
-                    <div class="spacer x-large"></div>
+                    <div class="spacer x-large hide-for-small-only"></div>
                 </div>
                 <div class="account-container">
                     {{ content_for_layout }}
@@ -52,7 +53,7 @@ metadata: {
             </div>    
         {% endif %}
 
-        <div class="large-5 layout-background"></div>
+        <div class="large-5 medium-5 small-12 layout-background"></div>
         
     </div>    
     {% comment %} {% include 'modules/website/layout/footer' %}     {% endcomment %}

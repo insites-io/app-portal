@@ -177,11 +177,12 @@ let App = (function () {
             // App.events.notyf('success', "Success message here");
             notyf(type, message) {
                 new Notyf({
-                    duration: 3000,
+                    duration: 5000,
                     position: {
                         x: 'right',
                         y: 'top'
-                    }
+                    },
+                    dismissible: true
                 })[type](message);
             },
             async swal(type = "warning", title, message, label = "OK", showCancel = true, iconConfirm = "icon-check-2") {
