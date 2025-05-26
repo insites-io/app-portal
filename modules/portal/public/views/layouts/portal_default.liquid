@@ -25,14 +25,11 @@ metadata: {
             </div>
 
             {% comment %} ? Content Layout {% endcomment %}
-            <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content">
-                {{ content_for_layout }}
+            <div class="large-9 medium-7 small-12 bg-color-ui-01">
+                <div class="main-content">
+                    {{ content_for_layout }}
+                </div>
             </div>
-
-            {% comment %} ? Mobile Content Layout {% endcomment %}
-            {% comment %} <div class="large-9 medium-7 small-12 cell bg-color-ui-01 main-content-mobile show-for-small-only">
-                {{ content_for_layout }}
-            </div> {% endcomment %}
         </div>       
     </div>
     {% include 'modules/website/layout/footer' %}

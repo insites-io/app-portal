@@ -1,6 +1,6 @@
 ---
 slug: create-account
-layout: modules/portal/portal_system_pages
+layout: modules/portal/portal_account
 searchable: false
 max_deep_level: 1
 metadata: {
@@ -32,11 +32,9 @@ authorization_policies:
 {%- endif -%} 
 
 <div class="sign-up">
-    <h1 class="text-center">Registration</h1>
-    <div class="spacer xxx-large"></div>
     {%- include 'modules/portal/account/registration_steps' -%}
     <div class="spacer x-large"></div>    
-    {%- include_form 'modules/portal/create_account' -%}
+    {%- include_form 'modules/portal/create-account' -%}
 </div>
 
 
@@ -155,11 +153,8 @@ if(registerForm){
             const isValid = await LoginScript.methods.validateForm(event, step3Container); 
             let checkBox = document.getElementById('agreement')
             if(checkBox.checked){
-                step3Container.classList.add('hide');
                 thirdStep.hasError = false;
                 thirdStep.removeAttribute("has-error");
-                registerStepper.next();
-                step4Container.classList.remove('hide');
                 registerForm.submit();
             }else {
                 thirdStep.hasError = true;

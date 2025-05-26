@@ -14,9 +14,10 @@
     --color-sub2-hover-light: rgba(211, 47, 25, 0.1);
     --font-color-link-hovered: #FFFFFF99;
     /* Support/Notification Colors */
-    --success: #37B68F;
+    --success: #0CAC52;
     --error: #FF3366;
     --warning: #FFA639;
+    --color-info: #436CF2;
     /* Support/Notification Colors Hover*/
     --success-hover: #2B8D6F;
     --error-hover: #FF0040;
@@ -156,6 +157,15 @@ footer {
     font-size: 14px;
     line-height: normal;
     color: #05051D;
+}
+
+.body-small-bold {
+    color: #05051D;
+    font-family: var(--font-family-02);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 21px */
 }
 
 a,
@@ -603,12 +613,18 @@ SweetAlert Style
 *********/
 
 .swal2-popup {
-    padding: 2rem !important;
-    border-radius: 24px !important;
+    padding: 24px !important;
+    border-radius: 14px !important;
+}
+
+.swal2-popup .ins-loader-wrap--state{
+    max-width: 70px;
+    margin: 0 auto 24px;
 }
 
 .swal2-popup .swal2-actions {
     flex-direction: row-reverse !important;
+    margin-top: 24px;
 }
 
 .swal2-popup .swal2-actions button {
@@ -1870,6 +1886,11 @@ ins-tag span.ins-tag {
 .logo {
     width: auto !important;
     max-height: 35px !important;
+}
+
+.logo-accounts{
+    width: auto !important;
+    max-height: 50px !important;
 }
 
 .top-bar,
@@ -3272,7 +3293,86 @@ footer .menu a {
         flex-direction: column; 
     }
 
+    /* ACCOUNT - MOBILE RESPONSIVE */
 
+    .create-account-container,
+    .account-container{
+        padding: 56px 24px!important;
+        height: auto!important;
+    }
+
+    .account-container-logo{
+        padding: 56px 24px 0px 24px!important;
+    }
+
+    .create-an-account-div{
+        padding: 0px!important;
+    }
+
+    .layout-background{
+        height: 400px;
+    }
+    
+    .create-account-container ins-button button.blue.outlined,
+    .create-account-container ins-button button.blue.solid,
+    .account-container ins-button button.blue.solid,
+    .my-details ins-button button.blue.solid,
+    .my-details ins-button button.blue.outlined,
+    ins-button.update-company-details-button button.blue.solid,
+    .add_credit_card_details_container ins-button button.blue.solid,
+    .empty-state ins-button button.blue.solid,
+    .insites-form-grid ins-button button.blue.solid{
+        width: 100%!important;
+    }
+
+    .ins-step_details{
+        margin: 0px 0px!important;
+    }
+
+    /* Portal - Mobile Responsive */
+    .main-content{
+        padding: 56px 24px!important;
+    }
+
+    /* Request Table - Mobile Responsive */
+    .request-table-data ins-table-td{
+        padding: 16px 24px!important
+    }
+
+    ins-table-row:nth-child(even) {
+        background-color: #fff!important;
+    }
+
+    /* Pagination */
+    .ibt-table-wrap .pagination-wrap.full{
+        text-align: center;
+        display: block;
+    }
+
+    .ibt-table-wrap .pagination-wrap>.ibt-table-wrap__prev-next{
+        justify-content: center;
+        padding-top: 16px;
+    }
+
+    /* Paybill */
+    .add_credit_card_details_container{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .ins-credit-card-compact-size{
+        margin-bottom: 0px;
+    }
+
+    .spacer-for-small-only{
+        padding-bottom: 24px!important;
+    }
+
+    .payment-success-notif{
+        text-align: left!important;
+    }
 }
 
 /********** [About Us] **********/
@@ -4319,7 +4419,7 @@ Notyf
 .notyf__toast [class*="notyf__icon--"] {
     font-family: 'insites-20-fonticon' !important;
     font-style: normal;
-    font-size: 14px;
+    font-size: 10px;
     border-radius: 0;
     height: 100%;
     width: 48px;
@@ -4333,7 +4433,7 @@ Notyf
     background: none;
     display: block;
     position: relative;
-    top: 25%;
+    top: 0px;
     left: unset;
     width: auto;
 }
@@ -4449,7 +4549,7 @@ Notyf
 }
 
 .main-content{
-    padding: 80px 48px 80px 24px!important;
+    padding: 80px 48px 80px 24px;
 }
 
 .main-content-mobile{
@@ -4498,7 +4598,7 @@ Notyf
 /* Inactive Sidenav */
 .portal-sidebar .ins-accordion-link>.ins-accordion-link_link{
     color: var(--font-color-head);
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px; /* 150% */
@@ -4560,7 +4660,8 @@ Notyf
 }
 
 /* Accordion Mobile Icon */
-.portal-mobile-nav .ins-accordion-item_header .open-icon{
+.portal-mobile-nav .ins-accordion-item_header .open-icon,
+.portal-mobile-nav .ins-accordion-item_header .close-icon{
     padding: 4px 24px;
 }
 
@@ -4664,7 +4765,7 @@ ins-button button.ins-button span{
 }
 
 .request-table-data ins-table-td{
-    padding: 11px 16px 11px 24px!important;
+    padding: 11px 16px 11px 24px;
     align-content: center!important;
 }
 
@@ -4672,8 +4773,42 @@ ins-table-row:nth-child(even) {
     background-color: var(--color-ui-02);
 }
 
-.request-table .ibt-table-wrap.no-label .ibt-table-wrap__no-heading{
+.request-table .ibt-table-wrap.no-label .ibt-table-wrap__no-heading,
+.request-table .ibt-table-wrap__settings{
     border-radius: 14px;
+}
+
+.ibt-table-wrap.no-label .ibt-table-wrap__no-heading{
+    box-shadow: none!important;
+}
+
+.request-table-accordion .ins-accordion-item_header{
+    padding: 0px!important
+}
+
+.request-table-accordion .ins-accordion-item_header>.inner-head{
+    font-family: var(--font-family-02);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+    color: #05051D;
+    padding: 16px 0px;
+    background-color: unset!important;
+    border: none;
+}
+
+.request-table-accordion .ins-accordion-item_header_caret-wrap{
+    right: 0px;
+}
+
+.request-table-accordion .ins-accordion-item_content .inner-content{
+    padding: 0px;
+    border: none;
+}
+
+.request-table-accordion .ins-accordion-item.open>.ins-accordion-item_header>.inner-head{
+    color: #05051D;
 }
 
 /* STRIPE */
@@ -4748,15 +4883,103 @@ ins-table-row:nth-child(even) {
     text-align: right;
 }
 
+#stripe-modal .ins-modal-wrap.show-modal,
+.swal2-container{
+    padding: 24px!important;
+    align-content: center!important;
+}
 
+#stripe-modal .ins-modal-wrap.show-modal ins-card .ins-card-wrap{
+    border-radius: 14px;
+}
+
+#stripe-modal ins-button.card-form-cancel button.blue.outlined{
+    margin-bottom: 0px!important;
+}
+
+.payment-success-notif{
+    text-align: center;
+}
+
+/* Account */
+.layout-background{
+    background-image: url("../images/login-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+ 
+}
+
+.account-body{
+    height: calc(100vh);
+}
+
+.create-account-container{
+    padding: 0px 40px 0px 128px;
+    /* align-content: center; */
+}
+
+.account-container-logo{
+    padding: 0px 128px
+}
+
+.account-container{
+    padding: 0px 128px;
+    align-content: center;
+    height: calc(70vh);
+}
+
+.login-bg{
+    height: 100%;
+}
+
+.ins-step_details{
+    margin: 0px -24px;
+}
+
+.create-an-account-div{
+    padding-right: 217px;
+}
+
+#register-stepper .ins-step_description{
+    color: #575757;
+    text-align: center;
+    font-family: var(--font-family-02);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 21px */
+}
+
+.agreement-text {
+    max-height: 450px;
+    overflow-y: scroll;
+    padding: 24px;
+    border: 1px solid var(--color-ui-04);
+}
+
+.forgot-password .ins-form-field-wrap,
+.sign-in-field .ins-form-field-wrap{
+    margin-bottom: 0px!important
+}
+
+.a-label{
+    color: #3044FF;
+    font-family: var(--font-family-02);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+/* Padding Custom */
+.pt-24{
+    padding-top: 24px!important
+}
 
 /* HIDDEN ELEMENTS */
 .is_hidden{
     display: none !important;
 }
-
-
-
 
 /* EMPTY STATE HOLDER */
 .empty-state{
@@ -4968,4 +5191,89 @@ ins-table-row:nth-child(even) {
 
 .userDetails .ins-input-select-wrap {
     margin-bottom: 0;
+}
+/* FORM ERROR */
+.ins-form-field-wrap.is-invalid .ins-form-error{
+    color: #F24B4B;
+    font-family: var(--font-family-02);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 18px */
+}
+
+/* NOTYF */
+
+.notyf__toast--error{
+    border-radius: 8px!important;
+    border: 1px solid #F24B4B!important;
+    background: var(--support-notifications-error-hover-light, rgba(242, 75, 75, 0.10))!important;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10)!important;
+}
+
+.notyf__toast--error .notyf__wrapper{
+    border-bottom: 4px solid #F24B4B;
+}
+
+.notyf__toast--success{
+    border-radius: 8px!important;
+    border: 1px solid  #0CAC52!important;
+    background: var(--support-notifications-success-hover-light, rgba(16, 202, 97, 0.10))!important;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10)!important;
+}
+
+.notyf__toast--success .notyf__wrapper{
+    border-bottom: 4px solid #0CAC52;
+}
+
+.notyf__icon--success{
+    height: 25px!important;
+    width: 25px!important;
+    background: var(--success)!important;
+    border-radius: 50%!important;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 16px!important;
+    margin-left: 16px!important;
+}
+
+.notyf__icon--error{
+    height: 25px!important;
+    width: 25px!important;
+    background: #F24B4B!important;
+    border-radius: 50%!important;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 16px!important;
+    margin-left: 16px!important;
+}
+
+.notyf__message{
+    color: var(--font---font-color-head, #05051D);
+    /* Paragraph/body */
+    font-family: var(----font-family-02, Archivo);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+}
+
+.notyf__dismiss{
+    margin-right: 0px!important;
+    padding: 27px 16px !important;
+    width: 0px;
+    height: 0px;
+    animation: notyf-fadeinup .3s forwards;
+}
+
+.notyf__dismiss-btn{
+    width: 0px;
+    height: 0px;
+}
+
+.notyf__dismiss-btn:before,
+.notyf__dismiss-btn:after{
+    background-color: #05051D!important;
 }

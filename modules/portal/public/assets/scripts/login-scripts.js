@@ -123,6 +123,9 @@ let LoginScript = (function () {
                 //Get id and element to identify the kind of form submitted
                 let formId = event.target.id;
                 let formElem = document.getElementById(formId).closest('form'); 
+
+                console.log(formId);
+                console.log(formElem);
                 // Check what form is being validated...
                 if(formId == 'submit-personal-details' || formId == 'submit-company-details'){
                     //Validation for Sign Up Form
@@ -153,7 +156,7 @@ let LoginScript = (function () {
                             case 'error':{ //email is used
                                 let emailElem = document.getElementById('email');
                                 emailElem.hasError = true;
-                                emailElem.errorMessage = "Email has already been used.";    
+                                emailElem.errorMessage = "This email has already used. Please login on your account";    
                             }break;
                         }
                     }

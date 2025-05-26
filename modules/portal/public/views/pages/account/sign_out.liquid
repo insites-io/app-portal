@@ -1,6 +1,6 @@
 ---
 slug: sign-out
-layout: modules/portal/portal_system_pages
+layout: modules/portal/portal_account
 searchable: true
 max_deep_level: 1
 metadata: {
@@ -27,21 +27,24 @@ metadata: {
     {% include 'modules/ecommerce/checkout/clear_session' %}
 {% endif %}
 
-
-<div class="thank-you grid-container">
-    <div class="grid-x text-center">
-        <div class="large-offset-4 large-4 medium-offset-3 medium-6 small-12 cell">
-
-            <h1 class="heading-1">Sign Out Success</h1>
-            <div class="spacer"></div>
-            <p>You are now signed out. Have a great day!</p>
-            <div class="spacer xxx-large"></div>
-            <div>
+<div class="sign-up grid-x">
+    <div class="large-8 cell sign-in-field">
+        <h3 class="heading-3">Sign out success</h3>
+        <div class="spacer x-small"></div>
+        <p class="p-body p-dark">You are now signed out. Have a great day!</p>
+        <div class="spacer x-large"></div>
+        <div class="grid-x grid-padding-x">
+            <div class="small-12 cell">
                 <a href="/sign-in">
-                    <ins-button id="sign-out-btn" label="Sign In Again" solid full color="blue" type="button" ></ins-button>
+                    <ins-button id="sign-out-btn" label="Sign in again" solid full color="blue" type="button" ></ins-button>
                 </a>
             </div>
-
         </div>
     </div>
 </div>
+
+<script>
+    setTimeout(() => {
+        App.events.notyf('success', "You have been signed out securely.");
+    }, 200);
+</script>

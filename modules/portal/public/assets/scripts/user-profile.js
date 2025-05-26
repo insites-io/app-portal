@@ -75,7 +75,7 @@ let UserProfileScript = (function () {
                     }
                 } else {
                     field.hasError = true;
-                    field.errorMessage = "Password is required";
+                    field.errorMessage = "Password is required.";
                 }
             },
             validatePasswordConfirm(field) {
