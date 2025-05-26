@@ -31,8 +31,8 @@ authorization_policies:
 {% if user_details.is_primary_account_holder == true %}
     <h1>Users</h1>
     <div class="spacer small"></div>
-    <p class="p-body">Manage your team’s access to your company account.</p>
-    <div class="spacer xxxx-large"></div>
+    <p>Manage your team’s access to your company account.</p>
+    <div class="spacer xxx-large"></div>
     {% include 'modules/portal/users/list' %}
 {% else %}
     {%- redirect_to '/403' -%}   

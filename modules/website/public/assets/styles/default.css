@@ -153,7 +153,7 @@ footer {
     font-family: var(--font-family-02);
     font-style: normal;
     font-weight: 400;
-    font-size: var(--font-small);
+    font-size: 14px;
     line-height: normal;
     color: #05051D;
 }
@@ -795,13 +795,14 @@ ins-textarea textarea,
 ins-input [class*=ins-] label,
 [class*=ins-] label,
 label,
-.ins-form-field-wrap .ins-form-label {
+.ins-form-field-wrap .ins-form-label,
+.ins-select-wrap .ins-select-label-wrap  {
     font-family: var(--font-family-01);
-    font-weight: 600;
+    font-weight: 700;
     font-size: var(--font-small);
     line-height: var(--font-medium);
     color: var(--font-color-head);
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 }
 
 .ins-form-field-wrap .ins-form-field:focus+.icon-wrap {
@@ -1125,6 +1126,11 @@ ins-button+a.ins-button button {
     margin-left: calc(2 * var(--gutter));
 }
 
+ins-button button, ins-button button[type=button] {
+    padding: 11px 24px;
+    min-height: 40px;
+}
+
 @media screen and (max-width: 639px) {
     .btn-container ins-button button,
     ins-button+ins-button button,
@@ -1204,7 +1210,7 @@ ins-checkbox .ins-radio-checkbox label,
 ins-radio .ins-radio-checkbox label,
 ins-code-editor .CodeMirror,
 ins-editor .ins-editor {
-    margin-bottom: calc(2 * var(--gutter));
+     margin-bottom: 0 /*  to be check on other elements */
 }
 
 ins-checkbox.inline .ins-radio-checkbox label .ins-checkbox-radio-label,
@@ -1226,6 +1232,12 @@ ins-radio .ins-radio-checkbox .ripple-check:checked::after {
     top: 21%;
     /* offset overlap on sticky header */
 }
+
+.ins-modal-wrap.show-modal .ins-modal-body {
+    padding: 0px 32px 32px; 
+}
+
+
 
 
 /* Step inactive - default state */
@@ -4740,8 +4752,9 @@ ins-table-row:nth-child(even) {
 
 /* HIDDEN ELEMENTS */
 .is_hidden{
-    display: none;
+    display: none !important;
 }
+
 
 
 
@@ -4751,4 +4764,208 @@ ins-table-row:nth-child(even) {
     border-radius: 4px;
     border: 1px solid #DFDFDF;
     background: #fff;
+}
+
+/********** [Users Page] ***********/
+
+
+.user-actions-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.userSearch {
+    width: 40%;
+}
+
+.primary-account-holder {
+    color: #0CAC52;
+    text-align: center;
+    font-family: var(--font-family-02);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: var(----iia-alert-positive-light, rgba(4, 136, 1, 0.08));
+}
+
+.users-table-header ins-table-th {
+    padding: 24px!important;
+    color: #000000
+}
+
+.users-table-data {
+    background-color: #fff;
+}
+
+.users-table-data ins-table-td {
+    padding: 0px 24px!important;
+}
+
+.hide-for-small-medium {
+    display: table-cell;
+}
+
+.show-for-small-medium {
+    display: none;
+}
+
+.users-table ins-table-row:nth-child(even) {
+    background-color: #F7F7F7;
+}
+
+.users-table .ins-select-option-wrap,
+.users-table .ins-input-select.ins-select-wrap .ins-select-value-wrap .ins-select-value-input {
+    color: var(--font---font-color-body, #575757);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: var(--font-family-02);
+    font-size: 14px!important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.users-table .ibt-table-wrap .pagination-wrap {
+    padding: 24px
+}
+
+#add-user-modal .ins-modal-wrap.show-modal ins-card .ins-card-wrap {
+    height: initial!important;
+    border-radius: 24px!important;
+}
+
+.addUserModal ins-card {
+    width: 495px!important;
+}
+
+.addUserModalButton {
+    display: flex;
+    gap: 16px;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.userDetails .ins-form-field-wrap,
+.userDetails .ins-select-wrap {
+    margin-bottom: 8px!important;
+}
+
+.userDetails.has-error .ins-form-field-wrap label,
+.userDetails.has-error .ins-select-wrap label {
+    color: #DF1F1F!important;
+}
+
+#user-first-name.has-error .ins-form-field-wrap label,
+#user-last-name.has-error .ins-form-field-wrap label,
+#user-email.has-error .ins-form-field-wrap label,
+#user-job-title.has-error .ins-form-field-wrap label,
+#user-department.has-error .ins-select-wrap label {
+    color: #DF1F1F!important;
+}
+
+#user-first-name.has-error .ins-form-field-wrap .ins-form-field,
+#user-last-name.has-error .ins-form-field-wrap .ins-form-field,
+#user-email.has-error .ins-form-field-wrap .ins-form-field,
+#user-job-title.has-error .ins-form-field-wrap .ins-form-field,
+#user-department.has-error .ins-select-wrap .ins-select-value-input,
+#user-department.has-error .ins-select-wrap .ins-select-value-wrap {
+    background-color: rgba(223, 31, 31, 0.10)!important;
+    border-color: #DF1F1F!important;
+    color: #DF1F1F!important;
+}
+
+#user-first-name.has-error .ins-form-field-wrap .ins-form-field::placeholder,
+#user-last-name.has-error .ins-form-field-wrap .ins-form-field::placeholder,
+#user-email.has-error .ins-form-field-wrap .ins-form-field::placeholder,
+#user-job-title.has-error .ins-form-field-wrap .ins-form-field::placeholder,
+#user-department.has-error .ins-select-wrap .ins-select-value-input::placeholder {
+    color: #DF1F1F!important;
+}
+
+.user-error-txt-red {
+    color: #DF1F1F!important;
+}
+
+#user-permission-level .ins-input-select-wrap .ins-input-select .ins-select-options-wrap {
+    margin-bottom: -5px !important;
+}
+
+.swal-user-account .swal2-title {
+    color: var(--font-color-head, #05051D);
+    text-align: center;
+    font-family: var(--font-family-01);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.swal-user-account .swal2-html-container {
+    color: var(--font-color-body, #575757);
+    text-align: center;
+    font-family: var(--font-family-02);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.swal-user-account [class^=icon-] {
+    font-size: 12px!important;
+}
+
+.swal-remove-access .swal2-actions button.swal2-confirm {
+    background-color: #DF1F1F!important;
+    border-color: #DF1F1F!important;
+}
+
+.emailExistsMessage {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: rgba(251, 172, 19, 0.10);
+    margin: 8px 0px;
+}
+
+.emailExistsMessageIcon {
+    color: #CC8700;
+}
+
+.emailExistsMessageDetails {
+    color: var(--font---font-color-body, #575757);
+    font-size: 12px!important;
+    font-family: var(--font-family-02);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.account_owner_select .icon-caret-down {
+    display: none;
+}
+
+.account_owner_select .ins-input-select.ins-select-wrap .ins-select-value-wrap .ins-select-value-input {
+    color: var(--ins-color-ink40)!important;
+}
+
+.account_owner_select .ins-input-select.ins-select-wrap .ins-select-value-wrap .ins-select-value-input:hover {
+    cursor: not-allowed !important;
+}
+
+
+.users-table .ibt-table-wrap.no-label .ibt-table-wrap__no-heading {
+    border-radius: 16px;
+    border: 1px solid var(--color-ui-04, #DFDFDF);
+    box-shadow: none;
+}
+
+.users-table .ibt-table-wrap__settings {
+    background-color: unset;
+}
+
+.userDetails .ins-input-select-wrap {
+    margin-bottom: 0;
 }

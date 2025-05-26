@@ -82,7 +82,7 @@ metadata: {
         <div class="add-user-details">
             <h3 class="heading-3">Invite new user</h3>
             <div class="spacer xx-small"></div>
-            <p class="p-body">
+            <p>
                 Please fill in the details below to invite a new user to your company account.
             </p>
             <div class="spacer"></div>
@@ -92,25 +92,24 @@ metadata: {
                 <div class="userDetails">
                     <ins-input
                         id="user-email"
-                        label="Email Address*"
+                        label="Email*"
                         name=""
                         value=""
-                        placeholder="Enter Email Address">
+                        placeholder="Email">
                     </ins-input>
-                    <span id="emailRequired" class="user-error-txt-red body-x-small is_not_visible">Email address is required.</span>
+                    <span id="emailRequired" class="user-error-txt-red body-x-small is_hidden">Email address is required.</span>
             
                     {% comment %} ? ERROR MESSAGE {% endcomment %}
-                    <div id="emailExists" class="emailExistsMessage is_not_visible">
+                    <div id="emailExists" class="emailExistsMessage is_hidden">
                         <div class="emailExistsMessageIcon">
                             <i class="icon-warning"></i>
                         </div>
                         <div class="emailExistsMessageDetails">
                             <span class="body-x-small">
-                                This email already exists in our system. If you send an invite, an invitation link will be sent to the registered address to create a new password and their details will be updated based on what you enter here. 
-                            </span>
+                                This email already exists in our system. If you send an invite, an invitation link will be sent to the registered address to create a new password and their details will be updated based on what you enter here.                            </span>
                         </div>
                     </div>
-                    <span id="emailInvalid" class="user-error-txt-red body-x-small is_not_visible">Invalid email address.</span>
+                    <span id="emailInvalid" class="user-error-txt-red body-x-small is_hidden">Invalid email address.</span>
                 </div>
             </div>
 
@@ -126,9 +125,9 @@ metadata: {
                         name="" 
                         value=""
                         class=""
-                        placeholder="Enter First Name">
+                        placeholder="First Name">
                     </ins-input>
-                    <span id="firstNameRequired" class="user-error-txt-red body-x-small is_not_visible">First name is required.</span>
+                    <span id="firstNameRequired" class="user-error-txt-red body-x-small is_hidden">First name is required.</span>
                 </div>
                 <div class="spacer small"></div>
                 <div class="userDetails">
@@ -138,9 +137,9 @@ metadata: {
                         label="Last Name*"
                         name="" 
                         value=""
-                        placeholder="Enter Last Name">
+                        placeholder="Last Name">
                     </ins-input>
-                    <span id="lastNameRequired" class="user-error-txt-red body-x-small is_not_visible">Last name is required.</span>
+                    <span id="lastNameRequired" class="user-error-txt-red body-x-small is_hidden">Last name is required.</span>
                 </div>
             </div>
 
@@ -154,7 +153,7 @@ metadata: {
                         label="Phone" 
                         phonenum-value="" 
                         country-code=""
-                        phonenum-placeholder="1300 000 000" 
+                        phonenum-placeholder="Phone Number" 
                         no-areacode>
                     </ins-input-tel>
                 </div>
@@ -189,7 +188,7 @@ metadata: {
             </div>
         </div>
         
-        <div class="spacer small"></div>
+        <div class="spacer x-large"></div>
 
         <div class="addUserModalButton">
             <div class="cancelModalButton">
@@ -237,23 +236,23 @@ metadata: {
 
     {% if get_users.size == 0 %}
         {% comment %} ? EMPTY STATE {% endcomment %}
-        <div class="empty-state text-center empty-box p-body">
+        <div class="empty-state text-center empty-box">
             <p>No records available.</p>
         </div> 
     {% else %}
         {% comment %} ? NOT EMPTY STATE {% endcomment %}
         <ins-table-row class="users-table-header">
             <ins-table-th>
-                <span class="hide-for-small-medium p-body-small-bold">
+                <span class="hide-for-small-medium">
                     Name
                 </span>
             </ins-table-th>
 
-            <ins-table-th class="hide-for-small-medium p-body-small-bold">
-                Email Address
+            <ins-table-th class="hide-for-small-medium">
+                Email
             </ins-table-th>
 
-            <ins-table-th class="hide-for-small-medium p-body-small-bold">
+            <ins-table-th class="hide-for-small-medium">
                 Permission Level
             </ins-table-th>
         </ins-table-row>
@@ -265,7 +264,7 @@ metadata: {
 
                 <ins-table-td class="body-small">
                     <span class="show-for-small-medium"> <b>Name: </b> {{ item.first_name }} {{ item.last_name }} </span>
-                    <span class="hide-for-small-medium p-body"> {{ item.first_name }} {{ item.last_name }} </span>
+                    <span class="hide-for-small-medium"> {{ item.first_name }} {{ item.last_name }} </span>
 
                     <div class="show-for-small-medium">
                         <div class="spacer x-small"></div>
@@ -325,7 +324,7 @@ metadata: {
 
                 </ins-table-td>
 
-                <ins-table-td class="body-small hide-for-small-medium p-body">
+                <ins-table-td class="body-small hide-for-small-medium">
                     {{ item.email}}
                 </ins-table-td>
                 
@@ -657,23 +656,23 @@ metadata: {
 
         // FIRST NAME
         if(userFirstName.value == ''){
-            requiredFirstName.classList.remove('is_not_visible');
+            requiredFirstName.classList.remove('is_hidden');
             requiredFirstName.classList.add('is_visible');
             userFirstName.classList.add('has-error');
         }else{
             requiredFirstName.classList.remove('is_visible');
-            requiredFirstName.classList.add('is_not_visible');
+            requiredFirstName.classList.add('is_hidden');
             userFirstName.classList.remove('has-error');
         }
 
         // LAST NAME
         if(userLastName.value == ''){
-            requiredLastName.classList.remove('is_not_visible');
+            requiredLastName.classList.remove('is_hidden');
             requiredLastName.classList.add('is_visible');
             userLastName.classList.add('has-error');
         }else{
             requiredLastName.classList.remove('is_visible');
-            requiredLastName.classList.add('is_not_visible');
+            requiredLastName.classList.add('is_hidden');
             userLastName.classList.remove('has-error');
         }
 
@@ -698,36 +697,36 @@ metadata: {
     }
 
     function errorOnEmailFound(){
-        requiredEmail.classList.add('is_not_visible');
-        invalidEmail.classList.add('is_not_visible');
-        existEmail.classList.remove('is_not_visible');
+        requiredEmail.classList.add('is_hidden');
+        invalidEmail.classList.add('is_hidden');
+        existEmail.classList.remove('is_hidden');
         existEmail.classList.add('is_visible');
         userEmail.classList.remove('has-error');
     }
 
     function errorOnEmailRequired(){
-        existEmail.classList.add('is_not_visible');
-        invalidEmail.classList.add('is_not_visible');
-        requiredEmail.classList.remove('is_not_visible');
+        existEmail.classList.add('is_hidden');
+        invalidEmail.classList.add('is_hidden');
+        requiredEmail.classList.remove('is_hidden');
         requiredEmail.classList.add('is_visible');
         userEmail.classList.add('has-error');
     }
 
     function errorOnInvalidEmail(){
-        existEmail.classList.add('is_not_visible');
-        requiredEmail.classList.add('is_not_visible');
-        invalidEmail.classList.remove('is_not_visible');
+        existEmail.classList.add('is_hidden');
+        requiredEmail.classList.add('is_hidden');
+        invalidEmail.classList.remove('is_hidden');
         invalidEmail.classList.add('is_visible');
         userEmail.classList.add('has-error');
     }
 
     function noErrorOnEmail(){
         existEmail.classList.remove('is_visible');
-        existEmail.classList.add('is_not_visible');
+        existEmail.classList.add('is_hidden');
         requiredEmail.classList.remove('is_visible');
-        requiredEmail.classList.add('is_not_visible');
+        requiredEmail.classList.add('is_hidden');
         invalidEmail.classList.remove('is_visible');
-        invalidEmail.classList.add('is_not_visible');
+        invalidEmail.classList.add('is_hidden');
         userEmail.classList.remove('has-error');
     }
 
@@ -779,11 +778,11 @@ metadata: {
         noErrorOnEmail();
 
         requiredFirstName.classList.remove('is_visible');
-        requiredFirstName.classList.add('is_not_visible');
+        requiredFirstName.classList.add('is_hidden');
         userFirstName.classList.remove('has-error');
       
         requiredLastName.classList.remove('is_visible');
-        requiredLastName.classList.add('is_not_visible');
+        requiredLastName.classList.add('is_hidden');
         userLastName.classList.remove('has-error');
 
     }
