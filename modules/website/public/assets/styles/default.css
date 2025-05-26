@@ -673,6 +673,10 @@ SweetAlert Style
     fill: var(--warning) !important;
 }
 
+.swal2-icon.swal2-warning {
+    color: #EC9C00 !important;
+    border: solid .25em #EC9C00 !important;
+}
 
 /* Default btn */
 
@@ -1251,6 +1255,7 @@ ins-radio .ins-radio-checkbox .ripple-check:checked::after {
 
 .ins-modal-wrap.show-modal .ins-modal-body {
     padding: 0px 32px 32px; 
+    overflow: visible;
 }
 
 
@@ -2830,7 +2835,8 @@ footer .menu a {
 
 
 /* Search bar */
-#search-input .ins-input-wrap .input-wrap .icon-close-1{
+#search-input .ins-input-wrap .input-wrap .icon-close-1,
+#search-description .ins-input-wrap .input-wrap .icon-close-1{
     background: #fff;
     border: none;
     position: absolute;
@@ -2845,7 +2851,8 @@ footer .menu a {
     padding-right: 8px;
 }
 
-#search-input .ins-input-wrap .input-wrap .icon-close-1:hover {
+#search-input .ins-input-wrap .input-wrap .icon-close-1:hover,
+#search-description .ins-input-wrap .input-wrap .icon-close-1:hover{
     color: var(--color-main-hover);
     cursor: pointer;
 }
@@ -4989,6 +4996,13 @@ ins-table-row:nth-child(even) {
     background: #fff;
 }
 
+#insBaseTable .empty-box {
+    border: none !important;
+    border-radius: 16px;
+    padding: 80px 24px;
+    background: #fff;
+}
+
 /********** [Users Page] ***********/
 
 
@@ -5218,7 +5232,7 @@ ins-table-row:nth-child(even) {
 .notyf__toast--success{
     border-radius: 8px!important;
     border: 1px solid  #0CAC52!important;
-    background: var(--support-notifications-success-hover-light, rgba(16, 202, 97, 0.10))!important;
+    background: #E3F5EC!important;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10)!important;
 }
 

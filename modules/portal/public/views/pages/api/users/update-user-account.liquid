@@ -13,7 +13,6 @@ metadata: {
 {% assign details = context.params %}
 {% comment %} ? Catch email with + {% endcomment %}
 {%- assign email = details.email | replace: " ", "+" -%}
-{% log details, type: "testdata"%}
 {% if details.actions == "change_permission_level" %}
     {% comment %} ? ACTION == user TOGGLE {% endcomment %}
     
@@ -44,8 +43,12 @@ metadata: {
         {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
     {% endif %}
     
-    {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  invitation_status: "Invited"  %}
-    
+    {% if details.permission_level  != "No Access" %}
+        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  invitation_status: "Invited"  %}
+    {% else %}
+        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  invitation_status: "", permission_level: "No Access"  %}
+    {% endif %}
+
 {% else %}
     {% comment %} ? ACTION == ADD user {% endcomment %}
     {% if details.is_email_found == "false" %}
@@ -75,7 +78,9 @@ metadata: {
         | dig: 'items','response','body'
         | parse_json  
         %}
+        
         {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id,  invitation_status: "Invited"  %}
+        
 
     {% else %}
         {% comment %} ? SAVE NEW CRM {% endcomment %}
@@ -98,10 +103,6 @@ metadata: {
         | parse_json  
         %}
 
-        {% log add_crm_contact %}
-
-        {% include 'modules/portal/users/invite_user_event_stream', data: add_crm_data  %}
-        
     {% endif %}   
     {% comment %} ? CLOSING ENDIF FOR INVITE user - EMAIL EXISTS OR NOT {% endcomment %}
 
@@ -132,3 +133,22 @@ metadata: {
         
 {% endif %}
 {% comment %} ? CLOSING ENDIF FOR TOGGLE OR INVITE {% endcomment %}
+
+
+{% comment %} ? Event Stream {% endcomment %}
+{% parse_json crm_data_event_stream %}
+{
+    "first_name": "{{ details.userFirstName }}",
+    "last_name": "{{ details.userLastName }}",
+    "email": "{{ email }}",
+    "company_uuid": "{{ details.company_uuid }}",
+    "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
+    "mobile_phone_number": "{{ details.mobile_phone_number }}",
+    "permission_level": "{{ details.permission_level }}",
+    "actions": "{{ details.actions }}",
+    "company": "{{ details.company }}"
+}
+{% endparse_json %}
+
+{% include 'modules/portal/users/invite_user_event_stream', data: crm_data_event_stream %}
+

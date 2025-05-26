@@ -236,8 +236,8 @@ metadata: {
 
     {% if get_users.size == 0 %}
         {% comment %} ? EMPTY STATE {% endcomment %}
-        <div class="empty-state text-center empty-box">
-            <p>No records available.</p>
+        <div class="text-center empty-box">
+            <p class="subHeadingMain"><strong>No result for search “{{ context.params.search }}”.</strong></p>
         </div> 
     {% else %}
         {% comment %} ? NOT EMPTY STATE {% endcomment %}
