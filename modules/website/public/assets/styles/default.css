@@ -23,7 +23,7 @@
     --error-hover: #FF0040;
     --warning-hover: #FF8F05;
     /* Support/Notification Colors Hover Light*/
-    --neutral-hover-light: rgba(132, 132, 143, 0.1)
+    --neutral-hover-light: rgba(132, 132, 143, 0.1);
     --success-hover-light: rgba(55, 182, 143, 0.1);
     --error-hover-light: rgba(255, 51, 102, 0.1);
     --warning-hover-light: rgba(255, 166, 57, 0.1);
