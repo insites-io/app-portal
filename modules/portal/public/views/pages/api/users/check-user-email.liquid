@@ -29,7 +29,6 @@ metadata: {
 {%- 
     liquid
     if results.total_entries > 0
-        log results
         assign item = results | dig: "results" | first
         assign find_profile = item.profiles | array_find_index: profile_type: "modules/insites_core/crm_contact"
         if find_profile.size > 0
