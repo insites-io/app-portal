@@ -14,23 +14,49 @@ metadata: {
   {%- include 'modules/insites_forms/form_code' -%}
 
 </head>
-<body class="system-page flex-container flex-dir-column">
-    {% include 'modules/website/layout/header' %} 
-    {% include 'modules/website/layout/header_mobile' %}
 
-  <div class="wrapper">
-    <div class="system-content grid-container">
-      <div class="spacer xxxx-large"></div>
-      {{ content_for_layout }}
-      <div class="spacer xxxx-large"></div>
-    </div>
+{% comment %} ? GET GLOBAL CONTENT {% endcomment %}
+{%- include "modules/insites_cms/globals" -%}
+{%- assign global = context.exports.global -%}
 
-    {% comment %} ? For ecommerce cart drawer {% endcomment %}
-    {% if context.constants.ecommerce_addon == 'true' %}
-        {% include 'modules/ecommerce/carts/cart_drawer' %}
-    {% endif %}
+<body>
+    <div class="grid-x gutter-medium grid-padding-x account-body">
 
-  </div>
-    {% include 'modules/website/layout/footer' %}    
+        {% comment %} ? Content Layout - Create Account {% endcomment %}
+        {% if context.params.slug == 'create-account' %}
+            <div class="large-7 medium-7 small-12 bg-color-ui-01 create-account-container">
+                {% comment %} ? LOGO {% endcomment %}
+                <div class="large-12 medium-12 small-12 cell">
+                    <div class="spacer x-large hide-for-small-only"></div>
+                    <a href="/">
+                        <img class="logo-accounts" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
+                    </a>
+                    <div class="spacer x-large hide-for-small-only"></div>
+                    <div class="spacer xxx-large show-for-small-only"></div>
+                </div>
+                {{ content_for_layout }}
+                <div class="spacer x-large hide-for-small-only"></div>
+            </div>    
+        {% else %}
+            <div class="large-7 small-12 bg-color-ui-01">
+                <div class="account-container-logo">
+                    <div class="spacer x-large hide-for-small-only"></div>
+                    <a href="/">
+                        <img class="logo-accounts" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
+                    </a>
+                    <div class="spacer x-large hide-for-small-only"></div>
+                </div>
+                <div class="account-container">
+                    {{ content_for_layout }}
+                </div>
+            </div>    
+        {% endif %}
+
+        <div class="large-5 medium-5 small-12 layout-background"></div>
+        
+    </div>    
+    {% comment %} {% include 'modules/website/layout/footer' %}     {% endcomment %}
+    {%- include 'modules/website/layout/technical_foot' -%}
+
 </body>
 </html>
