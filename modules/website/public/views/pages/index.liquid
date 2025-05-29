@@ -22,6 +22,17 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly"
 }
+dynamic_cache:
+    layout: true
+    key: >
+        {%- parse_json models -%}
+        [
+          "modules/website/business_needs",
+          "modules/website/features",
+          "modules/website/testimonials"
+        ]
+        {%- endparse_json -%}
+        {%- include "modules/website/cache/generate_cache_key", models: models -%}
 ---
 {%comment%} get device type {%endcomment%}
 {%- assign device_used = context.device.device_type -%}

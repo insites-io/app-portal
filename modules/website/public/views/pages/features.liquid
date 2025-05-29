@@ -25,5 +25,14 @@ metadata: {
     "is_details_layout_enabled": true,
     "source_name": "modules/website/features"
 }
+dynamic_cache:
+    layout: true
+    key: >
+        {%- parse_json models -%}
+        [
+          "modules/website/features"
+        ]
+        {%- endparse_json -%}
+        {%- include "modules/website/cache/generate_cache_key", models: models -%}
 ---
 {%- include 'modules/insites_cms/databases_layouts/page_content' -%}

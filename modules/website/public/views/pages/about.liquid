@@ -22,6 +22,15 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly"
 }
+dynamic_cache:
+    layout: true
+    key: >
+        {%- parse_json models -%}
+        [
+          "modules/website/our_team"
+        ]
+        {%- endparse_json -%}
+        {%- include "modules/website/cache/generate_cache_key", models: models -%}
 ---
 {% assign description = "We believe in making client collaboration effortless with a secure, all-in-one platform designed to keep teams and clients connected." %}
 
