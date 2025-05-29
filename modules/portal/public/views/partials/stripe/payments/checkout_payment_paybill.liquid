@@ -108,6 +108,9 @@ metadata: {
 {% comment %} Compute amounts {% endcomment %}
 {% assign amount = form.properties.total_amount | times: 100 %}
 
+{% comment %} GET STRIPE SETTINGS {% endcomment %}
+{% function get_stripe_settings = "modules/portal/stripe/get_stripe_settings" %}
+
 {%- comment -%} STEP 2: Stripe Charge / Payment  {%- endcomment -%}
 {% parse_json "create_charge" %}
 {
@@ -126,7 +129,10 @@ metadata: {
         "Insites Company Name": "{{ company_name }}",
         "Insites Order": "https://{{ context.location.host }}/admin/insites#/ecommerce/edit-order/{{ form.id }}"
     },
-    "statement_descriptor": "{{ form.properties.statement_descriptor }}"
+    "statement_descriptor": "{{ form.properties.statement_descriptor }}",
+    "sk_key": "{{ get_stripe_settings.sk_key }}",
+    "stripe_account_id": "{{ get_stripe_settings.account_id }}",
+    "sk_key_insites": "{{ get_stripe_settings.sk_key_insites }}"
 }
 {% endparse_json %}
 

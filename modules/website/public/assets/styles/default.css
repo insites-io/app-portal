@@ -17,15 +17,20 @@
     --success: #0CAC52;
     --error: #FF3366;
     --warning: #FFA639;
-    --color-info: #436CF2;
+    --info: #436CF2;
+    --neutral: #84848F;
     /* Support/Notification Colors Hover*/
     --success-hover: #2B8D6F;
     --error-hover: #FF0040;
     --warning-hover: #FF8F05;
+    --info-hover: #2331B7;
+    --neutral-hover: #636368;
     /* Support/Notification Colors Hover Light*/
     --success-hover-light: rgba(55, 182, 143, 0.1);
     --error-hover-light: rgba(255, 51, 102, 0.1);
     --warning-hover-light: rgba(255, 166, 57, 0.1);
+    --info-hover-light: rgba(67, 108, 242, 0.1);
+    --neutral-hover-light: rgba(132, 132, 143, 0.1);
     /* Font colors */
     --font-color-head: #05051D;
     --font-color-sub: #323232;

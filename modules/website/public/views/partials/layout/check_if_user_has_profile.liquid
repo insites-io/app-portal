@@ -13,5 +13,5 @@ metadata: {
     {% assign has_profile = false %}
 {% endif %}
 
-
+{% export user, namespace: 'current_user' %}
 {% return has_profile %}
