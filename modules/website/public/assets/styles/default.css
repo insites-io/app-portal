@@ -209,6 +209,9 @@ a .font-color-body:hover {
     position: relative;
     height: 18px;
 }
+.icon-shopping-cart {
+    font-size: 18px;
+}
 .cart-count {
     display: flex;
     width: 22px;
