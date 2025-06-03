@@ -75,13 +75,13 @@ let StripeElement = (() => {
                         App.events.notyf('success', "Credit card has been added.");
                         this.makeCardElement(result.token);
                         card.clear();
-                        stripeCardModal.close();
-                        if(guestAddCardForm){
-                            guestAddCardForm.classList.add("hide");
+                        
+                        if (stripeCardModal) {
+                            stripeCardModal.close();
                         }
-                        if(submitButtons){
-                            submitButtons.classList.remove("hide");
-                        }
+
+                        //toggle guest card form
+                        StripeElement.events.toggleGuestCard('add');
                     }
                 });
             },
@@ -160,8 +160,29 @@ let StripeElement = (() => {
                     selectedEl.parentNode.remove();
                     App.events.notyf('success', "Credit card has been removed.");
                     StripeElement.methods.checkCardCount();
+                    StripeElement.events.toggleGuestCard('remove');
                 }
             },
+            toggleGuestCard(state){ 
+                if(state === 'remove'){
+                    if(cardOptionsList.querySelectorAll('ins-credit-card').length < 1){
+                        if(guestAddCardForm){
+                            guestAddCardForm.classList.remove("hide");
+                        }
+                        if(submitButtons){
+                            submitButtons.classList.add("hide");
+                        }
+                    }
+                }
+                else{
+                    if(guestAddCardForm){
+                        guestAddCardForm.classList.add("hide");
+                    }
+                    if(submitButtons){
+                        submitButtons.classList.remove("hide");
+                    }
+                }
+            }
         },
         init: {
             dynamicCCEventListener(element, click = false) {
