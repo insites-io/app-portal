@@ -1,6 +1,6 @@
 ---
 name: update_crm_via_invite_user
-to: 'https://{{context.location.host}}/core/api/v1/contacts'
+to: 'https://{{context.location.host}}/crm/api/v2/contacts/{{data.uuid}}'
 format: http
 enabled: true
 trigger_condition: true

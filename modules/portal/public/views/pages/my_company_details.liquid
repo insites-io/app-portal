@@ -33,13 +33,19 @@ authorization_policies:
 {% comment %} Get CRM -> Company from v5 API {% endcomment %}
 {% parse_json data %} 
 {
-  "id": "{{ user_company_uuid.company_uuid }}"
+  "uuid": "{{ user_company_uuid.company_uuid }}"
 }
 {% endparse_json %}
 {% liquid
     graphql company_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_company', data: data 
     assign company = company_api.items.response.body | parse_json | dig: 'items','results' | first
 %}
+
+user_company_uuid{{ user_company_uuid }}
+<br>
+data {{ data }}
+<br>
+company_api {{company_api}}
 
 {% comment %} Get CRM -> Company Address from v5 API {% endcomment %}
 {% parse_json data %} 
