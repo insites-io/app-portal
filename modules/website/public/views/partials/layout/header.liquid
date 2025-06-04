@@ -53,9 +53,9 @@ metadata: {
       {% if context.constants.ecommerce_addon == 'true' %}        
         {%  liquid
               assign guest_user = true
-              assign user_cart = null                         
+              assign cart_items = null                         
               if context.current_user
-                graphql user_cart = 'modules/ecommerce/carts/get_user_cart',  contact_uuid: context.current_user.external_id | dig: 'items','results' 
+                graphql cart_items = 'modules/ecommerce/carts/get_cart', contact_uuid: context.current_user.external_id | dig: 'items','results' | first | dig: 'cart_items'
                 assign guest_user = false
               endif
         %}  
@@ -93,9 +93,9 @@ metadata: {
             <a role="button" onclick="openDrawer()" class="cart-icon">
               <i class="icon-shopping-cart"></i>
               <span class="cart-count 
-                {% if user_cart == null or user_cart.size == 0 %}hide
-                {% elsif user_cart.size > 9 %}two-digits-count
-                {% endif %}">{{ user_cart.size | default: 0 }}</span>
+                {% if cart_items == null or cart_items.size == 0 %}hide
+                {% elsif cart_items.size > 9 %}two-digits-count
+                {% endif %}">{{ cart_items.size | default: 0 }}</span>
             </a>    
             <span class="vertical-line"></span>            
           {% endif %}
@@ -153,9 +153,9 @@ metadata: {
           <a role="button" onclick="openDrawer()" class="cart-icon">
             <i class="icon-shopping-cart"></i>
             <span class="cart-count 
-              {% if user_cart == null or user_cart.size == 0 %}hide
-              {% elsif user_cart.size > 9 %}two-digits-count
-              {% endif %}">{{ user_cart.size | default: 0 }}</span>
+              {% if cart_items == null or cart_items.size == 0 %}hide
+              {% elsif cart_items.size > 9 %}two-digits-count
+              {% endif %}">{{ cart_items.size | default: 0 }}</span>
           </a>       
         {% endif %}
 
