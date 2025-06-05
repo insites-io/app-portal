@@ -1,6 +1,6 @@
 ---
 name: update_order
-to: 'https://{{context.location.host}}/ecommerce/api/v1/orders'
+to: 'https://{{context.location.host}}/ecommerce/api/v2/orders/{{ data.uuid }}'
 format: http
 request_type: PUT
 callback: >
@@ -8,4 +8,19 @@ callback: >
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-{{ data }}
+  {
+    "order_reference": "{{ data.order_reference }}",
+    "order_contact_email": "{{ data.email }}",
+    "order_contact_first_name": "{{ data.first_name }}",
+    "order_contact_last_name": "{{ data.last_name }}",
+    "order_company_phone_number": "{{ data.phone_number }}",
+    "order_status": "{{ data.order_status }}",
+    "order_payment_status": "{{ data.order_payment_status }}",
+    "total_amount": {{ data.total_amount | times: 1.0 }},
+    "total_tax_amount": {{ data.total_tax_amount | times: 1.0 }},
+    "date_time": "{{ data.date_time }}",
+    "currency": "{{ data.currency }}",
+    "subtotal_amount": {{ data.subtotal_amount | times: 1.0 }},
+    "total_amount_paid": {{ data.total_amount | times: 1.0 }},
+    "total_discount_amount": {{ data.total_discount_amount | times: 1.0 }}
+  }
