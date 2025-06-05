@@ -1,6 +1,6 @@
 ---
 name: get_contact
-to: 'https://{{context.location.host}}/crm/api/v2/contacts{{data.id}}'
+to: 'https://{{context.location.host}}/crm/api/v2/contacts/{{ data.contact_uuid }}'
 format: http
 request_type: GET
 request_headers: >

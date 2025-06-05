@@ -1,6 +1,6 @@
 ---
 name: update_company_address
-to: 'https://{{context.location.host}}/core/api/v1/companies/addresses'
+to: 'https://{{context.location.host}}/crm/api/v2/companies/addresses/{{ data.properties.company_address_uuid }}'
 format: http
 request_type: PUT
 request_headers: >
@@ -8,10 +8,7 @@ request_headers: >
 ---
 {%- assign props = data.properties -%}
 {
-    "uuid": "{{ props.company_address_uuid }}", //REQUIRED
-    "company_uuid": "{{ props.company_uuid }}", //REQUIRED
     "address_label": "{{ props.company_address_1 }}", //REQUIRED
-    "default_address": true,
     "address_1": "{{ props.company_address_1 }}",
     "address_2": "{{ props.company_address_2 }}",
     "suburb": "{{ props.company_suburb }}",

@@ -12,14 +12,20 @@ This partial is used by pages:
 Inputs will have values only on /my-company-details page
 {% endcomment %}
 
-{%- assign props = form.fields.properties -%}
+
+{% liquid
+  assign props = form.fields.properties
+  if params.slug == 'my-company-details' 
+    assign default_address = data.default_address
+  endif
+%}
+
 
 <div id="company-details-container" class="form-group fadeIn {% if params.slug != 'my-company-details' %} hide {% endif %}" active>    
 
-      <input type="hidden" id="company_longitude" name="{{ form.fields.properties.company_longitude.name }}" value="{{ default_address.properties.company_longitude }}" >
-      <input type="hidden" id="company_latitude" name="{{ form.fields.properties.company_latitude.name }}" value="{{ default_address.properties.company_latitude }}" >
-
-
+      <input type="hidden" id="company_longitude" name="{{ form.fields.properties.company_longitude.name }}" value="{{ default_address.company_longitude }}" >
+      <input type="hidden" id="company_latitude" name="{{ form.fields.properties.company_latitude.name }}" value="{{ default_address.company_latitude }}" >
+     
       {% if context.params.slug == 'create-account' %}
         <div class="column-1">
             <div class="create-an-account-div">
@@ -46,7 +52,7 @@ Inputs will have values only on /my-company-details page
             id="company-name"
             label="Company Name*"
             name="{{ props.company_name.name }}" 
-            value="{{ data.properties.company_name }}" 
+            value="{{ data.company_name }}" 
             {% if form.errors['company_name'] %} has-error {% endif %}
             error-message="{{ props.company_name.validation.rules.presence.message }}"
             placeholder="Company Name">
@@ -58,7 +64,7 @@ Inputs will have values only on /my-company-details page
             id="registered-business-number"
             label="Company Registration Number*"
             name="{{ props.registered_business_number.name }}" 
-            value="{{ data.properties.registered_business_number }}" 
+            value="{{ data.registered_business_number }}" 
             {% if form.errors['registered_business_number'] %} has-error {% endif %}
             error-message="{{ props.registered_business_number.validation.rules.presence.message }}"
             placeholder="Company Registration Number">
@@ -71,7 +77,7 @@ Inputs will have values only on /my-company-details page
             label="Email*"
             field="email"
             name="{{ props.email_1.name }}" 
-            value="{{ data.properties.email_1 }}" 
+            value="{{ data.email_1 }}" 
             {% if form.errors['email_1'] %} has-error {% endif %}
             error-message="{{ props.email_1.validation.rules.presence.message }}"
             placeholder="Email">
@@ -82,8 +88,8 @@ Inputs will have values only on /my-company-details page
         <ins-input-tel
             id="company-mobile-phone"
             label="Phone"                
-            phonenum-value="{{ data.properties.mobile_phone_number }}" 
-            country-code="{{ data.properties.mobile_phone_country_code }}"         
+            phonenum-value="{{ data.mobile_phone_number }}" 
+            country-code="{{ data.mobile_phone_country_code }}"         
             phonenum-placeholder="Phone Number" 
             no-areacode
             error-message="Please use a valid phone number">
@@ -119,11 +125,6 @@ Inputs will have values only on /my-company-details page
         </ins-input>
       </div>
 
-      {%  liquid
-          if params.slug == 'my-company-details' 
-            assign default_address = data.default_address.properties
-          endif
-      %}
 
       <div class="column-2">
         <ins-input form-address-field validate

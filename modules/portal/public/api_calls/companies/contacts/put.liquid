@@ -1,14 +1,13 @@
 ---
 name: assign_company_contact
-to: 'https://{{context.location.host}}/core/api/v1/companies/contacts/assign'
+to: 'https://{{context.location.host}}/crm/api/v2/companies/{{ data.company_uuid }}/assign-contacts'
 format: http
 request_type: PUT
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---    
 {
-    "company_uuid": "{{data.company_uuid}}",
-    "contact_ids": [
-        "{{data.contact_ids}}"
+    "contact_uuids": [
+        "{{ data.contact_uuid }}"
     ]
 }

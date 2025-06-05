@@ -33,41 +33,23 @@ authorization_policies:
 {% comment %} Get CRM -> Company from v5 API {% endcomment %}
 {% parse_json data %} 
 {
-  "uuid": "{{ user_company_uuid.company_uuid }}"
+  "company_uuid": "{{ user_company_uuid.company_uuid }}"
 }
 {% endparse_json %}
+
 {% liquid
     graphql company_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_company', data: data 
-    assign company = company_api.items.response.body | parse_json | dig: 'items','results' | first
+    assign company = company_api.items.response.body | parse_json 
+    assign data = data | add_hash_key: "address_uuid", company.default_address.uuid
 %}
-
-user_company_uuid{{ user_company_uuid }}
-<br>
-data {{ data }}
-<br>
-company_api {{company_api}}
-
 {% comment %} Get CRM -> Company Address from v5 API {% endcomment %}
-{% parse_json data %} 
-{
-  "company_uuid": "{{ company.properties.uuid }}"
-}
-{% endparse_json %}
 {% liquid
     graphql company_address_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_company_address', data: data 
-    assign company_address = company_address_api.items.response.body | parse_json | dig: 'items','results'
-
-    for item in company_address
-      if forloop.first == true
-        assign default_address = item
-      endif
-      if item.properties.uuid == company.properties.default_address_uuid 
-        assign default_address = item
-      endif
-    endfor
-
-    assign company = company | add_hash_key: "default_address", default_address
+    assign company_address = company_address_api.items.response.body | parse_json 
+    assign company = company | add_hash_key: "default_address", company_address
 %}
+
+
 
 {% comment %} Company Details Form {% endcomment %}
 {%- include_form 'modules/portal/my_company_details', id: company.id, data: company -%}

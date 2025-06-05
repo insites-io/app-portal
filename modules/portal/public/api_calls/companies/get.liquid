@@ -1,6 +1,6 @@
 ---
 name: get_company
-to: 'https://{{context.location.host}}/crm/api/v2/companies/b21eb29a-e3dc-4ae1-9d16-965196ac41c8'
+to: 'https://{{context.location.host}}/crm/api/v2/companies/{{ data.company_uuid }}'
 format: http
 request_type: GET
 request_headers: >

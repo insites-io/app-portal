@@ -4,13 +4,20 @@ metadata: {
 }
 ---
 
-{%- assign props = form.fields.properties -%}
-{% assign contact = data.contact | first %}
+
+
+{% liquid
+  assign props = form.fields.properties
+  assign contact = data
+  if params.slug == 'my-company-details' or params.slug == 'my-details' 
+    assign default_address = data.default_address
+  endif
+%}
 
 <div id="personal-details-container" class="form-group fadeIn" active>      
       
-      <input type="hidden" id="contact_longitude" name="{{ form.fields.properties.longitude.name }}" value="{{ default_address.properties.longitude }}" >
-      <input type="hidden" id="contact_latitude" name="{{ form.fields.properties.latitude.name }}" value="{{ default_address.properties.latitude }}" >
+      <input type="hidden" id="contact_longitude" name="{{ form.fields.properties.longitude.name }}" value="{{ default_address.longitude }}" >
+      <input type="hidden" id="contact_latitude" name="{{ form.fields.properties.latitude.name }}" value="{{ default_address.latitude }}" >
 
       <div class="column-1">
         {% if context.params.slug != 'my-details' %}
@@ -68,8 +75,8 @@ metadata: {
             class="mobile_phone"
             id="mobile-phone"
             label="Phone" 
-            phonenum-value="{{ contact.properties.mobile_phone_number }}" 
-            country-code="{{ contact.properties.mobile_phone_country_code }}"
+            phonenum-value="{{ contact.mobile_phone_number }}" 
+            country-code="{{ contact.mobile_phone_country_code }}"
             phonenum-placeholder="Phone Number" 
             no-areacode
             error-message="Please use a valid phone number">
@@ -95,11 +102,6 @@ metadata: {
         </ins-input>
       </div>
 
-      {%  liquid
-          if params.slug == 'my-company-details' 
-            assign default_address = data.default_address.properties
-          endif
-      %}
 
       <div class="column-2">
         <ins-input form-address-field 
@@ -107,7 +109,7 @@ metadata: {
             id="contact_address_1"
             label="Address 1*"
             name="{{ props.address_1.name }}" 
-            value="{{ default_address.properties.address_1 }}" 
+            value="{{ default_address.address_1 }}" 
             {% if form.errors['address_1'] %} has-error {% endif %}
             error-message="{{ props.address_1.validation.rules.presence.message }}"
             placeholder="Address 1">
@@ -119,7 +121,7 @@ metadata: {
             id="contact_address_2"
             label="Address 2"
             name="{{ props.address_2.name }}" 
-            value="{{ default_address.properties.address_2 }}" 
+            value="{{ default_address.address_2 }}" 
             {% if form.errors['address_2'] %} has-error {% endif %}
             error-message="{{ props.address_2.validation.rules.presence.message }}"
             placeholder="Address 2">
@@ -132,7 +134,7 @@ metadata: {
             id="contact_suburb"
             label="Suburb*"
             name="{{ props.suburb.name }}" 
-            value="{{ default_address.properties.suburb }}" 
+            value="{{ default_address.suburb }}" 
             {% if form.errors['suburb'] %} has-error {% endif %}
             error-message="{{ props.suburb.validation.rules.presence.message }}"
             placeholder="Suburb">
@@ -145,7 +147,7 @@ metadata: {
             id="contact_state"
             label="State*"
             name="{{ props.state.name }}" 
-            value="{{ default_address.properties.state }}" 
+            value="{{ default_address.state }}" 
             {% if form.errors['state'] %} has-error {% endif %}
             error-message="{{ props.state.validation.rules.presence.message }}"
             placeholder="State">
@@ -158,7 +160,7 @@ metadata: {
             id="contact_postcode"
             label="Postcode*"
             name="{{ props.postcode.name }}" 
-            value="{{ default_address.properties.postcode }}" 
+            value="{{ default_address.postcode }}" 
             {% if form.errors['postcode'] %} has-error {% endif %}
             error-message="{{ props.postcode.validation.rules.presence.message }}"
             placeholder="Postcode">
@@ -171,7 +173,7 @@ metadata: {
             id="contact_country"
             label="Country*"
             name="{{ props.country.name }}" 
-            value="{{ default_address.properties.country }}" 
+            value="{{ default_address.country }}" 
             {% if form.errors['country'] %} has-error {% endif %}
             error-message="{{ props.country.validation.rules.presence.message }}"
             placeholder="Country">

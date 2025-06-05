@@ -75,9 +75,6 @@ fields:
         virtual: true
 
     #Contact Address
-    default_address:
-      property_options:
-        virtual: true
     contact_address_uuid:
       property_options:
         virtual: true
@@ -106,7 +103,7 @@ callback_actions: |-
   {%  liquid
       assign data = form | json
       
-      if form.properties.default_address   
+      if form.properties.contact_address_uuid
         graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact_address', data: data | dig: 'items','response','body' | parse_json      
       else
         graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: data | dig: 'items','response','body' | parse_json
@@ -162,9 +159,7 @@ async_callback_actions:
 
     <div class="insites-form-grid">
 
-      <input type="hidden" name="{{ form.fields.properties.default_address.name }}"  value="{{ data.default_address.id }}" >
-      <input type="hidden" name="{{ form.fields.properties.contact_address_uuid.name }}" value="{{ data.default_address.properties.uuid }}" >
-      
+      <input type="hidden" name="{{ form.fields.properties.contact_address_uuid.name }}" value="{{ data.default_address.uuid }}" >
       {% include 'modules/portal/account/registration_personal_details', data: data %}
               
     </div>

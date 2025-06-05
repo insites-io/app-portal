@@ -24,3 +24,10 @@ properties:
     type: "string"
     label: "Permission Level"
     weight: 1
+- name: invitation_status
+  type: string     
+  metadata:
+    type: "string"
+    label: "Invitation Status"
+    weight: 1
+

@@ -83,7 +83,7 @@ callback_actions: |-
   {%  liquid                  
       assign data = form | json
 
-      if form.properties.company_uuid != '' and form.properties.company_uuid != null
+      if form.properties.company_address_uuid != '' and form.properties.company_address_uuid != null
         graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company_address', data: data | dig: 'items','response','body' | parse_json
         assign company_uuid = form.properties.company_uuid
       else
@@ -145,8 +145,8 @@ async_callback_actions:
     html-novalidate: true
     html-onsubmit:"return validateMyCompanyDetails(event);" -%}
 
-    <input type="hidden" name="{{ form.fields.properties.company_uuid.name }}"  value="{{ data.properties.uuid }}" >
-    <input type="hidden" name="{{ form.fields.properties.company_address_uuid.name }}" value="{{ data.default_address.properties.uuid }}" >
+    <input type="hidden" name="{{ form.fields.properties.company_uuid.name }}"  value="{{ data.uuid }}" >
+    <input type="hidden" name="{{ form.fields.properties.company_address_uuid.name }}" value="{{ data.default_address.uuid }}" >
 
     <div class="insites-form-grid">
       {% include 'modules/portal/account/registration_company_details', data: data %}

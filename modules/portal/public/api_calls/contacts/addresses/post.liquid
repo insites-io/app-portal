@@ -1,6 +1,6 @@
 ---
 name: add_contact_address
-to: 'https://{{context.location.host}}/core/api/v1/contacts/addresses'
+to: 'https://{{context.location.host}}/crm/api/v2/contacts/addresses'
 format: http
 request_type: POST
 request_headers: >
@@ -13,15 +13,15 @@ request_headers: >
     assign props = data.properties
 %}
 {
-    "contact_uuid": "{{contact_uuid}}",
-    "address_label": "{{props.address_1 | default: 'Default'}}", 
+    "contact.uuid": "{{ contact_uuid }}",
+    "address_label": "{{ props.address_1 | default: 'Default' }}", 
     "default_address": true,
-    "address_1": "{{props.address_1}}",
-    "address_2": "{{props.address_2}}",
-    "suburb": "{{props.suburb}}",
-    "state": "{{props.state}}",
+    "address_1": "{{ props.address_1 }}",
+    "address_2": "{{ props.address_2 }}",
+    "suburb": "{{ props.suburb }}",
+    "state": "{{ props.state }}",
     "postcode": "{{ props.postcode }}",
-    "country": "{{props.country}}",
-    "latitude": "{{props.latitude}}",
-    "longitude": "{{props.longitude}}"
+    "country": "{{ props.country }}",
+    "latitude": "{{ props.latitude }}",
+    "longitude": "{{ props.longitude }}"
 }

@@ -168,18 +168,23 @@ async_callback_actions:
     {% endcomment %}
     {% assign data = form | json %}
     {% graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: data | dig: 'items','response','body' | parse_json %}
+    {%- graphql user_details = "modules/portal/account/get_user_by_email" 
+        email: form.email
+        | dig: "items" | dig: "results" | first -%}
+
     {% parse_json update_contact_data %}
     {
-      "id": "{{form.id}}",
-      "email": "{{form.email}}",
-      "company_uuid": "{{add_company.items.uuid}}",
-      "mobile_phone_country_code": "{{form.properties.mobile_phone_country_code}}",
-      "mobile_phone_number": "{{form.properties.mobile_phone_number}}"
+      "uuid": "{{ user_details.uuid }}",
+      "email": "{{ form.email }}",
+      "company_uuid": "{{ add_company.uuid }}",
+      "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
+      "mobile_phone_number": "{{ form.properties.mobile_phone_number }}"
     }
     {% endparse_json %}
 
     {%  liquid                      
         graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
+        log update_contact, type: "update_contact"
         graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: data | dig: 'items','response','body' | parse_json
     %} 
     
@@ -195,9 +200,7 @@ async_callback_actions:
     
     {% comment %} Create Event Stream {% endcomment %}
     {%- assign current_user_name =  form.first_name | append: ' ' | append: form.last_name | default: form.email -%}
-    {%- graphql user_details = "modules/portal/account/get_user_by_email" 
-        email: form.email
-        | dig: "items" | dig: "results" | first -%}
+
     {%- capture description -%} <a target="_blank" href="/admin/insites/#/crm/contacts/{{ form.id }}">{{ current_user_name  | default: form.email }}</a> has submitted  a registration for <a target="_blank" href="/admin/insites#/crm/companies/{{ form.properties.company_uuid }}">{{ form.properties.company_name }}</a> {%- endcapture -%}
     {%- assign payload = '{}' | parse_json -%}
     {%- assign payload = payload | add_hash_key: "description", description -%}

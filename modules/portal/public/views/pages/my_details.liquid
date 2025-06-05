@@ -29,18 +29,17 @@ authorization_policies:
 
 {%- graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user' -%}  
 {% assign user_company_uuid =  user | dig: 'crm_contact' | first  %}
-
 {% comment %} Check if CRM Contact was assigned already to CRM Company {% endcomment %}
 {%- if user.crm_contact[0].company_uuid != user.portal[0].company_uuid -%}
   {%- parse_json data -%}
   {
     "company_uuid": "{{ user_company_uuid.company_uuid }}",
-    "contact_ids": {{ user.id }}
+    "contact_uuid": "{{ user.external_id }}"
   }
   {%- endparse_json -%}
   {%- graphql assign_company_contact = 'modules/website/trigger_api_call', 
       name: 'modules/portal/assign_company_contact', 
-      data: data | dig: 'items','response','body' | parse_json -%}     
+      data: data | parse_json -%}     
 {%- endif -%}
 
 {% comment %} Check if user verified their account {% endcomment %}
@@ -58,39 +57,21 @@ authorization_policies:
 {% comment %} Get CRM -> Contact from v5 API {% endcomment %}
 {% parse_json data %} 
 {
-  "id": "{{user.external_id}}"
-}
-{% endparse_json %}
-{% liquid
-    graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact', data: data 
-    assign contact = contact_api.items.response.body | parse_json | dig: 'items','results' | first
-%}
-
-
-{% comment %} Get CRM -> Contact Address from v5 API {% endcomment %}
-{% parse_json data %} 
-{
   "contact_uuid": "{{ user.external_id }}"
 }
 {% endparse_json %}
+
+{% liquid
+    graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact', data: data 
+    assign contact = contact_api.items.response.body | parse_json | dig: 'results' | first
+    assign data = data | add_hash_key: "address_uuid", contact.default_address.uuid
+%}
+
+{% comment %} Get CRM -> Contact Address from v5 API {% endcomment %}
 {% liquid
     graphql contact_address_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact_address', data: data 
-    assign contact_address = contact_address_api.items.response.body | parse_json | dig: 'items'
-
-    if contact_address.total_entries == 0
-      assign default_address = '' | parse_json
-    else
-      for item in contact_address.results
-        if forloop.first == true
-          assign default_address = item
-        endif
-        if item.properties.uuid == contact.contact[0].properties.default_address_uuid 
-          assign default_address = item
-        endif
-      endfor
-    endif
-
-    assign contact = contact | add_hash_key: "default_address", default_address
+    assign contact_address = contact_address_api.items.response.body | parse_json
+    assign contact = contact | add_hash_key: "default_address", contact_address
 %}
 
 
