@@ -18,6 +18,10 @@ layout: modules/insites_core/insites_external_email_layout
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 </style>
 
+{% assign emailToken = data.email | base64_url_safe_encode  %}
+{% assign companyToken = data.company_uuid | base64_url_safe_encode  %}
+{% assign permissionLevelToken = data.permission_level |  base64_url_safe_encode  %}
+
 <table class="module" role="module" data-type="text" border="0" cellpadding="0"
   cellspacing="0" width="100%" style="table-layout: fixed;"
   data-muid="ae3b5e25-e601-4be7-8e69-e21f7125e6e7" data-mc-module-version="2019-10-22">
@@ -74,7 +78,7 @@ layout: modules/insites_core/insites_external_email_layout
             <tr>
               <td align="" bgcolor="#3044FF" class="inner-td"
                 style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                <a href="{{ platform_context.host }}/password-reset?token={{ data.password_token | url_encode }}&amp;email={{ data.email | url_encode }}&amp;company_uuid={{ data.company_uuid}}&amp;permission_level={{ data.permission_level }}"
+                <a href="{{ platform_context.host }}/password-reset?token={{ data.password_token | url_encode }}&amp;email={{ emailToken }}&amp;company_uuid={{ companyToken }}&amp;permission_level={{ permissionLevelToken }}"
                   style="background-color:#3044FF; border:0px solid #3044FF; border-color:#3044FF; border-radius:4px; border-width:0px; color:#ffffff; display:inline-block; font-size:16px; font-weight:700; letter-spacing:0px; line-height:normal; padding:16px 40px 16px 40px; text-decoration:none; border-style:solid; font-family:arial,helvetica,sans-serif;"
                   target="_blank">Accept Invitation and create password</a>
               </td>
@@ -98,7 +102,7 @@ layout: modules/insites_core/insites_external_email_layout
           <div style="font-family: inherit; text-align: left">
             <span style="white-space: pre-wrap">Or, paste this link into your browser:</span>
             <br>
-            <span style="white-space: pre-wrap">{{ platform_context.host }}/password-reset?token={{ data.password_token | url_encode }}&amp;email={{ data.email | url_encode }}&amp;company_uuid={{ data.company_uuid }}&amp;permission_level={{ data.permission_level }}</span>
+            <span style="white-space: pre-wrap">{{ platform_context.host }}/password-reset?token={{ data.password_token | url_encode }}&amp;email={{ emailToken }}&amp;company_uuid={{ companyToken }}&amp;permission_level={{ permissionLevelToken }}</span>
           </div>
           <div></div>
         </div>

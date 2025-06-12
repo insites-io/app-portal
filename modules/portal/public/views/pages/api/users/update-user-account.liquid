@@ -37,7 +37,8 @@ metadata: {
             "name": "{{ details.name }}",
             "company": "{{ details.company }}",
             "password_token": "{{ user_data_default.password_token }}",
-            "company_uuid": "{{ details.company_uuid }}"
+            "company_uuid": "{{ details.company_uuid }}",
+            "permission_level": "{{ details.permission_level }}"
         }
         {% endparse_json %}
         {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
@@ -68,7 +69,7 @@ metadata: {
             "company_uuid": "{{ details.company_uuid }}",
             "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
             "mobile_phone_number": "{{ details.mobile_phone_number }}",
-            "permission_level": "{{ details.userPermission }}",
+            "permission_level": "{{ details.permission_level }}",
             "company": "{{ details.company }}"
         }
         {% endparse_json %}
@@ -92,7 +93,7 @@ metadata: {
             "company_uuid": "{{ details.company_uuid }}",
             "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
             "mobile_phone_number": "{{ details.mobile_phone_number }}",
-            "permission_level": "{{ details.userPermission }}",
+            "permission_level": "{{ details.permission_level }}",
             "company": "{{ details.company }}"
         }
         {% endparse_json %}
@@ -126,7 +127,7 @@ metadata: {
         "company": "{{ details.company }}",
         "password_token": "{{ user_data_default.password_token }}",
         "company_uuid": "{{ details.company_uuid }}",
-        "permission_level": "{{ details.userPermission }}"
+        "permission_level": "{{ details.permission_level }}"
     }
     {% endparse_json %}
     {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
