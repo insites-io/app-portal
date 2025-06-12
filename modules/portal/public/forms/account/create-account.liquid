@@ -184,7 +184,6 @@ async_callback_actions:
 
     {%  liquid                      
         graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
-        log update_contact, type: "update_contact"
         graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: data | dig: 'items','response','body' | parse_json
     %} 
     
