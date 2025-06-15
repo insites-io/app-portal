@@ -352,7 +352,7 @@ let App = (function () {
                         // For desktop, navbar should always have a solid background color
                         navbar.style.backgroundColor = '#05051D';
                         navbar.style.position = 'relative'; // Make sure it's not fixed on desktop
-                        navbar.style.transform = 'translateY(0)';
+                        navbar.style.removeProperty('transform');
                     }
                 }
             
