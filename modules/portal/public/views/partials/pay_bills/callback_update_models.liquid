@@ -134,7 +134,7 @@ metadata: {
     data: order_data
     | dig: 'items','response','body'
     | parse_json %}
-
+{%- log update_order, type: "Update Order API return" %}
 {% liquid
     session paybill_order_id = update_order.items.id
     session paybill_order_reference = update_order.items.properties.order_reference
