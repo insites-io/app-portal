@@ -52,14 +52,11 @@ metadata: {
       {% comment %} Get Ecommerce Cart Count {% endcomment %}
       {% if context.constants.ecommerce_addon == 'true' %}        
         {%  liquid
-              assign guest_user = true
-              assign cart_items = null                         
-              if context.current_user
-                graphql cart_items = 'modules/ecommerce/carts/get_cart', contact_uuid: context.current_user.external_id | dig: 'items','results' | first | dig: 'cart_items'
-                assign guest_user = false
+              function user_uuid = 'modules/ecommerce/user/get_user_uuid'
+              if user_uuid and user_uuid != ''
+                graphql cart_items = 'modules/ecommerce/carts/get_cart', contact_uuid: user_uuid | dig: 'items','results' | first | dig: 'cart_items'
               endif
         %}  
-        <input type="hidden" id="guest-user-flag" value={{ guest_user }}>
       {% endif %}
 
       <div class="large-11 medium-3 small-8 cell hide-nav-medium">
@@ -134,8 +131,9 @@ metadata: {
           {% else %}
             <a class="nav-sign-in-btn" href="/sign-in">Sign in</a>
             <a class="nav-register-btn" href="/create-account">Create account</a>
-
-          </div>
+          {% endif %}          
+                          
+        </div>
       </div>
 
       
