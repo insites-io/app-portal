@@ -233,9 +233,14 @@ metadata: {
 
         // Get the current URL
         const currentUrl = window.location.href;
+        
+        console.log(currentUrl, "Current URL");
+
 
         // Remove any existing `page` and `per_page` query parameters
         const newUrl = currentUrl.replace(/[?&]page=\d+/, '').replace(/[?&]per_page=\d+/, '');
+
+        console.log(newUrl, "NEW URL");
 
         // Set the new `page` and `per_page` values
         const newPage = pageNumber;
@@ -243,6 +248,8 @@ metadata: {
 
         // Append the new `page` and `per_page` query parameters to the URL
         const updatedUrl = `${newUrl}?page=${newPage}&per_page=${newPerPage}`;
+
+        console.log(updatedUrl)
 
         // Navigate to the updated URL
         window.location.href = updatedUrl;
@@ -298,7 +305,7 @@ metadata: {
         console.log(event);
         
         var currentUrl = new URL(window.location.href);
-
+    
         // Handling the 'tag' parameter
         var tag = event.detail.Tag;
         if (tag) {
@@ -330,6 +337,7 @@ metadata: {
 
         // Now navigate to the updated URL (after both 'tag' and 'sort' have been updated)
         window.location.href = currentUrl.toString();
+        // processTableData();
     });
 </script>
 

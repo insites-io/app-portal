@@ -2084,8 +2084,8 @@ ins-tag span.ins-tag {
     padding: 24px 0px;
     background: var(--color-bg1, #05051D);
     transition: background-color 0.3s ease;
+    z-index: 99999;
 }
-
 
 #main-header ins-dropdown {
     display: inline-block;
@@ -2867,7 +2867,7 @@ footer .menu a {
 .hero-home-banner {
     background: var(--color-bg1, #05051D);
     height: 800px;
-    position: relative;
+    /* position: relative; */
     overflow: hidden;
     z-index: -1;
 }
@@ -2877,7 +2877,7 @@ footer .menu a {
     object-fit: fill;
     z-index: 0;
     height: 100%;
-    bottom: -150px;
+    bottom: 50px;
 }
 
 .hero-home-banner .hero-main-text {
@@ -3795,6 +3795,11 @@ footer .menu a {
 .newsContentContainer {
     display: flex;
     height: 100%;
+    justify-content: space-between;
+}
+
+.markdown a{
+     color: var(--color-main, #3044FF);
 }
 
 
