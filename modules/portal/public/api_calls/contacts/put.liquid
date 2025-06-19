@@ -8,9 +8,12 @@ callback: >
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
+{% log data, type: "data - update_contact - api_calls" %}
+
 {
   "email": "{{ data.email }}",
   "company.uuid": "{{ data.company_uuid }}",
   "mobile_phone_country_code": "{{ data.mobile_phone_country_code }}",
-  "mobile_phone_number": "{{ data.mobile_phone_number }}"
+  "mobile_phone_number": "{{ data.mobile_phone_number }}",
+  "is_archived": false
 }

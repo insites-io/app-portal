@@ -1,0 +1,23 @@
+---
+name: add_company_address
+to: 'https://{{context.location.host}}/crm/api/v2/companies/addresses'
+format: http
+request_type: POST
+request_headers: >
+    {% include 'modules/portal/api_headers' %}
+---
+
+{% log data, type: "data - add_company_address - api_calls" %}
+
+{
+  "company.uuid": "{{ data.company_uuid }}",
+  "address_label": "{{ data.company_address_1 | default: "Default" }}" ,
+  "address_1": "{{ data.company_address_1 }}",
+  "address_2": "{{ data.company_address_2 }}",
+  "suburb": "{{ data.company_suburb }}",
+  "state": "{{ data.company_state }}",
+  "postcode": "{{ data.company_postcode }}",
+  "country": "{{ data.company_country }}",
+  "latitude": "{{ data.company_latitude }}",
+  "longitude": "{{ data.company_longitude }}"
+}

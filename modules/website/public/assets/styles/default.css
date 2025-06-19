@@ -5376,3 +5376,11 @@ ins-table-row:nth-child(even) {
 .notyf__dismiss-btn:after{
     background-color: #05051D!important;
 }
+
+#emailRequired.body-x-small {
+    font-family: var(--font-family-02)!important;
+    font-size: 12px!important;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+}

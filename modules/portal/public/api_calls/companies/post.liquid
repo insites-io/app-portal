@@ -6,6 +6,8 @@ request_type: POST
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
+
+{% log data, type: "add_company ==== API" %}
 {%- assign props = data.properties -%}
 {
     "company_name": "{{props.company_name}}",
