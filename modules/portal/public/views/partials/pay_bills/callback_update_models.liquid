@@ -129,12 +129,12 @@ metadata: {
 }
 {% endparse_json %}
 
-{%  graphql update_order = 'modules/website/trigger_api_call', 
+{% graphql update_order = 'modules/website/trigger_api_call', 
     name: "modules/portal/update_order",
     data: order_data
     | dig: 'items','response','body'
     | parse_json %}
-
+{%- log update_order, type: "Update Order API return" %}
 {% liquid
     session paybill_order_id = update_order.items.id
     session paybill_order_reference = update_order.items.properties.order_reference
