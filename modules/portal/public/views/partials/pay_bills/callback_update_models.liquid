@@ -129,7 +129,7 @@ metadata: {
 }
 {% endparse_json %}
 
-{%  graphql update_order = 'modules/website/trigger_api_call', 
+{% graphql update_order = 'modules/website/trigger_api_call', 
     name: "modules/portal/update_order",
     data: order_data
     | dig: 'items','response','body'

@@ -10,7 +10,7 @@ metadata: {
     assign response = get_stripe_settings.items.response.body | parse_json 
 
     # Insites SK Key must be added via Constants - For Stipe Connect
-    if response.settings.livemode
+    if response.livemode
         assign pk_key = response.pk_live_key
         assign sk_key = response.sk_live_key
         assign sk_key_insites = context.constants.insites_stripe_sk_live_key

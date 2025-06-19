@@ -12,7 +12,7 @@ request_headers: >
 {%-  
   liquid  
   assign remove_keys = 'uuid' | split: "|"
-  log remove_keys, type: "Remove Keys"
+  assign updated_data = data | hash_except: remove_keys
 -%}
 
-{{ data | except: remove_keys }}
+{{ updated_data }}
