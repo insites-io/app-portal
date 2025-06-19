@@ -49,44 +49,114 @@ metadata: {
       {%- graphql get_features = 'modules/website/features/get_features' -%}
       {%- assign features =  get_features | dig: 'items', 'results'  -%}
 
+      {% comment %} Get Ecommerce Cart Count {% endcomment %}
+      {% if context.constants.ecommerce_addon == 'true' %}        
+        {%  liquid
+              function user_uuid = 'modules/ecommerce/user/get_user_uuid'
+              if user_uuid and user_uuid != ''
+                graphql cart_items = 'modules/ecommerce/carts/get_cart', contact_uuid: user_uuid | dig: 'items','results' | first | dig: 'cart_items'
+              endif
+        %}  
+      {% endif %}
+
       <div class="large-11 medium-3 small-8 cell hide-nav-medium">
-          <div class="navlinks">
+        <div class="navlinks">
 
-            {% if context.constants.ecommerce_addon == 'true' %}
-              <ins-button id="mega-menu-btn" label="Shop" icon-right="icon-angle-down"></ins-button>
-            {% endif %}
+          {% if context.constants.ecommerce_addon == 'true' %}
+            <ins-button id="mega-menu-btn" label="Shop" icon-right="icon-angle-down"></ins-button>
+          {% endif %}
 
-            {% for menu in menus %}
-              {%- if menu.slug == "features" -%}
-                <a class="nav-dropdown-link" href="/{{menu.slug}}">
-                <ins-dropdown 
-                  label="{{menu.label}}"
-                  >
-                    {% for item in features %}
-                      <ins-dropdown-item
-                        link="/{{menu.slug}}/{{ item.slug }}"
-                        label="{{ item.card_title }}">
-                      </ins-dropdown-item>
-                    {% endfor %} 
+          {% for menu in menus %}
+            {%- if menu.slug == "features" -%}
+              <a class="nav-dropdown-link" href="/{{menu.slug}}">
+                <ins-dropdown label="{{menu.label}}">
+                  {% for item in features %}
+                    <ins-dropdown-item
+                      link="/{{menu.slug}}/{{ item.slug }}"
+                      label="{{ item.card_title }}">
+                    </ins-dropdown-item>
+                  {% endfor %} 
                 </ins-dropdown>
               </a>
-              {% else %}
-    
+            {% else %}
               <a href="/{{menu.slug}}">
                 {{menu.label}}
               </a>
+            {% endif %}
+          {% endfor %}
+
+          {% comment %} Eccomerce Cart Icon {% endcomment %}          
+          {% if context.constants.ecommerce_addon == 'true' %}      
+            <a role="button" onclick="openDrawer()" class="cart-icon">
+              <i class="icon-shopping-cart"></i>
+              <span class="cart-count 
+                {% if cart_items == null or cart_items.size == 0 %}hide
+                {% elsif cart_items.size > 9 %}two-digits-count
+                {% endif %}">{{ cart_items.size | default: 0 }}</span>
+            </a>    
+            <span class="vertical-line"></span>            
+          {% endif %}
+      
+          {% comment %} Logged user dropdown links {% endcomment %}
+          {% function has_profile = "modules/website/layout/check_if_user_has_profile" %}
+          {% if has_profile %}        
+            {%- graphql user_with_token = 'modules/portal/account/get_user_with_password_token', email: context.current_user.email | dig: 'users','results' | first -%}
+                            
+            <ins-dropdown 
+              label="{{ context.current_user.first_name }} {{ context.current_user.last_name }}"
+              class="profileNav">
+
+              <ins-dropdown-item
+                link="/my-details"
+                label="My details">
+              </ins-dropdown-item>
+
+              {% if context.constants.ecommerce_addon == 'true' %}
+              <ins-dropdown-item
+                link="/order-history"
+                label="Order history">
+              </ins-dropdown-item>
               {% endif %}
-            {% endfor %}
+            
+              <ins-dropdown-item
+                link="/generate-password-token?email={{ user_with_token.email | url_encode }}"
+                label="Change password">
+              </ins-dropdown-item>
+
+              <ins-dropdown-item link="" label="">
+                {% include_form 'modules/portal/sign_out' %}
+              </ins-dropdown-item>
+
+            </ins-dropdown>
+          {% else %}
             <a class="nav-sign-in-btn" href="/sign-in">Sign in</a>
             <a class="nav-register-btn" href="/create-account">Create account</a>
-
-          </div>
+          {% endif %}          
+                          
+        </div>
       </div>
 
+      
+
       <div class="mobile-menu-toggle large-0 medium-3 small-5 cell ">
+
+        {% comment %} Sign in {% endcomment %}
         {% if context.current_user == blank %}
           <a class="nav-sign-in-btn" href="/sign-in">Sign in</a>
         {% endif %}
+
+        {% comment %} Eccomerce Cart Icon {% endcomment %}          
+        {% if context.constants.ecommerce_addon == 'true' %}      
+          <a role="button" onclick="openDrawer()" class="cart-icon">
+            <i class="icon-shopping-cart"></i>
+            <span class="cart-count 
+              {% if cart_items == null or cart_items.size == 0 %}hide
+              {% elsif cart_items.size > 9 %}two-digits-count
+              {% endif %}">{{ cart_items.size | default: 0 }}</span>
+          </a>       
+        {% endif %}
+
+        {% comment %} Mobile Menu {% endcomment %}
         <div id="mobile-menu-btn" class="icon-menu-1"></div>
       </div>
 
@@ -120,9 +190,9 @@ metadata: {
         if (cartCountElement) {
           cartCountElement.innerHTML = cartCount; // Update the displayed cart count
           if (cartCount === 0) {
-            cartCountElement.classList.add('hide'); // Apply the 'zero-cart-count' class if empty
+            cartCountElement.classList.add('hide'); 
           } else {
-            cartCountElement.classList.remove('hide'); // Remove the class if cart has items
+            cartCountElement.classList.remove('hide'); 
           }
         }
       }
@@ -130,3 +200,4 @@ metadata: {
   }  
 </script>
 {% endif %}
+
