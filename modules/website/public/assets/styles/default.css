@@ -753,6 +753,50 @@ SweetAlert Style
 }
 
 
+/* Insites Loader */
+.ins-loader-wrap--state {
+    margin-bottom: 0px !important;
+}
+.ins-loader-wrap--message {
+    font-family: var(--font-family-02);
+    font-size: 16px;
+}
+ins-loader[state-icon=processing]{
+    img {display: none;}
+}
+ins-loader[state-icon=processing] .ins-loader-wrap--state {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--color-main);
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+ins-loader[state-icon=processing] .ins-loader-wrap--state::after {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-bottom-color: #FF173E;
+}
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
+
+
 /**********
 [Insites Component Style Customization / Overwrite]
 **********/
