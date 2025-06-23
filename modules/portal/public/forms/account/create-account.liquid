@@ -171,11 +171,6 @@ async_callback_actions:
     # Add company and company address
     {% graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: data | dig: 'items','response','body' | parse_json %}
 
-     {% log form, type: "add_company ===== form" %}
-
-
-    {% log form.properties.company_address_1, type: "company_address_1 =====" %}
-
     {% parse_json add_company_address_details %}
     {
       "company_uuid": "{{ add_company.uuid }}",
@@ -190,28 +185,39 @@ async_callback_actions:
     }
     {% endparse_json %}
 
- 
     {% graphql add_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_company_address', data: add_company_address_details | dig: 'items','response','body' | parse_json %}
+   
+    {% parse_json data_company_address %}
+    {
+     "uuid": "{{ add_company.uuid }}",
+     "default_address.uuid": "{{ add_company.uuid }}"
+    }
+    {% endparse_json %}
 
-    {% log add_company_address, type: "add_company_address =====" %}
+    {% graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company', data: data_company_address | dig: 'items','response','body' | parse_json %}
 
     {%- graphql user_details = "modules/portal/account/get_user_by_email" 
         email: form.email
         | dig: "items" | dig: "results" | first -%}
 
+    {%  liquid  
+      graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: data | dig: 'items','response','body' | parse_json
+    %}
+
     {% parse_json update_contact_data %}
     {
       "uuid": "{{ user_details.uuid }}",
       "email": "{{ form.email }}",
-      "company_uuid": "{{ add_company.uuid }}",
+      "company.uuid": "{{ add_company.uuid }}",
       "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
-      "mobile_phone_number": "{{ form.properties.mobile_phone_number }}"
+      "mobile_phone_number": "{{ form.properties.mobile_phone_number }}",
+      "default_address.uuid": "{{ add_contact_address.uuid }}",
+      "is_archived": false
     }
     {% endparse_json %}
 
     {%  liquid                      
         graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
-        graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: data | dig: 'items','response','body' | parse_json
     %} 
 
     {% comment %} Generate user temporary token {% endcomment %}
@@ -268,7 +274,6 @@ async_callback_actions:
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}
     {%- assign info = payload | add_hash_key: "log", log_info_json -%}
-    {% log payload %}
     {% include 'modules/portal/events/log_event', info %}
 ---
 

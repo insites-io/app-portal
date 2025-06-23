@@ -42,6 +42,7 @@ authorization_policies:
     assign company = company_api.items.response.body | parse_json 
     assign data = data | add_hash_key: "address_uuid", company.default_address.uuid
 %}
+
 {% comment %} Get CRM -> Company Address from v5 API {% endcomment %}
 {% liquid
     graphql company_address_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_company_address', data: data 

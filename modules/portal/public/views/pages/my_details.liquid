@@ -63,7 +63,7 @@ authorization_policies:
 
 {% liquid
     graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact', data: data 
-    assign contact = contact_api.items.response.body | parse_json | dig: 'results' | first
+    assign contact = contact_api.items.response.body | parse_json 
     assign data = data | add_hash_key: "address_uuid", contact.default_address.uuid
 %}
 
