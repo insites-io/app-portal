@@ -75,7 +75,7 @@ metadata: {
             "description": ""
         }
         {%- endparse_json -%}
-        {%- graphql create_stripe_customer = 'modules/website/trigger_api_call', name: "modules/portal/create_customer", data: customer_data | dig: 'items' | dig: 'response' -%}    
+        {%- graphql create_stripe_customer = 'modules/website/trigger_api_call', name: "modules/portal/create_customer", data: customer_data | dig: 'items','response' -%}    
         {%- assign stripe_create_customer = create_stripe_customer.body | parse_json -%}
         {%- assign stripe_customer_id = stripe_create_customer.id -%}
 
@@ -84,7 +84,7 @@ metadata: {
             {% comment %} Save the Stripe ID in CRM. {% endcomment %}
             {%- parse_json crm_data -%}
             {
-                "id": "{{ user_id }}", 
+                "uuid": "{{ user_uuid }}", 
                 "email": "{{ customer_email }}",
                 "stripe_id": "{{ stripe_customer_id }}"
             }
