@@ -6,6 +6,7 @@ let StripeModel = (() => {
                     "email": data.email,
                     "first_name": stripeFirstName.value,
                     "last_name": stripeLastName.value,
+                    "user_uuid": userUUID.value,
                     "stripe_credit_card": data.creditcard,
                     "card_brand": data.card_brand
                 }

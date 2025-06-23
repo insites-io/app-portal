@@ -24,6 +24,7 @@ metadata: {
     assign customer_email = payload.email | strip
     assign customer_name = payload.first_name | append: ' ' | append: payload.last_name
     assign card_brand = payload.card_brand | default: null
+    assign customer_uuid = payload.user_uuid 
     assign stripe_customer_id = blank
     assign user_id = blank 
     assign email_exist = false
@@ -84,12 +85,14 @@ metadata: {
             {% comment %} Save the Stripe ID in CRM. {% endcomment %}
             {%- parse_json crm_data -%}
             {
-                "id": "{{ user_id }}", 
+                "uuid": "{{ customer_uuid }}",
                 "email": "{{ customer_email }}",
                 "stripe_id": "{{ stripe_customer_id }}"
             }
             {%- endparse_json -%}    
             {%- graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: crm_data | dig: 'items','response','body' | parse_json -%}
+            {% log crm_data, type: "strtipe" %}
+            {% log update_contact, type: "updae_contaact" %}
         {% else %}
             {% log "Error: Logged-in user has no CRM data" %}
         {% endif %}
