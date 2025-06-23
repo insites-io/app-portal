@@ -34,11 +34,13 @@ metadata: {
 {% comment %} Capture gateway response {% endcomment %}
 {% assign status = context.exports.payment_response.status | downcase %}
 {% assign order_id = form.id | downcase %}
+{%- assign order_uuid = form.properties.uuid | downcase -%}
 
 {% comment %} Step 2. Update models/records {% endcomment %}
 {% include 'modules/portal/pay_bills/callback_update_models'
     status: status,
     order_id: order_id,
+    order_uuid: order_uuid,
     form: form,
     settings: settings %}
 
