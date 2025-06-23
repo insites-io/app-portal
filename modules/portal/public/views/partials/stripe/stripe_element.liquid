@@ -66,10 +66,6 @@ metadata: {
   id="stripe-last-name"
   value="{{ context.current_user.last_name }}"> 
 
-<input
-  type="hidden"
-  id="user-uuid"
-  value="{{ context.current_user.external_id }}"> 
 {% comment %} Get stripe key via get_stripe_settings function {% endcomment %}
 {% assign pk_key_value = get_stripe_settings.pk_key %}
 <input type="hidden" id="pk_key" value="{{ pk_key_value }}" >
@@ -79,7 +75,6 @@ metadata: {
     let emailField = document.getElementById('{{ email_field_id }}');
     let stripeFirstName = document.getElementById('stripe-first-name');
     let stripeLastName = document.getElementById('stripe-last-name');
-    let userUUID = document.getElementById('user-uuid');
     // Create a Stripe client.
 
     let pk_key_value = document.getElementById("pk_key");

@@ -99,7 +99,6 @@ let StripeElement = (() => {
                     "email": emailField.value,
                     "first_name": stripeFirstName.value,
                     "last_name": stripeLastName.value,
-                    "user_uuid": userUUID.value,
                     "creditcard": token.id,
                     "card_brand": token.card.brand
                 }
