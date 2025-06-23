@@ -173,6 +173,14 @@ footer {
     line-height: 150%; /* 21px */
 }
 
+a:visited {
+  color: var(--color-sub1);
+}
+
+a:link, a:visited {
+  text-decoration: none;
+}
+
 a,
 .body-link,
 #mega-menu-btn button.ins-button span,
@@ -3422,10 +3430,24 @@ footer .menu a {
 .testiPos {
     font-size: 14px;
 }
+
 @media (max-width: 639px) {
     .homepagepage-testimonial-wrap  .slide-content {
         padding: 0 24px;
     }
+} 
+
+@media (max-width: 1023px) {
+    .create-account-container,
+    .account-container{
+        padding: 24px!important;
+        height: auto!important;
+    }
+
+    .account-container-logo{
+        padding: 24px!important;
+    }
+
 } 
 
 
