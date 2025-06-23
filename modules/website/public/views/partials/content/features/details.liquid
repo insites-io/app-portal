@@ -10,7 +10,9 @@ metadata: {
     {%- redirect_to '/404' -%}
 {%- endif -%}
 
-{% assign parent_id = context.exports.data.id %}
+{%- if context.exports.data.item.enabled == false -%}
+    {%- redirect_to '/404' -%}
+{%- endif -%}
 
 {%- graphql get_features = 'modules/website/features/get_features_details', parent_id: parent_id -%}
 {%- assign features =  get_features | dig: 'items', 'results'  -%}

@@ -12,6 +12,9 @@ cc:
 bcc:
 subject: Email verification
 layout: modules/insites_core/insites_external_email_layout
+metadata: {
+    email_name: "Auto Responder | Send Verification Email"
+}
 ---
 
 {%- graphql user_with_token = 'modules/portal/account/get_user_with_password_token', email: form.email | dig: 'users','results' | first -%}

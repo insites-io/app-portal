@@ -1,4 +1,8 @@
-
+---
+metadata: {
+    partial_name: 'Website | Forms | Feedback Event Steam'
+}
+---
 {% comment %} Create Event Stream {% endcomment %}
 {%- graphql user = "modules/portal/account/get_user_by_email" 
     email: context.current_user.email | dig: "items" | dig: "results" | first -%}

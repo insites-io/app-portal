@@ -12,6 +12,9 @@ cc:
 bcc:
 subject: Bill payment successful
 layout: modules/insites_core/insites_external_email_layout
+metadata: {
+    email_name: "Auto Responder | Bill Payment Success"
+}
 ---
 
 {% graphql get_order = 'modules/portal/orders/get_order', id: data.order_id | dig: 'items','results' | first

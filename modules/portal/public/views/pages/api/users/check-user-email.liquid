@@ -4,22 +4,7 @@ format: json
 method: get
 searchable: false
 metadata: {
-    "status": "published",
-    "open_graph:url": "",
-    "open_graph:type": "",
-    "open_graph:image": "",
-    "open_graph:title": "Invite User | Check User Email API",
-    "open_graph:description": "Invite User | Check User Email API",
-    "open_graph:site_name": "",
-    "meta_title": "Invite User | Check User Email API",
-    "page_title": "Invite User | Check User Email API",
-    "meta_description": "Invite User | Check User Email API",
-    "canonical_url": "",
-    "is_visible_to_search_engines": false,
-    "sitemap_enabled": false,
-    "sitemap_priority": "1.0",## primary order (DESC)
-    "sitemap_order": "9999", ## secondary order (ASC)
-    "sitemap_changefreq": "never"
+    page_name: "API | Users | Check User Email",
 }
 ---
 {%- assign email = context.params.email | replace: " ", "+" | default: "noemail@combinate.me" -%}

@@ -12,6 +12,9 @@ cc:
 bcc:
 subject: Bill payment failed
 layout: modules/insites_core/insites_external_email_layout
+metadata: {
+    email_name: "Auto Responder | Bill Payment Failed"
+}
 ---
 
 {%- graphql global = 'modules/insites_core/utilities/get_global_content_for_email' -%}

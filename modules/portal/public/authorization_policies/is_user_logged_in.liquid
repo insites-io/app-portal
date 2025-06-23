@@ -1,5 +1,8 @@
 ---
 name: is_user_logged_in
+metadata: {
+    auth_policy_name: "Is User Logged In"
+}
 ---
 {%  liquid
     graphql data = 'modules/portal/account/get_current_user'

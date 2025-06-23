@@ -2941,18 +2941,30 @@ footer .menu a {
 
 .hero-home-banner {
     background: var(--color-bg1, #05051D);
+    background-image: url("../images/home/hero-bg.webp");
+    background-position-y: 5%;
+    background-size: 100%;
+    background-repeat: no-repeat;
     height: 800px;
     /* position: relative; */
     overflow: hidden;
     z-index: -1;
 }
 
-.hero-bg {
+.hero-bg.image-d {
     position: absolute;
     object-fit: fill;
     z-index: 0;
-    height: 100%;
-    bottom: 50px;
+    height: 60%;
+    bottom: 200px;
+}
+
+.hero-bg.image-m {
+    position: absolute;
+    object-fit: fill;
+    z-index: 0;
+    height: 50%;
+    bottom: 250px;
 }
 
 .hero-home-banner .hero-main-text {
@@ -3029,6 +3041,16 @@ footer .menu a {
     }
 }
 
+@media screen and (max-width: 900px) and (min-width: 640px) { 
+
+    .hero-home-banner {
+        height: 600px;
+        background-position-y: 100%;
+        background-size: 100%;
+    }
+
+}
+
 @media screen and (max-width: 639px)  { 
     .hero-banner-img img {
         width: 100%;
@@ -3042,6 +3064,8 @@ footer .menu a {
 
     .hero-home-banner {
         height: 600px;
+        background-position-y: 100%;
+        background-size: 100%;
     }
 
     .hero-banner-img {
