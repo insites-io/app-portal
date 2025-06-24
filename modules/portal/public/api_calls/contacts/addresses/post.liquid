@@ -6,11 +6,16 @@ request_type: POST
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-{%  liquid 
-    graphql user = 'modules/portal/account/get_user_uuid', id: data.id | dig: 'items','results' | first
-    assign contact_uuid = user.uuid
-
+{%  liquid     
     assign props = data.properties
+
+    ## Ecommerce module passes contact_uuid rather than relying on the logged-in user's UUID because guest checkout also saves CRM data.
+    if props.contact_uuid != ''
+        assign contact_uuid = props.contact_uuid
+    else 
+        graphql user = 'modules/portal/account/get_user_uuid', id: data.id | dig: 'items','results' | first
+        assign contact_uuid = user.uuid
+    endif
 %}
 {
     "contact.uuid": "{{ contact_uuid }}",
