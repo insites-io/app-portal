@@ -12,8 +12,11 @@ Contains all the scripts imported right before the </body> tag
 {%- if context.environment == "staging" -%}
     <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.js' | asset_url }}" >
     <script src="{{ 'modules/website/scripts/app.js' | asset_url }}"></script>
+</script>
 {% else %}
     <!-- minified --> 
     <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.min.js' | asset_url }}" >
     <script src="{{ 'modules/website/scripts/app.min.js' | asset_url }}"></script>
 {%- endif -%}
+
+ <script src="https://cdn.jsdelivr.net/npm/@statsig/js-client@3/build/statsig-js-client+session-replay+web-analytics.min.js?apikey=client-8HmZGdyAduoHQGaUN4NoQFHjqaAyALhVPF790bQzPl4" crossorigin="anonymous">

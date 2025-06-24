@@ -173,11 +173,11 @@ footer {
     line-height: 150%; /* 21px */
 }
 
-a:visited {
+a.a-label:visited {
   color: var(--color-sub1);
 }
 
-a:link, a:visited {
+a.a-label:link, a.a-label:visited {
   text-decoration: none;
 }
 
