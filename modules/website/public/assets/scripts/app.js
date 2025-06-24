@@ -304,63 +304,67 @@ let App = (function () {
             initMobileStickyMenu() {
                 let lastScrollTop = 0;
                 const navbar = document.getElementById('main-header');
-                
+
                 // Function to check if the screen is mobile size
                 function isMobile() {
                     return window.innerWidth <= 1029;
                 }
-            
-                // Function to handle navbar behavior on scroll
+
+                // Function to handle navbar behavior on scroll or resize
                 function handleScroll() {
-                    if (!navbar) return; // Ensure navbar exists
-            
+                    if (!navbar) return;
+
                     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            
-                    // Check if navbar has 'light-header' class
                     const hasLightHeader = navbar.classList.contains('light-header');
-            
+
                     if (isMobile()) {
-                        // If we're at the top of the page (scroll = 0)
+                        // Top of the page
                         if (currentScroll === 0) {
-                            // If navbar doesn't have the 'light-header' class, set background color to #05051D
                             if (!hasLightHeader) {
-                                navbar.classList.add('no-light-header'); // Add no-light-header class to set background to #05051D
+                                navbar.classList.add('no-light-header');
                             } else {
-                                navbar.classList.remove('no-light-header'); // Remove no-light-header class to make background transparent
+                                navbar.classList.remove('no-light-header');
                             }
-                            navbar.style.position = 'relative'; // Return to normal flow
-                            navbar.style.transform = 'translateY(0)'; // Ensure the navbar is visible
+
+                            navbar.style.position = 'relative';
+                            navbar.style.transform = 'translateY(0)';
                         }
-                        // Scroll Down: Hide navbar and fix it to the top
+                        // Scrolling down
                         else if (currentScroll > lastScrollTop && currentScroll > navbar.offsetHeight) {
-                            navbar.style.position = 'fixed'; // Make navbar fixed when scrolling down
-                            navbar.style.transform = 'translateY(-100%)'; // Hide navbar
+                            navbar.style.position = 'fixed';
+                            navbar.style.transform = 'translateY(-100%)';
                         }
-                        // Scroll Up: Show navbar and keep it fixed
+                        // Scrolling up
                         else if (currentScroll < lastScrollTop) {
-                            navbar.style.position = 'fixed'; // Keep it fixed even when scrolling up
-                            navbar.style.transform = 'translateY(0)'; // Show navbar
+                            navbar.style.position = 'fixed';
+                            navbar.style.transform = 'translateY(0)';
                         }
-            
-                        // If we're not at the top, adjust navbar background color (for mobile)
+
                         if (currentScroll > 50) {
-                            navbar.style.backgroundColor = '#05051D'; // Change background to #05051D when scrolling
+                            navbar.style.backgroundColor = '#05051D';
                         }
-            
-                        lastScrollTop = Math.max(0, currentScroll); // Prevent negative values
+
+                        lastScrollTop = Math.max(0, currentScroll);
                     } else {
-                        // For desktop, navbar should always have a solid background color
-                        navbar.style.backgroundColor = '#05051D';
-                        navbar.style.position = 'relative'; // Make sure it's not fixed on desktop
-                        navbar.style.removeProperty('transform');
+                        // Desktop view
+
+                        // Only reset if previously fixed by mobile behavior
+                        if (navbar.style.position === 'fixed') {
+                            navbar.style.position = 'relative';
+                            navbar.style.removeProperty('transform');
+                        }
+
+                        navbar.classList.remove('no-light-header'); // Cleanup class from mobile
+                        navbar.style.backgroundColor = '#05051D'; // Always solid background on desktop
                     }
                 }
-            
-                // **Run once immediately to apply correct background before scroll events**
+
+                // Initial run
                 handleScroll();
-            
-                // Attach the scroll event listener
+
+                // Event listeners
                 window.addEventListener('scroll', handleScroll);
+                window.addEventListener('resize', handleScroll);
             },
             clearFunctionSearch() {
   

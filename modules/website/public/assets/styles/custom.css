@@ -911,6 +911,7 @@ ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__page {
 
 .signOutCustom button {
     display: flex;
+    padding: 24px;
 }
 
 

@@ -7,7 +7,7 @@ properties:
 - name: allow_display_on_website
   type: string
   metadata:
-    label: "Allow Display on Website"
+    label: "May we display your feedback as a testimonial on our website?"
     weight: 1
     options: ["Yes","No"]
     group_id: "9e96cf3e-c23f-4118-ab5e-f0ed9899ccef"
@@ -19,7 +19,7 @@ properties:
   type: string
   metadata:
     label: "Full Name"
-    weight: 3
+    weight: 2
     group_id: "53f9c2ff-7458-4834-8f0b-ec25d72828fe"
     ui_element: "input"
     is_required: true
@@ -29,7 +29,7 @@ properties:
   type: string
   metadata:
     label: "Location"
-    weight: 4
+    weight: 3
     group_id: "53f9c2ff-7458-4834-8f0b-ec25d72828fe"
     ui_element: "input"
     is_required: false
@@ -40,7 +40,7 @@ properties:
   type: string
   metadata:
     label: "Message"
-    weight: 5
+    weight: 4
     group_id: "53f9c2ff-7458-4834-8f0b-ec25d72828fe"
     ui_element: "multi_line"
     is_required: true
@@ -52,6 +52,6 @@ properties:
     weight: 0
     group_id: "9e96cf3e-c23f-4118-ab5e-f0ed9899ccef"
     ui_element: "select_data_source"
-    is_required: true
+    is_required: false
     display_field: "name"
     is_shown_in_table: false

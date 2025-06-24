@@ -2604,6 +2604,24 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
     }
 }
 
+.signOutCustom .ins-button div .btn__label {
+    font-size: 14px!important;
+    color: var(--font-color-body) !important;
+    font-weight: 400 !important;
+}
+
+.signOutCustom button {
+    padding: 24px !important;
+    display: flex;
+    align-items: center;
+}
+
+
+.signOutCustom button:hover {
+    background-color: #fff !important;
+    color: var(--font-color-head) !important;
+}
+
 
 /********** [Footer] ***********/
 
@@ -5381,6 +5399,42 @@ ins-table-row:nth-child(even) {
 .userDetails .ins-input-select-wrap {
     margin-bottom: 0;
 }
+
+#user-invite-button button {
+    width: 100%;
+}
+
+@media screen and (max-width: 950px) {
+    .user-actions-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        flex-direction: column;
+    }
+    .userSearch {
+        width: 100%;
+    }
+    .hide-spacer {
+        display: none!important;
+    }
+    .hide-for-small-medium {
+        display: none!important;
+    }
+    .show-for-small-medium {
+        display: block!important;
+    }
+    .users-table-data ins-table-td {
+        padding: 24px!important;
+    }
+    .users-table .ins-select-label-wrap {
+        display: none!important;
+    }
+    .users-table .ins-input-select {
+        margin: 0px
+    }
+}
+
+
 /* FORM ERROR */
 .ins-form-field-wrap.is-invalid .ins-form-error{
     color: #F24B4B;
@@ -5396,7 +5450,7 @@ ins-table-row:nth-child(even) {
 .notyf__toast--error{
     border-radius: 8px!important;
     border: 1px solid #F24B4B!important;
-    background: var(--support-notifications-error-hover-light, rgba(242, 75, 75, 0.10))!important;
+    background: #FEEDED !important;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10)!important;
 }
 

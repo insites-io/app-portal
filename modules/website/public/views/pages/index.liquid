@@ -33,6 +33,8 @@ dynamic_cache:
         ]
         {%- endparse_json -%}
         {%- include "modules/website/cache/generate_cache_key", models: models -%}
+        {{context.current_user.id}}
+        {{context.device.device_type}}
 ---
 {%comment%} get device type {%endcomment%}
 {%- assign device_used = context.device.device_type -%}
