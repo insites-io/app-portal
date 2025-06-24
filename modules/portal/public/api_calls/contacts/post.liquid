@@ -10,9 +10,6 @@ callback: >
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-
-{% log data, type: "data - add_contact - api_calls" %}
-
 {
     "first_name": "{{data.first_name}}",
     "last_name": "{{data.last_name}}",

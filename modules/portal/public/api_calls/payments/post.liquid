@@ -8,9 +8,6 @@ callback: >
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-
-{% log data, type: "Add Payment - API" %}
-
 {%- capture payment_gateway_details -%}
     {{ data.payment_gateway_details }}
 {%- endcapture -%}

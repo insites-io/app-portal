@@ -752,7 +752,6 @@ metadata: {
     function prefillDetails(data) {
          userFirstName.value = data.first_name
          userLastName.value = data.last_name
-         console.log(data)
 
          if(data.work_phone_country_code && data.work_phone_number) {
             userContact.setCountryCode('+' + data.work_phone_country_code)

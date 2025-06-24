@@ -134,8 +134,6 @@ This is where the contents of the search page is imported/included in the forms 
         // Remove any existing `page` and `per_page` query parameters
         const newUrl = currentUrl.replace(/[?&]page=\d+/, '').replace(/[?&]per_page=\d+/, '');
         
-        console.log(newUrl, "NEW URL");
-
         // Set the new `page` and `per_page` values
         const newPage = pageNumber;
         const newPerPage = pageSize;

@@ -16,15 +16,17 @@ metadata: {
 -%}
 
 <div class="form-groups-tab step-scrollbar">        
-    <ins-steps inline id="register-stepper" class="hide-for-small-only">
-        <ins-step id="stepper-personal-details" description="Personal" {{statusPersonal}} ></ins-step>
-        <ins-step id="stepper-company-details" description="Company" {{statusCompany}} ></ins-step>
-        <ins-step id="stepper-confirmation" description="Terms" {{statusConfirmation}} ></ins-step>
+    <!-- Large screen stepper -->
+    <ins-steps inline id="register-stepper-large" class="hide-for-small-only stepper-instance">
+        <ins-step description="Personal" {{statusPersonal}}></ins-step>
+        <ins-step description="Company" {{statusCompany}}></ins-step>
+        <ins-step description="Terms" {{statusConfirmation}}></ins-step>
     </ins-steps>
 
-    <ins-steps id="register-stepper" class="show-for-small-only">
-        <ins-step id="stepper-personal-details" description="Personal" {{statusPersonal}} ></ins-step>
-        <ins-step id="stepper-company-details" description="Company" {{statusCompany}} ></ins-step>
-        <ins-step id="stepper-confirmation" description="Terms" {{statusConfirmation}} ></ins-step>
+    <!-- Small screen stepper -->
+    <ins-steps id="register-stepper-small" class="show-for-small-only stepper-instance">
+        <ins-step description="Personal" {{statusPersonal}}></ins-step>
+        <ins-step description="Company" {{statusCompany}}></ins-step>
+        <ins-step description="Terms" {{statusConfirmation}}></ins-step>
     </ins-steps>
 </div>

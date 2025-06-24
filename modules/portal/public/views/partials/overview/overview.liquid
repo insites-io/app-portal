@@ -22,7 +22,7 @@ metadata: {
             <ins-button type="button" label="{{ portal_banner.button_label }}" icon-right="icon-arrow-forward" class="m-0" solid></ins-button>
         </a>
     </div>
-    <div class="overview-image"> 
+    <div class="overview-image" height="150" width="300"> 
         <img src="{{ portal_banner.desktop_image.url }}" alt="">
     </div>
 </div>
@@ -191,9 +191,6 @@ metadata: {
     var page_num = document.getElementById('page_num');
     var per_page = document.getElementById('per_page');
     
-    console.log(total.value, "total");
-    console.log(page_num.value, "page_num");
-    console.log(per_page.value, "per_page");
     // table
     var insBaseTable = document.getElementById('insBaseTable');
     
@@ -219,19 +216,14 @@ metadata: {
         const newPerPage = pageSize;
 
         var updatedUrl = `${newUrl}?page=${newPage}&per_page=${newPerPage}`;
-        // console.log(updatedUrl);
 
         // Navigate to the updated URL
         window.location.href = updatedUrl;
     }
 
     function tablePaginationHandler(event){
-        console.log(event);
         pageSize = event.detail.pageSize;
-        pageNumber = event.detail.pageNumber;
-        console.log(pageSize, "pageSize");
-        console.log(pageNumber, "pageNumber");
-        
+        pageNumber = event.detail.pageNumber;   
         processTableData();
     }
 </script>

@@ -12,7 +12,6 @@ callback: >
     log response_data.error, type: 'modules/insites_payments/create_charge' 
   {% endcomment %}
 request_headers: >
-  {% log data, type: "Charge - Data" %}
   {% if data %}
     {% assign stripe_sk_key = data.sk_key %}
     {% assign stripe_account_id = data.stripe_account_id %}

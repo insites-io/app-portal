@@ -6,9 +6,6 @@ request_type: POST
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-
-{% log data, type: "data - add_company_address - api_calls" %}
-
 {
   "company.uuid": "{{ data.company_uuid }}",
   "address_label": "{{ data.company_address_1 | default: "Default" }}" ,

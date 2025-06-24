@@ -5103,7 +5103,7 @@ ins-table-row:nth-child(even) {
 
 /* Account */
 .layout-background{
-    background-image: url("../images/login-bg.png");
+    background-image: url("../images/login-bg.webp");
     background-repeat: no-repeat;
     background-size: cover;
  
@@ -5140,7 +5140,7 @@ ins-table-row:nth-child(even) {
     padding-right: 217px;
 }
 
-#register-stepper .ins-step_description{
+.stepper-instance.ins-step_description{
     color: #575757;
     text-align: center;
     font-family: var(--font-family-02);

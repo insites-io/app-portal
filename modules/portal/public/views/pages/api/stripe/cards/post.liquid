@@ -90,8 +90,6 @@ metadata: {
             }
             {%- endparse_json -%}    
             {%- graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: crm_data | dig: 'items','response','body' | parse_json -%}
-            {% log crm_data, type: "strtipe" %}
-            {% log update_contact, type: "updae_contaact" %}
         {% else %}
             {% log "Error: Logged-in user has no CRM data" %}
         {% endif %}

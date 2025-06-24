@@ -11,8 +11,6 @@ metadata: {
     3. Email Notification
 {% endcomment %}
 
-{% log form, type: "Form" %}
-
 {% comment %} Get Gateway Settings from Ecommerce settings {% endcomment %}
 {% function settings = "modules/portal/pay_bills/get_settings" %}
 {% assign gateway = settings.gateway_name | downcase %}

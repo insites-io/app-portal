@@ -54,7 +54,12 @@ authorization_policies:
 {%- endif -%}
 
 <script>
-    const registerStepper = document.getElementById("register-stepper");
+   function getVisibleStepper() {
+    const steppers = document.querySelectorAll('.stepper-instance');
+    return Array.from(steppers).find(stepper => stepper.offsetParent !== null);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('register-form');
     const cancelButton = document.getElementById('cancel-button');
 
@@ -65,53 +70,47 @@ authorization_policies:
     const step2 = document.getElementById("submit-company-details");
     const step3 = document.getElementById("submit-confirmation");
 
-    //const stepper1 = document.getElementById("stepper-personal-details");
-    //const stepper2 = document.getElementById("stepper-company-details");
-    
     const step1Container = document.getElementById('personal-details-container');
     const step2Container = document.getElementById('company-details-container');
     const step3Container = document.getElementById('confirmation-container');
-
     let Session = (function () {
-    return {
-        events: {
+        return {
+            events: {
 
-            async signUpHandler(event) { 
-                if(registerForm){
-                    event ? event.preventDefault(): ''; 
-                }
-            },
-
-            disableSubmitOnEnter() {
-                window.addEventListener('keydown', function(e) {
-                    if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
-                        if (e.target.nodeName == 'INPUT' && e.target.type == 'text') {
-                            e.preventDefault();
-                            return false;
-                        }
+                async signUpHandler(event) { 
+                    if(registerForm){
+                        event ? event.preventDefault(): ''; 
                     }
-                }, true);
+                },
+
+                disableSubmitOnEnter() {
+                    window.addEventListener('keydown', function(e) {
+                        if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
+                            if (e.target.nodeName == 'INPUT' && e.target.type == 'text') {
+                                e.preventDefault();
+                                return false;
+                            }
+                        }
+                    }, true);
+                }
             }
         }
+    })();
+    window.Session = Session;
+
+    // Disable form submission via Enter key
+    if (registerForm) {
+        Session.events.disableSubmitOnEnter();
     }
-})();
-window.Session = Session;
 
+    if (step1) {
+        step1.addEventListener('insClick', async function (event) {
+            const registerStepper = getVisibleStepper();
+            const steps = await registerStepper.getAllSteps();
+            const firstStep = steps[0];
 
-//Disable Submit on 'Enter' in Sign up form
-if(registerForm){
-    Session.events.disableSubmitOnEnter();
-}
-
-    //Stepper
-    if(step1) {
-        step1.addEventListener('insClick', async function(event) {
-            steps = await registerStepper.getAllSteps();
-            firstStep = steps[0];
-            secondStep = steps[1];
-            
-            const isValid = await LoginScript.methods.validateForm(event, step1Container); 
-            if(isValid){
+            const isValid = await LoginScript.methods.validateForm(event, step1Container);
+            if (isValid) {
                 step1Container.classList.add('hide');
                 firstStep.hasError = false;
                 firstStep.removeAttribute("has-error");
@@ -124,14 +123,14 @@ if(registerForm){
         });
     }
 
-    if(step2) {
-        step2.addEventListener('insClick', async function(event) {
-            steps = await registerStepper.getAllSteps();
-            firstStep = steps[0];
-            secondStep = steps[1];
-            
-            const isValid = await LoginScript.methods.validateForm(event, step2Container); 
-            if(isValid){
+    if (step2) {
+        step2.addEventListener('insClick', async function (event) {
+            const registerStepper = getVisibleStepper();
+            const steps = await registerStepper.getAllSteps();
+            const secondStep = steps[1];
+
+            const isValid = await LoginScript.methods.validateForm(event, step2Container);
+            if (isValid) {
                 step2Container.classList.add('hide');
                 secondStep.hasError = false;
                 secondStep.removeAttribute("has-error");
@@ -144,42 +143,42 @@ if(registerForm){
         });
     }
 
-    if(step3) {
-        step3.addEventListener('insClick', async function(event) {
-            steps = await registerStepper.getAllSteps();
-            firstStep = steps[0];
-            secondStep = steps[1];
-            thirdStep = steps[2];
-            
-            const isValid = await LoginScript.methods.validateForm(event, step3Container); 
-            let checkBox = document.getElementById('agreement')
-            if(checkBox.checked){
+    if (step3) {
+        step3.addEventListener('insClick', async function (event) {
+            const registerStepper = getVisibleStepper();
+            const steps = await registerStepper.getAllSteps();
+            const thirdStep = steps[2];
+
+            const isValid = await LoginScript.methods.validateForm(event, step3Container);
+            const checkBox = document.getElementById('agreement');
+            if (checkBox.checked) {
                 thirdStep.hasError = false;
                 thirdStep.removeAttribute("has-error");
                 registerForm.submit();
-            }else {
+            } else {
                 thirdStep.hasError = true;
                 thirdStep.setAttribute("has-error", true);
             }
-
         });
     }
 
-
-    if(backToStep1) {
-        backToStep1.addEventListener('insClick', async function(event) {
+    if (backToStep1) {
+        backToStep1.addEventListener('insClick', async function () {
+            const registerStepper = getVisibleStepper();
             registerStepper.prev();
             step1Container.classList.remove('hide');
             step2Container.classList.add('hide');
         });
     }
 
-    if(backToStep2) {
-        backToStep2.addEventListener('insClick', async function(event) {
+    if (backToStep2) {
+        backToStep2.addEventListener('insClick', async function () {
+            const registerStepper = getVisibleStepper();
             registerStepper.prev();
             step1Container.classList.add('hide');
             step2Container.classList.remove('hide');
             step3Container.classList.add('hide');
         });
-    }    
+    }
+});
 </script>
