@@ -48,7 +48,9 @@ metadata: {
     <div class="newsContentContainer full-width-banner-content-left-only">
       <div class="spacer xxx-large"></div>
       <div class="news-content">
-          <a class="news-back-link" href="/news"><span class="news-back-btn"> <b> <i class="icon-arrow-back"></i> Back to news list </b> </span></a>
+        <a id="back-button" class="news-back-link" href="/news">
+            <span class="news-back-btn"><b><i class="icon-arrow-back"></i> Back to news list</b></span>
+        </a>
           <div class="spacer small"></div>
 
           <div class="newsTitle">
@@ -108,3 +110,27 @@ metadata: {
     <div class="spacer hide-for-small-only section"></div>
     <div class="spacer xxx-large show-for-small-only"></div> 
   </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const backBtn = document.getElementById('back-button');
+    const savedFilters = sessionStorage.getItem('newsFilters');
+
+    if (savedFilters && backBtn) {
+      const filters = JSON.parse(savedFilters);
+      const url = new URL('/news', window.location.origin);
+      
+      for (const [key, value] of Object.entries(filters)) {
+        if (value) {
+          url.searchParams.set(key, value);
+        }
+      }
+
+      backBtn.setAttribute('href', url.pathname + url.search);
+    }
+
+    backBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('newsFilters');
+    });
+  });
+</script>

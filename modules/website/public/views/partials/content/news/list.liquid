@@ -137,7 +137,7 @@ metadata: {
             <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
                 {% for item in res_news %}
                     <div class="large-4 medium-6 small-12 cell news-cards">
-                        <a href="/news/{{ item.slug }}" class="news-main-link-container">
+                        <a onclick="goToNewsDetail('{{ item.slug }}')" class="news-main-link-container">
                             <div class="card"> 
                                 <div class="newsImageContainer">
                                     {% if item.list_view_image.url %}
@@ -215,7 +215,6 @@ metadata: {
     const searchKey = document.getElementById('search-input');
     const filterEl = document.getElementById('news-filter');
 
-    // Initial table setup
     if (insBaseTable) {
         insBaseTable.pageSizeOptions = [6, 15, 30];
         insBaseTable.totalCount = {{ get_news.items.total_entries }};
@@ -230,13 +229,11 @@ metadata: {
         insBaseTable.addEventListener('insPaginationChange', handlePaginationChange);
     }
 
-    // Handle pagination event
     function handlePaginationChange(event) {
         const { pageNumber, pageSize } = event.detail;
         updateUrlParams({ page: pageNumber, per_page: pageSize });
     }
 
-    // Search functionality
     if (searchKey) {
         searchKey.addEventListener('insIconClick', handleSearch);
         searchKey.addEventListener('insInput', e => {
@@ -255,7 +252,7 @@ metadata: {
         }
 
         toggleInputError(false);
-        updateUrlParams({ search: value, page: 1 }); // Reset to page 1 on new search
+        updateUrlParams({ search: value, page: 1 }); 
     }
 
     function toggleInputError(hasError) {
@@ -266,20 +263,17 @@ metadata: {
         }
     }
 
-    // Filter functionality
     if (filterEl) {
         filterEl.addEventListener('insFilterApply', (event) => {
             const { Tag, "Sort by": sortLabel } = event.detail;
             const updatedParams = {};
 
-            // Handle tag
             if (Tag && Tag !== 'all') {
                 updatedParams.tag = Tag;
             } else {
-                updatedParams.tag = null; // remove
+                updatedParams.tag = null; 
             }
 
-            // Handle sort
             if (sortLabel) {
                 let sort;
                 switch (sortLabel) {
@@ -295,12 +289,11 @@ metadata: {
                 updatedParams.sort = sort;
             }
 
-            updatedParams.page = 1; // reset to page 1 when filter changes
+            updatedParams.page = 1; 
             updateUrlParams(updatedParams);
         });
     }
 
-    // Update or remove URL parameters and redirect
     function updateUrlParams(params) {
         const url = new URL(window.location.href);
 
@@ -313,5 +306,26 @@ metadata: {
         });
 
         window.location.href = url.toString();
+    }
+
+    function goToNewsDetail(slug) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const filters = {};
+
+        const tag = urlParams.get('tag');
+        const search = urlParams.get('search');
+        const sort = urlParams.get('sort');
+        const page = urlParams.get('page');
+        const per_page = urlParams.get('per_page');
+
+        if (tag) filters.tag = tag;
+        if (search) filters.search = search;
+        if (sort) filters.sort = sort;
+        if (page) filters.page = page;
+        if (per_page) filters.per_page = per_page;
+
+        sessionStorage.setItem('newsFilters', JSON.stringify(filters));
+
+        window.location.href = `/news/${slug}`;
     }
 </script>
