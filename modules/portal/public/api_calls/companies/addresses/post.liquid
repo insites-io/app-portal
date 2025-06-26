@@ -6,15 +6,4 @@ request_type: POST
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-{
-  "company.uuid": "{{ data.company_uuid }}",
-  "address_label": "{{ data.company_address_1 | default: "Default" }}" ,
-  "address_1": "{{ data.company_address_1 }}",
-  "address_2": "{{ data.company_address_2 }}",
-  "suburb": "{{ data.company_suburb }}",
-  "state": "{{ data.company_state }}",
-  "postcode": "{{ data.company_postcode }}",
-  "country": "{{ data.company_country }}",
-  "latitude": "{{ data.company_latitude }}",
-  "longitude": "{{ data.company_longitude }}"
-}
+{{ data }}

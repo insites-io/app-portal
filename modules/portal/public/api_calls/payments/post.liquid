@@ -8,31 +8,4 @@ callback: >
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-{%- capture payment_gateway_details -%}
-    {{ data.payment_gateway_details }}
-{%- endcapture -%}
-
-{% if data.payment_gateway_name == "Stripe" %}
-    {% assign source = "credit_card" %}
-{% endif %}
-
-{
-    "order.uuid": "{{ data.order_uuid }}",
-    "notes": "{{ data.notes | default: "No notes available" }}",
-    "amount": {{ data.amount | times: 1.0 }},
-    "source": "{{ source }}",
-    "status": "{{ data.payment_status | downcase }}",
-    "bank_bsb": null,
-    "currency": "{{ data.currency }}",
-    "bank_name": null,
-    "date_time": "{{ data.date_time }}",
-    "card_brand": "{{ data.card_brand }}",
-    "card_expiry_month": "{{ data.card_exp_month }}",
-    "card_expiry_year": "{{ data.card_exp_year }}",
-    "payment_method_name": null,
-    "payment_gateway_name": "{{ data.payment_gateway_name }}",
-    "bank_last_four_digits": null,
-    "card_last_four_digits": "{{ data.card_last4 }}",
-    "payment_gateway_details": {{ payment_gateway_details | json }}
-
-}
+{{ data }}

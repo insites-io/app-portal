@@ -88,6 +88,9 @@ callback_actions: |-
     - Then update the contact address using another api (update_contact_address or add_contact_address)
   {% endcomment %}
 
+  {% assign data = form | json %}
+  {% assign props = form.properties %}
+
   {% graphql current_user = 'modules/portal/account/get_current_user' | dig: 'current_user' %}
   
   {% parse_json update_contact_data %}
@@ -100,13 +103,28 @@ callback_actions: |-
   {% endparse_json %}
   {% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json %}
 
+  {% parse_json contact_address_details %}
+  {
+    "address_label": "{{ props.address_1 | default: 'Default' }}", 
+    "default_address": true,
+    "address_1": "{{ props.address_1 }}",
+    "address_2": "{{ props.address_2 }}",
+    "suburb": "{{ props.suburb }}",
+    "state": "{{ props.state }}",
+    "postcode": "{{ props.postcode }}",
+    "country": "{{ props.country }}",
+    "latitude": "{{ props.latitude }}",
+    "longitude": "{{ props.longitude }}"
+  }
+  {% endparse_json %}
+
   {%  liquid
-      assign data = form | json
-      
       if form.properties.contact_address_uuid
-        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact_address', data: data | dig: 'items','response','body' | parse_json      
+        assign contact_address_details = contact_address_details | add_hash_key: "contact_address_uuid", props.contact_address_uuid
+        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json      
       else
-        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: data | dig: 'items','response','body' | parse_json
+        assign contact_address_details = contact_address_details | add_hash_key: "contact.uuid", context.current_user.external_id
+        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json
       endif         
   %} 
   

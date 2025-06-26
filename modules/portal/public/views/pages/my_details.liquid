@@ -34,9 +34,12 @@ authorization_policies:
   {%- parse_json data -%}
   {
     "company_uuid": "{{ user_company_uuid.company_uuid }}",
-    "contact_uuid": "{{ user.external_id }}"
+    "contact_uuids": [
+        "{{ user.external_id }}"
+    ]
   }
   {%- endparse_json -%}
+
   {%- graphql assign_company_contact = 'modules/website/trigger_api_call', 
       name: 'modules/portal/assign_company_contact', 
       data: data | parse_json -%}     

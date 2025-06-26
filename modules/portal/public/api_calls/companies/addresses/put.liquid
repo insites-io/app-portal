@@ -1,24 +1,9 @@
 ---
 name: update_company_address
-to: 'https://{{context.location.host}}/crm/api/v2/companies/addresses/{{ data.properties.company_address_uuid }}'
+to: 'https://{{context.location.host}}/crm/api/v2/companies/addresses/{{ data.company_address_uuid }}'
 format: http
 request_type: PUT
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-{%- assign props = data.properties -%}
-{
-    "address_label": "{{ props.company_address_1 }}", //REQUIRED
-    "address_1": "{{ props.company_address_1 }}",
-    "address_2": "{{ props.company_address_2 }}",
-    "suburb": "{{ props.company_suburb }}",
-    "state": "{{ props.company_state }}",    
-    "postcode": "{{ props.company_postcode }}",
-    "country": "{{ props.company_country }}",
-    "latitude": "{{props.company_latitude}}",
-    "longitude": "{{props.company_longitude}}", 
-    "geojson": {
-        "type": "Point",
-        "coordinates": [{{props.company_longitude | default: 0}}, {{props.company_latitude | default: 0}}]
-    }
-}
+{{ data }}

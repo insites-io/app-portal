@@ -3,20 +3,23 @@ metadata: {
     partial_name: 'Website | Forms | Contact Event Steam'
 }
 ---
+{% assign props = form.properties | json %}
+{% assign phone = "{{ props.mobile_phone }}" %}
+{% assign parts = phone | split: ' ' %}
+{% assign area_code = parts[0] %}
+{% assign phone_number = parts[1] %}
+
 {%- parse_json new_user_data -%}
 {
     "email": "{{ form.properties.email }}",
     "first_name": "{{ form.properties.first_name }}",
     "last_name": "{{ form.properties.last_name }}",
-    "uuid": "{{ '' | uuid }}"
+    "mobile_phone_country_code": "{{ area_code }}",
+    "mobile_phone_number": "{{ phone_number }}"
 }
 {%- endparse_json -%}
-{% comment %} {%- graphql new_user = 'modules/ecommerce/user/create_user', args: new_user_data -%} {% endcomment %}
 
 {% graphql new_user = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact', data: new_user_data | dig: 'items','response','body' | parse_json %} 
-
-{%- graphql new_user = "modules/portal/account/add_contact", args: new_user_data | dig: "items" -%}
-
 {%- graphql get_contact_us_data = "modules/portal/contact_us/get_contact_us_data", id: form.id | dig: "items", "results" | first -%}
 
 {% comment %} Create Event Stream {% endcomment %}
@@ -54,3 +57,4 @@ email: form.properties.email
 {%- assign log_info_json = log_info | parse_json -%}
 {%- assign info = payload | add_hash_key: "log", log_info_json -%}
 {% include 'modules/portal/events/log_event', info %}
+ 

@@ -168,24 +168,40 @@ async_callback_actions:
     {% endcomment %}
     {% assign data = form | json %}
     
-    # Add company and company address
-    {% graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: data | dig: 'items','response','body' | parse_json %}
+    {% assign props = form.properties %}
 
-    {% parse_json add_company_address_details %}
+    # Create Company details object
+    {% parse_json company_details %}
     {
-      "company_uuid": "{{ add_company.uuid }}",
-      "company_address_1": "{{ form.properties.company_address_1 }}",
-      "company_address_2": "{{ form.properties.company_address_2 }}",
-      "company_suburb": "{{ form.properties.company_suburb }}",
-      "company_state": "{{ form.properties.company_state }}",
-      "company_postcode": "{{ form.properties.company_postcode }}",
-      "company_country": "{{ form.properties.company_country }}",
-      "company_latitude": "{{ form.properties.company_latitude }}",
-      "company_longitude": "{{ form.properties.company_longitude }}"
+      "company_name": "{{ props.company_name }}",
+      "registered_business_number": "{{ props.registered_business_number }}",
+      "email_1": "{{ props.email_1 }}",
+      "mobile_phone_country_code": "{{ props.company_mobile_phone_country_code }}",
+      "mobile_phone_number": "{{ props.company_mobile_phone_number }}"
     }
     {% endparse_json %}
 
-    {% graphql add_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_company_address', data: add_company_address_details | dig: 'items','response','body' | parse_json %}
+    # Add company
+    {% graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: company_details | dig: 'items','response','body' | parse_json %}
+   
+    # Create Company address object
+    {% parse_json company_address_details %}
+    {
+      "company.uuid": "{{  add_company.uuid }}",
+      "address_label": "{{ props.company_address_1 | default: "Default" }}" ,
+      "address_1": "{{ props.company_address_1 }}",
+      "address_2": "{{ props.company_address_2 }}",
+      "suburb": "{{ props.company_suburb }}",
+      "state": "{{ props.company_state }}",
+      "postcode": "{{ props.company_postcode }}",
+      "country": "{{ props.company_country }}",
+      "latitude": "{{ props.company_latitude }}",
+      "longitude": "{{ props.company_longitude }}"
+    }
+    {% endparse_json %}
+
+    # Add company address
+    {% graphql add_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_company_address', data: company_address_details | dig: 'items','response','body' | parse_json %}
    
     {% parse_json data_company_address %}
     {
@@ -200,8 +216,34 @@ async_callback_actions:
         email: form.email
         | dig: "items" | dig: "results" | first -%}
 
+    ###Ecommerce module passes contact_uuid rather than relying on the logged-in user's UUID because guest checkout also saves CRM data.
+    {% liquid     
+        if props.contact_uuid != blank
+            assign contact_uuid = props.contact_uuid
+        else 
+            assign contact_uuid = user_details.uuid
+        endif
+    %}
+
+    # Create contact address object
+    {% parse_json contact_address_details %}
+    {
+        "contact.uuid": "{{ contact_uuid }}",
+        "address_label": "{{ props.address_1 | default: 'Default' }}", 
+        "default_address": true,
+        "address_1": "{{ props.address_1 }}",
+        "address_2": "{{ props.address_2 }}",
+        "suburb": "{{ props.suburb }}",
+        "state": "{{ props.state }}",
+        "postcode": "{{ props.postcode }}",
+        "country": "{{ props.country }}",
+        "latitude": "{{ props.latitude }}",
+        "longitude": "{{ props.longitude }}"
+    }
+    {% endparse_json %}
+
     {%  liquid  
-      graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: data | dig: 'items','response','body' | parse_json
+      graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json
     %}
 
     {% parse_json update_contact_data %}
@@ -217,20 +259,20 @@ async_callback_actions:
     {% endparse_json %}
 
     {%  liquid                      
-        graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
+      graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
     %} 
 
-    {% comment %} Generate user temporary token {% endcomment %}
+    # Generate user temporary token
     {%  liquid
-        graphql temporary_token = 'modules/portal/account/generate_user_temporary_token', email: form.email | dig: 'items', 'results' | first
+      graphql temporary_token = 'modules/portal/account/generate_user_temporary_token', email: form.email | dig: 'items', 'results' | first
     %}
 
-    {% comment %} Create user profile {% endcomment %}
+    # Create user profile
     {%  liquid
-        graphql create_user_profile = 'modules/portal/account/create_user_profile', id: temporary_token.id, token: temporary_token.temporary_token
+      graphql create_user_profile = 'modules/portal/account/create_user_profile', id: temporary_token.id, token: temporary_token.temporary_token
     %}
     
-    {% comment %} Create Event Stream {% endcomment %}
+    # Create Event Stream
     {%- assign current_user_name =  form.first_name | append: ' ' | append: form.last_name | default: form.email -%}
 
     {%- capture description -%} <a target="_blank" href="/admin/insites/#/crm/contacts/{{ form.id }}">{{ current_user_name  | default: form.email }}</a> has submitted  a registration for <a target="_blank" href="/admin/insites#/crm/companies/{{ form.properties.company_uuid }}">{{ form.properties.company_name }}</a> {%- endcapture -%}

@@ -10,12 +10,4 @@ callback: >
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---
-{
-    "first_name": "{{data.first_name}}",
-    "last_name": "{{data.last_name}}",
-    "email": "{{data.email}}",
-    "mobile_phone_country_code": "{{data.mobile_phone_country_code}}",
-    "mobile_phone_number": "{{data.mobile_phone_number}}",
-    "is_archived": false
-}
-
+{{ data }}

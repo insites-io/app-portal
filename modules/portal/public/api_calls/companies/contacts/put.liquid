@@ -6,8 +6,4 @@ request_type: PUT
 request_headers: >
     {% include 'modules/portal/api_headers' %}
 ---    
-{
-    "contact_uuids": [
-        "{{ data.contact_uuid }}"
-    ]
-}
+{{ data }}

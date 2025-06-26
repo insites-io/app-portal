@@ -80,14 +80,47 @@ callback_actions: |-
       Else
         - use API to add_company (this will update the address also)
   {% endcomment %}
+     {% assign props = form.properties %}
+    
+    # Create Company details object
+    {% parse_json company_details %}
+    {
+      "company_name": "{{ props.company_name }}",
+      "registered_business_number": "{{ props.registered_business_number }}",
+      "email_1": "{{ props.email_1 }}",
+      "mobile_phone_country_code": "{{ props.company_mobile_phone_country_code }}",
+      "mobile_phone_number": "{{ props.company_mobile_phone_number }}"
+    }
+    {% endparse_json %}
+
+    # Create Company address object
+    {% parse_json company_address_details %}
+    {
+      "company_address_uuid": "{{ props.company_address_uuid }}",
+      "address_label": "{{ props.company_address_1 }}",
+      "address_1": "{{ props.company_address_1 }}",
+      "address_2": "{{ props.company_address_2 }}",
+      "suburb": "{{ props.company_suburb }}",
+      "state": "{{ props.company_state }}",    
+      "postcode": "{{ props.company_postcode }}",
+      "country": "{{ props.company_country }}",
+      "latitude": "{{ props.company_latitude }}",
+      "longitude": "{{ props.company_longitude }}", 
+      "geojson": {
+          "type": "Point",
+          "coordinates": [{{props.company_longitude | default: 0}}, {{props.company_latitude | default: 0}}]
+      }
+    }
+    {% endparse_json %}
+
   {%  liquid                  
       assign data = form | json
 
       if form.properties.company_address_uuid != '' and form.properties.company_address_uuid != null
-        graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company_address', data: data | dig: 'items','response','body' | parse_json
+        graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company_address', data: company_address_details | dig: 'items','response','body' | parse_json
         assign company_uuid = form.properties.company_uuid
       else
-        graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: data | dig: 'items','response','body' | parse_json
+        graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: company_details | dig: 'items','response','body' | parse_json
         assign company_uuid = add_company.items.properties.uuid
       endif
 

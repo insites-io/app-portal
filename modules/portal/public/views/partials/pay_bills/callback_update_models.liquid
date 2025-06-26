@@ -71,24 +71,34 @@ metadata: {
 {
     "order_id": "{{ order_id }}",
     "payment_source": "Payment Gateway",
-    "payment_status": "{{ order_payment_status }}",
+    "status": "{{ order_payment_status | downcase }}",
     "payment_gateway_name": "{{ settings.gateway_name }}",
     "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%SZ' }}",
     "last_updated_by_id": "{{ context.current_user.id }}",
     "is_enabled": true,
-    "card_last4": "{{ card.last4 }}",
+    "card_last_four_digits": "{{ card.last4 }}",
     "card_brand": "{{ card.brand }}",
-    "card_exp_month": "{{card.exp_month}}",
-    "card_exp_year": "{{card.exp_year}}",
-    "currency": "{{settings.currency}}",
+    "card_expiry_month": "{{ card.exp_month }}",
+    "card_expiry_month": "{{ card.exp_year }}",
+    "currency": "{{ settings.currency }}",
     "order_value": {{ form.properties.total_amount }},
-    "amount": {{ form.properties.total_amount }},
-    "amount_due": {{ form.properties.total_amount }}
+    "amount": {{ form.properties.total_amount | times: 1.0 }},
+    "amount_due": {{ form.properties.total_amount }},
+    "notes": "{{ form.properties.notes | default: "No notes available" }}"
 }
 {% endparse_json %}
 {% assign data = data | add_hash_key: "payment_gateway_details", stripe_payment_response %}
-{% assign data = data | add_hash_key: "order_uuid", form.properties.uuid %}
+{% assign data = data | add_hash_key: "order.uuid", form.properties.uuid %}
 {% assign data = data | add_hash_key: "computed", computed %}
+{%- capture payment_gateway_details -%}
+    {{ stripe_payment_response }}
+{%- endcapture -%}
+{% assign payment_gateway_details = payment_gateway_details | json %}
+{% assign data = data | add_hash_key: "payment_gateway_details", payment_gateway_details %}
+{% if data.payment_gateway_name == "Stripe" %}
+    {% assign source = "credit_card" %}
+    {% assign data = data | add_hash_key: "source", source %}
+{% endif %}
 
 {%  graphql add_payment = 'modules/website/trigger_api_call', 
     name: "modules/portal/add_payment",
