@@ -158,7 +158,7 @@ metadata: {
                                     {% if item.author != blank %}
                                         <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ get_author.first_name }} {{ get_author.last_name }}</p>
                                     {% else %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by Mark Webber</p>
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}</p>
                                     {% endif %}                  
                                 </div>
                                 <div class="newsContentContainer">

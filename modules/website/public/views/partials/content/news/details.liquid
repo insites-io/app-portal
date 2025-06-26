@@ -69,7 +69,7 @@ metadata: {
             {% if context.exports.data.item.author != blank %}
                 <p class="subHeading news-author-details">Published on {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} by {{ get_author.first_name }} {{ get_author.last_name }}</p>
             {% else %}
-                <p class="subHeading news-author-details">Published on {{ context.exports.data.item.published_date | date: "%b %d, %Y" }} by Mark Webber</p>
+                <p class="subHeading news-author-details">Published on {{ context.exports.data.item.published_date | date: "%b %d, %Y" }}</p>
             {% endif %}                  
           </div>
           <div class="spacer medium"></div>
