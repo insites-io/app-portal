@@ -26,10 +26,9 @@ metadata: {
         "bank_account_last_four_digits": ""
     }
     {% endparse_json %}
-    {% log credit_card , type: 'credit_card' %}
+
     {% comment %} Create pOS credit card model {% endcomment %}
     {% graphql card_model = "modules/portal/credit_cards/create_credit_card" args: credit_card  %}
-    {% log card_model, type: 'card_model' %}
 
     {% comment %} Create Event Stream {% endcomment %}
     {%- graphql user = "modules/portal/account/get_user_by_email" 
