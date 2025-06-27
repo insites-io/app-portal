@@ -15,13 +15,13 @@
     --font-color-link-hovered: #FFFFFF99;
     /* Support/Notification Colors */
     --success: #0CAC52;
-    --error: #FF3366;
+    --error: #F24B4B;
     --warning: #FFA639;
     --info: #436CF2;
     --neutral: #84848F;
     /* Support/Notification Colors Hover*/
     --success-hover: #2B8D6F;
-    --error-hover: #FF0040;
+    --error-hover: #D83333;
     --warning-hover: #FF8F05;
     --info-hover: #2331B7;
     --neutral-hover: #636368;
@@ -724,6 +724,30 @@ SweetAlert Style
     border: solid .25em #EC9C00 !important;
 }
 
+.change-pw-swal,
+.remove-card-swal {
+    max-width: 380px !important;
+    padding: 32px !important;
+}
+
+.remove-card-swal.swal2-popup .swal2-confirm.negative {
+    background-color: var(--error) !important;
+}
+
+.remove-card-swal.swal2-popup .swal2-confirm.negative:hover {
+    background-color: var(--error-hover) !important;
+}
+
+.swal2-actions button i{
+    position: relative !important;
+    top: 1px !important;
+}
+
+#swal2-content .ins-loader-wrap--title {
+    margin-top: 24px;
+}
+
+
 /* Default btn */
 
 .swal2-popup .swal2-confirm {
@@ -876,6 +900,17 @@ ins-button button[type=button].red,
 ins-button button.negative,
 ins-button button.red {
     color: var(--error);
+}
+
+ins-button button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.align-buttons-right {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .ins-carousel_slides {
@@ -1241,6 +1276,11 @@ ins-button button, ins-button button[type=button] {
     min-height: 40px;
 }
 
+.btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
 @media screen and (max-width: 639px) {
     .btn-container ins-button button,
     ins-button+ins-button button,
@@ -1363,7 +1403,9 @@ ins-radio .ins-radio-checkbox .ripple-check:checked::after {
 }
 
 .ins-step_description {
-    color: var(--color-ui-05);
+    color: var(--color-ui-06);
+    font-family: var(--font-family-02);
+    font-size: 14px;
 }
 
 
@@ -1375,7 +1417,9 @@ ins-radio .ins-radio-checkbox .ripple-check:checked::after {
 }
 
 .ins-step.active .ins-step_description {
-    color: var(--font-color-head);
+    color: var(--color-ui-06);
+    font-family: var(--font-family-02);
+    font-size: 14px;
 }
 
 ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .ins-step_indicator {
@@ -1981,6 +2025,10 @@ ins-tag span.ins-tag {
 .logo {
     width: auto !important;
     max-height: 35px !important;
+}
+
+.logo-footer {
+    max-height: 70px !important;
 }
 
 .logo-accounts{
@@ -2606,7 +2654,7 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
 
 .signOutCustom .ins-button div .btn__label {
     font-size: 14px!important;
-    color: var(--font-color-body) !important;
+  
     font-weight: 400 !important;
 }
 
@@ -2614,14 +2662,24 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
     padding: 24px !important;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
 
 .signOutCustom button:hover {
-    background-color: #fff !important;
     color: var(--font-color-head) !important;
+    background-color: #F9FAFB !important;
 }
 
+@media screen and (max-width: 639px) { 
+    .signOutCustom .ins-button div .btn__label { 
+        color: var(--font-color-body) !important;
+    }
+
+    .signOutCustom button:hover {
+        background-color: #fff !important;
+    }
+}
 
 /********** [Footer] ***********/
 
@@ -3468,6 +3526,9 @@ footer .menu a {
 
 } 
 
+ins-table-row:hover:nth-child(odd)  {
+    background: none !important;
+}
 
 /* Media query for mobile view (639px or smaller) */
 @media (max-width: 639px) {
@@ -3516,7 +3577,9 @@ footer .menu a {
     ins-button.update-company-details-button button.blue.solid,
     .add_credit_card_details_container ins-button button.blue.solid,
     .empty-state ins-button button.blue.solid,
-    .insites-form-grid ins-button button.blue.solid{
+    .insites-form-grid ins-button button.blue.solid,
+    #submit-personal-details,#submit-company-details,
+    #submit-confirmation{
         width: 100%!important;
     }
 
@@ -4798,7 +4861,7 @@ Notyf
 /* Inactive Sidenav */
 .portal-sidebar .ins-accordion-link>.ins-accordion-link_link{
     color: var(--font-color-head);
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px; /* 150% */
@@ -4932,7 +4995,8 @@ Notyf
 }
 
 .overview-button{
-    text-align: right;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .overview-button ins-button button.ins-button.size--small span{
@@ -4942,6 +5006,10 @@ Notyf
     font-weight: 700!important;
     line-height: 120%!important;
     text-transform: none;
+}
+
+.overview-button ins-button button:hover {
+
 }
 
 ins-input-tel .ins-input-tel-wrap .column-3 {
@@ -4962,6 +5030,7 @@ ins-button button.ins-button span{
 .request-table-header ins-table-th{
     padding: 16px 24px;
     align-content: center;
+    color: #000000 !important;
 }
 
 .request-table-data ins-table-td{
@@ -5040,6 +5109,16 @@ ins-table-row:nth-child(even) {
     justify-content: space-between;
 }
 
+.card-options-list-payment-method ins-credit-card .ins-credit-card-compact-size 
+.ins-credit-card-main-wrap .ins-credit-card-wrap ins-radio {
+    display: none;
+}
+
+.card-options-list-payment-method ins-credit-card .ins-credit-card-compact-size 
+.ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap {
+    border-color: #DFDFDF !important;
+}
+
 .invoice-details .ins-form-field-wrap,
 .validate-credit-card .ins-credit-card-compact-size{
     margin-bottom: 0px!important;
@@ -5047,7 +5126,7 @@ ins-table-row:nth-child(even) {
 
 .p-body{
     color: #575757;
-    font-family: var(----font-family-02);
+    font-family: var(--font-family-02);
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -5098,7 +5177,7 @@ ins-table-row:nth-child(even) {
 }
 
 .payment-success-notif{
-    text-align: center;
+    text-align: left;
 }
 
 /* Account */
@@ -5157,6 +5236,15 @@ ins-table-row:nth-child(even) {
     border: 1px solid var(--color-ui-04);
 }
 
+.register-agree-checkbox .ins-checkbox-wrap .ins-checkbox-radio-label {
+    color: var(--font-color-body, #575757) !important;
+    font-family: var(--font-family-02, Archivo) !important;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
 .forgot-password .ins-form-field-wrap,
 .sign-in-field .ins-form-field-wrap{
     margin-bottom: 0px!important
@@ -5170,6 +5258,16 @@ ins-table-row:nth-child(even) {
     font-weight: 400;
     line-height: 150%;
 }
+
+.a-label-no-visit{
+    color: #3044FF !important;
+    font-family: var(--font-family-02);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
 
 /* Padding Custom */
 .pt-24{
@@ -5195,6 +5293,11 @@ ins-table-row:nth-child(even) {
     padding: 80px 24px;
     background: #fff;
 }
+
+#insBaseTable ins-table-th {
+    color: var(--font-color-head) !important;
+}
+
 
 /********** [Users Page] ***********/
 
@@ -5265,6 +5368,7 @@ ins-table-row:nth-child(even) {
 #add-user-modal .ins-modal-wrap.show-modal ins-card .ins-card-wrap {
     height: initial!important;
     border-radius: 24px!important;
+    box-shadow: none !important;
 }
 
 .addUserModal ins-card {

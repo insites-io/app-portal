@@ -38,8 +38,8 @@ metadata: {
         "card-body": "24"
       },
       {
-        "card-icon": "icon-task-list-1", 
-        "card-header": "Open Task", 
+        "card-icon": "icon-task-list", 
+        "card-header": "Open tasks", 
         "card-body": "12"
       },
       {
@@ -96,7 +96,7 @@ metadata: {
     <input type="hidden" id="per_page" value="{{ per_page }}">
     <input type="hidden" id="page_num" value="{{ page_num }}">
 
-    <h3 class="heading-3">Request</h3>
+    <h3 class="heading-3">Requests</h3>
     <div class="spacer"></div>
 
     <ins-loader
@@ -130,15 +130,15 @@ metadata: {
                     </ins-table-th>
 
                     <ins-table-th class="p-body-small-bold hide-for-small-only">
-                        Request Type
+                        Request type
                     </ins-table-th>
 
                     <ins-table-th class="p-body-small-bold hide-for-small-only">
                         Requested by
                     </ins-table-th>
 
-                    <ins-table-th class="p-body-small-bold hide-for-small-only">
-                        Date Requested
+                    <ins-table-th sortable="true" class="p-body-small-bold hide-for-small-only">
+                        Date requested
                     </ins-table-th>
                 </ins-table-row>
    
@@ -158,7 +158,8 @@ metadata: {
                         </ins-table-td>
 
                         <ins-table-td class="body-small p-body hide-for-small-only">
-                            {{ item.created_at | date: "%B %d, %Y %I:%M %p" }}
+                            {% function format_date = "modules/portal/date/format_readable_date", datetime: item.created_at %}
+                            {{ format_date }}
                         </ins-table-td>
 
                         <ins-table-td class="body-small p-body show-for-small-only">
@@ -174,7 +175,10 @@ metadata: {
                             <p class="body-small">{{ item.requested_by}}</p>
                             <div class="spacer"></div>
                             <p class="body-small-bold">Date requested</p>
-                            <p class="body-small">{{ item.created_at | date: "%B %d, %Y %I:%M %p" }}</p>
+                            <p class="body-small">
+                                {% function format_date = "modules/portal/date/format_readable_date", datetime: item.created_at %}
+                                {{ format_date }}
+                            </p>
                         </ins-accordion-item>
                         </ins-table-td>
 

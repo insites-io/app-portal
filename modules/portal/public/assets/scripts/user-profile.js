@@ -174,10 +174,14 @@ let UserProfileScript = (function () {
                 } else if (formId == 'user-password-form') {
                     // Validation and function for update of password
                     if (await this.validationForm(formElem)) {
-                        let confirm = await App.events.swal('warning',
+                        let confirm = await App.events.swal(
+                            'warning',
                             'Change your password?',
                             'You will be logged out after changing your password.',
-                            'Submit changes');
+                            'Submit changes',
+                            true,
+                            'icon-check-2',
+                            'change-pw-swal');
                         if (confirm) {
                             this.disableFormButtons(formElem);
                             customerProfileForm.updatePasswordBtn.loading = true;
@@ -287,12 +291,14 @@ let UserProfileScript = (function () {
         },
         events: {
             async removeCard(selectedEl) {
-                let confirm = await App.events.swal('warning',
+                let confirm = await App.events.swal(
+                    'warning',
                     'Remove Card?',
                     'Are you sure you want to remove this credit card?',
                     'Remove',
                     true,
-                    'icon-trash');
+                    'icon-trash',
+                    'remove-card-swal');
                 if (confirm) {
                     if (selectedEl.dataset.id) {
                         let response = await StripeModel.creditcard.removeCreditCard(selectedEl.dataset.id);

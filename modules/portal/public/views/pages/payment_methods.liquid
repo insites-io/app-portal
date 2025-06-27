@@ -75,7 +75,7 @@ authorization_policies:
             </div>
         </div>
         <div class="spacer x-large"></div>   
-        <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x">
+        <div id="card-options-list" class="grid-padding-x grid-padding-y grid-x card-options-list-payment-method">
             {%- for card in cards.results -%}
                 <div class="large-4 medium-6 small-12 cell card-options payment-methods-credit-card">
                     <ins-credit-card data-id="{{ card.id }}" 

@@ -29,11 +29,11 @@ metadata: {
 %}
 {%- comment -%}Payment Summary{%- endcomment -%}
 <div class="payment-summary">
-    <h5 class="heading-5">Payment Summary</h5>
+    <h5 class="heading-5">Payment summary</h5>
     <div class="spacer x-large"></div>
     <div class="grid-x">
         {% comment %} ? BILL AMOUNT {% endcomment %}
-        <div class="large-9 medium-7 small-9 p-body-bold">Bill Amount</div>
+        <div class="large-9 medium-7 small-9 p-body-bold">Bill amount</div>
         <div class="large-3 medium-5 small-3 p-body"><span id="charge-amount-summary">{{ amountPayable | default: "0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
    
         {% comment %} ? Discount {% endcomment %}
@@ -61,12 +61,12 @@ metadata: {
         <div class="cell spacer small"></div>
 
         {% comment %} ? SUB TOTAL {% endcomment %}
-        <div class="large-9 medium-7 small-9 p-body-bold">Sub Total</div>
+        <div class="large-9 medium-7 small-9 p-body-bold">Subtotal</div>
         <div class="large-3 medium-5 small-3 p-body"><span id="charge-subtotal-summary">{{ subTotal | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
         <div class="cell spacer small"></div>
 
         {% comment %} ? PROCESSING FEE {% endcomment %}
-        <div class="large-9 medium-7 small-9 p-body-bold">Processing Fee (1.7%)</div>
+        <div class="large-9 medium-7 small-9 p-body-bold">Processing fee (1.7%)</div>
         <div class="large-3 medium-5 small-3 p-body"><span id="cc-charge-summary">{{ ccSurcharge | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
         <div class="cell spacer small"></div>
 

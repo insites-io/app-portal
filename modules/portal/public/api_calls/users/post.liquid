@@ -8,10 +8,4 @@ request_type: POST
 request_headers: >
     {% include 'modules/website/api_headers' %}
 ---
-{
-    "first_name": "{{ data.first_name }} ",
-    "last_name": "{{ data.last_name }} ",
-    "email": "{{ data.email }}",
-    "work_phone_country_code": "{{ data.mobile_phone_country_code }}",
-    "work_phone_number": "{{ data.mobile_phone_number }}"
-}
+{{ data }}

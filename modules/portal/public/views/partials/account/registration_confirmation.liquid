@@ -31,7 +31,7 @@ metadata: {
         </div>
       </div>
       
-    <!-- Field: I agree and understand -->
+    <!-- Field: I agree and understand these terms -->
     <div class="column-1">
         <div class="list-field-wrap" 
             validate
@@ -41,10 +41,10 @@ metadata: {
             {%- if form.errors['properties.agreement'] != nil -%} has-error="true" {%- endif -%}>
             <label class="list-checkbox_label"></label>
             <div class="list-checkbox-options">
-                <ins-checkbox validate
+                <ins-checkbox validate class="register-agree-checkbox"
                     id="agreement"
-                    label="I agree and understand" 
-                    value="I agree and understand" 
+                    label="I agree and understand these terms" 
+                    value="I agree and understand these terms" 
                     name="{{ form.fields.properties.agreement.name }}">
                 </ins-checkbox>
             </div>
@@ -57,7 +57,7 @@ metadata: {
         <div class="grid-x">
             <div class="cell large-6 medium-6 small-12"><ins-button id="back-to-step-2" type="button" label="Back" icon="icon-arrow-back" outlined ></ins-button></div>
             <div class="cell show-for-small-only spacer"></div>
-            <div class="cell large-6 medium-6 small-12 text-right"><ins-button id="submit-confirmation" type="submit" label="Create account" icon-right="icon-arrow-forward" solid ></ins-button></div>
+            <div class="cell large-6 medium-6 small-12 align-buttons-right"><ins-button id="submit-confirmation" type="submit" label="Create account" icon-right="icon-arrow-forward" solid ></ins-button></div>
         </div>  
     </div>
 

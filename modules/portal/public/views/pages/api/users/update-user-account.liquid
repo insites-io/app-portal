@@ -10,6 +10,8 @@ metadata: {
 }
 --- 
 
+{% log context.params %}
+
 {% assign details = context.params %}
 {% comment %} ? Catch email with + {% endcomment %}
 {%- assign email = details.email | replace: " ", "+" -%}
@@ -59,17 +61,21 @@ metadata: {
     {% endif %}
 
     {% if is_email_found == true %}
+        {%- graphql user_details = "modules/portal/account/get_user_by_email" 
+        email: email
+        | dig: "items" | dig: "results" | first -%}
+
         {% comment %} ? UPDATE CRM {% endcomment %}
         {% parse_json update_crm_data %}
         {
+            "uuid": "{{ user_details.uuid }}",
             "id": "{{ details.user_id }}",
             "first_name": "{{ details.userFirstName }}",
             "last_name": "{{ details.userLastName }}",
             "email": "{{ email }}",
-            "company_uuid": "{{ details.company_uuid }}",
-            "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
-            "mobile_phone_number": "{{ details.mobile_phone_number }}",
-            "permission_level": "{{ details.permission_level }}",
+            "work_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
+            "work_phone_number": "{{ details.mobile_phone_number }}",
+            "permission_level": "{{ details.userPermission }}",
             "company": "{{ details.company }}"
         }
         {% endparse_json %}
@@ -91,12 +97,13 @@ metadata: {
             "last_name": "{{ details.userLastName }}",
             "email": "{{ email }}",
             "company_uuid": "{{ details.company_uuid }}",
-            "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
-            "mobile_phone_number": "{{ details.mobile_phone_number }}",
-            "permission_level": "{{ details.permission_level }}",
+            "work_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
+            "work_phone_number": "{{ details.mobile_phone_number }}",
+            "permission_level": "{{ details.userPermission }}",
             "company": "{{ details.company }}"
         }
         {% endparse_json %}
+
         {% comment %} ? ADD CRM FIRST {% endcomment %}
         {%  graphql add_crm_contact = 'modules/website/trigger_api_call', name: "modules/portal/add_crm_via_invite_user",
         data: add_crm_data
@@ -127,7 +134,7 @@ metadata: {
         "company": "{{ details.company }}",
         "password_token": "{{ user_data_default.password_token }}",
         "company_uuid": "{{ details.company_uuid }}",
-        "permission_level": "{{ details.permission_level }}"
+        "permission_level": "{{ details.userPermission }}"
     }
     {% endparse_json %}
     {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}

@@ -185,8 +185,9 @@ let App = (function () {
                     dismissible: true
                 })[type](message);
             },
-            async swal(type = "warning", title, message, label = "OK", showCancel = true, iconConfirm = "icon-check-2") {
+            async swal(type = "warning", title, message, label = "OK", showCancel = true, iconConfirm = "icon-check-2",customClass) {
                 let btnLabel = App.data.capitalize(label);
+                console.log(customClass)
                 return await new Promise(resolve => {
                     Swal.fire({
                         html: `
@@ -199,6 +200,7 @@ let App = (function () {
                         </ins-loader>`,
                         showCancelButton: showCancel,
                         customClass: {
+                            popup: customClass,
                             confirmButton:
                                 btnLabel.indexOf("Delete") >= 0 ||
                                     btnLabel.indexOf("Archive") >= 0 ||
