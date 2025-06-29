@@ -177,7 +177,7 @@ let App = (function () {
             // App.events.notyf('success', "Success message here");
             notyf(type, message) {
                 new Notyf({
-                    duration: 5000,
+                    duration: 50000,
                     position: {
                         x: 'right',
                         y: 'top'

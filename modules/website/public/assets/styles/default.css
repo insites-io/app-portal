@@ -3579,12 +3579,29 @@ ins-table-row:hover:nth-child(odd)  {
     .empty-state ins-button button.blue.solid,
     .insites-form-grid ins-button button.blue.solid,
     #submit-personal-details,#submit-company-details,
-    #submit-confirmation{
+    #submit-confirmation,
+    #payment-details #checkout-submit-btn,
+    #payment-details #checkout-submit-btn button,
+    .cancelModalButton,.inviteUserModalButton,
+    .cancelModalButton ins-button, .cancelModalButton ins-button button,
+    .inviteUserModalButton ins-button, .inviteUserModalButton ins-button button {
         width: 100%!important;
+    }
+
+    #payment-details #checkout-submit-btn {
+        margin-top: 40px;
+    }
+
+    #add-user-modal .addUserModalButton {
+        flex-direction: column-reverse !important;
     }
 
     .ins-step_details{
         margin: 0px 0px!important;
+    }
+
+    #add-user-modal .ins-modal-wrap.show-modal ins-card .ins-card-wrap {
+        max-width: 400px !important;
     }
 
     /* Portal - Mobile Responsive */
@@ -4730,6 +4747,13 @@ Notyf
     display: none;
 }
 
+@media only screen and (max-width: 639px) {
+    .notyf__toast {
+        width: 85%;
+        margin-top: 24px;
+    }
+}
+
 
 /** SYSTEM PAGES **/
 
@@ -5298,6 +5322,13 @@ ins-table-row:nth-child(even) {
     color: var(--font-color-head) !important;
 }
 
+/********** [Feedback] ***********/
+@media only screen and (max-width: 639px) { 
+    .feedback .insites-form-wrap .insites-form-grid .insites-form-buttons ins-button,
+    .feedback .insites-form-wrap .insites-form-grid .insites-form-buttons ins-button button {
+        width: 100%;
+    }
+}
 
 /********** [Users Page] ***********/
 
