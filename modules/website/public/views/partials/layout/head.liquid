@@ -1,14 +1,24 @@
+---
+metadata: {
+    partial_name: 'Website | Layout | Head'
+}
+---
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 <meta content="authenticity_token" name="csrf-param">
 <meta content="{{ context.authenticity_token }}" name="csrf-token">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-{%- include 'modules/insites_cms/seo' -%}
-{%- include 'modules/website/layout/technical_head' -%}
-{%- include 'modules/website/layout/pixel_tracking' -%}
+{% liquid
+    include 'modules/insites_cms/seo'
+    include 'modules/website/layout/technical-head/google-fonts'
+    include 'modules/website/layout/technical-head/favicons'
+    include 'modules/website/layout/technical-head/msapplication'
+    include 'modules/website/layout/technical-head/vendor-assets'
+    include 'modules/website/layout/technical-head/insites-assets'
+    include 'modules/website/layout/project_assets'
+    include 'modules/website/layout/pixel_tracking'
+%}
 
-{%- if context.environment == "staging" -%}
-<!-- end partial:layout/head  -->
-{%- endif -%}
 

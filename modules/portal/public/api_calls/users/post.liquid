@@ -1,0 +1,11 @@
+---
+name: add_crm_via_invite_user
+to: 'https://{{context.location.host}}/crm/api/v2/contacts'
+format: http
+enabled: true
+trigger_condition: true
+request_type: POST
+request_headers: >
+    {% include 'modules/website/api_headers' %}
+---
+{{ data }}

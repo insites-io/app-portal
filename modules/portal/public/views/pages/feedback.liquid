@@ -1,0 +1,58 @@
+---
+slug: feedback
+layout: modules/portal/portal_form
+searchable: false
+max_deep_level: 1
+metadata: {
+    "status": "published",
+    "page_name": "Feedback | Insites Portal",
+    "open_graph:url": "",
+    "open_graph:type": "",
+    "open_graph:image": "",
+    "open_graph:title": "",
+    "open_graph:description": "",
+    "open_graph:site_name": "",
+    "meta_title": "",
+    "page_title": "Feedback | Insites Portal",
+    "meta_description": "",
+    "canonical_url": "",
+    "is_visible_to_search_engines": true,
+    "sitemap_enabled": true,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "1", ## secondary order (ASC)
+    "sitemap_changefreq": "monthly",
+    "heading": ""
+}
+authorization_policies:
+  - modules/portal/is_user_logged_in
+---
+
+{% if context.params.message == "thank-you" %}
+    <div class="thank-you">
+        <div class="spacer xxxx-large hide-for-small-only"></div>
+            <div class="grid-x grid-padding-x text-center">
+                <div class="large-12 medium-12 small-12 cell">
+                    <div class="thank-you-img spacer">
+                        <i class="icon-number-of-checks"></i>
+                    </div>
+                    <h1 class="heading-1">Thank you!</h1>
+                    <div class="spacer"></div>
+                    <p class="subHeading">Your feedback has been submitted.</p>
+                </div>
+            </div>
+        <div class="spacer xxxx-large hide-for-small-only"></div>
+    </div>
+{% else %}
+     <div class="feedback">        
+        <div class="column-1">
+            <h2 class="heading-2">How are we doing?</h2>
+            <div class="spacer"></div>
+            <p class="p-dark">Please share how your experience with us is going. We’d love to hear from you.</p>
+        </div>
+        <div class="spacer xxx-large"></div>
+    
+        {% comment %} this form is from form builder {% endcomment %}
+        {%- include_form 'modules/ins_forms/client_feedback' -%}
+    </div>
+{% endif %}
+

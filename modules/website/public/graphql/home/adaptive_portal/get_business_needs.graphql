@@ -1,0 +1,40 @@
+query get_business_needs(
+    $page: Int = 1, 
+    $size: Int = 10,
+) {
+    items: records(
+        page: $page
+        per_page: $size
+        filter: {
+            table: { value: "modules/website/business_needs" }
+            deleted_at: { exists: false }
+            properties: [
+                { name: "enable", value_boolean: true }
+            ]
+        }
+        sort: [
+            { properties: { name: "order", order: ASC } }
+        ]
+    ) {
+        total_entries
+        total_pages
+        per_page
+        current_page
+        results {
+            id
+            updated_at
+            created_at
+            deleted_at
+            #Business needs Content
+            business_title: property(name: "business_title")
+            business_description: property(name: "business_description")
+            ## icon
+            icon: property_upload(name: "icon") {
+                url
+                file_name
+                extension
+                versions
+            }
+        }
+    }
+}

@@ -1,0 +1,64 @@
+---
+metadata: {
+    partial_name: 'Portal | Account | Registration confirmation'
+}
+---
+
+<div id="confirmation-container" class="form-group fadeIn hide" active>
+
+      <div class="column-1">
+        <div class="create-an-account-div">
+          <h4 class="heading-4">Create an account</h4>
+          <div class="spacer small"></div>
+          <p class="p-dark p-body">Sign up now to create your account and gain secure access to the portal.</p>
+          <div class="spacer x-large"></div>
+        </div>
+      </div> 
+
+      <div class="column-1" >
+        <div class="agreement-text scrollbar">
+          <h5 class="heading-5">Insites Service Level Agreement</h5>
+          <div class="spacer small"></div>
+          <p class="p-body p-dark">
+            This Insites Service Level Agreement ("SLA") is a policy governing the use of the Included Services (listed below) and applies separately to each account using the Included Services. In the event of a conflict between the terms of this SLA and the Insites Terms of Service or other agreement with us governing your use of our Services (the "Agreement"), the terms and conditions of this SLA apply, but only to the extent of such conflict. Capitalised terms used herein but not defined herein shall have the meanings set forth in the Agreement.This SLA applies to site instances that are on a billing plan that is paid for, ie: not free. SLA for Staging, QA, Development and other services that are not paid for, will not be covered by this SLA, unless a paid billing plan is applied to those environments.
+          </p>
+          <div class="spacer small"></div>
+          <h6 class="heading-6">General Service Commitment</h6>
+          <div class="spacer small"></div>
+          <p class="p-body p-dark">
+            Insites will use commercially reasonable efforts to ensure Production Server Endpoints for Amazon EC2, Amazon EBS, Amazon RDS, Elasticsearch and REDIS Clusters (Included Services) are each available with a Monthly Uptime Percentage of at least 99.9%, in each case during any monthly billing cycle (the "Service Commitment"). This is based on a 50% utilisation of services by the number of total users allocated for a given Hosting tier. EG: A hosting plan with capacity for 25,000 users should expect no service degradation for 12,000 active users.In the event of Customers requiring a spike in resources due to specific events, it will be required that Insites be informed of such event to ensure provisioning is made. In almost all cases, auto-scaling will account for load spikes and be charged as overages (as outlined in the Terms of Service) where required.In the event any of the Included Services do not meet the Service Commitment, you will be eligible to receive a Service Credit as described below.
+          </p>
+        </div>
+      </div>
+      
+    <!-- Field: I agree and understand these terms -->
+    <div class="column-1">
+        <div class="list-field-wrap" 
+            validate
+            data-type="array" 
+            data-ui="list_checkbox"  
+            data-name="{{ form.fields.properties.agreement.name }}"
+            {%- if form.errors['properties.agreement'] != nil -%} has-error="true" {%- endif -%}>
+            <label class="list-checkbox_label"></label>
+            <div class="list-checkbox-options">
+                <ins-checkbox validate class="register-agree-checkbox"
+                    id="agreement"
+                    label="I agree and understand these terms" 
+                    value="I agree and understand these terms" 
+                    name="{{ form.fields.properties.agreement.name }}">
+                </ins-checkbox>
+            </div>
+            <p class="list-checkbox_error">{{ form.errors['properties.agreement'] | default: 'Required' }}</p>
+        </div>
+    </div>   
+  
+    <div class="column-1">      
+        <div class="spacer small"></div>
+        <div class="grid-x">
+            <div class="cell large-6 medium-6 small-12"><ins-button id="back-to-step-2" type="button" label="Back" icon="icon-arrow-back" outlined ></ins-button></div>
+            <div class="cell show-for-small-only spacer"></div>
+            <div class="cell large-6 medium-6 small-12 align-buttons-right"><ins-button id="submit-confirmation" type="submit" label="Create account" icon-right="icon-arrow-forward" solid ></ins-button></div>
+        </div>  
+    </div>
+
+</div>    

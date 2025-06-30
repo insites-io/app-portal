@@ -1,0 +1,32 @@
+ {% assign now = 'now' | date: '%s' %}
+  {% assign created_unix = datetime | date: '%s' %}
+  {% assign diff = now | minus: created_unix %}
+  {% assign minutes = diff | divided_by: 60 %}
+  {% assign hours = diff | divided_by: 3600 %}
+  {% assign days = diff | divided_by: 86400 %}
+
+  {% if diff < 3600 %}
+    {% assign result = minutes | append: " minute" %}
+    {% if minutes != 1 %}
+      {% assign result = result | append: "s" %}
+    {% endif %}
+    {% assign result = result | append: " ago" %}
+  {% elsif diff < 86400 %}
+    {% assign result = hours | append: " hour" %}
+    {% if hours != 1 %}
+      {% assign result = result | append: "s" %}
+    {% endif %}
+    {% assign result = result | append: " ago" %}
+  {% else %}
+    {% assign result = days | append: " day" %}
+    {% if days != 1 %}
+      {% assign result = result | append: "s" %}
+    {% endif %}
+    {% assign result = result | append: " ago" %}
+  {% endif %}
+  
+  {% assign formatted_date =  datetime | date: "%Y-%m-%d %I:%M %p" %}
+
+  {% assign result = result | append: " (" | append: formatted_date | append: ")" %}
+
+  {% return result %}

@@ -1,0 +1,78 @@
+---
+metadata: {
+    layout_name: portal_default
+}
+---
+{%- comment -%} Used by the fragment cache in the layout {%- endcomment -%}
+    {%- include "modules/website/cache/layout_fragment_cache_key" -%}
+
+{% comment %} Layout for pages without form {% endcomment %}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
+    {%- cache head_key -%}
+        {% include 'modules/website/layout/head' %}
+    {%- endcache -%}
+</head>
+<body>
+    <div class="portal-wrap">
+        {%- capture header -%} {{ context.current_user.id }}-{{ context.exports.layout_cache_key.cache_key }}-header {%- endcapture -%}
+        {% cache header %}
+            {% include 'modules/website/layout/header' %} 
+        {% endcache %}
+      
+        {%- capture header-mobile -%} {{ context.current_user.id }}-{{ context.exports.layout_cache_key.cache_key }}-header-mobile {%- endcapture -%}
+        {% cache header-mobile %}
+            {% include 'modules/website/layout/header_mobile' %}
+        {% endcache %}
+
+        <div class="grid-x gutter-medium grid-padding-x">
+            {% comment %} ? Desktop Sidebar {% endcomment %}
+            <div class="large-3 medium-5 small-12 cell bg-color-ui-02 sidebar-padding hide-for-small-only">
+                {% include 'modules/portal/layouts/sidebar' %}
+            </div>
+            {% comment %} ? Mobile Sidebar {% endcomment %}
+            <div class="large-3 medium-5 small-12 bg-color-ui-02 show-for-small-only">
+                {% include 'modules/portal/layouts/sidebar' %}
+            </div>
+
+            {% comment %} ? Content Layout {% endcomment %}
+            <div class="large-9 medium-7 small-12 bg-color-ui-01">
+                <div class="main-content">
+                    {{ content_for_layout }}
+                </div>
+            </div>
+        </div>       
+    </div>
+    
+    {%- capture foot_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-footer_section"}} {%- endcapture -%}
+    {%- cache foot_key -%} 
+        {% include 'modules/website/layout/footer' %}
+    {%- endcache -%}
+
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+        <script>
+            //Trigger a click event on a child <a> element when clicking anywhere inside an element '.product-cards .cell' 
+            //(except for ins-buttonn element and its children)
+            var productWrappers = document.querySelectorAll('.product-cards .cell');
+            productWrappers = (productWrappers.length > 0)? productWrappers : document.querySelectorAll('.purchase-again .grid-x');
+            if(productWrappers.length > 0){
+                productWrappers.forEach(wrapper => {
+                    wrapper.addEventListener('click', function (event) {
+                        if (!event.target.closest('ins-button')) {
+                            const link = this.querySelector('a');
+                            if (link) {
+                                link.click();
+                            }
+                        }
+                    });
+                });
+            }
+        </script>
+    {% endif %}
+
+</body>
+</html>

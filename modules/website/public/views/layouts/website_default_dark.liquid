@@ -1,0 +1,61 @@
+---
+metadata: {
+    layout_name: website_default_dark
+}
+---
+{%- comment -%} Used by the fragment cache in the layout {%- endcomment -%}
+    {%- include "modules/website/cache/layout_fragment_cache_key" -%}
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
+    {%- cache head_key -%}
+        {% include 'modules/website/layout/head' %}
+    {%- endcache -%}
+</head>
+<body>
+    <div class="main-wrap">      
+        {%- capture header -%} {{ context.current_user.id }}-{{ context.exports.layout_cache_key.cache_key }}-header {%- endcapture -%}
+        {% cache header %}
+            {% include 'modules/website/layout/header', dark: true %} 
+        {% endcache %}
+
+        {%- capture header-mobile -%} {{ context.current_user.id }}-{{ context.exports.layout_cache_key.cache_key }}-header-mobile {%- endcapture -%}
+        {% cache header-mobile %}
+            {% include 'modules/website/layout/header_mobile' %}
+        {% endcache %}
+
+        {{ content_for_layout }}
+
+        {% comment %} ? For ecommerce cart drawer {% endcomment %}
+        {% if context.constants.ecommerce_addon == 'true' %}
+            {% include 'modules/ecommerce/carts/cart_drawer' %} 
+            <script>
+                //Trigger a click event on a child <a> element when clicking anywhere inside an element '.product-cards .cell' 
+                //(except for ins-buttonn element and its children)
+                const productWrappers = document.querySelectorAll('.product-cards .cell');
+                if(productWrappers.length > 0){
+                    productWrappers.forEach(wrapper => {
+                        wrapper.addEventListener('click', function (event) {
+                            if (!event.target.closest('ins-button')) {
+                                const link = this.querySelector('a');
+                                if (link) {
+                                    link.click();
+                                }
+                            }
+                        });
+                    });
+                }
+            </script>
+        {% endif %}
+    </div>
+    
+    {%- capture foot_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-footer_section"}} {%- endcapture -%}
+    {%- cache foot_key -%} 
+        {% include 'modules/website/layout/footer' %}
+    {%- endcache -%}
+
+
+</body>
+</html>

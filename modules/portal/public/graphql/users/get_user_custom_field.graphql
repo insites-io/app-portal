@@ -1,0 +1,31 @@
+query get_user_custom_field(
+    $contact_uuid: String
+) {
+  records(
+    per_page: 11
+    filter: {
+      table: { 
+        value: "modules/ins_core/crm_contact_custom_field"      
+      }
+      properties: [
+        { name: "contact_uuid", value: $contact_uuid }
+      ]
+    },
+    sort: [
+            { 
+              updated_at: {order: DESC}
+            }
+        ]
+  ){
+    total_entries
+    per_page
+    results {
+      table
+        id
+      user_id
+      uuid: property(name: "uuid")
+      order_status: property(name: "order_status")
+      properties
+    }
+  }
+}

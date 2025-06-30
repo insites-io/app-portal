@@ -1,3 +1,9 @@
+---
+metadata: {
+    partial_name: 'Website | Map | Google map static'
+}
+---
+
 {%- capture 'map_style' -%}
 style=element:labels.text.fill%7Ccolor:0x333333%7Clightness:40&
 style=feature:water%7Celement:geometry%7Ccolor:0xe9e9e9%7Clightness:17&
@@ -28,8 +34,8 @@ style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xfefefe%7Clightn
 %}
 
 {%- assign full_map_url = base_map_url 
-    | append: "?center=Australia" | append: address 
-    | append: "&zoom=15&size=390x300&maptype=roadmap&" 
+    | append: "?center=" | append: address 
+    | append: "&zoom=15&size=500x500&scale=2&maptype=roadmap&" 
     | append: marker_position 
     | append: "&key=" | append: key 
     | append: "&" | append: map_style

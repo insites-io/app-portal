@@ -1,0 +1,18 @@
+---
+name: has_client_profile
+metadata: {
+    auth_policy_name: "Has Client Profile"
+}
+---
+{%  liquid
+    graphql data = 'modules/portal/account/get_current_user'
+
+    session user_uuid = data.current_user.external_id
+
+    if data.current_user.portal == blank
+        graphql logout = 'modules/portal/session/delete_current_session'
+        echo true    
+    else 
+        echo true    
+    endif
+%}

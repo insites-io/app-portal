@@ -1,32 +1,41 @@
+---
+metadata: {
+    partial_name: 'Website | Layout | Header'
+}
+---
+
 {% comment %} ? GET GLOBAL CONTENT {% endcomment %}
 {%- include "modules/insites_cms/globals" -%}
+{%- assign global = context.exports.global -%}
 
-{%- if context.environment == "staging" -%}
-{% comment %} ? start partial:layout/header {% endcomment %}
-{%- endif -%}
-
-<header class="navigation-04 header colorBlack" data-test="main-header" id="main-header">
-  <div class="wrapper">
-    <div class="header-top-bar grid-container grid-x align-middle">
-      <div class="large-2 medium-3 small-9 cell">
+<header  id="main-header" 
+  {%- if dark == blank -%} class="light-header {%-  if border == true -%} border-bottom-nav  {%- endif -%}" {%- else -%} class="no-light-header" {%- endif -%}
+  
+  >
+  <div id="mainHeaderWrapper" class="wrapper">
+    <div class=" grid-container grid-x align-middle">
+      <div class="large-1 medium-3 small-7 cell">
         <a href="/">
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
-          {% if context.exports.global.company_logo == nil or context.exports.global.company_logo contains "client-logo.png" %}
+          {% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
               {% comment %} ? DEFAULT {% endcomment %}
-              <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo">
+              <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo" height="56" width="119">
           {% else %}
               {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
-              <img class="logo" src="{{ context.exports.global.company_logo }}" alt="Logo">
+              {% if dark == blank %} 
+                  <img class="logo" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
+                {% else %}
+                  <img class="logo" src="{{ global.alternate_company_logo }}" alt="Logo" height="56" width="119">
+              {% endif %}
           {% endif %}
         </a>
       </div>
-      <div class="large-1 medium-3 small-0"></div>
 
       {%- assign menus = '[]' | parse_json -%}
       {%- graphql get_menu = 'modules/website/menu/get_parent_menu' | dig: 'items', 'results'-%}
 
       {% assign menu_data = get_menu | parse_json %}
-
+    
       {% for menu_item in menu_data %}
         {%- assign parent = '{}' | parse_json -%}
         {%- assign parent = parent | add_hash_key: "label", menu_item.label -%}
@@ -36,96 +45,158 @@
         {%- assign parent = parent | add_hash_key: "child", get_child_menu -%}
         {%- assign menus = menus | add_to_array: parent -%}
       {% endfor %}
- 
-      {% comment %} ? FOR CHECKING ONLY {% endcomment %}
-      <input name="get_menu" type="hidden" hidden value="{{ get_menu }}">
-      <input name="get_child menu" type="hidden" hidden value="{{ menus }}">
-      {%- graphql get_menu_test = 'modules/website/menu/get_parent_menu' -%}
-  
-      <div class="show-for-large large-9 medium-6 small-12 cell text-right">
-        <div class="header-links">
 
-        {% for menu in menus %}
+      {%- graphql get_features = 'modules/website/features/get_features' -%}
+      {%- assign features =  get_features | dig: 'items', 'results'  -%}
 
-          {%- if menu.child.size > 0 -%}
-            <a class="" href="/{{ menu.slug }}">
-            <ins-dropdown 
-              label="{{ menu.label }}"
-              class="customNav">
-                {%- assign res_services = menu.child -%}
-                
-                {% for item in res_services %}
-                  <ins-dropdown-item
-                    link="/{{ menu.slug }}/{{ item.slug }}"
-                    label="{{ item.label }}">
-                  </ins-dropdown-item>
-                {% endfor %} 
-            </ins-dropdown>
-          </a>
-          {% else %}
- 
-          <a class="colorBlack" href="/{{ menu.slug }}">
-            {{ menu.label }}
-          </a>
+      {% comment %} Get Ecommerce Cart Count {% endcomment %}
+      {% if context.constants.ecommerce_addon == 'true' %}        
+        {%  liquid
+              function user_uuid = 'modules/ecommerce/user/get_user_uuid'
+              if user_uuid and user_uuid != ''
+                graphql cart_items = 'modules/ecommerce/carts/get_cart', contact_uuid: user_uuid | dig: 'items','results' | first | dig: 'cart_items'
+              endif
+        %}  
+      {% endif %}
+
+      <div class="large-11 medium-3 small-8 cell hide-nav-medium">
+        <div class="navlinks">
+
+          {% if context.constants.ecommerce_addon == 'true' %}
+            <ins-button id="mega-menu-btn" label="Shop" icon-right="icon-angle-down"></ins-button>
           {% endif %}
-         
-        {% endfor %}
 
-      
-
-          {% if context.current_user == nil %}
-         
-    
-        </div>
-              <a class="" href="/sign-in">           
-                <ins-button label="SIGN IN" icon="icon-user"></ins-button>
-              </a>
-              
-              <a href="/register">
-                <ins-button class="btnMain" solid label="Register">
-                </ins-button>
-              </a>
-          {% else %}        
-          {% if context.current_user != nil %}
-            {%- graphql user_with_token = 'modules/client/account/get_user_with_password_token', email: context.current_user.email | dig: 'users','results' | first -%}
-            {%- assign user_data_default = user_with_token.default | first -%}
-
-          {% endif %}
-              <a class="color-main color-font-head" href=""> 
-                <ins-dropdown 
-                label="{{ context.current_user.first_name }} {{ context.current_user.last_name }}"
-                class="profileNav">
+          {% for menu in menus %}
+            {%- if menu.slug == "features" -%}
+              <a class="nav-dropdown-link" href="/{{menu.slug}}">
+                <ins-dropdown label="{{menu.label}}">
+                  {% for item in features %}
                     <ins-dropdown-item
-                      link="/my-details"
-                      label="My Details">
+                      link="/{{menu.slug}}/{{ item.slug }}"
+                      label="{{ item.card_title }}">
                     </ins-dropdown-item>
-                
-                    <ins-dropdown-item
-                      link="/generate-password-token?email={{ user_with_token.email | url_encode }}"
-                      label="Change Password">
-                    </ins-dropdown-item>
-      
-                    <ins-dropdown-item
-                      link=""
-                      label="">
-                      {% include_form 'modules/client/sign_out' %}
-                    </ins-dropdown-item>
+                  {% endfor %} 
                 </ins-dropdown>
               </a>
-            </div>
-          {% endif %}
+            {% else %}
+              <a href="/{{menu.slug}}">
+                {{menu.label}}
+              </a>
+            {% endif %}
+          {% endfor %}
 
+          {% comment %} Eccomerce Cart Icon {% endcomment %}          
+          {% if context.constants.ecommerce_addon == 'true' %}      
+            <a role="button" onclick="openDrawer()" class="cart-icon">
+              <i class="icon-shopping-cart"></i>
+              <span class="cart-count 
+                {% if cart_items == null or cart_items.size == 0 %}hide
+                {% elsif cart_items.size > 9 %}two-digits-count
+                {% endif %}">{{ cart_items.size | default: 0 }}</span>
+            </a>    
+            <span class="vertical-line"></span>            
+          {% endif %}
+      
+          {% comment %} Logged user dropdown links {% endcomment %}
+          {% function has_profile = "modules/website/layout/check_if_user_has_profile" %}
+          {% if has_profile %}        
+            {%- graphql user_with_token = 'modules/portal/account/get_user_with_password_token', email: context.current_user.email | dig: 'users','results' | first -%}
+                            
+            <ins-dropdown 
+              label="{{ context.current_user.first_name }} {{ context.current_user.last_name }}"
+              class="profileNav">
+
+              <ins-dropdown-item
+                link="/my-details"
+                label="My details">
+              </ins-dropdown-item>
+
+              {% if context.constants.ecommerce_addon == 'true' %}
+              <ins-dropdown-item
+                link="/order-history"
+                label="Order history">
+              </ins-dropdown-item>
+              {% endif %}
+            
+              <ins-dropdown-item
+                link="/generate-password-token?email={{ user_with_token.email | url_encode }}"
+                label="Change password">
+              </ins-dropdown-item>
+
+              <ins-dropdown-item link="" label="">
+                {% include_form 'modules/portal/sign_out' %}
+              </ins-dropdown-item>
+
+            </ins-dropdown>
+          {% else %}
+            <a class="nav-sign-in-btn" href="/sign-in">Sign in</a>
+            <a class="nav-register-btn" href="/create-account">Create account</a>
+          {% endif %} 
+          </div>
       </div>
-      <div class="hide-for-large mobile-menu-toggle large-0 medium-6 small-3 cell vertical-align-middle align-right">
+
+      
+
+      <div class="mobile-menu-toggle large-0 medium-3 small-5 cell ">
+
+        {% comment %} Sign in {% endcomment %}
+        {% if context.current_user == blank %}
+          <a class="nav-sign-in-btn" href="/sign-in">Sign in</a>
+        {% endif %}
+
+        {% comment %} Eccomerce Cart Icon {% endcomment %}          
+        {% if context.constants.ecommerce_addon == 'true' %}      
+          <a role="button" onclick="openDrawer()" class="cart-icon">
+            <i class="icon-shopping-cart"></i>
+            <span class="cart-count 
+              {% if cart_items == null or cart_items.size == 0 %}hide
+              {% elsif cart_items.size > 9 %}two-digits-count
+              {% endif %}">{{ cart_items.size | default: 0 }}</span>
+          </a>       
+        {% endif %}
+
+        {% comment %} Mobile Menu {% endcomment %}
         <div id="mobile-menu-btn" class="icon-menu-1"></div>
       </div>
+
+      
     </div>
   </div>
 </header>
 
+{% if context.constants.ecommerce_addon == 'true' %}
+  {% include 'modules/ecommerce/menu/mega_menu' %}
+{% endif %}
 
+{% if context.constants.ecommerce_addon == 'true' %}
+  <script src="{{ 'modules/ecommerce/scripts/mega-menu-close.js' | asset_url }}"></script>
+<script>
+  const guestUserEl = document.getElementById('guest-user-flag'); 
 
-{%- if context.environment == "staging" -%}
-{% comment %} ? end partial:layout/header {% endcomment %}
-{%- endif -%}
+  if (guestUserEl && window.localStorage) {
+    const guestUserFlag = guestUserEl.value
+
+    if (guestUserFlag === 'true') {
+      // Get Cart Count from LocalStorage
+      const guest_cart = localStorage.getItem('carts');
+
+      if (guest_cart) {
+        const parsedCart = JSON.parse(guest_cart);
+        const cartCount = parsedCart.length;
+
+        // Update the cart count dynamically in the HTML
+        const cartCountElement = document.getElementById('cart-count');
+        if (cartCountElement) {
+          cartCountElement.innerHTML = cartCount; // Update the displayed cart count
+          if (cartCount === 0) {
+            cartCountElement.classList.add('hide'); 
+          } else {
+            cartCountElement.classList.remove('hide'); 
+          }
+        }
+      }
+    } 
+  }  
+</script>
+{% endif %}
 

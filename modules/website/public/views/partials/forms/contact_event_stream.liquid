@@ -1,0 +1,60 @@
+---
+metadata: {
+    partial_name: 'Website | Forms | Contact Event Steam'
+}
+---
+{% assign props = form.properties | json %}
+{% assign phone = "{{ props.mobile_phone }}" %}
+{% assign parts = phone | split: ' ' %}
+{% assign area_code = parts[0] %}
+{% assign phone_number = parts[1] %}
+
+{%- parse_json new_user_data -%}
+{
+    "email": "{{ form.properties.email }}",
+    "first_name": "{{ form.properties.first_name }}",
+    "last_name": "{{ form.properties.last_name }}",
+    "mobile_phone_country_code": "{{ area_code }}",
+    "mobile_phone_number": "{{ phone_number }}"
+}
+{%- endparse_json -%}
+
+{% graphql new_user = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact', data: new_user_data | dig: 'items','response','body' | parse_json %} 
+{%- graphql get_contact_us_data = "modules/portal/contact_us/get_contact_us_data", id: form.id | dig: "items", "results" | first -%}
+
+{% comment %} Create Event Stream {% endcomment %}
+{%- graphql user = "modules/portal/account/get_user_by_email" 
+email: form.properties.email 
+| dig: "items" | dig: "results" | first -%}
+{%- assign crm_contact = user.crm_contact | first -%}
+{%- assign current_user_name = user.first_name | append: ' ' | append: user.last_name | default: user.email -%}
+{%- capture description -%}
+    <a target="_blank" href="/admin/insites/#/crm/contacts/{{ user.id }}">{{ current_user_name| default: user.email }}</a> 
+    sent an enquiry
+{%- endcapture -%}
+
+{%- assign payload = '{}' | parse_json -%}
+{%- assign payload = payload | add_hash_key: "description", description -%}
+{%- assign payload = payload | add_hash_key: "font_icon", "icon-message-square" -%}
+{%- assign payload = payload | add_hash_key: "font_icon_color", "#E1B000" -%}
+
+{% capture log_info -%}
+    {
+        "contact": {
+            "id": "{{ user.id }}",
+            "email": "{{ user.email }}",
+            "first_name": "{{ user.first_name }}",
+            "last_name": "{{ user.last_name }}"
+        },
+        "inquiry": {
+            "message": "{{ form.properties.message |  default: "" }}",
+            "attachment": "{{ get_contact_us_data.document.url |  default: "" }}"
+        },
+        "contact_uuid": "{{ user.uuid }}"
+    }
+{%- endcapture %}
+
+{%- assign log_info_json = log_info | parse_json -%}
+{%- assign info = payload | add_hash_key: "log", log_info_json -%}
+{% include 'modules/portal/events/log_event', info %}
+ 

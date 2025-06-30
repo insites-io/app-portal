@@ -1,0 +1,33 @@
+---
+metadata: {
+    partial_name: 'Website | Layout | Placeholder image'
+}
+---
+
+
+{%- comment -%}
+Placeholder for image content
+- handly code block to use if there's no images yet provided for the projet
+- accepts variable 'size' to control the padding [medium, large]
+- ie. {%- include 'modules/website/content/placeholder_image', size: 'large' -%}
+Note: This is use in addon template like Ecommerce
+{%- endcomment -%}
+
+<div class="placeholder-img vertical-align-middle">
+  <div>
+    {%- if size == 'large' and size != 'medium' -%}
+      <div class="spacer section"></div>
+    {%- endif -%}
+    {%- if size == 'large' or size == 'medium' -%}
+      <div class="spacer x-large"></div>
+    {%- endif -%}
+    {% comment %} placeholder: icon-panorame {% endcomment %}
+    <i class="icon-panorame"></i>
+    {%- if size == 'large' or size == 'medium' -%}
+      <div class="spacer x-large"></div>
+    {%- endif -%}
+    {%- if size == 'large' and size != 'medium' -%}
+      <div class="spacer section"></div>
+    {%- endif -%}
+  </div>
+</div>

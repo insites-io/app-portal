@@ -1,20 +1,20 @@
 ---
 slug: /
-layout: modules/website/default
+layout: modules/website/website_default_dark
 searchable: true
 max_deep_level: 1
 metadata: {
     "status": "published",
-    "page_name": "Client Portal",
+    "page_name": "Insites Website & Portal",
     "open_graph:url": "",
     "open_graph:type": "",
     "open_graph:image": "",
-    "open_graph:title": "Client Portal",
-    "open_graph:description": "Client Portal",
+    "open_graph:title": "Insites Website & Portal",
+    "open_graph:description": "Adaptive Website & Portal to grow with your business.",
     "open_graph:site_name": "",
-    "meta_title": "Client Portal",
-    "page_title": "Client Portal",
-    "meta_description": "Client Portal",
+    "meta_title": "Website & Portal for any business | Insites",
+    "page_title": "Insites Website & Portal",
+    "meta_description": "Adaptive Website & Portal to grow with your business.",
     "canonical_url": "",
     "is_visible_to_search_engines": true,
     "sitemap_enabled": true,
@@ -22,20 +22,37 @@ metadata: {
     "sitemap_order": "1", ## secondary order (ASC)
     "sitemap_changefreq": "monthly"
 }
+dynamic_cache:
+    layout: true
+    key: >
+        {%- parse_json models -%}
+        [
+          "modules/website/business_needs",
+          "modules/website/features",
+          "modules/website/testimonials"
+        ]
+        {%- endparse_json -%}
+        {%- include "modules/website/cache/generate_cache_key", models: models -%}
+        {{context.current_user.id}}
+        {{context.device.device_type}}
 ---
 {%comment%} get device type {%endcomment%}
 {%- assign device_used = context.device.device_type -%}
 
-{% include 'modules/website/content/index/carousel' %} 
-{% include 'modules/website/content/index/overlap_section' %} 
+{% include 'modules/website/content/index/hero_banner' %} 
 {% include 'modules/website/content/index/client_section' %}
-{% include 'modules/website/content/index/testimonials' %} 
 
-{%- if context.environment == "staging" -%}
-    <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.js' | asset_url }}" >
-    <script src="{{ 'modules/website/scripts/app.js' | asset_url }}"></script>
-{% else %}
-    <!-- minified --> 
-    <link rel="preload" as="script" href="{{ 'modules/website/scripts/app.min.js' | asset_url }}" >
-    <script src="{{ 'modules/website/scripts/app.min.js' | asset_url }}"></script>
-{%- endif -%}
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/new_arrivals' %} 
+{% endif %}
+
+{% include 'modules/website/content/index/adaptive_protal_section' %}
+{% include 'modules/website/content/index/unlock_efficiency_section' %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/whats_hot' %}
+{% endif %}
+
+{% include 'modules/website/content/index/testimonials_slider' %}
+
+

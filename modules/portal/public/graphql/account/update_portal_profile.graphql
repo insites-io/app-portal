@@ -1,0 +1,27 @@
+mutation update_portal_profile(
+  $id: ID!
+  $permission_level: String
+  $invitation_status: String!
+  $is_enabled: Boolean
+) {
+  user_update(
+    id: $id
+    user: {
+      profiles: [
+        {
+          name: "modules/portal/portal",
+          values: {
+            properties: [
+                { name: "primary_account_holder", value_boolean: false }
+                { name: "permission_level", value: $permission_level }
+                { name: "is_enabled", value_boolean: $is_enabled }
+                { name: "invitation_status", value: $invitation_status }
+            ]
+          }
+        }
+      ]
+    }
+  ) {
+    id
+  }
+}

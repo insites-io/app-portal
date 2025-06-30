@@ -1,0 +1,67 @@
+query get_non_pah_users(
+    $page: Int = 1, 
+    $size: Int = 9,
+    $company_uuid: String,
+    $search: String
+
+) {
+  items: users(
+    page: $page
+    per_page: $size
+    filter: {
+        deleted_at: { exists:false }
+        or: [
+            { email: { contains: $search } }
+            { first_name: { contains: $search } }
+            { last_name: { contains: $search } }
+            { name: { contains: $search } }
+        ]
+        profiles: [
+          {
+            name: "modules/insites_core/crm_contact"
+            properties:[
+                  { name: "company_uuid", value: $company_uuid }
+                  { name: "is_archived", value_boolean: false }
+              ]
+          }
+          {
+            name: "modules/portal/portal"
+            properties:[
+                  { name: "primary_account_holder", not_value_boolean: true }
+              ]
+          }
+        ]
+    }
+    sort:{
+        first_name:{ order:ASC }
+    }
+  ){
+    total_entries
+    results{
+        id
+        email
+        first_name
+        last_name
+        external_id      
+        deleted_at
+        created_at
+
+        #Profiles
+        contact: profiles(profile_type: "modules/insites_core/crm_contact"){
+            id
+            profile_type
+            company_uuid:property(name:"company_uuid")
+            is_archived:property_boolean(name:"is_archived")
+        }
+
+   		portal: profiles(profile_type: "modules/portal/portal"){
+            id
+            profile_type
+ 			is_enabled:property(name:"is_enabled")
+            permission_level:property(name:"permission_level")
+            verification_token:property(name:"verification_token")
+            primary_account_holder:property_boolean(name:"primary_account_holder")
+        }
+    }
+  }
+} 

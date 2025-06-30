@@ -1,0 +1,30 @@
+---
+metadata: {
+    partial_name: "Website | Index | Adaptive Portal",
+}
+---
+<div class="adaptive-portal-section">
+        <div class="adaptive-portal-banner">
+            <img class="adaptive-portal-img" loading="lazy" width="640" height="360" alt="Apative portal image" src="{{ 'modules/website/images/home/adaptive_portal.webp' | asset_url }} ">         
+            <div class="adaptive-portal-info">
+                <div class="adaptive-portal-cta">
+                    <div class="spacer xxxx-large"></div>
+                    <h2>Adaptive portal for any business need</h2>
+                    <div class="spacer medium"></div>
+                    <p>This portal is super flexible and can grow with you, making everything run smoother and more efficiently in all kinds of industries.</p>
+                    <div class="spacer medium"></div>
+                    <a href="/contact-us">
+                    <ins-button type="button" label="Get in touch" icon-right="icon-arrow-forward" class="m-0" solid></ins-button>
+                    </a>
+                </div>
+            </div>
+        </div>    
+
+        {%- graphql get_business_needs = 'modules/website/home/adaptive_portal/get_business_needs' -%}
+
+        {% include 'modules/website/content/components/dynamic_slider', data: get_business_needs, record_to_show: 4 %}
+</div>
+
+
+
+

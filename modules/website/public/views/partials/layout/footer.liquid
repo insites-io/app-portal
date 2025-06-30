@@ -1,3 +1,12 @@
+---
+metadata: {
+    partial_name: 'Website | Layout | Footer'
+}
+---
+
+{% comment %} ? GET GLOBAL CONTENT {% endcomment %}
+{%- include "modules/insites_cms/globals" -%}
+
 <hr>
 <footer class="blocks-footer-05 footer bg-color-ui-01">
     <div class="spacer xxxx-large"></div>
@@ -6,14 +15,9 @@
             <div class="grid-x grid-padding-x gutter-medium">
                 <div class="large-4 medium-6 small-12 cell text-left">
                     <div class="img-logo img-full">
-                        {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
-                        {% if context.exports.global.company_logo == nil or context.exports.global.company_logo contains "client-logo.png" %}
-                            {% comment %} ? DEFAULT {% endcomment %}
-                            <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo">
-                        {% else %}
-                            {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
-                            <img class="logo" src="{{ context.exports.global.company_logo }}" alt="Logo">
-                        {% endif %}
+                       
+                            <img class="logo logo-footer" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo" height="56" width="119">
+                       
                     </div>
                 </div>
                 <div class="small-12 cell spacer xxx-large hide-for-medium"></div>
@@ -22,15 +26,15 @@
                 <div class="large-2 medium-6 small-12 cell">
                     <ul class="vertical menu">
                         <li>
-                            <p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">Quick Links</p>
+                            <p class="footer-link-main-label" data-test="">Quick links</p>
                             <div class="spacer"></div>
                         </li>
                         <li class="">
-                            <a class="footer-links color-font-head" data-test="" href="/about">About</a>
+                            <a class="footer-links color-font-head" data-test="" href="/about-us">About us</a>
                             <div class="spacer small"></div>
                         </li>
                         <li>
-                            <a class="footer-links color-font-head" data-test="" href="/faqs">FAQs</a>
+                            <a class="footer-links color-font-head" data-test="" href="/faqs">FAQ</a>
                             <div class="spacer small"></div>
                         </li>
                         <li>
@@ -38,7 +42,7 @@
                             <div class="spacer small"></div>
                         </li>
                         <li>
-                            <a class="footer-links color-font-head" data-test="" href="/contact">Contact</a>
+                            <a class="footer-links color-font-head" data-test="" href="/contact-us">Contact</a>
                             <div class="spacer small"></div>
                         </li>
                     </ul>
@@ -46,22 +50,19 @@
     
                 <!-- SERVICES -->
                 <div class="large-3 medium-6 small-12 cell">
-                    <div class="spacer show-for-small-only"></div>
-                    <div class="spacer xxxx-large show-for-small-only"></div>
-                    
+                    <div class="spacer x-large show-for-small-only"></div>
+
+                    {%- graphql get_features = 'modules/website/features/get_features' -%}
+                    {%- assign features =  get_features | dig: 'items', 'results'  -%}
+
                     <ul class="vertical menu">
                         <li>
-                            <p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">Services</p>
+                            <p class="footer-link-main-label" data-test="">Features</p>
                             <div class="spacer"></div>
-                        </li>
-                        {% comment %} connect services to graphql {% endcomment %}
-                        {%- graphql get_services = 'modules/website/services/get_services' -%}
-                        {% comment %} assign var to fetch the result {% endcomment %}
-                        {%- assign res_services = get_services | dig: 'items', 'results' -%}
-                        
-                        {% for item in res_services %}
+                        </li>   
+                        {% for item in features %}
                           <li>
-                              <a href="/services/{{ item.slug }}" class="footer-links color-font-head" data-test="">{{ item.service_name }}</a>
+                              <a href="/features/{{ item.slug }}" class="footer-links color-font-head" data-test="">{{ item.card_title }}</a>
                               <div class="spacer small"></div>
                           </li>
                         {% endfor %}
@@ -71,11 +72,10 @@
 
                 <!-- EXTERNAL LINKS -->
                 <div class="large-2 medium-6 small-12 cell">
-                    <div class="spacer show-for-small-only"></div>
-                    <div class="spacer xxxx-large show-for-small-only"></div>
+                    <div class="spacer x-large show-for-small-only"></div>
                     
                     <ul class="vertical menu">
-                    <li><p class="navigation-level-1 color-font-head subHeading-2 colorBlack" data-test="">External Links</p>
+                    <li><p class="footer-link-main-label" data-test="">External links</p>
                         <div class="spacer"></div>
                     </li>
                     <li>
@@ -106,30 +106,29 @@
 
     <div class="spacer xxxx-large show-for-medium"></div>
     <div class="spacer x-large hide-for-medium"></div>
-
     <div class="wrapper bottom-footer footerSubItems" >
         <div class="grid-container">
             <hr>
             <div class="spacer"></div>
             <div class="grid-x align-justify">
-                <div class="large-6 medium-6 small-12 cell medium-text-left text-center grid-x grid-margin-x">
+                <div class="large-6 medium-6 small-12 cell grid-x grid-margin-x">
                     <div class="medium-shrink cell">
-                        <a href="/privacy-policy">Privacy Policy</a>
+                        <a href="/privacy-policy" class="footer-links">Privacy policy</a>
                     </div>
                     <div class="cell spacer show-for-small-only"></div>
                     <div class="medium-shrink cell">
-                        <a href="/terms-and-conditions">Terms and Conditions</a>
+                        <a href="/terms-and-conditions"  class="footer-links">Terms and conditions</a>
                     </div>
                 </div>
                 <div class="cell spacer show-for-small-only"></div>
-                <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
+                <div class="large-6 medium-6 small-12 cell">
                     <div>
                     <ul class="menu social">
 
                         {% if context.exports.global.facebook_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
-                                <i class="icon-facebook-stroke "></i>
+                                <i class="icon-facebook-square"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -137,7 +136,7 @@
                         {% if context.exports.global.twitter_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="twitter" rel="noreferrer">
-                                <i class="icon-social-x"></i>
+                                <i class="icon-social-x-square"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -145,7 +144,7 @@
                         {% if context.exports.global.linkedin_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="linkedin" rel="noreferrer">
-                                <i class="icon-linkedin-stroke "></i>
+                                <i class="icon-linkedin"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -153,7 +152,7 @@
                         {% if context.exports.global.instagram_link %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.instagram_link }}" data-test="" target="_blank" title="instagram" rel="noreferrer">
-                                <i class="icon-instagram"></i>
+                                <i class="icon-instagram-square"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -161,7 +160,7 @@
                         {% if context.exports.global.youtube_link  %}
                         <li>
                             <a class="footer-links iconHover" href="{{ context.exports.global.youtube_link }}" data-test="" target="_blank" title="youtube" rel="noreferrer">
-                                <i class="icon-youtube-stroke"></i>
+                                <i class="icon-youtube-square"></i>
                             </a>
                         </li>
                         {% endif %}
@@ -169,7 +168,7 @@
                         {% if context.exports.global.pinterest_link  %}
                             <li>
                                 <a class="footer-links iconHover" href="{{ context.exports.global.pinterest_link }}" data-test="" target="_blank" title="pinterest" rel="noreferrer">
-                                    <i class="icon-pinterest"></i>
+                                    <i class="icon-pinterest-square"></i>
                                 </a>
                             </li>
                             {% endif %}
@@ -197,11 +196,11 @@
             <div class="spacer"></div>
             <div class="grid-x">
                 <div class="large-6 medium-6 small-12 cell medium-text-left text-center">
-                    <p class="subHeading footer-p">Copyright © <span id="year-container"></span> </p>
+                    <p class="subHeading footer-p">Copyright © <span id="year-container"></span> {{ context.exports.global.company_name  }} </p>
                 </div>
                 <div class="small-12 cell spacer show-for-small-only"></div>
                 <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
-                    <p class="subHeading footer-p"> Powered by <a class="footer-links"target="_blank" href="https://www.insites.io/">Insites</a>.</p>
+                    <p class="subHeading footer-p"> Powered by <a class="footer-links" target="_blank" href="https://www.insites.io/">Insites</a>.</p>
                 </div>
             </div>
         </div>
@@ -213,4 +212,8 @@
     document.getElementById("year-container").innerHTML = new Date().getFullYear();
 </script>
 
-{%- include 'modules/website/layout/foot' -%}
+{%- comment -%}
+Technical footer:
+Contains all the scripts imported right before the </body> tag
+{%- endcomment -%}
+{%- include 'modules/website/layout/technical_foot' -%}

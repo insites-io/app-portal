@@ -1,0 +1,51 @@
+---
+slug: sign-out
+layout: modules/portal/portal_system_pages
+searchable: true
+max_deep_level: 1
+metadata: {
+    "status": "published",
+    "page_name": "Portal | Sign Out",
+    "open_graph:url": "{{ context.exports.global.company_url | strip }}",
+    "open_graph:type": "",
+    "open_graph:image": "",
+    "open_graph:title": "",
+    "open_graph:description": "",
+    "open_graph:site_name": "{{ context.exports.global.company_name | strip }}",
+    "meta_title": "",
+    "page_title": "Sign-out | Insites Portal",
+    "meta_description": "",
+    "canonical_url": "",
+    "is_visible_to_search_engines": false,
+    "sitemap_enabled": false,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "0", ## secondary order (ASC)
+    "sitemap_changefreq": "never"
+}
+---
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/checkout/clear_session' %}
+{% endif %}
+
+<div class="sign-up grid-x">
+    <div class="large-8 cell sign-in-field">
+        <h3 class="heading-3">Sign out success</h3>
+        <div class="spacer x-small"></div>
+        <p class="p-body p-dark">You are now signed out. Have a great day!</p>
+        <div class="spacer x-large"></div>
+        <div class="grid-x grid-padding-x">
+            <div class="small-12 cell">
+                <a href="/sign-in">
+                    <ins-button id="sign-out-btn" label="Sign in again" solid full color="blue" type="button" ></ins-button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    setTimeout(() => {
+        App.events.notyf('success', "You have been signed out securely.");
+    }, 200);
+</script>

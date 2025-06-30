@@ -1,0 +1,13 @@
+---
+name: add_contact
+to: 'https://{{context.location.host}}/crm/api/v2/contacts'
+format: http
+enabled: true
+trigger_condition: true
+request_type: POST
+callback: >
+  {% assign response_hash = response.body | parse_json %}
+request_headers: >
+    {% include 'modules/portal/api_headers' %}
+---
+{{ data }}

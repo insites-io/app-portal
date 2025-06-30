@@ -5,13 +5,13 @@ metadata:
   is_archived: false
 properties:
 - name: document
-  type: array
+  type: upload
   metadata:
-    type: "file_multiple"
     label: "Document"
     weight: 5
-    ui_element: "file_multiple"
+    ui_element: "media_file"
     is_required: false
+    max_file_size: 100
   options:
     acl: public
     cache_control: ""

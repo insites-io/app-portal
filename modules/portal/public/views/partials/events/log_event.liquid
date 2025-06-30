@@ -1,0 +1,20 @@
+---
+metadata: {
+    partial_name: 'Portal | Emails | Log event'
+}
+---
+
+{%- parse_json data -%}
+{
+    "font_icon": "{{ info.font_icon | default: "icon-info" }}",
+    "font_icon_color": "{{ info.font_icon_color | default: "#451278" }}",
+    "details": "{{ info.details | default: "" }}"    
+}
+{%- endparse_json -%}
+{%- assign data = data | add_hash_key: "log", info.log -%}
+{%- assign data = data | add_hash_key: "description", info.description | default: "" -%}
+{%- assign data = data | add_hash_key: "module_source",  "insites_core" -%}
+{%- assign data = data | add_hash_key: "module_feature", "crm_contact" -%}
+{%- assign data = data | add_hash_key: "request_type", "internal" -%}
+
+{%- graphql add_events = 'modules/website/trigger_api_call', name: "modules/portal/add_events", data: data -%}

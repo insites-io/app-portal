@@ -1,0 +1,53 @@
+query get_user_by_email (
+  $page: Int = 1, 
+  $size: Int = 1, 
+  $email: String!
+) {
+  items: users(
+    page: $page
+    per_page: $size
+    filter: {
+      deleted_at: { exists: false }
+      email: { value: $email }
+    }
+    sort: {
+      updated_at: { order: DESC }
+    }
+  ) {
+    total_entries
+    total_pages
+    results {
+      id
+      uuid: external_id
+      created_at
+      updated_at
+      email
+      first_name
+      last_name
+      
+      portal: profiles(
+        profile_type: "modules/portal/portal"
+      ) {
+        is_enabled: property_boolean(name: "is_enabled")
+        is_activated: property_boolean(name: "is_activated")
+      }
+
+      ## CRM
+      crm_contact: profiles(
+        profile_type: "modules/insites_core/crm_contact"
+      ) {
+        id
+				user_uuid: property(name: "uuid")
+        company_uuid: property(name: "company_uuid")
+        company: related_record(
+         table: "modules/insites_core/crm_company"
+          foreign_property: "uuid"
+          join_on_property: "company_uuid"
+          ) {
+            company_name: property(name: "company_name")
+          }
+        
+      }
+    }
+  }
+}

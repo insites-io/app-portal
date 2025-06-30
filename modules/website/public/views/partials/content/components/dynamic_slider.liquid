@@ -1,0 +1,130 @@
+---
+metadata: {
+    partial_name: "Website | Components | Dynamic slider",
+}
+---
+
+{% assign record = data | dig: 'items' %} 
+{%- assign data = data | dig: 'items', 'results' -%}
+
+<div class="dynamic-slider">
+    <div class="wrapper">
+        <div class="grid-container grid-x">
+            <div class="dynamic-slider-buttons">
+                <i class="icon-arrow-left prev"  id="prevButton" style="display:none;"></i>
+                <i class="icon-arrow-right next" id="nextButton" ></i>
+            </div>
+        
+            <div class="slider-container">
+                <div class="slider-track">
+                    {% for item in data %}
+                      <div class="slider-item-container">
+                        <div class="slider-item">
+                            <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                            <h6>{{ item.business_title }}</h6>
+                            <p>{{ item.business_description }}</p>
+                        </div>
+                      </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spacer large"></div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let currentIndex = 0; 
+    const sliderTrack = document.querySelector('.slider-track');
+    const items = document.querySelectorAll('.slider-item-container');
+    const totalItems = items.length;
+    const prevButton = document.querySelector('#prevButton');
+    const nextButton = document.querySelector('#nextButton');
+    const sliderContainer = document.querySelector('.slider-container');
+    let containerWidth = sliderContainer.offsetWidth;
+    let itemToShow = getItemToShow();
+
+    function getItemToShow() {
+        if (containerWidth <= 639) {
+            return 1;
+        } else if (containerWidth <= 930) {
+            return 2;
+        } else if (containerWidth <= 1299) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }
+
+    function updateButtonsVisibility() {
+        if (totalItems <= itemToShow) {
+            nextButton.style.display = 'none';
+        } else {
+            nextButton.style.display = currentIndex < totalItems - itemToShow ? 'inline-block' : 'none';
+        }
+
+        prevButton.style.display = currentIndex === 0 ? 'none' : 'inline-block';
+    }
+
+    function nextSlide() {
+        if (currentIndex < totalItems - itemToShow) {
+            currentIndex++;
+            updateSliderPosition();
+            updateButtonsVisibility();
+        }
+    }
+
+    function prevSlide() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSliderPosition();
+            updateButtonsVisibility();
+        }
+    }
+
+    function updateItemWidth() {
+        const gapPercentage = 3; // Consistent with CSS gap
+        const totalGap = (itemToShow - 1) * ((gapPercentage / 100) * containerWidth);
+        const itemWidth = (containerWidth - totalGap) / itemToShow;
+
+        items.forEach(item => {
+            item.style.flex = `0 0 ${itemWidth}px`;
+        });
+
+        sliderTrack.style.gap = `${gapPercentage}%`;
+    }
+
+    function updateSliderPosition() {
+        const gapPercentage = 3;
+        const totalGap = (itemToShow - 1) * ((gapPercentage / 100) * containerWidth);
+        const itemWidth = (containerWidth - totalGap) / itemToShow;
+        const slideWidth = itemWidth + ((gapPercentage / 100) * containerWidth);
+
+        let offset = currentIndex * slideWidth;
+        if (currentIndex > totalItems - itemToShow) {
+            currentIndex = totalItems - itemToShow;
+        }
+
+        sliderTrack.style.transform = `translateX(-${offset}px)`;
+    }
+
+    window.addEventListener('resize', () => {
+        containerWidth = sliderContainer.offsetWidth;
+        itemToShow = getItemToShow();
+        updateItemWidth();
+        updateSliderPosition();
+        updateButtonsVisibility();
+    });
+
+    itemToShow = getItemToShow();
+    updateItemWidth();
+    updateSliderPosition();
+    updateButtonsVisibility();
+
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
+});
+</script>

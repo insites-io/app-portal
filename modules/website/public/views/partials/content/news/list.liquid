@@ -40,75 +40,167 @@ metadata: {
 {%  liquid         
     assign page_num = context.params.page | default: 1 | plus: 0
     assign per_page = context.params.per_page | default: 6 | plus: 0
+    assign keyword = context.params.search | default: ""
+    assign tag = context.params.tag | default: ""
+    assign sort =  context.params.sort | default: "DESC"
+    assign field = "" | default: "published_date" 
+    if sort == "A-Z"
+        assign field = "title" 
+        assign sort = "ASC"
+    endif
+
+    if sort == "Z-A"
+        assign field = "title" 
+        assign sort = "DESC"
+    endif
+
+    if tag == "All"
+        assign tag = ""
+    endif
+
 %}
 
-{%- graphql get_news = 'modules/website/news/get_news', page: page_num, size: per_page -%}
-{% comment %} assign var to fetch the result   page-size-options {% endcomment %}
+{%- graphql get_news = 'modules/website/news/get_news', page: page_num, size: per_page, keyword: keyword, tag: tag, sort: sort, field: field -%}
 {%- assign res_news = get_news | dig: 'items', 'results' -%}
 
-{% include 'modules/website/content/search/searchpage_banner' %}
+{% assign description = "Stay updated with the latest news, insights, and updates. Explore articles on industry trends, company announcements, and expert opinions—all in one place." %}
+{% include 'modules/website/content/hero_title', description: description %} 
 
-<div class="blocks-sc-3col-02 wrapper bg-color-ui-01">
-    <div class="our-team grid-container main-container" data-test="page-our-team-list">     
-        <div class="spacer section"></div>
+<div class="wrapper">
+    <div class="news-filter-container">
+        <div class="grid-container">
+            <div class="grid-x gutter-medium grid-padding-x grid-padding-y">
+                <div class="large-8 medium-12 small-12 cell filter-container-cell">
+                    <ins-filter id="news-filter">
+                        <ins-filter-item
+                            name="Tag"
+                            options='["All", "Design","SEO", "Technology", "Web development"]'
+                            selected="{{ context.params.tag }}">
+                        </ins-filter-item>
+                        <ins-filter-item
+                            name="Sort by"
+                            options='["Newest First", "Oldest first", "Alphabetical (A-Z)","Alphabetical (Z-A)"]'
+                            {% liquid 
+                                if context.params.sort == "DESC"
+                                    assign sort_val = "Newest First"
+                                endif
+
+                                if context.params.sort == "ASC"
+                                    assign sort_val  = "Oldest first"
+                                endif
+
+                                if context.params.sort == 'A-Z'
+                                    assign sort_val = "Alphabetical (A-Z)"
+                                endif
+
+                                if context.params.sort == 'Z-A'
+                                    assign sort_val = "Alphabetical (Z-A)" 
+                                endif             
+                            %}
+                            selected="{{ sort_val }}">
+                        </ins-filter-item>
+                    </ins-filter>
+                </div>
+                <div class="large-4 medium-12 small-12 cell search-container-cell">
+                    <div class="">
+                        <ins-input                 
+                            id="search-input"
+                            class="search-award search-bars"
+                            placeholder="Search news"
+                            icon-event
+                            icon="icon-search-1"
+                            error-message="Search Keyword cannot be blank"
+                            value="{{ context.params.search }}">
+                        </ins-input>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="spacer xxxx-large"></div>
+
+{% if get_news.items.total_entries == 0 %}
+    <div class="grid-container">
+        <div class="grid-x align-center">
+            {% if context.params.search != blank %}
+                <p class="subHeading">No results found for keyword "<strong>{{ keyword  }}</strong>"</p>
+            {% else %}
+                <p class="subHeading">No results found</p>    
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+    <div class="grid-container">     
         <section class="news-content">
             <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
                 {% for item in res_news %}
-                    <div class="large-4 medium-6 small-12 cell" data-test="our-team-list-card">
-                        <div class="card"> 
-                            <div class="newsImageContainer">
-                                <a href="/news/{{ item.slug }}">
+                    <div class="large-4 medium-6 small-12 cell news-cards">
+                        <a onclick="goToNewsDetail('{{ item.slug }}')" class="news-main-link-container">
+                            <div class="card"> 
+                                <div class="newsImageContainer">
                                     {% if item.list_view_image.url %}
-                                        <img loading="lazy" alt="image" src="{{ item.list_view_image.url }}"/>
+                                        <img width="500" height="500" alt="image" src="{{ item.list_view_image.url }}">
                                     {% else %}
                                         {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
                                         {% for news in news_list %}
                                             {% if item.slug == news.slug %}
-                                                <img loading="lazy" alt="image" src="{{ news.image }}"/>
+                                                <img width="500" height="500" alt="image" src="{{ news.image }}">
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
-                                </a>
-                            </div>
-                            <div class="newsContentContainer">
-                            <div class="tagButton">
-                                <ins-tag 
-                                    label="{{ item.tag }}" 
-                                    icon="icon-tag" 
-                                    color="blue"
-                                    light=false>
-                                </ins-tag>
-                            </div>
-                            <div class="spacer"></div>
-                            <a href="/news/{{ item.slug }}">
-                                <div class="newsTitle">
-                                    <h3 class="subHeading">{{ item.title }}</h3>
                                 </div>
-                            </a>
-                            {% comment %} ? FETCHING AUTHOR NAME BASED ON EXTERNAL ID: item.author {% endcomment %}
-                            {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
-                            {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
-
-                            {% if item.author %}
-                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ get_author.first_name }} {{ get_author.last_name }}</p>
-                            {% else %}
-                                <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY MARK WEBBER</p>
-                            {% endif %}                        
-
-                            <div class="spacer small"></div>
-                            <div class="description">
-                                {{ item.list_view_text }}
+                                <div class="spacer large"></div>
+                                <div class="news-author">
+                                    {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
+                                    {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
+                                    {% if item.author != blank %}
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ get_author.first_name }} {{ get_author.last_name }}</p>
+                                    {% else %}
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}</p>
+                                    {% endif %}                  
+                                </div>
+                                <div class="newsContentContainer">
+                                    <div class="news-content">
+                                        <div class="spacer x-small"></div>
+                                            <div class="newsTitle">
+                                                <h5>{{ item.title }}</h5>
+                                            </div>
+                                        <div class="spacer x-small"></div>
+                                        <div class="description">
+                                            <p class="subHeading p-two-line">{{ item.list_view_text }}</p>
+                                        </div>
+                                        <div class="tagButton">
+                                            <ins-tag 
+                                                label="{{ item.tag }}" 
+                                                icon="icon-star" 
+                                                class="news-tag"
+                                                {% if item.tag == 'Web Development'%}
+                                                    color="green"
+                                                {% endif %}
+                                                {% if item.tag == 'SEO'%}
+                                                    color="red"
+                                                {% endif %}
+                                                {% if item.tag == 'Design'%}
+                                                    color="blue"
+                                                {% endif %}
+                                                >
+                                            </ins-tag>
+                                        </div> 
+                                    </div>
+                                    <div class="news-link">
+                                        <i class="icon-arrow-up-right"></i> 
+                                    </div>
+                                </div>
                             </div>
-                            <div class="spacer small"></div>
-                            <div class="custom-publish-info">
-                                <a href="/news/{{ item.slug }}"> READ MORE </a> <i class="icon-arrow-forward"></i></div>
-                        </div>
-                        </div>
+                        </a>
                     </div>
                 {% endfor %}	
             </div>
         </section>
-
+        
+        <div class="spacer xxxx-large"></div>
         <ins-table no-wrap
         static-table
         id="insBaseTable"
@@ -118,47 +210,122 @@ metadata: {
 </div>
 
 <div class="spacer xxxx-large"></div>
-
 <script>
+    const insBaseTable = document.getElementById('insBaseTable');
+    const searchKey = document.getElementById('search-input');
+    const filterEl = document.getElementById('news-filter');
 
+    if (insBaseTable) {
+        insBaseTable.pageSizeOptions = [6, 15, 30];
+        insBaseTable.totalCount = {{ get_news.items.total_entries }};
+        insBaseTable.pageNumber = {{ page_num }};
+        insBaseTable.pageSize = {{ per_page }};
 
-    var insBaseTable = document.getElementById('insBaseTable');
-
-    insBaseTable.pageSizeOptions = [6,15,30];
-    insBaseTable.totalCount = {{ get_news.items.total_entries }};
-    insBaseTable.pageNumber = {{page_num}};
-    insBaseTable.pageSize = {{per_page}};
-    
-    if(insBaseTable){
         setTimeout(() => {
-            insBaseTable.querySelector(".ibt-table-wrap__pagination>span").innerHTML='Items per page';
-        },600);            
-    }
-    
-    insBaseTable.addEventListener('insPaginationChange', tablePaginationHandler);
+            const paginationLabel = insBaseTable.querySelector(".ibt-table-wrap__pagination > span");
+            if (paginationLabel) paginationLabel.innerHTML = 'Items per page';
+        }, 600);
 
-    function processTableData(){
-
-        // Get the current URL
-        const currentUrl = window.location.href;
-
-        // Remove any existing `page` and `per_page` query parameters
-        const newUrl = currentUrl.replace(/[?&]page=\d+/, '').replace(/[?&]per_page=\d+/, '');
-
-        // Set the new `page` and `per_page` values
-        const newPage = pageNumber;
-        const newPerPage = pageSize;
-
-        // Append the new `page` and `per_page` query parameters to the URL
-        const updatedUrl = `${newUrl}?page=${newPage}&per_page=${newPerPage}`;
-
-        // Navigate to the updated URL
-        window.location.href = updatedUrl;
+        insBaseTable.addEventListener('insPaginationChange', handlePaginationChange);
     }
 
-    function tablePaginationHandler(event){
-        pageSize = event.detail.pageSize;
-        pageNumber = event.detail.pageNumber;
-        processTableData()
+    function handlePaginationChange(event) {
+        const { pageNumber, pageSize } = event.detail;
+        updateUrlParams({ page: pageNumber, per_page: pageSize });
+    }
+
+    if (searchKey) {
+        searchKey.addEventListener('insIconClick', handleSearch);
+        searchKey.addEventListener('insInput', e => {
+            if (e.detail.keyCode === 13) handleSearch();
+        });
+        searchKey.addEventListener('insValueChange', () => {
+            toggleInputError(searchKey.value === "");
+        });
+    }
+
+    function handleSearch() {
+        const value = searchKey.value.trim();
+        if (value === "") {
+            toggleInputError(true);
+            return;
+        }
+
+        toggleInputError(false);
+        updateUrlParams({ search: value, page: 1 }); 
+    }
+
+    function toggleInputError(hasError) {
+        if (hasError) {
+            searchKey.setAttribute("has-error", "");
+        } else {
+            searchKey.removeAttribute("has-error");
+        }
+    }
+
+    if (filterEl) {
+        filterEl.addEventListener('insFilterApply', (event) => {
+            const { Tag, "Sort by": sortLabel } = event.detail;
+            const updatedParams = {};
+
+            if (Tag && Tag !== 'all') {
+                updatedParams.tag = Tag;
+            } else {
+                updatedParams.tag = null; 
+            }
+
+            if (sortLabel) {
+                let sort;
+                switch (sortLabel) {
+                    case 'Newest First':
+                        sort = 'DESC'; break;
+                    case 'Oldest first':
+                        sort = 'ASC'; break;
+                    case 'Alphabetical (A-Z)':
+                        sort = 'A-Z'; break;
+                    case 'Alphabetical (Z-A)':
+                        sort = 'Z-A'; break;
+                }
+                updatedParams.sort = sort;
+            }
+
+            updatedParams.page = 1; 
+            updateUrlParams(updatedParams);
+        });
+    }
+
+    function updateUrlParams(params) {
+        const url = new URL(window.location.href);
+
+        Object.entries(params).forEach(([key, value]) => {
+            if (value === null || value === undefined) {
+                url.searchParams.delete(key);
+            } else {
+                url.searchParams.set(key, value);
+            }
+        });
+
+        window.location.href = url.toString();
+    }
+
+    function goToNewsDetail(slug) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const filters = {};
+
+        const tag = urlParams.get('tag');
+        const search = urlParams.get('search');
+        const sort = urlParams.get('sort');
+        const page = urlParams.get('page');
+        const per_page = urlParams.get('per_page');
+
+        if (tag) filters.tag = tag;
+        if (search) filters.search = search;
+        if (sort) filters.sort = sort;
+        if (page) filters.page = page;
+        if (per_page) filters.per_page = per_page;
+
+        sessionStorage.setItem('newsFilters', JSON.stringify(filters));
+
+        window.location.href = `/news/${slug}`;
     }
 </script>

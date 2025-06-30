@@ -1,0 +1,13 @@
+---
+slug: api/client/discount/apply_discount
+method: post
+searchable: false
+metadata: {
+    "page_name": "API | Apply Discount",
+}
+---
+{% assign params = context.params %}
+{% assign discount_code = params.discount_code | default: "NO_DISCOUNT" %}
+
+{% graphql get_discount = 'modules/client/discount/get_discount_by_code', discount_code: discount_code | dig: "items", "results" | first %}
+{{ get_discount }}

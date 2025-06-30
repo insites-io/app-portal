@@ -1,0 +1,23 @@
+---
+metadata: {
+    partial_name: "Website | Index | Unlock Efficiency",
+}
+---
+{%- graphql get_features = 'modules/website/features/get_features' -%}
+{%- assign features =  get_features | dig: 'items', 'results'  -%}
+
+<div class="unlock-efficiency-section">
+    <div class="spacer section show-for-large"></div>
+    <div class="wrapper">
+        <div class="grid-container grid-x">
+            <div class="large-6 medium-12 small-12 cell">
+                <h2>Unlock efficiency, security & seamless collaboration</h2>
+                <div class="spacer medium"></div>
+                <p class="p-dark p-long-desc">The benefits of a portal are numerous. They can help streamline communication between companies and clients and make it easier for both parties to access the information they need.</p>
+                <div class="spacer xxxx-large"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'modules/website/content/components/features_card_list', data: features, full: true, home: true %}
+    <div class="spacer section"></div>
+</div>  

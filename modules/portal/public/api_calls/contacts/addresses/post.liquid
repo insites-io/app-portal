@@ -1,0 +1,9 @@
+---
+name: add_contact_address
+to: 'https://{{context.location.host}}/crm/api/v2/contacts/addresses'
+format: http
+request_type: POST
+request_headers: >
+    {% include 'modules/portal/api_headers' %}
+---
+{{ data }}

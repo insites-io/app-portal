@@ -1,0 +1,190 @@
+---
+metadata: {
+    partial_name: 'Portal | Paybills | Payment summary'
+}
+---
+
+{% if order_id %} 
+    {% parse_json data %} 
+    {
+        "id": "{{order_id}}"
+    }
+    {% endparse_json %}
+{% endif %} 
+
+{%  liquid
+    if order_id
+        graphql get_order = 'modules/portal/orders/get_order', id: data.id | dig: 'items','results' | first
+              
+        assign total_discount = get_order.properties.total_discount_amount | times: 1 | default: 0
+        assign amount = get_order.properties.subtotal_amount | minus: total_discount 
+        assign cc_surcharge = amount | times: 0.017 | round: 2
+   
+        assign amountPayable = get_order.properties.subtotal_amount
+        assign ccSurcharge = cc_surcharge
+        assign subTotal = amount
+        assign gst = amount | times: 0.10
+        assign totalAmount = amount | plus: cc_surcharge | plus: gst
+    endif
+%}
+{%- comment -%}Payment Summary{%- endcomment -%}
+<div class="payment-summary">
+    <h5 class="heading-5">Payment summary</h5>
+    <div class="spacer x-large"></div>
+    <div class="grid-x">
+        {% comment %} ? BILL AMOUNT {% endcomment %}
+        <div class="large-9 medium-7 small-9 p-body-bold">Bill amount</div>
+        <div class="large-3 medium-5 small-3 p-body"><span id="charge-amount-summary">{{ amountPayable | default: "0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
+   
+        {% comment %} ? Discount {% endcomment %}
+        {% if is_discount_code_enabled %}
+            <div class="cell spacer xx-small"></div>
+            <div class="large-9 medium-7 small-9 p-body-bold">Discount</div>
+            <div class="large-3 medium-5 small-3 p-body"><span id="discount-summary">({{ total_discount | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }})</span></div>
+            <div class="cell spacer small"></div>
+        {% else %}
+            {% comment %} ? AFTER PAYMENT SUMMARY {% endcomment %}
+            {% if context.flash.notice == "Success-PayBill" %}
+                {% if get_order.properties.total_discount_amount == 0.0 or get_order.properties.total_discount_amount == "0.0" %}
+                    <div class="cell spacer small"></div>
+                {% else %}
+                    <div class="cell spacer xx-small"></div>
+                    <div class="large-9 medium-7 small-9 p-body-bold">Discount</div>
+                    <div class="large-3 medium-5 small-3 p-body"><span id="discount-summary">({{ total_discount | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }})</span></div>
+                    <div class="cell spacer small"></div>
+                {% endif %}
+            {% else %}
+                <div class="cell spacer"></div>    
+            {% endif %}
+        {% endif %}
+        <hr>
+        <div class="cell spacer small"></div>
+
+        {% comment %} ? SUB TOTAL {% endcomment %}
+        <div class="large-9 medium-7 small-9 p-body-bold">Subtotal</div>
+        <div class="large-3 medium-5 small-3 p-body"><span id="charge-subtotal-summary">{{ subTotal | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
+        <div class="cell spacer small"></div>
+
+        {% comment %} ? PROCESSING FEE {% endcomment %}
+        <div class="large-9 medium-7 small-9 p-body-bold">Processing fee (1.7%)</div>
+        <div class="large-3 medium-5 small-3 p-body"><span id="cc-charge-summary">{{ ccSurcharge | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
+        <div class="cell spacer small"></div>
+
+        {% comment %} ? TAX {% endcomment %}
+        <div class="large-9 medium-7 small-9 p-body-bold">Tax</div>
+        <div class="large-3 medium-5 small-3 p-body"><span id="charge-gst-summary">{{ gst | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
+
+        <div class="cell spacer small"></div>
+
+        <hr>
+        {% comment %} ? TOTAL {% endcomment %}
+        <div class="cell spacer small"></div>
+        <div class="large-5 medium-5 small-5 p-body-bold">
+            <h3 class="order-total">Total</h3>
+        </div>
+        <div class="large-7 medium-7 small-7 p-body">
+            <h3 class="order-total">
+                <span id="total-amount-summary">{{ totalAmount | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span>
+            </h3>
+        </div>        
+    </div>
+</div>
+<div class="spacer xx-large hide-for-small-only"></div>
+
+{%- unless order_id -%}
+
+    {%- comment -%}Payment form {%- endcomment -%}
+    <script>
+    let valueChangeHandler = debounce((ev) => calculatePaymentSummary(ev));
+
+    let amountEl = document.getElementById('bill-amount');
+    let taxEl = document.getElementById('tax-amount')
+    let shippingEl = document.getElementById('shipping-amount')
+    let amountTotalEl = document.getElementById('bill-total-amount');
+    let amountSubtotalEl = document.getElementById('bill-subtotal-amount');
+    let amountTotalTaxEl = document.getElementById('bill-tax-amount');
+    let orderValueEl = document.getElementById('bill-order-value');
+    let amountDueEl = document.getElementById('bill-amount-due');
+    let notesEl = document.getElementById('bill-notes');
+
+    let chargeAmountEl = document.getElementById('charge-amount-summary');
+    let chargeSubtotal = document.getElementById('charge-subtotal-summary');
+    let chargeGstEl = document.getElementById('charge-gst-summary');
+    let ccAmountEl = document.getElementById('cc-charge-summary');
+    let subTotalEl = document.getElementById('sub-total-summary');
+    let totalAmountEl = document.getElementById('total-amount-summary');    
+
+    function debounce(func, timeout = 500){
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+    }
+
+    let taxAmount = '';    
+    let amountPayable = ''
+    let shippingAmount = ''
+
+    function calculatePaymentSummary(ev){ 
+        
+        // If discount is enabled
+        let discountAmount = 0;
+        if(isDiscountCodeEnabled.value == "true"){
+            // Check if Amount and Discount Code are Populated
+            if(billTotalAmount.value != "" && discountCodeField.value != ''){
+				applyDiscount.removeAttribute("disabled");
+			}else{
+				applyDiscount.setAttribute("disabled", true);
+			}
+        }
+
+        amountPayable = (ev.detail * 1.00);
+
+        let ccSurcharge = (amountPayable - discountAmount) * 0.017; // 1.7% credit card surcharge
+        let subtotalAmount  = Number(amountPayable - discountAmount); // amount payable
+        let gst = (amountPayable - discountAmount) * 0.1; // GST
+        let totalAmount = (Number(amountPayable - discountAmount) + Number(ccSurcharge) + Number(gst));
+
+        if(chargeAmountEl) 
+            chargeAmountEl.innerHTML = "$" + pricify(subtotalAmount);
+            chargeSubtotal.innerHTML = "$" + pricify(subtotalAmount);
+            chargeGstEl.innerHTML = "$" + pricify(subtotalAmount * 0.10);
+        if(ccAmountEl) 
+            ccAmountEl.innerHTML = "$" + pricify(ccSurcharge);
+        if(subTotalEl) 
+            subTotalEl.innerHTML = "$" + pricify(subTotal);        
+        if(totalAmountEl) 
+            totalAmountEl.innerHTML = "$" + pricify(totalAmount);                    
+
+        // Update hidden input 
+        if(amountTotalEl) 
+            amountTotalEl.value = totalAmount;
+            amountSubtotalEl.value = subtotalAmount;
+            amountTotalTaxEl.value = gst;
+
+        if(orderValueEl) 
+            orderValueEl.value = amountPayable;            
+        if(amountDueEl) 
+            amountDueEl.value = totalAmount;
+        if(notesEl) 
+            notesEl.value = `{"subtotal-amount": "${pricify(amountPayable)}", "cc-charge": "${pricify(ccSurcharge)}",  "gst": "${pricify(gst)}",  "total-amount": "${pricify(totalAmount)}"}`;
+    }
+
+    function pricify(number) {
+        return number 
+            ? number.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+            : "0.00";
+    }
+
+    // init listenter
+    if(amountEl) {
+        amountEl.addEventListener('insValueChange', (event) => {
+            event.detail > 0
+                ? valueChangeHandler(event)
+                : valueChangeHandler(event);
+        });
+    }
+    </script>
+
+{%- endunless -%}

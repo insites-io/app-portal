@@ -1,6 +1,9 @@
 ---
 slug: search
-layout: modules/website/default
+layout: modules/website/website_default
+metadata: {
+    "page_name": "News | Search"
+}
 ---
 {%- comment -%}
 This is where the contents of the search page is imported/included in the forms of partials.
@@ -27,7 +30,7 @@ This is where the contents of the search page is imported/included in the forms 
     <div class="our-team grid-container main-container" data-test="page-our-team-list">
 
         <div class="spacer xxxx-large"></div>
-
+    
         {% if news_search_result.items.total_entries != 0 %}
             <section class="news-content">
                 <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
@@ -93,6 +96,9 @@ This is where the contents of the search page is imported/included in the forms 
         <ins-table no-wrap
         static-table
         id="insBaseTable"
+        {% if news_search_result.items.total_entries == 0 %}
+            without-pagination
+        {% endif %}
         without-search>
         </ins-table>
     </div>
@@ -127,7 +133,7 @@ This is where the contents of the search page is imported/included in the forms 
 
         // Remove any existing `page` and `per_page` query parameters
         const newUrl = currentUrl.replace(/[?&]page=\d+/, '').replace(/[?&]per_page=\d+/, '');
-
+        
         // Set the new `page` and `per_page` values
         const newPage = pageNumber;
         const newPerPage = pageSize;

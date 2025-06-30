@@ -1,0 +1,56 @@
+---
+metadata: {
+    page_slug: "features",
+    slug: "{{ context.exports.data.item.slug }}",
+    page_title: "Features | {{ context.exports.data.item.card_title }}",
+    layout: "details"
+}
+---
+{%- if context.params.slug2 != context.exports.data.item.slug -%}
+    {%- redirect_to '/404' -%}
+{%- endif -%}
+
+{%- if context.exports.data.item.enabled == false -%}
+    {%- redirect_to '/404' -%}
+{%- endif -%}
+
+{%- graphql get_features = 'modules/website/features/get_features_details', parent_id: parent_id -%}
+{%- assign features =  get_features | dig: 'items', 'results'  -%}
+
+<div class="features-banner-details-container">
+    <div class="features-banner-details full-width-banner-content-left-only">
+        <div class="features-banner-details-content">
+            <div class="spacer section"></div>
+            <h2>{{ context.exports.data.item.card_title }}</h2>
+            <div class="spacer medium"></div>
+            <p class="subHeading subHeadingMain">{{ context.exports.data.item.card_short_description }}</p>
+            <div class="spacer x-large"></div>
+            <a href="/contact-us">
+                <ins-button id="feature-button" label="Get in touch" icon-right="icon-arrow-forward" outlined type="button" ></ins-button>
+            </a>
+            <div class="spacer section"></div>
+        </div>
+    </div>
+    <div class="features-banner-details-image">
+        <img src="{{ context.exports.data.item.image.url }}" alt="">
+    </div>
+</div>
+
+
+<div class="wrapper features-details-wrapper">
+    <div class="spacer section show-for-medium"></div>
+    <div class="spacer x-large show-for-small-only"></div>
+    <div class="grid-x">
+        <div class="large-6 medium-6 small-12">
+            <h2>Key features</h2>
+            <div class="spacer medium"></div>
+            <p class="subHeading subHeadingMain">Clean design, seamless navigation, fully responsive, and optimized for speed—effortless usability across all devices.</p>
+            <div class="spacer xxxx-large"></div>
+        </div>
+    </div>
+    {% include 'modules/website/content/components/features_card_list', data: features, full: true, home: false %}
+    <div class="spacer section show-for-medium"></div>
+    <div class="spacer x-large show-for-small-only"></div>
+</div>
+
+{% include 'modules/website/content/index/testimonials' %}

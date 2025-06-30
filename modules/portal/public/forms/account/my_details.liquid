@@ -1,0 +1,185 @@
+---
+name: my_details
+resource: User
+resource_owner: anyone
+flash_alert: Error-My-Details
+flash_notice: Success-My-Details
+redirect_to: my-details
+fields:
+  # User Fields
+  email:
+    validation: 
+      unique:
+        message: Email already exist
+      presence:
+        message: Please use a valid email address
+      email: 
+        message: Please use a valid email address      
+  first_name:
+    validation: 
+      presence: 
+        message: First name is required.
+  last_name:
+    validation: 
+      presence: 
+        message: Last name is required.
+  
+  properties:
+    # Profile - CRM Contact Fields
+    mobile_phone_country_code:
+      property_options:
+        virtual: true
+    mobile_phone_number:
+      property_options:
+        virtual: true
+
+    # CRM Address (Contact) Fields
+    address_1:
+      validation: 
+        presence: 
+          message: Address 1 is required.
+      property_options:
+        virtual: true
+    address_2:
+      property_options:
+        virtual: true
+    suburb:
+      validation: 
+        presence: 
+          message: Suburb is required.
+      property_options:
+        virtual: true
+    state:
+      validation: 
+        presence: 
+          message: State is required.
+      property_options:
+        virtual: true
+    postcode:
+      validation: 
+        presence: 
+          message: Postcode is required.
+      property_options:
+        virtual: true
+    country:
+      validation: 
+        presence: 
+          message: Country is required.
+      property_options:
+        virtual: true
+    latitude:
+      property_options:
+        virtual: true
+    longitude:
+      property_options:
+        virtual: true
+
+    #Contact Address
+    contact_address_uuid:
+      property_options:
+        virtual: true
+
+callback_actions: |-
+  {% comment %} 
+    - The form itself will update the User: [email, first_name, last_name]
+    - Use API update_contact to add or update profile:crm_contact
+        -- This will only update the [mobile_phone_country_code, mobile_phone_number]
+        -- Note: using add_contact api will create another user
+    - Then update the contact address using another api (update_contact_address or add_contact_address)
+  {% endcomment %}
+
+  {% assign data = form | json %}
+  {% assign props = form.properties %}
+
+  {% graphql current_user = 'modules/portal/account/get_current_user' | dig: 'current_user' %}
+  
+  {% parse_json update_contact_data %}
+  {
+    "id": "{{form.id}}", 
+    "email": "{{form.email}}", 
+    "mobile_phone_country_code": "{{form.properties.mobile_phone_country_code}}",
+    "mobile_phone_number": "{{form.properties.mobile_phone_number}}"
+  }
+  {% endparse_json %}
+  {% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json %}
+
+  {% parse_json contact_address_details %}
+  {
+    "address_label": "{{ props.address_1 | default: 'Default' }}", 
+    "default_address": true,
+    "address_1": "{{ props.address_1 }}",
+    "address_2": "{{ props.address_2 }}",
+    "suburb": "{{ props.suburb }}",
+    "state": "{{ props.state }}",
+    "postcode": "{{ props.postcode }}",
+    "country": "{{ props.country }}",
+    "latitude": "{{ props.latitude }}",
+    "longitude": "{{ props.longitude }}"
+  }
+  {% endparse_json %}
+
+  {%  liquid
+      if form.properties.contact_address_uuid
+        assign contact_address_details = contact_address_details | add_hash_key: "contact_address_uuid", props.contact_address_uuid
+        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json      
+      else
+        assign contact_address_details = contact_address_details | add_hash_key: "contact.uuid", context.current_user.external_id
+        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json
+      endif         
+  %} 
+  
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: |-
+    {% comment %} Create Event Stream {% endcomment %}
+    {%- graphql user = "modules/portal/account/get_user_by_email" 
+    email: context.current_user.email 
+    | dig: "items" | dig: "results" | first -%}
+    {%- assign crm_contact = user.crm_contact | first -%}
+    {%- assign current_user_name =  context.current_user.first_name | append: ' ' | append: context.current_user.last_name | default: context.current_user.email -%}
+    {%- capture description -%}<a target="_blank" href="/admin/insites/#/crm/contacts/{{ context.current_user.id }}">{{ current_user_name  | default: context.current_user.email }}</a> from <a target="_blank" href="/admin/insites#/crm/companies/{{ crm_contact.company_uuid }}">{{ crm_contact.company.company_name }}</a> updated their profile details {%- endcapture -%}
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+    {%- assign payload = payload | add_hash_key: "font_icon", "icon-settings-1" -%}
+    {%- assign payload = payload | add_hash_key: "font_icon_color", "#FA38A1" -%}
+
+    {% capture log_info %}
+    {
+        "first_name": "{{ form.first_name }}",
+        "last_name": "{{ form.last_name }}",
+        "email": "{{ form.email }}",
+        "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
+        "mobile_phone_number": "{{ form.properties.mobile_phone_number }}",
+        "contact_address":{
+          "address_1": "{{ form.properties.address_1 }}",
+          "address_2": "{{ form.properties.address_2 }}",
+          "suburb": "{{ form.properties.suburb }}",
+          "state": "{{ form.properties.state }}",
+          "postcode": "{{ form.properties.postcode }}",
+          "country": "{{ form.properties.country }}"
+        },
+        "contact_uuid": "{{ context.current_user.external_id }}"   
+    }
+    {% endcapture %}
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
+    {% include 'modules/portal/events/log_event', info %}
+---
+
+{%- form 
+    html-id: "user-profile-form"
+    html-class: 'insites-form insites-form-code' 
+    html-novalidate: true
+    html-enctype="multipart/form-data"
+    html-onsubmit:"return UserProfileScript.methods.validateForm(event);" -%}
+
+    <div class="insites-form-grid">
+
+      <input type="hidden" name="{{ form.fields.properties.contact_address_uuid.name }}" value="{{ data.default_address.uuid }}" >
+      {% include 'modules/portal/account/registration_personal_details', data: data %}
+              
+    </div>
+
+{%- endform -%}

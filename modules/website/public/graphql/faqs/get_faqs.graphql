@@ -14,7 +14,7 @@ query get_faqs(
             ]
         }
         sort: [
-            { properties: { name: "order", order: ASC } }
+            { properties: { name: "sort_order", order: ASC } }
         ]
     ) {
         total_entries

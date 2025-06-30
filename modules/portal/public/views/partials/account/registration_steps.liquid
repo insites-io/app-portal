@@ -1,0 +1,32 @@
+---
+metadata: {
+    partial_name: 'Portal | Account | Registration steps'
+}
+---
+
+{%- liquid
+
+    if context.flash.notice != blank
+        assign statusPersonal = "complete"
+        assign statusCompany = "complete"
+        assign statusConfirmation = "complete"
+        assign statusVerify = "complete"
+    endif
+
+-%}
+
+<div class="form-groups-tab step-scrollbar">        
+    <!-- Large screen stepper -->
+    <ins-steps inline id="register-stepper-large" class="hide-for-small-only stepper-instance">
+        <ins-step description="Personal" {{statusPersonal}}></ins-step>
+        <ins-step description="Company" {{statusCompany}}></ins-step>
+        <ins-step description="Terms" {{statusConfirmation}}></ins-step>
+    </ins-steps>
+
+    <!-- Small screen stepper -->
+    <ins-steps id="register-stepper-small" class="show-for-small-only stepper-instance">
+        <ins-step description="Personal" {{statusPersonal}}></ins-step>
+        <ins-step description="Company" {{statusCompany}}></ins-step>
+        <ins-step description="Terms" {{statusConfirmation}}></ins-step>
+    </ins-steps>
+</div>

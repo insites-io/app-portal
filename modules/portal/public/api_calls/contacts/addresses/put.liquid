@@ -1,0 +1,9 @@
+---
+name: update_contact_address
+to: 'https://{{context.location.host}}/crm/api/v2/contacts/addresses/{{ data.contact_address_uuid }}'
+format: http
+request_type: PUT
+request_headers: >
+    {% include 'modules/portal/api_headers' %}
+---
+{{ data }}

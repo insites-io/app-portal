@@ -1,0 +1,571 @@
+---
+name: pay_bills
+resource: modules/insites_ecommerce/order
+resource_owner: anyone
+redirect_to: /pay-bills
+flash_alert: Error-PayBill
+flash_notice: Success-PayBill
+fields:
+  properties:
+    order_reference:    
+      validation: 
+        presence:
+          message: Order Reference Number is required  
+    subtotal_amount:    
+      validation: 
+        presence:  
+          message: Minimum of 1, maximum of 983283.99
+        numericality:
+          greater_than_or_equal_to: 1
+          less_than_or_equal_to: 983283.99
+    uuid:
+      validation: 
+        presence: true
+    currency:    
+      validation: 
+        presence: true
+    date_time:    
+      validation: 
+        presence: true
+    total_tax_amount:
+    total_amount:    
+      validation: 
+        presence: true
+    total_discount_amount:    
+      validation: 
+        presence: true 
+    order_status:
+    order_payment_status:
+    order_shipping_status:
+    notes:
+
+    # Other Details 
+    stripe_credit_card:
+      property_options:
+          virtual: true
+    is_discount_code_enabled:
+      property_options:
+          virtual: true  
+    discount_code:
+      property_options:
+          virtual: true  
+    discount_id:
+      property_options:
+          virtual: true  
+    discount_code_uuids:
+      property_options:
+          virtual: true 
+    discount_usage_count:
+      property_options:
+          virtual: true 
+
+default_payload: >
+  {% graphql current_user = 'modules/portal/account/get_current_user' | dig: 'current_user' %}
+  {% assign user_company_uuid =  current_user | dig: 'crm_contact' | first  %}
+
+  {% function settings = "modules/portal/pay_bills/get_settings" %}
+  {%  assign uuid =  '' | uuid %}
+  {
+    "properties_attributes":{
+        "user_id": "{{ context.current_user.id }}",
+        "user_uuid": "{{ current_user.external_id }}",
+        "company_uuid": "{{ user_company_uuid.company_uuid }}",
+        "currency": "{{ settings.currency }}",
+        "date_time": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S'}}",
+        "is_enabled": true,
+        "order_status": "Open",
+        "order_payment_status": "Pending Funds",
+        "shipping_status": "Not Applicable"
+    }
+  }  
+callback_actions: >
+  {%- include 'modules/portal/pay_bills/callback_init', 
+      context: context,
+      form: form -%}
+ 
+async_callback_actions:
+  delay: 0
+  priority: low
+  max_attempts: 2
+  content: >
+    {% comment %} Create Event Stream {% endcomment %}
+    {%- graphql user = "modules/portal/account/get_user_by_email" 
+        email: context.current_user.email 
+        | dig: "items" | dig: "results" | first -%}
+    {%- assign crm_contact = user.crm_contact | first -%}
+    {%- assign current_user_name = user.first_name | append: ' ' | append: user.last_name | default: user.email -%}
+    {%- capture description -%}
+      <a target="_blank" href="/admin/insites/#/crm/contacts/{{ user.id }}">{{ current_user_name | default: user.email }}</a> 
+      from 
+      <a target="_blank" href="/admin/insites#/crm/companies/{{ crm_contact.company_uuid }}">{{ crm_contact.company.company_name }}</a> 
+      completed a payment for 
+      <a target="_blank" href="/admin/insites#/ecommerce/orders/{{ form.properties.uuid }}">{{ form.properties.order_reference }}</a>
+    {%- endcapture -%}
+
+    {%- assign payload = '{}' | parse_json -%}
+    {%- assign payload = payload | add_hash_key: "description", description -%}
+    {%- assign payload = payload | add_hash_key: "font_icon", "icon-settings-1" -%}
+    {%- assign payload = payload | add_hash_key: "font_icon_color", "#6B45FF" -%}
+
+    {% capture log_info -%}
+    {
+      "user": {
+        "id": "{{ user.id }}",
+        "email": "{{ user.email }}",
+        "first_name": "{{ user.first_name }}",
+        "last_name": "{{ user.last_name }}"
+      },
+      "order": {
+        "uuid": "{{ form.properties.uuid }}"
+      },
+      "contact_uuid": "{{ user.uuid }}"
+    }
+    {%- endcapture %}
+
+    {%- assign log_info_json = log_info | parse_json -%}
+    {%- assign info = payload | add_hash_key: "log", log_info_json -%}
+    {% include 'modules/portal/events/log_event', info %}
+
+
+---
+	
+{%- assign props = form.fields.properties -%}
+
+{%- liquid
+    graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user'
+
+    if user.portal
+        assign profile = user.portal[0]
+        if profile != blank and profile.is_activated
+            assign verified = true
+        else
+            assign verified = false            
+        endif
+    endif    
+-%}
+
+{% form 
+    html-id: "checkout-form"
+    html-onsubmit: "return Paybill.events.payBillsSubmit(event);"
+    html-novalidate: true %}
+    {%  assign uuid =  '' | uuid %}
+    
+    <input type="hidden" id="bill-total-amount" name="{{ props.total_amount.name }}" >
+    <input type="hidden" id="bill-subtotal-amount" name="{{ props.subtotal_amount.name }}" >
+    <input type="hidden" id="bill-tax-amount" name="{{ props.total_tax_amount.name }}" >
+    <input type="hidden" id="bill-notes" name="{{ props.uuid.name }}" >
+	<input type="hidden" id="bill-notes" value="{{uuid}}" name="{{ props.uuid.name }}" >
+
+    <!-- Invoice Details -->
+    <div id="invoice-details">
+        <div class="column-1">
+          <h3 class="heading-3 large-8 medium-7 small-12">Pay bills</h3>
+          <div class="spacer"></div>
+          <p class="p-dark">Quickly and easily pay your bills online with our streamlined payment process.</p>
+        </div>
+        <div class="spacer xxx-large"></div>
+
+        {%- graphql cards = "modules/portal/credit_cards/get_credit_card", 
+        contact_uuid: context.current_user.external_id | dig: 'items' -%}
+
+        <div class="add_credit_card_details_container">
+            <div>
+                <h5 class="heading-5">Bill details</h5>
+            </div>
+        </div>
+        <div class="spacer x-large"></div>
+
+        <div class="grid-x grid-padding-x invoice-details">
+            <div class="large-6 medium-12 small-12 cell spacer-for-small-only">
+                <ins-input required validate account-details-field
+                    class="label-input"
+                    label="Reference*" 
+                    placeholder="Reference"
+                    field="text"
+                    id="invoice-number"
+                    name="{{ props.order_reference.name }}" 
+                    value="{{ props.order_reference.value }}"
+                    {% if form.errors['properties.order_reference'] %} has-error {% endif %}
+                    error-message="{{ props.order_reference.validation.rules.presence.message }}">
+                </ins-input>
+            </div>      
+
+            <div class="large-6 medium-12 small-12 cell">
+                <ins-input required validate account-details-field
+                    class="label-input"
+                    label="Amount Including Tax*" 
+                    placeholder="$0.00"
+                    field="text"
+                    id="bill-amount"
+                    name="temp_order_value"
+                    min="1"
+                    max="983283.99"
+                    {% if form.errors['properties.subtotal_amount'] %} has-error {% endif %}
+                    error-message="{{ props.subtotal_amount.validation.rules.presence.message }}">
+                </ins-input>
+                <input type="hidden" id="bill-order-value" name="{{ props.subtotal_amount.name }}" >
+            </div>
+
+            <div class="spacer large"></div>
+        </div>
+    </div>
+    <div class="spacer xxx-large"></div>
+
+    {% comment %} ? DICOUNT CODE BLOCK {% endcomment %}
+    {% assign is_discount_code_enabled = false %} {% comment %} ! Change the value to false if disabled {% endcomment %}
+    {% assign total_discount_amount = 0 %} {% comment %} ! Always assign to 0, regardless if discount is enabled or disabled {% endcomment %}
+	  <input type="hidden" id="is-discount-code-enabled" name="{{ props.is_discount_code_enabled.name }}" value="{{ is_discount_code_enabled }}"> 
+
+    {% if is_discount_code_enabled %}
+		<div class="grid-x discount_code_field_container">
+            <div class="large-3 cell">
+                <ins-input 
+                    id="discount_code_field_input"
+                    data-type="string"
+                    data-ui="input"
+                    label="Discount Code*"
+                    tooltip="Click Apply Button to use Discount Code."
+                    name="{{ props.discount_code.name }}"
+					value="{{ discount_code }}"
+                    placeholder="Please enter both letters and numbers">
+                </ins-input>
+            </div>
+
+            <div class="large-4 cell">
+                <ins-button type="button" solid 
+                    id="apply_discount"
+                    label="Apply"
+                    icon="icon-check"
+					disabled>
+                </ins-button>
+
+                <ins-button type="button" outlined 
+                  id="reset_discount"
+                  label="Remove"
+                  icon="icon-close"
+				  disabled>
+              </ins-button>
+            </div>
+        </div>
+        <div id="discount_code_required_label" class="isNotVisible custom_error">Required.</div>
+        <div id="discount_code_not_valid" class="isNotVisible custom_error">Discount Code is Not Valid.</div>
+        <div id="discount_code_limit" class="isNotVisible custom_error">Discount Code usage reached it's limit.</div>
+        <div id="discount_code_apply_button" class="isNotVisible custom_error">Click Apply Button to use Discount Code.</div>
+
+		{% comment %} Discount Field Holders {% endcomment %}
+		{% comment %} <input type="" id="discount-code" name="{{ props.discount_code.name }}" value="{{ discount_code }}"> {% endcomment %}
+		<input type="hidden" id="bill-total-discount-amount" name="{{ props.total_discount_amount.name }}" value="{{ total_discount_amount }}">
+		<input type="hidden" id="discount-id" name="{{ props.discount_id.name }}" value="{{ discount_id }}">
+		<input type="hidden" id="discount-code-uuid" name="{{ props.discount_code_uuids.name }}" value="{{ discount_code_id }}">
+		<input type="hidden" id="discount-usage-count" name="{{ props.discount_usage_count.name }}" value="{{ discount_usage_count }}"> 
+    {% endif %}
+    {% comment %} ? END OF DISCOUNT CODE BLOCK {% endcomment %}
+    
+    {% include 'modules/portal/pay_bills/payment_credit_card' %}
+    
+{% endform %}
+
+<script>
+	// check if discount is enabled
+	var isDiscountCodeEnabled = document.getElementById("is-discount-code-enabled");
+
+  // FORMAT BILL AMOUNT
+  const billAmount = document.getElementById('bill-amount')
+
+  // PREVENT LETTERS
+  billAmount.addEventListener('keydown', function (e) {
+    console.log("KEY")
+    const key = e.key;
+
+    // Allow: digits, decimal point, control keys
+    const allowedKeys = [
+      'Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete', 'Home', 'End', '.', // control keys
+    ];
+
+    const isNumberKey = /\d/.test(key);
+    const isAllowed = allowedKeys.includes(key);
+
+    // Block letters (anything that is not a digit or allowed key)
+    if (!isNumberKey && !isAllowed) {
+      e.preventDefault();
+    }
+
+    // Optional: prevent multiple decimals
+    if (key === '.' && input.value.includes('.')) {
+      e.preventDefault();
+    }
+  });
+    
+  // ADD "," on Thousands
+  billAmount.addEventListener('insBlur', event => {
+   
+    // Get cursor position
+    const position = billAmount.selectionStart;
+
+    // Remove all non-digit characters (except for minus if needed)
+    const raw = billAmount.value.replace(/[^0-9.]/g, '');
+
+    // Return early if not a valid number
+    if (isNaN(raw)) return;
+
+    // Format number with commas
+    const formatted = Number(raw).toLocaleString();
+
+    // Update input value
+    billAmount.value = formatted;
+    console.log(formatted);
+
+
+  });
+
+
+	// NOTE THIS Script will run only if discount code enabled
+	if(isDiscountCodeEnabled.value === "true"){
+
+		// Discount hidden fields
+		var discountAmountEl = document.getElementById("bill-total-discount-amount");
+		var discountIdEl = document.getElementById("discount-id");
+        var discountCodeUuidEl = document.getElementById("discount-code-uuid");
+		var discountUsageCountEl = document.getElementById("discount-usage-count");
+
+		// Error handler labels
+		var discountRequiredLabel = document.getElementById("discount_code_required_label");
+		var discountNotValidLabel = document.getElementById("discount_code_not_valid");
+		var discountLimitLabel = document.getElementById("discount_code_limit");
+		var discountApplyButtonLabel = document.getElementById("discount_code_apply_button");
+
+		// summary labels
+		// var chargeLabel = document.getElementById("charge-amount-summary");
+		var totalDiscountLabel = document.getElementById("discount-summary");
+		var totalSummaryLabel = document.getElementById("total-amount-summary");
+
+		// amount
+		var billTotalAmount = document.getElementById("bill-amount");
+
+		// discount code field
+		var discountCodeField = document.getElementById("discount_code_field_input");
+
+		// discount code button
+		var applyDiscount = document.getElementById("apply_discount");
+
+		// reset discount code button
+        var resetDiscount = document.getElementById("reset_discount");
+
+		// DISCOUNT CODE APPLICATION
+		var is_promoCode_validated = false;
+		var res_discountType = '';
+		var res_discountValue = '';
+		var res_discountCode = '';
+		var res_discountUsageCount = '';
+		var res_discountUsageLimit = '';
+		var res_discountId = '';
+		var res_discountCodeUuid = '';
+
+		var totalAmount = 0;
+		var computedDiscountAmount = 0;
+		var computedTotalAmount = 0;
+		var computedSubtotalAmount = 0;
+		var computedGSTAmount = 0;
+
+		// apply the discount code on button click
+		applyDiscount.addEventListener('insClick', event => {
+			applyDiscountCode();
+		});
+
+		// apply the discount code on button click
+		resetDiscount.addEventListener('insClick', event => {
+			removeDiscountCode();
+		});
+
+		discountCodeField.addEventListener('insValueChange', () => {
+			if(billTotalAmount.value != "" && discountCodeField.value != ''){
+				applyDiscount.removeAttribute("disabled");
+			}else{
+				applyDiscount.setAttribute("disabled", true);
+			}
+        });
+		
+		function disableElements(){
+			applyDiscount.setAttribute("disabled", true);
+			applyDiscount.label = "Applied";
+
+			discountCodeField.setAttribute("disabled", true);
+
+			billTotalAmount.setAttribute("disabled", true);
+		}
+
+		function enableElements(){
+			applyDiscount.label = "Apply";
+
+			discountCodeField.setAttribute("disabled", false);
+			discountCodeField.value = '';
+
+			billTotalAmount.setAttribute("disabled", false);
+		}
+
+		function removeDiscountCode(){
+			enableElements();
+
+			// Enable Reset Discount Button
+			resetDiscount.setAttribute("disabled", true);
+
+			// Reset Value Field Related to Discount
+			discountIdEl.value = '';
+			discountCodeUuidEl.value = '';
+			discountUsageCountEl.value = '';
+			discountAmountEl.value = 0;
+
+			setValues(billTotalAmount.value, 0);
+			App.events.notyf("success", "Promo code removed.");
+		}
+
+		function setValues(totalAmountVal, discountAmountVal){
+			console.log(totalAmountVal, discountAmountVal);
+
+			ccSurcharge = parseFloat((totalAmountVal - discountAmountVal) * 0.017).toFixed(2); // 1.7% credit card surcharge
+			subtotalAmount  = parseFloat(totalAmountVal - discountAmountVal).toFixed(2); // amount payable
+			gst = parseFloat((totalAmount - discountAmountVal) * 0.1).toFixed(2); // GST
+			let totalValue = parseFloat(Number(totalAmountVal - discountAmountVal) + Number(ccSurcharge) + Number(gst)).toFixed(2);
+
+			// LABEL SUMMARY
+			let chargeAmountEl = document.getElementById('charge-amount-summary');
+			let chargeSubtotal = document.getElementById('charge-subtotal-summary');
+			let chargeGstEl = document.getElementById('charge-gst-summary');
+			let ccAmountEl = document.getElementById('cc-charge-summary');
+			let totalAmountEl = document.getElementById('total-amount-summary');    
+
+			console.log(ccSurcharge, "ccSurcharge");
+			console.log(subtotalAmount, "subtotalAmount");
+			console.log(gst, "gst");
+			console.log(totalValue, "totalValue");
+
+			chargeAmountEl.textContent = "$" + totalAmount;
+			chargeSubtotal.textContent = "$" + subtotalAmount;
+			chargeGstEl.textContent = "$" + gst;
+			ccAmountEl.textContent = "$" + ccSurcharge;
+			totalAmountEl.textContent = "$" + totalValue;
+			totalDiscountLabel.textContent = "($" + parseFloat(discountAmountVal).toFixed(2) + ")";
+			App.events.notyf("success", "Promo code applied.");
+
+			// Update hidden fields
+			amountTotalEl.value = totalValue;
+			amountSubtotalEl.value = totalAmountVal;
+			amountTotalTaxEl.value = gst;
+           
+			amountDueEl.value = totalValue;
+			notesEl.value = `{"subtotal-amount": "${pricify(totalAmountVal)}", "cc-charge": "${pricify(ccSurcharge)}",  "gst": "${pricify(gst)}",  "total-amount": "${pricify(totalValue)}"}`;
+		}
+
+		// apply discount code functionality
+		function applyDiscountCode(){
+			if(billTotalAmount.value == 0){
+				// Error to apply discount code, amount must be not 0 or blank
+				App.events.notyf("error", "Please enter an Amount before applying discount code.");
+			}else{
+				// Continue Applying the discount code.
+				applyDiscount.loading = true;
+			
+				var url = '/client/discount/apply_discount?' + 'discount_code=' + discountCodeField.value;
+				setTimeout(async() => {
+					let response = await apiServices.processRequest('post', url);
+					if(response.data.id) { 
+
+					console.log(response.data);
+
+						disableElements();
+
+						// Enable Reset Discount
+						resetDiscount.removeAttribute("disabled");
+
+                        // SET REQUIRED ERROR
+                        discountRequiredLabel.classList.add("isNotVisible");
+                        discountCodeField.removeAttribute('has-error', "true");
+						resetErrorHandler();
+						
+						// Assign the values
+						res_discountType = response.data.discount_type;
+						res_discountValue = response.data.discount_value;
+						res_discountCode = response.data.discount_code;
+						res_discountUsageCount = response.data.usage_count;
+						res_discountUsageLimit = response.data.usage_limit;
+						res_discountId = response.data.id;
+						res_discountCodeUuid = response.data.uuid;
+
+						// // GET TOTAL AMOUNT
+						totalAmount = parseFloat(billTotalAmount.value).toFixed(2);
+						computedDiscountAmount = 0;
+						computedTotalAmount = 0;
+						computedSubtotalAmount = 0;
+						computedGSTAmount = 0;
+
+						// CHECK IF DISCOUNT IS LIMIT
+						if (res_discountUsageCount == res_discountUsageLimit){
+							// SET LIMIT ERROR
+							discountLimitLabel.classList.remove("isNotVisible"); 
+							discountCodeField.setAttribute('has-error', "true");
+							is_promoCode_validated = false;
+							App.events.notyf("error", "Promo code applied reached it's maximum usage limit.");
+						}else{
+							// UNSET LIMIT ERROR
+							discountLimitLabel.classList.add("isNotVisible"); 
+							discountCodeField.removeAttribute('has-error', "true");
+
+							// COMPUTE PERCENTAGE
+							console.log(res_discountType, "res_discountType");
+							console.log(res_discountValue, "res_discountValue");
+							if(res_discountType == 'percentage'){
+								// COMPUTED DISCOUNT
+								computedDiscountAmount = parseFloat(parseFloat(res_discountValue / 100) * parseFloat(totalAmount)).toFixed(2);
+							}
+							// COMPUTE FIXED AMOUNT
+							else{
+								computedDiscountAmount = parseFloat(res_discountValue);
+							}
+
+							// BEGIN COMPUTE
+							computedTotalAmount = parseFloat(parseFloat(totalAmount) - parseFloat(computedDiscountAmount)).toFixed(2);
+							computedGSTAmount = parseFloat(computedTotalAmount / 11).toFixed(2);
+							computedSubtotalAmount = (parseFloat(computedTotalAmount) - parseFloat(computedGSTAmount)).toFixed(2);
+
+							// .. discount details
+							discountIdEl.value = res_discountId;
+							discountCodeUuidEl.value = res_discountCodeUuid;
+							discountUsageCountEl.value = res_discountUsageCount;
+							discountAmountEl.value = computedDiscountAmount;
+
+							// SET VALUES
+							setValues(totalAmount, computedDiscountAmount)
+
+
+							is_promoCode_validated = true;
+						}
+					}else{
+						discountCodeField.setAttribute('has-error', "true");
+
+						if(discountCodeField.value != ''){
+							App.events.notyf("error", "Discount Code applied is not valid.");
+							discountRequiredLabel.classList.add("isNotVisible"); 
+							discountNotValidLabel.classList.remove("isNotVisible");
+						}else{
+							App.events.notyf("error", "Please enter Discount Code.");
+							discountRequiredLabel.classList.remove("isNotVisible");
+							discountNotValidLabel.classList.add("isNotVisible");
+						}
+					}
+				}, 500);
+
+				applyDiscount.loading = false;
+			}
+		}
+
+		// reset discount code on button click
+		function resetErrorHandler(){
+			discountCodeField.setAttribute('has-error', "false");
+            discountRequiredLabel.classList.add("isNotVisible");
+            discountNotValidLabel.classList.add("isNotVisible");
+			discountLimitLabel.classList.add("isNotVisible");
+            discountApplyButtonLabel.classList.add("isNotVisible");
+		}
+    }
+
+</script>

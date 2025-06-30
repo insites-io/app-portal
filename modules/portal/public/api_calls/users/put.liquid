@@ -1,0 +1,11 @@
+---
+name: update_crm_via_invite_user
+to: 'https://{{context.location.host}}/crm/api/v2/contacts/{{data.uuid}}'
+format: http
+enabled: true
+trigger_condition: true
+request_type: PUT
+request_headers: >
+    {% include 'modules/website/api_headers' %}
+---
+{{ data }}

@@ -1,0 +1,8 @@
+---
+name: get_company_address
+to: 'https://{{context.location.host}}/crm/api/v2/companies/addresses/{{ data.address_uuid }}'
+format: http
+request_type: GET
+request_headers: >
+    {% include 'modules/portal/api_headers' %}
+---
