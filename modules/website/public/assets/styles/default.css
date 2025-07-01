@@ -677,12 +677,13 @@ SweetAlert Style
     font-family: var(--font-family-01) !important;
     font-style: normal !important;
     font-weight: 700 !important;
-    font-size: 14px!important;
-    line-height: var(--font-x-small) !important;
+    font-size: 14px !important;
+    line-height: 16px;
     text-transform: none !important;
     border-radius: 14px;
-    padding: 10px 16px;
+    padding: 11px 24px;
     margin: 0 12px;
+    min-height: 40px;
 }
 
 .swal2-popup .swal2-actions button,
@@ -741,6 +742,7 @@ SweetAlert Style
 .swal2-actions button i{
     position: relative !important;
     top: 1px !important;
+    margin-right: 4px;
 }
 
 #swal2-content .ins-loader-wrap--title {
