@@ -22,7 +22,7 @@
     /* Support/Notification Colors Hover*/
     --success-hover: #2B8D6F;
     --error-hover: #D83333;
-    --warning-hover: #FF8F05;
+    --warning-hover: #CC8700;
     --info-hover: #2331B7;
     --neutral-hover: #636368;
     /* Support/Notification Colors Hover Light*/
@@ -1271,7 +1271,8 @@ ins-button+a.ins-button button {
     margin-left: calc(2 * var(--gutter));
 }
 
-ins-button button, ins-button button[type=button] {
+ins-button button:not(.size--small), 
+ins-button button[type=button] {
     padding: 11px 24px;
     min-height: 40px;
 }
