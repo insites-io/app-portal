@@ -905,7 +905,6 @@ ins-button button.red {
 }
 
 ins-button button {
-    display: flex;
     align-items: center;
     justify-content: center;
 }
