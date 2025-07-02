@@ -1374,7 +1374,8 @@ ins-radio.inline .ins-radio-checkbox label .ins-checkbox-radio-label {
     line-height: normal;
 	color: var(--color-ui-06, #575757);
 }
-
+ins-checkbox .ins-radio-checkbox .ripple-check:checked, 
+ins-radio .ins-radio-checkbox .ripple-check:checked,
 ins-checkbox .ins-radio-checkbox .ripple-check:checked::after,
 ins-radio .ins-radio-checkbox .ripple-check:checked::after {
     background: var(--color-main);
