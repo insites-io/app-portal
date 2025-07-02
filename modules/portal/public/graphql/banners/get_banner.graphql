@@ -8,10 +8,11 @@ query get_banner(
         filter: {
             table: { value: "modules/portal/portal_banners" }
             deleted_at: { exists: false }
+            properties: { name: "is_enabled", not_value_boolean: false } 
         }
-        sort: [
-            { properties: { name: "sort_order", order: ASC } }
-        ]
+        sort: {
+            created_at: { order: DESC }
+        }
     ) {
         total_entries
         total_pages
@@ -25,15 +26,8 @@ query get_banner(
             sub_text: property(name: "sub_text")
             button_link: property(name: "button_link")
             button_label: property(name: "button_label")  
-
             ## Images
-            desktop_image: property_upload(name: "desktop_image") {
-                url
-                file_name
-                extension
-                versions
-            }
-            mobile_image: property_upload(name: "mobile_image") {
+            image: property_upload(name: "image") {
                 url
                 file_name
                 extension

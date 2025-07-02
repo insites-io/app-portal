@@ -10,15 +10,17 @@ properties:
     label: "Description"
     weight: 0
     ui_element: "input"
-    is_required: false
-    is_shown_in_table: false
+    is_required: true
+    column_weigthing: 0
+    is_shown_in_table: true
 - name: requested_by
   type: string
   metadata:
     label: "Requested By"
     weight: 1
     ui_element: "input"
-    is_required: false
+    is_required: true
+    column_weigthing: 1
     is_shown_in_table: false
 - name: type
   type: string
@@ -27,5 +29,6 @@ properties:
     weight: 2
     options: ["Bug","Feature request","Change request"]
     ui_element: "select"
-    is_required: false
+    is_required: true
+    column_weigthing: 2
     is_shown_in_table: false

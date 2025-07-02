@@ -1,5 +1,5 @@
 query get_feedback_table {
-  admin_tables(filter: {name: {value: "modules/website/testimonials"}}) {
+  admin_tables(filter: {name: {value: "modules/website/feedback"}}) {
     results {
       id
       name
