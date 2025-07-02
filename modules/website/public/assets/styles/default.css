@@ -3433,28 +3433,28 @@ footer .menu a {
 }
 
 /********** [Testimonial] **********/
-.testimonials-section {
+.feedback-section {
     display: flex;
 }
 
-.testimonials-section  img{
+.feedback-section  img{
     height: 100%;
     object-fit: cover;
 }
 
-.homepagepage-testimonial-wrap,
-.testimonial-image {
+.homepagepage-feedback-wrap,
+.feedback-image {
     width: 50%;
 }
 
-.homepagepage-testimonial-wrap {
+.homepagepage-feedback-wrap {
     display: flex;
     flex-direction: column;
     justify-content: center;
     background: #181818;
 }
 
-.homepagepage-testimonial-wrap  .slide-content {
+.homepagepage-feedback-wrap  .slide-content {
     padding: 0 15%;
 }
 
@@ -3468,12 +3468,12 @@ footer .menu a {
     line-height: 150%; 
 }
 
-.homepagepage-testimonial-wrap ins-carousel {
+.homepagepage-feedback-wrap ins-carousel {
     height: 100%;
     padding: 32px 0;
 }
 
-.homepagepage-testimonial-wrap ins-carousel .ins-carousel { 
+.homepagepage-feedback-wrap ins-carousel .ins-carousel { 
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -3511,7 +3511,7 @@ footer .menu a {
 }
 
 @media (max-width: 639px) {
-    .homepagepage-testimonial-wrap  .slide-content {
+    .homepagepage-feedback-wrap  .slide-content {
         padding: 0 24px;
     }
 } 
@@ -3535,20 +3535,20 @@ ins-table-row:hover:nth-child(odd)  {
 
 /* Media query for mobile view (639px or smaller) */
 @media (max-width: 639px) {
-    .homepagepage-testimonial-wrap,
-    .testimonial-image {
+    .homepagepage-feedback-wrap,
+    .feedback-image {
         width: 100%; /* Make them full width */
     }
 
-    .testimonial-image {
+    .feedback-image {
         height: 400px;
     }
 
-    .testimonial-image img {
+    .feedback-image img {
         width: 100%;
     }
 
-    .testimonials-section { 
+    .feedback-section { 
         flex-direction: column; 
     }
 
@@ -4978,6 +4978,7 @@ Notyf
     object-fit: cover;
     border-bottom-right-radius: 14px;
     border-top-right-radius: 14px;
+    max-height: 200px;
 }
 
 .overview-details{

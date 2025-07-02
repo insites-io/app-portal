@@ -1,4 +1,4 @@
-mutation create_testimonials(
+mutation create_feedback(
   $full_name: String,
   $location: String,
   $message: String,
@@ -6,7 +6,7 @@ mutation create_testimonials(
 ) {
   items: record_create(
     record: {
-      table: "modules/website/testimonials",
+      table: "modules/website/feedback",
       properties: [
         { 
           name: "full_name",

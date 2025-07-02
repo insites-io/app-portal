@@ -7,27 +7,28 @@ metadata: {
 
 {% comment %} <div class="sign-out-wrapper">
     {% include_form 'modules/portal/sign_out' %}
-  </div> {% endcomment %}
-
+</div> {% endcomment %}
 
 {%- graphql portal_banner = 'modules/portal/banners/get_banner' | dig: "items", "results" | first -%}
 
-<div class="overview-banner">
-    <div class="overview-details"> 
-        <h5 class="heading-5">{{ portal_banner.main_text }}</h5>
-        <div class="spacer x-small"></div>  
-        <p class="p-dark">{{ portal_banner.sub_text }}</p>
-        <div class="spacer"></div>
-        <a href="{{ portal_banner.button_link }}">
-            <ins-button type="button" label="{{ portal_banner.button_label }}" icon-right="icon-arrow-forward" class="m-0" solid></ins-button>
-        </a>
+{% if portal_banner.size %}
+    <div class="overview-banner">
+        <div class="overview-details"> 
+            <h5 class="heading-5">{{ portal_banner.main_text }}</h5>
+            <div class="spacer x-small"></div>  
+            <p class="p-dark">{{ portal_banner.sub_text }}</p>
+            <div class="spacer"></div>
+            <a href="{{ portal_banner.button_link }}">
+                <ins-button type="button" label="{{ portal_banner.button_label }}" icon-right="icon-arrow-forward" class="m-0" solid></ins-button>
+            </a>
+        </div>
+        <div class="overview-image" height="150" width="300"> 
+            <img src="{{ portal_banner.image.url }}" alt="">
+        </div>
     </div>
-    <div class="overview-image" height="150" width="300"> 
-        <img src="{{ portal_banner.desktop_image.url }}" alt="">
-    </div>
-</div>
 
-<div class="spacer xxxx-large"></div>
+    <div class="spacer xxxx-large"></div>
+{% endif %}
 
 {% comment %} ? Overview Cards {% endcomment %}
 {% parse_json card_details_result %}
@@ -88,7 +89,7 @@ metadata: {
     {% assign per_page = context.params.per_page | default: 10 | plus: 0 %}    
     
     {%- graphql get_total_entries = 'modules/portal/overview/get_request', page: page_num, size: per_page | dig: "items" -%}
-
+    
     {%- graphql request_result = 'modules/portal/overview/get_request', page: page_num, size: per_page | dig: "items", "results" -%}
 
     {% comment %} HIDDEN FIELDS FOR JAVASCRIPT {% endcomment %}

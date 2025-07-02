@@ -1,4 +1,4 @@
-query get_testimonials(
+query get_feedback(
     $page: Int = 1, 
     $size: Int = 10,
 ) {
@@ -6,7 +6,7 @@ query get_testimonials(
         page: $page
         per_page: $size
         filter: {
-            table: { value: "modules/website/testimonials" }
+            table: { value: "modules/website/feedback" }
             deleted_at: { exists: false }
             properties: [
                 { name: "allow_display_on_website", value: "Yes" }
