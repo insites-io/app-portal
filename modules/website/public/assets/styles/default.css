@@ -5148,6 +5148,10 @@ ins-table-row:nth-child(even) {
     border-color: #DFDFDF !important;
 }
 
+.ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap {
+    border-color: var(--color-main);
+}
+
 .invoice-details .ins-form-field-wrap,
 .validate-credit-card .ins-credit-card-compact-size{
     margin-bottom: 0px!important;
