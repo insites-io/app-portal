@@ -2240,7 +2240,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header .navlinks a.cart-icon {
-    padding: 8px;
+    padding: 10px 8px;
 }
 
 #main-header .navlinks a:hover, 
@@ -2288,7 +2288,8 @@ ins-tag span.ins-tag {
 #main-header .profileNav ins-button button {
     padding: 12px 24px !important;
 }
-#main-header ins-dropdown .ins-dropdown_menu a {     
+#main-header ins-dropdown .ins-dropdown_menu a,
+#main-header ins-dropdown .ins-dropdown_menu button {     
     color: var(--font-color-head, #05051D); 
     font-weight: normal !important;
 }
