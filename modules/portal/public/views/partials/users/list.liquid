@@ -264,6 +264,13 @@ metadata: {
 
                 <ins-table-td class="body-small">
                          <ins-accordion-item class="request-table-accordion show-for-small-medium" heading=" {{ item.first_name }} {{ item.last_name }}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
+                            {% if portal_profile.primary_account_holder == true %}
+                                <div class="spacer x-small"></div>
+                                <span class="primary-account-holder">Account Owner</span>
+                                <div class="hide-for-small-medium">
+                                    <div class="spacer small"></div>
+                                </div>
+                            {% endif %}   
                             <div class="spacer small"></div>
                             <p class="body-small-bold">Name</p>
                             <p class="body-small">{{ item.first_name }} {{ item.last_name }}</p>
@@ -284,7 +291,7 @@ metadata: {
                                 {% else %}
                                     <ins-input-select 
                                         class="selectPermission" 
-                                        value="{{ portal_profile.permission_level }}"
+                                        value="{{ portal_profile.permission_level |  default: "No Access" }}"
                                         data-id="{{ item.id }}"
                                         data-contact-uuid="{{ item.external_id }}"
                                         data-name="{{ item.first_name }} {{ item.last_name }}"
@@ -343,7 +350,7 @@ metadata: {
                         <ins-input-select 
                             class="selectPermission" 
                             id="{{ item.id }}"
-                            value="{{ portal_profile.permission_level }}"
+                            value="{{ portal_profile.permission_level |  default: "No Access"  }}"
                             data-id="{{ item.id }}"
                             data-contact-uuid="{{ item.external_id }}"
                             data-name="{{ item.first_name }} {{ item.last_name }}"
@@ -791,4 +798,12 @@ metadata: {
     function resetSelect(e){
         e.setValue(previousPermissionLevelValue);
     }
+
+    document.querySelectorAll('.request-table-accordion').forEach(item => {
+        console.log(item)
+    item.addEventListener('insToggle', event => {
+        console.log('Accordion clicked:', event.target);
+        // You can trigger any function or custom event here
+    });
+    });
 </script>

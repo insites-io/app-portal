@@ -5,6 +5,10 @@ let noCardNotif = document.getElementById('no-card');
 let cardHolder = document.getElementById('add-credit-card-button-holder');
 let cardFields = document.getElementById('credit-card-fields');
 
+// Defaul size of the ins-credit-card component once it is created.
+// Ecommerce is using different layout size
+let cardLayout = 'large-4 medium-12 small-12'; 
+
 // Create an instance of Elements.
 let elements = stripe.elements();
 let card;
@@ -35,7 +39,7 @@ let StripeElement = (() => {
         methods: {
             makeCardElement(token) {
                 if (cardOptionsList && token) {
-                    let grid = cardOptionsList.getAttribute('card-grid') || "large-4 medium-6 small-12";
+                    let grid = cardOptionsList.getAttribute('card-grid') || cardLayout;
                     let divEl = document.createElement("div");
                         divEl.className = `${grid} cell card-options`;
                     let insCardEl = document.createElement("ins-credit-card");
@@ -45,6 +49,7 @@ let StripeElement = (() => {
                         insCardEl.setAttribute('expiry-month', token.card.exp_month);
                         insCardEl.setAttribute('expiry-year', token.card.exp_year);
                         insCardEl.setAttribute('compact', '');
+                        insCardEl.setAttribute('active', true);
                         insCardEl.value = token.card.id;
                     divEl.appendChild(insCardEl);
                     cardOptionsList.appendChild(divEl);
@@ -142,12 +147,14 @@ let StripeElement = (() => {
                 stripeCard.setAttribute('value', selectedEl.value)
             },
             async removeCard(selectedEl) {
+                console.log('test')
                 let confirm = await App.events.swal('warning',
-                    'Remove Card?',
+                    'Remove card?',
                     'Are you sure you want to remove this credit card?',
                     'Remove',
                     true,
-                    'icon-trash');
+                    'icon-trash',
+                    'remove-card-swal');
                 if (confirm) {
                     if (selectedEl.dataset.id) {
                         let response = await StripeModel.creditcard.removeCreditCard(selectedEl.dataset.id);
@@ -210,7 +217,11 @@ let StripeElement = (() => {
                     }
                 });
                 stripeBtn.forEach(el => {
-                    el.addEventListener('insClick', () => {
+                    el.addEventListener('insClick', (event) => {
+                        //Check if a layout is passed. The layout must be in the following format: 'large-6 medium-4 small-12'.
+                        const isValidLayout = /^large-\d+\s+medium-\d+\s+small-\d+$/.test(event.detail.data);
+                        cardLayout = isValidLayout? event.detail.data : cardLayout;
+
                         StripeElement.methods.validateStripeRequirements();
                     });
                 })

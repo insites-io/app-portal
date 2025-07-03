@@ -187,7 +187,6 @@ let App = (function () {
             },
             async swal(type = "warning", title, message, label = "OK", showCancel = true, iconConfirm = "icon-check-2",customClass) {
                 let btnLabel = App.data.capitalize(label);
-                console.log(customClass)
                 return await new Promise(resolve => {
                     Swal.fire({
                         html: `

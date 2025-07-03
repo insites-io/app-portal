@@ -8,10 +8,21 @@ metadata: {
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
 
-<header  id="main-header" 
-  {%- if dark == blank -%} class="light-header {%-  if border == true -%} border-bottom-nav  {%- endif -%}" {%- else -%} class="no-light-header" {%- endif -%}
-  >
-  
+{% comment %} Header class {% endcomment %}
+{%  liquid      
+    if dark == blank
+      assign headerClass = '' | split: ','
+      assign headerClass = headerClass | array_add: 'light-header'
+      if border == true
+        assign headerClass = headerClass | array_add: 'border-bottom-nav'
+      endif
+      assign headerClass = headerClass | join: ' ' 
+    else 
+      assign headerClass = 'border-bottom-nav'
+    endif
+%}
+<header id="main-header" class="{{headerClass}}">  
+
   <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
       <div class="large-1 medium-3 small-7 cell">
