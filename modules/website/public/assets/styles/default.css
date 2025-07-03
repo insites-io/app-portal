@@ -919,6 +919,10 @@ ins-button button div {
     align-items: center;
 }
 
+ins-button button.is-loading {
+    width: auto !important;
+}
+
 .align-buttons-right {
     display: flex;
     justify-content: flex-end;
