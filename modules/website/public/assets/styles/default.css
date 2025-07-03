@@ -1339,7 +1339,8 @@ ins-card.full {
     color: var(--color-main);
 }
 
-.ins-carousel_paginations .pagination.active {
+.ins-carousel_paginations .pagination.active,
+.ins-checkbox-card-wrap.selected.blue .selected-wrap {
     background-color: var(--color-main);
 }
 
@@ -5207,7 +5208,8 @@ ins-table-row:nth-child(even) {
     border-color: #DFDFDF !important;
 }
 
-.ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap {
+.ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap,
+.ins-checkbox-card-wrap.selected.blue {
     border-color: var(--color-main);
 }
 
