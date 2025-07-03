@@ -919,6 +919,10 @@ ins-button button div {
     align-items: center;
 }
 
+ins-button button.is-loading {
+    width: auto !important;
+}
+
 .align-buttons-right {
     display: flex;
     justify-content: flex-end;
@@ -1339,7 +1343,8 @@ ins-card.full {
     color: var(--color-main);
 }
 
-.ins-carousel_paginations .pagination.active {
+.ins-carousel_paginations .pagination.active,
+.ins-checkbox-card-wrap.selected.blue .selected-wrap {
     background-color: var(--color-main);
 }
 
@@ -1400,7 +1405,9 @@ ins-radio .ins-radio-checkbox .ripple-check:checked::after {
     top: 21%;
     /* offset overlap on sticky header */
 }
-
+.ins-modal-wrap.show-modal ins-card .ins-card-wrap {
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10) !important;
+}
 .ins-modal-wrap.show-modal .ins-modal-body {
     padding: 0px 32px 32px; 
     overflow: visible;
@@ -5208,7 +5215,8 @@ ins-table-row:nth-child(even) {
     border-color: #DFDFDF !important;
 }
 
-.ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap {
+.ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap,
+.ins-checkbox-card-wrap.selected.blue {
     border-color: var(--color-main);
 }
 
