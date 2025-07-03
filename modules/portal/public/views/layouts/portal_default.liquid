@@ -12,7 +12,7 @@ metadata: {
 <head>
     {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
     {%- cache head_key -%}
-        {% include 'modules/website/layout/head' %}
+        {% include 'modules/website/layout/head', border: true %}
     {%- endcache -%}
 </head>
 <body>

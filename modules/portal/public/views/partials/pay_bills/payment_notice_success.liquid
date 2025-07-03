@@ -18,7 +18,7 @@ metadata: {
     <div class="large-12 medium-12 small-12 cell payment-success-notif">
         <h1 class="heading-1">We've received your payment</h1>
         <div class="spacer small"></div> 
-        <p>Your payment has been received with reference number <strong>  - {{ context.session.paybill_order_reference | default: '0000000000000' }}</strong></p>
+        <p>Your payment has been received with reference number <strong> {{ context.session.paybill_order_reference | default: '0000000000000' }}</strong></p>
     </div>
 </div>
 <div class="spacer xxxx-large"></div>

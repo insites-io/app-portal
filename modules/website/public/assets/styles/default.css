@@ -725,7 +725,11 @@ SweetAlert Style
     border: solid .25em #EC9C00 !important;
 }
 
-.change-pw-swal,
+.change-pw-swal {
+    padding: 32px !important;
+    max-width: 410px !important;
+}
+
 .remove-card-swal {
     max-width: 380px !important;
     padding: 32px !important;
@@ -905,9 +909,14 @@ ins-button button.red {
 }
 
 ins-button button {
-    display: flex;
     align-items: center;
     justify-content: center;
+}
+
+ins-button button div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .align-buttons-right {
@@ -1523,6 +1532,14 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
     font-style: normal;
     font-weight: 400;
     line-height: 150%; 
+}
+
+.ibt-table-wrap__prev-next button {
+    color: var(--color-ui-06);
+    font-size: 16px !important;
+}
+.ibt-table-wrap__prev-next button.page {
+    font-size: 14px;
 }
 
 .ibt-table-wrap__prev-next button:disabled {
@@ -2342,6 +2359,7 @@ ins-tag span.ins-tag {
 
 #main-header.light-header {
     background-color: #fff !important;
+    border-bottom: 1px solid #dfdfdf;
 }
 
 .border-bottom-nav {
@@ -2428,6 +2446,16 @@ ins-tag span.ins-tag {
     justify-content: flex-end;
 }
 
+.mobile-menu-style .ins-accordion .ins-accordion-item .ins-accordion-item_content .inner-content {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+.sign-out-wrapper .signOutCustom,
+.sign-out-wrapper .signOutCustom button {
+    height: 62px;
+}
+
 @media screen and (max-width: 1066px) and (min-width: 1029px) {
     #main-header ins-dropdown {
         padding: 8px ;
@@ -2485,10 +2513,6 @@ ins-drawer#mobile-menu ins-accordion-link:last-child .ins-accordion-link{
     border-bottom: 0px;
 }
 
-
-ins-drawer#mobile-menu .menu li:last-child {
-    border-bottom: none;
-}
 
 ins-drawer#mobile-menu .menu li.small a,
 ins-drawer#mobile-menu .ins-accordion-item>.ins-accordion-item_header>.inner-head .heading,
@@ -3510,6 +3534,20 @@ footer .menu a {
     font-size: 14px;
 }
 
+.feedback ins-radio .ins-radio-checkbox label .ins-checkbox-radio-label {
+    color: var(--font-color-head);
+    font-family: var(--font-family-02);
+    font-size: 14px;
+}
+
+.feedback ins-radio .ins-radio-checkbox .ripple-check {
+    background: var(--color-ui-04, #DFDFDF);
+}
+
+.feedback  ins-radio .ins-radio-checkbox .ripple-check:checked {
+     background: var(--color-main);
+}
+
 @media (max-width: 639px) {
     .homepagepage-feedback-wrap  .slide-content {
         padding: 0 24px;
@@ -3571,6 +3609,10 @@ ins-table-row:hover:nth-child(odd)  {
     .layout-background{
         height: 400px;
     }
+
+    .account-body {
+        align-content: space-between;
+    }
     
     .create-account-container ins-button button.blue.outlined,
     .create-account-container ins-button button.blue.solid,
@@ -3596,7 +3638,7 @@ ins-table-row:hover:nth-child(odd)  {
     }
 
     #add-user-modal .addUserModalButton {
-        flex-direction: column-reverse !important;
+        flex-direction: column !important;
     }
 
     .ins-step_details{
@@ -4754,6 +4796,7 @@ Notyf
     .notyf__toast {
         width: 85%;
         margin-top: 24px;
+        margin-right: 8px;
     }
 }
 
@@ -4858,7 +4901,8 @@ Notyf
 /* Remove Underline on Hover */
 .portal-sidebar .ins-accordion-link_link:hover,
 .portal-mobile-nav .ins-accordion-link_link:hover {
-    text-decoration: none!important
+    text-decoration: none!important;
+    color: var(--color-main);
 }
 
 /* Remove Accordion Border */
@@ -5036,8 +5080,13 @@ Notyf
     text-transform: none;
 }
 
-.overview-button ins-button button:hover {
+.overview-button ins-button button {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+}
 
+.overview-button ins-button button:hover {
+    border-radius: 8px !important;
 }
 
 ins-input-tel .ins-input-tel-wrap .column-3 {

@@ -178,7 +178,7 @@ let UserProfileScript = (function () {
                             'warning',
                             'Change your password?',
                             'You will be logged out after changing your password.',
-                            'Submit changes',
+                            'Save changes',
                             true,
                             'icon-check-2',
                             'change-pw-swal');
