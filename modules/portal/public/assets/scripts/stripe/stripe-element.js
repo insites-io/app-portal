@@ -148,7 +148,7 @@ let StripeElement = (() => {
             },
             async removeCard(selectedEl) {
                 let confirm = await App.events.swal('warning',
-                    'Remove Card?',
+                    'Remove card?',
                     'Are you sure you want to remove this credit card?',
                     'Remove',
                     true,
