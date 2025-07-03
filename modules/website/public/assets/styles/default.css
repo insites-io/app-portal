@@ -1294,6 +1294,11 @@ ins-button button[type=button] {
     .btn-container a.ins-button+ins-button:last-child button {
         margin-bottom: 0;
     }
+
+    .btn-container {
+        justify-content: center;
+        gap: 24px;
+    }
 }
 
 ins-button.full {
@@ -4958,6 +4963,10 @@ Notyf
 
 .portal-mobile-nav .ins-accordion-item_header_caret-wrap {
     right: 0px;
+}
+
+.sign-up ins-button button.blue.solid{
+    width: 100%;
 }
 
 /*** Overview ***/

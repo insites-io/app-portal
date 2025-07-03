@@ -6,7 +6,6 @@ metadata: {
 
 {% comment %} ? GET USER {% endcomment %}
 {%- graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user' -%}
-{% graphql get_user_custom_field = 'modules/portal/account/get_contact_custom_fields', contact_uuid: user.external_id  | dig: 'items', 'results' | first %}
 
 {% comment %} ? GET COMPANY DETAILS {% endcomment %}
 {% assign get_company_details = user | dig: 'crm_contact' | first %}
