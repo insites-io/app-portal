@@ -290,27 +290,28 @@ let UserProfileScript = (function () {
 
         },
         events: {
-            async removeCard(selectedEl) {
-                let confirm = await App.events.swal(
-                    'warning',
-                    'Remove Card?',
-                    'Are you sure you want to remove this credit card?',
-                    'Remove',
-                    true,
-                    'icon-trash',
-                    'remove-card-swal');
-                if (confirm) {
-                    if (selectedEl.dataset.id) {
-                        let response = await StripeModel.creditcard.removeCreditCard(selectedEl.dataset.id);
-                        if (response.state && response.data.items) {
-                            // API successfully removed card
-                        }
-                    }
-                    selectedEl.parentNode.remove();
-                    App.events.notyf('success', "Credit card has been removed.");
-                    UserProfileScript.methods.checkCardCount();
-                }
-            },
+            // async removeCard(selectedEl) {
+            //     console.log('')
+            //     let confirm = await App.events.swal(
+            //         'warning',
+            //         'Remove card?',
+            //         'Are you sure you want to remove this credit card?',
+            //         'Remove',
+            //         true,
+            //         'icon-trash',
+            //         'remove-card-swal');
+            //     if (confirm) {
+            //         if (selectedEl.dataset.id) {
+            //             let response = await StripeModel.creditcard.removeCreditCard(selectedEl.dataset.id);
+            //             if (response.state && response.data.items) {
+            //                 // API successfully removed card
+            //             }
+            //         }
+            //         selectedEl.parentNode.remove();
+            //         App.events.notyf('success', "Credit card has been removed.");
+            //         UserProfileScript.methods.checkCardCount();
+            //     }
+            // },
             tablePaginationHandler(event) {
                 orderListFilter.page = event.detail.pageNumber;
                 orderListFilter.per_page = event.detail.pageSize;

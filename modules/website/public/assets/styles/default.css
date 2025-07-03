@@ -731,7 +731,7 @@ SweetAlert Style
 }
 
 .remove-card-swal {
-    max-width: 380px !important;
+    max-width: 400px !important;
     padding: 32px !important;
 }
 
@@ -5189,7 +5189,8 @@ ins-table-row:nth-child(even) {
 .stripe-modal ins-button button .btn__icon, 
 .stripe-modal ins-button button[type=button] .btn__icon{
     font-size: 10px;
-    margin-top: 5px;
+    position: relative;
+    top: 4px;
 }
 
 .add_credit_card_details_container{
@@ -5635,6 +5636,10 @@ ins-table-row:nth-child(even) {
     .users-table .ins-input-select {
         margin: 0px
     }
+
+   .users-table .request-table-accordion .ins-accordion-item.open .ins-accordion-item_content {
+        overflow: visible;
+    }
 }
 
 
@@ -5730,4 +5735,9 @@ ins-table-row:nth-child(even) {
     font-weight: 400;
     line-height: 18px;
     text-align: left;
+}
+
+
+ins-alert-box .alert-box.error {
+    display: none;
 }

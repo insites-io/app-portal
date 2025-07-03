@@ -143,12 +143,14 @@ let StripeElement = (() => {
                 stripeCard.setAttribute('value', selectedEl.value)
             },
             async removeCard(selectedEl) {
+                console.log('test')
                 let confirm = await App.events.swal('warning',
-                    'Remove Card?',
+                    'Remove card?',
                     'Are you sure you want to remove this credit card?',
                     'Remove',
                     true,
-                    'icon-trash');
+                    'icon-trash',
+                    'remove-card-swal');
                 if (confirm) {
                     if (selectedEl.dataset.id) {
                         let response = await StripeModel.creditcard.removeCreditCard(selectedEl.dataset.id);
