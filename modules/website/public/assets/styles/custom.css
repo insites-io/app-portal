@@ -624,6 +624,11 @@ ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__page {
     float: none;
     margin: 0 30px;
 }
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header.active::before, 
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header:focus::before, 
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before{
+    background: var(--color-main);
+}
 
 .ibt-table-wrap__pagination,
 .ibt-table-wrap__pagination--option,

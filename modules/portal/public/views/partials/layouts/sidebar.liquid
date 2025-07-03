@@ -51,6 +51,14 @@ metadata: {
     <div class="portal-mobile-nav">
         <ins-accordion-item class="" heading="{{ navigation_label }}" link="{{ navigation_link }}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
             <ins-accordion-link class="{% if navigation_label == "Overview" %} is_hidden {% endif %}" label="Overview" link="/overview" link-target="_self"></ins-accordion-link>
+            {% if context.constants.ecommerce_addon == 'true' %}
+            <ins-accordion menu>                    
+                <ins-accordion-item heading="Orders" open-icon="icon-plus" close-icon="icon-minus" {%if params.slug == 'order-history' or params.slug == 'purchase-again' -%}active{%- endif-%} >
+                    <ins-accordion-link label="Order history" link="/order-history" link-target="_self" {%if params.slug == 'order-history'-%}active{%- endif-%}></ins-accordion-link>
+                    <ins-accordion-link label="Purchase again" link="/purchase-again" link-target="_self" {%if params.slug == 'purchase-again'-%}active{%- endif-%}></ins-accordion-link>
+                </ins-accordion-item>                                                                             
+            </ins-accordion>
+            {% endif %}
             <ins-accordion-link class="{% if navigation_label == "My details" %} is_hidden {% endif %}" label="My details" link="/my-details" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "My company details" %} is_hidden {% endif %}" label="My company details" link="/my-company-details" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "Feedback" %} is_hidden {% endif %}" label="Feedback" link="/feedback" link-target="_self"></ins-accordion-link>
