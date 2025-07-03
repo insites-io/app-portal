@@ -1304,6 +1304,11 @@ ins-button button[type=button] {
     .btn-container a.ins-button+ins-button:last-child button {
         margin-bottom: 0;
     }
+
+    .btn-container {
+        justify-content: center;
+        gap: 24px;
+    }
 }
 
 ins-button.full {
@@ -1384,7 +1389,8 @@ ins-radio.inline .ins-radio-checkbox label .ins-checkbox-radio-label {
     line-height: normal;
 	color: var(--color-ui-06, #575757);
 }
-
+ins-checkbox .ins-radio-checkbox .ripple-check:checked, 
+ins-radio .ins-radio-checkbox .ripple-check:checked,
 ins-checkbox .ins-radio-checkbox .ripple-check:checked::after,
 ins-radio .ins-radio-checkbox .ripple-check:checked::after {
     background: var(--color-main);
@@ -2260,7 +2266,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header .navlinks a.cart-icon {
-    padding: 8px;
+    padding: 10px 8px;
 }
 
 #main-header .navlinks a:hover, 
@@ -2308,7 +2314,8 @@ ins-tag span.ins-tag {
 #main-header .profileNav ins-button button {
     padding: 12px 24px !important;
 }
-#main-header ins-dropdown .ins-dropdown_menu a {     
+#main-header ins-dropdown .ins-dropdown_menu a,
+#main-header ins-dropdown .ins-dropdown_menu button {     
     color: var(--font-color-head, #05051D); 
     font-weight: normal !important;
 }
@@ -5003,6 +5010,10 @@ Notyf
     right: 0px;
 }
 
+.sign-up ins-button button.blue.solid{
+    width: 100%;
+}
+
 /*** Overview ***/
 .overview-banner{
     display: flex;
@@ -5194,6 +5205,10 @@ ins-table-row:nth-child(even) {
 .card-options-list-payment-method ins-credit-card .ins-credit-card-compact-size 
 .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap {
     border-color: #DFDFDF !important;
+}
+
+.ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap {
+    border-color: var(--color-main);
 }
 
 .invoice-details .ins-form-field-wrap,

@@ -13,8 +13,8 @@ metadata: {
         {% if context.constants.ecommerce_addon == 'true' %}
             <ins-accordion menu>                    
                 <ins-accordion-item heading="Orders" open-icon="icon-plus" close-icon="icon-minus" {%if params.slug == 'order-history' or params.slug == 'purchase-again' -%}active{%- endif-%} >
-                    <ins-accordion-link label="Order History" link="/order-history" link-target="_self" {%if params.slug == 'order-history'-%}active{%- endif-%}></ins-accordion-link>
-                    <ins-accordion-link label="Purchase Again" link="/purchase-again" link-target="_self" {%if params.slug == 'purchase-again'-%}active{%- endif-%}></ins-accordion-link>
+                    <ins-accordion-link label="Order history" link="/order-history" link-target="_self" {%if params.slug == 'order-history'-%}active{%- endif-%}></ins-accordion-link>
+                    <ins-accordion-link label="Purchase again" link="/purchase-again" link-target="_self" {%if params.slug == 'purchase-again'-%}active{%- endif-%}></ins-accordion-link>
                 </ins-accordion-item>                                                                             
             </ins-accordion>
         {% endif %}
