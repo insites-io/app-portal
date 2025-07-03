@@ -5281,6 +5281,10 @@ ins-table-row:nth-child(even) {
     text-align: left;
 }
 
+.ins-modal-wrap.show-modal ins-card .ins-card-wrap {
+    box-shadow: none !important
+}
+
 /* Account */
 .layout-background{
     background-image: url("../images/login-bg.webp");
