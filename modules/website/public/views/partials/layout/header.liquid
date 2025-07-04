@@ -10,7 +10,7 @@ metadata: {
 
 {% comment %} Header class {% endcomment %}
 {%  liquid      
-    if dark == blank
+    if dark != true
       assign headerClass = '' | split: ','
       assign headerClass = headerClass | array_add: 'light-header'
       if border == true
