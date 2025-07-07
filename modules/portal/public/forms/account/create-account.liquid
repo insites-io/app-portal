@@ -269,7 +269,7 @@ async_callback_actions:
 
     # Create user profile
     {%  liquid
-      graphql create_user_profile = 'modules/portal/account/create_user_profile', id: temporary_token.id, token: temporary_token.temporary_token
+      graphql create_user_profile = 'modules/portal/account/create_user_profile', id: temporary_token.id, token: temporary_token.temporary_token, is_enabled: true, primary_account_holder: true
     %}
     
     # Create Event Stream

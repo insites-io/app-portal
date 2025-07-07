@@ -9,9 +9,6 @@ metadata: {
     page_name: "API | Users | Update User Account",
 }
 --- 
-
-{% log context.params %}
-
 {% assign details = context.params %}
 {% comment %} ? Catch email with + {% endcomment %}
 {%- assign email = details.email | replace: " ", "+" -%}
@@ -43,11 +40,11 @@ metadata: {
             "permission_level": "{{ details.permission_level }}"
         }
         {% endparse_json %}
-        {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%}
+        {% comment %} {%- graphql trigger = "modules/website/trigger_email_notification", name: user_invitation, data: data -%} {% endcomment %}
     {% endif %}
     
     {% if details.permission_level  != "No Access" %}
-        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  invitation_status: "Invited"  %}
+        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id, invitation_status: "", permission_level: details.permission_level   %}
     {% else %}
         {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  invitation_status: "", permission_level: "No Access"  %}
     {% endif %}
@@ -96,7 +93,6 @@ metadata: {
             "first_name": "{{ details.userFirstName }}",
             "last_name": "{{ details.userLastName }}",
             "email": "{{ email }}",
-            "company_uuid": "{{ details.company_uuid }}",
             "work_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
             "work_phone_number": "{{ details.mobile_phone_number }}",
             "permission_level": "{{ details.userPermission }}",
@@ -110,6 +106,8 @@ metadata: {
         | dig: 'items','response','body'
         | parse_json  
         %}
+
+    {% graphql add_portal_profile = 'modules/portal/account/create_user_profile', id: add_crm_contact.id, token: "", invitation_status: "Invited", permission_level: details.permission_level, is_enabled: false  %}
 
     {% endif %}   
     {% comment %} ? CLOSING ENDIF FOR INVITE user - EMAIL EXISTS OR NOT {% endcomment %}

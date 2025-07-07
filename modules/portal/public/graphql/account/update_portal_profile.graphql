@@ -3,6 +3,7 @@ mutation update_portal_profile(
   $permission_level: String
   $invitation_status: String!
   $is_enabled: Boolean
+  $token: String
 ) {
   user_update(
     id: $id
@@ -14,6 +15,7 @@ mutation update_portal_profile(
             properties: [
                 { name: "primary_account_holder", value_boolean: false }
                 { name: "permission_level", value: $permission_level }
+                { name: "verification_token", value: $token }
                 { name: "is_enabled", value_boolean: $is_enabled }
                 { name: "invitation_status", value: $invitation_status }
             ]

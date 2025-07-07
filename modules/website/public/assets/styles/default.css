@@ -742,6 +742,16 @@ SweetAlert Style
     }
 }
 
+@media screen and (max-width: 406px) { 
+    .swal-user-account .swal2-actions {
+        gap:16px !important
+    }
+
+    .swal-user-account .swal2-actions button {
+        width: 100% !important
+    }
+}
+
 .remove-card-swal {
     max-width: 400px !important;
     padding: 32px !important;
@@ -5667,6 +5677,10 @@ ins-table-row:nth-child(even) {
 
    .users-table .request-table-accordion .ins-accordion-item.open .ins-accordion-item_content {
         overflow: visible;
+    }
+
+    .users-table ins-table-row:nth-child(even) {
+        background: #fff !important;
     }
 }
 

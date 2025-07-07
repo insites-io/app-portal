@@ -1,6 +1,9 @@
 mutation create_user_profile(
   $id: ID!
   $token: String!
+  $is_enabled: Boolean
+  $primary_account_holder: Boolean
+  $invitation_status: String
 ) {
   user_update(
     id: $id
@@ -11,8 +14,9 @@ mutation create_user_profile(
           values: {
             properties: [
               { name: "verification_token", value: $token }
-              { name: "is_enabled", value_boolean: true }
-              { name: "primary_account_holder", value_boolean: true }
+              { name: "invitation_status", value: $invitation_status }
+              { name: "is_enabled", value_boolean: $is_enabled }
+              { name: "primary_account_holder", value_boolean: $primary_account_holder }
             ]
           }
         }

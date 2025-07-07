@@ -804,14 +804,10 @@ metadata: {
     setTimeout(() => {
     document.querySelectorAll('.ins-accordion-item_header').forEach(header => {
         header.addEventListener('click', () => {
-            // Get the closest table cell that contains this accordion
             const tableCell = header.closest('ins-table-td');
-
             if (tableCell) {
                 const outerLabel = tableCell.querySelector('.primary-account-holder-outer');
-
                 if (outerLabel) {
-                    // Toggle visibility (you can also use .classList.toggle('hidden') if you prefer)
                     outerLabel.style.display = outerLabel.style.display === 'none' ? '' : 'none';
                 }
             }
