@@ -5753,3 +5753,15 @@ ins-table-row:nth-child(even) {
 ins-alert-box .alert-box.error {
     display: none;
 }
+ @media screen and (max-width: 639px) {
+    #stripe-modal .btn-container {
+        gap: 0px;
+        display: flex;
+        padding: 0px !important;
+        flex-direction: column-reverse;
+    }
+    #stripe-modal .btn-container ins-button button{
+        margin-bottom: 0px;
+        margin-top: 24px;
+    }
+}
