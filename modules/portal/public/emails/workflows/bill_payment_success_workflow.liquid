@@ -96,9 +96,9 @@ assign amount_due = computed.total_amount
         height="100%" valign="top" bgcolor="" role="module-content">
         <div>
           <div style="font-family: inherit; text-align: left">
-            <span style="white-space: pre-wrap;font-size: 16px;font-style: normal;font-weight: 400;color:#525252">You have received a payment from {{ data.customer_info.first_name | append: ' ' | append: data.customer_info.last_name }}</span>
+            <span style="white-space: pre-wrap;font-size: 16px;font-style: normal;font-weight: 400;color:#525252">You have received a payment from {{ data.customer_info.first_name | append: ' ' | append: data.customer_info.last_name }}.</span>
             <div style="font-family: inherit; text-align: left;padding-bottom:56px"></div>
-            <hr style="border-color:#DFDFDF">
+            <hr style="border: none; border-top: 1px solid #DFDFDF; margin:0px">
           </div>
           <div></div>
         </div>
@@ -118,7 +118,7 @@ assign amount_due = computed.total_amount
         height="100%" valign="top" bgcolor="" role="module-content">
         <div>
           <div style="font-family: inherit; text-align: left">
-            <span style="white-space: pre-wrap;font-size: 24px;font-style: normal;font-weight: 600;"><strong>Reference: {{ get_order.properties.order_reference }}</strong></span>
+            <span style="white-space: pre-wrap;font-size: 24px;font-style: normal;font-weight: 600;color:#0d0d0d">Reference: {{ get_order.properties.order_reference }}</span>
           </div>
           <div></div>
         </div>

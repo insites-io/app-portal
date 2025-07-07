@@ -3839,6 +3839,10 @@ ins-table-row:hover:nth-child(odd)  {
     border: none;
 }
 
+.faq-mobile-nav .ins-accordion-link_link {
+    color: #2c3148 !important;
+}
+
 .faq-sidenav .ins-accordion-link.active>.ins-accordion-link_link {
     color: var(--font-color-head, #05051D);
     font-family: var(--font-family-02, Archivo);

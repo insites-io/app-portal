@@ -1,0 +1,17 @@
+<div class="show-for-small-only">
+    {%- graphql get_faq_item = 'modules/website/faqs/get_faqs', slug: context.params.slug2 | dig: 'items', 'results' -%}
+    {%  assign faq_item  =  get_faq_item | first %}
+    {% assign navigation_link = "/faqs/" | append: context.params.slug %}
+
+    <div class="portal-mobile-nav faq-mobile-nav">
+        <ins-accordion-item class="" heading="{{ faq_item.question }}" link="{{ navigation_link }}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
+           {% for item in res_faq %}
+                {% if context.params.slug2 == item.slug %}
+                    <ins-accordion-link class="{% if context.params.slug2 == item.slug %} is_hidden {% endif %}" label="{{ item.question }}" icon="" link="/faqs/{{ item.slug }}" link-target="_self" active> </ins-accordion-link>
+                {% else %}
+                    <ins-accordion-link class="" label="{{ item.question }}" icon="" link="/faqs/{{ item.slug }}" link-target="_self" active> </ins-accordion-link>
+                {% endif %}    
+            {% endfor %}
+        </ins-accordion-item>
+    </div>
+</div>

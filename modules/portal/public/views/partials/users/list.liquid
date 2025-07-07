@@ -263,6 +263,7 @@ metadata: {
             <ins-table-row class="users-table-data">
 
                 <ins-table-td class="body-small">
+                    <ins-accordion class="user-invite-accordion">
                          <ins-accordion-item class="request-table-accordion show-for-small-medium" heading=" {{ item.first_name }} {{ item.last_name }}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
                             {% if portal_profile.primary_account_holder == true %}
                                 <div class="spacer x-small"></div>
@@ -321,11 +322,12 @@ metadata: {
                          
                             <div class="spacer"></div>
                         </ins-accordion-item>
+                    </ins-accordion>
                     <span class="hide-for-small-medium"> {{ item.first_name }} {{ item.last_name }} </span>
 
                     {% if portal_profile.primary_account_holder == true %}
                         <div class="spacer x-small"></div>
-                        <span class="primary-account-holder">Account Owner</span>
+                        <span class="primary-account-holder primary-account-holder-outer">Account Owner</span>
                         <div class="hide-for-small-medium">
                             <div class="spacer small"></div>
                         </div>
@@ -798,12 +800,22 @@ metadata: {
     function resetSelect(e){
         e.setValue(previousPermissionLevelValue);
     }
+    
+    setTimeout(() => {
+    document.querySelectorAll('.ins-accordion-item_header').forEach(header => {
+        header.addEventListener('click', () => {
+            // Get the closest table cell that contains this accordion
+            const tableCell = header.closest('ins-table-td');
 
-    document.querySelectorAll('.request-table-accordion').forEach(item => {
-        console.log(item)
-    item.addEventListener('insToggle', event => {
-        console.log('Accordion clicked:', event.target);
-        // You can trigger any function or custom event here
+            if (tableCell) {
+                const outerLabel = tableCell.querySelector('.primary-account-holder-outer');
+
+                if (outerLabel) {
+                    // Toggle visibility (you can also use .classList.toggle('hidden') if you prefer)
+                    outerLabel.style.display = outerLabel.style.display === 'none' ? '' : 'none';
+                }
+            }
+        });
     });
-    });
+    }, 500); 
 </script>

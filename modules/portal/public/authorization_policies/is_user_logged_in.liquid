@@ -6,10 +6,15 @@ metadata: {
 ---
 {%  liquid
     graphql data = 'modules/portal/account/get_current_user'
+    assign profile = data.current_user.portal | first
 
     session user_uuid = data.current_user.external_id
 
     if data.current_user.portal != blank
-        echo true
+        if  profile.is_enabled == true
+            echo true    
+        else 
+            echo false
+        endif
     endif
 %}

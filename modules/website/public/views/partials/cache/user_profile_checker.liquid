@@ -1,0 +1,4 @@
+{%- graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user' -%}
+{%- assign portal_profile = user | dig: 'portal' | first -%}
+{%- assign today = 'now' | date: "%Y%m%d" -%}
+{{ user.id }}-{{ portal_profile.primary_account_holder }}-{{ today }}

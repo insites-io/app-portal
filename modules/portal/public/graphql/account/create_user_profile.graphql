@@ -12,6 +12,7 @@ mutation create_user_profile(
             properties: [
               { name: "verification_token", value: $token }
               { name: "is_enabled", value_boolean: true }
+              { name: "primary_account_holder", value_boolean: true }
             ]
           }
         }
