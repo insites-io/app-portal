@@ -730,6 +730,18 @@ SweetAlert Style
     max-width: 410px !important;
 }
 
+@media screen and (max-width: 639px) { 
+    .change-pw-swal .swal2-content {
+        padding: 0 !important;
+    }
+    
+    .change-pw-swal .swal2-actions{
+        flex-direction: column !important;
+        gap: 12px;
+        align-items: normal;
+    }
+}
+
 .remove-card-swal {
     max-width: 400px !important;
     padding: 32px !important;
