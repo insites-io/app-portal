@@ -730,6 +730,18 @@ SweetAlert Style
     max-width: 410px !important;
 }
 
+@media screen and (max-width: 639px) { 
+    .change-pw-swal .swal2-content {
+        padding: 0 !important;
+    }
+    
+    .change-pw-swal .swal2-actions{
+        flex-direction: column !important;
+        gap: 12px;
+        align-items: normal;
+    }
+}
+
 .remove-card-swal {
     max-width: 400px !important;
     padding: 32px !important;
@@ -2554,9 +2566,22 @@ ins-drawer#mobile-menu .menu li.small i {
     line-height: 19px;
     margin-right: 10px;
 }
-
-ins-drawer#mobile-menu .menu li a {
-    padding: 24px 24px;
+ins-drawer#mobile-menu .menu li{
+    margin-bottom: 0px;
+}
+ins-drawer#mobile-menu .menu li > a,
+ins-drawer#mobile-menu .menu .ins-accordion-item_content .ins-accordion-link > a,
+ins-drawer#mobile-menu .menu li button {
+    padding: 16px 24px !important;
+}
+ins-drawer#mobile-menu .menu li .sign-out-wrapper .signOutCustom{
+    height: auto;
+    display: block;
+}
+ins-drawer#mobile-menu .menu li .sign-out-wrapper .signOutCustom button{
+    display: block;
+    height: auto;
+    line-height: 150%;
 }
 
 ins-drawer#mobile-menu .menu li .nav-register-btn {
@@ -2567,6 +2592,7 @@ ins-drawer#mobile-menu .menu a {
     color: var(--font-color-body, #575757); 
     font-size: 14px;
     font-weight: 700 !important;
+    line-height: 150%;
 }
 ins-drawer#mobile-menu .ins-accordion-link a,
 ins-drawer#mobile-menu .ins-accordion-link a span{
@@ -2588,7 +2614,7 @@ ins-drawer#mobile-menu .ins-accordion-item>.ins-accordion-item_header>.inner-hea
 }
 
 ins-drawer#mobile-menu .ins-accordion-item>.ins-accordion-item_header>.inner-head {
-    padding: 24px 24px
+    padding: 16px 24px;
 }
 
 ins-drawer#mobile-menu .menu li a.active,

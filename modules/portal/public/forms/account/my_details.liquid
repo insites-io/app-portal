@@ -95,14 +95,13 @@ callback_actions: |-
   
   {% parse_json update_contact_data %}
   {
-    "id": "{{form.id}}", 
+    "uuid": "{{ context.current_user.external_id }}", 
     "email": "{{form.email}}", 
     "mobile_phone_country_code": "{{form.properties.mobile_phone_country_code}}",
     "mobile_phone_number": "{{form.properties.mobile_phone_number}}"
   }
   {% endparse_json %}
   {% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json %}
-
   {% parse_json contact_address_details %}
   {
     "address_label": "{{ props.address_1 | default: 'Default' }}", 

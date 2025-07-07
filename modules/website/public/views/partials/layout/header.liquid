@@ -10,7 +10,7 @@ metadata: {
 
 {% comment %} Header class {% endcomment %}
 {%  liquid      
-    if dark == blank
+    if dark != true
       assign headerClass = '' | split: ','
       assign headerClass = headerClass | array_add: 'light-header'
       if border == true
@@ -18,14 +18,14 @@ metadata: {
       endif
       assign headerClass = headerClass | join: ' ' 
     else 
-      assign headerClass = 'border-bottom-nav'
+      assign headerClass = 'no-light-header'
     endif
 %}
 <header id="main-header" class="{{headerClass}}">  
 
   <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
-      <div class="large-1 medium-3 small-7 cell">
+      <div class="large-1 medium-3 small-5 cell">
         <a href="/">
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
           {% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
@@ -148,7 +148,7 @@ metadata: {
 
       
 
-      <div class="mobile-menu-toggle large-0 medium-3 small-5 cell ">
+      <div class="mobile-menu-toggle large-0 medium-3 small-7 cell ">
 
         {% comment %} Sign in {% endcomment %}
         {% if context.current_user == blank %}
