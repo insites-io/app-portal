@@ -6,13 +6,14 @@ metadata: {
 
 {% parse_json data %} 
 {
-  "id": "{{payment_id}}"
+  "id": "{{ paybill_order_id }}"
 }
 {% endparse_json %}
 
 {% liquid
     graphql get_payment = 'modules/portal/payments/get_payments', id: data.id | dig: 'items','results' | first
 %}
+
 <div class="spacer xxx-large hide-for-small-only"></div>
 <div class="grid-x grid-padding-x">
     <div class="large-12 medium-12 small-12 cell payment-success-notif">

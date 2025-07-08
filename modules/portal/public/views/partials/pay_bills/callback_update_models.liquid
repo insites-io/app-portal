@@ -57,6 +57,7 @@ metadata: {
         assign email = context.current_user.email
         assign first_name = context.current_user.first_name
         assign last_name = context.current_user.last_name
+        assign contact_uuid = context.current_user.external_id
     else 
         assign user_id = null
         assign email = form.properties.order_email
@@ -87,6 +88,7 @@ metadata: {
     "notes": "{{ form.properties.notes | default: "No notes available" }}"
 }
 {% endparse_json %}
+
 {% assign data = data | add_hash_key: "payment_gateway_details", stripe_payment_response %}
 {% assign data = data | add_hash_key: "order.uuid", form.properties.uuid %}
 {% assign data = data | add_hash_key: "computed", computed %}
@@ -114,16 +116,19 @@ metadata: {
         session paybill_error = stripe_payment_response
     endif
 -%}
+{% log paybill_payment_id, type: "paybill_payment_id" %}
+
 
 {% comment %} Step 2: Update Order record {% endcomment %}
 {% parse_json order_data %}
 {
     "uuid": "{{ form.properties.uuid }}",
     "order_reference": "{{ form.properties.order_reference | default: "" }}",
-    "order_email": "{{ email | default: "" }}",
-    "order_first_name": "{{ first_name | default: "" }}",
-    "order_last_name": "{{ last_name | default: ""  }}",
-    "order_phone": "{{ phone_number | default: "" }}",
+    "order_contact.uuid": "{{ contact_uuid }}",
+    "order_contact_email": "{{ email | default: "" }}",
+    "order_contact_first_name": "{{ first_name | default: "" }}",
+    "order_contact_last_name": "{{ last_name | default: ""  }}",
+    "order_contact_phone_number": "{{ phone_number | default: "" }}",
     "order_status": "{{ order_status | default: "" }}",
     "order_payment_status" : "{{ order_payment_status | default: "" }}",
     "total_amount" : {{ form.properties.total_amount |  times: 1.0 | default: 0.0   }},
@@ -198,5 +203,5 @@ metadata: {
 {% endcapture %}
 {%- assign log_info_json = log_info | parse_json -%}
 {%- assign info = payload | add_hash_key: "log", log_info_json -%}
-{% log payload %}
+
 {% include 'modules/portal/events/log_event', info %}
