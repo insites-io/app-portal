@@ -218,6 +218,7 @@ let StripeElement = (() => {
                 });
                 stripeBtn.forEach(el => {
                     el.addEventListener('insClick', (event) => {
+                        console.log('test')
                         //Check if a layout is passed. The layout must be in the following format: 'large-6 medium-4 small-12'.
                         const isValidLayout = /^large-\d+\s+medium-\d+\s+small-\d+$/.test(event.detail.data);
                         cardLayout = isValidLayout? event.detail.data : cardLayout;

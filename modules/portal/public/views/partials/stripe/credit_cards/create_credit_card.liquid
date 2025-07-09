@@ -47,19 +47,25 @@ metadata: {
     {%- assign payload = payload | add_hash_key: "description", description -%}
     {%- assign payload = payload | add_hash_key: "font_icon", "icon-credit-card" -%}
     {%- assign payload = payload | add_hash_key: "font_icon_color", "#2ACD1C" -%}
+    {%- assign payload = payload | add_hash_key: "administrator_uuid", user.uuid  -%}
 
     {% capture log_info -%}
     {
-        "user": {
-        "id": "{{ user.id }}",
-        "email": "{{ user.email }}",
-        "first_name": "{{ user.first_name }}",
-        "last_name": "{{ user.last_name }}"
-        },
-        "card": {
-           "brand": "{{ stripe_response.brand }}" 
-        },
-        "contact_uuid": "{{ user.uuid }}"
+        "action": "add_credit_card",
+        "data": {
+            "items": { 
+                "user": {
+                "id": "{{ user.id }}",
+                "email": "{{ user.email }}",
+                "first_name": "{{ user.first_name }}",
+                "last_name": "{{ user.last_name }}"
+                },
+                "card": {
+                "brand": "{{ stripe_response.brand }}" 
+                },
+                "contact_uuid": "{{ user.uuid }}"
+            }
+        }
     }
     {%- endcapture %}
 

@@ -280,9 +280,14 @@ async_callback_actions:
     {%- assign payload = payload | add_hash_key: "description", description -%}
     {%- assign payload = payload | add_hash_key: "font_icon", "icon-completed-outcomes" -%}
     {%- assign payload = payload | add_hash_key: "font_icon_color", "#289AFF" -%}
+    {%- assign payload = payload | add_hash_key: "administrator_uuid", user_details.uuid  -%}
+
 
     {% capture log_info %}
-      {
+    {
+      "action": "create_account",
+      "data": {
+        "items": {
           "first_name": "{{ form.first_name }}",
           "last_name": "{{ form.last_name }}",
           "email": "{{ form.email }}",
@@ -312,7 +317,9 @@ async_callback_actions:
             "country": "{{ form.properties.company_country }}"
           },
           "contact_uuid": "{{ user_details.uuid }}"   
+        }
       }
+    }
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}
     {%- assign info = payload | add_hash_key: "log", log_info_json -%}

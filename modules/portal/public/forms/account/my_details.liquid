@@ -143,23 +143,30 @@ async_callback_actions:
     {%- assign payload = payload | add_hash_key: "description", description -%}
     {%- assign payload = payload | add_hash_key: "font_icon", "icon-settings-1" -%}
     {%- assign payload = payload | add_hash_key: "font_icon_color", "#FA38A1" -%}
+    {%- assign payload = payload | add_hash_key: "administrator_uuid", context.current_user.external_id  -%}
+
 
     {% capture log_info %}
     {
-        "first_name": "{{ form.first_name }}",
-        "last_name": "{{ form.last_name }}",
-        "email": "{{ form.email }}",
-        "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
-        "mobile_phone_number": "{{ form.properties.mobile_phone_number }}",
-        "contact_address":{
-          "address_1": "{{ form.properties.address_1 }}",
-          "address_2": "{{ form.properties.address_2 }}",
-          "suburb": "{{ form.properties.suburb }}",
-          "state": "{{ form.properties.state }}",
-          "postcode": "{{ form.properties.postcode }}",
-          "country": "{{ form.properties.country }}"
-        },
-        "contact_uuid": "{{ context.current_user.external_id }}"   
+      "action": "update_my_details",
+      "data": {
+        "items": { 
+          "first_name": "{{ form.first_name }}",
+          "last_name": "{{ form.last_name }}",
+          "email": "{{ form.email }}",
+          "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
+          "mobile_phone_number": "{{ form.properties.mobile_phone_number }}",
+          "contact_address":{
+            "address_1": "{{ form.properties.address_1 }}",
+            "address_2": "{{ form.properties.address_2 }}",
+            "suburb": "{{ form.properties.suburb }}",
+            "state": "{{ form.properties.state }}",
+            "postcode": "{{ form.properties.postcode }}",
+            "country": "{{ form.properties.country }}"
+          },
+          "contact_uuid": "{{ context.current_user.external_id }}"   
+        }
+      }
     }
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}

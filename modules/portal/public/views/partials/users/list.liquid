@@ -220,8 +220,7 @@ metadata: {
 <ins-loader
     id="users-loader"
     hidden
-    state-title="Processing"
-    state-message="Please wait, we're processing your data."
+    state-title="Loading"
     state-icon="processing">
 </ins-loader>
 
@@ -535,7 +534,7 @@ metadata: {
                     icon: 'warning',
                     title: `Grant ${permissionLevelSelectedValue} Access?`,
                     html: `Are you sure you want to invite <b>${cleanedName}</b> to have ${permissionLevelSelectedValue} access to your company account?`,
-                    confirmButtonText: `<i class="icon-send"></i> Send invite`,
+                    confirmButtonText: `<i class="icon-check-2"></i> Update`,
                     showCancelButton: true,
                     cancelButtonText: `<i class="icon-close-1"></i> Cancel`,
                     allowOutsideClick: false,
@@ -548,7 +547,7 @@ metadata: {
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {
-                                    App.events.notyf('success', "Your invitation has been sent successfully.");
+                                    App.events.notyf('success', "User permission has been updated successfully.");
                                     window.location.href = '/users';
                                 }
                             }, 500);

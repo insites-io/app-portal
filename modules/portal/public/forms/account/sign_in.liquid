@@ -37,10 +37,14 @@ async_callback_actions:
     {%- assign payload = payload | add_hash_key: "description", description -%}
     {%- assign payload = payload | add_hash_key: "font_icon", "icon-users" -%}
     {%- assign payload = payload | add_hash_key: "font_icon_color", '#33B8C0' -%}
+    {%- assign payload = payload | add_hash_key: "administrator_uuid", user.uuid  -%}
 
 
     {% capture log_info %}
-      {
+    {
+      "action": "sign_in",
+      "data": {
+        "items": { 
           "user": {
             "id": "{{ user.id }}",
             "email": "{{ user.email }}",
@@ -48,7 +52,9 @@ async_callback_actions:
             "last_name": "{{ user.last_name }}"
           },
           "contact_uuid": "{{ user.uuid }}"
+        }
       }
+    }
     {% endcapture %}
 
     {%- assign log_info_json = log_info | parse_json -%}

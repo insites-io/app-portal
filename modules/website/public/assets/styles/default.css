@@ -827,7 +827,7 @@ ins-loader[state-icon=processing]{
 ins-loader[state-icon=processing] .ins-loader-wrap--state {
     width: 48px;
     height: 48px;
-    border: 3px solid var(--color-main);
+    border: 3px solid #dfdfdf;
     border-radius: 50%;
     display: inline-block;
     position: relative;
@@ -845,8 +845,22 @@ ins-loader[state-icon=processing] .ins-loader-wrap--state::after {
     height: 40px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-bottom-color: #FF173E;
+    border-bottom-color: #3044FF;
 }
+
+.ins-loader-wrap--title.processing {
+    color: var(--font-color-body, #575757);
+    font-family: var(--font-family-02, Archivo);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+#users-loader .ins-loader-wrap {
+    margin-top: 56px !important;
+}
+
 @keyframes rotation {
     0% {
         transform: rotate(0deg);
@@ -3742,6 +3756,22 @@ ins-table-row:hover:nth-child(odd)  {
 
     .payment-success-notif{
         text-align: left!important;
+    }
+}
+
+@media (max-width: 380px) { 
+    #add-user-modal .ins-modal-wrap.show-modal ins-card .ins-card-wrap { 
+        max-width: 315px !important;
+    }
+
+    .ibt-table-wrap .pagination-wrap.full {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ibt-table-wrap__pagination {
+        width: auto !important;
+        margin-left: 0 !important;
     }
 }
 
