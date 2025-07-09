@@ -1,0 +1,23 @@
+---
+slug: api/verify-recaptcha
+format: json
+method: post
+searchable: false
+metadata: {
+    page_name: "API | Recaptcha | Veriy",
+}
+---
+{% comment %} 
+For recaptcha setup: https://pm.cbo.me/app/tasks/24639141 
+Site key and Api key will be provided by Project manager
+{% endcomment %}
+
+{% parse_json data %} 
+{
+  "site_key": "{{ "" |  default: "" }}",
+  "api_key": "{{ "" |  default: "" }}"
+}
+{% endparse_json %}
+
+
+{% graphql verify_recaptcha = 'modules/website/trigger_api_call', name: 'modules/website/recaptcha_verification', data: data | dig: 'items','response','body' | parse_json %}

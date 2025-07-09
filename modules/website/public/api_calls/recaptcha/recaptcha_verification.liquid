@@ -1,0 +1,14 @@
+---
+name: recaptcha_verification
+to: 'recaptcha-url'
+format: http
+request_type: POST
+---
+{% comment %} For recaptcha setup: https://pm.cbo.me/app/tasks/24639141 {% endcomment %}
+{
+    "event": {
+        "token": "TOKEN",
+        "expectedAction": "USER_ACTION",
+        "sitekey": {{ data.site_key }}
+    }
+}
