@@ -147,7 +147,6 @@ let StripeElement = (() => {
                 stripeCard.setAttribute('value', selectedEl.value)
             },
             async removeCard(selectedEl) {
-                console.log('test')
                 let confirm = await App.events.swal('warning',
                     'Remove card?',
                     'Are you sure you want to remove this credit card?',
@@ -218,7 +217,6 @@ let StripeElement = (() => {
                 });
                 stripeBtn.forEach(el => {
                     el.addEventListener('insClick', (event) => {
-                        console.log('test')
                         //Check if a layout is passed. The layout must be in the following format: 'large-6 medium-4 small-12'.
                         const isValidLayout = /^large-\d+\s+medium-\d+\s+small-\d+$/.test(event.detail.data);
                         cardLayout = isValidLayout? event.detail.data : cardLayout;

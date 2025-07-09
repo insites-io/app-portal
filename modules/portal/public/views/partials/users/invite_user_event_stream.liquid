@@ -69,8 +69,6 @@ metadata: {
 }
 {%- endcapture %}
 
-{% log log_info %}
-
 {%- assign log_info_json = log_info | parse_json -%}
 {%- assign info = payload | add_hash_key: "log", log_info_json -%}
 {% include 'modules/portal/events/log_event', info %}

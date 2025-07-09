@@ -70,16 +70,12 @@ authorization_policies:
     assign data = data | add_hash_key: "address_uuid", contact.default_address.uuid
 %}
 
-{% log data, type: "data" %}
-{% log contact_api, type: "get_contact" %}
-
 {% comment %} Get CRM -> Contact Address from v5 API {% endcomment %}
 {% liquid
     graphql contact_address_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact_address', data: data 
     assign contact_address = contact_address_api.items.response.body | parse_json
     assign contact = contact | add_hash_key: "default_address", contact_address
 %}
-
 
 <div class="my-details">    
 

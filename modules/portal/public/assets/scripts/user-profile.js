@@ -291,7 +291,6 @@ let UserProfileScript = (function () {
         },
         events: {
             async removeCard(selectedEl) {
-                console.log('')
                 let confirm = await App.events.swal(
                     'warning',
                     'Remove card?',

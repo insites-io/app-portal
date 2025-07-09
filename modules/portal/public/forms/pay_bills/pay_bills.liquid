@@ -229,7 +229,6 @@ callback_actions: >
 
   // PREVENT LETTERS
   billAmount.addEventListener('keydown', function (e) {
-    console.log("KEY")
     const key = e.key;
 
     // Allow: digits, decimal point, control keys
@@ -268,9 +267,6 @@ callback_actions: >
 
     // Update input value
     billAmount.value = formatted;
-    console.log(formatted);
-
-
   });
 
 
@@ -375,8 +371,6 @@ callback_actions: >
 		}
 
 		function setValues(totalAmountVal, discountAmountVal){
-			console.log(totalAmountVal, discountAmountVal);
-
 			ccSurcharge = parseFloat((totalAmountVal - discountAmountVal) * 0.017).toFixed(2); // 1.7% credit card surcharge
 			subtotalAmount  = parseFloat(totalAmountVal - discountAmountVal).toFixed(2); // amount payable
 			gst = parseFloat((totalAmount - discountAmountVal) * 0.1).toFixed(2); // GST
@@ -388,11 +382,6 @@ callback_actions: >
 			let chargeGstEl = document.getElementById('charge-gst-summary');
 			let ccAmountEl = document.getElementById('cc-charge-summary');
 			let totalAmountEl = document.getElementById('total-amount-summary');    
-
-			console.log(ccSurcharge, "ccSurcharge");
-			console.log(subtotalAmount, "subtotalAmount");
-			console.log(gst, "gst");
-			console.log(totalValue, "totalValue");
 
 			chargeAmountEl.textContent = "$" + totalAmount;
 			chargeSubtotal.textContent = "$" + subtotalAmount;
@@ -424,11 +413,7 @@ callback_actions: >
 				setTimeout(async() => {
 					let response = await apiServices.processRequest('post', url);
 					if(response.data.id) { 
-
-					console.log(response.data);
-
 						disableElements();
-
 						// Enable Reset Discount
 						resetDiscount.removeAttribute("disabled");
 
@@ -466,8 +451,6 @@ callback_actions: >
 							discountCodeField.removeAttribute('has-error', "true");
 
 							// COMPUTE PERCENTAGE
-							console.log(res_discountType, "res_discountType");
-							console.log(res_discountValue, "res_discountValue");
 							if(res_discountType == 'percentage'){
 								// COMPUTED DISCOUNT
 								computedDiscountAmount = parseFloat(parseFloat(res_discountValue / 100) * parseFloat(totalAmount)).toFixed(2);
