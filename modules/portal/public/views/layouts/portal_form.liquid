@@ -59,5 +59,10 @@ metadata: {
     {%- cache foot_key -%} 
         {% include 'modules/website/layout/footer' %}
     {%- endcache -%}
+
+    {% comment %} ? For ecommerce cart drawer {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        {% include 'modules/ecommerce/carts/cart_drawer' %}
+    {% endif %}
 </body>
 </html>
