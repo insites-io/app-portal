@@ -29,7 +29,8 @@ dynamic_cache:
         [
           "modules/website/business_needs",
           "modules/website/features",
-          "modules/website/feedback"
+          "modules/website/feedback",
+          "modules/website/menu"
         ]
         {%- endparse_json -%}
         {%- include "modules/website/cache/generate_cache_key", models: models -%}
@@ -51,6 +52,10 @@ dynamic_cache:
 
 {% if context.constants.ecommerce_addon == 'true' %}
     {% include 'modules/ecommerce/blocks/whats_hot' %}
+{% endif %}
+
+{% if context.constants.events_addon == 'true' %}
+    {% include 'modules/events/blocks/discover_whats_happening' %}
 {% endif %}
 
 {% include 'modules/website/content/index/feedback_slider' %}
