@@ -88,18 +88,19 @@ This is where the contents of the search page is imported/included in the forms 
             </section>
         {% else %}
            <p class="subHeading">
-            No results found for keyword "{{ context.params.keyword}}".
+                No results found for keyword "{{ context.params.keyword}}".
            </p> 
         {% endif %}
 
 
         <ins-table no-wrap
-        static-table
-        id="insBaseTable"
-        {% if news_search_result.items.total_entries == 0 %}
-            without-pagination
-        {% endif %}
-        without-search>
+            static-table 
+            id="insBaseTable" 
+            class="for-pagination-only" 
+            {% if news_search_result.items.total_entries == 0 %}
+                without-pagination
+            {% endif %}
+            without-search>
         </ins-table>
     </div>
 </div>
