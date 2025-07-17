@@ -60,6 +60,8 @@
     /* usually on paragraph & buttons */
     /* Typography - font size & line height */
     /* previously name as --typography-xxxx-large ... */
+    --font-huge:  4.5rem;
+    /* 72px */
     --font-xxxx-large: 3rem;
     /* 48px */
     --font-xxx-large: 2.5rem;
@@ -282,6 +284,10 @@ h6,
 h1,
 .heading-1 {
     font-size: var(--font-xxx-large);
+}
+
+.heading-1-small {
+    font-size: 48px;
 }
 
 h2,
@@ -3134,7 +3140,7 @@ footer .menu a {
 
 
 /* Search bar */
-#search-input .ins-input-wrap .input-wrap .icon-close-1,
+.ins-input-wrap .input-wrap .icon-close-1,
 #search-description .ins-input-wrap .input-wrap .icon-close-1{
     background: #fff;
     border: none;
@@ -5218,6 +5224,7 @@ ins-table-row:nth-child(even) {
 
 .ibt-table-wrap.no-label .ibt-table-wrap__no-heading{
     box-shadow: none!important;
+    border: none!important;
 }
 
 .request-table-accordion .ins-accordion-item_header{
