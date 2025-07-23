@@ -14,6 +14,8 @@ metadata: {
     {%- redirect_to '/404' -%}
 {%- endif -%}
 
+{% assign parent_id = context.exports.data.id %}
+
 {%- graphql get_features = 'modules/website/features/get_features_details', parent_id: parent_id -%}
 {%- assign features =  get_features | dig: 'items', 'results'  -%}
 
@@ -52,5 +54,6 @@ metadata: {
     <div class="spacer section show-for-medium"></div>
     <div class="spacer x-large show-for-small-only"></div>
 </div>
+</div>
 
-{% include 'modules/website/content/index/feedback' %}
+{% include 'modules/website/content/index/feedback_slider' %}
