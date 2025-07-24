@@ -183,7 +183,7 @@ async_callback_actions:
 
     # Add company
     {% graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: company_details | dig: 'items','response','body' | parse_json %}
-   
+    
     # Create Company address object
     {% parse_json company_address_details %}
     {
@@ -202,7 +202,7 @@ async_callback_actions:
 
     # Add company address
     {% graphql add_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_company_address', data: company_address_details | dig: 'items','response','body' | parse_json %}
-   
+
     {% parse_json data_company_address %}
     {
      "uuid": "{{ add_company.uuid }}",
@@ -212,6 +212,10 @@ async_callback_actions:
 
     {% graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company', data: data_company_address | dig: 'items','response','body' | parse_json %}
 
+    # ADD DEFAULT COMPANY ADDRESS
+  
+    {%- graphql update_default_company_address = "modules/portal/account/update_default_company_address", id: add_company.id, default_address_uuid: add_company_address.uuid -%}
+  
     {%- graphql user_details = "modules/portal/account/get_user_by_email" 
         email: form.email
         | dig: "items" | dig: "results" | first -%}

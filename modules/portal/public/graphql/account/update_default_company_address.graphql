@@ -1,0 +1,15 @@
+mutation update_default_company_address(
+  	$id: ID!,
+    $default_address_uuid: String
+) {
+  items: record_update(
+    id: $id
+    record: {table: "modules/insites_core/crm_company", 
+      properties: [
+        { name: "default_address_uuid", value: $default_address_uuid}
+        ]}
+  ) {
+    id
+    properties
+  }
+}

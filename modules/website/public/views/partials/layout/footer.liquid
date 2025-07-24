@@ -6,6 +6,7 @@ metadata: {
 
 {% comment %} ? GET GLOBAL CONTENT {% endcomment %}
 {%- include "modules/insites_cms/globals" -%}
+{%- assign global = context.exports.global -%}
 
 <hr>
 <footer class="blocks-footer-05 footer bg-color-ui-01">
@@ -16,7 +17,7 @@ metadata: {
                 <div class="large-4 medium-6 small-12 cell text-left">
                     <div class="img-logo img-full">
                        
-                            <img class="logo logo-footer" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo" height="56" width="119">
+                            <img class="logo logo-footer" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
                        
                     </div>
                 </div>

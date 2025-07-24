@@ -50,8 +50,6 @@ authorization_policies:
     assign company = company | add_hash_key: "default_address", company_address
 %}
 
-
-
 {% comment %} Company Details Form {% endcomment %}
 {%- include_form 'modules/portal/my_company_details', id: company.id, data: company -%}
 
