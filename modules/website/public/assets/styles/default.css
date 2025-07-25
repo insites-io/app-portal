@@ -143,7 +143,7 @@ footer {
     font-family: var(--font-family-03);
     font-style: normal;
     font-weight: 400;
-    font-size: var(--font-medium);
+    font-size: 18px;
     line-height: var(--font-x-large);
 }
 
@@ -155,6 +155,14 @@ footer {
     font-style: normal;
     font-weight: 700;
     line-height: 150%; /* 27px */
+}
+
+.body-xxlarge-bold {
+    font-family: var(--font-family-02);
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 48px */
 }
 
 .body-small {
@@ -288,6 +296,12 @@ h1,
 
 .heading-1-small {
     font-size: 48px;
+}
+.heading-1-xsmall {
+    font-size: 40px;
+}
+.heading-2-xsmall {
+    font-size: 32px;
 }
 
 h2,
