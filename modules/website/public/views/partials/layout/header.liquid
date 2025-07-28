@@ -76,10 +76,26 @@ metadata: {
       <div class="large-11 medium-3 small-8 cell hide-nav-medium">
         <div class="navlinks">
 
+          {% comment %} Ecommerce Addon {% endcomment %}
           {% if context.constants.ecommerce_addon == 'true' %}
             <ins-button id="mega-menu-btn" label="Shop" icon-right="icon-angle-down"></ins-button>
           {% endif %}
 
+          {% comment %} Events Addon {% endcomment %}
+          {% if context.constants.events_addon == 'true' %}
+            <ins-dropdown label="Events">
+              <ins-dropdown-item
+                link="/upcoming-events"
+                label="Upcoming events">
+              </ins-dropdown-item> 
+              <ins-dropdown-item
+                link="/previous-events"
+                label="Previous events">
+              </ins-dropdown-item> 
+            </ins-dropdown>
+          {% endif %}
+
+          {% comment %} Database driven menu {% endcomment %}
           {% for menu in menus %}
             {%- if menu.slug == "features" -%}
               <a class="nav-dropdown-link" href="/{{menu.slug}}">
