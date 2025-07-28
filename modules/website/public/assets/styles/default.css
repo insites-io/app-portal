@@ -1577,6 +1577,9 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 
 
 /* Pagination */
+.ibt-table-wrap .pagination-wrap * {
+    font-family: var(--font-family-02);
+}
 .ibt-table-wrap__pagination span {
     color: var(--font-color-head, #05051D);
     font-family: var(--font-family-02, Archivo);
@@ -1607,7 +1610,7 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 
 .ibt-table-wrap__page {
     color: var(--font-color-body, #575757);
-    font-family: var(--font-family-02, Archivo);
+    font-family: var(--font-family-02);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -1616,7 +1619,6 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 
 .ibt-table-wrap__prev-next button {
     color: var(--color-ui-06);
-    font-size: 16px !important;
 }
 .ibt-table-wrap__prev-next button.page {
     font-size: 14px;
