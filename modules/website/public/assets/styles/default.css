@@ -1616,7 +1616,6 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 
 .ibt-table-wrap__prev-next button {
     color: var(--color-ui-06);
-    font-size: 16px !important;
 }
 .ibt-table-wrap__prev-next button.page {
     font-size: 14px;
