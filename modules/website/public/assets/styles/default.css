@@ -1726,6 +1726,22 @@ ins-filter-item .filter-item__options>div.selected {
     ins-filter .filter__btn-container{
         display: block;
     }
+    ins-filter .filter__date{
+        display: block;
+    }
+    ins-filter .date-filter{
+        width: 100%;
+    }
+    ins-filter .date-filter .fas{
+        position: absolute;
+        right: 17px;
+    }
+    ins-filter .filter__label{
+        display: block;
+        text-align: center;
+        margin-right: 0px;
+        width: 100%;
+    }
     ins-filter-item{
         margin-right: 0px !important;
         width: 100%;
