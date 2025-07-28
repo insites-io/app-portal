@@ -31,40 +31,62 @@ metadata: {
 {% endif %}
 
 {% comment %} ? Overview Cards {% endcomment %}
-{% parse_json card_details_result %}
-[
-    {
-        "card-icon": "icon-notepad-1", 
-        "card-header": "Projects", 
-        "card-body": "24"
-      },
-      {
-        "card-icon": "icon-clipboard", 
-        "card-header": "Open tasks", 
-        "card-body": "12"
-    },
-    {
-        "card-icon": "icon-check-circle-1", 
-        "card-header": "Completed Task", 
-        "card-body": "6"
-    },
-    {
-        "card-icon": "icon-retry", 
-        "card-header": "Backorders", 
-        "card-body": "8"
-    },
-    {
-        "card-icon": "icon-box", 
-        "card-header": "Completed orders", 
-        "card-body": "12"
-    },
-    {
-        "card-icon": "icon-truck", 
-        "card-header": "Orders in progress", 
-        "card-body": "5"
-    }
-]
-{% endparse_json %}
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% parse_json card_details_result %}
+    [
+        {
+            "card-icon": "icon-notepad-1", 
+            "card-header": "Projects", 
+            "card-body": "24"
+        },
+        {
+            "card-icon": "icon-clipboard", 
+            "card-header": "Open tasks", 
+            "card-body": "12"
+        },
+        {
+            "card-icon": "icon-check-circle-1", 
+            "card-header": "Completed Task", 
+            "card-body": "6"
+        },
+        {
+            "card-icon": "icon-retry", 
+            "card-header": "Backorders", 
+            "card-body": "8"
+        },
+        {
+            "card-icon": "icon-box", 
+            "card-header": "Completed orders", 
+            "card-body": "12"
+        },
+        {
+            "card-icon": "icon-truck", 
+            "card-header": "Orders in progress", 
+            "card-body": "5"
+        }
+    ]
+    {% endparse_json %}
+{% else %}
+    {% parse_json card_details_result %}
+    [
+        {
+            "card-icon": "icon-notepad-1", 
+            "card-header": "Projects", 
+            "card-body": "24"
+        },
+        {
+            "card-icon": "icon-clipboard", 
+            "card-header": "Open tasks", 
+            "card-body": "12"
+        },
+        {
+            "card-icon": "icon-check-circle-1", 
+            "card-header": "Completed Task", 
+            "card-body": "6"
+        }
+    ]
+    {% endparse_json %}
+{% endif %}  
 
 <div class="overview-cards-container">
     <h3 class="heading-3">Overview</h3>

@@ -1577,6 +1577,9 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 
 
 /* Pagination */
+.ibt-table-wrap .pagination-wrap * {
+    font-family: var(--font-family-02);
+}
 .ibt-table-wrap__pagination span {
     color: var(--font-color-head, #05051D);
     font-family: var(--font-family-02, Archivo);
@@ -1607,7 +1610,7 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 
 .ibt-table-wrap__page {
     color: var(--font-color-body, #575757);
-    font-family: var(--font-family-02, Archivo);
+    font-family: var(--font-family-02);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -1616,7 +1619,6 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 
 .ibt-table-wrap__prev-next button {
     color: var(--color-ui-06);
-    font-size: 16px !important;
 }
 .ibt-table-wrap__prev-next button.page {
     font-size: 14px;
@@ -2349,7 +2351,7 @@ ins-tag span.ins-tag {
     padding: 24px 0px;
     background: var(--color-bg1, #05051D);
     transition: background-color 0.3s ease;
-    z-index: 99999;
+    /* z-index: 99999; */
 }
 
 #main-header ins-dropdown {
@@ -2372,7 +2374,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header .navlinks a.cart-icon {
-    padding: 10px 8px;
+    padding: 8px;
 }
 
 #main-header .navlinks a:hover, 
@@ -2420,8 +2422,7 @@ ins-tag span.ins-tag {
 #main-header .profileNav ins-button button {
     padding: 12px 24px !important;
 }
-#main-header ins-dropdown .ins-dropdown_menu a,
-#main-header ins-dropdown .ins-dropdown_menu button {     
+#main-header ins-dropdown .ins-dropdown_menu a {     
     color: var(--font-color-head, #05051D); 
     font-weight: normal !important;
 }
