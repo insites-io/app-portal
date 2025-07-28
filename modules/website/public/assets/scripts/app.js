@@ -347,6 +347,14 @@ let App = (function () {
 
                         lastScrollTop = Math.max(0, currentScroll);
                     } else {
+                        // For desktop, navbar should always have a solid background color
+                        navbar.style.backgroundColor = '#05051D';
+                        navbar.style.position = 'relative'; // Make sure it's not fixed on desktop
+                        navbar.style.removeProperty('transform');
+                    }
+                }
+            
+                // **Run once immediately to apply correct background before scroll events**
                         // Desktop view
 
                         // Only reset if previously fixed by mobile behavior
@@ -365,7 +373,6 @@ let App = (function () {
 
                 // Event listeners
                 window.addEventListener('scroll', handleScroll);
-                window.addEventListener('resize', handleScroll);
             },
             clearFunctionSearch() {
   
@@ -431,8 +438,7 @@ let App = (function () {
             }
 
         }
-    }
-})();
+)();
 
 // Initialize javascript on load
 window.App = App;
