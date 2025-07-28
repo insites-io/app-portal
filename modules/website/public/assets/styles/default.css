@@ -2876,6 +2876,7 @@ footer .heading {
     }
     .footer-links-wrap .wrap {
         width: 50%;
+        padding: 0px;
     }
 }
 @media screen and (max-width: 639px) { 
