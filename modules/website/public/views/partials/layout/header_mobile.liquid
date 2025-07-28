@@ -37,6 +37,17 @@ metadata: {
           <a href="/">Home</a> 
         </li>
         
+        {% if context.constants.events_addon == 'true' %}
+          <li class="mobile-menu-style">
+              <ins-accordion menu>
+                <ins-accordion-item class="colorBlack has-subitems" heading="Events" link="#" open-icon="icon-plus" close-icon="icon-minus" link-target="_self">
+                    <ins-accordion-link class="colorBlack" label="Upcoming events" link="/upcoming-events" link-target="_self"></ins-accordion-link>
+                    <ins-accordion-link class="colorBlack" label="Previous events" link="/previous-events" link-target="_self"></ins-accordion-link>
+                </ins-accordion-item>
+              </ins-accordion>
+            </li>
+        {% endif %}
+
         {% if context.constants.ecommerce_addon == 'true' %}
           <li class="mobile-menu-style">
             {% include 'modules/ecommerce/menu/mobile_menu' %}
