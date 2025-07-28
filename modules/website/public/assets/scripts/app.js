@@ -355,24 +355,11 @@ let App = (function () {
                 }
             
                 // **Run once immediately to apply correct background before scroll events**
-                        // Desktop view
-
-                        // Only reset if previously fixed by mobile behavior
-                        if (navbar.style.position === 'fixed') {
-                            navbar.style.position = 'relative';
-                            navbar.style.removeProperty('transform');
-                        }
-
-                        navbar.classList.remove('no-light-header'); // Cleanup class from mobile
-                        navbar.style.backgroundColor = '#05051D'; // Always solid background on desktop
-                    }
-                }
-
-                // Initial run
                 handleScroll();
 
                 // Event listeners
                 window.addEventListener('scroll', handleScroll);
+                window.addEventListener('resize', handleScroll);
             },
             clearFunctionSearch() {
   
@@ -438,7 +425,8 @@ let App = (function () {
             }
 
         }
-)();
+    }
+})();
 
 // Initialize javascript on load
 window.App = App;
