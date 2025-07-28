@@ -2418,6 +2418,9 @@ ins-tag span.ins-tag {
 #main-header .ins-dropdown_label .icon-angle-down {
     right: -24px;
 }
+#main-header ins-dropdown:not(.profileNav) .ins-dropdown_menu {
+    right: initial;
+}
 #main-header ins-dropdown .ins-dropdown_menu a,
 #main-header .profileNav ins-button button {
     padding: 12px 24px !important;
@@ -2852,6 +2855,36 @@ footer .heading {
     font-style: normal;
     font-weight: 700;
     line-height: 24px; 
+}
+.footer-links-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 80px;
+}
+.footer-links-wrap .wrap {
+    padding: 0px 20px;
+    flex: 0 1 auto;
+    /* min-width: 100px; */
+}
+.footer-links-wrap .right-group {
+    margin-left: auto; /* Push everything after content 1 to the right */
+  }
+@media screen and (max-width: 1023px) { 
+    .footer-links-wrap {
+        gap: 0px;
+    }
+    .footer-links-wrap .wrap {
+        width: 50%;
+    }
+}
+@media screen and (max-width: 639px) { 
+    .footer-links-wrap {
+        flex-direction: column;
+    }
+    .right-group {
+        margin-left: initial !important;
+    }
 }
 .footer-links  {
     color: var(--font-color-body, #575757);
