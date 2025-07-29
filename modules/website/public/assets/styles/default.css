@@ -3836,6 +3836,11 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
         display: block;
     }
 
+    .ibt-table-wrap .pagination-wrap>div.ibt-table-wrap__page-nav {
+        justify-content: center;
+        padding-bottom: 0px;
+    }
+
     .ibt-table-wrap .pagination-wrap>.ibt-table-wrap__prev-next{
         justify-content: center;
         padding-top: 16px;
