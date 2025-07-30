@@ -33,6 +33,13 @@ dynamic_cache:
           "modules/website/menu"
         ]
         {%- endparse_json -%}
+        {% if context.constants.ecommerce_addon == 'true' %}
+            {% assign models = models | array_add: 'modules/insites_ecommerce/product' %}
+            {% assign models = models | array_add: 'modules/insites_ecommerce/product_variant' %}
+        {% endif %}
+        {% if context.constants.events_addon == 'true' %}
+            {% assign models = models | array_add: 'modules/insites_events/event' %}
+        {% endif %}
         {%- include "modules/website/cache/generate_cache_key", models: models -%}
         {{context.current_user.id}}
         {{context.device.device_type}}
