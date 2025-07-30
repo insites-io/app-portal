@@ -7,7 +7,7 @@ mutation create_features_parent(
 ) {
   items: record_create(
     record: {
-      table: "modules/portal/portal_banners",
+      table: "modules/website/features",
       properties: [
         { 
           name: "slug",

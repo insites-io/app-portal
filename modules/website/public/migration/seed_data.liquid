@@ -201,20 +201,131 @@
         "card_short_description": "Collaborate securely with teams and clients, each with custom permissions.",
         "card_order": "4",
         "page_description": "Multi-user access enables secure collaboration with custom roles, real-time updates, activity tracking, and scalable user management."
-    },
+    }
 ]
 {% endparse_json %}
 
+{% assign feature_parent_id_holder = '[]' | parse_json -%}
 {% for features_parent_item in features_parent %}
     {%- graphql create_features_parent = "modules/website/migration/create_features_parent"
         slug: {{features_parent_item.slug}},
         card_title: {{features_parent_item.card_title}},
         card_short_description: {{features_parent_item.card_short_description}},
         card_order: {{features_parent_item.card_order}},
-        page_description: {{features_parent_item.page_description}},
+        page_description: {{features_parent_item.page_description}}
     -%}
+    
+    {% assign feature_parent_id_holder = feature_parent_id_holder | add_to_array: create_features_parent.items.id %}
+{% endfor %}
 
-    {% log create_features_parent.id, type: "feature - parent id" %}
+{% comment %} ? FEATURES - DETAILS {% endcomment %}
+{% parse_json features_details %}
+[
+    {
+        "parent": "{{ feature_parent_id_holder[0] }}",
+        "heading": "Simple & clean layout",
+        "short_description": "A clutter-free design that enhances usability.",
+        "details_order": "1"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[0] }}",
+        "heading": "Seamless navigation",
+        "short_description": "Find what you need with minimal clicks.",
+        "details_order": "2"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[0] }}",
+        "heading": "Responsive & accessible",
+        "short_description": "Works perfectly across devices and user needs.",
+        "details_order": "3"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[0] }}",
+        "heading": "Fast & efficient",
+        "short_description": "Optimised for speed and smooth performance.",
+        "details_order": "4"
+    },
+    {
+        "parent": "{{ feature_parent_id_holder[1] }}",
+        "heading": "Ready to use elements",
+        "short_description": "Prebuilt components for onboarding and surveys to streamline setup.",
+        "details_order": "1"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[1] }}",
+        "heading": "Flexible customisation",
+        "short_description": "Modify components to match branding, workflow needs, and specific business requirements.",
+        "details_order": "2"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[1] }}",
+        "heading": "Consistent user experience",
+        "short_description": "Ensure a uniform design and functionality across different sections of the portal.",
+        "details_order": "3"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[1] }}",
+        "heading": "Time-saving implementation",
+        "short_description": "Reduce development time with reusable components for faster deployment.",
+        "details_order": "4"
+    },
+    {
+        "parent": "{{ feature_parent_id_holder[2] }}",
+        "heading": "Tailored workflows",
+        "short_description": "Customise processes and automation to align with your business operations and requirements.",
+        "details_order": "1"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[2] }}",
+        "heading": "Branding control",
+        "short_description": "Apply logos, colors, and themes to create a fully branded and professional experience.",
+        "details_order": "2"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[2] }}",
+        "heading": "User roles & permissions",
+        "short_description": "Set custom access levels and permissions to control user actions and data visibility.",
+        "details_order": "3"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[2] }}",
+        "heading": "Scalable design",
+        "short_description": "Adapt and expand the portal's capabilities as your business grows and evolves.",
+        "details_order": "4"
+    },
+    {
+        "parent": "{{ feature_parent_id_holder[3] }}",
+        "heading": "Secure collaboration",
+        "short_description": "Work with teams and clients while ensuring data security through controlled access.",
+        "details_order": "1"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[3] }}",
+        "heading": "Custom user permissions",
+        "short_description": "Assign specific roles, access levels, and restrictions to manage user interactions effectively.",
+        "details_order": "2"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[3] }}",
+        "heading": "Activity tracking",
+        "short_description": "Monitor user actions, track changes, and maintain logs for accountability and security.",
+        "details_order": "3"
+    }, 
+    {
+        "parent": "{{ feature_parent_id_holder[3] }}",
+        "heading": "Scalable user management",
+        "short_description": "Easily add, remove, or modify user roles to match your growing business needs.",
+        "details_order": "4"
+    }
+]
+{% endparse_json %}
+{% for features_details_item in features_details %}
+    {%- graphql create_features_details = "modules/website/migration/create_features_details"
+        parent: {{features_details_item.parent}},
+        heading: {{features_details_item.heading}},
+        short_description: {{features_details_item.short_description}},
+        details_order: {{features_details_item.details_order}}
+    -%}
 {% endfor %}
 
 
