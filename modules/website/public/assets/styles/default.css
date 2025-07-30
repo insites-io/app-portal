@@ -3734,7 +3734,8 @@ ins-table-row:hover:nth-child(odd)  {
     background: none !important;
 }
 
-ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-heading{
+ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-heading,
+.ibt-table-wrap.no-label .ibt-table-wrap__no-heading{
     border: none !important;
 }
 
