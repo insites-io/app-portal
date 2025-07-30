@@ -140,7 +140,7 @@ footer {
 }
 
 .body-large {
-    font-family: var(--font-family-03);
+    font-family: var(--font-family-02);
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -1728,6 +1728,22 @@ ins-filter-item .filter-item__options>div.selected {
     ins-filter .filter__btn-container{
         display: block;
     }
+    ins-filter .filter__date{
+        display: block;
+    }
+    ins-filter .date-filter{
+        width: 100%;
+    }
+    ins-filter .date-filter .fas{
+        position: absolute;
+        right: 17px;
+    }
+    ins-filter .filter__label{
+        display: block;
+        text-align: center;
+        margin-right: 0px;
+        width: 100%;
+    }
     ins-filter-item{
         margin-right: 0px !important;
         width: 100%;
@@ -2402,6 +2418,9 @@ ins-tag span.ins-tag {
 #main-header .ins-dropdown_label .icon-angle-down {
     right: -24px;
 }
+#main-header ins-dropdown:not(.profileNav) .ins-dropdown_menu {
+    right: initial;
+}
 #main-header ins-dropdown .ins-dropdown_menu a,
 #main-header .profileNav ins-button button {
     padding: 12px 24px !important;
@@ -2836,6 +2855,37 @@ footer .heading {
     font-style: normal;
     font-weight: 700;
     line-height: 24px; 
+}
+.footer-links-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 80px;
+}
+.footer-links-wrap .wrap {
+    padding: 0px 20px;
+    flex: 0 1 auto;
+    /* min-width: 100px; */
+}
+.footer-links-wrap .right-group {
+    margin-left: auto; /* Push everything after content 1 to the right */
+  }
+@media screen and (max-width: 1023px) { 
+    .footer-links-wrap {
+        gap: 0px;
+    }
+    .footer-links-wrap .wrap {
+        width: 50%;
+        padding: 0px;
+    }
+}
+@media screen and (max-width: 639px) { 
+    .footer-links-wrap {
+        flex-direction: column;
+    }
+    .right-group {
+        margin-left: initial !important;
+    }
 }
 .footer-links  {
     color: var(--font-color-body, #575757);
@@ -3784,6 +3834,11 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
     .ibt-table-wrap .pagination-wrap.full{
         text-align: center;
         display: block;
+    }
+
+    .ibt-table-wrap .pagination-wrap>div.ibt-table-wrap__page-nav {
+        justify-content: center;
+        padding-bottom: 0px;
     }
 
     .ibt-table-wrap .pagination-wrap>.ibt-table-wrap__prev-next{

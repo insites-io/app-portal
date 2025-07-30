@@ -50,12 +50,12 @@ dynamic_cache:
 {% include 'modules/website/content/index/adaptive_protal_section' %}
 {% include 'modules/website/content/index/unlock_efficiency_section' %}
 
-{% if context.constants.ecommerce_addon == 'true' %}
-    {% include 'modules/ecommerce/blocks/whats_hot' %}
-{% endif %}
-
 {% if context.constants.events_addon == 'true' %}
     {% include 'modules/events/blocks/discover_whats_happening' %}
+{% endif %}
+
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/blocks/whats_hot' %}
 {% endif %}
 
 {% include 'modules/website/content/index/feedback_slider' %}

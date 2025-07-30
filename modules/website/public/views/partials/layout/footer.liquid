@@ -13,18 +13,21 @@ metadata: {
     <div class="spacer xxxx-large"></div>
     <div class="wrapper top-footer footerSubItems">
         <div class="grid-container">
-            <div class="grid-x grid-padding-x gutter-medium">
-                <div class="large-4 medium-6 small-12 cell text-left">
+            
+            <div class="footer-links-wrap">
+
+                <!-- LOGO FOOTER -->
+                <div class="">
                     <div class="img-logo img-full">
-                       
+                    
                             <img class="logo logo-footer" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
-                       
+                    
                     </div>
                 </div>
-                <div class="small-12 cell spacer xxx-large hide-for-medium"></div>
 
                 <!-- QUICK LINKS -->
-                <div class="large-2 medium-6 small-12 cell">
+                <div class="wrap right-group">
+                    <div class="spacer x-large show-for-small-only"></div>
                     <ul class="vertical menu">
                         <li>
                             <p class="footer-link-main-label" data-test="">Quick links</p>
@@ -48,9 +51,30 @@ metadata: {
                         </li>
                     </ul>
                 </div>
+
+                {% comment %} Events Addon {% endcomment %}
+                {% if context.constants.events_addon == 'true' %}
+                    <div class="wrap">
+                        <div class="spacer x-large show-for-small-only"></div>
+                        <ul class="vertical menu">
+                            <li>
+                                <p class="footer-link-main-label">Events</p>
+                                <div class="spacer"></div>
+                            </li>
+                            <li class="">
+                                <a class="footer-links color-font-head" href="/upcoming-events">Upcoming events</a>
+                                <div class="spacer small"></div>
+                            </li>
+                            <li>
+                                <a class="footer-links color-font-head" href="/previous-events">Previous events</a>
+                                <div class="spacer small"></div>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
     
-                <!-- SERVICES -->
-                <div class="large-3 medium-6 small-12 cell">
+                <!-- FEATURES -->
+                <div class="wrap">
                     <div class="spacer x-large show-for-small-only"></div>
 
                     {%- graphql get_features = 'modules/website/features/get_features' -%}
@@ -62,17 +86,16 @@ metadata: {
                             <div class="spacer"></div>
                         </li>   
                         {% for item in features %}
-                          <li>
-                              <a href="/features/{{ item.slug }}" class="footer-links color-font-head" data-test="">{{ item.card_title }}</a>
-                              <div class="spacer small"></div>
-                          </li>
+                        <li>
+                            <a href="/features/{{ item.slug }}" class="footer-links color-font-head" data-test="">{{ item.card_title }}</a>
+                            <div class="spacer small"></div>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>
 
-
                 <!-- EXTERNAL LINKS -->
-                <div class="large-2 medium-6 small-12 cell">
+                <div class="wrap">
                     <div class="spacer x-large show-for-small-only"></div>
                     
                     <ul class="vertical menu">
@@ -100,7 +123,8 @@ metadata: {
                         </a>
                     </li>
                     </ul>
-                </div>
+                </div>                
+
             </div>
         </div>
     </div>
