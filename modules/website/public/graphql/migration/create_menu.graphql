@@ -28,9 +28,7 @@ mutation create_menu(
         { 
           name: "parent",
           value:  $parent
-        },
-
-       
+        }
       ]
     }
   ) {

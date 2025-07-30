@@ -1,0 +1,46 @@
+mutation create_features_parent(
+  $slug: String,
+  $card_title: String,
+  $card_short_description: String,
+  $card_order: String,
+  $page_description: String
+) {
+  items: record_create(
+    record: {
+      table: "modules/portal/portal_banners",
+      properties: [
+        { 
+          name: "slug",
+          value: $slug 
+        },
+        { 
+          name: "card_title",
+          value: $card_title 
+        },
+        { 
+          name: "card_short_description",
+          value: $card_short_description 
+        },
+        { 
+          name: "card_order",
+          value: $card_order 
+        },
+        { 
+          name: "page_description",
+          value: $page_description 
+        },
+        { 
+          name: "is_parent",
+          value_boolean: true 
+        },
+        { 
+          name: "enabled",
+          value_boolean: true 
+        }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

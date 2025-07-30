@@ -3,6 +3,18 @@ metadata: {
     partial_name: 'Portal | Overview | Overview'
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR PORTAL BANNER IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE IMAGES ON PORTAL BANNER DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% parse_json portal_banner_list %}
+[
+    {
+        "image": "{{ 'modules/portal/images/portal_banner/easy-and-secure-bill-payments.png' | asset_url }}",
+        "main_text": "Easy and secure bill payments"
+    }
+]
+{% endparse_json %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE PORTAL BANNER DATABASE IS POPULATED {% endcomment %}
+
 
 
 {% comment %} <div class="sign-out-wrapper">
@@ -23,7 +35,16 @@ metadata: {
             </a>
         </div>
         <div class="overview-image" height="150" width="300"> 
-            <img src="{{ portal_banner.image.url }}" alt="">
+            {% if portal_banner.image.url %}
+                    <img src="{{ portal_banner.image.url }}" alt="">
+            {% else %}
+                {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                {% for portal_banner in portal_banner_list %}
+                    {% if item.main_text == portal_banner.main_text %}
+                        <img width="500" height="500" alt="image" src="{{ portal_banner.image }}">
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
