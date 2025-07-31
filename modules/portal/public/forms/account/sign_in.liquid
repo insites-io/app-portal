@@ -37,10 +37,14 @@ async_callback_actions:
     {%- assign payload = payload | add_hash_key: "description", description -%}
     {%- assign payload = payload | add_hash_key: "font_icon", "icon-users" -%}
     {%- assign payload = payload | add_hash_key: "font_icon_color", '#33B8C0' -%}
+    {%- assign payload = payload | add_hash_key: "administrator_uuid", user.uuid  -%}
 
 
     {% capture log_info %}
-      {
+    {
+      "action": "sign_in",
+      "data": {
+        "items": { 
           "user": {
             "id": "{{ user.id }}",
             "email": "{{ user.email }}",
@@ -48,7 +52,9 @@ async_callback_actions:
             "last_name": "{{ user.last_name }}"
           },
           "contact_uuid": "{{ user.uuid }}"
+        }
       }
+    }
     {% endcapture %}
 
     {%- assign log_info_json = log_info | parse_json -%}
@@ -112,12 +118,12 @@ async_callback_actions:
      
       {% if context.constants.ecommerce_addon == 'true' and context.params.slug == 'checkout' %}
         <div class="spacer x-large"></div>
-        <p>Not a member? <a href="/create-account">Join Us</a></p>      
+        <p>Not a member? <a href="/create-account">Join us.</a></p>      
         <input type="hidden" name="{{ form.fields.redirect.name }}" value="checkout" >      
       {% else %}
         <div class="spacer x-large"></div>
         <div class="small-12 cell"> 
-          Don’t have an account? <a class="a-label" href="/create-account">Create an account.</a>
+          Don’t have an account? <a class="a-label-no-visit" href="/create-account">Create an account.</a>
         </div>
         <input type="hidden" name="{{ form.fields.redirect.name }}" value="overview" >
       {% endif %}

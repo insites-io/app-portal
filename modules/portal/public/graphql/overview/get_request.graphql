@@ -8,9 +8,9 @@ query get_request(
         filter: {
             table: { value: "modules/portal/request" }
         }
-        sort: [
-            { properties: { name: "sort_order", order: ASC } }
-        ]
+        sort: {
+            created_at: { order: DESC }
+        }
     ) {
         total_entries
         total_pages

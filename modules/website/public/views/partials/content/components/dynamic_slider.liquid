@@ -3,6 +3,41 @@ metadata: {
     partial_name: "Website | Components | Dynamic slider",
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR BUSINESS NEEDS IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE IMAGES ON BUSINESS NEEDS DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% parse_json business_needs_list %}
+[
+    {
+        "icon": "{{ 'modules/website/images/business_needs/educational.webp' | asset_url }}",
+        "business_title": "Educational institutions"
+    },
+    {
+        "icon": "{{ 'modules/website/images/business_needs/law-firm.webp' | asset_url }}",
+        "business_title": "Law firms"
+    },
+    {
+        "icon": "{{ 'modules/website/images/business_needs/real-estate.webp' | asset_url }}",
+        "business_title": "Real estate agencies"
+    },
+    {
+        "icon": "{{ 'modules/website/images/business_needs/accounting.webp' | asset_url }}",
+        "business_title": "Accounting firms"
+    },
+    {
+        "icon": "{{ 'modules/website/images/business_needs/manufacturers.webp' | asset_url }}",
+        "business_title": "Manufacturers/distributors"
+    },
+    {
+        "icon": "{{ 'modules/website/images/business_needs/healthcare.webp' | asset_url }}",
+        "business_title": "Healthcare providers"
+    },
+    {
+        "icon": "{{ 'modules/website/images/business_needs/insurance.webp' | asset_url }}",
+        "business_title": "Insurance brokers"
+    }
+]
+{% endparse_json %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE NEWS DATABASE IS POPULATED {% endcomment %}
 
 {% assign record = data | dig: 'items' %} 
 {%- assign data = data | dig: 'items', 'results' -%}
@@ -20,7 +55,16 @@ metadata: {
                     {% for item in data %}
                       <div class="slider-item-container">
                         <div class="slider-item">
-                            <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                            {% if item.icon.url %}
+                                <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                            {% else %}
+                                {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                                {% for business_needs in business_needs_list %}
+                                    {% if item.business_title == business_needs.business_title %}
+                                       <img loading="lazy" width="50" height="50" src="{{ business_needs.icon }}" alt="">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                             <h6>{{ item.business_title }}</h6>
                             <p>{{ item.business_description }}</p>
                         </div>

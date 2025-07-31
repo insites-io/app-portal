@@ -1,0 +1,33 @@
+mutation create_feedback(
+  $full_name: String,
+  $location: String,
+  $message: String
+ 
+) {
+  items: record_create(
+    record: {
+      table: "modules/website/feedback",
+      properties: [
+        { 
+          name: "full_name",
+          value: $full_name 
+        },
+        { 
+          name: "location",
+          value: $location 
+        },
+        { 
+          name: "message",
+          value: $message 
+        },
+        { 
+          name: "allow_display_on_website",
+          value: "Yes"
+        }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

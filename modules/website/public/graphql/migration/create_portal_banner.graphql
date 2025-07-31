@@ -1,0 +1,37 @@
+mutation create_portal_banner(
+  $sub_text: String,
+  $main_text: String,
+  $button_label: String,
+  $button_link: String
+) {
+  items: record_create(
+    record: {
+      table: "modules/portal/portal_banners",
+      properties: [
+        { 
+          name: "sub_text",
+          value: $sub_text 
+        },
+        { 
+          name: "main_text",
+          value: $main_text 
+        },
+        { 
+          name: "button_label",
+          value: $button_label 
+        },
+        { 
+          name: "button_link",
+          value: $button_link 
+        },
+        { 
+          name: "is_enabled",
+          value_boolean: true 
+        }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

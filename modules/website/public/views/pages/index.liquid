@@ -29,9 +29,17 @@ dynamic_cache:
         [
           "modules/website/business_needs",
           "modules/website/features",
-          "modules/website/testimonials"
+          "modules/website/feedback",
+          "modules/website/menu"
         ]
         {%- endparse_json -%}
+        {% if context.constants.ecommerce_addon == 'true' %}
+            {% assign models = models | array_add: 'modules/insites_ecommerce/product' %}
+            {% assign models = models | array_add: 'modules/insites_ecommerce/product_variant' %}
+        {% endif %}
+        {% if context.constants.events_addon == 'true' %}
+            {% assign models = models | array_add: 'modules/insites_events/event' %}
+        {% endif %}
         {%- include "modules/website/cache/generate_cache_key", models: models -%}
         {{context.current_user.id}}
         {{context.device.device_type}}
@@ -49,10 +57,14 @@ dynamic_cache:
 {% include 'modules/website/content/index/adaptive_protal_section' %}
 {% include 'modules/website/content/index/unlock_efficiency_section' %}
 
+{% if context.constants.events_addon == 'true' %}
+    {% include 'modules/events/blocks/discover_whats_happening' %}
+{% endif %}
+
 {% if context.constants.ecommerce_addon == 'true' %}
     {% include 'modules/ecommerce/blocks/whats_hot' %}
 {% endif %}
 
-{% include 'modules/website/content/index/testimonials_slider' %}
+{% include 'modules/website/content/index/feedback_slider' %}
 
 

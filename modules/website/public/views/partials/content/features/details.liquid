@@ -6,6 +6,30 @@ metadata: {
     layout: "details"
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR FEATURES IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE IMAGES ON FEATURES DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% parse_json features_details %}
+[
+    {
+        "image": "{{ 'modules/portal/images/features/easy-to-use-image.webp' | asset_url }}",
+        "slug": "easy-to-use"
+    },
+    {
+        "image": "{{ 'modules/portal/images/features/pre-built-image.webp' | asset_url }}",
+        "slug": "pre-built"
+    },
+    {
+        "image": "{{ 'modules/portal/images/features/fully-customisable-image.webp' | asset_url }}",
+        "slug": "fully-customisable"
+    },
+    {
+        "image": "{{ 'modules/portal/images/features/multi-user-image.webp' | asset_url }}",
+        "slug": "multi-user"
+    }
+]
+{% endparse_json %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE FEATURES DATABASE IS POPULATED {% endcomment %}
+
 {%- if context.params.slug2 != context.exports.data.item.slug -%}
     {%- redirect_to '/404' -%}
 {%- endif -%}
@@ -13,6 +37,8 @@ metadata: {
 {%- if context.exports.data.item.enabled == false -%}
     {%- redirect_to '/404' -%}
 {%- endif -%}
+
+{% assign parent_id = context.exports.data.id %}
 
 {%- graphql get_features = 'modules/website/features/get_features_details', parent_id: parent_id -%}
 {%- assign features =  get_features | dig: 'items', 'results'  -%}
@@ -32,7 +58,16 @@ metadata: {
         </div>
     </div>
     <div class="features-banner-details-image">
-        <img src="{{ context.exports.data.item.image.url }}" alt="">
+        {% if context.exports.data.item.image.url %}
+            <img src="{{ context.exports.data.item.image.url }}" alt="">
+        {% else %}
+            {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+            {% for features in features_details %}
+                {% if context.exports.data.item.slug == features.slug %}
+                    <img src="{{ features.image }}" alt="">
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
 
@@ -52,5 +87,6 @@ metadata: {
     <div class="spacer section show-for-medium"></div>
     <div class="spacer x-large show-for-small-only"></div>
 </div>
+</div>
 
-{% include 'modules/website/content/index/testimonials' %}
+{% include 'modules/website/content/index/feedback_slider' %}

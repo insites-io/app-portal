@@ -1,7 +1,7 @@
 query get_faqs(
     $page: Int = 1, 
     $size: Int = 9,
-    $keyword: String
+    $slug: String
 ) {
     items: records(
         page: $page
@@ -10,7 +10,7 @@ query get_faqs(
             table: { value: "modules/website/faqs" }
             deleted_at: { exists: false }
             properties: [
-                { name: "name", contains: $keyword }
+                { name: "slug", value: $slug }
             ]
         }
         sort: [

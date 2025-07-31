@@ -187,7 +187,6 @@ let App = (function () {
             },
             async swal(type = "warning", title, message, label = "OK", showCancel = true, iconConfirm = "icon-check-2",customClass) {
                 let btnLabel = App.data.capitalize(label);
-                console.log(customClass)
                 return await new Promise(resolve => {
                     Swal.fire({
                         html: `
@@ -348,20 +347,14 @@ let App = (function () {
 
                         lastScrollTop = Math.max(0, currentScroll);
                     } else {
-                        // Desktop view
-
-                        // Only reset if previously fixed by mobile behavior
-                        if (navbar.style.position === 'fixed') {
-                            navbar.style.position = 'relative';
-                            navbar.style.removeProperty('transform');
-                        }
-
-                        navbar.classList.remove('no-light-header'); // Cleanup class from mobile
-                        navbar.style.backgroundColor = '#05051D'; // Always solid background on desktop
+                        // For desktop, navbar should always have a solid background color
+                        navbar.style.backgroundColor = '#05051D';
+                        navbar.style.position = 'relative'; // Make sure it's not fixed on desktop
+                        navbar.style.removeProperty('transform');
                     }
                 }
-
-                // Initial run
+            
+                // **Run once immediately to apply correct background before scroll events**
                 handleScroll();
 
                 // Event listeners

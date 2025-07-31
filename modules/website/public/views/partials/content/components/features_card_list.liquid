@@ -3,6 +3,98 @@ metadata: {
     partial_name: "Website | Components | Features card list",
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR FEATURES IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE IMAGES ON FEATURES DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% parse_json features_list %}
+[
+    {
+        "icon": "{{ 'modules/portal/images/features/easy-to-use-icon.png' | asset_url }}",
+        "slug": "easy-to-use"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/pre-built-icon.png' | asset_url }}",
+        "slug": "pre-built"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/fully-customisable-icon.png' | asset_url }}",
+        "slug": "fully-customisable"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/multi-user-icon.png' | asset_url }}",
+        "slug": "multi-user"
+    }
+]
+{% endparse_json %}
+
+{% parse_json features_details %}
+[
+    {
+        "icon": "{{ 'modules/portal/images/features/simple-&-clean-layout.png' | asset_url }}",
+        "heading": "Simple & clean layout"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/seamless-navigation.png' | asset_url }}",
+        "heading": "Seamless navigation"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/responsive-&-accessible.png' | asset_url }}",
+        "heading": "Responsive & accessible"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/fast-&-efficient.png' | asset_url }}",
+        "heading": "Fast & efficient"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/ready-to-use-elements.png' | asset_url }}",
+        "heading": "Ready to use elements"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/flexible-customisation.png' | asset_url }}",
+        "heading": "Flexible customisation"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/consistent-user-experience.png' | asset_url }}",
+        "heading": "Consistent user experience"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/time-saving-implementation.png' | asset_url }}",
+        "heading": "Time-saving implementation"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/tailored-workflows.png' | asset_url }}",
+        "heading": "Tailored workflows"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/branding-control.png' | asset_url }}",
+        "heading": "Branding control"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/user-roles-&-permissions.png' | asset_url }}",
+        "heading": "User roles & permissions"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/scalable-design.png' | asset_url }}",
+        "heading": "Scalable design"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/secure-collaboration.png' | asset_url }}",
+        "heading": "Secure collaboration"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/custom-user-permissions.png' | asset_url }}",
+        "heading": "Custom user permissions"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/activity-tracking.png' | asset_url }}",
+        "heading": "Activity tracking"
+    },
+    {
+        "icon": "{{ 'modules/portal/images/features/scalable-user-management.png' | asset_url }}",
+        "heading": "Scalable user management"
+    }
+]
+{% endparse_json %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE FEATURES DATABASE IS POPULATED {% endcomment %}
 
 {% if full %}
     {% if home %}
@@ -11,7 +103,16 @@ metadata: {
                 {% for item in data %}
                         <a class="features-item-link" href="features/{{ item.slug }}">
                             <div class="portal-benefits-cards">
-                                <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                                {% if item.icon.url %}
+                                    <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                                {% else %}
+                                    {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                                    {% for features in features_list %}
+                                        {% if item.slug == features.slug %}
+                                            <img width="500" height="500" alt="image" src="{{ features.icon }}">
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                                 <p class="heading-6">{{ item.card_title }}</p>
                                 <p class="subHeading">{{ item.card_short_description }}</p>
                                 <i class="icon-arrow-right"></i>
@@ -26,7 +127,16 @@ metadata: {
                 {% for item in data %}
                     <div class="features-item-link">
                         <div class="portal-benefits-cards">
-                            <img loading="lazy" width="50" height="50" src="{{ item.details_icon.url }}" alt="">
+                            {% if item.details_icon.url %}
+                                <img loading="lazy" width="50" height="50" src="{{ item.details_icon.url }}" alt="">
+                            {% else %}
+                                {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                                {% for features_details_item in features_details %}
+                                    {% if item.heading == features_details_item.heading %}
+                                        <img width="500" height="500" alt="image" src="{{ features_details_item.icon }}">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                             <p class="heading-6">{{ item.heading }}</p>
                             <p class="subHeading">{{ item.short_description }}</p>
                         </div>
@@ -38,7 +148,16 @@ metadata: {
     {% for item in data %}
         <a href="features/{{ item.slug }}">
             <div class="portal-benefits-cards">
-                <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                {% if item.icon.url %}
+                    <img loading="lazy" width="50" height="50" src="{{ item.icon.url }}" alt="">
+                {% else %}
+                    {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                    {% for features in features_list %}
+                        {% if item.slug == features.slug %}
+                            <img width="500" height="500" alt="image" src="{{ features.icon }}">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
                 <p class="heading-6">{{ item.card_title }}</p>
                 <p class="subHeading">{{ item.card_short_description }}</p>
                 <i class="icon-arrow-right"></i>

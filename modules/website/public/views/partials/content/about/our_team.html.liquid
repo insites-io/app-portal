@@ -3,6 +3,30 @@ metadata: {
     partial_name: "Website | About | Our team",
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR OUR TEAM IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE IMAGES ON OUR TEAM DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% parse_json our_team_list %}
+[
+    {
+        "image": "{{ 'modules/website/images/our_team/BenjaminJohnson.webp' | asset_url }}",
+        "name": "Benjamin Johnson"
+    },
+    {
+        "image": "{{ 'modules/website/images/our_team/DanielJones.webp' | asset_url }}",
+        "name": "Daniel Jones"
+    },
+    {
+        "image": "{{ 'modules/website/images/our_team/EmilySmith.webp' | asset_url }}",
+        "name": "Emily Smith"
+    },
+    {
+        "image": "{{ 'modules/website/images/our_team/MayaThompson.webp' | asset_url }}",
+        "name": "Maya Thompson"
+    }
+]
+{% endparse_json %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE OUR TEAM DATABASE IS POPULATED {% endcomment %}
+
 
 {%- graphql get_our_team = 'modules/website/about_us/get_our_team' | dig: 'items', 'results' -%}
 
@@ -35,7 +59,16 @@ metadata: {
           {% for item in get_our_team %} 
             <div class="large-3 medium-6 small-12 cell">
               <div class="team-image-wrapper">
-                <img loading="lazy" width="500" height="500" alt="team1" class="ourTeamImg" src="{{ item.photo.url }} ">
+                {% if item.photo.url %}
+                    <img loading="lazy" width="500" height="500" alt="team1" class="ourTeamImg" src="{{ item.photo.url }} ">
+                {% else %}
+                    {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                    {% for our_team in our_team_list %}
+                        {% if item.name == our_team.name %}
+                            <img loading="lazy" width="500" height="500" alt="team1" class="ourTeamImg" src="{{ our_team.image }} ">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
                 <div class="overlay"></div>
               </div>
               <div class="our-team-card">

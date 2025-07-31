@@ -220,8 +220,7 @@ metadata: {
 <ins-loader
     id="users-loader"
     hidden
-    state-title="Processing"
-    state-message="Please wait, we're processing your data."
+    state-title="Loading"
     state-icon="processing">
 </ins-loader>
 
@@ -263,7 +262,15 @@ metadata: {
             <ins-table-row class="users-table-data">
 
                 <ins-table-td class="body-small">
+                    <ins-accordion class="user-invite-accordion">
                          <ins-accordion-item class="request-table-accordion show-for-small-medium" heading=" {{ item.first_name }} {{ item.last_name }}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
+                            {% if portal_profile.primary_account_holder == true %}
+                                <div class="spacer x-small"></div>
+                                <span class="primary-account-holder">Account Owner</span>
+                                <div class="hide-for-small-medium">
+                                    <div class="spacer small"></div>
+                                </div>
+                            {% endif %}   
                             <div class="spacer small"></div>
                             <p class="body-small-bold">Name</p>
                             <p class="body-small">{{ item.first_name }} {{ item.last_name }}</p>
@@ -284,7 +291,7 @@ metadata: {
                                 {% else %}
                                     <ins-input-select 
                                         class="selectPermission" 
-                                        value="{{ portal_profile.permission_level }}"
+                                        value="{{ portal_profile.permission_level |  default: "No Access" }}"
                                         data-id="{{ item.id }}"
                                         data-contact-uuid="{{ item.external_id }}"
                                         data-name="{{ item.first_name }} {{ item.last_name }}"
@@ -314,11 +321,12 @@ metadata: {
                          
                             <div class="spacer"></div>
                         </ins-accordion-item>
+                    </ins-accordion>
                     <span class="hide-for-small-medium"> {{ item.first_name }} {{ item.last_name }} </span>
 
                     {% if portal_profile.primary_account_holder == true %}
                         <div class="spacer x-small"></div>
-                        <span class="primary-account-holder">Account Owner</span>
+                        <span class="primary-account-holder primary-account-holder-outer">Account Owner</span>
                         <div class="hide-for-small-medium">
                             <div class="spacer small"></div>
                         </div>
@@ -343,7 +351,7 @@ metadata: {
                         <ins-input-select 
                             class="selectPermission" 
                             id="{{ item.id }}"
-                            value="{{ portal_profile.permission_level }}"
+                            value="{{ portal_profile.permission_level |  default: "No Access"  }}"
                             data-id="{{ item.id }}"
                             data-contact-uuid="{{ item.external_id }}"
                             data-name="{{ item.first_name }} {{ item.last_name }}"
@@ -526,7 +534,7 @@ metadata: {
                     icon: 'warning',
                     title: `Grant ${permissionLevelSelectedValue} Access?`,
                     html: `Are you sure you want to invite <b>${cleanedName}</b> to have ${permissionLevelSelectedValue} access to your company account?`,
-                    confirmButtonText: `<i class="icon-send"></i> Send invite`,
+                    confirmButtonText: `<i class="icon-check-2"></i> Update`,
                     showCancelButton: true,
                     cancelButtonText: `<i class="icon-close-1"></i> Cancel`,
                     allowOutsideClick: false,
@@ -539,7 +547,7 @@ metadata: {
                             setTimeout(async() => {
                                 let response = await apiServices.processRequest('post', url);
                                 if(response.state == true) {
-                                    App.events.notyf('success', "Your invitation has been sent successfully.");
+                                    App.events.notyf('success', "User permission has been updated successfully.");
                                     window.location.href = '/users';
                                 }
                             }, 500);
@@ -791,4 +799,18 @@ metadata: {
     function resetSelect(e){
         e.setValue(previousPermissionLevelValue);
     }
+    
+    setTimeout(() => {
+    document.querySelectorAll('.ins-accordion-item_header').forEach(header => {
+        header.addEventListener('click', () => {
+            const tableCell = header.closest('ins-table-td');
+            if (tableCell) {
+                const outerLabel = tableCell.querySelector('.primary-account-holder-outer');
+                if (outerLabel) {
+                    outerLabel.style.display = outerLabel.style.display === 'none' ? '' : 'none';
+                }
+            }
+        });
+    });
+    }, 500); 
 </script>

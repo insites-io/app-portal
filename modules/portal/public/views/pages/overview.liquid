@@ -23,19 +23,7 @@ metadata: {
     "sitemap_changefreq": "monthly"
 }
 authorization_policies:
-  - modules/portal/is_user_logged_in    
-dynamic_cache:
-  layout: true
-  key: >
-    {%- parse_json models -%}
-    [
-      "modules/portal/portal_banners"
-    ]
-    {%- endparse_json -%}
-    {%- include "modules/website/cache/generate_cache_key", models: models -%}
-    {{context.current_user.id}}
-    {{context.device.device_type}}
+  - modules/portal/is_user_logged_in
 ---
-
 {% comment %} Overview {% endcomment %}
 {% include 'modules/portal/overview/overview' %}

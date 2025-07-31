@@ -10,7 +10,6 @@ metadata: {
     2. Update models/records (Payment, Order)
     3. Email Notification
 {% endcomment %}
-
 {% comment %} Get Gateway Settings from Ecommerce settings {% endcomment %}
 {% function settings = "modules/portal/pay_bills/get_settings" %}
 {% assign gateway = settings.gateway_name | downcase %}
@@ -41,7 +40,6 @@ metadata: {
     order_uuid: order_uuid,
     form: form,
     settings: settings %}
-
 
 {% comment %} Step 3. Email Notification {% endcomment %}
 {% parse_json customer_info %}

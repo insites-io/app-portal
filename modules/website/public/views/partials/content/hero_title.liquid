@@ -22,8 +22,10 @@ metadata: {
     {% assign header = 'Terms & conditions' %}  
 {% elsif slug_name == 'news' %}
     {% assign header = 'News' %}  
+{% elsif title != '' %}
+    {% assign header = title %}  
 {% else %}
-    Test Page
+    
 {% endif %}
 
 <section class="hero-title">
@@ -31,9 +33,9 @@ metadata: {
         <div class="spacer xxx-large"></div>
         <div class="grid-container">        
             <div class="page-hero-container">
-                <h2>
+                <h1 class="heading-1-small" >
                     {{ header }}
-                </h2>
+                </h1>
                 <p>{{ description }}</p>
             </div>
 

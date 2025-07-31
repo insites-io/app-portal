@@ -1,0 +1,15 @@
+query get_table_info(
+    $table_name: String
+) {
+  admin_model_schemas(per_page: 1
+    filter: {
+      name: { value: $table_name }
+    }
+  
+  ) {
+    results {
+      name
+      id
+    }
+  }
+}

@@ -1,6 +1,6 @@
-name: testimonials
+name: feedback
 metadata:
-  label: "Testimonials"
+  label: "Feedback"
   groups: [{"id":"9e96cf3e-c23f-4118-ab5e-f0ed9899ccef","name":"Settings","weight":0},{"id":"53f9c2ff-7458-4834-8f0b-ec25d72828fe","name":"Testimonial Content","weight":1}]
   is_archived: false
 properties:
@@ -44,14 +44,3 @@ properties:
     group_id: "53f9c2ff-7458-4834-8f0b-ec25d72828fe"
     ui_element: "multi_line"
     is_required: true
-- name: user_id
-  type: string
-  belongs_to: users
-  metadata:
-    label: "User ID"
-    weight: 0
-    group_id: "9e96cf3e-c23f-4118-ab5e-f0ed9899ccef"
-    ui_element: "select_data_source"
-    is_required: false
-    display_field: "name"
-    is_shown_in_table: false

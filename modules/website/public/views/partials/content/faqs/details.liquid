@@ -15,13 +15,14 @@ metadata: {
 {% comment %} assign var to fetch the result {% endcomment %}
 {%- assign res_faq = get_faq | dig: 'items', 'results' -%}
 
+{% include 'modules/website/content/faqs/faq_nav_mobile', res_faq: res_faq %} 
+
 {% assign get_category = get_faq | dig: 'items', 'results' %}
 {% assign get_category = get_category | map: "category" | uniq %}
 {% assign description = "Check out the answers to your questions about our portal and how it all works!" %}
 {% include 'modules/website/content/hero_title', description: description %} 
 
 <div class="wrapper sideNavBg">
-    <div class="spacer section show-for-medium"></div>
     <div class="grid-container">
             <div class="grid-container">
                 <div class="blocks-sc-2col-07 wrapper bg-color-ui-01">

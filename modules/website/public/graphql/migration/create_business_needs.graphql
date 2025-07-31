@@ -1,0 +1,27 @@
+mutation create_business_needs(
+  $business_title: String,
+  $business_description: String
+) {
+  items: record_create(
+    record: {
+      table: "modules/website/business_needs",
+      properties: [
+        { 
+          name: "business_title",
+          value: $business_title 
+        },
+        { 
+          name: "business_description",
+          value: $business_description 
+        },
+        { 
+          name: "enable",
+          value: "Yes"
+        }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

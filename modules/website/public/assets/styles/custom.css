@@ -624,6 +624,11 @@ ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__page {
     float: none;
     margin: 0 30px;
 }
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header.active::before, 
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header:focus::before, 
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before{
+    background: var(--color-main);
+}
 
 .ibt-table-wrap__pagination,
 .ibt-table-wrap__pagination--option,
@@ -689,7 +694,7 @@ ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__page {
 }
 
 .carousel-holder,
-.section-testimonials {
+.section-feedback {
     text-align: center;
 }
 
@@ -697,7 +702,7 @@ ins-table .ibt-table-wrap .pagination-wrap .ibt-table-wrap__page {
     background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }
 
-.section-testimonials .slide-content {
+.section-feedback .slide-content {
     background: var(--color-sub1) !important;
 }
 
@@ -1386,7 +1391,7 @@ ins-card .ins-card-wrap {
     border-radius: 24px!important;
 }
 
-.section-testimonials .slide-container {
+.section-feedback .slide-container {
     background-color: #000;
 }
 

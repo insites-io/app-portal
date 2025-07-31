@@ -11,12 +11,10 @@ metadata: {
     <div class="portal-sidebar">                            
         <ins-accordion-link label="Overview" link="/overview" link-target="_self" {%if params.slug == 'overview'-%}active{%- endif-%} ></ins-accordion-link>
         {% if context.constants.ecommerce_addon == 'true' %}
-            <ins-accordion menu>                    
-                <ins-accordion-item heading="Orders" open-icon="icon-plus" close-icon="icon-minus" {%if params.slug == 'order-history' or params.slug == 'purchase-again' -%}active{%- endif-%} >
-                    <ins-accordion-link label="Order History" link="/order-history" link-target="_self" {%if params.slug == 'order-history'-%}active{%- endif-%}></ins-accordion-link>
-                    <ins-accordion-link label="Purchase Again" link="/purchase-again" link-target="_self" {%if params.slug == 'purchase-again'-%}active{%- endif-%}></ins-accordion-link>
-                </ins-accordion-item>                                                                             
-            </ins-accordion>
+            <ins-accordion-link label="Order history" link="/order-history" link-target="_self" {%if params.slug == 'order-history'-%}active{%- endif-%} ></ins-accordion-link>
+            {%- comment -%}
+            <ins-accordion-link label="Purchase again" link="/purchase-again" link-target="_self" {%if params.slug == 'purchase-again'-%}active{%- endif-%}></ins-accordion-link>
+            {%- endcomment -%}
         {% endif %}
         <ins-accordion-link label="My details" link="/my-details" link-target="_self" {%if params.slug == 'my-details'-%}active{%- endif-%}></ins-accordion-link>
         <ins-accordion-link label="My company details" link="/my-company-details" link-target="_self" {%if params.slug == 'my-company-details'-%}active{%- endif-%}></ins-accordion-link>
@@ -34,6 +32,8 @@ metadata: {
     {% assign navigation_link = "/" | append: context.params.slug %}
     {% if context.params.slug == "overview" %}
         {% assign navigation_label = "Overview" %}
+    {% elsif context.params.slug == "order-history" %}
+        {% assign navigation_label = "Order history"%}
     {% elsif context.params.slug == "my-details" %}
         {% assign navigation_label = "My details"%}      
     {% elsif context.params.slug == "my-company-details" %}
@@ -51,6 +51,12 @@ metadata: {
     <div class="portal-mobile-nav">
         <ins-accordion-item class="" heading="{{ navigation_label }}" link="{{ navigation_link }}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
             <ins-accordion-link class="{% if navigation_label == "Overview" %} is_hidden {% endif %}" label="Overview" link="/overview" link-target="_self"></ins-accordion-link>
+            {% if context.constants.ecommerce_addon == 'true' %}
+                <ins-accordion-link class="{% if navigation_label == "Order history" %} is_hidden {% endif %}" label="Order history" link="/order-history" link-target="_self"></ins-accordion-link>
+                {%- comment -%}
+                <ins-accordion-link class="{% if navigation_label == "Purchase again" %} is_hidden {% endif %}" label="Purchase again" link="/purchase-again" link-target="_self"></ins-accordion-link>
+                {%- endcomment -%}
+            {% endif %}
             <ins-accordion-link class="{% if navigation_label == "My details" %} is_hidden {% endif %}" label="My details" link="/my-details" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "My company details" %} is_hidden {% endif %}" label="My company details" link="/my-company-details" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "Feedback" %} is_hidden {% endif %}" label="Feedback" link="/feedback" link-target="_self"></ins-accordion-link>

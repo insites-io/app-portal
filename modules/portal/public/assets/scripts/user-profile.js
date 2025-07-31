@@ -178,7 +178,7 @@ let UserProfileScript = (function () {
                             'warning',
                             'Change your password?',
                             'You will be logged out after changing your password.',
-                            'Submit changes',
+                            'Save changes',
                             true,
                             'icon-check-2',
                             'change-pw-swal');
@@ -293,7 +293,7 @@ let UserProfileScript = (function () {
             async removeCard(selectedEl) {
                 let confirm = await App.events.swal(
                     'warning',
-                    'Remove Card?',
+                    'Remove card?',
                     'Are you sure you want to remove this credit card?',
                     'Remove',
                     true,

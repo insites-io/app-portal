@@ -1,0 +1,32 @@
+mutation create_our_team(
+  $order: String,
+  $name: String,
+  $occupation: String
+) {
+  items: record_create(
+    record: {
+      table: "modules/website/our_team",
+      properties: [
+        { 
+          name: "order",
+          value: $order 
+        },
+        { 
+          name: "name",
+          value: $name 
+        },
+        { 
+          name: "occupation",
+          value: $occupation 
+        },
+        { 
+          name: "enabled",
+          value: "Yes"
+        }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

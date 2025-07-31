@@ -3,52 +3,111 @@ metadata: {
     partial_name: 'Portal | Overview | Overview'
 }
 ---
+{% comment %} ? THIS IS TO SET DEFAULT VALUES FOR PORTAL BANNER IMAGE {% endcomment %}
+{% comment %} ? THIS BLOCK OF CODE UNDER THIS COMMENT CAN BE DELETED ONCE IMAGES ON PORTAL BANNER DATABASE IS POPULATED BY THE USER{% endcomment %}
+{% parse_json portal_banner_list %}
+[
+    {
+        "image": "{{ 'modules/portal/images/portal_banner/easy-and-secure-bill-payments.png' | asset_url }}",
+        "main_text": "Easy and secure bill payments"
+    }
+]
+{% endparse_json %}
+{% comment %} ? DELETE UNTIL THIS LINE OF CODE ONCE PORTAL BANNER DATABASE IS POPULATED {% endcomment %}
+
 
 
 {% comment %} <div class="sign-out-wrapper">
     {% include_form 'modules/portal/sign_out' %}
-  </div> {% endcomment %}
-
+</div> {% endcomment %}
 
 {%- graphql portal_banner = 'modules/portal/banners/get_banner' | dig: "items", "results" | first -%}
 
-<div class="overview-banner">
-    <div class="overview-details"> 
-        <h5 class="heading-5">{{ portal_banner.main_text }}</h5>
-        <div class="spacer x-small"></div>  
-        <p class="p-dark">{{ portal_banner.sub_text }}</p>
-        <div class="spacer"></div>
-        <a href="{{ portal_banner.button_link }}">
-            <ins-button type="button" label="{{ portal_banner.button_label }}" icon-right="icon-arrow-forward" class="m-0" solid></ins-button>
-        </a>
+{% if portal_banner.size %}
+    <div class="overview-banner">
+        <div class="overview-details"> 
+            <h5 class="heading-5">{{ portal_banner.main_text }}</h5>
+            <div class="spacer x-small"></div>  
+            <p class="p-dark">{{ portal_banner.sub_text }}</p>
+            <div class="spacer"></div>
+            <a href="{{ portal_banner.button_link }}">
+                <ins-button type="button" label="{{ portal_banner.button_label }}" icon-right="icon-arrow-forward" class="m-0" solid></ins-button>
+            </a>
+        </div>
+        <div class="overview-image" height="150" width="300"> 
+            {% if portal_banner.image.url %}
+                    <img src="{{ portal_banner.image.url }}" alt="">
+            {% else %}
+                {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
+                {% for portal_banner in portal_banner_list %}
+                    {% if item.main_text == portal_banner.main_text %}
+                        <img width="500" height="500" alt="image" src="{{ portal_banner.image }}">
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
-    <div class="overview-image" height="150" width="300"> 
-        <img src="{{ portal_banner.desktop_image.url }}" alt="">
-    </div>
-</div>
 
-<div class="spacer xxxx-large"></div>
+    <div class="spacer xxxx-large"></div>
+{% endif %}
 
 {% comment %} ? Overview Cards {% endcomment %}
-{% parse_json card_details_result %}
-[
-    {
-        "card-icon": "icon-notepad-1", 
-        "card-header": "Projects", 
-        "card-body": "24"
-      },
-      {
-        "card-icon": "icon-task-list", 
-        "card-header": "Open tasks", 
-        "card-body": "12"
-      },
-      {
-        "card-icon": "icon-check-circle-1", 
-        "card-header": "Completed Task", 
-        "card-body": "6"
-      }
-]
-{% endparse_json %}
+{% if context.constants.ecommerce_addon == 'true' %}
+    {% parse_json card_details_result %}
+    [
+        {
+            "card-icon": "icon-notepad-1", 
+            "card-header": "Projects", 
+            "card-body": "24"
+        },
+        {
+            "card-icon": "icon-clipboard", 
+            "card-header": "Open tasks", 
+            "card-body": "12"
+        },
+        {
+            "card-icon": "icon-check-circle-1", 
+            "card-header": "Completed Task", 
+            "card-body": "6"
+        },
+        {
+            "card-icon": "icon-retry", 
+            "card-header": "Backorders", 
+            "card-body": "8"
+        },
+        {
+            "card-icon": "icon-box", 
+            "card-header": "Completed orders", 
+            "card-body": "12"
+        },
+        {
+            "card-icon": "icon-truck", 
+            "card-header": "Orders in progress", 
+            "card-body": "5"
+        }
+    ]
+    {% endparse_json %}
+{% else %}
+    {% parse_json card_details_result %}
+    [
+        {
+            "card-icon": "icon-notepad-1", 
+            "card-header": "Projects", 
+            "card-body": "24"
+        },
+        {
+            "card-icon": "icon-clipboard", 
+            "card-header": "Open tasks", 
+            "card-body": "12"
+        },
+        {
+            "card-icon": "icon-check-circle-1", 
+            "card-header": "Completed Task", 
+            "card-body": "6"
+        }
+    ]
+    {% endparse_json %}
+{% endif %}  
 
 <div class="overview-cards-container">
     <h3 class="heading-3">Overview</h3>
@@ -88,7 +147,7 @@ metadata: {
     {% assign per_page = context.params.per_page | default: 10 | plus: 0 %}    
     
     {%- graphql get_total_entries = 'modules/portal/overview/get_request', page: page_num, size: per_page | dig: "items" -%}
-
+    
     {%- graphql request_result = 'modules/portal/overview/get_request', page: page_num, size: per_page | dig: "items", "results" -%}
 
     {% comment %} HIDDEN FIELDS FOR JAVASCRIPT {% endcomment %}

@@ -141,9 +141,13 @@ async_callback_actions:
     {%- assign payload = payload | add_hash_key: "description", description -%}
     {%- assign payload = payload | add_hash_key: "font_icon", "icon-company-added" -%}
     {%- assign payload = payload | add_hash_key: "font_icon_color", "#60A5E5" -%}
+    {%- assign payload = payload | add_hash_key: "administrator_uuid", context.current_user.external_id  -%}
 
     {% capture log_info %}
-      {
+    {
+      "action": "update_my_company_details",
+      "data": {
+        "items": { 
           "user": {
             "id": "{{ context.current_user.id }}",
             "email": "{{ context.current_user.email }}",
@@ -166,7 +170,9 @@ async_callback_actions:
             "country": "{{ form.properties.company_country }}"
           },
           "contact_uuid": "{{ context.current_user.external_id }}"      
+        }
       }
+    }
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}
     {%- assign info = payload | add_hash_key: "log", log_info_json -%}

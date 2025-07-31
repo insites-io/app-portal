@@ -8,13 +8,24 @@ metadata: {
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
 
-<header  id="main-header" 
-  {%- if dark == blank -%} class="light-header {%-  if border == true -%} border-bottom-nav  {%- endif -%}" {%- else -%} class="no-light-header" {%- endif -%}
-  
-  >
+{% comment %} Header class {% endcomment %}
+{%  liquid      
+    if dark != true
+      assign headerClass = '' | split: ','
+      assign headerClass = headerClass | array_add: 'light-header'
+      if border == true
+        assign headerClass = headerClass | array_add: 'border-bottom-nav'
+      endif
+      assign headerClass = headerClass | join: ' ' 
+    else 
+      assign headerClass = 'no-light-header'
+    endif
+%}
+<header id="main-header" class="{{headerClass}}">  
+
   <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
-      <div class="large-1 medium-3 small-7 cell">
+      <div class="large-1 medium-3 small-5 cell">
         <a href="/">
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
           {% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
@@ -52,20 +63,39 @@ metadata: {
       {% comment %} Get Ecommerce Cart Count {% endcomment %}
       {% if context.constants.ecommerce_addon == 'true' %}        
         {%  liquid
-              function user_uuid = 'modules/ecommerce/user/get_user_uuid'
-              if user_uuid and user_uuid != ''
-                graphql cart_items = 'modules/ecommerce/carts/get_cart', contact_uuid: user_uuid | dig: 'items','results' | first | dig: 'cart_items'
+              assign guest_user = true
+              assign cart_items = null                         
+              if context.current_user
+                graphql cart_items = 'modules/ecommerce/carts/get_cart', contact_uuid: context.current_user.external_id | dig: 'items','results' | first | dig: 'cart_items'
+                assign guest_user = false
               endif
         %}  
+        <input type="hidden" id="guest-user-flag" value={{ guest_user }}>
       {% endif %}
 
       <div class="large-11 medium-3 small-8 cell hide-nav-medium">
         <div class="navlinks">
 
+          {% comment %} Ecommerce Addon {% endcomment %}
           {% if context.constants.ecommerce_addon == 'true' %}
             <ins-button id="mega-menu-btn" label="Shop" icon-right="icon-angle-down"></ins-button>
           {% endif %}
 
+          {% comment %} Events Addon {% endcomment %}
+          {% if context.constants.events_addon == 'true' %}
+            <ins-dropdown label="Events">
+              <ins-dropdown-item
+                link="/upcoming-events"
+                label="Upcoming events">
+              </ins-dropdown-item> 
+              <ins-dropdown-item
+                link="/previous-events"
+                label="Previous events">
+              </ins-dropdown-item> 
+            </ins-dropdown>
+          {% endif %}
+
+          {% comment %} Database driven menu {% endcomment %}
           {% for menu in menus %}
             {%- if menu.slug == "features" -%}
               <a class="nav-dropdown-link" href="/{{menu.slug}}">

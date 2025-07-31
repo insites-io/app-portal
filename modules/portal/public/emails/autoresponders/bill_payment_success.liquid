@@ -56,18 +56,28 @@ metadata: {
     {%- assign totalAmount = totalAmount | append: '.00' -%}
 {%- endunless -%}
 
-{%- include 'modules/insites_core/email_layout/email_icon' -%}
+  {% comment %} <!-- Spacer --> {% endcomment %}
+  <table class="module" role="module" data-type="spacer" border="0" cellpadding="0"
+    cellspacing="0" width="100%" style="table-layout: fixed;"
+    data-muid="a15f4ddd-d611-4626-945c-62c1a481f19f">
+    <tbody>
+      <tr>
+        <td style="padding:0px 0px 56px 0px;" role="module-content" bgcolor="">
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
 <table class="module" role="module" data-type="text" border="0" cellpadding="0"
   cellspacing="0" width="100%" style="table-layout: fixed;"
   data-muid="ae3b5e25-e601-4be7-8e69-e21f7125e6e7" data-mc-module-version="2019-10-22">
   <tbody>
     <tr>
-      <td style="padding:0px 24px 24px 24px; line-height:27px; text-align:inherit;"
+      <td style="padding:0px 40px 40px 40px; line-height:24px; text-align:inherit;"
         height="100%" valign="top" bgcolor="" role="module-content">
         <div>
-          <div style="font-family: inherit; text-align: center"><span
-              style="font-size: 24px"><strong>Payment Successful</strong></span>
+          <div style="font-family: inherit; text-align: left"><span
+              style="font-size: 32px;font-weight: 600;color:#0D0D0D;"><strong>Payment Successful</strong></span>
           </div>
           <div></div>
         </div>
@@ -82,11 +92,13 @@ metadata: {
   data-muid="c91a48dd-cef4-4985-9a78-d3e751a003dc" data-mc-module-version="2019-10-22">
   <tbody>
     <tr>
-      <td style="padding:0px 24px 40px 24px; line-height:24px; text-align:inherit;"
+      <td style="padding:0px 40px 56px 40px; line-height:24px; text-align:inherit;"
         height="100%" valign="top" bgcolor="" role="module-content">
         <div>
-          <div style="font-family: inherit; text-align: center">
-            <span style="white-space: pre-wrap">We have successfully processed your payment.</span>
+          <div style="font-family: inherit; text-align: left">
+            <span style="white-space: pre-wrap;font-size: 16px;font-style: normal;font-weight: 400;color:#525252">Your payment has been processed successfully.</span>
+            <div style="font-family: inherit; text-align: left;padding-bottom:56px"></div>
+            <hr style="border: none; border-top: 1px solid #DFDFDF; margin:0px">
           </div>
           <div></div>
         </div>
@@ -102,11 +114,11 @@ metadata: {
   data-mc-module-version="2019-10-22">
   <tbody>
     <tr>
-      <td style="padding:0px 24px 40px 24px; line-height:20px; text-align:inherit;"
+      <td style="padding:0px 40px 40px 40px; line-height:20px; text-align:inherit;"
         height="100%" valign="top" bgcolor="" role="module-content">
         <div>
-          <div style="font-family: inherit; text-align: center">
-            <span style="white-space: pre-wrap; font-size: 18px"><strong>Order Number: {{ data.order_id }}</strong></span>
+          <div style="font-family: inherit; text-align: left">
+            <span style="white-space: pre-wrap;font-size: 24px;font-style: normal;font-weight: 600;color: #0d0d0d"><strong>Reference: {{ get_order.properties.order_reference }}</strong></span>
           </div>
           <div></div>
         </div>
@@ -116,17 +128,17 @@ metadata: {
 </table>
 
 
-{% comment %} <!-- Invoice Details --> {% endcomment %}
+{% comment %} <!-- Bill Details --> {% endcomment %}
 <table class="module" role="module" data-type="text" border="0" cellpadding="0"
   cellspacing="0" width="100%" style="table-layout: fixed;"
   data-muid="676a1c91-0c6a-4466-afe0-615c8939776e" data-mc-module-version="2019-10-22">
   <tbody>
     <tr>
-      <td style="padding:0px 24px 16px 24px; line-height:24px; text-align:inherit;"
+      <td style="padding:0px 40px 32px 40px; line-height:24px; text-align:inherit;"
         height="100%" valign="top" bgcolor="" role="module-content">
         <div>
           <div style="font-family: inherit; text-align: left">
-            <span style="white-space: pre-wrap; font-size: 16px"><strong>Invoice Details</strong></span>
+            <span style="white-space: pre-wrap; font-size: 16px;font-style: normal;font-weight: 600;color:#0D0D0D">Bill Details</span>
           </div>
           <div></div>
         </div>
@@ -134,86 +146,10 @@ metadata: {
     </tr>
   </tbody>
 </table>
-
-
-{% comment %} <!-- Invoice Number --> {% endcomment %}
-<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
-  data-distribution="1,1">
-  <tbody>
-    <tr role="module-content">
-      <td height="100%" valign="top">
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 16px 0px 0px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-0">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.1.1.1"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
-                          <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>Invoice Number</strong></span>
-                          </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.1.1.1"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
-                          <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap">{{ data.order_info.properties.order_reference | default: '-' }}</span>
-                          </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
 
 {% comment %} <!-- Name --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  role="module" data-type="columns" style="padding:0px 40px 16px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -237,40 +173,12 @@ metadata: {
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>Name</strong></span>
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Name</strong></span>
                           </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.2"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
                           <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">{{ data.customer_info.first_name | append: ' ' | append: data.customer_info.last_name }}</span>
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252">{{ data.customer_info.first_name | append: ' ' | append: data.customer_info.last_name }}</span>
                           </div>
-                          <div></div>
                         </div>
                       </td>
                     </tr>
@@ -285,10 +193,9 @@ metadata: {
   </tbody>
 </table>
 
-
 {% comment %} <!-- Email --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  role="module" data-type="columns" style="padding:0px 40px 40px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -303,7 +210,7 @@ metadata: {
                 <table class="module" role="module" data-type="text" border="0"
                   cellpadding="0" cellspacing="0" width="100%"
                   style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.1.1"
+                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.2"
                   data-mc-module-version="2019-10-22">
                   <tbody>
                     <tr>
@@ -312,39 +219,12 @@ metadata: {
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>Email</strong></span>
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Email</strong></span>
                           </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.1.1"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
-                          <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap">{{ data.customer_info.email | default: '-' }}</span></div>
-                          <div></div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
+                          <div style="font-family: inherit; text-align: left">
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252">{{ data.customer_info.email | default: '-' }}</span>
+                          </div>
                         </div>
                       </td>
                     </tr>
@@ -359,31 +239,17 @@ metadata: {
   </tbody>
 </table>
 
-
-{% comment %} <!-- Spacer --> {% endcomment %}
-<table class="module" role="module" data-type="spacer" border="0" cellpadding="0"
-  cellspacing="0" width="100%" style="table-layout: fixed;"
-  data-muid="1cdd73c0-f6dc-4283-a005-01f96ca48196">
-  <tbody>
-    <tr>
-      <td style="padding:0px 0px 40px 0px;" role="module-content" bgcolor="">
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-{% comment %} <!-- Billing Details --> {% endcomment %}
+{% comment %} <!-- Payment method --> {% endcomment %}
 <table class="module" role="module" data-type="text" border="0" cellpadding="0"
   cellspacing="0" width="100%" style="table-layout: fixed;"
   data-muid="676a1c91-0c6a-4466-afe0-615c8939776e" data-mc-module-version="2019-10-22">
   <tbody>
     <tr>
-      <td style="padding:0px 24px 16px 24px; line-height:24px; text-align:inherit;"
+      <td style="padding:0px 40px 32px 40px; line-height:24px; text-align:inherit;"
         height="100%" valign="top" bgcolor="" role="module-content">
         <div>
           <div style="font-family: inherit; text-align: left">
-            <span style="white-space: pre-wrap; font-size: 16px"><strong>Billing Details</strong></span>
+            <span style="white-space: pre-wrap; font-size: 16px;font-style: normal;font-weight: 600;color:#0D0D0D">Payment Method</span>
           </div>
           <div></div>
         </div>
@@ -392,9 +258,10 @@ metadata: {
   </tbody>
 </table>
 
-{% comment %} <!-- Card Type --> {% endcomment %}
+
+{% comment %} <!-- Card type --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  role="module" data-type="columns" style="padding:0px 40px 16px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -418,40 +285,12 @@ metadata: {
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>Card Type</strong></span>
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Card Type</strong></span>
                           </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.2"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
                           <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">{{ data.payment_response.payment_method_details.card.brand | upcase }}</span>
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252">{{ data.payment_response.payment_method_details.card.brand | upcase }}</span>
                           </div>
-                          <div></div>
                         </div>
                       </td>
                     </tr>
@@ -468,7 +307,7 @@ metadata: {
 
 {% comment %} <!-- Card Number --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  role="module" data-type="columns" style="padding:0px 40px 40px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -483,80 +322,7 @@ metadata: {
                 <table class="module" role="module" data-type="text" border="0"
                   cellpadding="0" cellspacing="0" width="100%"
                   style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.1"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
-                          <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap"><strong>Card Number</strong></span></div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.1"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
-                          <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">**** **** **** {{ data.payment_response.payment_method_details.card.last4 }}</span>
-                          </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-{% comment %} <!-- Expiration Date --> {% endcomment %}
-<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
-  data-distribution="1,1">
-  <tbody>
-    <tr role="module-content">
-      <td height="100%" valign="top">
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 16px 0px 0px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-0">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.1.1"
+                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.2"
                   data-mc-module-version="2019-10-22">
                   <tbody>
                     <tr>
@@ -565,44 +331,12 @@ metadata: {
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>Expiration Date</strong></span>
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Card Number</strong></span>
                           </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.1.1"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
                           <div style="font-family: inherit; text-align: left">
-                            {%- assign month = data.payment_response.payment_method_details.card.exp_month -%}
-                            {%- if month < 10 -%}
-                                {%- assign month = "0" | append: month -%}
-                            {%- endif -%}
-                            <span style="white-space: pre-wrap">{{ month }} / {{ data.payment_response.payment_method_details.card.exp_year }}</span>
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252"> **** **** **** {{ data.payment_response.payment_method_details.card.last4 }}</span>
                           </div>
-                          <div></div>
                         </div>
                       </td>
                     </tr>
@@ -612,19 +346,6 @@ metadata: {
             </tr>
           </tbody>
         </table>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
-{% comment %} <!-- Spacer --> {% endcomment %}
-<table class="module" role="module" data-type="spacer" border="0" cellpadding="0"
-  cellspacing="0" width="100%" style="table-layout: fixed;"
-  data-muid="1cdd73c0-f6dc-4283-a005-01f96ca48196">
-  <tbody>
-    <tr>
-      <td style="padding:0px 0px 40px 0px;" role="module-content" bgcolor="">
       </td>
     </tr>
   </tbody>
@@ -637,11 +358,11 @@ metadata: {
   data-muid="676a1c91-0c6a-4466-afe0-615c8939776e" data-mc-module-version="2019-10-22">
   <tbody>
     <tr>
-      <td style="padding:0px 24px 16px 24px; line-height:24px; text-align:inherit;"
+      <td style="padding:0px 40px 32px 40px; line-height:24px; text-align:inherit;"
         height="100%" valign="top" bgcolor="" role="module-content">
         <div>
           <div style="font-family: inherit; text-align: left">
-            <span style="white-space: pre-wrap; font-size: 16px"><strong>Payment Summary</strong></span>
+            <span style="white-space: pre-wrap; font-size: 16px;font-style: normal;font-weight: 600;color:#0D0D0D">Payment Summary</span>
           </div>
           <div></div>
         </div>
@@ -650,9 +371,9 @@ metadata: {
   </tbody>
 </table>
 
-{% comment %} <!-- Bill Amount --> {% endcomment %}
+{% comment %} <!-- Bill amount --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  role="module" data-type="columns" style="padding:0px 40px 16px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -676,40 +397,12 @@ metadata: {
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>Bill Amount</strong></span>
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Bill Amount</strong></span>
                           </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.2"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
                           <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">{{ subTotal }}</span>
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252">{{ subTotal }}</span>
                           </div>
-                          <div></div>
                         </div>
                       </td>
                     </tr>
@@ -724,21 +417,9 @@ metadata: {
   </tbody>
 </table>
 
-{% comment %} <!-- spacer 16px --> {% endcomment %}
-<table class="module" role="module" data-type="spacer" border="0" cellpadding="0"
-  cellspacing="0" width="100%" style="table-layout: fixed;"
-  data-muid="bf7cb6d0-0cb0-4762-a8d0-38f7b0553216">
-  <tbody>
-    <tr>
-      <td style="padding:0px 0px 16px 0px;" role="module-content" bgcolor="">
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-{% comment %} <!-- Sub Total --> {% endcomment %}
+{% comment %} <!-- Subtotal --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  role="module" data-type="columns" style="padding:0px 40px 16px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -762,40 +443,12 @@ metadata: {
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>Sub Total</strong></span>
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Subtotal</strong></span>
                           </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.2"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
                           <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">{{ subTotal }}</span>
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252">{{ subTotal }}</span>
                           </div>
-                          <div></div>
                         </div>
                       </td>
                     </tr>
@@ -810,9 +463,9 @@ metadata: {
   </tbody>
 </table>
 
-{% comment %} <!-- Credit Card Processing Fee (1.7%) --> {% endcomment %}
+{% comment %} <!-- Processing Fee --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  role="module" data-type="columns" style="padding:0px 40px 16px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -827,7 +480,7 @@ metadata: {
                 <table class="module" role="module" data-type="text" border="0"
                   cellpadding="0" cellspacing="0" width="100%"
                   style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.1"
+                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.2"
                   data-mc-module-version="2019-10-22">
                   <tbody>
                     <tr>
@@ -835,40 +488,13 @@ metadata: {
                         style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
-                          <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap"><strong>Credit Card Processing Fee (1.7%)</strong></span></div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.1"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
-                          <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">{{ ccSurcharge }}</span>
+                          <div style="font-family: inherit; text-align: left"><span
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Processing Fee</strong></span>
                           </div>
-                          <div></div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
+                          <div style="font-family: inherit; text-align: left">
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252">{{ ccSurcharge }}</span>
+                          </div>
                         </div>
                       </td>
                     </tr>
@@ -885,7 +511,7 @@ metadata: {
 
 {% comment %} <!-- Tax --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor=""
+  role="module" data-type="columns" style="padding:0px 40px 16px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -900,7 +526,7 @@ metadata: {
                 <table class="module" role="module" data-type="text" border="0"
                   cellpadding="0" cellspacing="0" width="100%"
                   style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.1.1"
+                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.2"
                   data-mc-module-version="2019-10-22">
                   <tbody>
                     <tr>
@@ -909,40 +535,12 @@ metadata: {
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
                           <div style="font-family: inherit; text-align: left"><span
-                              style="white-space: pre-wrap"><strong>GST</strong></span>
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Tax</strong></span>
                           </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.5.1.1"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
                           <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap">{{ gst }}</span>
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252">{{ gst }}</span>
                           </div>
-                          <div></div>
                         </div>
                       </td>
                     </tr>
@@ -957,21 +555,10 @@ metadata: {
   </tbody>
 </table>
 
-{% comment %} <!-- spacer 16px --> {% endcomment %}
-<table class="module" role="module" data-type="spacer" border="0" cellpadding="0"
-  cellspacing="0" width="100%" style="table-layout: fixed;"
-  data-muid="bf7cb6d0-0cb0-4762-a8d0-38f7b0553216">
-  <tbody>
-    <tr>
-      <td style="padding:0px 0px 16px 0px;" role="module-content" bgcolor="">
-      </td>
-    </tr>
-  </tbody>
-</table>
 
 {% comment %} <!-- Total --> {% endcomment %}
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%"
-  role="module" data-type="columns" style="padding:0px 24px 0px 24px;" bgcolor="#FFFFFF"
+  role="module" data-type="columns" style="padding:0px 40px 32px 40px;" bgcolor=""
   data-distribution="1,1">
   <tbody>
     <tr role="module-content">
@@ -986,49 +573,21 @@ metadata: {
                 <table class="module" role="module" data-type="text" border="0"
                   cellpadding="0" cellspacing="0" width="100%"
                   style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.1"
+                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.1.4.2"
                   data-mc-module-version="2019-10-22">
                   <tbody>
                     <tr>
                       <td
-                        style="padding:0px 0px 0px 0px; line-height:20px; text-align:inherit;"
+                        style="padding:0px 0px 0px 0px; line-height:24px; text-align:inherit;"
                         height="100%" valign="top" bgcolor="" role="module-content">
                         <div>
-                          <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap; font-size: 18px"><strong>Total</strong></span>
+                          <div style="font-family: inherit; text-align: left"><span
+                              style="white-space: pre-wrap;font-size: 14px;font-style: normal;font-weight: 600;color:#0D0D0D"><strong>Total</strong></span>
                           </div>
-                          <div></div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="250"
-          style="width:250px; border-spacing:0; border-collapse:collapse; margin:0px 0px 0px 16px;"
-          cellpadding="0" cellspacing="0" align="left" border="0" bgcolor=""
-          class="column column-1">
-          <tbody>
-            <tr>
-              <td style="padding:0px;margin:0px;border-spacing:0;">
-                <table class="module" role="module" data-type="text" border="0"
-                  cellpadding="0" cellspacing="0" width="100%"
-                  style="table-layout: fixed;"
-                  data-muid="4bcbeca9-ae9c-4737-97df-52f67a0529c9.2.1.2"
-                  data-mc-module-version="2019-10-22">
-                  <tbody>
-                    <tr>
-                      <td
-                        style="padding:0px 0px 0px 0px; line-height:20px; text-align:inherit;"
-                        height="100%" valign="top" bgcolor="" role="module-content">
-                        <div>
+                          <div style="font-family: inherit; text-align: left;padding-bottom:8px"></div>
                           <div style="font-family: inherit; text-align: left">
-                            <span style="white-space: pre-wrap; font-size: 18px"><strong>{{ totalAmount }}</strong></span>
+                            <span style="white-space: pre-wrap;font-size: 14px;font-style: normal;color:#525252">{{ totalAmount }}</span>
                           </div>
-                          <div></div>
                         </div>
                       </td>
                     </tr>
@@ -1042,3 +601,4 @@ metadata: {
     </tr>
   </tbody>
 </table>
+

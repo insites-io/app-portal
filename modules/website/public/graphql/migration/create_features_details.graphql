@@ -1,0 +1,37 @@
+mutation create_features_details(
+  $parent: String,
+  $heading: String,
+  $short_description: String,
+  $details_order: String
+) {
+  items: record_create(
+    record: {
+      table: "modules/website/features",
+      properties: [
+        { 
+          name: "parent",
+          value: $parent 
+        },
+        { 
+          name: "heading",
+          value: $heading 
+        },
+        { 
+          name: "short_description",
+          value: $short_description 
+        },
+        { 
+          name: "details_order",
+          value: $details_order 
+        },
+        { 
+          name: "enabled",
+          value_boolean: true 
+        }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

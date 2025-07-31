@@ -25,14 +25,13 @@ metadata: {
 
 {% parse_json data %} 
 {
-    "id": "{{ context.current_user.external_id }}"
+    "contact_uuid": "{{ context.current_user.external_id }}"
 }
 {% endparse_json %}
 
 {% liquid
-    graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact', data: data 
-    assign contact = contact_api.items.response.body | parse_json | dig: "items", "results" | first
-    assign contact = contact | dig: "contact" | first 
+    graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact', data: data
+    assign contact = contact_api.items.response.body | parse_json 
 %}
 
 {% comment %} if stripe_customer.id {% endcomment %}
@@ -93,6 +92,7 @@ metadata: {
     {% endif %}
     {%- comment -%}Proceed to Step 2: Payment {%- endcomment -%}
 {% else %}
+    {%- assign charge_to_this_card = form.properties.stripe_credit_card -%}
     {%- comment -%}Step 1-B: New customer: Create Stripe customer data{%- endcomment -%}
     
 {% endif %}

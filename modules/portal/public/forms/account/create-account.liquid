@@ -183,7 +183,7 @@ async_callback_actions:
 
     # Add company
     {% graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: company_details | dig: 'items','response','body' | parse_json %}
-   
+    
     # Create Company address object
     {% parse_json company_address_details %}
     {
@@ -202,16 +202,23 @@ async_callback_actions:
 
     # Add company address
     {% graphql add_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_company_address', data: company_address_details | dig: 'items','response','body' | parse_json %}
-   
+    
+    {% parse_json default_address_json %}
+      {
+        "uuid": "{{ add_company_address.uuid }}",
+        "address_label": "{{ add_company_address.address_1 }}"
+      }
+    {% endparse_json %}
+
     {% parse_json data_company_address %}
     {
      "uuid": "{{ add_company.uuid }}",
-     "default_address.uuid": "{{ add_company.uuid }}"
+     "default_address": "{{ default_address_json }}"
     }
     {% endparse_json %}
 
-    {% graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company', data: data_company_address | dig: 'items','response','body' | parse_json %}
-
+    {% graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company', data: data_company_address  %}
+    
     {%- graphql user_details = "modules/portal/account/get_user_by_email" 
         email: form.email
         | dig: "items" | dig: "results" | first -%}
@@ -269,7 +276,7 @@ async_callback_actions:
 
     # Create user profile
     {%  liquid
-      graphql create_user_profile = 'modules/portal/account/create_user_profile', id: temporary_token.id, token: temporary_token.temporary_token
+      graphql create_user_profile = 'modules/portal/account/create_user_profile', id: temporary_token.id, token: temporary_token.temporary_token, is_enabled: true, primary_account_holder: true
     %}
     
     # Create Event Stream
@@ -280,9 +287,14 @@ async_callback_actions:
     {%- assign payload = payload | add_hash_key: "description", description -%}
     {%- assign payload = payload | add_hash_key: "font_icon", "icon-completed-outcomes" -%}
     {%- assign payload = payload | add_hash_key: "font_icon_color", "#289AFF" -%}
+    {%- assign payload = payload | add_hash_key: "administrator_uuid", user_details.uuid  -%}
+
 
     {% capture log_info %}
-      {
+    {
+      "action": "create_account",
+      "data": {
+        "items": {
           "first_name": "{{ form.first_name }}",
           "last_name": "{{ form.last_name }}",
           "email": "{{ form.email }}",
@@ -312,7 +324,9 @@ async_callback_actions:
             "country": "{{ form.properties.company_country }}"
           },
           "contact_uuid": "{{ user_details.uuid }}"   
+        }
       }
+    }
     {% endcapture %}
     {%- assign log_info_json = log_info | parse_json -%}
     {%- assign info = payload | add_hash_key: "log", log_info_json -%}

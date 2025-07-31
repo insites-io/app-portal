@@ -1,0 +1,24 @@
+---
+slug: recaptcha-key
+searchable: true
+max_deep_level: 1
+metadata: {
+    page_name: "Recaptcha | Key",
+}
+---
+{% comment %} 
+For recaptcha setup: https://pm.cbo.me/app/tasks/24639141 
+Actual key will be provided by Project manager
+{% endcomment %}
+<html>
+  <head>
+    <title>reCAPTCHA demo: Simple page</title>
+    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+  </head>
+  <body>
+    <form action="" method="POST">
+      <div class="g-recaptcha" data-sitekey="[XXXXXXXXXX - replace with actual key]" data-action="LOGIN"></div>
+      <br/>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
