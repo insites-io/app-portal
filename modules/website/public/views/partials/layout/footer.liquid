@@ -33,6 +33,12 @@ metadata: {
                             <p class="footer-link-main-label" data-test="">Quick links</p>
                             <div class="spacer"></div>
                         </li>
+                        {%- if context.constants.ecommerce_addon == 'true' -%}
+                            <li>
+                                <a class="footer-links color-font-head" data-test="" href="/products">Shop</a>
+                                <div class="spacer small"></div>
+                            </li>
+                        {%- endif -%}
                         <li class="">
                             <a class="footer-links color-font-head" data-test="" href="/about-us">About us</a>
                             <div class="spacer small"></div>
