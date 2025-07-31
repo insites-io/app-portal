@@ -1,0 +1,143 @@
+name: news
+metadata:
+  label: "News"
+  groups: [{"id":"1de48179-e8bd-4542-9e4a-e4e323203346","name":"SEO Settings","weight":0},{"id":"d30e85d1-4d50-4fe5-9829-d8a6755c027c","name":"Article Details","weight":1},{"id":"02bb4c46-b71b-48c2-8462-b2623a2649f1","name":"Article Content","weight":2}]
+  is_archived: false
+properties:
+- name: author
+  type: string
+  belongs_to: users
+  metadata:
+    label: "Author"
+    weight: 9
+    group_id: "d30e85d1-4d50-4fe5-9829-d8a6755c027c"
+    ui_element: "select_data_source"
+    is_required: false
+    display_field: "name"
+    column_weigthing: 8
+    is_shown_in_table: true
+- name: content
+  type: string
+  metadata:
+    label: "Content"
+    weight: 10
+    group_id: "02bb4c46-b71b-48c2-8462-b2623a2649f1"
+    ui_element: "html"
+    is_required: false
+- name: list_view_image
+  type: upload
+  metadata:
+    label: "List View Image"
+    weight: 8
+    group_id: "d30e85d1-4d50-4fe5-9829-d8a6755c027c"
+    ui_element: "media_image"
+    is_required: false
+    max_file_size: 10
+  options:
+    acl: public
+    versions:
+      - name: mobile
+        output:
+          format: webp
+          quality: 100
+        resize:
+          fit: cover
+          width: 600
+          height: 387
+          without_enlargement: false
+      - name: mobile_ver
+        output:
+          quality: 100
+        resize:
+          fit: cover
+          width: 600
+          without_enlargement: false
+    cache_control: ""
+    content_disposition: inline
+- name: list_view_text
+  type: string
+  metadata:
+    label: "List View Text"
+    weight: 7
+    group_id: "d30e85d1-4d50-4fe5-9829-d8a6755c027c"
+    ui_element: "input"
+    is_required: false
+    column_weigthing: 7
+    is_shown_in_table: true
+- name: meta_description
+  type: string
+  metadata:
+    label: "Meta Description"
+    weight: 1
+    group_id: "1de48179-e8bd-4542-9e4a-e4e323203346"
+    ui_element: "input"
+    is_required: false
+    column_weigthing: 1
+    is_shown_in_table: true
+- name: meta_title
+  type: string
+  metadata:
+    label: "Meta Title"
+    weight: 0
+    group_id: "1de48179-e8bd-4542-9e4a-e4e323203346"
+    ui_element: "input"
+    is_required: false
+    column_weigthing: 0
+    is_shown_in_table: true
+- name: published_date
+  type: date
+  metadata:
+    label: "Published Date"
+    weight: 5
+    group_id: "d30e85d1-4d50-4fe5-9829-d8a6755c027c"
+    ui_element: "date"
+    is_required: false
+    is_sortable: true
+    column_weigthing: 5
+    is_shown_in_table: true
+- name: slug
+  type: string
+  metadata:
+    label: "Slug"
+    weight: 4
+    group_id: "d30e85d1-4d50-4fe5-9829-d8a6755c027c"
+    ui_element: "input"
+    is_required: true
+    column_weigthing: 4
+    is_shown_in_table: true
+- name: status
+  type: string
+  metadata:
+    label: "Status"
+    weight: 2
+    options: ["Draft","Published"]
+    group_id: "d30e85d1-4d50-4fe5-9829-d8a6755c027c"
+    ui_element: "select"
+    is_required: true
+    is_sortable: true
+    column_weigthing: 2
+    is_shown_in_table: true
+- name: tag
+  type: string
+  metadata:
+    label: "Tag"
+    weight: 6
+    options: ["Design","Web Development","Technology","SEO"]
+    group_id: "d30e85d1-4d50-4fe5-9829-d8a6755c027c"
+    ui_element: "select"
+    is_required: false
+    is_sortable: true
+    column_weigthing: 6
+    is_shown_in_table: true
+- name: title
+  type: string
+  metadata:
+    label: "Title"
+    weight: 3
+    group_id: "d30e85d1-4d50-4fe5-9829-d8a6755c027c"
+    ui_element: "input"
+    is_required: true
+    is_sortable: true
+    is_searchable: true
+    column_weigthing: 3
+    is_shown_in_table: true
