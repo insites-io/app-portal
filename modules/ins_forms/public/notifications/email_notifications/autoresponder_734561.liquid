@@ -1,0 +1,14 @@
+---
+from: Insites <notification@insites.io>
+layout: modules/insites_core/insites_external_email_layout
+metadata:
+  type: autoresponder
+  design:
+  email_design: default_template
+reply_to: notification@insites.io
+subject: Thank you for your enquiry
+to: "{{ form.properties.email }}"
+trigger_condition: 'true'
+unique_args: ''
+---
+{%- include 'modules/insites_forms/email_notifications/autoresponder_content' -%}

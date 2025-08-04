@@ -1,0 +1,28 @@
+mutation create_request(
+  $description: String,
+  $requested_by: String,
+  $type: String
+) {
+  items: record_create(
+    record: {
+      table: "modules/portal/request",
+      properties: [
+        { 
+          name: "description",
+          value: $description 
+        },
+        { 
+          name: "requested_by",
+          value: $requested_by 
+        },
+        { 
+          name: "type",
+          value: $type 
+        }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

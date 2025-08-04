@@ -1,0 +1,38 @@
+---
+slug: faqs
+layout: modules/website/website_default
+searchable: true
+max_deep_level: 3
+metadata: {
+    "status": "published",
+    "page_name": "FAQs",
+    "open_graph:url": "",
+    "open_graph:type": "",
+    "open_graph:image": "",
+    "open_graph:title": "FAQs | Insites",
+    "open_graph:description": "",
+    "open_graph:site_name": "",
+    "meta_title": "",
+    "page_title": "FAQs | Insites",
+    "meta_description": "",
+    "canonical_url": "",
+    "is_visible_to_search_engines": true,
+    "sitemap_enabled": true,
+    "sitemap_priority": "1.0",## primary order (DESC)
+    "sitemap_order": "1", ## secondary order (ASC)
+    "sitemap_changefreq": "monthly",
+    "is_list_layout_enabled": true,
+    "is_details_layout_enabled": true,
+    "source_name": "modules/website/faqs"
+}
+dynamic_cache:
+    layout: true
+    key: >
+        {%- parse_json models -%}
+        [
+          "modules/website/faqs"
+        ]
+        {%- endparse_json -%}
+        {%- include "modules/website/cache/generate_cache_key", models: models -%}
+---
+{%- include 'modules/insites_cms/databases_layouts/page_content' -%}

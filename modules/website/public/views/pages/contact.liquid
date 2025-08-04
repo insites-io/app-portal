@@ -60,10 +60,10 @@ metadata: {
 
 
     {% comment %} connect services to graphql {% endcomment %}
-    {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+    {% comment %} {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%} {% endcomment %}
     {% comment %} assign var to fetch the result {% endcomment %}
-    {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
-    {%- assign res_contact = res_contact | first -%}
+    {% comment %} {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
+    {%- assign res_contact = res_contact | first -%} {% endcomment %}
     
     <div class="contact-us-content-wrapper">
         <div class="contact-us-wrapper">
@@ -79,6 +79,7 @@ metadata: {
                             <div class="contact-us-form-container">
                                 {%- include_form 'modules/ins_forms/contact_us' -%}
                                 <div class="spacer xx-large show-for-small-only"></div> 
+                                <div class="spacer xx-large"></div>
                             </div>
                         </div>
                         <div class="large-6 medium-6 small-12 cell contact-us-details-wrapper">  

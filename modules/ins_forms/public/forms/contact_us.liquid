@@ -1,0 +1,271 @@
+---
+async_callback_actions:
+  delay: ''
+callback_actions: "{%- include 'modules/website/forms/contact_event_stream', %}\n"
+default_payload: '{% assign form_properties = context.params.form.properties_attributes
+  %}{"properties_attributes":{}}'
+email_notifications:
+- modules/ins_forms/autoresponder_734561
+- modules/ins_forms/workflow_734561
+fields:
+  properties:
+    first_name:
+      validation:
+        presence:
+          message: First name is required.
+          if: "{% if form.first_name != blank %}true{% endif %}"
+    last_name:
+      validation:
+        presence:
+          message: Last name is required.
+          if: "{% if form.last_name != blank %}true{% endif %}"
+    email:
+      validation:
+        email:
+          message: Use valid email.
+          if: "{% if form.email != blank %}true{% endif %}"
+          allow_blank: true
+        presence:
+          message: Email is required.
+          if: "{% if form.email != blank %}true{% endif %}"
+    mobile_phone:
+      validation: {}
+    message:
+      validation:
+        presence:
+          message: Message is required.
+          if: "{% if form.message != blank %}true{% endif %}"
+        length:
+          maximum: 500
+          allow_blank: true
+    document:
+      validation: {}
+flash_alert: Failed to submit form. Please try again.
+flash_notice: Successfully submitted form.
+metadata:
+  label: Contact us
+  form_steps: []
+  properties:
+  - name: first_name
+    form_step:
+    conditions: []
+    field_type: string
+    column_size: 2
+    field_label: First Name
+    placeholder: First Name
+    field_weighting: 0
+    is_field_hidden: false
+    validation_rules:
+      presence:
+        if: "{% if form.first_name != blank %}true{% endif %}"
+        message: First name is required.
+  - name: last_name
+    form_step:
+    conditions: []
+    field_type: string
+    column_size: 2
+    field_label: Last Name
+    placeholder: Last Name
+    field_weighting: 1
+    is_field_hidden: false
+    validation_rules:
+      presence:
+        if: "{% if form.last_name != blank %}true{% endif %}"
+        message: Last name is required.
+  - name: email
+    form_step:
+    conditions: []
+    field_type: string
+    column_size: 2
+    field_label: Email
+    placeholder: Email
+    field_weighting: 2
+    is_field_hidden: false
+    validation_rules:
+      email:
+        if: "{% if form.email != blank %}true{% endif %}"
+        message: Use valid email.
+        allow_blank: true
+      presence:
+        if: "{% if form.email != blank %}true{% endif %}"
+        message: Email is required.
+  - name: mobile_phone
+    form_step:
+    conditions: []
+    field_type: string
+    ui_element: phone
+    column_size: 2
+    field_label: Phone
+    placeholder: Phone Number
+    field_weighting: 3
+    is_field_hidden: false
+    validation_rules: {}
+  - name: message
+    form_step:
+    conditions: []
+    field_type: string
+    ui_element: multi_line
+    column_size: 1
+    field_label: Message
+    placeholder: How can we help you?
+    field_weighting: 4
+    is_field_hidden: false
+    validation_rules:
+      length:
+        maximum: 500
+        allow_blank: true
+      presence:
+        if: "{% if form.message != blank %}true{% endif %}"
+        message: Message is required.
+  - name: document
+    form_step:
+    conditions: []
+    field_type: upload
+    ui_element: media_file
+    column_size: 1
+    field_label: Attachments
+    field_weighting: 5
+    is_field_hidden: false
+    validation_rules: {}
+  button_alignment: right
+  submit_button_icon:
+  submit_button_label: Send message
+redirect_to: "/thank-you"
+resource: modules/website/contact_us
+resource_owner: anyone
+---
+{%- parse_json localisation -%}{%- include 'modules/insites_forms/form_localisation' -%}{%- endparse_json -%}
+{%- assign form_uuid = '' | uuid -%}
+<div class="insites-form-wrap">
+{%- form html-class: 'insites-form insites-form-code' html-novalidate: 'novalidate' html-data-uuid: form_uuid -%}
+
+<ins-alert-box type="error" class="validation-error" close-icon="icon-close-1" hidden>
+	<div>Failed to submit form. Please fix the error(s) found.</div>
+</ins-alert-box>
+<ins-alert-box type="error" class="api-error" close-icon="icon-close-1" hidden>
+	<div>Failed to submit form. Please try again.</div>
+</ins-alert-box>
+
+<div class="insites-form-grid">
+
+	<!-- Field: First Name -->
+	<div class="first_name column-2">
+		<ins-input 
+			data-type="string"
+			data-ui="input"
+			data-properties="properties.first_name"
+			label="First Name*"
+			check-load check-value
+			name="{{ form.fields.properties.first_name.name }}"
+			value="{{ form.fields.properties.first_name.value }}"
+			error-message="{{ form.errors['properties.first_name'] }}"
+			placeholder="First Name"
+			required 
+			{% if form.errors['properties.first_name'] != nil %} has-error {% endif %}  >
+		</ins-input>
+	</div>
+
+	<!-- Field: Last Name -->
+	<div class="last_name column-2">
+		<ins-input 
+			data-type="string"
+			data-ui="input"
+			data-properties="properties.last_name"
+			label="Last Name*"
+			check-load check-value
+			name="{{ form.fields.properties.last_name.name }}"
+			value="{{ form.fields.properties.last_name.value }}"
+			error-message="{{ form.errors['properties.last_name'] }}"
+			placeholder="Last Name"
+			required 
+			{% if form.errors['properties.last_name'] != nil %} has-error {% endif %}  >
+		</ins-input>
+	</div>
+
+	<!-- Field: Email -->
+	<div class="email column-2">
+		<ins-input 
+			data-type="string"
+			data-ui="input"
+			data-properties="properties.email"
+			label="Email*"
+			check-load check-value
+			name="{{ form.fields.properties.email.name }}"
+			value="{{ form.fields.properties.email.value }}"
+			error-message="{{ form.errors['properties.email'] }}"
+			placeholder="Email"
+			required 
+			{% if form.errors['properties.email'] != nil %} has-error {% endif %} 
+			field="email" >
+		</ins-input>
+	</div>
+
+	<!-- Field: Phone -->
+	<div class="mobile_phone column-2">
+		<ins-input-tel
+			no-areacode
+			phonenum-placeholder="Phone Number"
+			
+			data-type="string"
+			data-ui="phone"
+			data-properties="properties.mobile_phone"
+			label="Phone"
+			check-load check-value
+			name="{{ form.fields.properties.mobile_phone.name }}"
+			value="{{ form.fields.properties.mobile_phone.value }}"
+			error-message="{{ form.errors['properties.mobile_phone'] }}"
+			{% if form.errors['properties.mobile_phone'] != nil %} has-error {% endif %}>
+		</ins-input-tel>
+	</div>
+
+	<!-- Field: Message -->
+	<div class="message column-1">
+		<ins-textarea  
+			data-type="string"
+			data-ui="multi_line"
+			data-properties="properties.message"
+			label="Message*"
+			check-load check-value
+			name="{{ form.fields.properties.message.name }}"
+			value="{{ form.fields.properties.message.value }}"
+			error-message="{{ form.errors['properties.message'] }}"
+			placeholder="How can we help you?"
+			required 
+			{% if form.errors['properties.message'] != nil %} has-error {% endif %}>
+		</ins-textarea>
+	</div>
+
+	<!-- Field: Attachments -->
+	<div class="document column-1">
+		<ins-input-file
+			data-multiple="false"
+			check-load check-value
+			data-name="{{ form.fields.properties.document.name }}"
+			data-type="upload"
+			data-ui="media_file"
+			data-prop="document"
+			data-properties="properties.document"
+			label="Attachments"
+			accepted-files=""
+			capture=""
+			max-files="1"
+			max-file-size="10"
+			error-message="{{ form.errors['properties.document'] }}"
+			{% if form.errors['properties.document'] != nil %} has-error {% endif %}>
+		</ins-input-file>
+	</div>
+
+</div>
+
+<div class="insites-form-grid">
+	<div class="insites-form-buttons column-1 right">
+		<ins-button type="submit" label="Send message" solid class="form-type-submit"></ins-button>
+	</div>
+</div>
+
+{%- endform -%}
+</div>
+
+<script id="{{ form_uuid }}">
+	InsitesFormProcessor.initialize("{{ form_uuid }}", "{{ context.authenticity_token }}", {%- include "modules/insites_forms/form_properties", form: form -%}, {{ form.metadata.form_steps | default: "[]" }}, {%- include "modules/insites_forms/form_redirect", name: form.name -%});
+</script>

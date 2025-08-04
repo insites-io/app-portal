@@ -1,0 +1,268 @@
+---
+async_callback_actions:
+  delay: ''
+callback_actions: "{%- include 'modules/website/forms/feedback_event_stream', %}\n"
+email_notifications:
+- modules/ins_forms/workflow_735331
+fields:
+  properties:
+    allow_display_on_website:
+      validation: {}
+    full_name:
+      validation:
+        presence:
+          message: Name is Required.
+    location:
+      validation:
+        presence:
+          message: Location is Required.
+    message:
+      validation:
+        presence:
+          message: Message is Required.
+metadata:
+  label: Client Feedback
+  form_steps: []
+  properties:
+  - id: '17989364'
+    name: allow_display_on_website
+    options:
+    - 'Yes'
+    - 'No'
+    rawData:
+      id: '17989364'
+      name: allow_display_on_website
+      options: {}
+      metadata:
+        label: May we display your feedback as a testimonial on our website?
+        weight: 1
+        options:
+        - 'Yes'
+        - 'No'
+        group_id: 9e96cf3e-c23f-4118-ab5e-f0ed9899ccef
+        ui_element: radio
+        is_required: false
+        is_sortable: true
+        is_shown_in_table: true
+      target_id: '2009364'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step: 9e96cf3e-c23f-4118-ab5e-f0ed9899ccef
+    conditions: []
+    field_type: string
+    ui_element: radio
+    column_size:
+    field_label: May we display your feedback as a testimonial on our website?
+    orientation: horizontal
+    field_weighting: 1
+    is_field_hidden: false
+    validation_rules: {}
+  - id: '17989365'
+    name: full_name
+    rawData:
+      id: '17989365'
+      name: full_name
+      options: {}
+      metadata:
+        label: Full Name
+        weight: 2
+        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+        ui_element: input
+        is_required: true
+        is_searchable: true
+        is_shown_in_table: true
+      target_id: '2009364'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+    conditions: []
+    field_type: string
+    ui_element: input
+    column_size: 2
+    field_label: Full Name
+    field_weighting: 2
+    is_field_hidden: false
+    validation_rules:
+      presence:
+        message: Name is Required.
+  - id: '17989366'
+    name: location
+    rawData:
+      id: '17989366'
+      name: location
+      options: {}
+      metadata:
+        label: Location
+        weight: 3
+        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+        ui_element: input
+        is_required: false
+        is_sortable: true
+        is_searchable: true
+        is_shown_in_table: true
+      target_id: '2009364'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+    conditions: []
+    field_type: string
+    ui_element: input
+    column_size: 2
+    field_label: Location
+    field_weighting: 3
+    is_field_hidden: false
+    validation_rules:
+      presence:
+        message: Location is Required.
+  - id: '17989367'
+    name: message
+    rawData:
+      id: '17989367'
+      name: message
+      options: {}
+      metadata:
+        label: Message
+        weight: 4
+        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+        ui_element: multi_line
+        is_required: true
+      target_id: '2009364'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+    conditions: []
+    field_type: string
+    ui_element: multi_line
+    column_size:
+    field_label: Message
+    field_weighting: 4
+    is_field_hidden: false
+    validation_rules:
+      presence:
+        message: Message is Required.
+  button_alignment: right
+  submit_button_icon:
+  submit_button_label: Submit Feedback
+  primary_button_color:
+  is_button_icons_shown: true
+  secondary_button_color:
+  secondary_button_border_color:
+  primary_button_background_color:
+redirect_to: feedback?message=thank-you
+resource: modules/website/feedback
+resource_owner: anyone
+---
+{%- parse_json localisation -%}{%- include 'modules/insites_forms/form_localisation' -%}{%- endparse_json -%}
+{%- assign form_uuid = '' | uuid -%}
+<div class="insites-form-wrap">
+{%- form html-class: 'insites-form insites-form-code' html-novalidate: 'novalidate' html-data-uuid: form_uuid -%}
+
+<ins-alert-box type="error" class="validation-error" close-icon="icon-close-1" hidden>
+	<div>Failed to submit form. Please fix the error(s) found.</div>
+</ins-alert-box>
+<ins-alert-box type="error" class="api-error" close-icon="icon-close-1" hidden>
+	<div>Failed to submit form. Please try again.</div>
+</ins-alert-box>
+
+<div class="insites-form-grid">
+
+	<!-- Field: User ID -->
+	<div class="user_id" hidden>
+		<input type="hidden" name="{{ form.fields.properties.user_id.name }}" />
+	</div>
+
+	<!-- Field: May we display your feedback as a testimonial on our website? -->
+	<div class="allow_display_on_website column-1">
+		<ins-radio-group 
+			data-type="string" 
+			data-ui="radio" 
+			data-properties="properties.allow_display_on_website" 
+			check-load check-value
+			horizontal
+			data-name="{{ form.fields.properties.allow_display_on_website.name }}"
+			label="May we display your feedback as a testimonial on our website?"
+			error-message="{{ form.errors['properties.allow_display_on_website'] }}"
+			{% if form.errors['properties.allow_display_on_website'] != nil %} has-error {% endif %}>
+			<div>
+				<ins-radio
+					label="Yes" value="Yes"
+					name="{{ form.fields.properties.allow_display_on_website.name }}">
+				</ins-radio>
+				<ins-radio
+					label="No" value="No"
+					name="{{ form.fields.properties.allow_display_on_website.name }}">
+				</ins-radio>
+			</div>
+		</ins-radio-group>
+	</div>
+
+	<!-- Field: Full Name -->
+	<div class="full_name column-2">
+		<ins-input 
+			data-type="string"
+			data-ui="input"
+			data-properties="properties.full_name"
+			label="Full Name*"
+			check-load check-value
+			name="{{ form.fields.properties.full_name.name }}"
+			value="{{ form.fields.properties.full_name.value }}"
+			error-message="{{ form.errors['properties.full_name'] }}"
+			required 
+			{% if form.errors['properties.full_name'] != nil %} has-error {% endif %}  >
+		</ins-input>
+	</div>
+
+	<!-- Field: Location -->
+	<div class="location column-2">
+		<ins-input 
+			data-type="string"
+			data-ui="input"
+			data-properties="properties.location"
+			label="Location*"
+			check-load check-value
+			name="{{ form.fields.properties.location.name }}"
+			value="{{ form.fields.properties.location.value }}"
+			error-message="{{ form.errors['properties.location'] }}"
+			required 
+			{% if form.errors['properties.location'] != nil %} has-error {% endif %}  >
+		</ins-input>
+	</div>
+
+	<!-- Field: Message -->
+	<div class="message column-1">
+		<ins-textarea  
+			data-type="string"
+			data-ui="multi_line"
+			data-properties="properties.message"
+			label="Message*"
+			check-load check-value
+			name="{{ form.fields.properties.message.name }}"
+			value="{{ form.fields.properties.message.value }}"
+			error-message="{{ form.errors['properties.message'] }}"
+			required 
+			{% if form.errors['properties.message'] != nil %} has-error {% endif %}>
+		</ins-textarea>
+	</div>
+
+</div>
+
+<div class="insites-form-grid">
+	<div class="insites-form-buttons column-1 right">
+		<ins-button type="submit" label="Submit Feedback" icon="icon-check-2" solid class="form-type-submit"></ins-button>
+	</div>
+</div>
+
+{%- endform -%}
+</div>
+
+<script id="{{ form_uuid }}">
+	InsitesFormProcessor.initialize("{{ form_uuid }}", "{{ context.authenticity_token }}", {%- include "modules/insites_forms/form_properties", form: form -%}, {{ form.metadata.form_steps | default: "[]" }}, {%- include "modules/insites_forms/form_redirect", name: form.name -%});
+</script>

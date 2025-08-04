@@ -3,7 +3,6 @@ metadata: {
     partial_name: 'Website | Layout | Header'
 }
 ---
-
 {% comment %} ? GET GLOBAL CONTENT {% endcomment %}
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
@@ -30,8 +29,9 @@ metadata: {
           {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
           {% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
               {% comment %} ? DEFAULT {% endcomment %}
-              <img class="logo" src="{{ 'modules/website/images/default-images/logo/insites-logo.png' | asset_url }}" alt="Logo" height="56" width="119">
+              <img class="logo" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
           {% else %}
+              not
               {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
               {% if dark == blank %} 
                   <img class="logo" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">

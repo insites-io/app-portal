@@ -39,9 +39,9 @@ metadata: {
                     <img src="{{ portal_banner.image.url }}" alt="">
             {% else %}
                 {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
-                {% for portal_banner in portal_banner_list %}
-                    {% if item.main_text == portal_banner.main_text %}
-                        <img width="500" height="500" alt="image" src="{{ portal_banner.image }}">
+                {% for portal_banner_default in portal_banner_list %}
+                    {% if portal_banner_default.main_text == portal_banner.main_text %}
+                        <img width="500" height="500" alt="image" src="{{ portal_banner_default.image }}">
                     {% endif %}
                 {% endfor %}
             {% endif %}

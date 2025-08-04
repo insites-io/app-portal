@@ -138,7 +138,7 @@
         "order": "4",
         "name": "Maya Thompson",
         "occupation": "Product manager"
-    },
+    }
 ]
 {% endparse_json %}
 
@@ -427,9 +427,18 @@
 
 {% for faqs_item in faqs %}
     {%- graphql create_faqs = "modules/website/migration/create_faqs"
-        order: {{faqs_item.order}},
-        name: {{faqs_item.name}},
-        occupation: {{faqs_item.occupation}}
+        question: {{faqs_item.question}},
+        slug: {{faqs_item.slug}},
+        answer: {{faqs_item.answer}},
+        sort_order: {{faqs_item.sort_order}},
+        sub_topic_title_1: {{faqs_item.sub_topic_title_1}},
+        sub_topic_details_1: {{faqs_item.sub_topic_details_1}},
+        sub_topic_title_2: {{faqs_item.sub_topic_title_2}},
+        sub_topic_details_2: {{faqs_item.sub_topic_details_2}},
+        sub_topic_title_3: {{faqs_item.sub_topic_title_3}},
+        sub_topic_details_3: {{faqs_item.sub_topic_details_3}},
+        sub_topic_title_4: {{faqs_item.sub_topic_title_4}},
+        sub_topic_details_4: {{faqs_item.sub_topic_details_4}} 
     -%}
 {% endfor %}
 
@@ -538,3 +547,66 @@
     -%}
 {% endfor %}
 
+{% comment %} ? REQUEST - PORTAL {% endcomment %}
+{% parse_json request %}
+[
+    {
+        "description": "Login button not responding",
+        "requested_by": "Jane Cooper",
+        "type": "Bug"
+    },
+    {
+        "description": "File upload fails for large files",
+        "requested_by": "Jacob Jones",
+        "type": "Bug"
+    },
+    {
+        "description": "Update dashboard layout",
+        "requested_by": "Guy Hawkins",
+        "type": "Change request"
+    },
+    {
+        "description": "Enable multi-user collaboration",
+        "requested_by": "Jenny Wilson",
+        "type": "Feature request"
+    },
+    {
+        "description": "Modify email notification format",
+        "requested_by": "Jacob Jones",
+        "type": "Bug"
+    },
+    {
+        "description": "Incorrect time zone in reports",
+        "requested_by": "Jane Cooper",
+        "type": "Bug"
+    },
+    {
+        "description": "Update dashboard layout",
+        "requested_by": "Jacob Jones",
+        "type": "Change request"
+    },
+    {
+        "description": "Improve file preview speed",
+        "requested_by": "Jenny Wilson",
+        "type": "Feature request"
+    },
+    {
+        "description": "Password reset email not sent",
+        "requested_by": "Brooklyn Simon",
+        "type": "Bug"
+    },
+    {
+        "description": "Hover not working",
+        "requested_by": "Jacob Jones",
+        "type": "Bug"
+    }
+]
+{% endparse_json %}
+
+{% for request_item in request %}
+    {%- graphql create_request = "modules/website/migration/create_request"
+        description: {{request_item.description}},
+        requested_by: {{request_item.requested_by}},
+        type: {{request_item.type}}
+    -%} 
+{% endfor %}

@@ -157,10 +157,8 @@ metadata: {
                                 </div>
                                 <div class="spacer large"></div>
                                 <div class="news-author">
-                                    {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
-                                    {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
                                     {% if item.author != blank %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ get_author.first_name }} {{ get_author.last_name }}</p>
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ item.author }}</p>
                                     {% else %}
                                         <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}</p>
                                     {% endif %}                  

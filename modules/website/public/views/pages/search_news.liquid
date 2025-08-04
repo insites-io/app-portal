@@ -60,12 +60,8 @@ This is where the contents of the search page is imported/included in the forms 
                                         <h3 class="subHeading">{{ item.title }}</h3>
                                     </div>
                                 </a>
-                                {% comment %} ? FETCHING AUTHOR NAME BASED ON EXTERNAL ID: item.author {% endcomment %}
-                                {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
-                                {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
-
                                 {% if item.author %}
-                                    <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ get_author.first_name }} {{ get_author.last_name }}</p>
+                                    <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY {{ item.author }}</p>
                                 {% else %}
                                     <p class="newsSubheading">PUBLISHED ON {{ item.published_date | date: "%b %d, %Y" }} BY MARK WEBBER</p>
                                 {% endif %}  
