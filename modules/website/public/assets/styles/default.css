@@ -5986,3 +5986,7 @@ ins-alert-box .alert-box.error {
         margin-bottom: 0px;
     }
 }
+
+.payment-failed-error-details{
+    list-style: none!important;
+}
