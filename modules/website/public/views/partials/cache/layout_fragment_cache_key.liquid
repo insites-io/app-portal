@@ -16,6 +16,11 @@ metadata: {
     ]
 {%- endparse_json -%}
 
+{% if context.constants.ecommerce_addon == 'true' %}
+    {%  assign models = models | array_add: 'modules/insites_ecommerce/cart' %}
+    {%  assign models = models | array_add: 'modules/insites_ecommerce/cart_item' %}
+{% endif %}
+
 {% liquid
     capture cache_key 
         include "modules/website/cache/generate_cache_key", models: models 
