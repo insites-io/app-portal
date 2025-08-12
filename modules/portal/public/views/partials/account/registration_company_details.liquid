@@ -78,9 +78,10 @@ Inputs will have values only on /my-company-details page
             name="{{ props.email_1.name }}" 
             value="{{ data.email_1 }}" 
             {% if form.errors['email_1'] %} has-error {% endif %}
-            error-message="{{ props.email_1.validation.rules.presence.message }}"
             placeholder="Email">
         </ins-input>
+        <span id="CompanyEmailRequired" class="user-error-txt-red body-x-small is_hidden">Email is required.</span>
+        <span id="CompanyEmailInvalid" class="user-error-txt-red body-x-small is_hidden">Please enter a valid email.</span>  
       </div>
 
       <div class="column-2">

@@ -17,6 +17,8 @@ const companyMobileFields = {
     country_code: document.getElementById('company_mobile_phone_country_code')
 }
 
+const company_email = document.getElementById('email-1');
+
 let LoginScript = (function () {
     return {
         methods: {
@@ -45,7 +47,7 @@ let LoginScript = (function () {
                         field.hasError = false;
                     } else {
                         field.hasError = true;
-                        field.errorMessage = "Minimum of 6 characters";
+                        field.errorMessage = "Minimum of 6 characters.";
                     }
                 } else {
                     field.hasError = true;
@@ -59,7 +61,7 @@ let LoginScript = (function () {
                         field.hasError = false;
                     } else {                        
                         field.hasError = true;
-                        field.errorMessage = "Password doesn't match";
+                        field.errorMessage = "Password doesn't match.";
                     }
                 } 
             },
@@ -86,14 +88,12 @@ let LoginScript = (function () {
                                     this.validatePasswordField(field);
                                 }
                             } else if(field.field === 'email'){
-
                                 var is_email_valid = true
                                 var requiredEmail = document.getElementById("emailRequired");
                                 var emailInvalid = document.getElementById("emailInvalid")
                                 requiredEmail.classList.add('is_hidden');
                                 emailInvalid.classList.add('is_hidden');
-
-                          
+                              
                                 if(field.value == '') {
                                     requiredEmail.classList.add('is_visible');
                                     requiredEmail.classList.remove('is_hidden');
@@ -105,7 +105,8 @@ let LoginScript = (function () {
                                     }
                                 }
                                 App.validation.validateEmail(field);
-                            } else{
+                            }
+                            else{
                                 App.validation.validateInput(field);
                             }
                             break;
@@ -123,13 +124,39 @@ let LoginScript = (function () {
                 //Get id and element to identify the kind of form submitted
                 let formId = event.target.id;
                 let formElem = document.getElementById(formId).closest('form'); 
-           
+             
                 // Check what form is being validated...
                 if(formId == 'submit-personal-details' || formId == 'submit-company-details'){
+                    console.log(formId);
+                    
+                    if(formId == 'submit-company-details'){
+                        let is_email_valid_company = true
+                        let requiredEmailCompany = document.getElementById("CompanyEmailRequired");
+                        let emailInvalidCompany = document.getElementById("CompanyEmailInvalid")
+                        requiredEmailCompany.classList.add('is_hidden');
+                        emailInvalidCompany.classList.add('is_hidden');
+                    
+                        if(company_email.value == '') {
+                            console.log("here blank");
+                            console.log(requiredEmailCompany, "requiredEmailCompany");
+                    
+                            requiredEmailCompany.classList.add('is_visible');
+                            requiredEmailCompany.classList.remove('is_hidden');
+                        }else {
+                            is_email_valid_company = this.isValidEmail(company_email.value);
+                            if(is_email_valid_company == false){ 
+                                console.log("here incorrect");
+                                console.log(emailInvalidCompany, "emailInvalidCompany");
+
+                                emailInvalidCompany.classList.add('is_visible');
+                                emailInvalidCompany.classList.remove('is_hidden');
+                            }
+                        }
+                    }
+                    
                     //Validation for Sign Up Form
                     this.validateTelField();
                     if(await this.validationForm(groupElem)){
-
                         if(formId == 'submit-personal-details'){
                             let values = await mobileFields.inputTel.getValues();
                             mobileFields.country_code.value = values.country_code;
@@ -139,8 +166,6 @@ let LoginScript = (function () {
                             companyMobileFields.country_code.value = values.country_code;
                             companyMobileFields.phone_number.value = values.phone_number;
                         }
-                        
-                        
                         switch(emailInputInfo.status){
                             case 'clean':{ //email is clean
                                 //formElem.submit();

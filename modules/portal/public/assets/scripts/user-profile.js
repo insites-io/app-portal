@@ -71,7 +71,7 @@ let UserProfileScript = (function () {
                         field.hasError = false;
                     } else {
                         field.hasError = true;
-                        field.errorMessage = "Minimum of 6 characters";
+                        field.errorMessage = "Minimum of 6 characters.";
                     }
                 } else {
                     field.hasError = true;
@@ -85,7 +85,7 @@ let UserProfileScript = (function () {
                         field.hasError = false;
                     } else {
                         field.hasError = true;
-                        field.errorMessage = "Password doesn't match";
+                        field.errorMessage = "Password doesn't match.";
                     }
                 }
             },

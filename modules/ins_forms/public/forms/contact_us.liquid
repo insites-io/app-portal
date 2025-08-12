@@ -22,11 +22,11 @@ fields:
     email:
       validation:
         email:
-          message: Use valid email.
+          message: Please enter a valid email
           if: "{% if form.email != blank %}true{% endif %}"
           allow_blank: true
         presence:
-          message: Email is required.
+          message: email is required.
           if: "{% if form.email != blank %}true{% endif %}"
     mobile_phone:
       validation: {}
@@ -84,11 +84,11 @@ metadata:
     validation_rules:
       email:
         if: "{% if form.email != blank %}true{% endif %}"
-        message: Use valid email.
+        message: Use a valid email
         allow_blank: true
       presence:
         if: "{% if form.email != blank %}true{% endif %}"
-        message: Email is required.
+        message: email is required.
   - name: mobile_phone
     form_step:
     conditions: []

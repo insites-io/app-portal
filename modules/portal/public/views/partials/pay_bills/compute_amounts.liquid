@@ -8,8 +8,8 @@ metadata: {
 
 {%  liquid
     assign amount = subtotal_amount
-    assign cc_surcharge = amount | times: 0.017
     assign tax = total_tax_amount 
+    assign cc_surcharge = amount | plus: tax | times: 0.017
     assign total_amount = amount | plus: cc_surcharge | plus: tax
 %}
 

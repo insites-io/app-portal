@@ -11,44 +11,23 @@ fields:
     full_name:
       validation:
         presence:
-          message: Name is Required.
+          message: Full name is required.
     location:
       validation:
         presence:
-          message: Location is Required.
+          message: Location is required.
     message:
       validation:
         presence:
-          message: Message is Required.
+          message: Message is required.
 metadata:
   label: Client Feedback
   form_steps: []
   properties:
-  - id: '17989364'
-    name: allow_display_on_website
+  - name: allow_display_on_website
     options:
     - 'Yes'
     - 'No'
-    rawData:
-      id: '17989364'
-      name: allow_display_on_website
-      options: {}
-      metadata:
-        label: May we display your feedback as a testimonial on our website?
-        weight: 1
-        options:
-        - 'Yes'
-        - 'No'
-        group_id: 9e96cf3e-c23f-4118-ab5e-f0ed9899ccef
-        ui_element: radio
-        is_required: false
-        is_sortable: true
-        is_shown_in_table: true
-      target_id: '2009364'
-      belongs_to:
-      target_type: CustomModelType
-      default_value:
-      attribute_type: string
     form_step: 9e96cf3e-c23f-4118-ab5e-f0ed9899ccef
     conditions: []
     field_type: string
@@ -56,98 +35,45 @@ metadata:
     column_size:
     field_label: May we display your feedback as a testimonial on our website?
     orientation: horizontal
-    field_weighting: 1
+    field_weighting: 0
     is_field_hidden: false
     validation_rules: {}
-  - id: '17989365'
-    name: full_name
-    rawData:
-      id: '17989365'
-      name: full_name
-      options: {}
-      metadata:
-        label: Full Name
-        weight: 2
-        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
-        ui_element: input
-        is_required: true
-        is_searchable: true
-        is_shown_in_table: true
-      target_id: '2009364'
-      belongs_to:
-      target_type: CustomModelType
-      default_value:
-      attribute_type: string
+  - name: full_name
     form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
     conditions: []
     field_type: string
     ui_element: input
     column_size: 2
     field_label: Full Name
-    field_weighting: 2
+    field_weighting: 1
     is_field_hidden: false
     validation_rules:
       presence:
-        message: Name is Required.
-  - id: '17989366'
-    name: location
-    rawData:
-      id: '17989366'
-      name: location
-      options: {}
-      metadata:
-        label: Location
-        weight: 3
-        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
-        ui_element: input
-        is_required: false
-        is_sortable: true
-        is_searchable: true
-        is_shown_in_table: true
-      target_id: '2009364'
-      belongs_to:
-      target_type: CustomModelType
-      default_value:
-      attribute_type: string
+        message: Full name is required.
+  - name: location
     form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
     conditions: []
     field_type: string
     ui_element: input
     column_size: 2
     field_label: Location
-    field_weighting: 3
+    field_weighting: 2
     is_field_hidden: false
     validation_rules:
       presence:
-        message: Location is Required.
-  - id: '17989367'
-    name: message
-    rawData:
-      id: '17989367'
-      name: message
-      options: {}
-      metadata:
-        label: Message
-        weight: 4
-        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
-        ui_element: multi_line
-        is_required: true
-      target_id: '2009364'
-      belongs_to:
-      target_type: CustomModelType
-      default_value:
-      attribute_type: string
+        message: Location is required.
+  - name: message
     form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
     conditions: []
     field_type: string
     ui_element: multi_line
     column_size:
     field_label: Message
-    field_weighting: 4
+    field_weighting: 3
     is_field_hidden: false
     validation_rules:
       presence:
-        message: Message is Required.
+        message: Message is required.
   button_alignment: right
   submit_button_icon:
   submit_button_label: Submit Feedback
@@ -173,11 +99,6 @@ resource_owner: anyone
 </ins-alert-box>
 
 <div class="insites-form-grid">
-
-	<!-- Field: User ID -->
-	<div class="user_id" hidden>
-		<input type="hidden" name="{{ form.fields.properties.user_id.name }}" />
-	</div>
 
 	<!-- Field: May we display your feedback as a testimonial on our website? -->
 	<div class="allow_display_on_website column-1">

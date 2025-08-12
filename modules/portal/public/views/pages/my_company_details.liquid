@@ -57,6 +57,8 @@ authorization_policies:
 <script>
   let submitBtn = document.getElementById("submit-btn");
   let form = document.getElementById("my-company-details-form");
+  let company_email = document.getElementById("email-1");
+
   let companyMobileFields = {
     inputTel: document.getElementById('company-mobile-phone'),
     phone_number: document.getElementById('company_mobile_phone_number'),
@@ -66,6 +68,30 @@ authorization_policies:
    async function validateMyCompanyDetails(event) {
     event.preventDefault();
     submitBtn.loading = true;
+
+    // VALIDATE EMAIL
+    var is_email_valid = true
+    var requiredEmail = document.getElementById("CompanyEmailRequired");
+    var emailInvalid = document.getElementById("CompanyEmailInvalid")
+    requiredEmail.classList.add('is_hidden');
+    emailInvalid.classList.add('is_hidden');
+
+    if(company_email.value == '') {
+        requiredEmail.classList.add('is_visible');
+        requiredEmail.classList.remove('is_hidden');
+    } else {
+        is_email_valid = isValidEmail(company_email.value); // no "this."
+        if(is_email_valid == false){ 
+            emailInvalid.classList.add('is_visible');
+            emailInvalid.classList.remove('is_hidden');
+        }
+    }
+
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
 
     if (await App.validation.validateForm(form)) {
       let values = await companyMobileFields.inputTel.getValues();

@@ -97,11 +97,8 @@ metadata: {
                                                 {% assign phone_number = global.loc_1_phone_number %}         
                                                 <p class="contact-heading">Phone</p>  
                                                 <div class="spacer small"></div>                                                    
-                                                <a class="color-main subHeading" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
-                                                    +{{ global.loc_1_phone_country_code }}
-                                                    {{ phone_number | slice: 0, 3 }} 
-                                                    {{ phone_number | slice: 3, 4 }} 
-                                                    {{ phone_number | slice: 6, 10 }}
+                                                <a class="color-main subHeading" href="tel:{{ phone_number }}" data-test="contact-us-contact-number">
+                                                    {{ phone_number }}
                                                 </a>
                                             </li>
                                             {%- endif -%}
@@ -113,7 +110,7 @@ metadata: {
                                                 <div class="spacer small"></div>  
                                                 <a class="color-main subHeading" href="mailto:{{ global.loc_1_email }}"
                                                     data-test="contact-us-contact-number">
-                                                    {{ global.loc_1_email }}
+                                                    {{ global.company_email_1 }}
                                                 </a>
                                             </li>
                                         {%- endif -%}
@@ -128,77 +125,79 @@ metadata: {
                                             </span>
                                             {% endif %}
                                         </li>
-
-                                        <li>
-                                            <p class="contact-heading">Social media</p>  
-                                            <div class="spacer small"></div>  
-                                            <ul class="menu social">
-                                                {% if context.exports.global.facebook_link %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
-                                                        <i class="icon-facebook-square"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.twitter_link %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="twitter" rel="noreferrer">
-                                                        <i class="icon-social-x-square"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.linkedin_link %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="linkedin" rel="noreferrer">
-                                                        <i class="icon-linkedin"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.instagram_link %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.instagram_link }}" data-test="" target="_blank" title="instagram" rel="noreferrer">
-                                                        <i class="icon-instagram-square"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.youtube_link  %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.youtube_link }}" data-test="" target="_blank" title="youtube" rel="noreferrer">
-                                                        <i class="icon-youtube-square"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.pinterest_link  %}
+                                       
+                                        {% if global.facebook_link or global.twitter_link or global.linkedin_link or global.instagram_link or global.youtube_link or global.pinterest_link or global.other_1_link or global.other_2_link %}                                  
+                                            <li>
+                                                <p class="contact-heading">Social media</p>  
+                                                <div class="spacer small"></div>  
+                                                <ul class="menu social">
+                                                    {% if context.exports.global.facebook_link %}
                                                     <li>
-                                                        <a class="footer-links iconHover" href="{{ context.exports.global.pinterest_link }}" data-test="" target="_blank" title="pinterest" rel="noreferrer">
-                                                            <i class="icon-pinterest-square"></i>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
+                                                            <i class="icon-facebook-square"></i>
                                                         </a>
                                                     </li>
                                                     {% endif %}
 
-                                                {% if context.exports.global.other_1_link  %}
+                                                    {% if context.exports.global.twitter_link %}
                                                     <li>
-                                                        <a class="footer-links iconHover" href="{{ context.exports.global.other_1_link }}" data-test="" target="_blank" title="other link 1" rel="noreferrer">
-                                                            <i class="icon-share-2"></i>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="twitter" rel="noreferrer">
+                                                            <i class="icon-social-x-square"></i>
                                                         </a>
                                                     </li>
-                                                {% endif %}
+                                                    {% endif %}
 
-                                                {% if context.exports.global.other_2_link  %}
+                                                    {% if context.exports.global.linkedin_link %}
                                                     <li>
-                                                        <a class="footer-links iconHover" href="{{ context.exports.global.other_2_link }}" data-test="" target="_blank" title="other link 2" rel="noreferrer">
-                                                            <i class="icon-share-2"></i>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="linkedin" rel="noreferrer">
+                                                            <i class="icon-linkedin"></i>
                                                         </a>
                                                     </li>
-                                                {% endif %}
+                                                    {% endif %}
 
-                                            </ul>
-                                        </li>
+                                                    {% if context.exports.global.instagram_link %}
+                                                    <li>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.instagram_link }}" data-test="" target="_blank" title="instagram" rel="noreferrer">
+                                                            <i class="icon-instagram-square"></i>
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+
+                                                    {% if context.exports.global.youtube_link  %}
+                                                    <li>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.youtube_link }}" data-test="" target="_blank" title="youtube" rel="noreferrer">
+                                                            <i class="icon-youtube-square"></i>
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+
+                                                    {% if context.exports.global.pinterest_link  %}
+                                                        <li>
+                                                            <a class="footer-links iconHover" href="{{ context.exports.global.pinterest_link }}" data-test="" target="_blank" title="pinterest" rel="noreferrer">
+                                                                <i class="icon-pinterest-square"></i>
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+
+                                                    {% if context.exports.global.other_1_link  %}
+                                                        <li>
+                                                            <a class="footer-links iconHover" href="{{ context.exports.global.other_1_link }}" data-test="" target="_blank" title="other link 1" rel="noreferrer">
+                                                                <i class="icon-share-2"></i>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                    {% if context.exports.global.other_2_link  %}
+                                                        <li>
+                                                            <a class="footer-links iconHover" href="{{ context.exports.global.other_2_link }}" data-test="" target="_blank" title="other link 2" rel="noreferrer">
+                                                                <i class="icon-share-2"></i>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                </ul>
+                                            </li>
+                                        {% endif %}
   
                                     </ul>
                                 </div>
