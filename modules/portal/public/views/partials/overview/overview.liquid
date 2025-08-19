@@ -52,62 +52,57 @@ metadata: {
 {% endif %}
 
 {% comment %} ? Overview Cards {% endcomment %}
+{% parse_json card_details_result %}
+[
+    {
+        "card-icon": "icon-notepad-1", 
+        "card-header": "Projects", 
+        "card-body": "24"
+    },
+    {
+        "card-icon": "icon-clipboard", 
+        "card-header": "Open tasks", 
+        "card-body": "12"
+    },
+    {
+        "card-icon": "icon-check-circle-1", 
+        "card-header": "Completed Task", 
+        "card-body": "6"
+    }
+]
+{% endparse_json %}
+
+{% comment %} ? Ecommerce Addon Overview Cards {% endcomment %}
+{%- assign user_uuid = context.current_user.external_id -%}
+{%- graphql get_backorders = 'modules/portal/orders/get_orders', order_contact_uuid: user_uuid, order_status: "back_ordered" | dig: "items" -%}
+{%- graphql get_completed_orders = 'modules/portal/orders/get_orders', order_contact_uuid: user_uuid, order_status: "Completed" | dig: "items" -%}
+{%- graphql get_orders_in_progress = 'modules/portal/orders/get_orders', order_contact_uuid: user_uuid, order_status: "processing" | dig: "items" -%}
+
+{% comment %} ? Ecommerce Addon Payload {% endcomment %}
 {% if context.constants.ecommerce_addon == 'true' %}
-    {% parse_json card_details_result %}
-    [
-        {
-            "card-icon": "icon-notepad-1", 
-            "card-header": "Projects", 
-            "card-body": "24"
-        },
-        {
-            "card-icon": "icon-clipboard", 
-            "card-header": "Open tasks", 
-            "card-body": "12"
-        },
-        {
-            "card-icon": "icon-check-circle-1", 
-            "card-header": "Completed Task", 
-            "card-body": "6"
-        },
-        {
-            "card-icon": "icon-retry", 
-            "card-header": "Backorders", 
-            "card-body": "8"
-        },
-        {
-            "card-icon": "icon-box", 
-            "card-header": "Completed orders", 
-            "card-body": "12"
-        },
-        {
-            "card-icon": "icon-truck", 
-            "card-header": "Orders in progress", 
-            "card-body": "5"
-        }
-    ]
+    {% parse_json ecommerce_card_details_result %}
+        [
+            {
+                "card-icon": "icon-retry", 
+                "card-header": "Backorders", 
+                "card-body": "{{ get_backorders.total_entries }}",
+                "location": "{{ context.location.host | prepend: "https://" | append: "/order-history?status=back_ordered" }}"
+            },
+            {
+                "card-icon": "icon-box", 
+                "card-header": "Completed orders", 
+                "card-body": "{{ get_completed_orders.total_entries }}",
+                "location": "{{ context.location.host | prepend: "https://" | append: "/order-history?status=completed" }}"
+            },
+            {
+                "card-icon": "icon-truck", 
+                "card-header": "Orders in progress", 
+                "card-body": "{{ get_orders_in_progress.total_entries }}",
+                "location": "{{ context.location.host | prepend: "https://" | append: "/order-history?status=processing" }}"
+            }
+        ]
     {% endparse_json %}
-{% else %}
-    {% parse_json card_details_result %}
-    [
-        {
-            "card-icon": "icon-notepad-1", 
-            "card-header": "Projects", 
-            "card-body": "24"
-        },
-        {
-            "card-icon": "icon-clipboard", 
-            "card-header": "Open tasks", 
-            "card-body": "12"
-        },
-        {
-            "card-icon": "icon-check-circle-1", 
-            "card-header": "Completed Task", 
-            "card-body": "6"
-        }
-    ]
-    {% endparse_json %}
-{% endif %}  
+{% endif %}
 
 <div class="overview-cards-container">
     <h3 class="heading-3">Overview</h3>
@@ -138,6 +133,38 @@ metadata: {
             <div class="spacer"></div>
         {% endfor %}
     </div>  
+
+    {% comment %} ? Ecommerce Addon Overview Cards {% endcomment %}
+    {% if context.constants.ecommerce_addon == 'true' %}
+        <div class="test grid-x grid-padding-y grid-padding-x">
+            {% for details in ecommerce_card_details_result %}
+                <div class="large-4 cell">
+                    <div class="overview-cards">
+                        <div class="overview-card-icon-header">
+                            <i class="{{ details.card-icon }}"></i>
+                            <span class="overview-card-header">
+                                {{ details.card-header }}
+                            </span>
+                        </div>
+                        <div class="spacer x-small"></div>
+                        <div class="overview-card-body">
+                            <h4 class="heading-4">{{ details.card-body }}</h4>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="overview-button">
+                            <a href="{{ details.location }}">
+                                <ins-button 
+                                    size="small"
+                                    label="View details">
+                                </ins-button>
+                            </a>
+                        </div>
+                    </div>
+                </div> 
+                <div class="spacer"></div>
+            {% endfor %}
+        </div>  
+    {% endif %}
 </div>
 
 <div class="spacer xxxx-large"></div>
