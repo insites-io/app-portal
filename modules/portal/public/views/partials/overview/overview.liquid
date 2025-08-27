@@ -72,14 +72,26 @@ metadata: {
 ]
 {% endparse_json %}
 
-{% comment %} ? Ecommerce Addon Overview Cards {% endcomment %}
-{%- assign user_uuid = context.current_user.external_id -%}
-{%- graphql get_backorders = 'modules/portal/orders/get_orders', order_contact_uuid: user_uuid, order_status: "back_ordered" | dig: "items" -%}
-{%- graphql get_completed_orders = 'modules/portal/orders/get_orders', order_contact_uuid: user_uuid, order_status: "Completed" | dig: "items" -%}
-{%- graphql get_orders_in_progress = 'modules/portal/orders/get_orders', order_contact_uuid: user_uuid, order_status: "processing" | dig: "items" -%}
 
-{% comment %} ? Ecommerce Addon Payload {% endcomment %}
+
 {% if context.constants.ecommerce_addon == 'true' %}
+
+    {% comment %} ? Ecommerce Addon Overview Cards {% endcomment %}
+    {%- graphql company_uuid = 'modules/portal/account/get_current_user' 
+        | dig: 'current_user','crm_contact' | first | dig: 'company_uuid' -%}
+        
+    {% if company_uuid and company_uuid != '' %}
+        {% assign status = 'back_ordered,Back ordered,Back Ordered' | split: ',' %}
+        {%- graphql get_backorders = 'modules/ecommerce/orders/get_orders', order_company_uuid: company_uuid, orderStatus: status | dig: "items" -%}
+
+        {% assign status = 'completed,Completed' | split: ',' %}
+        {%- graphql get_completed_orders = 'modules/ecommerce/orders/get_orders', order_company_uuid: company_uuid, orderStatus: status | dig: "items" -%}
+
+        {% assign status = 'processing,Processing' | split: ',' %}
+        {%- graphql get_orders_in_progress = 'modules/ecommerce/orders/get_orders', order_company_uuid: company_uuid, orderStatus: status | dig: "items" -%}
+    {% endif %}
+
+    {% comment %} ? Ecommerce Addon Payload {% endcomment %}
     {% parse_json ecommerce_card_details_result %}
         [
             {

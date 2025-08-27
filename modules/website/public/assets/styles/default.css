@@ -179,7 +179,7 @@ footer {
     font-family: var(--font-family-02);
     font-size: 14px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 600 !important;
     line-height: 150%; /* 21px */
 }
 
@@ -1394,6 +1394,9 @@ ins-card.full {
     width: 100%;
 }
 
+.ins-accordion-item {
+    background-color: initial;
+}
 .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
 .ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover {
     background-color: var(--color-ui-02);
