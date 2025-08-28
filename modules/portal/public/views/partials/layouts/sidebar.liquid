@@ -17,8 +17,12 @@ metadata: {
             {%- endcomment -%}
         {% endif %}
         {% if context.constants.events_addon == 'true' %}
+            {% assign active_attr = "" %}
+            {% if context.params.slug == 'itinerary-upcoming' or context.params.slug == 'itinerary-previous' %}
+                {% assign active_attr = "active" %}
+            {% endif %}
             <ins-accordion>
-                <ins-accordion-item heading="My events" open-icon="icon-plus" close-icon="icon-minus">
+                <ins-accordion-item heading="My events" open-icon="icon-plus" close-icon="icon-minus" {{ active_attr }}>
                     <ins-accordion-link label="Upcoming events" link="/itinerary-upcoming" link-target="_self"></ins-accordion-link>
                     <ins-accordion-link label="Previous events" link="/itinerary-previous" link-target="_self"></ins-accordion-link>
                 </ins-accordion-item>
