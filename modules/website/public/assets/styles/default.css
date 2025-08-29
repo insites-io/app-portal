@@ -5131,15 +5131,19 @@ Notyf
 
 /* Active Sidenav */
 .portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link,
-.portal-sidebar .ins-accordion-item.open>.ins-accordion-item_header>.inner-head{
-    background: var(--color-main-hover-light);
-    padding: 12px 16px;
-    border-radius: 12px;
+.portal-sidebar .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
+.portal-sidebar ins-accordion-link.active a.ins-accordion-link_link{
     color: var(--color-main);
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: 24px; /* 150% */
+}
+.portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link,
+.portal-sidebar .ins-accordion-item.open>.ins-accordion-item_header>.inner-head{
+    background: var(--color-main-hover-light);
+    padding: 12px 16px;
+    border-radius: 12px;
 }
 /* On hover */
 .portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link:hover{
