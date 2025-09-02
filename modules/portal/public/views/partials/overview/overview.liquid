@@ -215,15 +215,15 @@ metadata: {
                         Description
                     </ins-table-th>
 
-                    <ins-table-th class="p-body-small-bold hide-for-small-only">
+                    <ins-table-th class="p-body-small-bold hide-for-small-medium">
                         Request type
                     </ins-table-th>
 
-                    <ins-table-th class="p-body-small-bold hide-for-small-only">
+                    <ins-table-th class="p-body-small-bold hide-for-small-medium">
                         Requested by
                     </ins-table-th>
 
-                    <ins-table-th sortable="true" class="p-body-small-bold hide-for-small-only">
+                    <ins-table-th sortable="true" class="p-body-small-bold hide-for-small-medium">
                         Date requested
                     </ins-table-th>
                 </ins-table-row>
@@ -231,41 +231,41 @@ metadata: {
                 {% for item in request_result %}
                     <ins-table-row class="request-table-data">
 
-                        <ins-table-td class="body-small p-body hide-for-small-only">
+                        <ins-table-td class="body-small p-body hide-for-small-medium">
                             {{ item.description}}
                         </ins-table-td>
 
-                        <ins-table-td class="body-small p-body hide-for-small-only">
+                        <ins-table-td class="body-small p-body hide-for-small-medium">
                             {{ item.type}}
                         </ins-table-td>
 
-                        <ins-table-td class="body-small p-body hide-for-small-only">
+                        <ins-table-td class="body-small p-body hide-for-small-medium">
                             {{ item.requested_by}}
                         </ins-table-td>
 
-                        <ins-table-td class="body-small p-body hide-for-small-only">
+                        <ins-table-td class="body-small p-body hide-for-small-medium">
                             {% function format_date = "modules/portal/date/format_readable_date", datetime: item.created_at %}
                             {{ format_date }}
                         </ins-table-td>
 
-                        <ins-table-td class="body-small p-body show-for-small-only">
-                        <ins-accordion-item class="request-table-accordion body-small" heading=" {{ item.description}}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
-                            <div class="spacer small"></div>
-                            <p class="body-small-bold">Description</p>
-                            <p class="body-small">{{ item.description}}</p>
-                            <div class="spacer"></div>
-                            <p class="body-small-bold">Request type</p>
-                            <p class="body-small">{{ item.type}}</p>
-                            <div class="spacer"></div>
-                            <p class="body-small-bold">Requested by</p>
-                            <p class="body-small">{{ item.requested_by}}</p>
-                            <div class="spacer"></div>
-                            <p class="body-small-bold">Date requested</p>
-                            <p class="body-small">
-                                {% function format_date = "modules/portal/date/format_readable_date", datetime: item.created_at %}
-                                {{ format_date }}
-                            </p>
-                        </ins-accordion-item>
+                        <ins-table-td class="body-small p-body show-for-small-medium">
+                            <ins-accordion-item class="request-table-accordion body-small" heading=" {{ item.description}}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
+                                <div class="spacer small"></div>
+                                <p class="body-small-bold">Description</p>
+                                <p class="body-small">{{ item.description}}</p>
+                                <div class="spacer"></div>
+                                <p class="body-small-bold">Request type</p>
+                                <p class="body-small">{{ item.type}}</p>
+                                <div class="spacer"></div>
+                                <p class="body-small-bold">Requested by</p>
+                                <p class="body-small">{{ item.requested_by}}</p>
+                                <div class="spacer"></div>
+                                <p class="body-small-bold">Date requested</p>
+                                <p class="body-small">
+                                    {% function format_date = "modules/portal/date/format_readable_date", datetime: item.created_at %}
+                                    {{ format_date }}
+                                </p>
+                            </ins-accordion-item>
                         </ins-table-td>
 
                     </ins-table-row>
