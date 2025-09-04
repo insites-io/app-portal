@@ -181,14 +181,9 @@ footer {
     font-family: var(--font-family-02);
     font-size: 14px;
     font-style: normal;
-<<<<<<< HEAD
     font-weight: 600;
     line-height: 150%;
     /* 21px */
-=======
-    font-weight: 600 !important;
-    line-height: 150%; /* 21px */
->>>>>>> 681f92388e8cbf66231350f329619ebd35009099
 }
 
 a.a-label:visited {
@@ -5079,16 +5074,12 @@ Notyf
     background: var(--color-ui-02);
 }
 
-<<<<<<< HEAD
-.portal-sidebar a {
-=======
 .portal-sidebar{
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
-.portal-sidebar a{
->>>>>>> 681f92388e8cbf66231350f329619ebd35009099
+.portal-sidebar a {
     font-family: var(--font-family-02);
 }
 .portal-sidebar .ins-accordion-link_link,
@@ -5128,17 +5119,9 @@ Notyf
 
 
 /* Active Sidenav */
-<<<<<<< HEAD
-
-.portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link {
-    background: var(--color-main-hover-light);
-    padding: 12px 16px;
-    border-radius: 12px;
-=======
 .portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link,
 .portal-sidebar .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
 .portal-sidebar ins-accordion-link.active a.ins-accordion-link_link{
->>>>>>> 681f92388e8cbf66231350f329619ebd35009099
     color: var(--color-main);
     font-size: 16px;
     font-style: normal;
@@ -5146,17 +5129,12 @@ Notyf
     line-height: 24px;
     /* 150% */
 }
-<<<<<<< HEAD
-
-
-=======
 .portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link,
 .portal-sidebar .ins-accordion-item.open>.ins-accordion-item_header>.inner-head{
     background: var(--color-main-hover-light);
     padding: 12px 16px;
     border-radius: 12px;
 }
->>>>>>> 681f92388e8cbf66231350f329619ebd35009099
 /* On hover */
 
 .portal-sidebar .ins-accordion-link.active>.ins-accordion-link_link:hover {
@@ -5165,13 +5143,8 @@ Notyf
 
 
 /* Inactive Sidenav */
-<<<<<<< HEAD
-
-.portal-sidebar .ins-accordion-link>.ins-accordion-link_link {
-=======
 .portal-sidebar .ins-accordion-link>.ins-accordion-link_link,
 .portal-sidebar .ins-accordion-item_header>.inner-head{
->>>>>>> 681f92388e8cbf66231350f329619ebd35009099
     color: var(--font-color-head);
     font-size: 16px;
     font-style: normal;
