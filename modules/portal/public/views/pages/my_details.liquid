@@ -57,25 +57,14 @@ authorization_policies:
     endif    
 -%}
 
-{% comment %} Get CRM -> Contact from v5 API {% endcomment %}
-{% parse_json data %} 
-{
-  "contact_uuid": "{{ user.external_id }}"
-}
-{% endparse_json %}
+{% comment %} NOTE: Get CRM -> Contact via Controller {% endcomment %}
+{% assign contact_uuid = user.external_id %}
+{% function get_contact = "crm/controller/contacts/get", uuid: contact_uuid %}
 
-{% liquid
-    graphql contact_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact', data: data 
-    assign contact = contact_api.items.response.body | parse_json 
-    assign data = data | add_hash_key: "address_uuid", contact.default_address.uuid
-%}
-
-{% comment %} Get CRM -> Contact Address from v5 API {% endcomment %}
-{% liquid
-    graphql contact_address_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_contact_address', data: data 
-    assign contact_address = contact_address_api.items.response.body | parse_json
-    assign contact = contact | add_hash_key: "default_address", contact_address
-%}
+{% comment %} NOTE: Get CRM -> Contact Address via Controller {% endcomment %}
+{% assign contact_address_uuid = get_contact.default_address.uuid %}
+{% function get_contact_address = "crm/controller/addresses/get", type: "contact", uuid: contact_address_uuid %}
+{% assign get_contact = get_contact | add_hash_key: "default_address", get_contact_address %}
 
 <div class="my-details">    
 
@@ -90,7 +79,7 @@ authorization_policies:
     <div class="spacer xxx-large"></div>
     <h5 class="heading-5">Account information</h5>
     <div class="spacer x-large"></div>
-    {%- include_form 'modules/portal/my_details', id: user.id, data: contact -%}
+    {%- include_form 'modules/portal/my_details', id: user.id, data: get_contact -%}
     {%- include_form 'modules/portal/change_password', id: user.id -%}
     <div class="spacer xxxx-large hide-for-small-only"></div>
 </div>

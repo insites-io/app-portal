@@ -65,7 +65,6 @@ metadata: {
         {% comment %} ? UPDATE CRM {% endcomment %}
         {% parse_json update_crm_data %}
         {
-            "uuid": "{{ user_details.uuid }}",
             "id": "{{ details.user_id }}",
             "first_name": "{{ details.userFirstName }}",
             "last_name": "{{ details.userLastName }}",
@@ -77,15 +76,12 @@ metadata: {
         }
         {% endparse_json %}
         {% comment %} ? UPDATE CRM FIRST {% endcomment %}
-        {%  graphql add_crm_contact = 'modules/website/trigger_api_call', name: "modules/portal/update_crm_via_invite_user",
-        data: update_crm_data
-        | dig: 'items','response','body'
-        | parse_json  
-        %}
+        {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
+        {% function update_crm_contact = "crm/controller/contacts/update", uuid: user_details.uuid, params: update_crm_data %}
+        {% comment %} LOG: {% endcomment %}
+        {% log update_crm_contact, type: "update_crm_contact - update_user_account" %}
         
         {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id,  invitation_status: "Invited"  %}
-        
-
     {% else %}
         {% comment %} ? SAVE NEW CRM {% endcomment %}
         {% parse_json add_crm_data %}
@@ -101,11 +97,8 @@ metadata: {
         {% endparse_json %}
 
         {% comment %} ? ADD CRM FIRST {% endcomment %}
-        {%  graphql add_crm_contact = 'modules/website/trigger_api_call', name: "modules/portal/add_crm_via_invite_user",
-        data: add_crm_data
-        | dig: 'items','response','body'
-        | parse_json  
-        %}
+        {% comment %} NOTE: Create CRM -> Contact via Controller {% endcomment %}
+        {% function add_crm_contact = "crm/controller/contacts/create", params: add_crm_data %}
 
     {% graphql add_portal_profile = 'modules/portal/account/create_user_profile', id: add_crm_contact.id, token: "", invitation_status: "Invited", permission_level: details.permission_level, is_enabled: false  %}
 

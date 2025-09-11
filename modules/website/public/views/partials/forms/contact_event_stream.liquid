@@ -18,8 +18,9 @@ metadata: {
     "mobile_phone_number": "{{ phone_number | strip | replace: '"', '' }}"
 }
 {%- endparse_json -%}
+{% comment %} NOTE: Create CRM -> Contact via Controller {% endcomment %}
+{% function new_user = "crm/controller/contacts/create", params: new_user_data %}
 
-{% graphql new_user = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact', data: new_user_data | dig: 'items','response','body' | parse_json %} 
 {%- graphql get_contact_us_data = "modules/portal/contact_us/get_contact_us_data", id: form.id | dig: "items", "results" | first -%}
 {%- graphql get_table_data = "modules/website/get_table_info", table_name: "modules/website/contact_us" | dig: "admin_model_schemas", "results" | first -%}
 

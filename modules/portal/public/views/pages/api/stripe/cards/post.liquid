@@ -84,12 +84,16 @@ metadata: {
             {% comment %} Save the Stripe ID in CRM. {% endcomment %}
             {%- parse_json crm_data -%}
             {
-                "uuid": "{{ user_uuid }}",
                 "email": "{{ customer_email }}",
                 "stripe_id": "{{ stripe_customer_id }}"
             }
-            {%- endparse_json -%}    
-            {%- graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: crm_data | dig: 'items','response','body' | parse_json -%}
+            {%- endparse_json -%}  
+            
+            {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
+            {% function update_contact = "crm/controller/contacts/update", uuid: user_uuid, params: crm_data %}
+                
+            {% comment %} LOG: {% endcomment %}
+            {% log update_contact, type: "update_contact - post.liquid" %}
         {% else %}
             {% log "Error: Logged-in user has no CRM data" %}
         {% endif %}

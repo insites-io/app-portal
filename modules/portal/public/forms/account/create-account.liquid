@@ -249,13 +249,13 @@ async_callback_actions:
     }
     {% endparse_json %}
 
-    {%  liquid  
-      graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json
-    %}
+    {% comment %} NOTE: Create CRM -> Contact Address via Controller {% endcomment %}
+    {% function add_contact_address = "crm/controller/addresses/create", type: "contact", params: contact_address_details %}
+    {% comment %} LOG: {% endcomment %}
+    {% log add_contact_address, type: "add_contact_address - create_account" %}
 
     {% parse_json update_contact_data %}
     {
-      "uuid": "{{ user_details.uuid }}",
       "email": "{{ form.email }}",
       "company.uuid": "{{ add_company.uuid }}",
       "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
@@ -265,9 +265,11 @@ async_callback_actions:
     }
     {% endparse_json %}
 
-    {%  liquid                      
-      graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
-    %} 
+    {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
+    {% function update_contact = "crm/controller/contacts/update", uuid: user_details.uuid, params: update_contact_data %}
+    
+    {% comment %} LOG: {% endcomment %}
+    {% log update_contact, type: "update_contact - create_account" %}
 
     # Generate user temporary token
     {%  liquid
