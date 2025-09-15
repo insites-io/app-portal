@@ -115,14 +115,14 @@ callback_actions: |-
       assign data = form | json
 
       if form.properties.company_address_uuid != '' and form.properties.company_address_uuid != null
-        graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company_address', data: company_address_details | dig: 'items','response','body' | parse_json
+        function update_company_address = "crm/controller/companies/update", uuid: form.properties.company_uuid, params: company_details
         assign company_uuid = form.properties.company_uuid
       else
-        graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: company_details | dig: 'items','response','body' | parse_json
+        function add_company = "crm/controller/companies/create", params: company_details
         assign company_uuid = add_company.items.properties.uuid
       endif
+  %}
 
-  %}   
 async_callback_actions:
   delay: 0
   priority: low

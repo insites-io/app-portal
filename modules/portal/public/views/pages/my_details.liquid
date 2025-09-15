@@ -33,16 +33,13 @@ authorization_policies:
 {%- if user.crm_contact[0].company_uuid != user.portal[0].company_uuid -%}
   {%- parse_json data -%}
   {
-    "company_uuid": "{{ user_company_uuid.company_uuid }}",
     "contact_uuids": [
         "{{ user.external_id }}"
     ]
   }
   {%- endparse_json -%}
 
-  {%- graphql assign_company_contact = 'modules/website/trigger_api_call', 
-      name: 'modules/portal/assign_company_contact', 
-      data: data | parse_json -%}     
+  {% function assign_company_contact = "crm/controller/companies/assign-contacts", uuid: user_company_uuid.company_uuid, params: data %}  
 {%- endif -%}
 
 {% comment %} Check if user verified their account {% endcomment %}
