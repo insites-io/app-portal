@@ -6061,6 +6061,8 @@ ins-alert-box .alert-box.error {
     list-style: none!important;
 }
 
-ins-table.request-table .ibt-table-wrap .ibt-table {
-    /* display: block!important; */
+.content-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }

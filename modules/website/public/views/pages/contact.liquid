@@ -221,14 +221,14 @@ metadata: {
                                 <div class="grid-x opening-hours">
         
                                     {%- assign days_name = "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday" | split: "," -%}
-                                    {%- assign global_days = "sun,mon,tue,wed,thu,fri,sat" | split: "," -%}
+                                    {%- assign global_days = "mon,tue,wed,thu,fri,sat,sun" | split: "," -%}
                                     {%- assign current_day = "today" | date: "%A" -%}
                                     
                                     {%- for day in global_days -%}
                                     {%- assign key_enable = "loc_1_" | append: day | append: "_enable" -%}
                                     {%- assign key_open = "loc_1_" | append: day | append: "_open" -%}
                                     {%- assign key_close = "loc_1_" | append: day | append: "_close" -%}
-                                    
+                                 
                                     <div class="small-12 cell grid-x  {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
                                         <div class="small-6 cell">{{ days_name[forloop.index0] }}</div>
                                         <div class="small-6 cell">
@@ -237,7 +237,7 @@ metadata: {
                                                 {% comment %} ? THIS IS TO SET DEFAULT VALUE FOR OPENING HOURS {% endcomment %}
                                                 {% if global[key_enable] == nil %}
                                                     {% comment %} ? THIS VALUE MOSTLY AIMS TO POPULATE UPON INSTALLATION {% endcomment %}
-                                                    {% if days_name[forloop.index0] == "Sunday" or days_name[forloop.index0] == "Saturday"  %}
+                                                    {% if days_name[forloop.index0] == "Monday" or days_name[forloop.index0] == "Sunday"  %}
                                                         <p class="subHeading">Closed</p>   
                                                     {% else %}                                        
                                                         <p class="subHeading">7:00 AM - 4:00 PM</p>
