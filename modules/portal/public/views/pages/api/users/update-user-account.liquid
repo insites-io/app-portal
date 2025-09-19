@@ -98,9 +98,9 @@ metadata: {
 
         {% comment %} ? ADD CRM FIRST {% endcomment %}
         {% comment %} NOTE: Create CRM -> Contact via Controller {% endcomment %}
-        {% function add_crm_contact = "crm/controller/contacts/create", params: add_crm_data %}
+        {% function add_contact = "crm/controller/contacts/create", params: add_crm_data %}
 
-    {% graphql add_portal_profile = 'modules/portal/account/create_user_profile', id: add_crm_contact.id, token: "", invitation_status: "Invited", permission_level: details.permission_level, is_enabled: false  %}
+    {% graphql add_portal_profile = 'modules/portal/account/create_user_profile', id: add_contact.id, token: "", invitation_status: "Invited", permission_level: details.permission_level, is_enabled: false  %}
 
     {% endif %}   
     {% comment %} ? CLOSING ENDIF FOR INVITE user - EMAIL EXISTS OR NOT {% endcomment %}

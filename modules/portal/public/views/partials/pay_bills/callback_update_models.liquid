@@ -100,13 +100,10 @@ metadata: {
 {% if data.payment_gateway_name == "Stripe" %}
     {% assign source = "credit_card" %}
     {% assign data = data | add_hash_key: "source", source %}
-{% endif %}
+{% endif %}  
 
-{%  graphql add_payment = 'modules/website/trigger_api_call', 
-    name: "modules/portal/add_payment",
-    data: data
-    | dig: 'items','response','body'
-    | parse_json %}   
+{% function add_payment = "ecommerce/controller/payment/create", params: data %}
+{% log add_payment, type: "add_payment - callback_update_models" %}
 
 {%- liquid
     session paybill_payment_id = add_payment.items.id
@@ -140,11 +137,9 @@ metadata: {
 }
 {% endparse_json %}
 
-{% graphql update_order = 'modules/website/trigger_api_call', 
-    name: "modules/portal/update_order",
-    data: order_data
-    | dig: 'items','response','body'
-    | parse_json %}
+{% function update_order = "ecommerce/controller/order/update", params: order_data %}
+{% log update_order, type: "update_order - callback_update_models" %}
+
 {% liquid
     session paybill_order_id = update_order.id
     session paybill_order_reference = update_order.order_reference

@@ -209,7 +209,7 @@ async_callback_actions:
     {% endparse_json %}
 
     # Update Company
-    {% function update_company_address = "crm/controller/companies/update", uuid: add_company.uuid, params: data_company_address %}
+    {% function update_company = "crm/controller/companies/update", uuid: add_company.uuid, params: data_company_address %}
    
     {%- graphql user_details = "modules/portal/account/get_user_by_email" 
         email: form.email

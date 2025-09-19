@@ -19,7 +19,7 @@ metadata: {
 }
 {%- endparse_json -%}
 {% comment %} NOTE: Create CRM -> Contact via Controller {% endcomment %}
-{% function new_user = "crm/controller/contacts/create", params: new_user_data %}
+{% function add_contact = "crm/controller/contacts/create", params: new_user_data %}
 
 {%- graphql get_contact_us_data = "modules/portal/contact_us/get_contact_us_data", id: form.id | dig: "items", "results" | first -%}
 {%- graphql get_table_data = "modules/website/get_table_info", table_name: "modules/website/contact_us" | dig: "admin_model_schemas", "results" | first -%}
