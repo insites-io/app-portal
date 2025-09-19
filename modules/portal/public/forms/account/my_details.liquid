@@ -186,7 +186,6 @@ async_callback_actions:
     html-onsubmit:"return UserProfileScript.methods.validateForm(event);" -%}
 
     {% comment %} NOTE: data == {{ data }} {% endcomment %}
-    My Details Data = {{ data }}
     <div class="insites-form-grid">
 
       <input type="hidden" name="{{ form.fields.properties.contact_address_uuid.name }}" value="{{ data.default_address.uuid }}" >
