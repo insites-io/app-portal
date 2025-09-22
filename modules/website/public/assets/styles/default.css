@@ -41,7 +41,7 @@
     /* UI Colors */
     --color-ui-01: #FFFFFF;
     --color-ui-02: #F9FAFB;
-    --color-ui-03: #F7F7F7;
+    --color-ui-03: #F3F4F4;
     --color-ui-04: #DFDFDF;
     --color-ui-05: #84848F;
     --color-ui-06: #575757;
@@ -5182,43 +5182,52 @@ Notyf
 
 /* Accordion Mobile */
 
-.portal-mobile-nav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head a {
-    color: black;
-}
-
-.portal-mobile-nav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head {
-    color: black
-}
-
-
-/* Accordion Mobile Border */
-
-.portal-mobile-nav .ins-accordion-item_header>.inner-head,
-.portal-mobile-nav .ins-accordion-item_header>.inner-head:hover {
-    border-color: transparent;
-}
-
 .portal-mobile-nav .ins-accordion-item_header {
     padding-top: 0px;
-    border-top: 1px solid #F3F4F4;
 }
 
 .portal-mobile-nav .ins-accordion-item_header>.inner-head {
-    padding: 24px;
-    background-color: var(--color-ui-02);
+    padding: 16px 24px;    
+    line-height: 34px;    
 }
 
+.portal-mobile-nav ins-accordion-item ins-accordion-item .ins-accordion-item_content .ins-accordion-link_link {
+    padding-left: 40px;
+}
+
+.portal-mobile-nav .ins-accordion-item_header>.inner-head,
+.portal-mobile-nav .ins-accordion-item_content .inner-content {
+    border: none; /* reset insites border top  */
+}
+
+.portal-mobile-nav .ins-accordion-item_header>.inner-head,
+.portal-mobile-nav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
+.portal-mobile-nav .ins-accordion-item_content .inner-content,
+.portal-mobile-nav .ins-accordion-item_content .ins-accordion-link {    
+    border-bottom: 1px solid var(--color-ui-03);
+}
+
+.portal-mobile-nav ins-accordion-item.active > .ins-accordion-item 
+  > .ins-accordion-item_header 
+  > .inner-head {
+  background-color: var(--color-ui-02);
+}
 
 /* Accordion Mobile Nav > Label */
 
-.portal-mobile-nav .ins-accordion-item_header>.inner-head a {
+.portal-mobile-nav .ins-accordion-item_content .ins-accordion-link_link,
+.portal-mobile-nav .ins-accordion-item_header>.inner-head,
+.portal-mobile-nav .ins-accordion-item_header>.inner-head a,
+.portal-mobile-nav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head a {
     color: var(--font-color-body);
     font-family: var(--font-family-01);
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
-    line-height: 150%;
-    /* 21px */
+}
+
+.portal-mobile-nav .ins-accordion-item_header>.inner-head a:hover {
+    text-decoration: none;
 }
 
 
@@ -5232,7 +5241,8 @@ Notyf
 /* Accordion Mobile > Inner Content > Items / Link */
 
 .portal-mobile-nav .ins-accordion-item_content .ins-accordion-link_link {
-    padding: 24px;
+    padding: 16px 24px;
+    line-height: 34px;
 }
 
 
