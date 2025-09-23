@@ -2389,7 +2389,8 @@ ins-tag span.ins-tag {
 
 #main-header .navlinks a:hover,
 #main-header ins-dropdown:hover,
-#main-header ins-dropdown .ins-dropdown:hover {
+#main-header ins-dropdown .ins-dropdown:hover,
+#main-header .ins-dropdown_label:hover {
     color: var(--font-color-link-hovered);
 }
 
@@ -2518,7 +2519,7 @@ ins-tag span.ins-tag {
 #main-header.light-header .navlinks a:hover,
 #main-header.light-header ins-dropdown:hover,
 #main-header.light-header ins-dropdown .ins-dropdown:hover,
-#main-header .ins-dropdown_label:hover {
+#main-header.light-header .ins-dropdown_label:hover {
     color: #575757;
 }
 
