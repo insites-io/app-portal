@@ -6066,3 +6066,7 @@ ins-alert-box .alert-box.error {
     display: flex;
     flex-direction: column;
 }
+
+.feature-nav-link ins-dropdown {
+    padding-top: 7px!important;
+}

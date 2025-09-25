@@ -4,10 +4,10 @@ metadata:
   groups: []
   is_archived: false
 properties:
-- name: document
+- name: attachment
   type: upload
   metadata:
-    label: "Document"
+    label: "Attachment"
     weight: 5
     ui_element: "media_file"
     is_required: false

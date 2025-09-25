@@ -95,7 +95,7 @@ metadata: {
           {% comment %} Database driven menu {% endcomment %}
           {% for menu in menus %}
             {%- if menu.slug == "features" -%}
-              <a class="nav-dropdown-link" href="/{{menu.slug}}">
+              <a class="nav-dropdown-link feature-nav-link" href="/{{menu.slug}}">
                 <ins-dropdown label="{{menu.label}}">
                   {% for item in features %}
                     <ins-dropdown-item
