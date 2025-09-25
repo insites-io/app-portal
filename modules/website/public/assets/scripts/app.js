@@ -370,6 +370,11 @@ let App = (function () {
                     inputElementContainers.forEach(inputElementContainer => {
                     const inputElement = inputElementContainer.getElementsByTagName('input')[0];
                     
+                    // Skip if no input element found or not yet loaded
+                    if (!inputElement) {
+                        return;
+                    }
+                    
                     let iconElement = inputElementContainer.querySelector('.icon-search-1');
 
                     if(iconElement == null) {
@@ -420,7 +425,7 @@ let App = (function () {
                         }
                     });
                     });
-                }, 300);
+                }, 2000);
  
             }
 
