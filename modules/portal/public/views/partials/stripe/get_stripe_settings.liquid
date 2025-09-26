@@ -29,7 +29,5 @@ metadata: {
 }
 {% endparse_json %}
 
-{% log data, type: "data - get_stripe_settings" %}
-
 {% export data, namespace: 'stripe' %}
 {% return data %}

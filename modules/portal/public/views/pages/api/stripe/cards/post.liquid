@@ -90,11 +90,9 @@ metadata: {
             {%- endparse_json -%}  
             
             {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
-            {% function update_contact = "crm/controller/contacts/update", uuid: user_uuid, params: crm_data %}
-                
-            {% comment %} LOG: {% endcomment %}
-            {% log update_contact, type: "update_contact - post.liquid" %}
+            {% function update_contact = "crm/controller/contacts/update", uuid: user_uuid, params: crm_data %}            
         {% else %}
+            {% comment %} LOG: {% endcomment %}
             {% log "Error: Logged-in user has no CRM data" %}
         {% endif %}
 

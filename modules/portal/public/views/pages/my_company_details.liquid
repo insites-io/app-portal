@@ -39,8 +39,6 @@ authorization_policies:
 
 {% comment %} Company Details Form {% endcomment %}
 {%- include_form 'modules/portal/my_company_details', id: company.id, data: company -%}
-{% log company, type: "company" %}
-
 
 <script>
   let submitBtn = document.getElementById("submit-btn");

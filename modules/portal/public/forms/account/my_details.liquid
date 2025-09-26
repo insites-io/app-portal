@@ -103,9 +103,6 @@ callback_actions: |-
 
   {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
   {% function update_contact = "crm/controller/contacts/update", uuid: context.current_user.external_id, params: update_contact_data %}
-  
-  {% comment %} LOG: {% endcomment %}
-  {% log update_contact, type: "update_contact - my_details" %}
 
   {% parse_json contact_address_details %}
   {

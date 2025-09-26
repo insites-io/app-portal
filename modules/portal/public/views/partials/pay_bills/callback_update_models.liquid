@@ -103,8 +103,6 @@ metadata: {
 {% endif %}  
 
 {% function add_payment = "ecommerce/controller/payment/create", params: data %}
-{% log add_payment, type: "add_payment - callback_update_models" %}
-
 {%- liquid
     session paybill_payment_id = add_payment.items.id
     session paybill_status = status
@@ -138,8 +136,6 @@ metadata: {
 {% endparse_json %}
 
 {% function update_order = "ecommerce/controller/order/update", params: order_data %}
-{% log update_order, type: "update_order - callback_update_models" %}
-
 {% liquid
     session paybill_order_id = update_order.id
     session paybill_order_reference = update_order.order_reference

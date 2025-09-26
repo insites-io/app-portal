@@ -4,3 +4,4 @@ tmp/
 app.zip
 .insites
 .DS_Store
+/tests

@@ -243,8 +243,6 @@ async_callback_actions:
 
     {% comment %} NOTE: Create CRM -> Contact Address via Controller {% endcomment %}
     {% function add_contact_address = "crm/controller/addresses/create", type: "contact", params: contact_address_details %}
-    {% comment %} LOG: {% endcomment %}
-    {% log add_contact_address, type: "add_contact_address - create_account" %}
 
     {% parse_json update_contact_data %}
     {
@@ -259,10 +257,7 @@ async_callback_actions:
 
     {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
     {% function update_contact = "crm/controller/contacts/update", uuid: user_details.uuid, params: update_contact_data %}
-    
-    {% comment %} LOG: {% endcomment %}
-    {% log update_contact, type: "update_contact - create_account" %}
-
+  
     # Generate user temporary token
     {%  liquid
       graphql temporary_token = 'modules/portal/account/generate_user_temporary_token', email: form.email | dig: 'items', 'results' | first
