@@ -77,10 +77,7 @@ metadata: {
         {% endparse_json %}
         {% comment %} ? UPDATE CRM FIRST {% endcomment %}
         {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
-        {% function update_crm_contact = "crm/controller/contacts/update", uuid: user_details.uuid, params: update_crm_data %}
-        {% comment %} LOG: {% endcomment %}
-        {% log update_crm_contact, type: "update_crm_contact - update_user_account" %}
-        
+        {% function update_crm_contact = "crm/controller/contacts/update", uuid: user_details.uuid, params: update_crm_data %}       
         {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id,  invitation_status: "Invited"  %}
     {% else %}
         {% comment %} ? SAVE NEW CRM {% endcomment %}
