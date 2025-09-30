@@ -6,6 +6,14 @@ metadata: {
 {% comment %} ? GET GLOBAL CONTENT {% endcomment %}
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
+{% comment %} NOTE: Set Global Content if empty {% endcomment %}
+{% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
+  {% assign company_logo = 'modules/website/images/ins-marketplace.png' | asset_url %}
+  {% assign alternate_company_logo = 'modules/website/images/ins-marketplace-alt.png' | asset_url %}
+{% else %}
+  {% assign company_logo = global.company_logo %}
+  {% assign alternate_company_logo = global.alternate_company_logo %}
+{% endif %}
 
 {% comment %} Header class {% endcomment %}
 {%  liquid      
@@ -26,17 +34,11 @@ metadata: {
     <div class=" grid-container grid-x align-middle">
       <div class="large-1 medium-3 small-5 cell">
         <a href="/">
-          {% comment %} ? SETTING LOGO BY DEFAULT {% endcomment %}
-          {% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
-              {% comment %} ? DEFAULT {% endcomment %}
-              <img class="logo" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
+          {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
+          {% if dark == blank %} 
+            <img class="logo" src="{{ company_logo }}" alt="Logo" height="56" width="119">
           {% else %}
-              {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
-              {% if dark == blank %} 
-                  <img class="logo" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
-                {% else %}
-                  <img class="logo" src="{{ global.alternate_company_logo }}" alt="Logo" height="56" width="119">
-              {% endif %}
+            <img class="logo" src="{{ alternate_company_logo }}" alt="Logo" height="56" width="119">
           {% endif %}
         </a>
       </div>

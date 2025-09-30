@@ -25,6 +25,12 @@ metadata: {
 {% comment %} ? GET GLOBAL CONTENT {% endcomment %}
 {%- include "modules/insites_cms/globals" -%}
 {%- assign global = context.exports.global -%}
+{% comment %} NOTE: Set Global Content if empty {% endcomment %}
+{% if global.company_logo == nil or global.company_logo contains "client-logo.png" %}
+    {% assign company_logo = 'modules/website/images/ins-marketplace.png' | asset_url %}
+{% else %}
+    {% assign company_logo = global.company_logo %}
+{% endif %}
 
 <body>
     <div class="grid-x gutter-medium grid-padding-x account-body">
@@ -36,7 +42,7 @@ metadata: {
                 <div class="large-12 medium-12 small-12 cell">
                     <div class="spacer x-large hide-for-small-only"></div>
                     <a href="/">
-                        <img class="logo-accounts" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
+                        <img class="logo-accounts" src="{{ company_logo }}" alt="Logo" height="56" width="119">
                     </a>
                     <div class="spacer x-large hide-for-small-only"></div>
                     <div class="spacer xxx-large show-for-small-only"></div>
@@ -49,7 +55,7 @@ metadata: {
                 <div class="account-container-logo">
                     <div class="spacer x-large hide-for-small-only"></div>
                     <a href="/">
-                        <img class="logo-accounts" src="{{ global.company_logo }}" alt="Logo" height="56" width="119">
+                        <img class="logo-accounts" src="{{ company_logo }}" alt="Logo" height="56" width="119">
                     </a>
                     <div class="spacer x-large hide-for-small-only"></div>
                 </div>

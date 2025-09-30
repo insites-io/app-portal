@@ -4774,6 +4774,7 @@ Contact Us
 .ul-terms-privacy {
     list-style: lower-alpha;
     padding-left: 16px;
+    margin-bottom: 0px!important;
 }
 
 .ul-terms-privacy li {
@@ -6085,4 +6086,9 @@ ins-alert-box .alert-box.error {
 
 .feature-nav-link ins-dropdown {
     padding-top: 7px!important;
+}
+
+.ul-terms-privacy li,
+ul .ul-terms-privacy {
+    margin-bottom: 0px!important;
 }
