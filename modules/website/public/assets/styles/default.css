@@ -1028,12 +1028,12 @@ ins-input [class*=ins-] label,
 label,
 .ins-form-field-wrap .ins-form-label,
 .ins-select-wrap .ins-select-label-wrap {
-    font-family: var(--font-family-01);
-    font-weight: 700;
-    font-size: var(--font-small);
+    font-family: var(--font-family-01)!important;
+    font-weight: 700!important;
+    font-size: var(--font-small)!important;
     line-height: var(--font-medium);
-    color: var(--font-color-head);
-    margin-bottom: 8px;
+    color: var(--font-color-head)!important;
+    margin-bottom: 8px!important;
 }
 
 .ins-form-field-wrap .ins-form-field:focus+.icon-wrap {
