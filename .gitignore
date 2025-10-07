@@ -7,3 +7,4 @@ app.zip
 /tests
 .cursor/
 mcp/
+node_modules/

@@ -1,7 +1,15 @@
-name: portal
+name: Portal
 metadata:
   label: "Portal"
 properties:
+- name: invitation_status
+  type: string
+  metadata:
+    type: "string"
+    label: "Invitation Status"
+    weight: 1
+    options: ["Accepted","Invited"]
+    ui_element: "select"
 - name: is_enabled
   type: boolean
   metadata:
@@ -9,8 +17,14 @@ properties:
     label: "Is Enabled"
     weight: 1
     options: []
-- name: verification_token
+- name: permission_level
   type: string
+  metadata:
+    type: "string"
+    label: "Permission Level"
+    weight: 1
+    options: ["Account Owner","Staff","Manager","No Access"]
+    ui_element: "select"
 - name: primary_account_holder
   type: boolean
   metadata:
@@ -18,16 +32,5 @@ properties:
     label: "Primary account holder"
     weight: 1
     options: []
-- name: permission_level
-  type: string     
-  metadata:
-    type: "string"
-    label: "Permission Level"
-    weight: 1
-- name: invitation_status
-  type: string     
-  metadata:
-    type: "string"
-    label: "Invitation Status"
-    weight: 1
-
+- name: verification_token
+  type: string
