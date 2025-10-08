@@ -247,18 +247,10 @@ metadata: {
         searchKey.addEventListener('insInput', e => {
             if (e.detail.keyCode === 13) handleSearch();
         });
-        searchKey.addEventListener('insValueChange', () => {
-            // toggleInputError(searchKey.value === "");
-        });
     }
 
     function handleSearch() {
         const value = searchKey.value.trim();
-        // if (value === "") {
-        //     toggleInputError(true);
-        //     return;
-        // }
-
         toggleInputError(false);
         updateUrlParams({ search: value, page: 1 }); 
     }
