@@ -81,7 +81,7 @@ metadata: {
         {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
         {% function update_crm_contact = "crm/controller/contacts/update", uuid: user_details.uuid, params: update_crm_data %}  
         {% log update_crm_contact, type: "update_crm_contact - update-user" %}     
-        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id,  invitation_status: "Invited"  %}
+        {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id,  invitation_status: "Invited", permission_level: details.userPermission, is_enabled: false, primary_account_holder: false  %}
           {% log update_portal_profile, type: "update_portal_profile - update-user" %}     
     {% else %}
         {% comment %} ? SAVE NEW CRM {% endcomment %}
@@ -102,7 +102,7 @@ metadata: {
 
     {% log details, type: "details" %}
     {% log add_contact, type: "add_contact" %}
-    {% graphql add_portal_profile = 'modules/portal/account/create_user_profile', id: add_contact.id, token: "", invitation_status: "Invited", permission_level: details.userPermission, is_enabled: false  %}
+    {% graphql add_portal_profile = 'modules/portal/account/create_user_profile', id: add_contact.id, token: "", invitation_status: "Invited", permission_level: details.userPermission, is_enabled: false, primary_account_holder: false   %}
     
     {% log add_portal_profile, type: "add_portal_profile" %}
 

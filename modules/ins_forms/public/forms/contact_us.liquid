@@ -422,7 +422,7 @@ resource_owner: anyone
 			accepted-files=""
 			capture=""
 			max-files="1"
-			max-file-size="10"
+			max-file-size="100"
 			error-message="{{ form.errors['properties.document'] }}"
 			{% if form.errors['properties.document'] != nil %} has-error {% endif %}>
 		</ins-input-file>

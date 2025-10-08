@@ -1,6 +1,6 @@
-name: Portal
+name: portal
 metadata:
-  label: "Portal"
+  label: "portal"
 properties:
 - name: invitation_status
   type: string
