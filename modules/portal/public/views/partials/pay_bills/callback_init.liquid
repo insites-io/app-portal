@@ -25,6 +25,7 @@ metadata: {
         {% endcomment %}
 
     {% else %}
+        {% comment %} LOG: {% endcomment %}
         {% log "ERROR: Payment gateway invalid / not set. Please check INS Ecommerce settings." %}
 {% endcase %}
 
@@ -61,18 +62,4 @@ metadata: {
 
 {% include 'modules/portal/pay_bills/callback_email_notifications', 
     status: status,
-    data: data %} 
-
-{% comment %} ? UPDATE DISCOUNT USAGE COUNT {% endcomment %}
-{% comment %} {% if form.properties.is_discount_code_enabled == "true" %}
-    {% assign discount_id = form.properties.discount_id %}
-    {% assign usage_count = form.properties.discount_usage_count | default: 0 %}
-    {% assign usage_count = usage_count | plus: 1 %}
-    
-    {% log discount_id, type:"discount_id" %}
-    {% log usage_count, type:"usage_count" %}
-    
-    {% graphql update_usage_count = 'modules/client/discount/update_discount_usage_limit', id: discount_id, usage_count: usage_count %}
-    
-    {% log update_usage_count, type:"update_usage_count" %}    
-{% endif %} {% endcomment %}
+    data: data %}

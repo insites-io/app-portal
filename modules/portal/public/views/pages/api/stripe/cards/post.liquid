@@ -29,7 +29,7 @@ metadata: {
     assign email_exist = false
 
     assign response = "{}" | parse_json
-    graphql user_exist = "modules/portal/user/get_user_by_email", email: customer_email | dig: "items"
+    graphql user_exist = "modules/portal/account/get_user_by_email", email: customer_email | dig: "items"
 
     if user_exist.total_entries > 0
         assign email_exist = true
@@ -84,13 +84,15 @@ metadata: {
             {% comment %} Save the Stripe ID in CRM. {% endcomment %}
             {%- parse_json crm_data -%}
             {
-                "uuid": "{{ user_uuid }}",
                 "email": "{{ customer_email }}",
                 "stripe_id": "{{ stripe_customer_id }}"
             }
-            {%- endparse_json -%}    
-            {%- graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: crm_data | dig: 'items','response','body' | parse_json -%}
+            {%- endparse_json -%}  
+            
+            {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
+            {% function update_contact = "crm/controller/contacts/update", uuid: user_uuid, params: crm_data %}            
         {% else %}
+            {% comment %} LOG: {% endcomment %}
             {% log "Error: Logged-in user has no CRM data" %}
         {% endif %}
 

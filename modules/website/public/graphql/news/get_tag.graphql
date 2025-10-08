@@ -1,0 +1,20 @@
+query get_tag(
+    $page: Int = 1, 
+    $size: Int = 20
+) {
+    items: records(
+        page: $page
+        per_page: $size
+        filter: {
+            table: { value: "modules/website/news" }
+            deleted_at: { exists: false }
+            properties: [
+              	{ name: "status", contains: "Published"}
+            ]
+        }
+    ) {
+        results {
+          tag: property(name: "tag")
+        }
+    }
+}

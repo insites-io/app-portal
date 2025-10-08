@@ -12,9 +12,9 @@ fields:
       unique:
         message: Email already exist
       presence:
-        message: Email address is required.
+        message: Email is required.
       email: 
-        message: Invalid email address.     
+        message: Please enter a valid email.     
   password:
     validation: 
       presence: 
@@ -182,7 +182,7 @@ async_callback_actions:
     {% endparse_json %}
 
     # Add company
-    {% graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: company_details | dig: 'items','response','body' | parse_json %}
+    {% function add_company = "crm/controller/companies/create", params: company_details %}
     
     # Create Company address object
     {% parse_json company_address_details %}
@@ -201,24 +201,16 @@ async_callback_actions:
     {% endparse_json %}
 
     # Add company address
-    {% graphql add_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_company_address', data: company_address_details | dig: 'items','response','body' | parse_json %}
-    
-    {% parse_json default_address_json %}
-      {
-        "uuid": "{{ add_company_address.uuid }}",
-        "address_label": "{{ add_company_address.address_1 }}"
-      }
-    {% endparse_json %}
-
+    {% function add_company_address = "crm/controller/addresses/create", type: "company", params: company_address_details %}
     {% parse_json data_company_address %}
     {
-     "uuid": "{{ add_company.uuid }}",
-     "default_address": "{{ default_address_json }}"
+     "default_address.uuid": "{{ add_company_address.uuid }}"
     }
     {% endparse_json %}
 
-    {% graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company', data: data_company_address  %}
-    
+    # Update Company
+    {% function update_company = "crm/controller/companies/update", uuid: add_company.uuid, params: data_company_address %}
+   
     {%- graphql user_details = "modules/portal/account/get_user_by_email" 
         email: form.email
         | dig: "items" | dig: "results" | first -%}
@@ -249,13 +241,11 @@ async_callback_actions:
     }
     {% endparse_json %}
 
-    {%  liquid  
-      graphql add_contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json
-    %}
+    {% comment %} NOTE: Create CRM -> Contact Address via Controller {% endcomment %}
+    {% function add_contact_address = "crm/controller/addresses/create", type: "contact", params: contact_address_details %}
 
     {% parse_json update_contact_data %}
     {
-      "uuid": "{{ user_details.uuid }}",
       "email": "{{ form.email }}",
       "company.uuid": "{{ add_company.uuid }}",
       "mobile_phone_country_code": "{{ form.properties.mobile_phone_country_code }}",
@@ -265,10 +255,9 @@ async_callback_actions:
     }
     {% endparse_json %}
 
-    {%  liquid                      
-      graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json        
-    %} 
-
+    {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
+    {% function update_contact = "crm/controller/contacts/update", uuid: user_details.uuid, params: update_contact_data %}
+  
     # Generate user temporary token
     {%  liquid
       graphql temporary_token = 'modules/portal/account/generate_user_temporary_token', email: form.email | dig: 'items', 'results' | first

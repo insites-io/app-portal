@@ -18,15 +18,16 @@ metadata: {
               
         assign total_discount = get_order.properties.total_discount_amount | times: 1 | default: 0
         assign amount = get_order.properties.subtotal_amount | minus: total_discount 
-        assign cc_surcharge = amount | times: 0.017 | round: 2
+        assign gst = amount | times: 0.10
+        assign cc_surcharge = amount | plus: gst | times: 0.017 | round: 2
    
         assign amountPayable = get_order.properties.subtotal_amount
         assign ccSurcharge = cc_surcharge
         assign subTotal = amount
-        assign gst = amount | times: 0.10
         assign totalAmount = amount | plus: cc_surcharge | plus: gst
     endif
 %}
+
 {%- comment -%}Payment Summary{%- endcomment -%}
 <div class="payment-summary">
     <h5 class="heading-5">Payment summary</h5>
@@ -65,15 +66,14 @@ metadata: {
         <div class="large-3 medium-5 small-3 p-body"><span id="charge-subtotal-summary">{{ subTotal | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
         <div class="cell spacer small"></div>
 
-        {% comment %} ? PROCESSING FEE {% endcomment %}
-        <div class="large-9 medium-7 small-9 p-body-bold">Processing fee (1.7%)</div>
-        <div class="large-3 medium-5 small-3 p-body"><span id="cc-charge-summary">{{ ccSurcharge | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
-        <div class="cell spacer small"></div>
-
         {% comment %} ? TAX {% endcomment %}
         <div class="large-9 medium-7 small-9 p-body-bold">Tax</div>
         <div class="large-3 medium-5 small-3 p-body"><span id="charge-gst-summary">{{ gst | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
+        <div class="cell spacer small"></div>
 
+        {% comment %} ? PROCESSING FEE {% endcomment %}
+        <div class="large-9 medium-7 small-9 p-body-bold">Processing fee (1.7%)</div>
+        <div class="large-3 medium-5 small-3 p-body"><span id="cc-charge-summary">{{ ccSurcharge | default: "$0.00" | pricify: "AUD", no_cents_if_whole: false }}</span></div>
         <div class="cell spacer small"></div>
 
         <hr>
@@ -141,9 +141,9 @@ metadata: {
 
         amountPayable = (ev.detail * 1.00);
 
-        let ccSurcharge = (amountPayable - discountAmount) * 0.017; // 1.7% credit card surcharge
         let subtotalAmount  = Number(amountPayable - discountAmount); // amount payable
         let gst = (amountPayable - discountAmount) * 0.1; // GST
+        let ccSurcharge = (amountPayable - discountAmount + gst) * 0.017; // 1.7% credit card surcharge
         let totalAmount = (Number(amountPayable - discountAmount) + Number(ccSurcharge) + Number(gst));
 
         if(chargeAmountEl) 

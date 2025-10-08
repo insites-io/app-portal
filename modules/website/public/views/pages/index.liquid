@@ -27,10 +27,10 @@ dynamic_cache:
     key: >
         {%- parse_json models -%}
         [
-          "modules/website/business_needs",
-          "modules/website/features",
-          "modules/website/feedback",
-          "modules/website/menu"
+            "modules/website/business_needs",
+            "modules/website/features",
+            "modules/website/feedback",
+            "modules/website/menu"
         ]
         {%- endparse_json -%}
         {% if context.constants.ecommerce_addon == 'true' %}

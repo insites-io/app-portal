@@ -1,0 +1,52 @@
+name: business_needs
+metadata:
+  label: "Business needs"
+  groups: [{"id":"940007a5-11ca-453f-8f02-219ca623e185","name":"Content","weight":0}]
+  is_archived: false
+properties:
+- name: business_description
+  type: string
+  metadata:
+    label: "Business description"
+    weight: 2
+    group_id: "940007a5-11ca-453f-8f02-219ca623e185"
+    ui_element: "input"
+    is_required: true
+    is_sortable: true
+    is_searchable: true
+    column_weigthing: 2
+    is_shown_in_table: true
+- name: business_title
+  type: string
+  metadata:
+    label: "Business title"
+    weight: 1
+    group_id: "940007a5-11ca-453f-8f02-219ca623e185"
+    ui_element: "input"
+    is_required: true
+    is_sortable: true
+    is_searchable: true
+    column_weigthing: 1
+    is_shown_in_table: true
+- name: enable
+  type: boolean
+  metadata:
+    label: "Enable"
+    weight: 0
+    group_id: "940007a5-11ca-453f-8f02-219ca623e185"
+    ui_element: "toggle"
+    column_weigthing: 0
+    is_shown_in_table: true
+- name: icon
+  type: upload
+  metadata:
+    label: "Icon"
+    weight: 3
+    group_id: "940007a5-11ca-453f-8f02-219ca623e185"
+    ui_element: "media_image"
+    is_required: true
+    max_file_size: 10
+  options:
+    acl: public
+    cache_control: ""
+    content_disposition: inline

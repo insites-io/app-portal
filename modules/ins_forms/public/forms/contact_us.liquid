@@ -1,0 +1,444 @@
+---
+async_callback_actions:
+  delay: ''
+  priority:
+callback_actions: "{%- include 'modules/website/forms/contact_event_stream', %}\n"
+default_payload: '{% assign form_properties = context.params.form.properties_attributes
+  %}{"properties_attributes":{}}'
+email_notifications:
+- modules/ins_forms/autoresponder_734561
+- modules/ins_forms/workflow_734561
+fields:
+  properties:
+    first_name:
+      validation:
+        presence:
+          message: First name is required.
+          if: "{% if form.first_name != blank %}true{% endif %}"
+    last_name:
+      validation:
+        presence:
+          message: Last name is required.
+          if: "{% if form.last_name != blank %}true{% endif %}"
+    email:
+      validation:
+        email:
+          message: Please enter a valid email
+          if: "{% if form.email != blank %}true{% endif %}"
+          allow_blank: true
+        presence:
+          message: email is required.
+          if: "{% if form.email != blank %}true{% endif %}"
+    mobile_phone:
+      validation: {}
+    message:
+      validation:
+        presence:
+          message: Message is required.
+          if: "{% if form.message != blank %}true{% endif %}"
+        length:
+          maximum: 500
+          allow_blank: true
+    document:
+      validation: {}
+flash_alert: Failed to submit form. Please try again.
+flash_notice: Successfully submitted form.
+metadata:
+  label: Contact us
+  form_steps: []
+  properties:
+  - id: '18401307'
+    name: first_name
+    rawData:
+      id: '18401307'
+      name: first_name
+      options: {}
+      metadata:
+        type: ''
+        label: First Name
+        status: enabled
+        values: []
+        weight: 0
+        group_id: ''
+        is_header: true
+        mock_data: ''
+        is_enabled: ''
+        validation: ''
+        is_required: true
+        is_sortable: true
+        placeholder: ''
+        primary_key: ''
+        example_data: ''
+        default_value: ''
+        display_field: ''
+        error_message: ''
+        is_searchable: true
+        character_limit: ''
+        reference_field: ''
+        description_notes: ''
+        help_text_tooltip: ''
+      target_id: '2046406'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step:
+    conditions: []
+    field_type: string
+    ui_element: input
+    column_size: 2
+    field_label: First Name
+    placeholder: First Name
+    field_weighting: 0
+    is_field_hidden: false
+    validation_rules:
+      presence:
+        if: "{% if form.first_name != blank %}true{% endif %}"
+        message: First name is required.
+  - id: '18401308'
+    name: last_name
+    rawData:
+      id: '18401308'
+      name: last_name
+      options: {}
+      metadata:
+        type: ''
+        label: Last Name
+        status: enabled
+        values: []
+        weight: 1
+        group_id: ''
+        is_header: true
+        mock_data: ''
+        is_enabled: ''
+        validation: ''
+        is_required: true
+        is_sortable: true
+        placeholder: ''
+        primary_key: ''
+        example_data: ''
+        default_value: ''
+        display_field: ''
+        error_message: ''
+        is_searchable: true
+        character_limit: ''
+        reference_field: ''
+        description_notes: ''
+        help_text_tooltip: ''
+      target_id: '2046406'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step:
+    conditions: []
+    field_type: string
+    ui_element: input
+    column_size: 2
+    field_label: Last Name
+    placeholder: Last Name
+    field_weighting: 1
+    is_field_hidden: false
+    validation_rules:
+      presence:
+        if: "{% if form.last_name != blank %}true{% endif %}"
+        message: Last name is required.
+  - id: '18401306'
+    name: email
+    rawData:
+      id: '18401306'
+      name: email
+      options: {}
+      metadata:
+        type: ''
+        label: Email Address
+        status: enabled
+        values: []
+        weight: 2
+        group_id: ''
+        is_header: true
+        mock_data: ''
+        is_enabled: ''
+        validation: ''
+        is_required: true
+        is_sortable: true
+        placeholder: ''
+        primary_key: ''
+        example_data: ''
+        default_value: ''
+        display_field: ''
+        error_message: ''
+        is_searchable: true
+        character_limit: ''
+        reference_field: ''
+        description_notes: ''
+        help_text_tooltip: ''
+      target_id: '2046406'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step:
+    conditions: []
+    field_type: string
+    ui_element: input
+    column_size: 2
+    field_label: Email
+    placeholder: Email
+    field_weighting: 2
+    is_field_hidden: false
+    validation_rules:
+      email:
+        if: "{% if form.email != blank %}true{% endif %}"
+        message: Use a valid email
+        allow_blank: true
+      presence:
+        if: "{% if form.email != blank %}true{% endif %}"
+        message: email is required.
+  - id: '18401310'
+    name: mobile_phone
+    rawData:
+      id: '18401310'
+      name: mobile_phone
+      options: {}
+      metadata:
+        type: ''
+        label: Mobile Phone
+        status: enabled
+        weight: 3
+        group_id: ''
+        is_header: false
+        is_enabled: ''
+        ui_element: phone
+        is_required: false
+        is_sortable: false
+        primary_key: ''
+        is_searchable: false
+        reference_field: ''
+        is_shown_in_table: false
+      target_id: '2046406'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step:
+    conditions: []
+    field_type: string
+    ui_element: phone
+    column_size: 2
+    field_label: Phone
+    placeholder: Phone Number
+    field_weighting: 3
+    is_field_hidden: false
+    validation_rules: {}
+  - id: '18401309'
+    name: message
+    rawData:
+      id: '18401309'
+      name: message
+      options: {}
+      metadata:
+        type: multi_line
+        label: Message
+        status: enabled
+        weight: 4
+        group_id: ''
+        is_header: false
+        is_enabled: ''
+        ui_element: multi_line
+        is_required: true
+        primary_key: ''
+        is_searchable: false
+        reference_field: ''
+      target_id: '2046406'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
+    form_step:
+    conditions: []
+    field_type: string
+    ui_element: multi_line
+    column_size: 1
+    field_label: Message
+    placeholder: How can we help you?
+    field_weighting: 4
+    is_field_hidden: false
+    validation_rules:
+      length:
+        maximum: 500
+        allow_blank: true
+      presence:
+        if: "{% if form.message != blank %}true{% endif %}"
+        message: Message is required.
+  - id: '18401305'
+    name: document
+    rawData:
+      id: '18401305'
+      name: document
+      options:
+        acl: public
+        cache_control: ''
+        content_disposition: inline
+      metadata:
+        label: Document
+        weight: 5
+        ui_element: media_file
+        is_required: false
+        max_file_size: 100
+      target_id: '2046406'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: upload
+    form_step:
+    conditions: []
+    field_type: upload
+    ui_element: media_file
+    column_size: 1
+    field_label: Attachments
+    field_weighting: 5
+    is_field_hidden: false
+    validation_rules: {}
+  button_alignment: right
+  submit_button_icon:
+  submit_button_label: Send message
+redirect_to: "/thank-you"
+resource: modules/website/contact_us
+resource_owner: anyone
+---
+{%- parse_json localisation -%}{%- include 'modules/insites_forms/form_localisation' -%}{%- endparse_json -%}
+{%- assign form_uuid = '' | uuid -%}
+<div class="insites-form-wrap">
+{%- form html-class: 'insites-form insites-form-code' html-novalidate: 'novalidate' html-data-uuid: form_uuid -%}
+
+<ins-alert-box type="error" class="validation-error" close-icon="icon-close-1" hidden>
+	<div>Failed to submit form. Please fix the error(s) found.</div>
+</ins-alert-box>
+<ins-alert-box type="error" class="api-error" close-icon="icon-close-1" hidden>
+	<div>Failed to submit form. Please try again.</div>
+</ins-alert-box>
+
+<div class="insites-form-grid">
+
+	<!-- Field: First Name -->
+	<div class="first_name column-2">
+		<ins-input 
+			data-type="string"
+			data-ui="input"
+			data-properties="properties.first_name"
+			label="First Name*"
+			check-load check-value
+			name="{{ form.fields.properties.first_name.name }}"
+			value="{{ form.fields.properties.first_name.value }}"
+			error-message="{{ form.errors['properties.first_name'] }}"
+			placeholder="First Name"
+			required 
+			{% if form.errors['properties.first_name'] != nil %} has-error {% endif %}  >
+		</ins-input>
+	</div>
+
+	<!-- Field: Last Name -->
+	<div class="last_name column-2">
+		<ins-input 
+			data-type="string"
+			data-ui="input"
+			data-properties="properties.last_name"
+			label="Last Name*"
+			check-load check-value
+			name="{{ form.fields.properties.last_name.name }}"
+			value="{{ form.fields.properties.last_name.value }}"
+			error-message="{{ form.errors['properties.last_name'] }}"
+			placeholder="Last Name"
+			required 
+			{% if form.errors['properties.last_name'] != nil %} has-error {% endif %}  >
+		</ins-input>
+	</div>
+
+	<!-- Field: Email -->
+	<div class="email column-2">
+		<ins-input 
+			data-type="string"
+			data-ui="input"
+			data-properties="properties.email"
+			label="Email*"
+			check-load check-value
+			name="{{ form.fields.properties.email.name }}"
+			value="{{ form.fields.properties.email.value }}"
+			error-message="{{ form.errors['properties.email'] }}"
+			placeholder="Email"
+			required 
+			{% if form.errors['properties.email'] != nil %} has-error {% endif %} 
+			field="email" >
+		</ins-input>
+	</div>
+
+	<!-- Field: Phone -->
+	<div class="mobile_phone column-2">
+		<ins-input-tel
+			no-areacode
+			phonenum-placeholder="Phone Number"
+			
+			data-type="string"
+			data-ui="phone"
+			data-properties="properties.mobile_phone"
+			label="Phone"
+			check-load check-value
+			name="{{ form.fields.properties.mobile_phone.name }}"
+			value="{{ form.fields.properties.mobile_phone.value }}"
+			error-message="{{ form.errors['properties.mobile_phone'] }}"
+			{% if form.errors['properties.mobile_phone'] != nil %} has-error {% endif %}>
+		</ins-input-tel>
+	</div>
+
+	<!-- Field: Message -->
+	<div class="message column-1">
+		<ins-textarea  
+			data-type="string"
+			data-ui="multi_line"
+			data-properties="properties.message"
+			label="Message*"
+			check-load check-value
+			name="{{ form.fields.properties.message.name }}"
+			value="{{ form.fields.properties.message.value }}"
+			error-message="{{ form.errors['properties.message'] }}"
+			placeholder="How can we help you?"
+			required 
+			{% if form.errors['properties.message'] != nil %} has-error {% endif %}>
+		</ins-textarea>
+	</div>
+
+	<!-- Field: Attachments -->
+	<div class="document column-1">
+		<ins-input-file
+			data-multiple="false"
+			check-load check-value
+			data-name="{{ form.fields.properties.document.name }}"
+			data-type="upload"
+			data-ui="media_file"
+			data-prop="document"
+			data-properties="properties.document"
+			label="Attachments"
+			accepted-files=""
+			capture=""
+			max-files="1"
+			max-file-size="100"
+			error-message="{{ form.errors['properties.document'] }}"
+			{% if form.errors['properties.document'] != nil %} has-error {% endif %}>
+		</ins-input-file>
+	</div>
+
+</div>
+
+<div class="insites-form-grid">
+	<div class="insites-form-buttons column-1 right">
+		<ins-button type="submit" label="Send message" solid class="form-type-submit"></ins-button>
+	</div>
+</div>
+
+{%- endform -%}
+</div>
+
+<script id="{{ form_uuid }}">
+	InsitesFormProcessor.initialize("{{ form_uuid }}", "{{ context.authenticity_token }}", {%- include "modules/insites_forms/form_properties", form: form -%}, {{ form.metadata.form_steps | default: "[]" }}, {%- include "modules/insites_forms/form_redirect", name: form.name -%});
+</script>

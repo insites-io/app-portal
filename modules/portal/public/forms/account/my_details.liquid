@@ -95,13 +95,15 @@ callback_actions: |-
   
   {% parse_json update_contact_data %}
   {
-    "uuid": "{{ context.current_user.external_id }}", 
     "email": "{{form.email}}", 
     "mobile_phone_country_code": "{{form.properties.mobile_phone_country_code}}",
     "mobile_phone_number": "{{form.properties.mobile_phone_number}}"
   }
   {% endparse_json %}
-  {% graphql update_contact = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact', data: update_contact_data | dig: 'items','response','body' | parse_json %}
+
+  {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
+  {% function update_contact = "crm/controller/contacts/update", uuid: context.current_user.external_id, params: update_contact_data %}
+
   {% parse_json contact_address_details %}
   {
     "address_label": "{{ props.address_1 | default: 'Default' }}", 
@@ -119,11 +121,10 @@ callback_actions: |-
 
   {%  liquid
       if form.properties.contact_address_uuid
-        assign contact_address_details = contact_address_details | add_hash_key: "contact_address_uuid", props.contact_address_uuid
-        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json      
+        function contact_address = "crm/controller/addresses/update", type: "contact", uuid: props.contact_address_uuid, params: contact_address_details
       else
         assign contact_address_details = contact_address_details | add_hash_key: "contact.uuid", context.current_user.external_id
-        graphql contact_address = 'modules/website/trigger_api_call', name: 'modules/portal/add_contact_address', data: contact_address_details | dig: 'items','response','body' | parse_json
+        function contact_address = "crm/controller/addresses/create", type: "contact", params: contact_address_details
       endif         
   %} 
   
@@ -181,6 +182,7 @@ async_callback_actions:
     html-enctype="multipart/form-data"
     html-onsubmit:"return UserProfileScript.methods.validateForm(event);" -%}
 
+    {% comment %} NOTE: data == {{ data }} {% endcomment %}
     <div class="insites-form-grid">
 
       <input type="hidden" name="{{ form.fields.properties.contact_address_uuid.name }}" value="{{ data.default_address.uuid }}" >

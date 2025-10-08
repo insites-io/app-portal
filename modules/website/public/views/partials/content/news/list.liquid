@@ -70,6 +70,11 @@ metadata: {
 {% assign description = "Stay updated with the latest news, insights, and updates. Explore articles on industry trends, company announcements, and expert opinions—all in one place." %}
 {% include 'modules/website/content/hero_title', description: description %} 
 
+{% comment %} ? Tag {% endcomment %}
+{%- graphql get_tag = 'modules/website/news/get_tag' | dig: 'items', 'results' -%}
+{% assign data = get_tag | uniq | parse_json | sort: 'tag' %}
+{% assign tags = data | map: "tag" %}
+
 <div class="wrapper">
     <div class="news-filter-container">
         <div class="grid-container">
@@ -78,7 +83,7 @@ metadata: {
                     <ins-filter id="news-filter" label="Filter by:">
                         <ins-filter-item
                             name="Tag"
-                            options='["All", "Design","SEO", "Technology", "Web development"]'
+                            options='["All"{% for tag in tags %}, "{{ tag }}"{% endfor %}]'
                             selected="{{ context.params.tag }}">
                         </ins-filter-item>
                         <ins-filter-item
@@ -157,10 +162,8 @@ metadata: {
                                 </div>
                                 <div class="spacer large"></div>
                                 <div class="news-author">
-                                    {%- graphql get_author = 'modules/website/news/get_author', external_id: item.author -%}
-                                    {%- assign get_author = get_author | dig: 'items', 'results' | first -%}
                                     {% if item.author != blank %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ get_author.first_name }} {{ get_author.last_name }}</p>
+                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ item.author }}</p>
                                     {% else %}
                                         <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}</p>
                                     {% endif %}                  
@@ -244,18 +247,13 @@ metadata: {
         searchKey.addEventListener('insInput', e => {
             if (e.detail.keyCode === 13) handleSearch();
         });
-        searchKey.addEventListener('insValueChange', () => {
-            toggleInputError(searchKey.value === "");
+        searchKey.addEventListener('insValueChange', () => { 
+            
         });
     }
 
     function handleSearch() {
         const value = searchKey.value.trim();
-        if (value === "") {
-            toggleInputError(true);
-            return;
-        }
-
         toggleInputError(false);
         updateUrlParams({ search: value, page: 1 }); 
     }

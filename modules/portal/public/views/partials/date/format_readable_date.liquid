@@ -1,4 +1,9 @@
- {% assign now = 'now' | date: '%s' %}
+---
+metadata: {
+    partial_name: 'Date | Format Readable Date'
+}
+---
+{% assign now = 'now' | date: '%s' %}
   {% assign created_unix = datetime | date: '%s' %}
   {% assign diff = now | minus: created_unix %}
   {% assign minutes = diff | divided_by: 60 %}

@@ -4,6 +4,10 @@ redirect_to: /sign-out
 resource: Session
 callback_actions: >
   {% include 'modules/portal/account/clear_session' %}
+  {% if context.constants.ecommerce_addon == 'true' %}
+    {% include 'modules/ecommerce/checkout/clear_session' %}
+    {% include 'modules/ecommerce/user/clease_sessions' %}
+  {% endif %}
 ---
 
 {% form method: 'delete' %}

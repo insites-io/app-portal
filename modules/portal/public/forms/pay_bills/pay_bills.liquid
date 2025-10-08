@@ -10,11 +10,11 @@ fields:
     order_reference:    
       validation: 
         presence:
-          message: Order Reference Number is required  
+          message: Reference is required.
     subtotal_amount:    
       validation: 
         presence:  
-          message: Minimum of 1, maximum of 983283.99
+          message: Minimum of 1, maximum of 983283.99.
         numericality:
           greater_than_or_equal_to: 1
           less_than_or_equal_to: 983283.99
@@ -276,7 +276,7 @@ callback_actions: >
 		// Discount hidden fields
 		var discountAmountEl = document.getElementById("bill-total-discount-amount");
 		var discountIdEl = document.getElementById("discount-id");
-        var discountCodeUuidEl = document.getElementById("discount-code-uuid");
+      var discountCodeUuidEl = document.getElementById("discount-code-uuid");
 		var discountUsageCountEl = document.getElementById("discount-usage-count");
 
 		// Error handler labels
@@ -371,11 +371,12 @@ callback_actions: >
 		}
 
 		function setValues(totalAmountVal, discountAmountVal){
-			ccSurcharge = parseFloat((totalAmountVal - discountAmountVal) * 0.017).toFixed(2); // 1.7% credit card surcharge
 			subtotalAmount  = parseFloat(totalAmountVal - discountAmountVal).toFixed(2); // amount payable
 			gst = parseFloat((totalAmount - discountAmountVal) * 0.1).toFixed(2); // GST
+      ccSurcharge = parseFloat((totalAmountVal - discountAmountVal + gst) * 0.017).toFixed(2); // 1.7% credit card surcharge
 			let totalValue = parseFloat(Number(totalAmountVal - discountAmountVal) + Number(ccSurcharge) + Number(gst)).toFixed(2);
 
+      alert(ccSurcharge)
 			// LABEL SUMMARY
 			let chargeAmountEl = document.getElementById('charge-amount-summary');
 			let chargeSubtotal = document.getElementById('charge-subtotal-summary');

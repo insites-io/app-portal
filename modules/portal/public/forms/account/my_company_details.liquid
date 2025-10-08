@@ -10,18 +10,16 @@ fields:
     #CRM Company Fields
     email_1:
       validation: 
-        presence:
-          message: Company email is required
         email: 
-          message: Please use a valid email address     
+          message: Please use a valid email address.
     company_name:
       validation: 
         presence: 
-          message: Company name is required
+          message: Company name is required.
     registered_business_number:
       validation: 
         presence: 
-          message: Company registration number is required          
+          message: Company registration number is required.        
     mobile_phone_number:
     mobile_phone_country_code:
 
@@ -29,7 +27,7 @@ fields:
     company_address_1:
       validation: 
         presence: 
-          message: Address 1 is required
+          message: Address 1 is required.
       property_options:
         virtual: true
     company_address_2:
@@ -38,25 +36,25 @@ fields:
     company_suburb:
       validation: 
         presence: 
-          message: Suburb is required
+          message: Suburb is required.
       property_options:
         virtual: true
     company_state:
       validation: 
         presence: 
-          message: State is required
+          message: State is required.
       property_options:
         virtual: true
     company_postcode:
       validation: 
         presence: 
-          message: Postcode is required
+          message: Postcode is required.
       property_options:
         virtual: true
     company_country:
       validation: 
         presence: 
-          message: Country is required
+          message: Country is required.
       property_options:
         virtual: true    
     company_uuid:
@@ -112,19 +110,19 @@ callback_actions: |-
       }
     }
     {% endparse_json %}
-
+ 
   {%  liquid                  
       assign data = form | json
-
+     
       if form.properties.company_address_uuid != '' and form.properties.company_address_uuid != null
-        graphql update_company_address = 'modules/website/trigger_api_call', name: 'modules/portal/update_company_address', data: company_address_details | dig: 'items','response','body' | parse_json
+        function update_company_address = "crm/controller/addresses/update", type: "company", uuid: props.company_address_uuid, params: company_address_details
         assign company_uuid = form.properties.company_uuid
       else
-        graphql add_company = 'modules/website/trigger_api_call', name: 'modules/portal/add_company', data: company_details | dig: 'items','response','body' | parse_json
+        function add_company = "crm/controller/companies/create", params: company_details
         assign company_uuid = add_company.items.properties.uuid
       endif
+  %}
 
-  %}   
 async_callback_actions:
   delay: 0
   priority: low

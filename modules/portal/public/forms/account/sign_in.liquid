@@ -20,7 +20,17 @@ fields:
   redirect:
     property_options:
         virtual: true
-        
+  guest_temp_uuid:
+    property_options:
+        virtual: true
+callback_actions: >
+  {% if context.constants.ecommerce_addon == 'true' %}
+    {%- graphql user = "modules/portal/account/get_user_by_email"
+        email: form.email | dig: "items","results" | first -%}
+
+    {% include 'modules/ecommerce/user/sign_in_callback', 
+        contact_uuid: user.uuid, guest_temp_uuid: form.guest_temp_uuid %} 
+  {% endif %}
 async_callback_actions:
   delay: 0
   priority: low
@@ -67,6 +77,10 @@ async_callback_actions:
 	html-novalidate: true
   html-enctype="multipart/form-data"
   html-onsubmit:"return LoginScript.methods.validateForm(event);" -%}
+
+  {% if context.constants.ecommerce_addon == 'true' %}
+    <input type="hidden" name="{{ form.fields.guest_temp_uuid.name }}" value="{{ context.session.guest_temp_uuid | default: '' }}"> 
+  {% endif %}
 	
 	<div class="grid-x grid-padding-x">
 		<div class="small-12 cell">

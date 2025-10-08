@@ -18,4 +18,4 @@ metadata: {
 {%- assign data = data | add_hash_key: "request_type", "internal" -%}
 {%- assign data = data | add_hash_key: "administrator_uuid", info.administrator_uuid  -%}
 
-{%- graphql add_events = 'modules/website/trigger_api_call', name: "modules/portal/add_events", data: data -%}
+{% function add_events = "crm/controller/event-streams/create", params: data %}

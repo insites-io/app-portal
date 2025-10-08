@@ -1,0 +1,17 @@
+---
+from: '{%- include "modules/insites_cms/globals" -%} {{- context.exports.global.company_name
+  -}} <{%- include "modules/insites_cms/globals" -%} {{- context.exports.global.company_email_1
+  -}}>'
+layout: modules/insites_core/insites_external_email_layout
+metadata:
+  type: autoresponder
+  design:
+  email_design: default_template
+reply_to: '{%- include "modules/insites_cms/globals" -%} {{- context.exports.global.company_email_1
+  -}}'
+subject: Thank you for your enquiry
+to: "{{ form.properties.email }}"
+trigger_condition: 'true'
+unique_args: ''
+---
+{%- include 'modules/insites_forms/email_notifications/autoresponder_content' -%}

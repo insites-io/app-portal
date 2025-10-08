@@ -55,15 +55,14 @@ metadata: {
     %}
 
     {% comment %} Google map key {% endcomment %}
-    {% graphql data = 'modules/website/trigger_api_call', name: 'modules/portal/get_google_maps_api_key' %}
-    {% assign map_key = data.items.response.body | parse_json | dig: 'items', 'results' | first | dig: 'key' %}
-
+    {% function data = "crm/controller/google_maps/get" %}
+    {%- assign map_key = data.key -%}
 
     {% comment %} connect services to graphql {% endcomment %}
-    {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%}
+    {% comment %} {%- graphql get_contact_us = 'modules/website/system/get_contact_us' -%} {% endcomment %}
     {% comment %} assign var to fetch the result {% endcomment %}
-    {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
-    {%- assign res_contact = res_contact | first -%}
+    {% comment %} {%- assign res_contact = get_contact_us | dig: 'items', 'results' -%}
+    {%- assign res_contact = res_contact | first -%} {% endcomment %}
     
     <div class="contact-us-content-wrapper">
         <div class="contact-us-wrapper">
@@ -79,6 +78,7 @@ metadata: {
                             <div class="contact-us-form-container">
                                 {%- include_form 'modules/ins_forms/contact_us' -%}
                                 <div class="spacer xx-large show-for-small-only"></div> 
+                                <div class="spacer xx-large"></div>
                             </div>
                         </div>
                         <div class="large-6 medium-6 small-12 cell contact-us-details-wrapper">  
@@ -96,11 +96,8 @@ metadata: {
                                                 {% assign phone_number = global.loc_1_phone_number %}         
                                                 <p class="contact-heading">Phone</p>  
                                                 <div class="spacer small"></div>                                                    
-                                                <a class="color-main subHeading" href="tel:{{ contact_no }}" data-test="contact-us-contact-number">
-                                                    +{{ global.loc_1_phone_country_code }}
-                                                    {{ phone_number | slice: 0, 3 }} 
-                                                    {{ phone_number | slice: 3, 4 }} 
-                                                    {{ phone_number | slice: 6, 10 }}
+                                                <a class="color-main subHeading" href="tel:{{ phone_number }}" data-test="contact-us-contact-number">
+                                                    {{ phone_number }}
                                                 </a>
                                             </li>
                                             {%- endif -%}
@@ -112,7 +109,7 @@ metadata: {
                                                 <div class="spacer small"></div>  
                                                 <a class="color-main subHeading" href="mailto:{{ global.loc_1_email }}"
                                                     data-test="contact-us-contact-number">
-                                                    {{ global.loc_1_email }}
+                                                    {{ global.company_email_1 }}
                                                 </a>
                                             </li>
                                         {%- endif -%}
@@ -121,83 +118,85 @@ metadata: {
                                             {%- if loc_1_address_full != "" -%}
                                             <p class="contact-heading">Location</p>  
                                             <div class="spacer small"></div>  
-                                            <a target="_blank" class="color-main subHeading" onclick="mapsSelector()">                                    
+                                            <span class="color-main subHeading">                                    
                                              
                                                 {{ loc_1_address_full }}                                    
-                                            </a>
+                                            </span>
                                             {% endif %}
                                         </li>
-
-                                        <li>
-                                            <p class="contact-heading">Social media</p>  
-                                            <div class="spacer small"></div>  
-                                            <ul class="menu social">
-                                                {% if context.exports.global.facebook_link %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
-                                                        <i class="icon-facebook-square"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.twitter_link %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="twitter" rel="noreferrer">
-                                                        <i class="icon-social-x-square"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.linkedin_link %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="linkedin" rel="noreferrer">
-                                                        <i class="icon-linkedin"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.instagram_link %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.instagram_link }}" data-test="" target="_blank" title="instagram" rel="noreferrer">
-                                                        <i class="icon-instagram-square"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.youtube_link  %}
-                                                <li>
-                                                    <a class="footer-links iconHover" href="{{ context.exports.global.youtube_link }}" data-test="" target="_blank" title="youtube" rel="noreferrer">
-                                                        <i class="icon-youtube-square"></i>
-                                                    </a>
-                                                </li>
-                                                {% endif %}
-
-                                                {% if context.exports.global.pinterest_link  %}
+                                       
+                                        {% if global.facebook_link or global.twitter_link or global.linkedin_link or global.instagram_link or global.youtube_link or global.pinterest_link or global.other_1_link or global.other_2_link %}                                  
+                                            <li>
+                                                <p class="contact-heading">Social media</p>  
+                                                <div class="spacer small"></div>  
+                                                <ul class="menu social">
+                                                    {% if context.exports.global.facebook_link %}
                                                     <li>
-                                                        <a class="footer-links iconHover" href="{{ context.exports.global.pinterest_link }}" data-test="" target="_blank" title="pinterest" rel="noreferrer">
-                                                            <i class="icon-pinterest-square"></i>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer">
+                                                            <i class="icon-facebook-square"></i>
                                                         </a>
                                                     </li>
                                                     {% endif %}
 
-                                                {% if context.exports.global.other_1_link  %}
+                                                    {% if context.exports.global.twitter_link %}
                                                     <li>
-                                                        <a class="footer-links iconHover" href="{{ context.exports.global.other_1_link }}" data-test="" target="_blank" title="other link 1" rel="noreferrer">
-                                                            <i class="icon-share-2"></i>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.twitter_link }}" data-test="" target="_blank" title="twitter" rel="noreferrer">
+                                                            <i class="icon-social-x-square"></i>
                                                         </a>
                                                     </li>
-                                                {% endif %}
+                                                    {% endif %}
 
-                                                {% if context.exports.global.other_2_link  %}
+                                                    {% if context.exports.global.linkedin_link %}
                                                     <li>
-                                                        <a class="footer-links iconHover" href="{{ context.exports.global.other_2_link }}" data-test="" target="_blank" title="other link 2" rel="noreferrer">
-                                                            <i class="icon-share-2"></i>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.linkedin_link }}" data-test="" target="_blank" title="linkedin" rel="noreferrer">
+                                                            <i class="icon-linkedin"></i>
                                                         </a>
                                                     </li>
-                                                {% endif %}
+                                                    {% endif %}
 
-                                            </ul>
-                                        </li>
+                                                    {% if context.exports.global.instagram_link %}
+                                                    <li>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.instagram_link }}" data-test="" target="_blank" title="instagram" rel="noreferrer">
+                                                            <i class="icon-instagram-square"></i>
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+
+                                                    {% if context.exports.global.youtube_link  %}
+                                                    <li>
+                                                        <a class="footer-links iconHover" href="{{ context.exports.global.youtube_link }}" data-test="" target="_blank" title="youtube" rel="noreferrer">
+                                                            <i class="icon-youtube-square"></i>
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+
+                                                    {% if context.exports.global.pinterest_link  %}
+                                                        <li>
+                                                            <a class="footer-links iconHover" href="{{ context.exports.global.pinterest_link }}" data-test="" target="_blank" title="pinterest" rel="noreferrer">
+                                                                <i class="icon-pinterest-square"></i>
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+
+                                                    {% if context.exports.global.other_1_link  %}
+                                                        <li>
+                                                            <a class="footer-links iconHover" href="{{ context.exports.global.other_1_link }}" data-test="" target="_blank" title="other link 1" rel="noreferrer">
+                                                                <i class="icon-share-2"></i>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                    {% if context.exports.global.other_2_link  %}
+                                                        <li>
+                                                            <a class="footer-links iconHover" href="{{ context.exports.global.other_2_link }}" data-test="" target="_blank" title="other link 2" rel="noreferrer">
+                                                                <i class="icon-share-2"></i>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                </ul>
+                                            </li>
+                                        {% endif %}
   
                                     </ul>
                                 </div>
@@ -222,14 +221,14 @@ metadata: {
                                 <div class="grid-x opening-hours">
         
                                     {%- assign days_name = "Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday" | split: "," -%}
-                                    {%- assign global_days = "sun,mon,tue,wed,thu,fri,sat" | split: "," -%}
+                                    {%- assign global_days = "mon,tue,wed,thu,fri,sat,sun" | split: "," -%}
                                     {%- assign current_day = "today" | date: "%A" -%}
                                     
                                     {%- for day in global_days -%}
                                     {%- assign key_enable = "loc_1_" | append: day | append: "_enable" -%}
                                     {%- assign key_open = "loc_1_" | append: day | append: "_open" -%}
                                     {%- assign key_close = "loc_1_" | append: day | append: "_close" -%}
-                                    
+                                 
                                     <div class="small-12 cell grid-x  {% if days_name[forloop.index0] == current_day %}bold{% endif %}">
                                         <div class="small-6 cell">{{ days_name[forloop.index0] }}</div>
                                         <div class="small-6 cell">
@@ -238,7 +237,7 @@ metadata: {
                                                 {% comment %} ? THIS IS TO SET DEFAULT VALUE FOR OPENING HOURS {% endcomment %}
                                                 {% if global[key_enable] == nil %}
                                                     {% comment %} ? THIS VALUE MOSTLY AIMS TO POPULATE UPON INSTALLATION {% endcomment %}
-                                                    {% if days_name[forloop.index0] == "Sunday" or days_name[forloop.index0] == "Saturday"  %}
+                                                    {% if days_name[forloop.index0] == "Monday" or days_name[forloop.index0] == "Sunday"  %}
                                                         <p class="subHeading">Closed</p>   
                                                     {% else %}                                        
                                                         <p class="subHeading">7:00 AM - 4:00 PM</p>
