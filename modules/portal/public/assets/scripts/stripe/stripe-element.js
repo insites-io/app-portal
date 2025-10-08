@@ -175,8 +175,11 @@ let StripeElement = (() => {
                         if(guestAddCardForm){
                             guestAddCardForm.classList.remove("hide");
                         }
-                        if(submitButtons){
-                            submitButtons.classList.add("hide");
+                        if (submitButtons) {
+                            const btns = submitButtons.querySelectorAll('ins-button'); // selects all descendants
+                            btns.forEach(btn => {
+                                btn.classList.add('hide');
+                            });
                         }
                     }
                 }
@@ -184,8 +187,11 @@ let StripeElement = (() => {
                     if(guestAddCardForm){
                         guestAddCardForm.classList.add("hide");
                     }
-                    if(submitButtons){
-                        submitButtons.classList.remove("hide");
+                    if (submitButtons) {
+                        const btns = submitButtons.querySelectorAll('ins-button'); // selects all descendants
+                        btns.forEach(btn => {
+                            btn.classList.remove('hide');
+                        });
                     }
                 }
             }
