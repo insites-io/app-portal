@@ -247,6 +247,9 @@ metadata: {
         searchKey.addEventListener('insInput', e => {
             if (e.detail.keyCode === 13) handleSearch();
         });
+        searchKey.addEventListener('insValueChange', () => { 
+            
+        });
     }
 
     function handleSearch() {
