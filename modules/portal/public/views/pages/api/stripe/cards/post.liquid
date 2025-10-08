@@ -29,7 +29,7 @@ metadata: {
     assign email_exist = false
 
     assign response = "{}" | parse_json
-    graphql user_exist = "modules/portal/user/get_user_by_email", email: customer_email | dig: "items"
+    graphql user_exist = "modules/portal/account/get_user_by_email", email: customer_email | dig: "items"
 
     if user_exist.total_entries > 0
         assign email_exist = true

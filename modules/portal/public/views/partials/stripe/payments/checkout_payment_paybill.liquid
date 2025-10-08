@@ -32,7 +32,7 @@ metadata: {
     {%- comment -%}Step 1-A: Customer Stripe data exist. Proceed payment process {%- endcomment -%}
 
     {%- comment -%}Step 1-A.1: Get updated 'user' data{%- endcomment -%}
-    {%- graphql user = "modules/portal/user/get_user_by_email" 
+    {%- graphql user = "modules/portal/account/get_user_by_email" 
         email: customer_email
         | dig: "items" | dig: "results" | first -%}
     
