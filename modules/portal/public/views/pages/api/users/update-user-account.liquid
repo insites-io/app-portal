@@ -45,10 +45,8 @@ metadata: {
     
     {% if details.permission_level  != "No Access" %}
         {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id, invitation_status: "", permission_level: details.permission_level   %}
-        {% log update_portal_profile, type: "update_portal_profile" %}
     {% else %}
         {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: user_with_token.id,  invitation_status: "", permission_level: "No Access"  %}
-        {% log update_portal_profile, type: "update_portal_profile" %}
     {% endif %}
 
 {% else %}
@@ -76,13 +74,10 @@ metadata: {
             "permission_level": "{{ details.userPermission }}"
         }
         {% endparse_json %}
-        {% log details, type: "details - update-user" %}
         {% comment %} ? UPDATE CRM FIRST {% endcomment %}
         {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
         {% function update_crm_contact = "crm/controller/contacts/update", uuid: user_details.uuid, params: update_crm_data %}  
-        {% log update_crm_contact, type: "update_crm_contact - update-user" %}     
         {% graphql update_portal_profile = 'modules/portal/account/update_portal_profile', id: details.user_id,  invitation_status: "Invited", permission_level: details.userPermission, is_enabled: false, primary_account_holder: false  %}
-          {% log update_portal_profile, type: "update_portal_profile - update-user" %}     
     {% else %}
         {% comment %} ? SAVE NEW CRM {% endcomment %}
         {% parse_json add_crm_data %}
@@ -100,12 +95,8 @@ metadata: {
         {% comment %} NOTE: Create CRM -> Contact via Controller {% endcomment %}
         {% function add_contact = "crm/controller/contacts/create", params: add_crm_data %}
 
-    {% log details, type: "details" %}
-    {% log add_contact, type: "add_contact" %}
     {% graphql add_portal_profile = 'modules/portal/account/create_user_profile', id: add_contact.id, token: "", invitation_status: "Invited", permission_level: details.userPermission, is_enabled: false, primary_account_holder: false   %}
-    
-    {% log add_portal_profile, type: "add_portal_profile" %}
-
+  
     {% endif %}   
     {% comment %} ? CLOSING ENDIF FOR INVITE user - EMAIL EXISTS OR NOT {% endcomment %}
 

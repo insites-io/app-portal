@@ -113,18 +113,13 @@ callback_actions: |-
  
   {%  liquid                  
       assign data = form | json
-
-      log company_address_details, type: "company_address_details - my company details"
-      log data, type: "data - my company details"
-
+     
       if form.properties.company_address_uuid != '' and form.properties.company_address_uuid != null
         function update_company_address = "crm/controller/addresses/update", type: "company", uuid: props.company_address_uuid, params: company_address_details
         assign company_uuid = form.properties.company_uuid
-        log update_company_address, type: "update_company_address - my company details"
       else
         function add_company = "crm/controller/companies/create", params: company_details
         assign company_uuid = add_company.items.properties.uuid
-        log add_company, type: "add_company - my company details"
       endif
   %}
 
