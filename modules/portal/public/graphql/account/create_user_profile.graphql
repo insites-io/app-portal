@@ -4,6 +4,7 @@ mutation create_user_profile(
   $is_enabled: Boolean
   $primary_account_holder: Boolean
   $invitation_status: String
+  $permission_level: String
 ) {
   user_update(
     id: $id
@@ -17,6 +18,7 @@ mutation create_user_profile(
               { name: "invitation_status", value: $invitation_status }
               { name: "is_enabled", value_boolean: $is_enabled }
               { name: "primary_account_holder", value_boolean: $primary_account_holder }
+              { name: "permission_level", value: $permission_level }
             ]
           }
         }
@@ -24,5 +26,6 @@ mutation create_user_profile(
     }
   ) {
     id
+    properties
   }
 }

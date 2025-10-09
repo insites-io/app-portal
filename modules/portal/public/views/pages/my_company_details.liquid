@@ -30,29 +30,15 @@ authorization_policies:
 {%- graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user' -%}
 {% assign user_company_uuid =  user | dig: 'crm_contact' | first  %}
 
-{% comment %} Get CRM -> Company from v5 API {% endcomment %}
-{% parse_json data %} 
-{
-  "company_uuid": "{{ user_company_uuid.company_uuid }}"
-}
-{% endparse_json %}
-
-{% liquid
-    graphql company_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_company', data: data 
-    assign company = company_api.items.response.body | parse_json 
-    assign data = data | add_hash_key: "address_uuid", company.default_address.uuid
-%}
-
-{% comment %} Get CRM -> Company Address from v5 API {% endcomment %}
-{% liquid
-    graphql company_address_api = 'modules/website/trigger_api_call', name: 'modules/portal/get_company_address', data: data 
-    assign company_address = company_address_api.items.response.body | parse_json 
-    assign company = company | add_hash_key: "default_address", company_address
-%}
+{% comment %} NOTE: Update CRM -> Company via Controller {% endcomment %}
+{% assign company_uuid = user_company_uuid.company_uuid %}
+{% function get_company = "crm/controller/companies/get", uuid: company_uuid %}
+{% assign company_address_uuid = get_company.default_address.uuid %}
+{% function get_company_address = "crm/controller/addresses/get", type: "company", uuid: company_address_uuid %}
+{% assign company = get_company | add_hash_key: "default_address", get_company_address %}
 
 {% comment %} Company Details Form {% endcomment %}
 {%- include_form 'modules/portal/my_company_details', id: company.id, data: company -%}
-
 
 <script>
   let submitBtn = document.getElementById("submit-btn");

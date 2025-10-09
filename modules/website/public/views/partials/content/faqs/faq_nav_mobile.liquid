@@ -1,3 +1,8 @@
+---
+metadata: {
+    partial_name: 'Website | FAQs | FAQ Nav Mobile'
+}
+---
 <div class="show-for-small-only">
     {%- graphql get_faq_item = 'modules/website/faqs/get_faqs', slug: context.params.slug2 | dig: 'items', 'results' -%}
     {%  assign faq_item  =  get_faq_item | first %}

@@ -1,5 +1,5 @@
 ---
-from: "{{ form.properties.full_name }} <notifications@insites.io>"
+from: Insites <notifications@insites.io>
 layout: modules/insites_core/insites_internal_email_layout
 metadata:
   type: workflow
@@ -7,7 +7,8 @@ metadata:
   email_design: cms_layout
 reply_to: notifications@insites.io
 subject: New feedback received
-to: notifications@insites.io
+to: '{%- include "modules/insites_cms/globals" -%} {{- context.exports.global.company_email_1
+  -}}'
 trigger_condition: 'true'
 unique_args: ''
 ---

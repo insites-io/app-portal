@@ -11,16 +11,8 @@ metadata: {
 {% assign get_company_details = user | dig: 'crm_contact' | first %}
 {% assign portal_profile = user | dig: 'portal' | first %}
 
-{% parse_json data %} 
-{
-  "company_uuid": "{{ get_company_details.company_uuid }}"
-}
-{% endparse_json %}
-
-{% liquid
-    graphql get_company = 'modules/website/trigger_api_call', name: 'modules/portal/get_company', data: data 
-    assign company_details = get_company.items.response.body | parse_json 
-%}
+{% assign company_uuid = get_company_details.company_uuid %}
+{% function company_details = "crm/controller/companies/get", uuid: company_uuid %}
 
 {% assign user_name = user.name %}
 {% assign user_external_id = user.external_id %}

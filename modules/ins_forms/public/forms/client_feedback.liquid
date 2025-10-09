@@ -1,6 +1,7 @@
 ---
 async_callback_actions:
   delay: ''
+  priority:
 callback_actions: "{%- include 'modules/website/forms/feedback_event_stream', %}\n"
 email_notifications:
 - modules/ins_forms/workflow_735331
@@ -24,10 +25,31 @@ metadata:
   label: Client Feedback
   form_steps: []
   properties:
-  - name: allow_display_on_website
+  - id: '18401337'
+    name: allow_display_on_website
     options:
     - 'Yes'
     - 'No'
+    rawData:
+      id: '18401337'
+      name: allow_display_on_website
+      options: {}
+      metadata:
+        label: May we display your feedback as a testimonial on our website?
+        weight: 1
+        options:
+        - 'Yes'
+        - 'No'
+        group_id: 9e96cf3e-c23f-4118-ab5e-f0ed9899ccef
+        ui_element: radio
+        is_required: false
+        is_sortable: true
+        is_shown_in_table: true
+      target_id: '2046409'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
     form_step: 9e96cf3e-c23f-4118-ab5e-f0ed9899ccef
     conditions: []
     field_type: string
@@ -38,7 +60,25 @@ metadata:
     field_weighting: 0
     is_field_hidden: false
     validation_rules: {}
-  - name: full_name
+  - id: '18401338'
+    name: full_name
+    rawData:
+      id: '18401338'
+      name: full_name
+      options: {}
+      metadata:
+        label: Full Name
+        weight: 2
+        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+        ui_element: input
+        is_required: true
+        is_searchable: true
+        is_shown_in_table: true
+      target_id: '2046409'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
     form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
     conditions: []
     field_type: string
@@ -50,7 +90,26 @@ metadata:
     validation_rules:
       presence:
         message: Full name is required.
-  - name: location
+  - id: '18401339'
+    name: location
+    rawData:
+      id: '18401339'
+      name: location
+      options: {}
+      metadata:
+        label: Location
+        weight: 3
+        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+        ui_element: input
+        is_required: false
+        is_sortable: true
+        is_searchable: true
+        is_shown_in_table: true
+      target_id: '2046409'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
     form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
     conditions: []
     field_type: string
@@ -62,7 +121,23 @@ metadata:
     validation_rules:
       presence:
         message: Location is required.
-  - name: message
+  - id: '18401340'
+    name: message
+    rawData:
+      id: '18401340'
+      name: message
+      options: {}
+      metadata:
+        label: Message
+        weight: 4
+        group_id: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
+        ui_element: multi_line
+        is_required: true
+      target_id: '2046409'
+      belongs_to:
+      target_type: CustomModelType
+      default_value:
+      attribute_type: string
     form_step: 53f9c2ff-7458-4834-8f0b-ec25d72828fe
     conditions: []
     field_type: string

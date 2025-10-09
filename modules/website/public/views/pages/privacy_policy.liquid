@@ -56,7 +56,7 @@ endif
             <div id="privacy-prefix">
                 <p class="spacer">This is the privacy notice of {{ global.company_name | strip }}. In this document, "we" or "us" refers to {{ global.company_name | strip }}.</p>
                 <p class="spacer">We are ABN {{ global.company_id | strip }} registered in Australia.</p>
-                <p class="spacer">Our registered office is at {{ loc_1_address_full | strip  }}.</p>
+                <p class="spacer">Our registered office is at {{ loc_1_address_full | strip | default: "1 Insites Street, Melbourne Victoria 3000 Australia"  }}.</p>
                 <p class="spacer">This is a notice to tell you our policy about all information that we record about you. It covers both information that could identify you and information that could not.</p>
                 <p class="spacer xxx-large">We are extremely committed to protecting your privacy and confidentiality. We understand that all users of our website are quite rightly concerned to know that their data will not be used for any purpose unintended by them and will not accidentally fall into the hands of a third party. Our policy is both specific and strict. It complies with Australian law. If you think our policy falls short of your expectations or that we are failing to abide by our policy, please tell us.</p>
             </div>

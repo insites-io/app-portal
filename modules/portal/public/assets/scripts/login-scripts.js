@@ -1,4 +1,4 @@
-let emailInputInfo =  {
+let emailInputInfo = {
     status: 'clean',
     id: null
 }
@@ -19,7 +19,7 @@ const companyMobileFields = {
 
 const company_email = document.getElementById('email-1');
 
-let LoginScript = (function () {
+let LoginScript = (function() {
     return {
         methods: {
             validateTelField() {
@@ -41,9 +41,9 @@ let LoginScript = (function () {
                     }
                 });
             },
-            validatePasswordField(field){
+            validatePasswordField(field) {
                 if (field.value) {
-                    if((field.value.length >= 6)){
+                    if ((field.value.length >= 6)) {
                         field.hasError = false;
                     } else {
                         field.hasError = true;
@@ -54,16 +54,16 @@ let LoginScript = (function () {
                     field.errorMessage = "Password is required.";
                 }
             },
-            validatePasswordConfirm(field){
+            validatePasswordConfirm(field) {
                 let passFields = document.getElementById('password');
-                if(passFields){
-                    if(passFields.value === field.value){
+                if (passFields) {
+                    if (passFields.value === field.value) {
                         field.hasError = false;
-                    } else {                        
+                    } else {
                         field.hasError = true;
                         field.errorMessage = "Password doesn't match.";
                     }
-                } 
+                }
             },
             async validationForm(containerEl) {
                 for (let index = 0; index < containerEl.querySelectorAll('[validate]').length; index++) {
@@ -81,32 +81,31 @@ let LoginScript = (function () {
                             break
                         case 'ins-input':
                         default:
-                            if(field.field === 'password'){
-                                if(field.id === 'password_confirmation'){
+                            if (field.field === 'password') {
+                                if (field.id === 'password_confirmation') {
                                     this.validatePasswordConfirm(field);
                                 } else {
                                     this.validatePasswordField(field);
                                 }
-                            } else if(field.field === 'email'){
+                            } else if (field.field === 'email') {
                                 var is_email_valid = true
                                 var requiredEmail = document.getElementById("emailRequired");
                                 var emailInvalid = document.getElementById("emailInvalid")
                                 requiredEmail.classList.add('is_hidden');
                                 emailInvalid.classList.add('is_hidden');
-                              
-                                if(field.value == '') {
+
+                                if (field.value == '') {
                                     requiredEmail.classList.add('is_visible');
                                     requiredEmail.classList.remove('is_hidden');
-                                }else {
+                                } else {
                                     is_email_valid = this.isValidEmail(field.value);
-                                    if(is_email_valid == false){ 
+                                    if (is_email_valid == false) {
                                         emailInvalid.classList.add('is_visible');
                                         emailInvalid.classList.remove('is_hidden');
                                     }
                                 }
                                 App.validation.validateEmail(field);
-                            }
-                            else{
+                            } else {
                                 App.validation.validateInput(field);
                             }
                             break;
@@ -120,102 +119,99 @@ let LoginScript = (function () {
                 return re.test(email);
             },
             async validateForm(event, groupElem) {
-                event ? event.preventDefault(): '';
+                event ? event.preventDefault() : '';
                 //Get id and element to identify the kind of form submitted
                 let formId = event.target.id;
-                let formElem = document.getElementById(formId).closest('form'); 
-             
+                let formElem = document.getElementById(formId).closest('form');
+
                 // Check what form is being validated...
-                if(formId == 'submit-personal-details' || formId == 'submit-company-details'){
-                    console.log(formId);
-                    
-                    if(formId == 'submit-company-details'){
+                if (formId == 'submit-personal-details' || formId == 'submit-company-details') {
+                    if (formId == 'submit-company-details') {
                         let is_email_valid_company = true
                         let requiredEmailCompany = document.getElementById("CompanyEmailRequired");
                         let emailInvalidCompany = document.getElementById("CompanyEmailInvalid")
                         requiredEmailCompany.classList.add('is_hidden');
                         emailInvalidCompany.classList.add('is_hidden');
-                    
-                        if(company_email.value == '') {
-                            console.log("here blank");
-                            console.log(requiredEmailCompany, "requiredEmailCompany");
-                    
+
+                        if (company_email.value == '') {
                             requiredEmailCompany.classList.add('is_visible');
                             requiredEmailCompany.classList.remove('is_hidden');
-                        }else {
+                        } else {
                             is_email_valid_company = this.isValidEmail(company_email.value);
-                            if(is_email_valid_company == false){ 
-                                console.log("here incorrect");
-                                console.log(emailInvalidCompany, "emailInvalidCompany");
-
+                            if (is_email_valid_company == false) {
                                 emailInvalidCompany.classList.add('is_visible');
                                 emailInvalidCompany.classList.remove('is_hidden');
                             }
                         }
                     }
-                    
+
                     //Validation for Sign Up Form
                     this.validateTelField();
-                    if(await this.validationForm(groupElem)){
-                        if(formId == 'submit-personal-details'){
+                    if (await this.validationForm(groupElem)) {
+                        if (formId == 'submit-personal-details') {
                             let values = await mobileFields.inputTel.getValues();
                             mobileFields.country_code.value = values.country_code;
                             mobileFields.phone_number.value = values.phone_number;
-                        }else if(formId == 'submit-company-details'){
+                        } else if (formId == 'submit-company-details') {
                             let values = await companyMobileFields.inputTel.getValues();
                             companyMobileFields.country_code.value = values.country_code;
                             companyMobileFields.phone_number.value = values.phone_number;
                         }
-                        switch(emailInputInfo.status){
-                            case 'clean':{ //email is clean
-                                //formElem.submit();
-                                return true;
-                            }break;
-                            case 'update':{ //email 'update'
-                                this.changeFormToAppend(formElem, emailInputInfo.id);
-                                //formElem.submit();
-                                return true;
-                            }break;
-                            case 'error':{ //email is used
-                                let emailElem = document.getElementById('email');
-                                emailElem.hasError = true;
-                                emailElem.errorMessage = "This email has already used. Please login on your account";    
-                            }break;
+                        switch (emailInputInfo.status) {
+                            case 'clean':
+                                { //email is clean
+                                    //formElem.submit();
+                                    return true;
+                                }
+                                break;
+                            case 'update':
+                                { //email 'update'
+                                    this.changeFormToAppend(formElem, emailInputInfo.id);
+                                    //formElem.submit();
+                                    return true;
+                                }
+                                break;
+                            case 'error':
+                                { //email is used
+                                    let emailElem = document.getElementById('email');
+                                    emailElem.hasError = true;
+                                    emailElem.errorMessage = "This email has already used. Please login on your account";
+                                }
+                                break;
                         }
                     }
-                } else if (formId == 'password-reset-form'){
-                    if(await this.validationForm(formElem)){
+                } else if (formId == 'password-reset-form') {
+                    if (await this.validationForm(formElem)) {
                         formElem.submit();
                     }
 
                 } else {
                     //Validation for other forms
-                    if(await App.validation.validateForm(formElem)){
+                    if (await App.validation.validateForm(formElem)) {
                         formElem.submit();
                     }
                 }
             },
-            async checkSignUpUserEmail(event){ 
+            async checkSignUpUserEmail(event) {
                 // Attached to the eventlistener
                 let emailInput = document.getElementById('email');
                 let varEmail = document.getElementById('email').value
-                if(App.validation.validateEmail(emailInput)){
-                    let url = '/check-user-email-signup?'+ 'email='+ varEmail ;
+                if (App.validation.validateEmail(emailInput)) {
+                    let url = '/check-user-email-signup?' + 'email=' + varEmail;
                     let response = await apiServices.processRequest('get', url);
-                    if(response.state && response.data) {
+                    if (response.state && response.data) {
                         //Check / Handle if user exist
                         LoginScript.methods.checkUserEmail(emailInput, response.data);
-                    } 
+                    }
                 }
             },
-            checkUserEmail(emailElem, data){
-                if(data.email_status == "invalid"){
+            checkUserEmail(emailElem, data) {
+                if (data.email_status == "invalid") {
                     //Profile in account is already existing (Active / Inactive)
                     emailElem.hasError = true;
                     emailElem.errorMessage = data.message;
                     this.updateEmailInputInfo('error');
-                } 
-                else if(data.email_status == "no-profile") {
+                } else if (data.email_status == "no-profile") {
                     //Profile has no profile
                     emailElem.hasError = false;
                     this.updateEmailInputInfo('update', data.email_id);
@@ -225,7 +221,7 @@ let LoginScript = (function () {
                     this.updateEmailInputInfo('clean');
                 }
             },
-            changeFormToAppend(formElement, id){
+            changeFormToAppend(formElement, id) {
                 let tmpInput = document.createElement("input");
                 tmpInput.name = "_method";
                 tmpInput.type = "hidden";
@@ -235,7 +231,7 @@ let LoginScript = (function () {
                 tmpSrc.value = id;
                 formElement.action = '/api/users/' + id;
             },
-            updateEmailInputInfo(status, id = null){
+            updateEmailInputInfo(status, id = null) {
                 emailInputInfo.status = status;
                 emailInputInfo.id = id;
             }
@@ -244,10 +240,10 @@ let LoginScript = (function () {
             //Initialise form if signup (only applies to sign up)
             initSignUp() {
                 let elem = document.getElementById('register-form');
-                if(elem){
+                if (elem) {
                     let emailInput = document.getElementById('email');
                     emailInput.addEventListener('insBlur', LoginScript.methods.checkSignUpUserEmail);
-                } 
+                }
             }
         }
     }
