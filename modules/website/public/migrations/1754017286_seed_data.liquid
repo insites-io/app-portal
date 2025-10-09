@@ -466,7 +466,7 @@
 {% endif %}
 
 {% comment %} NOTE: NEWS {% endcomment %}
-{%- graphql get_news = 'modules/website/news/get_news' | dig: 'items' -%}
+{%- graphql get_news = 'modules/website/news/get_news_for_migration' | dig: 'items' -%}
 {% if get_news.total_entries == 0 %}
     {% parse_json news %}
         [

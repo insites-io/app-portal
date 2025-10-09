@@ -237,7 +237,7 @@ metadata: {
                                                 {% comment %} ? THIS IS TO SET DEFAULT VALUE FOR OPENING HOURS {% endcomment %}
                                                 {% if global[key_enable] == nil %}
                                                     {% comment %} ? THIS VALUE MOSTLY AIMS TO POPULATE UPON INSTALLATION {% endcomment %}
-                                                    {% if days_name[forloop.index0] == "Monday" or days_name[forloop.index0] == "Sunday"  %}
+                                                    {% if days_name[forloop.index0] == "Saturday" or days_name[forloop.index0] == "Sunday"  %}
                                                         <p class="subHeading">Closed</p>   
                                                     {% else %}                                        
                                                         <p class="subHeading">7:00 AM - 4:00 PM</p>

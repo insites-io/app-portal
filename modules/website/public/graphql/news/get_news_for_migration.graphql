@@ -1,0 +1,18 @@
+query get_news_for_migration(
+    $page: Int = 1, 
+    $size: Int = 9
+) {
+    items: records(
+        page: $page
+        per_page: $size
+        filter: {
+            table: { value: "modules/website/news" }
+            deleted_at: { exists: false }
+            properties: [
+              	{ name: "status", contains: "Published"}
+            ]
+        }
+    ) {
+        total_entries
+    }
+}
