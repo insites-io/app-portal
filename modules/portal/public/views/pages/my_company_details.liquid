@@ -28,17 +28,46 @@ authorization_policies:
 ---
     
 {%- graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user' -%}
-{% assign user_company_uuid =  user | dig: 'crm_contact' | first  %}
+{% assign company_uuid = user | dig: 'crm_contact' | first | dig: 'company_uuid' %}
+{% function company = "crm/controller/companies/get", uuid: company_uuid %}
+{% assign default_address_uuid = company.default_address.uuid %}
 
-{% comment %} NOTE: Update CRM -> Company via Controller {% endcomment %}
-{% assign company_uuid = user_company_uuid.company_uuid %}
-{% function get_company = "crm/controller/companies/get", uuid: company_uuid %}
-{% assign company_address_uuid = get_company.default_address.uuid %}
-{% function get_company_address = "crm/controller/addresses/get", type: "company", uuid: company_address_uuid %}
-{% assign company = get_company | add_hash_key: "default_address", get_company_address %}
+
+{% comment %} Get the Default Address or the First Address of the Company {% endcomment %}
+{% if default_address_uuid and default_address_uuid != '' %}
+
+  {% comment %} Default Address {% endcomment %}
+  {% function company_address = "crm/controller/addresses/get", type: "company", uuid: default_address_uuid %}
+
+{% elsif company_uuid and company_uuid != '' %}
+
+  {% comment %} First Address of the Company {% endcomment %}
+  {% parse_json address_params %}
+  {
+    "page": "1",
+    "size": "1",
+    "keyword": "{{ company_uuid }}",
+    "search_by": "company.uuid"
+  }
+  {% endparse_json %}
+  {% function company_address = "crm/controller/addresses/list", type: "company", params: address_params  %}
+  {% assign company_address = company_address | dig: "results" | first  %}
+
+{% endif %}  
+  
+
+{% comment %} Assign the Address as the Default Address of the Company {% endcomment %}
+{% assign company = company | add_hash_key: "default_address", company_address %}
+
 
 {% comment %} Company Details Form {% endcomment %}
-{%- include_form 'modules/portal/my_company_details', id: company.id, data: company -%}
+{% if company.id and company.id != '' %} 
+  {%- include_form 'modules/portal/my_company_details', id: company.id, uuid: company.uuid, data: company -%}
+{% else %}
+  {% assign uuid = '' | uuid %}
+  {%- include_form 'modules/portal/my_company_details', uuid: uuid, data: company -%}
+{% endif %}
+
 
 <script>
   let submitBtn = document.getElementById("submit-btn");

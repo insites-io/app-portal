@@ -8,6 +8,10 @@ redirect_to: my-company-details
 fields:  
   properties:
     #CRM Company Fields
+    uuid:
+      validation: 
+        presence: 
+         message: UUID is required.
     email_1:
       validation: 
         email: 
@@ -22,6 +26,7 @@ fields:
           message: Company registration number is required.        
     mobile_phone_number:
     mobile_phone_country_code:
+    default_address_uuid: 
 
     #CRM Address (Company) Fields
     company_address_1:
@@ -56,12 +61,6 @@ fields:
         presence: 
           message: Country is required.
       property_options:
-        virtual: true    
-    company_uuid:
-      property_options:
-        virtual: true
-    company_address_uuid:
-      property_options:
         virtual: true
     company_latitude:
       property_options:
@@ -71,30 +70,16 @@ fields:
         virtual: true
 callback_actions: |-
   {% comment %} 
-    The form itself will update the CRM_Company only
-    Update the company address using API
-      If company already exist
-        - use API to update_company_address only
-      Else
-        - use API to add_company (this will update the address also)
+    - The form itself will add/update the CRM_Company only
+    - Use the Controller to Add/Update the company address
   {% endcomment %}
      {% assign props = form.properties %}
-    
-    # Create Company details object
-    {% parse_json company_details %}
-    {
-      "company_name": "{{ props.company_name }}",
-      "registered_business_number": "{{ props.registered_business_number }}",
-      "email_1": "{{ props.email_1 }}",
-      "mobile_phone_country_code": "{{ props.company_mobile_phone_country_code }}",
-      "mobile_phone_number": "{{ props.company_mobile_phone_number }}"
-    }
-    {% endparse_json %}
+  
 
     # Create Company address object
-    {% parse_json company_address_details %}
+    {% parse_json company_address_params %}
     {
-      "company_address_uuid": "{{ props.company_address_uuid }}",
+      "company.uuid": "{{ props.uuid }}",
       "address_label": "{{ props.company_address_1 }}",
       "address_1": "{{ props.company_address_1 }}",
       "address_2": "{{ props.company_address_2 }}",
@@ -112,14 +97,17 @@ callback_actions: |-
     {% endparse_json %}
  
   {%  liquid                  
-      assign data = form | json
-     
-      if form.properties.company_address_uuid != '' and form.properties.company_address_uuid != null
-        function update_company_address = "crm/controller/addresses/update", type: "company", uuid: props.company_address_uuid, params: company_address_details
-        assign company_uuid = form.properties.company_uuid
+      if props.default_address_uuid and props.default_address_uuid != ''
+        ## Update Company Address
+        function company_address = 'crm/controller/addresses/update', type: 'company', uuid: props.default_address_uuid, params: company_address_params
       else
-        function add_company = "crm/controller/companies/create", params: company_details
-        assign company_uuid = add_company.items.properties.uuid
+        ## Add Company Address
+        function company_address = 'crm/controller/addresses/create', type: 'company', params: company_address_params
+        
+        ## Update Company default address uuid
+        assign company_params = '{}' | parse_json
+        assign company_params = company_params | add_hash_key: "default_address.uuid", company_address.uuid
+        function update_company = "crm/controller/companies/update", uuid: props.uuid, params: company_params
       endif
   %}
 
@@ -176,14 +164,21 @@ async_callback_actions:
     {%- assign info = payload | add_hash_key: "log", log_info_json -%}
     {% include 'modules/portal/events/log_event', info %}
 ---
+  
 {%- form 
     html-id: "my-company-details-form"
     html-class: 'insites-form insites-form-code' 
     html-novalidate: true
     html-onsubmit:"return validateMyCompanyDetails(event);" -%}
+    
+    <input type="hidden" name="{{ form.fields.properties.uuid.name }}"  value="{{ uuid }}" >
 
-    <input type="hidden" name="{{ form.fields.properties.company_uuid.name }}"  value="{{ data.uuid }}" >
-    <input type="hidden" name="{{ form.fields.properties.company_address_uuid.name }}" value="{{ data.default_address.uuid }}" >
+    {% comment %} 
+      - Determines if the action is Add or Edit address 
+      - It also updates the Company default address uuid
+    {% endcomment %}
+    <input type="hidden" name="{{ form.fields.properties.default_address_uuid.name }}" value="{{ data.default_address.uuid }}" >
+    
 
     <div class="insites-form-grid">
       {% include 'modules/portal/account/registration_company_details', data: data %}
