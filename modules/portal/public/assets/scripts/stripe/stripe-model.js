@@ -10,7 +10,7 @@ let StripeModel = (() => {
                     "card_brand": data.card_brand
                 }
                 let response = await StripeServices.createCreditCard({ 'payload': payload });
-                if(response.state) {
+                if (response.data.stripe_card_id != null && response.data.stripe_card_id !== '') {
                     return response;
                 } else {
                     App.events.notyf('error', "Failed to create creditcard.");

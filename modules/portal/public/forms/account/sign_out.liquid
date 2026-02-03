@@ -8,6 +8,9 @@ callback_actions: >
     {% include 'modules/ecommerce/checkout/clear_session' %}
     {% include 'modules/ecommerce/user/clease_sessions' %}
   {% endif %}
+  {% if context.constants.events_addon == 'true' %}
+    {% include 'modules/events/purchase_ticket/clear_ticket_purchase_sessions' %}
+  {% endif %}
 ---
 
 {% form method: 'delete' %}

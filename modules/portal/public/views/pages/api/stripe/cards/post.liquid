@@ -63,7 +63,7 @@ metadata: {
             "source": "{{ payload.stripe_credit_card }}"
         }
         {% endparse_json %}
-        {%- comment -%}Create new card on Stripe API {%- endcomment -%}
+        {%- comment -%} Create new card on Stripe API: Export stripe_response {%- endcomment -%}
         {%- include 'modules/portal/stripe/credit_cards/create_credit_card', stripe_card: stripe_card -%}
         
     {% else %}
@@ -94,6 +94,7 @@ metadata: {
         {% else %}
             {% comment %} LOG: {% endcomment %}
             {% log "Error: Logged-in user has no CRM data" %}
+            {% assign status = 400 %}
         {% endif %}
 
         {%- if stripe_customer_id -%}
@@ -104,6 +105,7 @@ metadata: {
                 "source": "{{ payload.stripe_credit_card }}"
             }
             {% endparse_json %}
+            {%- comment -%} Create new card on Stripe API: Export stripe_response {%- endcomment -%}
             {%- include 'modules/portal/stripe/credit_cards/create_credit_card', stripe_card: stripe_card -%}      
         {% endif %}
 
@@ -111,6 +113,6 @@ metadata: {
 
 
 {
-    "stripe_id": "{{ context.exports.stripe_response.id }}"
+    "stripe_card_id": "{{ context.exports.stripe_response.id }}"
 }
 {%- response_status status -%}
