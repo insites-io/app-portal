@@ -12,6 +12,9 @@ fields:
       validation: 
         presence: 
          message: UUID is required.
+    action:
+      property_options:
+        virtual: true
     email_1:
       validation: 
         email: 
@@ -111,6 +114,20 @@ callback_actions: |-
       endif
   %}
 
+
+  {% parse_json params %}
+  {
+    "company.uuid" : "{{ props.uuid }}",
+    "email" : "{{ context.current_user.email }}"
+  }
+  {% endparse_json %}
+
+  {%  liquid
+    if props.action == 'add'
+      function update_contact = "crm/controller/contacts/update", uuid: context.current_user.external_id, params: params
+    endif
+  %}
+
 async_callback_actions:
   delay: 0
   priority: low
@@ -170,7 +187,8 @@ async_callback_actions:
     html-class: 'insites-form insites-form-code' 
     html-novalidate: true
     html-onsubmit:"return validateMyCompanyDetails(event);" -%}
-    
+
+    <input type="hidden" name="{{ form.fields.properties.action.name }}"  value="{{ action }}" >
     <input type="hidden" name="{{ form.fields.properties.uuid.name }}"  value="{{ uuid }}" >
 
     {% comment %} 
@@ -179,7 +197,6 @@ async_callback_actions:
     {% endcomment %}
     <input type="hidden" name="{{ form.fields.properties.default_address_uuid.name }}" value="{{ data.default_address.uuid }}" >
     
-
     <div class="insites-form-grid">
       {% include 'modules/portal/account/registration_company_details', data: data %}
     </div>

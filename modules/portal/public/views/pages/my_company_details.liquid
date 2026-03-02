@@ -32,7 +32,6 @@ authorization_policies:
 {% function company = "crm/controller/companies/get", uuid: company_uuid %}
 {% assign default_address_uuid = company.default_address.uuid %}
 
-
 {% comment %} Get the Default Address or the First Address of the Company {% endcomment %}
 {% if default_address_uuid and default_address_uuid != '' %}
 
@@ -59,13 +58,12 @@ authorization_policies:
 {% comment %} Assign the Address as the Default Address of the Company {% endcomment %}
 {% assign company = company | add_hash_key: "default_address", company_address %}
 
-
 {% comment %} Company Details Form {% endcomment %}
 {% if company.id and company.id != '' %} 
   {%- include_form 'modules/portal/my_company_details', id: company.id, uuid: company.uuid, data: company -%}
 {% else %}
   {% assign uuid = '' | uuid %}
-  {%- include_form 'modules/portal/my_company_details', uuid: uuid, data: company -%}
+  {%- include_form 'modules/portal/my_company_details', uuid: uuid, data: company, action: 'add' -%}
 {% endif %}
 
 

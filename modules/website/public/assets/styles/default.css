@@ -4279,6 +4279,15 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
     object-fit: cover;
 }
 
+@media screen and (min-width: 1567px) {
+    .news-content .card img {
+        width: 100%;
+        border-radius: 12px;
+        height: 260px;
+        object-fit: cover;
+    }
+}
+
 .newsSubheading {
     color: var(--font-color-sub, #323232);
     font-family: var(--font-family-02, Archivo);
