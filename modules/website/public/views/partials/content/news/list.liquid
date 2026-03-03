@@ -80,12 +80,13 @@ metadata: {
         <div class="grid-container">
             <div class="grid-x gutter-medium grid-padding-x grid-padding-y">
                 <div class="large-8 medium-12 small-12 cell filter-container-cell">
-                    <ins-filter id="news-filter" label="Filter by:">
+                    <ins-filter id="news-filter">
                         <ins-filter-item
-                            name="Tag"
+                            name="Filter by"
                             options='["All"{% for tag in tags %}, "{{ tag }}"{% endfor %}]'
                             selected="{{ context.params.tag }}">
                         </ins-filter-item>
+                        <div class="spacer x-small show-for-small-only"></div>
                         <ins-filter-item
                             name="Sort by"
                             options='["Newest First", "Oldest first", "Alphabetical (A-Z)","Alphabetical (Z-A)"]'
