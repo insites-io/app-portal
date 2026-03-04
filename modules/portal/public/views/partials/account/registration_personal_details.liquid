@@ -61,7 +61,7 @@ metadata: {
             label="Email*"
             field="email"
             name="{{ form.fields.email.name }}" 
-            value="{{ form.fields.email.value }}" 
+            value="{{ context.params.email | default: form.fields.email.value }}" 
             {% if form.errors['email'] %} has-error {% endif %}
             error-message="{{ form.errors['email'] }}"
             placeholder="Email">

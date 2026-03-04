@@ -330,8 +330,13 @@ async_callback_actions:
     html-onsubmit:"return Session.events.signUpHandler(event, 'personal-details-container');" -%}
 
   <div class="insites-form-grid">
-
-  {% include 'modules/portal/account/registration_personal_details' %}
+  
+  {% if context.params.email %}
+    {% include 'modules/portal/account/registration_personal_details', email: context.params.email %}
+  {% else %}
+    {% include 'modules/portal/account/registration_personal_details' %}  
+  {% endif %}
+  
 
   {% include 'modules/portal/account/registration_company_details' %}
 

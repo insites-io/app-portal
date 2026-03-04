@@ -148,8 +148,8 @@ metadata: {
                 {% for item in res_news %}
                     <div class="large-4 medium-6 small-12 cell news-cards">
                         <a onclick="goToNewsDetail('{{ item.slug }}')" class="news-main-link-container">
-                            <div class="card"> 
-                                <div class="newsImageContainer">
+                            <div class="skeleton-card card">                                 
+                                <div class="newsImageContainer listview-skeleton skeleton-img">
                                     {% if item.list_view_image.url %}
                                         <img width="500" height="500" alt="image" src="{{ item.list_view_image.url }}">
                                     {% else %}
@@ -164,20 +164,20 @@ metadata: {
                                 <div class="spacer large"></div>
                                 <div class="news-author">
                                     {% if item.author != blank %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ item.author }}</p>
+                                        <p class="newsSubheading listview-skeleton skeleton-title">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ item.author }}</p>
                                     {% else %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}</p>
+                                        <p class="newsSubheading listview-skeleton skeleton-title">Published on {{ item.published_date | date: "%b %d, %Y" }}</p>
                                     {% endif %}                  
                                 </div>
                                 <div class="newsContentContainer">
                                     <div class="news-content">
                                         <div class="spacer x-small"></div>
                                             <div class="newsTitle">
-                                                <h5>{{ item.title }}</h5>
+                                                <h5 class="listview-skeleton skeleton-title">{{ item.title }}</h5>
                                             </div>
                                         <div class="spacer x-small"></div>
                                         <div class="description">
-                                            <p class="subHeading p-two-line">{{ item.list_view_text }}</p>
+                                            <p class="subHeading p-two-line listview-skeleton skeleton-text">{{ item.list_view_text }}</p>
                                         </div>
                                         <div class="tagButton">
                                             <ins-tag 
@@ -201,6 +201,7 @@ metadata: {
                                         <i class="icon-arrow-up-right"></i> 
                                     </div>
                                 </div>
+                            
                             </div>
                         </a>
                     </div>
@@ -332,4 +333,12 @@ metadata: {
 
         window.location.href = `/news/${slug}`;
     }
+
+    window.addEventListener('load', () => {
+        const skeletonElements = document.querySelectorAll('.listview-skeleton');
+
+        skeletonElements.forEach((el) => {
+            el.classList.remove('listview-skeleton', 'skeleton-img', 'skeleton-title', 'skeleton-text');
+        });
+    });
 </script>
