@@ -10,9 +10,13 @@ metadata: {
 }
 {% endparse_json %}
 
+{% log data, type: "data" %}
+
 {% liquid
     graphql get_payment = 'modules/portal/payments/get_payments', id: data.id | dig: 'items','results' | first
 %}
+
+{% log get_payment, type: "get_payment" %}
 
 <div class="spacer xxx-large hide-for-small-only"></div>
 <div class="grid-x grid-padding-x">

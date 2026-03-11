@@ -10,6 +10,10 @@ metadata: {
 <meta content="{{ context.authenticity_token }}" name="csrf-token">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+<!-- Preconnect to critical origins for LCP and network dependency (fonts in google-fonts/insites-assets, CDN) -->
+<link rel="preconnect" href="https://components.insites.io" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
 {% liquid
     include 'modules/insites_cms/seo'
     include 'modules/website/layout/technical-head/google-fonts'
