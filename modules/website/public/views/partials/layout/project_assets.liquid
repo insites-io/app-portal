@@ -25,9 +25,11 @@ Project Assets - Holds app css and js
 
 {% if context.constants.ecommerce_addon == 'true' %}
     {%- if context.environment == "staging" -%}
-        <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.css' | asset_url }}" >
+        <link rel="preload" as="style" href="{{ 'modules/ecommerce/styles/ecommerce.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.css' | asset_url }}"></noscript>
     {%- else -%}
-        <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.min.css' | asset_url }}" >
+        <link rel="preload" as="style" href="{{ 'modules/ecommerce/styles/ecommerce.min.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.min.css' | asset_url }}"></noscript>
     {%- endif -%}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" defer></script>
     <script src="{{ 'modules/ecommerce/services/apiServices.min.js' | asset_url }}" defer></script>
