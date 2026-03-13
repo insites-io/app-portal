@@ -6197,26 +6197,151 @@ ul .ul-terms-privacy {
 }
 
 
+/* Google Places NEW widget theme
+   Use host + supported ::part(...) selectors only. */
+.input-wrap gmp-place-autocomplete.ins-place-autocomplete-theme {
+    /* Base container style to visually match existing ins-input fields. */
+    background-color: #ffffff !important;
+    border: 1px solid #DFDFDF !important;
+    border-radius: 4px !important;
+    padding: 12px !important;
+    font-family: var(--font-family-02) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 16px !important;
+    color: #575757 !important;
+    /* Google Places Material tokens (used by internal focus/outline states). */
+    --gmp-mat-color-primary: #DFDFDF !important;
+    --gmp-mat-color-outline-decorative: transparent !important;
+    --gmp-mat-color-on-surface: #575757 !important;
+    --gmp-mat-color-surface: #ffffff !important;
+}
+
+/* Attempt to remove widget focus ring when the part is exposed. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(focus-ring) {
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-width: 0 !important;
+    border-style: solid !important;
+    border: 0 !important;
+}
+
+/* Host-level focus fallback in case focus ring is rendered on wrapper state. */
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-within {
+    border-color: #DFDFDF !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Additional host focus selectors to keep border neutral. */
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus,
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-visible {
+    border-color: #DFDFDF !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Parent wrapper focus fallback (some layouts apply focus styles on .input-wrap). */
+.input-wrap:focus-within gmp-place-autocomplete.ins-place-autocomplete-theme {
+    border-color: #DFDFDF !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Input part reset: removes blue border/shadow coming from default widget focus. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(input) {
+    border: 0 !important;
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+/* Input focus states kept transparent/neutral to match design system. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(input):focus,
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(input):focus-visible,
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-within::part(input) {
+    border: 0 !important;
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+/* Strongest focus-ring fallback for keyboard/mouse focus states. */
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-within::part(focus-ring),
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus::part(focus-ring),
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-visible::part(focus-ring) {
+    border: 0 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Suggestion row default state. */
 gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item) {
     background-color: #ffffff;
-    color: #575757!important;
+    color: #575757 !important;
     cursor: default;
 }
-gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item):hover {
-    background-color: #3044FF;
-    color: #ffffff!important;
-    cursor: default;
-}
+
+/* Suggestion row hover + keyboard selected state. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item):hover,
 gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item-selected) {
     background-color: #3044FF;
-    color: #ffffff!important;
+    color: #ffffff !important;
 }
 
+/* Keep text and matched text inheriting row color for hover/selected contrast. */
 gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item-main-text),
 gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item-match) {
-    color: inherit!important;
+    color: inherit !important;
 }
 
-.clear-button{
-    display: none!important;
+/* Hide default clear icon to align with existing form UI. */
+.clear-button {
+    display: none !important;
+}
+
+/* Places NEW (Autocomplete Data API) custom dropdown
+   These classes are used by modules/portal/public/assets/scripts/address-lookup.js
+   and are the primary reference point for styling autocomplete results. */
+.ins-address-lookup-dropdown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    margin-top: 4px;
+    background-color: #ffffff;
+    border: 1px solid #DFDFDF;
+    border-radius: 8px;
+    max-height: 260px;
+    overflow-y: auto;
+    display: none;
+}
+
+.ins-address-lookup-dropdown.is-open {
+    display: block;
+}
+
+.ins-address-lookup-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    color: #575757;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--font-family-02, Archivo);
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.ins-address-lookup-item:hover,
+.ins-address-lookup-item.is-active {
+    background-color: #3044FF;
+    color: #ffffff;
 }

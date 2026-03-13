@@ -17,10 +17,10 @@ Reference: [Get started with Place class](https://developers.google.com/maps/doc
 - `modules/website/public/views/partials/layout/googlemaps.liquid`
   - Updated Maps JavaScript loader version to `v=weekly` (required for latest Places features).
 - `modules/portal/public/assets/scripts/address-lookup.js`
-  - Migrated from legacy `google.maps.places.Autocomplete` widget to `google.maps.places.PlaceAutocompleteElement`.
-  - Uses new `gmp-select` event and `place.fetchFields(...)`.
+  - Uses Places New Autocomplete Data API on the existing input (`AutocompleteSuggestion.fetchAutocompleteSuggestions`).
+  - Uses `AutocompleteSessionToken`, `placePrediction.toPlace()`, and `place.fetchFields(...)` for selected result details.
+  - Renders a project-owned suggestion dropdown for full styling control.
   - Added compatibility for both legacy and new address component shapes.
-  - Keeps a legacy fallback if `PlaceAutocompleteElement` is unavailable.
 - `modules/portal/public/assets/scripts/address-lookup.min.js`
   - Regenerated minified asset from updated source file.
 
@@ -31,14 +31,39 @@ Reference: [Get started with Place class](https://developers.google.com/maps/doc
 2. Address lookup init runs from `AddressLookup.events.initGoogleAddressLookup()`.
 3. For each `[address-lookup]` field:
    - The existing input is found.
-   - A `PlaceAutocompleteElement` is inserted and constrained to `AU` via `includedRegionCodes = ['au']`.
-   - The original input remains as the compatibility field for form submission, while the autocomplete element handles user interaction.
-   - The autocomplete element reuses the original input classes/attributes on its internal input element to keep existing input styling.
-   - On selection (`gmp-select`):
+   - User input is sent to Places New Autocomplete Data API and constrained to `AU` using `includedRegionCodes = ['au']`.
+   - Suggestions are rendered by a custom dropdown controlled in project code.
+   - On selection:
      - `placePrediction.toPlace()` is called.
      - `place.fetchFields({ fields: ["addressComponents", "location", "formattedAddress"] })` retrieves needed details.
      - Address fields (`*_address_1`, `*_suburb`, `*_state`, `*_postcode`, `*_country`, `*_latitude`, `*_longitude`) are populated.
-4. No custom CSS is injected by `address-lookup`; styling is inherited from existing input classes.
+4. Styling for the autocomplete UI is fully controlled in project CSS/JS since the rendered dropdown is project-owned.
+
+## Styling reference (how to edit UI)
+
+Primary file for autocomplete styling:
+
+- `modules/website/public/assets/styles/default.css`
+
+Primary classes used by autocomplete dropdown:
+
+- `.ins-address-lookup-dropdown`
+  - Positions and styles the suggestion panel (border, radius, max-height, scroll).
+- `.ins-address-lookup-dropdown.is-open`
+  - Controls visible/open state of the suggestion panel.
+- `.ins-address-lookup-item`
+  - Base style for each suggestion row (padding, font, text color).
+- `.ins-address-lookup-item:hover`
+  - Mouse hover style for suggestion row.
+- `.ins-address-lookup-item.is-active`
+  - Keyboard-selected row style (ArrowUp/ArrowDown navigation).
+
+Behavior/source wiring:
+
+- `modules/portal/public/assets/scripts/address-lookup.js`
+  - Creates the dropdown element and row items.
+  - Adds/removes `.is-open` and `.is-active` state classes.
+  - Handles keyboard + click selection.
 
 ## Country restriction
 
@@ -54,8 +79,8 @@ Then regenerate `address-lookup.min.js`.
 
 ## Validation and form behavior
 
-- The original input is hidden once `PlaceAutocompleteElement` is mounted.
-- On selection, the selected formatted address is copied back to the original input for compatibility with existing form logic.
+- The original input remains visible and is used for typing and selection display.
+- On selection, the selected formatted address is written to the same input.
 - Existing hidden/structured address fields are still the source of submitted address data.
 
 ## Migration notes

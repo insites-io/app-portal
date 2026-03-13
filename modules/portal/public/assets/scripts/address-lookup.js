@@ -28,134 +28,178 @@ var AddressLookup = (function () {
                     longitude
                 };
             },
-            applyPlaceAutocompleteTheme(lookupField, placeAutocomplete) {
-                if (!lookupField || !placeAutocomplete) return;
+            createAutocompleteDropdown(lookupField) {
+                const parent = lookupField.parentElement;
+                if (!parent) return null;
 
-                if (!document.getElementById("place-autocomplete-theme-style")) {
-                    const style = document.createElement("style");
-                    style.id = "place-autocomplete-theme-style";
-                    style.textContent = `
-                        gmp-place-autocomplete.ins-place-autocomplete-theme::part(input) {
-                            background:  #ffffff !important;
-                            color: var(--ins-pa-color, inherit) !important;
-                            border-left: 0px !important;
-                            border-right: 0px !important;
-                            border-top: 1px solid #DFDFDF !important;
-                            border-bottom: 1px solid #DFDFDF !important;
-                            border-radius: var(--ins-pa-radius, 0) !important;
-                            padding: var(--ins-pa-padding, 0) !important;
-                            font-family: var(--ins-pa-font-family, inherit) !important;
-                            font-size: var(--ins-pa-font-size, inherit) !important;
-                            font-weight: var(--ins-pa-font-weight, inherit) !important;
-                            line-height: var(--ins-pa-line-height, normal) !important;
-                            box-shadow: var(--ins-pa-shadow, none) !important;
-                            min-height: var(--ins-pa-min-height, auto) !important;
-                            height: var(--ins-pa-height, auto) !important;
-                            box-sizing: var(--ins-pa-box-sizing, border-box) !important;
-                        }
+                let dropdown = parent.querySelector(".ins-address-lookup-dropdown");
+                if (dropdown) return dropdown;
 
-                        gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-list) {
-                            background: var(--ins-pa-bg, #ffffff) !important;
-                            color: var(--ins-pa-color, inherit) !important;
-                        }
-                            // gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item) {
-                            //     background-color: red !important;
-                            //     cursor: default;
-                            // }
-                    `;
-                    document.head.appendChild(style);
+                if (window.getComputedStyle(parent).position === "static") {
+                    parent.style.position = "relative";
                 }
 
-                const computedStyle = window.getComputedStyle(lookupField);
-                const backgroundColor = computedStyle.backgroundColor === "rgba(0, 0, 0, 0)" || computedStyle.backgroundColor === "transparent"
-                    ? "#ffffff"
-                    : computedStyle.backgroundColor;
-
-                placeAutocomplete.classList.add("ins-place-autocomplete-theme");
-                placeAutocomplete.style.setProperty("--ins-pa-bg", backgroundColor);
-                placeAutocomplete.style.setProperty("--ins-pa-color", computedStyle.color || "inherit");
-                placeAutocomplete.style.setProperty("--ins-pa-border", computedStyle.border || "0");
-                placeAutocomplete.style.setProperty("--ins-pa-radius", computedStyle.borderRadius || "0");
-                placeAutocomplete.style.setProperty("--ins-pa-padding", computedStyle.padding || "0");
-                placeAutocomplete.style.setProperty("--ins-pa-font-family", computedStyle.fontFamily || "inherit");
-                placeAutocomplete.style.setProperty("--ins-pa-font-size", computedStyle.fontSize || "inherit");
-                placeAutocomplete.style.setProperty("--ins-pa-font-weight", computedStyle.fontWeight || "inherit");
-                placeAutocomplete.style.setProperty("--ins-pa-line-height", computedStyle.lineHeight || "normal");
-                placeAutocomplete.style.setProperty("--ins-pa-shadow", computedStyle.boxShadow || "none");
-                placeAutocomplete.style.setProperty("--ins-pa-min-height", computedStyle.minHeight || "auto");
-                placeAutocomplete.style.setProperty("--ins-pa-height", computedStyle.height || "auto");
-                placeAutocomplete.style.setProperty("--ins-pa-box-sizing", computedStyle.boxSizing || "border-box");
+                dropdown = document.createElement("div");
+                dropdown.className = "ins-address-lookup-dropdown";
+                parent.appendChild(dropdown);
+                return dropdown;
             },
-            syncPlaceAutocompleteInput(lookupField, placeAutocomplete) {
-                if (!lookupField || !placeAutocomplete) return;
+            closeAutocompleteDropdown(dropdown) {
+                if (!dropdown) return;
+                dropdown.innerHTML = "";
+                dropdown.classList.remove("is-open");
+                dropdown.dataset.activeIndex = "-1";
+            },
+            setActiveSuggestion(dropdown, activeIndex) {
+                const items = Array.from(dropdown.querySelectorAll(".ins-address-lookup-item"));
+                items.forEach((item, idx) => {
+                    item.classList.toggle("is-active", idx === activeIndex);
+                });
+                dropdown.dataset.activeIndex = String(activeIndex);
+            },
+            renderAutocompleteSuggestions(dropdown, suggestions, onSelect) {
+                if (!dropdown) return;
 
-                const applyInputProps = () => {
-                    const autocompleteInput = placeAutocomplete.inputElement;
-                    if (!autocompleteInput) return false;
+                dropdown.innerHTML = "";
+                dropdown.dataset.activeIndex = "-1";
 
-                    // Keep visual style by reusing the original input classes.
-                    autocompleteInput.className = lookupField.className || "";
+                if (!suggestions || !suggestions.length) {
+                    this.closeAutocompleteDropdown(dropdown);
+                    return;
+                }
 
-                    [
-                        "autocomplete",
-                        "aria-label",
-                        "aria-describedby",
-                        "aria-invalid",
-                        "maxlength",
-                        "minlength",
-                        "inputmode"
-                    ].forEach(attr => {
-                        const value = lookupField.getAttribute(attr);
-                        if (value !== null) {
-                            autocompleteInput.setAttribute(attr, value);
-                        }
+                suggestions.forEach((suggestion, index) => {
+                    const item = document.createElement("button");
+                    item.type = "button";
+                    item.className = "ins-address-lookup-item";
+
+                    const label = suggestion.placePrediction && suggestion.placePrediction.text
+                        ? suggestion.placePrediction.text.text
+                        : "";
+                    item.textContent = label;
+                    item.dataset.index = String(index);
+
+                    item.addEventListener("mouseenter", () => {
+                        AddressLookup.methods.setActiveSuggestion(dropdown, index);
                     });
 
-                    if (lookupField.hasAttribute("required")) {
-                        autocompleteInput.setAttribute("required", "required");
-                    }
-
-                    if (lookupField.value) {
-                        autocompleteInput.value = lookupField.value;
-                    }
-
-                    // Ensure the widget input visually matches the existing field.
-                    const computedStyle = window.getComputedStyle(lookupField);
-                    [
-                        "backgroundColor",
-                        "color",
-                        "fontFamily",
-                        "fontSize",
-                        "fontWeight",
-                        "lineHeight",
-                        "border",
-                        "borderRadius",
-                        "padding",
-                        "boxShadow",
-                        "minHeight",
-                        "height",
-                        "boxSizing"
-                    ].forEach(styleKey => {
-                        const value = computedStyle[styleKey];
-                        if (value) {
-                            autocompleteInput.style[styleKey] = value;
-                        }
+                    item.addEventListener("mousedown", event => {
+                        event.preventDefault();
                     });
 
-                    return true;
+                    item.addEventListener("click", async () => {
+                        await onSelect(suggestion);
+                    });
+
+                    dropdown.appendChild(item);
+                });
+
+                dropdown.classList.add("is-open");
+            },
+            async initPlacesNewAutocompleteOnInput(lookupField, name, field) {
+                const places = google.maps.places;
+                if (!places || !places.AutocompleteSuggestion || !places.AutocompleteSessionToken) {
+                    return false;
+                }
+
+                const dropdown = this.createAutocompleteDropdown(lookupField);
+                if (!dropdown) return false;
+
+                let suggestions = [];
+                let debounceTimer = null;
+                let blurTimer = null;
+                let sessionToken = new places.AutocompleteSessionToken();
+
+                const fetchSuggestions = async value => {
+                    const request = {
+                        input: value,
+                        includedRegionCodes: ["au"],
+                        sessionToken
+                    };
+                    const response = await places.AutocompleteSuggestion.fetchAutocompleteSuggestions(request);
+                    return response && response.suggestions ? response.suggestions : [];
                 };
 
-                if (applyInputProps()) return;
+                const onSelectSuggestion = async suggestion => {
+                    const place = suggestion.placePrediction.toPlace();
+                    await AddressLookup.methods.fillAddress(place, name);
 
-                // inputElement can be attached after the element is mounted.
-                let retries = 0;
-                const maxRetries = 10;
-                const retryInterval = setInterval(() => {
-                    retries++;
-                    if (applyInputProps() || retries >= maxRetries) {
-                        clearInterval(retryInterval);
+                    const fallbackText = suggestion.placePrediction && suggestion.placePrediction.text
+                        ? suggestion.placePrediction.text.text
+                        : lookupField.value;
+                    lookupField.value = place.formattedAddress || fallbackText;
+                    AddressLookup.methods.closeAutocompleteDropdown(dropdown);
+                    sessionToken = new places.AutocompleteSessionToken();
+                };
+
+                lookupField.addEventListener("input", () => {
+                    const value = lookupField.value ? lookupField.value.trim() : "";
+                    if (!value) {
+                        suggestions = [];
+                        AddressLookup.methods.closeAutocompleteDropdown(dropdown);
+                        return;
                     }
-                }, 100);
+
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(async () => {
+                        try {
+                            suggestions = await fetchSuggestions(value);
+                            AddressLookup.methods.renderAutocompleteSuggestions(dropdown, suggestions, onSelectSuggestion);
+                        } catch (error) {
+                            AddressLookup.methods.closeAutocompleteDropdown(dropdown);
+                        }
+                    }, 180);
+                });
+
+                lookupField.addEventListener("keydown", async event => {
+                    if (!suggestions.length || !dropdown.classList.contains("is-open")) return;
+
+                    const items = Array.from(dropdown.querySelectorAll(".ins-address-lookup-item"));
+                    let activeIndex = parseInt(dropdown.dataset.activeIndex || "-1", 10);
+
+                    if (event.key === "ArrowDown") {
+                        event.preventDefault();
+                        activeIndex = (activeIndex + 1) % items.length;
+                    } else if (event.key === "ArrowUp") {
+                        event.preventDefault();
+                        activeIndex = (activeIndex - 1 + items.length) % items.length;
+                    } else if (event.key === "Enter") {
+                        if (activeIndex >= 0 && activeIndex < suggestions.length) {
+                            event.preventDefault();
+                            await onSelectSuggestion(suggestions[activeIndex]);
+                        }
+                        return;
+                    } else if (event.key === "Escape") {
+                        AddressLookup.methods.closeAutocompleteDropdown(dropdown);
+                        return;
+                    } else {
+                        return;
+                    }
+
+                    AddressLookup.methods.setActiveSuggestion(dropdown, activeIndex);
+                });
+
+                lookupField.addEventListener("blur", () => {
+                    blurTimer = setTimeout(() => {
+                        AddressLookup.methods.closeAutocompleteDropdown(dropdown);
+                    }, 120);
+                });
+
+                lookupField.addEventListener("focus", () => {
+                    clearTimeout(blurTimer);
+                    if (dropdown.children.length) {
+                        dropdown.classList.add("is-open");
+                    }
+                });
+
+                document.addEventListener("click", event => {
+                    if (!field.contains(event.target)) {
+                        AddressLookup.methods.closeAutocompleteDropdown(dropdown);
+                    }
+                });
+
+                field.dataset.googlePlacesInitialized = "true";
+                return true;
             },
             async fillAddress(place, type) {
                 if (!place) return;
@@ -315,43 +359,10 @@ var AddressLookup = (function () {
                     }
 
                     if (lookupField && typeof google !== "undefined" && google.maps && google.maps.places) {
-                        const canUseNewAutocomplete = typeof google.maps.places.PlaceAutocompleteElement === "function";
-                        const existingAutocomplete = field.querySelector('gmp-place-autocomplete');
-
-                        if (!canUseNewAutocomplete) {
-                            clearInterval(setStateInterval);
-                            return;
-                        }
-
-                        if (!existingAutocomplete) {
-                            const placeAutocomplete = new google.maps.places.PlaceAutocompleteElement({});
-                            placeAutocomplete.includedRegionCodes = ['au'];
-                            placeAutocomplete.placeholder = lookupField.getAttribute('placeholder') || '';
-
-                            lookupField.parentNode.insertBefore(placeAutocomplete, lookupField);
-                            AddressLookup.methods.applyPlaceAutocompleteTheme(lookupField, placeAutocomplete);
-                            AddressLookup.methods.syncPlaceAutocompleteInput(lookupField, placeAutocomplete);
-
-                            // Keep original field for compatibility with existing form logic.
-                            lookupField.style.display = "none";
-                            lookupField.setAttribute("aria-hidden", "true");
-                            lookupField.tabIndex = -1;
-
-                            placeAutocomplete.addEventListener('gmp-select', async ({ placePrediction }) => {
-                                const place = placePrediction.toPlace();
-                                await AddressLookup.methods.fillAddress(place, name);
-                                if (place.formattedAddress) {
-                                    lookupField.value = place.formattedAddress;
-                                    if (placeAutocomplete.inputElement) {
-                                        placeAutocomplete.inputElement.value = place.formattedAddress;
-                                    }
-                                }
+                        AddressLookup.methods.initPlacesNewAutocompleteOnInput(lookupField, name, field)
+                            .finally(() => {
+                                clearInterval(setStateInterval);
                             });
-                        }
-
-                        field.dataset.googlePlacesInitialized = "true";
-
-                        clearInterval(setStateInterval);
                     }
                 }, 300);
                 
