@@ -44,6 +44,8 @@ Generated from:
 
 ### 3) Account/registration flow updates
 
+- Registration flow now handles **existing users without `module/portal/portal` profile** and allows them to complete registration.
+- **User impact:** previously blocked existing users (missing portal profile linkage) can now proceed through account registration flow.
 - `modules/portal/public/forms/account/create-account.liquid`
 - `modules/portal/public/forms/account/my_company_details.liquid`
 - `modules/portal/public/forms/account/password_reset.liquid`
@@ -85,17 +87,3 @@ Generated from:
 - Styling consolidation/minification for website defaults.
 - Documentation added for enablement and maintenance:
   - `GOOGLE_PLACES_NEW_SETUP.md`
-
-## Current uncommitted changes (working tree)
-
-These files are modified locally and not yet committed:
-
-- `GOOGLE_PLACES_NEW_SETUP.md`
-- `modules/portal/public/assets/scripts/address-lookup.js`
-- `modules/portal/public/assets/scripts/address-lookup.min.js`
-- `modules/website/public/assets/styles/default.css`
-- `modules/website/public/assets/styles/default.min.css`
-
-## Notes
-
-- This changelog is branch-level and includes all work currently in `google-places-styling` relative to `master`, not just the latest single feature.
