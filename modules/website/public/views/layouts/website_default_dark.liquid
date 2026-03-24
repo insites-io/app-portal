@@ -9,6 +9,10 @@ metadata: {
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
+    {%- if context.page.slug == '/' or context.page.slug == '' -%}
+        <link rel="preload" as="image" href="{{ 'modules/website/images/home/hero-banner-d.webp' | asset_url }}" fetchpriority="high" media="(min-width: 640px)">
+        <link rel="preload" as="image" href="{{ 'modules/website/images/home/hero-banner-m.webp' | asset_url }}" fetchpriority="high" media="(max-width: 639px)">
+    {%- endif -%}
     {%- capture head_key -%} {{ context.exports.layout_cache_key.cache_key | append: "-head" }} {%- endcapture -%}
     {%- cache head_key -%}
         {% include 'modules/website/layout/head' %}

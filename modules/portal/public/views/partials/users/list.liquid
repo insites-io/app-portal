@@ -56,20 +56,7 @@ metadata: {
 <input type="hidden" id="get-users-count" value='{{ get_users.size }}'>
 {% comment %} SEARCH {% endcomment %}
 
-<div class="user-actions-container">
-    <div class="userSearch">
-        <ins-input                 
-            id="search-description"
-            class="search-user search-bars"
-            placeholder="Search by email, first or last name"
-            icon="icon-search-1">
-        </ins-input>
-    </div>
-
-    <div class="userAddButton">
-        <ins-button type="button" id="user-invite-button" label="Invite new user" icon="icon-user-plus" solid ></ins-button>
-    </div>
-</div>
+{% include 'modules/portal/users/partials/filters' %}
 
 {% comment %} ? Add user modal {% endcomment %}
 <ins-modal id="add-user-modal"
@@ -240,146 +227,10 @@ metadata: {
         </div> 
     {% else %}
         {% comment %} ? NOT EMPTY STATE {% endcomment %}
-        <ins-table-row class="users-table-header">
-            <ins-table-th>
-                <span class="hide-for-small-medium">
-                    Name
-                </span>
-            </ins-table-th>
-
-            <ins-table-th class="hide-for-small-medium">
-                Email
-            </ins-table-th>
-
-            <ins-table-th class="hide-for-small-medium">
-                Permission Level
-            </ins-table-th>
-        </ins-table-row>
+        {% include 'modules/portal/users/partials/table_header' %}
         
         {% for item in get_users %}
-            {% assign portal_profile = item.portal | first  %}
-            {% assign contact_profile = item.contact | first  %}
-            <ins-table-row class="users-table-data">
-
-                <ins-table-td class="body-small">
-                    <ins-accordion class="user-invite-accordion">
-                         <ins-accordion-item class="request-table-accordion show-for-small-medium" heading=" {{ item.first_name }} {{ item.last_name }}" open-icon="icon-caret-down" close-icon="icon-caret-up" link-target="_self">
-                            {% if portal_profile.primary_account_holder == true %}
-                                <div class="spacer x-small"></div>
-                                <span class="primary-account-holder">Account Owner</span>
-                                <div class="hide-for-small-medium">
-                                    <div class="spacer small"></div>
-                                </div>
-                            {% endif %}   
-                            <div class="spacer small"></div>
-                            <p class="body-small-bold">Name</p>
-                            <p class="body-small">{{ item.first_name }} {{ item.last_name }}</p>
-                            <div class="spacer"></div>
-                            <p class="body-small-bold">Email</p>
-                            <p class="body-small">{{ item.email}}</p>
-                            <div class="spacer"></div>
-                            <p class="body-small-bold">Permission Level</p>
-                            <div>
-                                {% if portal_profile.primary_account_holder == true %}
-                                <ins-input-select class="account_owner_select" value="Account Owner" disabled="true">
-                                    <ins-input-select-option 
-                                    label="Account Owner" 
-                                    value="Account Owner" 
-                                    Disabled>
-                                    </ins-input-select-option>
-                                </ins-input-select>
-                                {% else %}
-                                    <ins-input-select 
-                                        class="selectPermission" 
-                                        value="{{ portal_profile.permission_level |  default: "No Access" }}"
-                                        data-id="{{ item.id }}"
-                                        data-contact-uuid="{{ item.external_id }}"
-                                        data-name="{{ item.first_name }} {{ item.last_name }}"
-                                        data-email="{{ item.email }}"
-                                        data-permission-level-previous-value="{{ portal_profile.permission_level }}"
-                                        data-uuid="{{ item.external_id }}"
-                                        >
-                                            
-                                        <ins-input-select-option class="form-placeholder"
-                                        label="Manager" 
-                                        value="Manager">
-                                        <span></span>
-                                        </ins-input-select-option>
-                                    
-                                        <ins-input-select-option 
-                                        label="Staff" 
-                                        value="Staff">
-                                        </ins-input-select-option>
-                                    
-                                        <ins-input-select-option 
-                                        label="No Access" 
-                                        value="No Access">
-                                        </ins-input-select-option>       
-                                    </ins-input-select>
-                                {% endif %}
-                            </div>
-                         
-                            <div class="spacer"></div>
-                        </ins-accordion-item>
-                    </ins-accordion>
-                    <span class="hide-for-small-medium"> {{ item.first_name }} {{ item.last_name }} </span>
-
-                    {% if portal_profile.primary_account_holder == true %}
-                        <div class="spacer x-small"></div>
-                        <span class="primary-account-holder primary-account-holder-outer">Account Owner</span>
-                        <div class="hide-for-small-medium">
-                            <div class="spacer small"></div>
-                        </div>
-                    {% endif %}
-
-                </ins-table-td>
-
-                <ins-table-td class="body-small hide-for-small-medium">
-                    {{ item.email}}
-                </ins-table-td>
-                
-                <ins-table-td class="hide-for-small-medium">
-                    {% if portal_profile.primary_account_holder == true %}
-                        <ins-input-select class="account_owner_select" value="Account Owner" disabled="true">
-                            <ins-input-select-option 
-                            label="Account Owner" 
-                            value="Account Owner" 
-                            Disabled>
-                            </ins-input-select-option>
-                        </ins-input-select>
-                    {% else %}
-                        <ins-input-select 
-                            class="selectPermission" 
-                            id="{{ item.id }}"
-                            value="{{ portal_profile.permission_level |  default: "No Access"  }}"
-                            data-id="{{ item.id }}"
-                            data-contact-uuid="{{ item.external_id }}"
-                            data-name="{{ item.first_name }} {{ item.last_name }}"
-                            data-email="{{ item.email }}"
-                            data-permission-level-previous-value="{{ portal_profile.permission_level }}">
-
-                            <ins-input-select-option
-                            label="Manager" 
-                            value="Manager"
-                            id="option-manager">
-                            </ins-input-select-option>
-                          
-                            <ins-input-select-option 
-                            label="Staff" 
-                            value="Staff"
-                            id="option-staff">
-                            </ins-input-select-option>
-                        
-                            <ins-input-select-option 
-                            label="No Access" 
-                            value="No Access"
-                            id="option-no-access">
-                            </ins-input-select-option>      
-                        </ins-input-select>
-                    {% endif %}
-                </ins-table-td>
-
-            </ins-table-row>
+            {% include 'modules/portal/users/partials/table_row', item: item %}
         {% endfor %}
     {% endif %}
     

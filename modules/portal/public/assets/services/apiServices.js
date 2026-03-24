@@ -1,24 +1,25 @@
-var apiServices = (function () {
-    const
-        apiUrl = "/api",
-        request = axios.create({});
+const apiServices = (() => {
+    const apiUrl = "/api";
+    const request = axios.create({});
 
-    let config = {
+    const config = {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('[name="csrf-token"]').content
+            'X-CSRF-TOKEN': document.querySelector('[name="csrf-token"]')?.content
         }
     };
 
     // Axios Processor
-    async function processRequest(method, url, payload, headers = config.headers) {
-        let endpoint = apiUrl + url;
-        let process = method.toLowerCase() === 'get'
-            ? request.get(endpoint, { headers })
-            : request[method](endpoint, payload, { headers });
+    const processRequest = async (method, url, payload, headers = config.headers) => {
+        const endpoint = apiUrl + url;
+        const isGet = method.toLowerCase() === 'get';
+        
+        try {
+            const response = await (isGet
+                ? request.get(endpoint, { headers })
+                : request[method](endpoint, payload, { headers }));
 
-        return await process.then(response => {
             if (response.data.errors) {
                 if (typeof response.data.errors === "object" && !Object.keys(response.data.errors).length) {
                     return { state: true, data: response.data };
@@ -28,15 +29,16 @@ var apiServices = (function () {
                 }
             }
             return { state: true, data: response.data };
-        }).catch(error => {
-            if (error.response.data && error.response.data.errors) {
-                console.error(`API Error: ${url}`, error.response.data.errors);
+        } catch (error) {
+            const errorData = error.response?.data;
+            if (errorData?.errors) {
+                console.error(`API Error: ${url}`, errorData.errors);
             }
-            return { state: false, data: error.response.data };
-        });
-    }
+            return { state: false, data: errorData || error.message };
+        }
+    };
 
     return {
-        processRequest: processRequest
-    }
+        processRequest
+    };
 })();
