@@ -7,33 +7,10 @@
 }
 
 @media screen and (max-width: 639px) {
-    .blocks-sc-3col-02.wrapper {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
     .subscribe-wrapper.grid-container,
-    .footer>.grid-container,
-    .homepage-v2-wrap>.grid-container {
+    .footer>.grid-container {
         padding-left: 24px;
         padding-right: 24px;
-    }
-    .homepage-v2-banner-wrap .main-text {
-        position: relative;
-        width: 100%;
-        height: auto;
-    }
-    .homepage-v2-banner-wrap .main-text .text-content {
-        position: relative;
-        transform: translate(0, 0);
-        width: 100%;
-        right: auto;
-        top: auto;
-    }
-    .homepage-clients .clients-container .client-item {
-        width: 32%;
-    }
-    .homepage-clients .clients-container .client-item .img-wrap {
-        padding: 25px 25px;
     }
     ins-table .ibt-table-wrap .pagination-wrap.full {
         text-align: center;
@@ -53,9 +30,7 @@
     .fixed-btn-width button {
         width: initial;
     }
-    .newsDetailHolder {
-        padding: 0px 24px;
-    }
+
     #add-user-modal ins-card {
         width: auto!important;
         padding: 0px 12px;
@@ -66,104 +41,18 @@
 
 /********** TABLET / SMALL LAPTOP or DESKTOP - MIN 640PX - MAX 1023PX ***************/
 
-@media print,
-screen and (min-width: 640px) {
-    .blocks-sc-3col-02 .gutter-medium.grid-padding-x>.cell {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .blocks-sc-3col-02 .gutter-medium.grid-padding-y>.cell {
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    .blocks-sc-3col-02 .grid-container:not(.full)>.grid-padding-x.gutter-medium {
-        margin-right: calc(-1 * 20px);
-        margin-left: calc(-1 * 20px);
-    }
-}
-
 @media only screen and (max-width: 767px) {
     .homepage-banner-wrap .ins-carousel .ins-carousel_paginations {
         text-align: center;
         padding-left: 0px;
     }
-    .cusTitle {
-        font-size: 18px;
-        line-height: 120%;
-    }
-    .cusLongText {
-        padding: 0 20px;
-        font-size: 11px;
-        color: #fff;
-    }
-    .overlap-section {
-        /* border: white 10px solid;
-    border-radius: 24px; */
-        margin: 0px 10px;
-        position: relative;
-        margin-top: -50px;
-    }
-    .custCard {
-        background: #436CF2;
-        border-radius: 24px;
-        margin: 0px 20px;
-        position: relative;
-        margin-top: -50px;
-    }
-    .title-overlap-section {
-        font-size: 24px;
-    }
-    .subtitle-overlap-section {
-        font-size: 14px;
-    }
+
     .testiLabel {
         font-size: 14px;
-    }
-    .check-icon {
-        width: 10%;
-        text-align: center;
-    }
-    .our-team-desc {
-        padding: 0px 15px;
-    }
-    .custGridContainer {
-        padding: 20px!important;
-    }
-    .faqSidenav .ins-accordion-link_link {
-        padding: 14px 0px!important;
     }
 }
 
 @media only screen and (min-width: 768px) {
-    .cusTitle {
-        font-size: 26px;
-        line-height: 120%;
-    }
-    .cusLongText {
-        padding: 0 50px;
-        font-size: 14px;
-        line-height: 24px;
-        font-weight: 400;
-        color: #fff;
-    }
-    .overlap-section {
-        /* border: white 10px solid;
-    border-radius: 24px; */
-        margin: 0px 20px;
-        position: relative;
-        margin-top: -70px;
-    }
-    .custCard {
-        background: #436CF2;
-        border-radius: 24px;
-        margin: 0px 20px;
-        position: relative;
-        margin-top: -70px;
-    }
-    .check-icon {
-        width: 10%;
-        text-align: center;
-    }
     .testiLabel {
         font-size: 14px;
     }
@@ -175,128 +64,19 @@ screen and (min-width: 640px) {
     }
 }
 
-@media screen and (max-width: 950px) {
-    .user-actions-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        flex-direction: column-reverse;
-    }
-    .userSearch {
-        width: 100%;
-    }
-    .hide-spacer {
-        display: none!important;
-    }
-    .hide-for-small-medium {
-        display: none!important;
-    }
-    .show-for-small-medium {
-        display: block!important;
-    }
-    .users-table-data ins-table-td {
-        padding: 24px!important;
-    }
-    .users-table .ins-select-label-wrap {
-        display: none!important;
-    }
-    .users-table .ins-input-select {
-        margin: 0px
-    }
-}
 
 
 /********** DESKTOP LARGE - MIN 1024PX ***************/
 
 @media only screen and (min-width: 1025px) {
-    .cusTitle {
-        font-size: 40px;
-        line-height: 120%;
-    }
-    .cusLongText {
-        padding: 0 200px;
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 400;
-        color: #fff;
-    }
-    /* overlap */
-    .overlap-section {
-        /* border: white 20px solid;
-    border-radius: 24px; */
-        margin: 0px 100px;
-        position: relative;
-        margin-top: -150px;
-    }
-    .custCard {
-        background: #436CF2;
-        border-radius: 20px;
-        position: relative;
-        margin-top: -150px;
-    }
-    .check-icon {
-        width: 20%;
-        text-align: center;
-    }
     .testiLabel {
         font-size: 18px;
         letter-spacing: 0.1em;
     }
-
-}
-
-@media screen and (min-width: 1440px) {
-    .blocks-sc-3col-02.wrapper {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-}
-
-@media screen and (min-width: 1200px) and (max-width: 1439px) {
-    .blocks-sc-3col-02.wrapper {
-        padding-left: var(--container-padding-x-large, 24px);
-        padding-right: var(--container-padding-x-large, 24px);
-    }
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1199px) {
-    .blocks-sc-3col-02.wrapper {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    .homepage-v2-wrap.main-container,
-    .homepage-v2-banner-wrap .main-container {
-        margin: 0px 0px;
-    }
-}
-
-@media print,
-screen and (min-width: 1024px) {
-    .homepage-v2-banner-wrap .wrapper {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    .homepage-v2-banner-wrap .main-text {
-        z-index: 99;
-        position: absolute;
-        width: 50%;
-        height: 100%;
-    }
-    .homepage-v2-banner-wrap .main-text .text-content {
-        position: absolute;
-        width: 54%;
-        right: 10%;
-        height: 100%;
-        max-width: 440px;
-        align-items: initial;
-    }
 }
 
 
-/**** PRE DEFINED MIN AND MAX WIDTH THAT WILL COVER 2 OR MORE BREAKPOINTS - SAMPLE - Mobile 500px to Desktop 1500px ****/
+/**** PRE DEFINED MIN AND MAX WIDTH THAT WILL COVER 2 OR MORE BREAKPOINTS ****/
 
 @media screen and (min-width: 481px),
 screen and (max-width: 1024px) {

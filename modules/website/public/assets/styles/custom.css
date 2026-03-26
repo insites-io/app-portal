@@ -163,7 +163,6 @@ ins-button button .spinner {
 
 .blocks-sc-3col-02 p {
     font-family: 'Cabin', sans-serif;
-    font-style: normal;
     font-weight: 400;
     font-size: 0.875rem;
     line-height: 1.5rem;
@@ -258,7 +257,6 @@ ins-button button .spinner {
 
 .blocks-sc-2col-08 ul.side-links li a {
     font-weight: 400;
-    font-style: normal;
     font-size: var(--typography-small, 0.875rem);
     color: var(--color-font-body, #595959);
 }
@@ -351,7 +349,6 @@ footer.blocks-footer-05 {
 .blocks-footer-05 .footer-links,
 .blocks-footer-05 .bottom-footer a {
     font-weight: 400;
-    font-style: normal;
     font-size: var(--typography-small, 0.875rem);
     color: var(--color-font-body, #595959)
 }
@@ -406,18 +403,18 @@ footer.blocks-footer-05 {
 }
 
 ins-tag span.ins-tag.blue {
-    background-color: #436CF2!important;
+    background-color: var(--info)!important;
     text-transform: uppercase;
 }
 
 .ins-loader-wrap--title {
-    color: #436CF2!important;
+    color: var(--info)!important;
     font-family: var(--font-family-02)!important;
 }
 
 .swal2-icon.swal2-warning {
-    color: #EC9C00 !important;
-    border: solid .25em #EC9C00 !important;
+    color: var(--warning) !important;
+    border: solid .25em var(--warning) !important;
 }
 
 .ins-modal-content {
@@ -803,7 +800,7 @@ ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before{
     padding-left: 20px;
     font-weight: 100;
     list-style-type: lower-alpha;
-    color: #575757;
+    color: var(--font-color-body);
 }
 
 .custom-article-item {
@@ -845,7 +842,6 @@ ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before{
 
 .newsSubheading {
     font-family: var(--font-family-02)!important;
-    font-style: normal;
     font-weight: 700!important;
     font-size: 12px!important;
     line-height: 14px;
@@ -889,7 +885,6 @@ ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before{
     height: 4.5em;
     /* text-align:justify; */
     font-family: var(--font-family-02)!important;
-    font-style: normal;
     font-weight: 400!important;
     font-size: 16px!important;
     line-height: 24px;
@@ -966,7 +961,7 @@ ins-button .ins-button .icon-user {
 .custIcons {
     font-size: 32px!important;
     color: white;
-    background-color: #436CF2;
+    background-color: var(--info);
     padding: 16px;
     border-radius: 12px;
 }
@@ -977,7 +972,7 @@ ins-button .ins-button .icon-user {
 
 .custIconsInverted {
     font-size: 56px!important;
-    color: #436CF2;
+    color: var(--info);
 }
 
 .custIconCheck {
@@ -1049,12 +1044,12 @@ ins-button .ins-button div .btn__label {
     font-weight: 400!important;
     font-size: 16px!important;
     line-height: 24px!important;
-    color: #323232!important;
+    color: var(--font-color-sub)!important;
 }
 
 .faqList:hover {
     font-weight: 700!important;
-    color: #436CF2!important;
+    color: var(--info)!important;
     /* background-color: #1779ba; */
 }
 
@@ -1089,7 +1084,7 @@ ins-accordion .inner-content {
 }
 
 .card:hover {
-    border: 1px solid #436CF2;
+    border: 1px solid var(--info);
 }
 
 .card img {
@@ -1127,7 +1122,6 @@ ins-accordion .inner-content {
 .staticFonts p,
 .staticFonts ul {
     font-family: var(--font-family-02)!important;
-    font-style: normal!important;
     font-weight: 400!important;
     font-size: 16px!important;
     line-height: 24px!important;
@@ -1147,7 +1141,6 @@ ins-accordion .inner-content {
     background: var(--color-main-hover-light) !important;
 }
 
-#services_static_content .ins-accordion-item_content .inner-content,
 #faqs_accordion .ins-accordion-item_content .inner-content {
     border: var(--ins-border-style) var(--ins-border-thickness) var(--color-ui-04)!important;
 }
@@ -1174,7 +1167,7 @@ ins-accordion .inner-content {
     font-family: var(--font-family-01)!important;
     font-size: 16px!important;
     font-weight: 400!important;
-    color: #575757!important;
+    color: var(--font-color-body)!important;
 }
 
 .logo {
@@ -1231,7 +1224,7 @@ ins-card.support .ins-card-wrap:hover {
 }
 
 .faq-side-nav {
-    background-color: #F9FAFB;
+    background-color: var(--color-ui-02);
 }
 
 .faqSidenav .ins-accordion-link_link {
@@ -1240,7 +1233,7 @@ ins-card.support .ins-card-wrap:hover {
     font-weight: 400;
     border: 0px;
     color: var(--font-color-sub) !important;
-    background-color: #F9FAFB!important;
+    background-color: var(--color-ui-02)!important;
     border: 0px!important;
 }
 
@@ -1262,12 +1255,12 @@ ins-card.support .ins-card-wrap:hover {
 
 .mobileNav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head {
     background-color: rgba(67, 108, 242, 0.1);
-    color: #436CF2!important;
+    color: var(--info)!important;
     font-weight: 700!important;
 }
 
 .mobileNav .ins-accordion-item.open>.ins-accordion-item_header>.inner-head a {
-    color: #436CF2!important;
+    color: var(--info)!important;
     font-weight: 700!important;
 }
 
@@ -1281,7 +1274,7 @@ ins-card.support .ins-card-wrap:hover {
     font-weight: 700;
     text-decoration: none;
     background: rgba(67, 108, 242, 0.1)!important;
-    color: #436CF2!important;
+    color: var(--info)!important;
 }
 
 ins-card .ins-card-wrap {
@@ -1297,15 +1290,6 @@ ins-card .ins-card-wrap {
     font-size: 12px!important;
     color: #595959;
     font-size: 12px!important;
-}
-
-.account-created h3 {
-    font-size: var(--font-xxx-large) !important;
-}
-
-.account-created p {
-    font-size: var(--font-medium) !important;
-    font-family: var(--font-family-02) !important;
 }
 
 .sign-in-button a {
@@ -1336,6 +1320,8 @@ ins-card .ins-card-wrap {
 
 .news-title-detail {
     font-size: var(--font-x-small) !important;
+    text-transform: uppercase;
+    font-family: var(--font-family-02);
 }
 
 .sign-out-wrapper {
@@ -1349,7 +1335,6 @@ ins-card .ins-card-wrap {
     color: var(--font-color-body);
     font-family: var(--font-family-02);
     font-size: 16px !important;
-    font-style: normal;
     font-weight: 400;
     line-height: 20px; /* 142.857% */
     text-align: initial;
@@ -1393,11 +1378,6 @@ ins-card .ins-card-wrap {
 
 .section-feedback .slide-container {
     background-color: #000;
-}
-
-.news-title-detail {
-    text-transform: uppercase;
-    font-family: var(--font-family-02);
 }
 
 .newsDetailHolder {
@@ -1500,9 +1480,6 @@ ins-card .ins-card-wrap {
     background: var(--color-ui-01);
 }
 
-#services_static_content .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
-#services_static_content .ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
-#services_static_content .ins-accordion-link.active>.ins-accordion-link_link,
 #faqs_accordion .ins-accordion-item.open>.ins-accordion-item_header>.inner-head,
 #faqs_accordion .ins-accordion.menu .ins-accordion-item.open>.ins-accordion-item_header>.inner-head:hover,
 #faqs_accordion .ins-accordion-link.active>.ins-accordion-link_link {
@@ -1546,16 +1523,6 @@ ins-card .ins-card-wrap {
     background: var(--color-main-hover-light);
 }
 
-/* .ins-accordion-item_content .ins-accordion-link {
-    border-bottom: unset
-}
-
-.ins-accordion.menu .ins-accordion-link.active>.ins-accordion-link_link,
-.ins-accordion-link:hover,
-.ins-accordion.menu .ins-accordion-item .inner-head:hover {
-    background: unset;
-} */
-
 .ins-accordion.menu .ins-accordion-item .inner-head span,
 .ins-accordion.menu .ins-accordion-item_content .ins-accordion-link_link span {
     color: var(--font-color-body);
@@ -1596,7 +1563,7 @@ ins-card .ins-card-wrap {
 .portal .ins-accordion-link_link,
 .portal .ins-accordion.menu .ins-accordion-item .inner-head {
     padding: 12px 16px;
-    background-color: #f9fafb;
+    background-color: var(--color-ui-02);
 }
 
 .ins-accordion-item_header>.inner-head {
@@ -1950,22 +1917,6 @@ ul {
 /* Home Slider */
 
 
-/* #homepage-banner .slide-container {
-    min-height: 460px;
-    height: 460px;
-}
-
-#homepage-banner .img-wrap img {
-    min-height: 460px;
-}
-
-@media screen and (min-width: 640px) and (max-width: 1023px) {
-    #homepage-banner .slide-container,
-    #homepage-banner .img-wrap img {
-        min-height: 310px;
-        height: 310px;
-    }
-} */
 
 
 /* Questionnaire Form */
@@ -2088,25 +2039,17 @@ ins-tag.Draft span.ins-tag {
 
 ins-tag.Completed span.ins-tag {
     background: rgba(4, 136, 1, 0.08);
-    color: #048801;
+    color: var(--success);
 }
 
 .thank-you p {
     color: var(--text-3);
 }
 
-#search-year .ins-input-wrap .input-wrap input::-webkit-outer-spin-button,
-#search-year .ins-input-wrap .input-wrap input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-#search-year .ins-input-wrap .input-wrap input::placeholder,
 #search-description   .ins-input-wrap .input-wrap input::placeholder{
-    color:  #84848F;
+    color:  var(--neutral);
     font-family: "Work Sans";
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
     line-height: 16px;
 }
@@ -2320,17 +2263,17 @@ ins-tag.Completed span.ins-tag {
 }
 
 #personal-email-field.has-error .ins-select-wrap label {
-    color: #DF1F1F!important;
+    color: var(--error)!important;
 }
 
 #personal-email-field.has-error .ins-form-field-wrap .ins-form-field {
     background-color: rgba(223, 31, 31, 0.10)!important;
-    border-color: #DF1F1F!important;
-    color: #DF1F1F!important;
+    border-color: var(--error)!important;
+    color: var(--error)!important;
 }
 
 #personal-email-field.has-error .ins-form-field-wrap .ins-form-field::placeholder {
-    color: #DF1F1F!important;
+    color: var(--error)!important;
 }
 
 
@@ -2352,7 +2295,6 @@ ins-tag.Completed span.ins-tag {
     /* Paragraph/body-x-small-bold */
     font-family: var(--font-family-02);
     font-size: 12px;
-    font-style: normal;
     font-weight: 700;
     line-height: 18px;
     /* 150% */
@@ -2394,7 +2336,6 @@ ins-tag.Completed span.ins-tag {
     /* Paragraph/body */
     font-family: var(--font-family-02);
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 24px;
 }
@@ -2403,7 +2344,6 @@ ins-tag.Completed span.ins-tag {
     color: var(--font---font-color-head, var(----ins-text-1, #000));
     font-family: var(--font-family-02);
     font-size: 14px;
-    font-style: normal;
     font-weight: 700;
     line-height: normal;
 }
@@ -2414,7 +2354,6 @@ ins-tag.Completed span.ins-tag {
     font-feature-settings: 'clig' off, 'liga' off;
     font-family: var(--font-family-02);
     font-size: 14px!important;
-    font-style: normal;
     font-weight: 400;
     line-height: 16px;
 }
@@ -2446,7 +2385,7 @@ ins-tag.Completed span.ins-tag {
 
 .userDetails.has-error .ins-form-field-wrap label,
 .userDetails.has-error .ins-select-wrap label {
-    color: #DF1F1F!important;
+    color: var(--error)!important;
 }
 
 #user-first-name.has-error .ins-form-field-wrap label,
@@ -2454,7 +2393,7 @@ ins-tag.Completed span.ins-tag {
 #user-email.has-error .ins-form-field-wrap label,
 #user-job-title.has-error .ins-form-field-wrap label,
 #user-department.has-error .ins-select-wrap label {
-    color: #DF1F1F!important;
+    color: var(--error)!important;
 }
 
 #user-first-name.has-error .ins-form-field-wrap .ins-form-field,
@@ -2464,8 +2403,8 @@ ins-tag.Completed span.ins-tag {
 #user-department.has-error .ins-select-wrap .ins-select-value-input,
 #user-department.has-error .ins-select-wrap .ins-select-value-wrap {
     background-color: rgba(223, 31, 31, 0.10)!important;
-    border-color: #DF1F1F!important;
-    color: #DF1F1F!important;
+    border-color: var(--error)!important;
+    color: var(--error)!important;
 }
 
 #user-first-name.has-error .ins-form-field-wrap .ins-form-field::placeholder,
@@ -2473,7 +2412,7 @@ ins-tag.Completed span.ins-tag {
 #user-email.has-error .ins-form-field-wrap .ins-form-field::placeholder,
 #user-job-title.has-error .ins-form-field-wrap .ins-form-field::placeholder,
 #user-department.has-error .ins-select-wrap .ins-select-value-input::placeholder {
-    color: #DF1F1F!important;
+    color: var(--error)!important;
 }
 
 .user-error-txt-red {
@@ -2489,7 +2428,6 @@ ins-tag.Completed span.ins-tag {
     text-align: center;
     font-family: var(--font-family-02);
     font-size: 24px;
-    font-style: normal;
     font-weight: 700;
     line-height: 120%;
 }
@@ -2499,7 +2437,6 @@ ins-tag.Completed span.ins-tag {
     text-align: center;
     font-family: var(--font-family-02);
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: 24px;
 }
@@ -2509,8 +2446,8 @@ ins-tag.Completed span.ins-tag {
 }
 
 .swal-remove-access .swal2-actions button.swal2-confirm {
-    background-color: #DF1F1F!important;
-    border-color: #DF1F1F!important;
+    background-color: var(--error)!important;
+    border-color: var(--error)!important;
 }
 
 .emailExistsMessage {
@@ -2529,7 +2466,6 @@ ins-tag.Completed span.ins-tag {
     color: var(--font---font-color-body, #575757);
     font-size: 12px!important;
     font-family: var(--font-family-02);
-    font-style: normal;
     font-weight: 400;
     line-height: 18px;
 }
