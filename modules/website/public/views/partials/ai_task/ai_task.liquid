@@ -1,0 +1,624 @@
+---
+metadata: {
+    partial_name: 'Website | AI Task'
+}
+---
+
+<style>
+/* ── Reset & Base ──────────────────────────────────────────── */
+.at *, .at *::before, .at *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.at { font-family: 'Sora', sans-serif; color: #18181b; background: #fff; -webkit-font-smoothing: antialiased; }
+.at a { text-decoration: none; color: inherit; }
+.at img, .at svg { display: block; }
+.at ul { list-style: none; }
+.at-wrap { max-width: 1280px; margin: 0 auto; padding: 0 80px; }
+.at-section-img { width: 100%; display: block; }
+
+/* ── Shared heading style ────────────────────────────────── */
+.at-heading-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 48px; }
+.at-h-regular { font-size: 48px; line-height: 56px; letter-spacing: -0.02em; font-weight: 400; }
+.at-h-bold    { font-size: 48px; line-height: 56px; letter-spacing: -0.02em; font-weight: 800; }
+
+/* ── Shared button styles ────────────────────────────────── */
+.at-btn-solid {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 56px; padding: 0 20px;
+  background: #000; color: #fff;
+  font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 600;
+  border: 1px solid #000; border-radius: 4px; cursor: pointer; transition: background .2s;
+}
+.at-btn-solid:hover { background: #404040; border-color: #404040; }
+.at-btn-icon {
+  width: 56px; height: 56px; flex-shrink: 0;
+  background: #000; border: 1px solid #000; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .2s, border-color .2s; color: #fff;
+}
+.at-btn-icon:hover { background: #404040; border-color: #404040; }
+.at-btn-icon.is-outlined { background: #fff; color: #000; }
+.at-btn-icon.is-outlined:hover { background: #000; color: #fff; }
+.at-btn-icon svg { width: 20px; height: 20px; }
+
+/* ═══════════════════════════════════════════════
+   1. HEADER — white sticky, 104px
+   ═══════════════════════════════════════════════ */
+.at-header {
+  position: sticky; top: 0; z-index: 100;
+  height: 104px; background: #fff;
+  display: flex; align-items: center;
+}
+.at-header .at-wrap { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.at-logo { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; color: #000; }
+.at-logo-mark { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.at-nav { display: flex; gap: 32px; }
+.at-nav a { font-size: 20px; font-weight: 600; color: #000; transition: color .2s; }
+.at-nav a:hover { color: #71717a; }
+
+/* ═══════════════════════════════════════════════
+   2. HERO — fully editable HTML
+   ═══════════════════════════════════════════════ */
+.at-hero { background: #fff; padding: 60px 0 80px; }
+.at-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.at-hero-heading { margin-bottom: 24px; }
+.at-hero-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; line-height: 56px; }
+.at-hero-regular { font-size: 48px; font-weight: 400; letter-spacing: -0.02em; color: #000; }
+.at-hero-bold    { font-size: 48px; font-weight: 800; letter-spacing: -0.02em; color: #000; }
+.at-hero-outline { font-size: 48px; font-weight: 800; letter-spacing: -0.02em; -webkit-text-stroke: 2px #000; color: transparent; }
+.at-hero-desc { font-size: 16px; line-height: 24px; color: #71717a; margin-bottom: 40px; max-width: 600px; }
+.at-hero-social { display: flex; gap: 16px; }
+.at-hero-illustration { display: flex; justify-content: flex-end; align-items: center; }
+.at-hero-illustration img { width: 100%; max-width: 630px; }
+
+/* ═══════════════════════════════════════════════
+   3. SKILLS — interactive HTML cards
+   ═══════════════════════════════════════════════ */
+.at-skills { background: #fff; padding: 80px 0; }
+.at-skills-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+.at-skill-card {
+  aspect-ratio: 1 / 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  border-radius: 4px; border: 1px solid #e4e4e7; background: #fff;
+  cursor: pointer; transition: background .25s, border-color .25s;
+}
+.at-skill-card:hover { background: #000; border-color: #000; }
+.at-skill-card:hover .at-skill-img { filter: invert(1); }
+.at-skill-card:hover .at-skill-name { color: #fff; }
+.at-skill-img { width: 56px; height: 56px; object-fit: contain; }
+.at-skill-name { font-size: 16px; font-weight: 600; color: #000; text-align: center; }
+
+/* ═══════════════════════════════════════════════
+   4. EXPERIENCE — fully editable HTML
+   ═══════════════════════════════════════════════ */
+.at-experience { background: #000; padding: 80px 0; }
+.at-experience .at-h-regular,
+.at-experience .at-h-bold { color: #fff; }
+.at-exp-cards { display: flex; flex-direction: column; gap: 24px; }
+.at-exp-card {
+  border: 1px solid #27272a; border-radius: 10px;
+  padding: 32px; display: flex; flex-direction: column; gap: 20px;
+  transition: border-color .2s;
+}
+.at-exp-card.is-highlighted { background: #27272a; border-color: #3f3f46; }
+.at-exp-card:hover { border-color: #52525b; }
+.at-exp-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.at-exp-left { display: flex; align-items: center; gap: 16px; }
+.at-exp-logo { width: 32px; height: 32px; flex-shrink: 0; }
+.at-exp-logo img { width: 32px; height: 32px; }
+.at-exp-title { font-size: 24px; font-weight: 600; color: #fff; line-height: 32px; }
+.at-exp-date { font-size: 16px; font-weight: 600; color: #d4d4d8; white-space: nowrap; }
+.at-exp-desc { font-size: 16px; font-weight: 400; line-height: 24px; color: #d4d4d8; }
+
+/* ═══════════════════════════════════════════════
+   5. ABOUT — full Figma SVG (edit in Figma, re-export)
+   ═══════════════════════════════════════════════ */
+.at-about { background: #fff; line-height: 0; }
+
+/* ═══════════════════════════════════════════════
+   6. PROJECTS — black bg
+   ═══════════════════════════════════════════════ */
+.at-projects { background: #000; padding: 80px 0; }
+.at-projects .at-h-regular,
+.at-projects .at-h-bold { color: #fff; }
+.at-project-item {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+  align-items: center; padding: 40px 0;
+  border-top: 1px solid #27272a;
+  transition: background .2s;
+}
+.at-project-item:last-child { border-bottom: 1px solid #27272a; }
+.at-project-item:hover { background: #0a0a0a; }
+.at-project-item.is-reversed .at-project-img { order: 2; }
+.at-project-item.is-reversed .at-project-detail { order: 1; }
+.at-project-img {
+  background: #18181b; aspect-ratio: 594/476; border-radius: 4px;
+  overflow: hidden;
+}
+.at-project-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.at-project-num   { font-size: 48px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 56px; margin-bottom: 4px; opacity: .3; }
+.at-project-title { font-size: 32px; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 40px; margin-bottom: 12px; }
+.at-project-desc  { font-size: 16px; line-height: 24px; color: #71717a; }
+.at-read-more {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 16px; font-weight: 600; color: #fff; margin-top: 24px;
+  transition: gap .2s, color .2s;
+}
+.at-read-more:hover { gap: 14px; color: #d4d4d8; }
+.at-read-more svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════
+   7. TESTIMONIALS — fully editable HTML
+   ═══════════════════════════════════════════════ */
+.at-testimonials { background: #fff; padding: 80px 0; }
+.at-testimonials .at-h-regular,
+.at-testimonials .at-h-bold { color: #000; }
+.at-testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.at-testi-card {
+  border-radius: 20px; padding: 40px 32px;
+  display: flex; flex-direction: column; gap: 24px;
+  background: #fff; border: 1px solid #e4e4e7;
+  transition: transform .2s, box-shadow .2s;
+}
+.at-testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+.at-testi-card.is-featured { background: #000; border-color: #000; }
+.at-testi-avatar { position: relative; width: 96px; height: 96px; }
+.at-testi-avatar-circle {
+  width: 96px; height: 96px; border-radius: 50%;
+  background: #e4e4e7; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; font-weight: 700; color: #71717a;
+}
+.at-testi-card.is-featured .at-testi-avatar-circle { background: #3f3f46; color: #d4d4d8; }
+.at-testi-badge {
+  position: absolute; bottom: 0; right: 0;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #000; border: 2px solid #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+.at-testi-card.is-featured .at-testi-badge { background: #fff; }
+.at-testi-badge svg { width: 14px; height: 14px; }
+.at-testi-quote { font-size: 16px; font-weight: 400; line-height: 24px; color: #404040; flex: 1; }
+.at-testi-card.is-featured .at-testi-quote { color: #fff; }
+.at-testi-divider { width: 120px; height: 2px; background: #000; border: none; }
+.at-testi-card.is-featured .at-testi-divider { background: #fff; }
+.at-testi-name { font-size: 20px; font-weight: 600; color: #404040; }
+.at-testi-card.is-featured .at-testi-name { color: #fff; }
+.at-testi-role { font-size: 16px; font-weight: 600; color: #71717a; }
+.at-testi-card.is-featured .at-testi-role { color: #d4d4d8; }
+
+/* ═══════════════════════════════════════════════
+   8. CONTACT
+   ═══════════════════════════════════════════════ */
+.at-contact { background: #fff; padding: 80px 0; }
+.at-contact .at-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.at-field { margin-bottom: 12px; }
+.at-input, .at-textarea {
+  width: 100%; height: 56px; padding: 0 20px;
+  font-family: 'Sora', sans-serif; font-size: 16px; color: #18181b;
+  background: #fff; border: 1px solid #000; border-radius: 4px;
+  outline: none; transition: border-color .2s; appearance: none;
+}
+.at-textarea { height: 140px; padding: 16px 20px; resize: vertical; }
+.at-input::placeholder, .at-textarea::placeholder { color: #71717a; }
+.at-input:focus, .at-textarea:focus { border-color: #71717a; }
+.at-form-row { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.at-btn-submit {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 56px; padding: 0 32px; background: #000; color: #fff;
+  font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 600;
+  border: none; border-radius: 4px; cursor: pointer; transition: background .2s;
+}
+.at-btn-submit:hover { background: #404040; }
+.at-contact-tagline { font-size: 48px; font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; color: #000; margin-bottom: 24px; }
+.at-contact-tagline strong { font-weight: 800; display: block; }
+.at-talk-outline { -webkit-text-stroke: 2px #000; color: transparent; }
+.at-contact-sub { font-size: 16px; line-height: 24px; color: #71717a; margin-bottom: 32px; }
+.at-contact-details { display: flex; flex-direction: column; gap: 4px; }
+.at-contact-details a { font-size: 28px; font-weight: 600; color: #000; transition: color .2s; }
+.at-contact-details a:hover { color: #71717a; }
+
+/* ═══════════════════════════════════════════════
+   9. FOOTER — black bg
+   ═══════════════════════════════════════════════ */
+.at-footer { height: 100px; background: #000; display: flex; align-items: center; }
+.at-footer .at-wrap { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.at-footer-logo { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; color: #fff; }
+.at-footer-copy { text-align: right; }
+.at-footer-copy span { display: block; font-size: 16px; font-weight: 600; color: #fff; }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .at-wrap { padding: 0 40px; }
+  .at-skills-grid { grid-template-columns: repeat(4, 1fr); }
+  .at-exp-title { font-size: 20px; }
+}
+@media (max-width: 768px) {
+  .at-wrap { padding: 0 24px; }
+  .at-header { height: auto; padding: 20px 0; position: static; }
+  .at-nav { display: none; }
+  .at-hero-grid { grid-template-columns: 1fr; }
+  .at-hero-illustration { display: none; }
+  .at-hero-regular, .at-hero-bold, .at-hero-outline { font-size: 36px; line-height: 44px; }
+  .at-h-regular, .at-h-bold { font-size: 36px; line-height: 44px; }
+  .at-skills-grid { grid-template-columns: repeat(3, 1fr); }
+  .at-exp-header { flex-direction: column; align-items: flex-start; }
+  .at-testimonials-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .at-project-item { grid-template-columns: 1fr; gap: 24px; }
+  .at-project-item.is-reversed .at-project-img,
+  .at-project-item.is-reversed .at-project-detail { order: unset; }
+  .at-contact .at-wrap { grid-template-columns: 1fr; }
+  .at-contact-tagline { font-size: 36px; }
+  .at-contact-details a { font-size: 22px; }
+}
+@media (max-width: 480px) {
+  .at-skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .at-testimonials-grid { max-width: none; }
+  .at-contact-tagline { font-size: 28px; }
+  .at-contact-details a { font-size: 18px; }
+}
+</style>
+
+<div class="at">
+
+  {%- comment -%} ══ 1. HEADER ══ {%- endcomment -%}
+  <header class="at-header">
+    <div class="at-wrap">
+      <a href="/ai-task" class="at-logo">
+        <div class="at-logo-mark">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M31.5294 14.2118C31.5294 18.8819 28.7623 22.9082 24.7793 24.7351C26.4612 23.3496 27.5322 21.248 27.5322 18.896C27.5322 14.7642 24.2259 11.4042 20.112 11.3205C20.0574 11.3167 20.0075 11.3167 19.9529 11.3167C19.8983 11.3167 19.8485 11.3167 19.7939 11.3205C18.2673 11.4033 17.0588 12.6663 17.0588 14.2108V28.6814C17.0588 33.4748 13.1699 37.3638 8.37646 37.3638V14.2118C8.37646 7.81928 13.5605 2.63528 19.9529 2.63528C26.3454 2.63528 31.5294 7.81928 31.5294 14.2118Z" fill="black"/>
+            <path d="M21.9992 16.2582C23.1294 15.128 23.1294 13.2956 21.9992 12.1654C20.8689 11.0351 19.0365 11.0351 17.9063 12.1654C16.7761 13.2956 16.7761 15.128 17.9063 16.2582C19.0365 17.3884 20.8689 17.3884 21.9992 16.2582Z" fill="black"/>
+          </svg>
+        </div>
+        Personal
+      </a>
+      <nav class="at-nav">
+        <a href="#about">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Project</a>
+        <a href="#contact">Contact Me</a>
+      </nav>
+      <a href="#" class="at-btn-solid" download>
+        Resume
+        <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 11V12C16 13.4 16 14.1 15.73 14.64C15.49 15.1 15.1 15.49 14.64 15.73C14.1 16 13.4 16 12 16H5C3.6 16 2.9 16 2.37 15.73C1.89 15.49 1.51 15.1 1.27 14.64C1 14.1 1 13.4 1 12V11M12.67 6.83L8.5 11M8.5 11L4.33 6.83M8.5 11V1"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+
+  {%- comment -%} ══ 2. HERO — edit text directly here ══ {%- endcomment -%}
+  <section class="at-hero">
+    <div class="at-wrap">
+      <div class="at-hero-grid">
+
+        <div class="at-hero-content">
+          <div class="at-hero-heading">
+            <div class="at-hero-line">
+              <span class="at-hero-regular">Hello I'am</span>
+              <span class="at-hero-bold">Flora Sheen.</span>
+            </div>
+            <div class="at-hero-line">
+              <span class="at-hero-bold">Frontend</span>
+              <span class="at-hero-outline">Developer</span>
+            </div>
+            <div class="at-hero-line">
+              <span class="at-hero-regular">Based In</span>
+              <span class="at-hero-bold">India.</span>
+            </div>
+          </div>
+          <p class="at-hero-desc">I'm Flora Sheen Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to specimen book.</p>
+          <div class="at-hero-social">
+            <button class="at-btn-icon" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </button>
+            <button class="at-btn-icon is-outlined" aria-label="Behance">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 1.202.715 1.91 1.865 1.91.87 0 1.434-.4 1.74-1.126l2.151.345zM15.97 13h4.406c-.078-1.08-.632-1.978-2.097-1.978-1.32 0-2.145.795-2.309 1.978zM9.547 11.72c.896-.406 1.399-1.181 1.399-2.196 0-2.134-1.793-3.524-4.357-3.524H2v14h4.938c2.485 0 4.733-1.347 4.733-3.9 0-1.352-.617-2.354-2.124-2.38zM5 9h1.1c1.128 0 1.803.51 1.803 1.484 0 .916-.695 1.368-1.86 1.368H5V9zm1.44 8H5v-3h1.44c1.307 0 2.031.527 2.031 1.513 0 .985-.724 1.487-2.031 1.487z"/></svg>
+            </button>
+            <button class="at-btn-icon is-outlined" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            </button>
+            <button class="at-btn-icon is-outlined" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="at-hero-illustration">
+          <img src="{{ 'modules/website/images/ai_task/hero-girl.png' | asset_url }}" alt="Flora Sheen - Frontend Developer">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  {%- comment -%} ══ 3. SKILLS ══ {%- endcomment -%}
+  <section class="at-skills" id="skills">
+    <div class="at-wrap">
+      <div class="at-heading-row">
+        <span class="at-h-regular">My</span>
+        <span class="at-h-bold">Skills</span>
+      </div>
+      <div class="at-skills-grid">
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-git.svg' | asset_url }}" alt="Git" class="at-skill-img">
+          <span class="at-skill-name">Git</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-js.svg' | asset_url }}" alt="JavaScript" class="at-skill-img">
+          <span class="at-skill-name">JavaScript</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-react.svg' | asset_url }}" alt="React" class="at-skill-img">
+          <span class="at-skill-name">React</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-sass.svg' | asset_url }}" alt="Sass/SCSS" class="at-skill-img">
+          <span class="at-skill-name">Sass/SCSS</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-nest.svg' | asset_url }}" alt="Nest.js" class="at-skill-img">
+          <span class="at-skill-name">Nest.js</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-storybook.svg' | asset_url }}" alt="Storybook" class="at-skill-img">
+          <span class="at-skill-name">Storybook</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-socket.svg' | asset_url }}" alt="Socket.io" class="at-skill-img">
+          <span class="at-skill-name">Socket.io</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-nextjs.svg' | asset_url }}" alt="Next.js" class="at-skill-img">
+          <span class="at-skill-name">Next.js</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-tailwind.svg' | asset_url }}" alt="Tailwind CSS" class="at-skill-img">
+          <span class="at-skill-name">Tailwind CSS</span>
+        </div>
+        <div class="at-skill-card">
+          <img src="{{ 'modules/website/images/ai_task/skill-figma.svg' | asset_url }}" alt="Figma" class="at-skill-img">
+          <span class="at-skill-name">Figma</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  {%- comment -%} ══ 4. EXPERIENCE — edit text directly here ══ {%- endcomment -%}
+  <section class="at-experience">
+    <div class="at-wrap">
+      <div class="at-heading-row">
+        <span class="at-h-regular">My</span>
+        <span class="at-h-bold">Experience</span>
+      </div>
+      <div class="at-exp-cards">
+
+        <div class="at-exp-card">
+          <div class="at-exp-header">
+            <div class="at-exp-left">
+              <div class="at-exp-logo">
+                <img src="{{ 'modules/website/images/ai_task/logo-google.svg' | asset_url }}" alt="Google">
+              </div>
+              <div class="at-exp-title">Lead Software Engineer at Google</div>
+            </div>
+            <div class="at-exp-date">Nov 2019 - Present</div>
+          </div>
+          <p class="at-exp-desc">As a Senior Software Engineer at Google, I played a pivotal role in developing innovative solutions for Google's core search algorithms. Collaborating with a dynamic team of engineers, I contributed to the enhancement of search accuracy and efficiency, optimizing user experiences for millions of users worldwide.</p>
+        </div>
+
+        <div class="at-exp-card is-highlighted">
+          <div class="at-exp-header">
+            <div class="at-exp-left">
+              <div class="at-exp-logo">
+                <img src="{{ 'modules/website/images/ai_task/logo-youtube.svg' | asset_url }}" alt="YouTube">
+              </div>
+              <div class="at-exp-title">Software Engineer at YouTube</div>
+            </div>
+            <div class="at-exp-date">Jan 2017 - Oct 2019</div>
+          </div>
+          <p class="at-exp-desc">At YouTube, I served as a Software Engineer where I focused on improving video delivery infrastructure and developing features that enhanced user engagement. I worked closely with cross-functional teams to deliver scalable solutions impacting hundreds of millions of daily active users.</p>
+        </div>
+
+        <div class="at-exp-card">
+          <div class="at-exp-header">
+            <div class="at-exp-left">
+              <div class="at-exp-logo">
+                <img src="{{ 'modules/website/images/ai_task/logo-apple.svg' | asset_url }}" alt="Apple">
+              </div>
+              <div class="at-exp-title">Junior Software Engineer at Apple</div>
+            </div>
+            <div class="at-exp-date">Jan 2016 - Dec 2017</div>
+          </div>
+          <p class="at-exp-desc">During my tenure at Apple, I held the role of Junior Software Engineer, contributing to the development of key features in iOS applications. I gained invaluable experience in mobile development, performance optimization, and working within a world-class engineering team dedicated to quality and innovation.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  {%- comment -%} ══ 5. ABOUT — SVG from Figma. To edit: open Figma, update the "about me" section in the Girl frame, re-export as SVG, and replace modules/website/public/assets/images/ai_task/about.svg ══ {%- endcomment -%}
+  <section class="at-about" id="about">
+    <img src="{{ 'modules/website/images/ai_task/about.svg' | asset_url }}" alt="About Flora Sheen - Frontend Developer" class="at-section-img">
+  </section>
+
+
+  {%- comment -%} ══ 6. PROJECTS ══ {%- endcomment -%}
+  <section class="at-projects" id="projects">
+    <div class="at-wrap">
+      <div class="at-heading-row">
+        <span class="at-h-regular">My</span>
+        <span class="at-h-bold">Projects</span>
+      </div>
+
+      <div class="at-project-item">
+        <div class="at-project-img">
+          <img src="{{ 'modules/website/images/ai_task/project1.png' | asset_url }}" alt="Crypto Screener Application">
+        </div>
+        <div class="at-project-detail">
+          <div class="at-project-num">01</div>
+          <div class="at-project-title">Crypto Screener Application</div>
+          <p class="at-project-desc">I'm Flora Sheen Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to specimen book.</p>
+          <a href="#" class="at-read-more">
+            Read More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="at-project-item is-reversed">
+        <div class="at-project-detail">
+          <div class="at-project-num">02</div>
+          <div class="at-project-title">Euphoria - Ecommerce (Apparels) Website Template</div>
+          <p class="at-project-desc">I'm Flora Sheen Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to specimen book.</p>
+          <a href="#" class="at-read-more">
+            Read More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+        <div class="at-project-img">
+          <img src="{{ 'modules/website/images/ai_task/project2.png' | asset_url }}" alt="Euphoria Ecommerce Website">
+        </div>
+      </div>
+
+      <div class="at-project-item">
+        <div class="at-project-img">
+          <img src="{{ 'modules/website/images/ai_task/project3.png' | asset_url }}" alt="Blog Website Template">
+        </div>
+        <div class="at-project-detail">
+          <div class="at-project-num">03</div>
+          <div class="at-project-title">Blog Website Template</div>
+          <p class="at-project-desc">I'm Flora Sheen Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to specimen book.</p>
+          <a href="#" class="at-read-more">
+            Read More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  {%- comment -%} ══ 7. TESTIMONIALS — edit text directly here ══ {%- endcomment -%}
+  <section class="at-testimonials">
+    <div class="at-wrap">
+      <div class="at-heading-row">
+        <span class="at-h-regular">My</span>
+        <span class="at-h-bold">Testimonial</span>
+      </div>
+      <div class="at-testimonials-grid">
+
+        <div class="at-testi-card">
+          <div class="at-testi-avatar">
+            <div class="at-testi-avatar-circle">E</div>
+            <div class="at-testi-badge">
+              <svg viewBox="0 0 14 10" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 5 5 9 13 1"/></svg>
+            </div>
+          </div>
+          <p class="at-testi-quote">"I recently had to jump on 10+ different calls across eight different countries to find the right owner."</p>
+          <hr class="at-testi-divider">
+          <div>
+            <div class="at-testi-name">Evren Shah</div>
+            <div class="at-testi-role">Designer</div>
+          </div>
+        </div>
+
+        <div class="at-testi-card is-featured">
+          <div class="at-testi-avatar">
+            <div class="at-testi-avatar-circle">F</div>
+            <div class="at-testi-badge">
+              <svg viewBox="0 0 14 10" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 5 5 9 13 1"/></svg>
+            </div>
+          </div>
+          <p class="at-testi-quote">"I recently had to jump on 10+ different calls across eight different countries to find the right owner."</p>
+          <hr class="at-testi-divider">
+          <div>
+            <div class="at-testi-name">Flora Sheen</div>
+            <div class="at-testi-role">Designer</div>
+          </div>
+        </div>
+
+        <div class="at-testi-card">
+          <div class="at-testi-avatar">
+            <div class="at-testi-avatar-circle">E</div>
+            <div class="at-testi-badge">
+              <svg viewBox="0 0 14 10" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 5 5 9 13 1"/></svg>
+            </div>
+          </div>
+          <p class="at-testi-quote">"I recently had to jump on 10+ different calls across eight different countries to find the right owner."</p>
+          <hr class="at-testi-divider">
+          <div>
+            <div class="at-testi-name">Evren Shah</div>
+            <div class="at-testi-role">Designer</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  {%- comment -%} ══ 8. CONTACT ══ {%- endcomment -%}
+  <section class="at-contact" id="contact">
+    <div class="at-wrap">
+      <div>
+        <div class="at-field"><input class="at-input" type="text" placeholder="Your name"></div>
+        <div class="at-field"><input class="at-input" type="email" placeholder="Email"></div>
+        <div class="at-field"><input class="at-input" type="text" placeholder="Your website (If exists)"></div>
+        <div class="at-field"><textarea class="at-textarea" placeholder="How can I help?*"></textarea></div>
+        <div class="at-form-row">
+          <button class="at-btn-submit">Get In Touch</button>
+          <button class="at-btn-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </button>
+          <button class="at-btn-icon is-outlined" aria-label="Behance">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 1.202.715 1.91 1.865 1.91.87 0 1.434-.4 1.74-1.126l2.151.345zM15.97 13h4.406c-.078-1.08-.632-1.978-2.097-1.978-1.32 0-2.145.795-2.309 1.978zM9.547 11.72c.896-.406 1.399-1.181 1.399-2.196 0-2.134-1.793-3.524-4.357-3.524H2v14h4.938c2.485 0 4.733-1.347 4.733-3.9 0-1.352-.617-2.354-2.124-2.38zM5 9h1.1c1.128 0 1.803.51 1.803 1.484 0 .916-.695 1.368-1.86 1.368H5V9zm1.44 8H5v-3h1.44c1.307 0 2.031.527 2.031 1.513 0 .985-.724 1.487-2.031 1.487z"/></svg>
+          </button>
+          <button class="at-btn-icon is-outlined" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </button>
+          <button class="at-btn-icon is-outlined" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="at-contact-info">
+        <p class="at-contact-tagline">
+          Let's <span class="at-talk-outline">talk</span> for
+          <strong>Something special</strong>
+        </p>
+        <p class="at-contact-sub">I seek to push the limits of creativity to create high-engaging, user-friendly, and memorable interactive experiences.</p>
+        <div class="at-contact-details">
+          <a href="mailto:youremail@gmail.com">Youremail@gmail.com</a>
+          <a href="tel:1234567890">1234567890</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  {%- comment -%} ══ 9. FOOTER ══ {%- endcomment -%}
+  <footer class="at-footer">
+    <div class="at-wrap">
+      <div class="at-footer-logo">
+        <div class="at-logo-mark">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M31.5294 14.2118C31.5294 18.8819 28.7623 22.9082 24.7793 24.7351C26.4612 23.3496 27.5322 21.248 27.5322 18.896C27.5322 14.7642 24.2259 11.4042 20.112 11.3205C20.0574 11.3167 20.0075 11.3167 19.9529 11.3167C19.8983 11.3167 19.8485 11.3167 19.7939 11.3205C18.2673 11.4033 17.0588 12.6663 17.0588 14.2108V28.6814C17.0588 33.4748 13.1699 37.3638 8.37646 37.3638V14.2118C8.37646 7.81928 13.5605 2.63528 19.9529 2.63528C26.3454 2.63528 31.5294 7.81928 31.5294 14.2118Z" fill="white"/>
+            <path d="M21.9992 16.2582C23.1294 15.128 23.1294 13.2956 21.9992 12.1654C20.8689 11.0351 19.0365 11.0351 17.9063 12.1654C16.7761 13.2956 16.7761 15.128 17.9063 16.2582C19.0365 17.3884 20.8689 17.3884 21.9992 16.2582Z" fill="white"/>
+          </svg>
+        </div>
+        Personal
+      </div>
+      <div class="at-footer-copy">
+        <span>@ 2019-2023 Personal</span>
+        <span>Made In Figma</span>
+      </div>
+    </div>
+  </footer>
+
+</div>

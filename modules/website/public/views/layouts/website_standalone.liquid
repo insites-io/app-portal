@@ -1,0 +1,25 @@
+---
+metadata: {
+    layout_name: website_standalone
+}
+---
+
+{%- comment -%} Used by the fragment cache in the layout {%- endcomment -%}
+{%- include "modules/website/cache/layout_fragment_cache_key" -%}
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  {%- capture head_key -%}{{ context.exports.layout_cache_key.cache_key | append: "-head-standalone" }}{%- endcapture -%}
+  {%- cache head_key -%}
+    {% include 'modules/website/layout/head' %}
+  {%- endcache -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  {{ content_for_layout }}
+  {%- include 'modules/website/layout/technical_foot' -%}
+</body>
+</html>
