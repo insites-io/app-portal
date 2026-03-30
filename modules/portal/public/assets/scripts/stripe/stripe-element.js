@@ -67,27 +67,44 @@ let StripeElement = (() => {
             },
             async tokenizedStripeCC() {
                 stripe.createToken(card).then(async(result) => {
-                    if (errorElement && result.error) {
-                        // Inform the user if there was an error.
-                        errorElement.textContent = result.error.message;
+                    // Step 1: Check if Stripe itself returned an error (e.g. card_declined, invalid_number).
+                    // If so, surface the message inline and stop — do not call the backend.
+                    if (result.error) {
+                        if (errorElement) errorElement.textContent = result.error.message;
                         this.setButtonLoading(false);
-                    } else {
-                        // Send the token to your server.
-                        let response = await this.createStripeCardModel(result.token);
-                        // set stripe card token to form for payment
-                        this.setStripeCardField(result.token);
-                        this.setButtonLoading(false);
-                        App.events.notyf('success', "Credit card has been added.");
-                        this.makeCardElement(result.token);
-                        card.clear();
-                        
-                        if (stripeCardModal) {
-                            stripeCardModal.close();
-                        }
-
-                        //toggle guest card form
-                        StripeElement.events.toggleGuestCard('add');
+                        return;
                     }
+
+                    // Step 2: Stripe confirmed the card — now attempt to save it via the backend.
+                    let response = await this.createStripeCardModel(result.token);
+                    console.log('createStripeCardModel response:', response);
+
+                    // Step 3: If the backend save failed, surface the error and stop.
+                    // Check both response.state AND stripe_card_id — the API can return state: true
+                    // with an empty stripe_card_id if Stripe failed silently on the backend.
+                    // If the backend returned a stripe_error message, show it inline.
+                    if (!response || !response.state || !response.data?.stripe_card_id) {
+                        if (errorElement && response?.data?.stripe_error) {
+                            errorElement.textContent = response.data.stripe_error;
+                        }
+                        this.setButtonLoading(false);
+                        return;
+                    }
+
+                    // Step 4: Card saved successfully — update the UI.
+                    this.setStripeCardField(result.token);
+                    this.setButtonLoading(false);
+                    App.events.notyf('success', "Credit card has been added.");
+                    this.makeCardElement(result.token);
+                    card.clear();
+                    if (errorElement) errorElement.textContent = '';
+
+                    if (stripeCardModal) {
+                        stripeCardModal.close();
+                    }
+
+                    //toggle guest card form
+                    StripeElement.events.toggleGuestCard('add');
                 });
             },
             setButtonLoading(state) {
@@ -108,6 +125,7 @@ let StripeElement = (() => {
                     "card_brand": token.card.brand
                 }
                 let response = await StripeModel.creditcard.createCreditCard(data);
+                return response;
                 // Insert the token ID into the form checkout - Optional if no element / not checkout form
                 if (response.state && payByCardField)
                     payByCardField.setAttribute('value', token.id);

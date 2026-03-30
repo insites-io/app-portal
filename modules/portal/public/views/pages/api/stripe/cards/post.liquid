@@ -113,6 +113,7 @@ metadata: {
 
 
 {
-    "stripe_card_id": "{{ context.exports.stripe_response.id }}"
+    "stripe_card_id": "{{ context.exports.stripe_response.id }}",
+    "stripe_error": "{{ context.exports.stripe_response.error.message }}"
 }
 {%- response_status status -%}
