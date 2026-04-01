@@ -27,11 +27,10 @@ authorization_policies:
 ---
 {% comment %} ? GET USER DETAILS {% endcomment %}
 {% function user_details = "modules/portal/users/user_details" %}
-
 {% if user_details.is_primary_account_holder == true %}
     <h1>Users</h1>
     <div class="spacer small"></div>
-    <p>Manage your team’s access to your company account.</p>
+    <p>Manage your team's access to your company account.</p>
     <div class="spacer xxx-large"></div>
     {% include 'modules/portal/users/list' %}
 {% else %}

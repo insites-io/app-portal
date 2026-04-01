@@ -1,0 +1,55 @@
+---
+metadata: {
+    partial_name: 'Portal | Users | Table Row'
+}
+---
+{%- assign item_portal = item.portal | first -%}
+{%- assign item_contact = item.contact | first -%}
+{%- assign item_name = item.first_name | append: ' ' | append: item.last_name | strip -%}
+{%- assign is_pah = item_portal.primary_account_holder -%}
+
+<ins-table-row class="users-table-data{% if is_pah %} pah-row{% endif %}">
+
+    {% comment %} NAME {% endcomment %}
+    <ins-table-td class="body-small p-body">
+        {% if is_pah %}
+            <div class="ins-accordion-item_header">
+                <span>{{ item_name }}</span>
+            </div>
+            <div class="primary-account-holder-outer" style="display:none;">
+                <span class="body-x-small primary-account-holder-label">Primary Account Holder</span>
+            </div>
+        {% else %}
+            <span>{{ item_name }}</span>
+        {% endif %}
+    </ins-table-td>
+
+    {% comment %} EMAIL {% endcomment %}
+    <ins-table-td class="body-small p-body hide-for-small-medium">
+        {{ item.email }}
+    </ins-table-td>
+
+    {% comment %} PERMISSION LEVEL {% endcomment %}
+    <ins-table-td class="body-small p-body hide-for-small-medium">
+        {% if is_pah %}
+            <span class="body-small">Primary Account Holder</span>
+        {% else %}
+            <ins-input-select
+                class="selectPermission"
+                label=""
+                value="{{ item_portal.permission_level }}"
+                data-permission-level-previous-value="{{ item_portal.permission_level }}"
+                data-id="{{ item_contact.id }}"
+                data-uuid="{{ item.external_id }}"
+                data-name="{{ item_name }}"
+                data-email="{{ item.email }}"
+                data-custom-field-id="{{ item_portal.id }}">
+
+                <ins-input-select-option label="Manager" value="Manager"></ins-input-select-option>
+                <ins-input-select-option label="Staff" value="Staff"></ins-input-select-option>
+                <ins-input-select-option label="No Access" value="No Access"></ins-input-select-option>
+            </ins-input-select>
+        {% endif %}
+    </ins-table-td>
+
+</ins-table-row>

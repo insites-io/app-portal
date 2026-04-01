@@ -11,10 +11,11 @@ metadata: {
     "details": "{{ info.details | default: "" }}"   
 }
 {%- endparse_json -%}
+
 {%- assign data = data | add_hash_key: "log", info.log -%}
 {%- assign data = data | add_hash_key: "description", info.description | default: "" -%}
-{%- assign data = data | add_hash_key: "module_source",  "insites_core" -%}
-{%- assign data = data | add_hash_key: "module_feature", "crm_contact" -%}
+{%- assign data = data | add_hash_key: "module_source",  "insites_databases" -%}
+{%- assign data = data | add_hash_key: "module_feature", "database_items" -%}
 {%- assign data = data | add_hash_key: "request_type", "internal" -%}
 {%- assign data = data | add_hash_key: "administrator_uuid", info.administrator_uuid  -%}
 

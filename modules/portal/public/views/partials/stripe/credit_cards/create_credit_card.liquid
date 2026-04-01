@@ -27,8 +27,14 @@ metadata: {
     }
     {% endparse_json %}
 
-    {% comment %} Create pOS credit card model {% endcomment %}
-    {% graphql card_model = "modules/portal/credit_cards/create_credit_card" args: credit_card  %}
+    {% comment %}
+        Only create the pOS credit card model if Stripe returned a valid card ID.
+        If Stripe failed (e.g. card declined, invalid token), stripe_response.id will be empty
+        and we must not persist a ghost record — otherwise it shows up as an invalid card on refresh.
+    {% endcomment %}
+    {% if stripe_response.id and stripe_response.id != blank %}
+        {% graphql card_model = "modules/portal/credit_cards/create_credit_card" args: credit_card  %}
+    {% endif %}
 
     {% comment %} Create Event Stream {% endcomment %}
     {%- graphql user = "modules/portal/account/get_user_by_email" 

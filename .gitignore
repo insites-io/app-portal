@@ -8,3 +8,4 @@ app.zip
 .cursor/
 mcp/
 node_modules/
+e2e/

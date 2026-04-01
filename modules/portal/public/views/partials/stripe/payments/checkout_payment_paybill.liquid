@@ -71,17 +71,6 @@ metadata: {
         {%- assign charge_to_this_card = charge_to_this_card | strip_newlines | strip -%}
     {% elsif check_new == 'card' %}
         {%- assign charge_to_this_card = form.properties.stripe_credit_card -%}
-        {% if context.current_user.id %}
-        {% comment %} Optional: Update Credit Card, if user is logged in set user_id {% endcomment %}
-        {% comment %} 
-            {%- graphql current_card = "modules/ecommerce/credit_card/get_credit_card", 
-                payment_method_token: charge_to_this_card,
-                size: 1 | dig: 'items' | dig: 'results' | first -%}
-            {%- graphql update_credit_card = 'modules/ecommerce/credit_card/update_credit_card',
-                id: current_card.id,
-                user_id: user_id | dig: 'items' -%}
-        {% endcomment %}
-        {% endif %}
     {% endif %}
     {%- comment -%}Proceed to Step 2: Payment {%- endcomment -%}
 {% else %}
@@ -111,8 +100,8 @@ metadata: {
     "currency": "AUD",
     "amount": "{{ amount | advanced_format: '%.0f' }}",
     "customer": "{{ get_stripe_id.stripe_id }}",
-    {% if charge_to_this_card %}
-        "source": "{{ charge_to_this_card }}",
+    {% if charge_to_this_card contains 'card_' %}
+            "source": "{{ charge_to_this_card }}",
     {% endif %}
     "description": "Insites Order ID: {{ form.id }} (Insites Customer ID: {{ user.uuid }})",
     "metadata": {

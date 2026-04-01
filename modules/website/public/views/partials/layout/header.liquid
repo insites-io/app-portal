@@ -35,10 +35,10 @@ metadata: {
       <div class="large-1 medium-3 small-5 cell">
         <a href="/">
           {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
-          {% if dark == blank %} 
-            <img class="logo" src="{{ company_logo }}" alt="Logo" height="56" width="119">
+          {% if dark == blank %}
+            <img class="logo" src="{{ company_logo }}" alt="Logo" height="56" width="119" fetchpriority="high">
           {% else %}
-            <img class="logo" src="{{ alternate_company_logo }}" alt="Logo" height="56" width="119">
+            <img class="logo" src="{{ alternate_company_logo }}" alt="Logo" height="56" width="119" fetchpriority="high">
           {% endif %}
         </a>
       </div>

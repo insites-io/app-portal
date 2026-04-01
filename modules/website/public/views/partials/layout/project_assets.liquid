@@ -10,7 +10,7 @@ Project Assets - Holds app css and js
 
 {%- if context.environment == "staging" -%}
     <link rel="preload" as="style" href="{{ 'modules/website/styles/default.css' | asset_url }}" >
-    <link rel="stylesheet" href="{{ 'modules/website/styles/default.css' | asset_url }}" > 
+    <link rel="stylesheet" href="{{ 'modules/website/styles/default.css' | asset_url }}" >
     {% comment %} <link rel="preload" as="style" href="{{ 'modules/website/styles/custom.css' | asset_url }}" >
     <link rel="stylesheet" href="{{ 'modules/website/styles/custom.css' | asset_url }}" > {% endcomment %}
     {% comment %} <link rel="preload" as="style" href="{{ 'modules/website/styles/breakpoint.css' | asset_url }}" >
@@ -25,9 +25,11 @@ Project Assets - Holds app css and js
 
 {% if context.constants.ecommerce_addon == 'true' %}
     {%- if context.environment == "staging" -%}
-        <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.css' | asset_url }}" >
+        <link rel="preload" as="style" href="{{ 'modules/ecommerce/styles/ecommerce.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.css' | asset_url }}"></noscript>
     {%- else -%}
-        <link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.min.css' | asset_url }}" >
+        <link rel="preload" as="style" href="{{ 'modules/ecommerce/styles/ecommerce.min.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ 'modules/ecommerce/styles/ecommerce.min.css' | asset_url }}"></noscript>
     {%- endif -%}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" defer></script>
     <script src="{{ 'modules/ecommerce/services/apiServices.min.js' | asset_url }}" defer></script>
@@ -38,5 +40,5 @@ Project Assets - Holds app css and js
         <link rel="stylesheet" href="{{ 'modules/events/styles/events.css' | asset_url }}" >
     {%- else -%}
         <link rel="stylesheet" href="{{ 'modules/events/styles/events.min.css' | asset_url }}" >
-    {%- endif -%}    
+    {%- endif -%}
 {%- endif -%}

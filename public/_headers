@@ -1,0 +1,14 @@
+# Cache static assets for 1 year (Lighthouse: efficient cache lifetimes)
+# Netlify & Cloudflare Pages: this file is read automatically. Adjust paths to match your deployment.
+# Cloudflare (non-Pages): use Dashboard > Rules > Transform Rules > Modify response header, or Page Rules.
+# Vercel: see vercel.json in project root for equivalent headers.
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/modules/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Shorter cache for HTML (so layout/head updates are picked up)
+/*
+  Cache-Control: public, max-age=0, must-revalidate

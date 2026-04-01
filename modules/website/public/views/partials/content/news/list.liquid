@@ -86,6 +86,7 @@ metadata: {
                             options='["All"{% for tag in tags %}, "{{ tag }}"{% endfor %}]'
                             selected="{{ context.params.tag }}">
                         </ins-filter-item>
+                        <div class="spacer x-small show-for-small-only"></div>
                         <ins-filter-item
                             name="Sort by"
                             options='["Newest First", "Oldest first", "Alphabetical (A-Z)","Alphabetical (Z-A)"]'
@@ -143,19 +144,48 @@ metadata: {
 
     <div class="grid-container">     
         <section class="news-content">
+            {% comment %} LCP: preload first visible image so the browser discovers it earlier {% endcomment %}
+            {% assign first_item = res_news | first %}
+            {% if first_item %}
+                {% assign first_image_url = first_item.list_view_image.url %}
+                {% if first_image_url == blank %}
+                    {% for news in news_list %}
+                        {% if first_item.slug == news.slug %}
+                            {% assign first_image_url = news.image %}
+                            {% break %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% if first_image_url != blank %}
+                    <link rel="preload" as="image" href="{{ first_image_url }}">
+                {% endif %}
+            {% endif %}
             <div class="team-list grid-x gutter-medium grid-padding-x grid-padding-y">
                 {% for item in res_news %}
+                    {% assign is_first_image = false %}
+                    {% if forloop.first %}
+                        {% assign is_first_image = true %}
+                    {% endif %}
                     <div class="large-4 medium-6 small-12 cell news-cards">
                         <a onclick="goToNewsDetail('{{ item.slug }}')" class="news-main-link-container">
-                            <div class="card"> 
-                                <div class="newsImageContainer">
+                            <div class="skeleton-card card">                                 
+                                <div class="newsImageContainer listview-skeleton skeleton-img">
                                     {% if item.list_view_image.url %}
-                                        <img width="500" height="500" alt="image" src="{{ item.list_view_image.url }}">
+                                        {% assign img_src = item.list_view_image.url %}
+                                        {% assign mobile_url = nil %}
+                                        {% if item.list_view_image.versions.mobile.url %}
+                                            {% assign mobile_url = item.list_view_image.versions.mobile.url %}
+                                        {% elsif item.list_view_image.versions %}
+                                            {% for ver in item.list_view_image.versions %}
+                                                {% if ver.name == 'mobile' and ver.url %}{% assign mobile_url = ver.url %}{% break %}{% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        <img width="500" height="500" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" alt="{{ item.title | escape }}" src="{{ img_src }}"{% if mobile_url %} srcset="{{ mobile_url }} 600w, {{ img_src }} 1000w"{% endif %} decoding="async"{% if is_first_image %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
                                     {% else %}
                                         {% comment %} ? SETTING DEFAULT IMAGE {% endcomment %}
                                         {% for news in news_list %}
                                             {% if item.slug == news.slug %}
-                                                <img width="500" height="500" alt="image" src="{{ news.image }}">
+                                                <img width="500" height="500" sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" alt="{{ item.title | escape }}" src="{{ news.image }}" decoding="async" {% if is_first_image %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
@@ -163,20 +193,20 @@ metadata: {
                                 <div class="spacer large"></div>
                                 <div class="news-author">
                                     {% if item.author != blank %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ item.author }}</p>
+                                        <p class="newsSubheading listview-skeleton skeleton-title">Published on {{ item.published_date | date: "%b %d, %Y" }} by {{ item.author }}</p>
                                     {% else %}
-                                        <p class="newsSubheading">Published on {{ item.published_date | date: "%b %d, %Y" }}</p>
+                                        <p class="newsSubheading listview-skeleton skeleton-title">Published on {{ item.published_date | date: "%b %d, %Y" }}</p>
                                     {% endif %}                  
                                 </div>
                                 <div class="newsContentContainer">
                                     <div class="news-content">
                                         <div class="spacer x-small"></div>
                                             <div class="newsTitle">
-                                                <h5>{{ item.title }}</h5>
+                                                <h5 class="listview-skeleton skeleton-title">{{ item.title }}</h5>
                                             </div>
                                         <div class="spacer x-small"></div>
                                         <div class="description">
-                                            <p class="subHeading p-two-line">{{ item.list_view_text }}</p>
+                                            <p class="subHeading p-two-line listview-skeleton skeleton-text">{{ item.list_view_text }}</p>
                                         </div>
                                         <div class="tagButton">
                                             <ins-tag 
@@ -200,6 +230,7 @@ metadata: {
                                         <i class="icon-arrow-up-right"></i> 
                                     </div>
                                 </div>
+                            
                             </div>
                         </a>
                     </div>
@@ -229,10 +260,20 @@ metadata: {
         insBaseTable.pageNumber = {{ page_num }};
         insBaseTable.pageSize = {{ per_page }};
 
-        setTimeout(() => {
+        function setPaginationLabel() {
             const paginationLabel = insBaseTable.querySelector(".ibt-table-wrap__pagination > span");
-            if (paginationLabel) paginationLabel.innerHTML = 'Items per page';
-        }, 600);
+            if (paginationLabel) {
+                paginationLabel.innerHTML = 'Items per page';
+                return true;
+            }
+            return false;
+        }
+        if (!setPaginationLabel()) {
+            const observer = new MutationObserver(() => {
+                if (setPaginationLabel()) observer.disconnect();
+            });
+            observer.observe(insBaseTable, { childList: true, subtree: true });
+        }
 
         insBaseTable.addEventListener('insPaginationChange', handlePaginationChange);
     }
@@ -331,4 +372,12 @@ metadata: {
 
         window.location.href = `/news/${slug}`;
     }
+
+    window.addEventListener('load', () => {
+        const skeletonElements = document.querySelectorAll('.listview-skeleton');
+
+        skeletonElements.forEach((el) => {
+            el.classList.remove('listview-skeleton', 'skeleton-img', 'skeleton-title', 'skeleton-text');
+        });
+    });
 </script>

@@ -135,7 +135,7 @@ metadata: {
 }
 {% endparse_json %}
 
-{% function update_order = "ecommerce/controller/order/update", params: order_data %}
+{% function update_order = "ecommerce/controller/order/update", uuid: form.properties.uuid, params: order_data %}
 {% liquid
     session paybill_order_id = update_order.id
     session paybill_order_reference = update_order.order_reference

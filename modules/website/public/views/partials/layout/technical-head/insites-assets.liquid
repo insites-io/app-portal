@@ -14,17 +14,20 @@ Includes but not limited to: fonts, scripts, stylesheets, etc..
     <link rel="preload" href="https://components.insites.io/v2/latest/css/insites-font-icons.css" as="style">
     <link rel="preload" href="https://components.insites.io/v2/latest/css/insites.css" as="style">
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&amp;display=swap" >
+    <!-- Primary font: Open Sans async to avoid render-blocking -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&amp;display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&amp;display=swap"></noscript>
 
-    <!-- Font Icons -->
-    <link rel="stylesheet" href="https://components.insites.io/v2/latest/css/insites-font-icons.css">
+    <!-- Font Icons: async -->
+    <link rel="stylesheet" href="https://components.insites.io/v2/latest/css/insites-font-icons.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://components.insites.io/v2/latest/css/insites-font-icons.css"></noscript>
 
     <!-- Components -->
     {%- assign ins_version = 'https://components.insites.io/v2/latest/' -%}
-    <link rel="stylesheet" href="{{ ins_version | append: 'css/insites.css' }}" >
+    <link rel="stylesheet" href="{{ ins_version | append: 'css/insites.css' }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ ins_version | append: 'css/insites.css' }}"></noscript>
     <script type="module" src="{{ ins_version | append: 'insites.esm.js' }}"></script>
     <script nomodule src="{{ ins_version | append: 'insites.js' }}" defer></script>
 
-    <script src="https://components.insites.io/insites_utilities.js"></script>
+    <script src="https://components.insites.io/insites_utilities.js" defer></script>
     <script src="https://components.insites.io/S3UploaderService.js" defer></script>

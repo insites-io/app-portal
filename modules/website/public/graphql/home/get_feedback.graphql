@@ -10,6 +10,7 @@ query get_feedback(
             deleted_at: { exists: false }
             properties: [
                 { name: "allow_display_on_website", value: "Yes" }
+                { name: "is_shown_on_webstie", value_boolean: true }
             ]
         }
         sort: [

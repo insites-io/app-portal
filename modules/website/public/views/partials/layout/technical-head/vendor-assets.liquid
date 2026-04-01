@@ -14,7 +14,8 @@ Any assets such as scripts, css, etc. that is not made by the developer.
 
 <!-- CSS -->
 <link rel="stylesheet" href="{{ 'modules/website/styles/vendor/foundation.min.css' | asset_url }}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"></noscript>
 
 <!-- Defer -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" defer></script>

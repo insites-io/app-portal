@@ -35,7 +35,7 @@
     --font-color-head: #05051D;
     --font-color-sub: #323232;
     --font-color-body: #575757;
-    --font-color-link: #ffff;
+    --font-color-link: #ffffff;
     --font-color-visited: #670099;
     --font-color-inv: #FFFFFF;
     /* UI Colors */
@@ -148,7 +148,7 @@ footer {
 }
 
 .body-large-bold {
-    color: #05051D;
+    color: var(--font-color-head);
     text-align: center;
     font-family: var(--font-family-02);
     font-size: 18px;
@@ -173,11 +173,11 @@ footer {
     font-weight: 400;
     font-size: 14px;
     line-height: normal;
-    color: #05051D;
+    color: var(--font-color-head);
 }
 
 .body-small-bold {
-    color: #05051D;
+    color: var(--font-color-head);
     font-family: var(--font-family-02);
     font-size: 14px;
     font-style: normal;
@@ -323,11 +323,9 @@ h1,
 
 h2,
 .heading-2 {
-    font-size: 42px;
     color: var(--font-color-head, #05051D);
     font-family: var(--font-family-01, "DM Sans");
     font-size: 48px;
-    font-style: normal;
     font-weight: 700;
     line-height: 120%;
 }
@@ -419,18 +417,14 @@ img {
     .ibt-table-wrap__pagination {
         width: auto;
     }
-    .ibt-table-wrap__pagination--option {}
 }
-
 .subhead-1,
 .subhead-2 {
     font-family: var(--font-family-01);
     font-size: var(--font-x-small);
     line-height: var(--font-small);
     color: var(--font-color-head);
-    font-style: normal;
     font-weight: 700;
-    font-size: var(--font-x-small);
 }
 
 .subhead-2 {
@@ -861,7 +855,7 @@ ins-loader[state-icon=processing] {
 ins-loader[state-icon=processing] .ins-loader-wrap--state {
     width: 48px;
     height: 48px;
-    border: 3px solid #dfdfdf;
+    border: 3px solid var(--color-ui-04);
     border-radius: 50%;
     display: inline-block;
     position: relative;
@@ -880,7 +874,7 @@ ins-loader[state-icon=processing] .ins-loader-wrap--state::after {
     height: 40px;
     border-radius: 50%;
     border: 3px solid transparent;
-    border-bottom-color: #3044FF;
+    border-bottom-color: var(--color-main);
 }
 
 .ins-loader-wrap--title.processing {
@@ -1646,7 +1640,7 @@ ins-steps.hydrated[clickable] ins-step:not([disabled]) .ins-step_details:hover .
 }
 
 .ibt-table-wrap__prev-next button.page.active:disabled {
-    color: #3044FF;
+    color: var(--color-main);
     font-family: var(----font-family-02, Archivo);
     font-size: 14px;
     font-style: normal;
@@ -1670,7 +1664,7 @@ ins-filter .filter__label {
 
 ins-filter-item .filter-item__button {
     border-radius: 8px;
-    background: #F3F4F4;
+    background: var(--color-ui-03);
     padding: 12px 16px;
 }
 
@@ -2416,7 +2410,7 @@ ins-tag span.ins-tag {
 }
 
 .nav-register-btn:hover {
-    background: #2331B7;
+    background: var(--info-hover);
 }
 
 #main-header ins-dropdown .ins-dropdown_menu {
@@ -2460,7 +2454,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header ins-dropdown .ins-dropdown_menu a:hover {
-    background-color: #F9FAFB;
+    background-color: var(--color-ui-02);
     color: var(--color-main);
 }
 
@@ -2496,7 +2490,7 @@ ins-tag span.ins-tag {
 
 #main-header.light-header {
     background-color: #fff !important;
-    border-bottom: 1px solid #dfdfdf;
+    border-bottom: 1px solid var(--color-ui-04);
 }
 
 .border-bottom-nav {
@@ -2524,7 +2518,7 @@ ins-tag span.ins-tag {
 #main-header.light-header ins-dropdown:hover,
 #main-header.light-header ins-dropdown .ins-dropdown:hover,
 #main-header.light-header .ins-dropdown_label:hover {
-    color: #575757;
+    color: var(--font-color-body);
 }
 
 #main-header.light-header ins-dropdown .ins-dropdown_menu a:hover,
@@ -2542,7 +2536,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header.light-header .navlinks .nav-sign-in-btn:hover {
-    color: #2331B7 !important;
+    color: var(--info-hover) !important;
     background: rgba(48, 68, 255, 0.06);
 }
 
@@ -2620,7 +2614,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header.no-light-header {
-    background-color: #05051D;
+    background-color: var(--font-color-head);
 }
 
 
@@ -2846,7 +2840,7 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
 
 .signOutCustom button:hover {
     color: var(--font-color-head) !important;
-    background-color: #F9FAFB !important;
+    background-color: var(--color-ui-02) !important;
 }
 
 @media screen and (max-width: 639px) {
@@ -2925,7 +2919,7 @@ footer .heading {
 .footer-links:hover,
 .footer-links:focus,
 .footer-links:active {
-    color: #3044FF;
+    color: var(--color-main);
 }
 
 .footer-p {
@@ -3206,7 +3200,7 @@ footer .menu a {
 
 .page-hero-container p {
     text-align: center;
-    color: #575757;
+    color: var(--font-color-body);
     font-size: 18px;
 }
 
@@ -3266,7 +3260,7 @@ footer .menu a {
     color: var(--font-color-body, #575757);
     transition: border-color .25s ease-in-out;
     top: 12px;
-    border-right: 1px solid #DFDFDF;
+    border-right: 1px solid var(--color-ui-04);
     padding-right: 8px;
 }
 
@@ -3510,7 +3504,7 @@ footer .menu a {
 }
 
 .adaptive-portal-section .adaptive-portal-info ins-button button:hover {
-    background: #2331B7;
+    background: var(--info-hover);
 }
 
 .adaptive-portal-section .dynamic-slider {
@@ -3949,7 +3943,7 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
 }
 
 .about-support .support-card hr {
-    background: #3044FF;
+    background: var(--color-main);
     height: 2px;
 }
 
@@ -4064,13 +4058,13 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
 
 .faq-content-questions .ins-accordion .ins-accordion-item .ins-accordion-item_header .inner-head:hover {
     border: none;
-    border-bottom: 1px solid #3044FF !important;
+    border-bottom: 1px solid var(--color-main) !important;
     background: rgba(48, 68, 255, 0.06);
 }
 
 .faq-content-questions .ins-accordion-item_content .inner-content {
     border: none;
-    border-bottom: 1px solid #3044FF;
+    border-bottom: 1px solid var(--color-main);
     background: rgba(48, 68, 255, 0.06);
 }
 
@@ -4227,40 +4221,6 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
 
 /********** [Blog / News] **********/
 
-.go-back-nav {
-    font-family: var(--font-family-02);
-    font-weight: 600;
-    font-size: var(--font-small);
-    line-height: 17px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.blog .ins-select-wrap.small .ins-select-options-wrap {
-    min-width: initial;
-}
-
-.blog-list .spacer.small {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.blog-list .body-link {
-    font-family: var(--font-family-03);
-    font-weight: 600;
-    font-size: var(--font-small);
-    line-height: 17px;
-}
-
-.blog-list .body-link i {
-    margin-left: 12px;
-    font-weight: 600;
-}
-
-.blog img {
-    border-radius: 5px;
-}
-
 .news-content {
     height: 100%;
     display: flex;
@@ -4277,6 +4237,19 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
     border-radius: 12px;
     height: 260px;
     object-fit: cover;
+}
+
+@media screen and (min-width: 1567px) {
+    .news-content .card img {
+        width: 100%;
+        border-radius: 12px;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .news-content .card {
+        height: 130%!important;
+    }
 }
 
 .newsSubheading {
@@ -4350,7 +4323,7 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
 .news-main-link-container:hover .news-link i {
     border-radius: 100px;
     background: rgba(48, 68, 255, 0.06);
-    color: #2331B7;
+    color: var(--info-hover);
     padding: 17px;
 }
 
@@ -4426,7 +4399,7 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
 
 .news-author-details {
     font-weight: 500 !important;
-    color: #323232 !important;
+    color: var(--font-color-sub) !important;
 }
 
 @media screen and (max-width: 1023px) {
@@ -4511,9 +4484,6 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
 .features-banner-details {
     display: flex;
     align-items: center;
-}
-
-.features-banner-details {
     width: 50%;
 }
 
@@ -4588,11 +4558,16 @@ ins-table.for-pagination-only .ibt-table-wrap.no-label .ibt-table-wrap__no-headi
 
 
 /**
-Contact Us
-*/
+ * Contact Us
+ */
 
+/* Layout */
 .contact-us-wrapper {
     background: linear-gradient(to right, var(--color-ui-02, #F9FAFB) 60%, white 40%);
+}
+
+.contact-us-form-container {
+    padding-right: 48px;
 }
 
 .contact-us-details-wrapper {
@@ -4606,31 +4581,17 @@ Contact Us
     object-fit: cover;
 }
 
-.contact-us-form-container {
-    padding-right: 48px;
-}
-
-.contact-us #contact-google-map {
-    width: 100%;
-    height: 300px;
-}
-
 .google-map {
     margin-bottom: 1rem;
 }
 
+/* Contact Details List */
 .contact-details {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, auto);
     gap: 24px;
     list-style: none;
     padding: 0;
-}
-
-.contact-us .contact-details {
-    font-size: var(--font-small);
-    line-height: 17px;
 }
 
 .contact-details .menu {
@@ -4642,26 +4603,17 @@ Contact Us
     font-size: 22px;
 }
 
-.contact-us .contact-details a {
-    color: #436CF2;
-}
-
-.contact-us .contact-details li {
-    position: relative;
-    padding-left: 30px;
-}
-
 .contact-heading {
     color: var(--font-color-head, #05051D);
     font-family: var(--font-family-02, Archivo);
     font-size: 16px;
-    font-style: normal;
     font-weight: 700;
     line-height: 24px;
 }
 
-.contact-us .opening-hours,
-.contact-us .opening-hours p {
+/* Opening Hours — retargeted from dead .contact-us parent to actual HTML class */
+.contact-us-details-container .opening-hours,
+.contact-us-details-container .opening-hours p {
     font-size: var(--font-small);
     line-height: 24px;
     font-family: var(--font-family-02);
@@ -4669,19 +4621,20 @@ Contact Us
 
 .contact-us-details-container .opening-hours .bold,
 .contact-us-details-container .opening-hours .bold p {
-    font-weight: 700 !important;
+    font-weight: 700;
 }
 
+/* Form — Phone Input */
 .ins-input-tel-wrap .iti .iti__flag-container .iti__selected-flag {
     padding: 10px 8px;
     line-height: 20px;
 }
 
+/* Form — Submit Button */
 .contact-us-form-container .insites-form-wrap .insites-form-grid ins-button button {
     padding: 11px 24px;
-    font-weight: 700;
     font-size: 14px;
-    color: var(--font-color-link) !important;
+    font-weight: 700;
     border-radius: 14px;
     background: var(--Gradient---color-gradient1, linear-gradient(95deg, #0095FF 6.51%, #3044FF 94.43%));
 }
@@ -4691,15 +4644,15 @@ Contact Us
     color: var(--font-color-inv, #FFF);
     font-family: var(--font-family-01, "DM Sans");
     font-size: 14px;
-    font-style: normal;
     font-weight: 700;
     line-height: 100%;
 }
 
 .contact-us-form-container .insites-form-wrap .insites-form-grid ins-button button:hover {
-    background: #2331B7;
+    background: var(--color-brand-hover, #2331B7);
 }
 
+/* Form — Mobile Phone Field */
 .contact-us-form-container .mobile_phone ins-input-tel .ins-input-tel-wrap .row-col-container .column-3 {
     flex: 1 !important;
     float: right;
@@ -4711,7 +4664,15 @@ Contact Us
 }
 
 .contact-us-form-container .ins-dropzone.dz-clickable {
-    background: #ffff;
+    background: #fff;
+}
+
+/* Responsive — largest breakpoint first */
+@media screen and (max-width: 1029px) {
+    .contact-details {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 1023px) and (min-width: 640px) {
@@ -4724,10 +4685,6 @@ Contact Us
 }
 
 @media screen and (max-width: 639px) {
-    #subscribe-form .subscribe-component {
-        width: 100%;
-        text-align: left;
-    }
     .contact-us-wrapper {
         background: linear-gradient(to bottom, var(--color-ui-02, #F9FAFB) 40%, white 46%);
     }
@@ -4737,15 +4694,34 @@ Contact Us
     .contact-us-details-wrapper {
         padding-left: 0;
     }
-    .contact-details {
-        display: flex;
-        flex-direction: column;
-    }
     .contact-us-form-container .insites-form-wrap .insites-form-grid ins-button {
         width: 100%;
     }
 }
 
+/* FILTER */
+.filter__label{
+    margin-bottom: 12px;
+}
+
+@media screen and (max-width: 639px) {
+    .search-container-cell{
+        padding-top: 0!important;
+    }
+
+    ins-filter #news-filter .filter{
+        margin-bottom: 10!important;
+    }
+}
+ins-filter .filter {
+    margin-bottom:10px;
+    box-sizing: border-box
+}
+@media only screen and (max-width: 768px) {
+    ins-filter #news-filter .filter{
+        margin-bottom: 10!important;
+    }
+}
 
 /**********
  [Terms & Conditions / Privacy Policy]
@@ -4763,7 +4739,7 @@ Contact Us
 
 #privacy-policy a,
 #terms-of-service a {
-    color: #3044FF;
+    color: var(--color-main);
 }
 
 #privacy-policy p,
@@ -5010,7 +4986,7 @@ Notyf
     font-weight: bold;
     color: var(--color-ui-04);
     font-size: 150px;
-    line-height: 180px;
+    line-height: 108px!important;
     display: block!important;
 }
 
@@ -5035,7 +5011,7 @@ Notyf
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
-    color: #575757;
+    color: var(--font-color-body);
 }
 
 .icon-alert-triangle {
@@ -5052,7 +5028,7 @@ Notyf
 }
 
 .system-btn:hover {
-    background: #2331B7;
+    background: var(--info-hover);
 }
 
 
@@ -5404,7 +5380,7 @@ ins-table-row:nth-child(even) {
     font-weight: 400;
     font-size: 14px;
     line-height: normal;
-    color: #05051D;
+    color: var(--font-color-head);
     padding: 16px 0px;
     background-color: unset!important;
     border: none;
@@ -5420,7 +5396,7 @@ ins-table-row:nth-child(even) {
 }
 
 .request-table-accordion .ins-accordion-item.open>.ins-accordion-item_header>.inner-head {
-    color: #05051D;
+    color: var(--font-color-head);
 }
 
 
@@ -5459,7 +5435,7 @@ ins-table-row:nth-child(even) {
 }
 
 .card-options-list-payment-method ins-credit-card .ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap {
-    border-color: #DFDFDF !important;
+    border-color: var(--color-ui-04) !important;
 }
 
 .ins-credit-card-compact-size .ins-credit-card-main-wrap.compact.active .ins-credit-card-wrap,
@@ -5473,7 +5449,7 @@ ins-table-row:nth-child(even) {
 }
 
 .p-body {
-    color: #575757;
+    color: var(--font-color-body);
     font-family: var(--font-family-02);
     font-size: 16px;
     font-style: normal;
@@ -5483,7 +5459,7 @@ ins-table-row:nth-child(even) {
 }
 
 .p-body-bold {
-    color: #575757;
+    color: var(--font-color-body);
     font-family: var(--font-family-02);
     font-size: 16px;
     font-style: normal;
@@ -5493,7 +5469,7 @@ ins-table-row:nth-child(even) {
 }
 
 .order-total {
-    color: #05051D;
+    color: var(--font-color-head);
     font-family: var(--font-family-02);
     font-size: 24px;
     font-style: normal;
@@ -5506,7 +5482,7 @@ ins-table-row:nth-child(even) {
 
 .payment-summary {
     padding: 24px;
-    background: #F9FAFB;
+    background: var(--color-ui-02);
 }
 
 .payment-summary .p-body {
@@ -5576,7 +5552,7 @@ ins-table-row:nth-child(even) {
 }
 
 .stepper-instance.ins-step_description {
-    color: #575757;
+    color: var(--font-color-body);
     text-align: center;
     font-family: var(--font-family-02);
     font-size: 14px;
@@ -5608,7 +5584,7 @@ ins-table-row:nth-child(even) {
 }
 
 .a-label {
-    color: #3044FF;
+    color: var(--color-main);
     font-family: var(--font-family-02);
     font-size: 16px;
     font-style: normal;
@@ -5617,7 +5593,7 @@ ins-table-row:nth-child(even) {
 }
 
 .a-label-no-visit {
-    color: #3044FF !important;
+    color: var(--color-main) !important;
     font-family: var(--font-family-02);
     font-size: 16px;
     font-style: normal;
@@ -5645,7 +5621,7 @@ ins-table-row:nth-child(even) {
 .empty-state {
     padding: 80px 24px;
     border-radius: 4px;
-    border: 1px solid #DFDFDF;
+    border: 1px solid var(--color-ui-04);
     background: #fff;
 }
 
@@ -6032,7 +6008,7 @@ ins-table-row:nth-child(even) {
 
 .notyf__dismiss-btn:before,
 .notyf__dismiss-btn:after {
-    background-color: #05051D!important;
+    background-color: var(--font-color-head)!important;
 }
 
 #emailRequired.body-x-small {
@@ -6091,4 +6067,217 @@ ins-alert-box .alert-box.error {
 .ul-terms-privacy li,
 ul .ul-terms-privacy {
     margin-bottom: 0px!important;
+}
+
+/********** [Skeleton] **********/
+.listview-skeleton {
+    animation: shimmer 1.5s infinite;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 1000px 100%;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton-card {
+    padding: 1rem;
+}
+
+.skeleton-img {
+    width: 100%;
+    /* height: 180px; */
+    margin-bottom: 0.75rem;
+    border-radius: 4px;
+}
+
+.skeleton-title {
+    width: 80%;
+    /* height: 20px; */
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    color: transparent!important;
+}
+
+.skeleton-text {
+    width: 100%;
+    height: 14px;
+    border-radius: 4px;
+    color: transparent;
+}
+
+.listview-skeleton.skeleton-title,
+.listview-skeleton.skeleton-text {
+    color: transparent!important;
+}
+
+.focus-ring{
+    border: 0px!important;
+}
+
+.input-container{
+    height: 42px!important;
+}
+.ins-place-autocomplete-theme{
+    height: 42px!important;
+    border: 1px solid var(--color-ui-04)!important;
+    background: #ffffff!important;
+    
+}
+
+
+/* Google Places NEW widget theme
+   Use host + supported ::part(...) selectors only. */
+.input-wrap gmp-place-autocomplete.ins-place-autocomplete-theme {
+    /* Base container style to visually match existing ins-input fields. */
+    background-color: #ffffff !important;
+    border: 1px solid var(--color-ui-04) !important;
+    border-radius: 4px !important;
+    padding: 12px !important;
+    font-family: var(--font-family-02) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 16px !important;
+    color: var(--font-color-body) !important;
+    /* Google Places Material tokens (used by internal focus/outline states). */
+    --gmp-mat-color-primary: var(--color-ui-04) !important;
+    --gmp-mat-color-outline-decorative: transparent !important;
+    --gmp-mat-color-on-surface: var(--font-color-body) !important;
+    --gmp-mat-color-surface: #ffffff !important;
+}
+
+/* Attempt to remove widget focus ring when the part is exposed. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(focus-ring) {
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-width: 0 !important;
+    border-style: solid !important;
+    border: 0 !important;
+}
+
+/* Host-level focus fallback in case focus ring is rendered on wrapper state. */
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-within {
+    border-color: var(--color-ui-04) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Additional host focus selectors to keep border neutral. */
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus,
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-visible {
+    border-color: var(--color-ui-04) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Parent wrapper focus fallback (some layouts apply focus styles on .input-wrap). */
+.input-wrap:focus-within gmp-place-autocomplete.ins-place-autocomplete-theme {
+    border-color: var(--color-ui-04) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Input part reset: removes blue border/shadow coming from default widget focus. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(input) {
+    border: 0 !important;
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+/* Input focus states kept transparent/neutral to match design system. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(input):focus,
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(input):focus-visible,
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-within::part(input) {
+    border: 0 !important;
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+/* Strongest focus-ring fallback for keyboard/mouse focus states. */
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-within::part(focus-ring),
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus::part(focus-ring),
+gmp-place-autocomplete.ins-place-autocomplete-theme:focus-visible::part(focus-ring) {
+    border: 0 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Suggestion row default state. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item) {
+    background-color: #ffffff;
+    color: var(--font-color-body) !important;
+    cursor: default;
+}
+
+/* Suggestion row hover + keyboard selected state. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item):hover,
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item-selected) {
+    background-color: var(--color-main);
+    color: #ffffff !important;
+}
+
+/* Keep text and matched text inheriting row color for hover/selected contrast. */
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item-main-text),
+gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item-match) {
+    color: inherit !important;
+}
+
+/* Hide default clear icon to align with existing form UI. */
+.clear-button {
+    display: none !important;
+}
+
+/* Places NEW (Autocomplete Data API) custom dropdown
+   These classes are used by modules/portal/public/assets/scripts/address-lookup.js
+   and are the primary reference point for styling autocomplete results. */
+.ins-address-lookup-dropdown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    margin-top: 4px;
+    background-color: #ffffff;
+    border: 1px solid var(--color-ui-04);
+    border-radius: 8px;
+    max-height: 260px;
+    overflow-y: auto;
+    display: none;
+}
+
+.ins-address-lookup-dropdown.is-open {
+    display: block;
+}
+
+.ins-address-lookup-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    color: var(--font-color-body);
+    border: 0;
+    cursor: pointer;
+    font-family: var(--font-family-02, Archivo);
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.ins-address-lookup-item:hover,
+.ins-address-lookup-item.is-active {
+    background-color: var(--color-main);
+    color: #ffffff;
 }
