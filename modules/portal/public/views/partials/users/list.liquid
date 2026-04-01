@@ -56,7 +56,7 @@ metadata: {
 <input type="hidden" id="get-users-count" value='{{ get_users.size }}'>
 {% comment %} SEARCH {% endcomment %}
 
-{% include 'modules/portal/users/partials/filters' %}
+{% include 'modules/portal/users/filters' %}
 
 {% comment %} ? Add user modal {% endcomment %}
 <ins-modal id="add-user-modal"
@@ -227,10 +227,10 @@ metadata: {
         </div> 
     {% else %}
         {% comment %} ? NOT EMPTY STATE {% endcomment %}
-        {% include 'modules/portal/users/partials/table_header' %}
+        {% include 'modules/portal/users/table_header' %}
         
         {% for item in get_users %}
-            {% include 'modules/portal/users/partials/table_row', item: item %}
+            {% include 'modules/portal/users/table_row', item: item %}
         {% endfor %}
     {% endif %}
     
