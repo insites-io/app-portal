@@ -227,10 +227,27 @@ let StripeElement = (() => {
                         element.querySelector('.ins-credit-card-wrap').click();
                 }, 500);
             },
+            resetForm() {
+                // Clear the Stripe card element (card number, expiry, CVC)
+                card.clear();
+                // Clear any inline error message
+                if (errorElement) errorElement.textContent = '';
+            },
             eventListeners() {
+                // Cancel — close modal and reset the card form fields
                 stripeCancelBtn.forEach(el => {
-                    el.addEventListener('insClick', () => cardModal.close());
-                })
+                    el.addEventListener('insClick', () => {
+                        StripeElement.init.resetForm();
+                        stripeCardModal.close();
+                    });
+                });
+
+                // Reset the form whenever the modal is opened so "Add New" always starts clean
+                if (stripeCardModal) {
+                    stripeCardModal.addEventListener('insOpen', () => {
+                        StripeElement.init.resetForm();
+                    });
+                }
                 // Handle real-time validation errors from the card Element.
                 card.on('change', function(event) {
                     if (errorElement && event.error) {
