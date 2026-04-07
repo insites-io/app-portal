@@ -60,7 +60,28 @@ authorization_policies:
 
 {% comment %} NOTE: Get CRM -> Contact Address via Controller {% endcomment %}
 {% assign contact_address_uuid = get_contact.default_address.uuid %}
-{% function get_contact_address = "crm/controller/addresses/get", type: "contact", uuid: contact_address_uuid %}
+
+{% if contact_address_uuid and contact_address_uuid != '' %}
+
+  {% comment %} Default Address {% endcomment %}
+  {% function get_contact_address = "crm/controller/addresses/get", type: "contact", uuid: contact_address_uuid %}
+
+{% elsif contact_uuid and contact_uuid != '' %}
+
+  {% comment %} First Address of the Contact {% endcomment %}
+  {% parse_json address_params %}
+  {
+    "page": "1",
+    "size": "1",
+    "keyword": "{{ contact_uuid }}",
+    "search_by": "contact.uuid"
+  }
+  {% endparse_json %}
+  {% function get_contact_address = "crm/controller/addresses/list", type: "contact", params: address_params %}
+  {% assign get_contact_address = get_contact_address | dig: "results" | first %}
+
+{% endif %}
+
 {% assign get_contact = get_contact | add_hash_key: "default_address", get_contact_address %}
 
 <div class="my-details">    
