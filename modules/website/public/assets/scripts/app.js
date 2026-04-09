@@ -238,11 +238,12 @@ let App = (function () {
             },
             toggleMobileMenuBtnIcon() {
                 let state = mobileMenuDrawer.isOpen ? true : false;
-                let setIcon = state
-                    ? 'icon-close-1'
-                    : 'icon-menu-1';
-                mobileMenuBtn.removeAttribute('class');
-                mobileMenuBtn.classList.add(setIcon);
+                let setIcon = state ? 'icon-close-1' : 'icon-menu-1';
+                let iconSpan = mobileMenuBtn.querySelector('span');
+                if (iconSpan) {
+                    iconSpan.className = setIcon;
+                }
+                mobileMenuBtn.setAttribute('aria-expanded', state ? 'true' : 'false');
             },
             checkScrollStatus(scrollPosition) {
                 let mainHeader = document.getElementById('main-header');

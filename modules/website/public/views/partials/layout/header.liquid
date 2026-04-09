@@ -36,9 +36,9 @@ metadata: {
         <a href="/">
           {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
           {% if dark == blank %}
-            <img class="logo" src="{{ company_logo }}" alt="Logo" height="56" width="119" fetchpriority="high">
+            <img class="logo" src="{{ company_logo }}" alt="{{ global.company_name }} — go to homepage" height="56" width="119" fetchpriority="high">
           {% else %}
-            <img class="logo" src="{{ alternate_company_logo }}" alt="Logo" height="56" width="119" fetchpriority="high">
+            <img class="logo" src="{{ alternate_company_logo }}" alt="{{ global.company_name }} — go to homepage" height="56" width="119" fetchpriority="high">
           {% endif %}
         </a>
       </div>
@@ -73,6 +73,7 @@ metadata: {
       {% endif %}
 
       <div class="large-11 medium-3 small-8 cell hide-nav-medium">
+        <nav aria-label="Primary navigation">
         <div class="navlinks">
 
           {% comment %} Ecommerce Addon {% endcomment %}
@@ -97,8 +98,7 @@ metadata: {
           {% comment %} Database driven menu {% endcomment %}
           {% for menu in menus %}
             {%- if menu.slug == "features" -%}
-              <a class="nav-dropdown-link feature-nav-link" href="/{{menu.slug}}">
-                <ins-dropdown label="{{menu.label}}">
+                <ins-dropdown label="{{menu.label}}" link="/{{menu.slug}}">
                   {% for item in features %}
                     <ins-dropdown-item
                       link="/{{menu.slug}}/{{ item.slug }}"
@@ -106,9 +106,9 @@ metadata: {
                     </ins-dropdown-item>
                   {% endfor %} 
                 </ins-dropdown>
-              </a>
             {% else %}
-              <a href="/{{menu.slug}}">
+              {%- assign current_path = '/' | append: menu.slug -%}
+              <a href="/{{menu.slug}}" {% if context.location.href == current_path %}aria-current="page"{% endif %}>
                 {{menu.label}}
               </a>
             {% endif %}
@@ -169,15 +169,16 @@ metadata: {
             <a class="nav-register-btn" href="/create-account">Create account</a>
           {% endif %} 
           </div>
+        </nav>
       </div>
 
-      
+
 
       <div class="mobile-menu-toggle large-0 medium-3 small-5 cell ">
 
         {% comment %} Sign in {% endcomment %}
         {% if context.current_user == blank %}
-          <a class="nav-sign-in-btn" href="/sign-in">Sign in</a>
+          <a class="nav-sign-in-btn" href="/sign-in" aria-hidden="true" tabindex="-1">Sign in</a>
         {% endif %}
 
         {% comment %} Eccomerce Cart Icon {% endcomment %}          
@@ -192,7 +193,9 @@ metadata: {
         {% endif %}
 
         {% comment %} Mobile Menu {% endcomment %}
-        <div id="mobile-menu-btn" class="icon-menu-1"></div>
+        <button id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="icon-menu-1" aria-hidden="true"></span>
+        </button>
       </div>
 
       

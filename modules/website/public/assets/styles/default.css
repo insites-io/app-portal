@@ -2381,6 +2381,12 @@ ins-tag span.ins-tag {
     font-size: 14px;
 }
 
+#main-header .navlinks .ins-dropdown_label a {
+    padding: 0px;
+    color: var(--font-color-link);
+    font-weight: 700;
+}
+
 #main-header .navlinks a.cart-icon {
     padding: 8px;
 }
@@ -2466,7 +2472,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header .mobile-menu-toggle .nav-sign-in-btn {
-    color: #ffff;
+    color: #ffffff;
     font-weight: 700;
     font-size: 14px;
     margin-right: 24px;
@@ -2498,6 +2504,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header.light-header .navlinks a,
+#main-header.light-header .navlinks .ins-dropdown_label a,
 #main-header.light-header .ins-dropdown_label,
 #main-header ins-button button[type=submit].blue,
 #main-header.light-header .mobile-menu-toggle .icon-shopping-cart {
@@ -2954,6 +2961,9 @@ footer .social.menu li:last-child a {
 
 footer .menu a {
     padding: 0;
+}
+.footer-links-wrap .menu a {
+    line-height: 150%;
 }
 
 @media screen and (max-width: 1023px) and (min-width: 640px) {

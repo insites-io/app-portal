@@ -51,57 +51,51 @@ metadata: {
                 <!-- LOGO FOOTER -->
                 <div class="">
                     <div class="img-logo img-full">
-                    
-                            <img class="logo logo-footer" src="{{ company_logo }}" alt="Logo" height="56" width="119">
-                    
+                        <a href="/">
+                            <img class="logo logo-footer" src="{{ company_logo }}" alt="{{ global.company_name }}" height="56" width="119">
+                        </a>
                     </div>
                 </div>
 
                 <!-- QUICK LINKS -->
                 <div class="wrap right-group">
                     <div class="spacer x-large show-for-small-only"></div>
+                    <nav aria-labelledby="footer-nav-quicklinks">
+                    <h3 id="footer-nav-quicklinks" class="footer-link-main-label" data-test="">Quick links</h3>
+                    <div class="spacer"></div>
                     <ul class="vertical menu">
-                        <li>
-                            <p class="footer-link-main-label" data-test="">Quick links</p>
-                            <div class="spacer"></div>
-                        </li>
                         <li class="">
                             <a class="footer-links color-font-head" data-test="" href="/about-us">About us</a>
-                            <div class="spacer small"></div>
                         </li>
                         <li>
                             <a class="footer-links color-font-head" data-test="" href="/faqs">FAQ</a>
-                            <div class="spacer small"></div>
                         </li>
                         <li>
                             <a class="footer-links color-font-head" data-test="" href="/news">News</a>
-                            <div class="spacer small"></div>
                         </li>
                         <li>
                             <a class="footer-links color-font-head" data-test="" href="/contact-us">Contact</a>
-                            <div class="spacer small"></div>
                         </li>
                     </ul>
+                    </nav>
                 </div>
 
                 {% comment %} Events Addon {% endcomment %}
                 {% if context.constants.events_addon == 'true' %}
                     <div class="wrap">
                         <div class="spacer x-large show-for-small-only"></div>
+                        <nav aria-labelledby="footer-nav-events">
+                        <h3 id="footer-nav-events" class="footer-link-main-label">Events</h3>
+                        <div class="spacer"></div>
                         <ul class="vertical menu">
-                            <li>
-                                <p class="footer-link-main-label">Events</p>
-                                <div class="spacer"></div>
-                            </li>
                             <li class="">
                                 <a class="footer-links color-font-head" href="/upcoming-events">Upcoming events</a>
-                                <div class="spacer small"></div>
                             </li>
                             <li>
                                 <a class="footer-links color-font-head" href="/previous-events">Previous events</a>
-                                <div class="spacer small"></div>
                             </li>
                         </ul>
+                        </nav>
                     </div>
                 {% endif %}
     
@@ -112,50 +106,48 @@ metadata: {
                     {%- graphql get_features = 'modules/website/features/get_features' -%}
                     {%- assign features =  get_features | dig: 'items', 'results'  -%}
 
+                    <nav aria-labelledby="footer-nav-features">
+                    <h3 id="footer-nav-features" class="footer-link-main-label" data-test="">Features</h3>
+                    <div class="spacer"></div>
                     <ul class="vertical menu">
-                        <li>
-                            <p class="footer-link-main-label" data-test="">Features</p>
-                            <div class="spacer"></div>
-                        </li>   
                         {% for item in features %}
                         <li>
                             <a href="/features/{{ item.slug }}" class="footer-links color-font-head" data-test="">{{ item.card_title }}</a>
-                            <div class="spacer small"></div>
                         </li>
                         {% endfor %}
                     </ul>
+                    </nav>
                 </div>
 
                 <!-- EXTERNAL LINKS -->
                 <div class="wrap">
                     <div class="spacer x-large show-for-small-only"></div>
                     
+                    <nav aria-labelledby="footer-nav-external">
+                    <h3 id="footer-nav-external" class="footer-link-main-label" data-test="">External links</h3>
+                    <div class="spacer"></div>
                     <ul class="vertical menu">
-                    <li><p class="footer-link-main-label" data-test="">External links</p>
-                        <div class="spacer"></div>
-                    </li>
                     <li>
-                        <a href="https://www.insites.io/" target="_blank" class="footer-links color-font-head" data-test="">
+                        <a href="https://www.insites.io/" target="_blank" rel="noopener noreferrer" class="footer-links color-font-head" data-test="" aria-label="Website (opens in new tab)">
                         <span>Website</span>
-                        <i class="icon-external-link1"></i>
+                        <i class="icon-external-link1" aria-hidden="true"></i>
                         </a>
-                        <div class="spacer small"></div>
                     </li>
                     <li>
-                        <a href="https://console.insites.io/" target="_blank" class="footer-links color-font-head" data-test="">
+                        <a href="https://console.insites.io/" target="_blank" rel="noopener noreferrer" class="footer-links color-font-head" data-test="" aria-label="Console (opens in new tab)">
                         <span>Console</span>
-                        <i class="icon-external-link1"></i>
+                        <i class="icon-external-link1" aria-hidden="true"></i>
                         </a>
-                        <div class="spacer small"></div>
                     </li>
                     <li>
-                        <a href="https://docs.insites.io/" target="_blank" class="footer-links color-font-head" data-test="">
+                        <a href="https://docs.insites.io/" target="_blank" rel="noopener noreferrer" class="footer-links color-font-head" data-test="" aria-label="Resources (opens in new tab)">
                         <span>Resources</span>
-                        <i class="icon-external-link1"></i>
+                        <i class="icon-external-link1" aria-hidden="true"></i>
                         </a>
                     </li>
                     </ul>
-                </div>                
+                    </nav>
+                </div>
 
             </div>
         </div>
@@ -181,14 +173,14 @@ metadata: {
                 <div class="large-6 medium-6 small-12 cell">
                     <div>
                     <ul class="menu social">
-                        {% if facebook_link != '' %}<li><a class="footer-links iconHover" href="{{ facebook_link }}" data-test="footer-link-facebook" target="_blank" title="facebook" rel="noreferrer"><i class="icon-facebook-square"></i></a></li>{% endif %}
-                        {% if twitter_link != '' %}<li><a class="footer-links iconHover" href="{{ twitter_link }}" data-test="" target="_blank" title="twitter" rel="noreferrer"><i class="icon-social-x-square"></i></a></li>{% endif %}
-                        {% if linkedin_link != '' %}<li><a class="footer-links iconHover" href="{{ linkedin_link }}" data-test="" target="_blank" title="linkedin" rel="noreferrer"><i class="icon-linkedin"></i></a></li>{% endif %}
-                        {% if instagram_link != '' %}<li><a class="footer-links iconHover" href="{{ instagram_link }}" data-test="" target="_blank" title="instagram" rel="noreferrer"><i class="icon-instagram-square"></i></a></li>{% endif %}
-                        {% if youtube_link != '' %}<li><a class="footer-links iconHover" href="{{ youtube_link }}" data-test="" target="_blank" title="youtube" rel="noreferrer"><i class="icon-youtube-square"></i></a></li>{% endif %}
-                        {% if pinterest_link != '' %}<li><a class="footer-links iconHover" href="{{ pinterest_link }}" data-test="" target="_blank" title="pinterest" rel="noreferrer"><i class="icon-pinterest-square"></i></a></li>{% endif %}
-                        {% if other_1_link != '' %}<li><a class="footer-links iconHover" href="{{ other_1_link }}" data-test="" target="_blank" title="other link 1" rel="noreferrer"><i class="icon-share-2"></i></a></li>{% endif %}
-                        {% if other_2_link != '' %}<li><a class="footer-links iconHover" href="{{ other_2_link }}" data-test="" target="_blank" title="other link 2" rel="noreferrer"><i class="icon-share-2"></i></a></li>{% endif %}
+                        {% if facebook_link != '' %}<li><a class="footer-links iconHover" href="{{ facebook_link }}" data-test="footer-link-facebook" target="_blank" rel="noopener noreferrer" aria-label="{{ global.company_name }} on Facebook (opens in new tab)"><i class="icon-facebook-square" aria-hidden="true"></i></a></li>{% endif %}
+                        {% if twitter_link != '' %}<li><a class="footer-links iconHover" href="{{ twitter_link }}" data-test="" target="_blank" rel="noopener noreferrer" aria-label="{{ global.company_name }} on X / Twitter (opens in new tab)"><i class="icon-social-x-square" aria-hidden="true"></i></a></li>{% endif %}
+                        {% if linkedin_link != '' %}<li><a class="footer-links iconHover" href="{{ linkedin_link }}" data-test="" target="_blank" rel="noopener noreferrer" aria-label="{{ global.company_name }} on LinkedIn (opens in new tab)"><i class="icon-linkedin" aria-hidden="true"></i></a></li>{% endif %}
+                        {% if instagram_link != '' %}<li><a class="footer-links iconHover" href="{{ instagram_link }}" data-test="" target="_blank" rel="noopener noreferrer" aria-label="{{ global.company_name }} on Instagram (opens in new tab)"><i class="icon-instagram-square" aria-hidden="true"></i></a></li>{% endif %}
+                        {% if youtube_link != '' %}<li><a class="footer-links iconHover" href="{{ youtube_link }}" data-test="" target="_blank" rel="noopener noreferrer" aria-label="{{ global.company_name }} on YouTube (opens in new tab)"><i class="icon-youtube-square" aria-hidden="true"></i></a></li>{% endif %}
+                        {% if pinterest_link != '' %}<li><a class="footer-links iconHover" href="{{ pinterest_link }}" data-test="" target="_blank" rel="noopener noreferrer" aria-label="{{ global.company_name }} on Pinterest (opens in new tab)"><i class="icon-pinterest-square" aria-hidden="true"></i></a></li>{% endif %}
+                        {% if other_1_link != '' %}<li><a class="footer-links iconHover" href="{{ other_1_link }}" data-test="" target="_blank" rel="noopener noreferrer" aria-label="{{ global.company_name }} — additional link (opens in new tab)"><i class="icon-share-2" aria-hidden="true"></i></a></li>{% endif %}
+                        {% if other_2_link != '' %}<li><a class="footer-links iconHover" href="{{ other_2_link }}" data-test="" target="_blank" rel="noopener noreferrer" aria-label="{{ global.company_name }} — additional link (opens in new tab)"><i class="icon-share-2" aria-hidden="true"></i></a></li>{% endif %}
                     </ul>
                     </div>
                 </div>
@@ -200,7 +192,7 @@ metadata: {
                 </div>
                 <div class="small-12 cell spacer show-for-small-only"></div>
                 <div class="large-6 medium-6 small-12 cell medium-text-right text-center">
-                    <p class="subHeading footer-p"> Powered by <a class="footer-links" target="_blank" href="https://www.insites.io/">Insites</a>.</p>
+                    <p class="subHeading footer-p"> Powered by <a class="footer-links" target="_blank" rel="noopener noreferrer" href="https://www.insites.io/" aria-label="Insites (opens in new tab)">Insites</a>.</p>
                 </div>
             </div>
         </div>

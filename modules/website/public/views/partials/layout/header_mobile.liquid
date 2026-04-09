@@ -6,12 +6,14 @@ metadata: {
 {% function has_profile = "modules/website/layout/check_if_user_has_profile" %}
 
 <div id="mobileMenuContainer" class="navigation-05b drawer-holder mobile-menu-container">
-  <ins-drawer no-padding id="mobile-menu" show-header="false" class="mobileNav hide-for-small" >
+  <ins-drawer no-padding id="mobile-menu" show-header="false" class="mobileNav hide-for-small" role="dialog" aria-modal="true" aria-label="Navigation menu" aria-hidden="true">
     <div>
       <div class="mobile-menu-button-container">
         <div class="wrapper">
           <div id="mobile-menu-wrapper-dynamic" class="grid-container grid-x align-middle">
-            <div id="mobile-menu-btn-close" class="icon-close-1"></div>
+            <button id="mobile-menu-btn-close" aria-label="Close navigation menu" aria-expanded="true" aria-controls="mobile-menu">
+              <span class="icon-close-1" aria-hidden="true"></span>
+            </button>
           </div>
         </div>
       </div>
@@ -32,17 +34,18 @@ metadata: {
       {%- graphql get_features = 'modules/website/features/get_features' -%}
       {%- assign features =  get_features | dig: 'items', 'results'  -%}
     
+      <nav aria-label="Mobile navigation">
       <ul class="vertical menu navlinks">
         <li class="no-submenu mobile-menu-style">
-          <a href="/">Home</a> 
+          <a href="/" {% if context.location.href == '/' %}aria-current="page"{% endif %}>Home</a>
         </li>
         
         {% if context.constants.events_addon == 'true' %}
           <li class="mobile-menu-style">
               <ins-accordion menu>
                 <ins-accordion-item class="colorBlack has-subitems" heading="Events" link="#" open-icon="icon-plus" close-icon="icon-minus" link-target="_self">
-                    <ins-accordion-link class="colorBlack" label="Upcoming events" link="/upcoming-events" link-target="_self"></ins-accordion-link>
-                    <ins-accordion-link class="colorBlack" label="Previous events" link="/previous-events" link-target="_self"></ins-accordion-link>
+                    <ins-accordion-link class="colorBlack" label="Upcoming events" link="/upcoming-events" link-target="_self" {% if context.location.href == '/upcoming-events' %}aria-current="page"{% endif %}></ins-accordion-link>
+                    <ins-accordion-link class="colorBlack" label="Previous events" link="/previous-events" link-target="_self" {% if context.location.href == '/previous-events' %}aria-current="page"{% endif %}></ins-accordion-link>
                 </ins-accordion-item>
               </ins-accordion>
             </li>
@@ -66,8 +69,9 @@ metadata: {
               </ins-accordion>
             </li>
           {% else %}
+            {%- assign current_path = '/' | append: menu.slug -%}
             <li class="no-submenu mobile-menu-style">
-              <a href="/{{ menu.slug }}">{{menu.label}}</a>
+              <a href="/{{ menu.slug }}" {% if context.location.href == current_path %}aria-current="page"{% endif %}>{{menu.label}}</a>
             </li>
           {% endif %}
         {% endfor %}  
@@ -94,6 +98,7 @@ metadata: {
           </li>
         {% endif %}
       </ul>
+      </nav>
     </div>
   </ins-drawer>
 </div>
