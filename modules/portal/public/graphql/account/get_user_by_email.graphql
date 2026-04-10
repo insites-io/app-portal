@@ -14,8 +14,6 @@ query get_user_by_email (
       updated_at: { order: DESC }
     }
   ) {
-    total_entries
-    total_pages
     results {
       id
       uuid: external_id
