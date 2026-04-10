@@ -92,18 +92,8 @@ callback_actions: |-
   {% assign props = form.properties %}
 
   {% graphql current_user = 'modules/portal/account/get_current_user' | dig: 'current_user' %}
-  
-  {% parse_json update_contact_data %}
-  {
-    "email": "{{form.email}}", 
-    "mobile_phone_country_code": "{{form.properties.mobile_phone_country_code}}",
-    "mobile_phone_number": "{{form.properties.mobile_phone_number}}"
-  }
-  {% endparse_json %}
 
-  {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
-  {% function update_contact = "crm/controller/contacts/update", uuid: context.current_user.external_id, params: update_contact_data %}
-
+  # ADD OR UPDATE CONTACT ADDRESS
   {% parse_json contact_address_details %}
   {
     "address_label": "{{ props.address_1 | default: 'Default' }}", 
@@ -127,7 +117,20 @@ callback_actions: |-
         function contact_address = "crm/controller/addresses/create", type: "contact", params: contact_address_details
       endif         
   %} 
+
+  # UPDATE CONTACT
+  {% parse_json update_contact_data %}
+  {
+    "email": "{{form.email}}", 
+    "mobile_phone_country_code": "{{form.properties.mobile_phone_country_code}}",
+    "mobile_phone_number": "{{form.properties.mobile_phone_number}}",
+    "default_address.uuid": "{{ contact_address.uuid }}"
+  }
+  {% endparse_json %}
   
+  {% comment %} NOTE: Update CRM -> Contact via Controller {% endcomment %}
+  {% function update_contact = "crm/controller/contacts/update", uuid: context.current_user.external_id, params: update_contact_data %}
+
 async_callback_actions:
   delay: 0
   priority: low

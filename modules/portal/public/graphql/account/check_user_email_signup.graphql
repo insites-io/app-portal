@@ -1,0 +1,27 @@
+query check_user_email_signup($email:String!){
+  items: users(
+    page: 1,
+    per_page: 1,
+    filter: {
+      deleted_at: { exists:false }
+      email: { value: $email }
+    }
+  ){
+    total_entries
+    results{
+      id
+      email
+      first_name
+      last_name
+      deleted_at
+      profiles{
+        id
+        profile_type
+      }
+      crm_contact: profiles(profile_type: "modules/insites_core/crm_contact") {
+        work_phone_country_code: property(name: "work_phone_country_code")
+        work_phone_number: property(name: "work_phone_number")
+      }
+    }
+  }
+}

@@ -69,9 +69,10 @@ metadata: {
             "first_name": "{{ details.userFirstName }}",
             "last_name": "{{ details.userLastName }}",
             "email": "{{ email }}",
-            "work_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
-            "work_phone_number": "{{ details.mobile_phone_number }}",
-            "permission_level": "{{ details.userPermission }}"
+            "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
+            "mobile_phone_number": "{{ details.mobile_phone_number }}",
+            "permission_level": "{{ details.userPermission }}",
+            "company.uuid": "{{ details.company_uuid }}"
         }
         {% endparse_json %}
         {% comment %} ? UPDATE CRM FIRST {% endcomment %}
@@ -85,9 +86,10 @@ metadata: {
             "first_name": "{{ details.userFirstName }}",
             "last_name": "{{ details.userLastName }}",
             "email": "{{ email }}",
-            "work_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
-            "work_phone_number": "{{ details.mobile_phone_number }}",
-            "permission_level": "{{ details.userPermission }}"
+            "mobile_phone_country_code": "{{ details.mobile_phone_country_code | default: 61 }}",
+            "mobile_phone_number": "{{ details.mobile_phone_number }}",
+            "permission_level": "{{ details.userPermission }}",
+            "company.uuid": "{{ details.company_uuid }}"
         }
         {% endparse_json %}
 
