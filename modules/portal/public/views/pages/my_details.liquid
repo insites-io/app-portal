@@ -29,6 +29,7 @@ authorization_policies:
 
 {%- graphql user = 'modules/portal/account/get_current_user' | dig: 'current_user' -%}  
 {% assign user_company_uuid =  user | dig: 'crm_contact' | first  %}
+
 {% comment %} Check if CRM Contact was assigned already to CRM Company {% endcomment %}
 {%- if user.crm_contact[0].company_uuid != user.portal[0].company_uuid -%}
   {%- parse_json data -%}
@@ -38,9 +39,10 @@ authorization_policies:
     ]
   }
   {%- endparse_json -%}
-
+  
   {% function assign_company_contact = "crm/controller/companies/assign-contacts", uuid: user_company_uuid.company_uuid, params: data %}  
 {%- endif -%}
+
 
 {% comment %} Check if user verified their account {% endcomment %}
 {%- liquid
