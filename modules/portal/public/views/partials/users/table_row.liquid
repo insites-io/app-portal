@@ -17,7 +17,7 @@ metadata: {
                 <span>{{ item_name }}</span>
             </div>
             <div class="primary-account-holder-outer" style="display:none;">
-                <span class="body-x-small primary-account-holder-label">Primary Account Holder</span>
+                <span class="body-x-small primary-account-holder-label">Account Owner</span>
             </div>
         {% else %}
             <span>{{ item_name }}</span>
@@ -32,7 +32,7 @@ metadata: {
     {% comment %} PERMISSION LEVEL {% endcomment %}
     <ins-table-td class="body-small p-body hide-for-small-medium">
         {% if is_pah %}
-            <span class="body-small">Primary Account Holder</span>
+            <span class="body-small">Account Owner</span>
         {% else %}
             <ins-input-select
                 class="selectPermission"

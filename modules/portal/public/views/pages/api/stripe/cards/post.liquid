@@ -31,7 +31,7 @@ metadata: {
     assign response = "{}" | parse_json
     graphql user_exist = "modules/portal/account/get_user_by_email", email: customer_email | dig: "items"
 
-    if user_exist.total_entries > 0
+    if user_exist
         assign email_exist = true
         assign user_exist = user_exist | dig: 'results' | first 
         assign user_id = user_exist.id
