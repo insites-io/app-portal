@@ -17,7 +17,7 @@ let card;
 let style = {
     base: {
         color: '#404040',
-        fontFamily: '"Work Sans", sans-serif', '-webkit-font-smoothing': 'antialiased',
+        fontFamily: '"Work Sans", sans-serif',
         fontWeight: '400',
         fontSize: '14px',
         '::placeholder': {
