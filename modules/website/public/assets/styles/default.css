@@ -2371,6 +2371,7 @@ ins-tag span.ins-tag {
 #main-header .navlinks {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: 8px;
     color: var(--font-color-link);
 }
@@ -2389,6 +2390,8 @@ ins-tag span.ins-tag {
 
 #main-header .navlinks a.cart-icon {
     padding: 8px;
+    display: flex;
+    align-items: center;
 }
 
 #main-header .navlinks a:hover,
