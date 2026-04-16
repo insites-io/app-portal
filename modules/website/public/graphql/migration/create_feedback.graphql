@@ -20,9 +20,13 @@ mutation create_feedback(
           name: "message",
           value: $message 
         },
-        { 
+        {
           name: "allow_display_on_website",
           value: "Yes"
+        },
+        {
+          name: "is_shown_on_webstie",
+          value_boolean: true
         }
       ]
     }
