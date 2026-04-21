@@ -33,12 +33,12 @@ metadata: {
   <div id="mainHeaderWrapper" class="wrapper">
     <div class=" grid-container grid-x align-middle">
       <div class="large-1 medium-3 small-5 cell">
-        <a href="/">
+        <a href="/" aria-label="{{ global.company_name }} — go to homepage">
           {% comment %} ? FETCHED FROM IIA -> CMS -> GLOBALS {% endcomment %}
           {% if dark == blank %}
-            <img class="logo" src="{{ company_logo }}" alt="{{ global.company_name }} — go to homepage" height="56" width="119" fetchpriority="high">
+            <img class="logo" src="{{ company_logo }}" alt="" height="56" width="119" fetchpriority="high">
           {% else %}
-            <img class="logo" src="{{ alternate_company_logo }}" alt="{{ global.company_name }} — go to homepage" height="56" width="119" fetchpriority="high">
+            <img class="logo" src="{{ alternate_company_logo }}" alt="" height="56" width="119" fetchpriority="high">
           {% endif %}
         </a>
       </div>
