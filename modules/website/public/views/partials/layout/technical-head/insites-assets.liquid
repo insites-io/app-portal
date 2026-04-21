@@ -9,21 +9,26 @@ Insites assets holds all Insites related assets / dependencies.
 Includes but not limited to: fonts, scripts, stylesheets, etc..
 {%- endcomment %}
 
+    {%- assign ins_version = 'https://components.insites.io/v2/latest/' -%}
+
+    <!-- Early connection to Insites CDN to reduce chunk waterfall latency -->
+    <link rel="preconnect" href="https://components.insites.io">
+
     <!-- Preload assets to improve performance -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&amp;display=swap" as="style">
-    <link rel="preload" href="https://components.insites.io/v2/latest/css/insites-font-icons.css" as="style">
-    <link rel="preload" href="https://components.insites.io/v2/latest/css/insites.css" as="style">
+    <link rel="preload" href="{{ ins_version | append: 'css/insites-font-icons.css' }}" as="style">
+    <link rel="preload" href="{{ ins_version | append: 'css/insites.css' }}" as="style">
+    <link rel="modulepreload" href="{{ ins_version | append: 'insites.esm.js' }}">
 
     <!-- Primary font: Open Sans async to avoid render-blocking -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&amp;display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&amp;display=swap"></noscript>
 
     <!-- Font Icons: async -->
-    <link rel="stylesheet" href="https://components.insites.io/v2/latest/css/insites-font-icons.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://components.insites.io/v2/latest/css/insites-font-icons.css"></noscript>
+    <link rel="stylesheet" href="{{ ins_version | append: 'css/insites-font-icons.css' }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ ins_version | append: 'css/insites-font-icons.css' }}"></noscript>
 
     <!-- Components -->
-    {%- assign ins_version = 'https://components.insites.io/v2/latest/' -%}
     <link rel="stylesheet" href="{{ ins_version | append: 'css/insites.css' }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ ins_version | append: 'css/insites.css' }}"></noscript>
     <script type="module" src="{{ ins_version | append: 'insites.esm.js' }}"></script>
