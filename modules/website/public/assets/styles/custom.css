@@ -44,7 +44,7 @@
     --error-hover-light: rgba(223, 31, 31, 0.1);
     --warning-hover-light: rgba(251, 172, 19, 0.1);
     /* Gradiant Background */
-    --color-gradiant1: linear-gradient(90deg, #1E4AA2 0%, #1B78CC 100%);
+    --color-gradiant1: linear-gradient(95deg, #0095FF 6.51%, #3044FF 94.43%);
     --color-gradiant2: linear-gradient(90deg, #8C1EE3 0%, #C71EE3 100%);
     --color-gradiant3: linear-gradient(90deg, #E3351E 0%, #F07B26 100%);
     /* Font family */

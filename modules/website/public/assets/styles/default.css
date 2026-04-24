@@ -48,7 +48,7 @@
     --color-ui-07: #436CF2;
     --color-ui-08: #000000;
     /* Gradiant Background */
-    --color-gradiant1: linear-gradient(90deg, #1E4AA2 0%, #1B78CC 100%);
+    --color-gradiant1: linear-gradient(95deg, #0095FF 6.51%, #3044FF 94.43%);
     --color-gradiant2: linear-gradient(90deg, #8C1EE3 0%, #C71EE3 100%);
     --color-gradiant3: linear-gradient(90deg, #E3351E 0%, #F07B26 100%);
     /* Font family */
@@ -1022,7 +1022,7 @@ ins-input [class*=ins-] label,
 label,
 .ins-form-field-wrap .ins-form-label,
 .ins-select-wrap .ins-select-label-wrap {
-    font-family: var(--font-family-01)!important;
+    font-family: var(--font-family-02)!important;
     font-weight: 700!important;
     font-size: var(--font-small)!important;
     line-height: var(--font-medium);
@@ -2371,6 +2371,7 @@ ins-tag span.ins-tag {
 #main-header .navlinks {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: 8px;
     color: var(--font-color-link);
 }
@@ -2381,8 +2382,16 @@ ins-tag span.ins-tag {
     font-size: 14px;
 }
 
+#main-header .navlinks .ins-dropdown_label a {
+    padding: 0px;
+    color: var(--font-color-link);
+    font-weight: 700;
+}
+
 #main-header .navlinks a.cart-icon {
     padding: 8px;
+    display: flex;
+    align-items: center;
 }
 
 #main-header .navlinks a:hover,
@@ -2466,7 +2475,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header .mobile-menu-toggle .nav-sign-in-btn {
-    color: #ffff;
+    color: #ffffff;
     font-weight: 700;
     font-size: 14px;
     margin-right: 24px;
@@ -2498,6 +2507,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header.light-header .navlinks a,
+#main-header.light-header .navlinks .ins-dropdown_label a,
 #main-header.light-header .ins-dropdown_label,
 #main-header ins-button button[type=submit].blue,
 #main-header.light-header .mobile-menu-toggle .icon-shopping-cart {
@@ -2954,6 +2964,9 @@ footer .social.menu li:last-child a {
 
 footer .menu a {
     padding: 0;
+}
+.footer-links-wrap .menu a {
+    line-height: 150%;
 }
 
 @media screen and (max-width: 1023px) and (min-width: 640px) {

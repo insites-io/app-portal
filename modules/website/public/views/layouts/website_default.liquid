@@ -27,7 +27,9 @@ metadata: {
             {% include 'modules/website/layout/header_mobile' %}
         {% endcache %}
 
-        {{ content_for_layout }}
+        <main id="main-content">
+            {{ content_for_layout }}
+        </main>
 
         {% comment %} ? For ecommerce cart drawer {% endcomment %}
         {% if context.constants.ecommerce_addon == 'true' %}

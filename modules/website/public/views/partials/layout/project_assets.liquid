@@ -37,8 +37,10 @@ Project Assets - Holds app css and js
 
 {% if context.constants.events_addon == 'true' %}
     {%- if context.environment == "staging" -%}
-        <link rel="stylesheet" href="{{ 'modules/events/styles/events.css' | asset_url }}" >
+        <link rel="preload" as="style" href="{{ 'modules/events/styles/events.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ 'modules/events/styles/events.css' | asset_url }}"></noscript>
     {%- else -%}
-        <link rel="stylesheet" href="{{ 'modules/events/styles/events.min.css' | asset_url }}" >
+        <link rel="preload" as="style" href="{{ 'modules/events/styles/events.min.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ 'modules/events/styles/events.min.css' | asset_url }}"></noscript>
     {%- endif -%}
 {%- endif -%}
