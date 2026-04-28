@@ -62,11 +62,19 @@ metadata: {
             <li class="mobile-menu-style">
               <ins-accordion menu>
                 <ins-accordion-item class="colorBlack has-subitems" heading="{{menu.label}}" link="#" open-icon="icon-plus" close-icon="icon-minus" link-target="_self">
-                  {% for item in features %} 
+                  {% for item in features %}
                     <ins-accordion-link class="colorBlack" label="{{ item.card_title }}" link="/{{ menu.slug }}/{{ item.slug }}" link-target="_self"></ins-accordion-link>
-                  {% endfor %} 
+                  {% endfor %}
                 </ins-accordion-item>
               </ins-accordion>
+            </li>
+          {%- elsif menu.slug == "faqs" and context.constants.locator_addon == 'true' -%}
+            <li class="no-submenu mobile-menu-style">
+              <a href="#">Find a partner</a>
+            </li>
+            {%- assign current_path = '/' | append: menu.slug -%}
+            <li class="no-submenu mobile-menu-style">
+              <a href="/{{ menu.slug }}" {% if context.location.href == current_path %}aria-current="page"{% endif %}>{{menu.label}}</a>
             </li>
           {% else %}
             {%- assign current_path = '/' | append: menu.slug -%}

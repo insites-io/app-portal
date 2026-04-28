@@ -67,6 +67,11 @@ metadata: {
                         <li class="">
                             <a class="footer-links color-font-head" data-test="" href="/about-us">About us</a>
                         </li>
+                        {% if context.constants.locator_addon == 'true' %}
+                        <li>
+                            <a class="footer-links color-font-head" data-test="" href="#">Find a partner</a>
+                        </li>
+                        {% endif %}
                         <li>
                             <a class="footer-links color-font-head" data-test="" href="/faqs">FAQ</a>
                         </li>
