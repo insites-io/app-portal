@@ -26,6 +26,9 @@ metadata: {
         {% endif %}
         <ins-accordion-link label="My details" link="/my-details" link-target="_self" {%if params.slug == 'my-details'-%}active{%- endif-%}></ins-accordion-link>
         <ins-accordion-link label="My company details" link="/my-company-details" link-target="_self" {%if params.slug == 'my-company-details'-%}active{%- endif-%}></ins-accordion-link>
+        {% if context.constants.locator_addon == 'true' %}
+            <ins-accordion-link label="My locator listing" link="/my-locator-listing" link-target="_self" {%if params.slug == 'my-locator-listing'-%}active{%- endif-%}></ins-accordion-link>
+        {% endif %}
         <ins-accordion-link label="Feedback" link="/feedback" link-target="_self" {%if params.slug == 'feedback' or params.slug == 'thank-you-feedback' -%}active{%- endif-%}></ins-accordion-link>
         <ins-accordion-link label="Payment methods" link="/payment-methods" link-target="_self" {%if params.slug == 'payment-methods'-%}active{%- endif-%}></ins-accordion-link>
         <ins-accordion-link label="Pay a bill" link="/pay-bills" link-target="_self" {%if params.slug == 'pay-bills'-%}active{%- endif-%}></ins-accordion-link>
@@ -57,7 +60,9 @@ metadata: {
     {% elsif context.params.slug == "pay-bills" %}
         {% assign navigation_label = "Pay a bill"%}
     {% elsif context.params.slug == "users" %}
-        {% assign navigation_label = "Users"%}   
+        {% assign navigation_label = "Users"%}  
+    {% elsif context.params.slug == "my-locator-listing" %}
+        {% assign navigation_label = "My locator listing"%}
     {% endif %}
 
     <div class="portal-mobile-nav bg-color-ui-01">
@@ -80,6 +85,9 @@ metadata: {
             {% endif %}
             <ins-accordion-link class="{% if navigation_label == "My details" %} is_hidden {% endif %}" label="My details 4" link="/my-details" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "My company details" %} is_hidden {% endif %}" label="My company details" link="/my-company-details" link-target="_self"></ins-accordion-link>
+            {% if context.constants.locator_addon == 'true' %}
+                <ins-accordion-link class="{% if navigation_label == "My locator listing" %} is_hidden {% endif %}" label="My locator listing" link="/#" link-target="_self"></ins-accordion-link>
+            {% endif %}
             <ins-accordion-link class="{% if navigation_label == "Feedback" %} is_hidden {% endif %}" label="Feedback" link="/feedback" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "Payment methods" %} is_hidden {% endif %}" label="Payment methods" link="/payment-methods" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "Pay a bill" %} is_hidden {% endif %}" label="Pay a bill" link="/pay-bills" link-target="_self"></ins-accordion-link>
