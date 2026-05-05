@@ -44,3 +44,15 @@ Project Assets - Holds app css and js
         <noscript><link rel="stylesheet" href="{{ 'modules/events/styles/events.min.css' | asset_url }}"></noscript>
     {%- endif -%}
 {%- endif -%}
+
+{% if context.constants.locator_addon == 'true' %}
+    {%- if context.environment == "staging" -%}
+        <link rel="preload" as="style" href="{{ 'modules/locator/styles/locator.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ 'modules/locator/styles/locator.css' | asset_url }}"></noscript>
+        <script src="{{ 'modules/locator/scripts/locator.js' | asset_url }}" defer></script>
+    {%- else -%}
+        <link rel="preload" as="style" href="{{ 'modules/locator/styles/locator.min.css' | asset_url }}" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ 'modules/locator/styles/locator.min.css' | asset_url }}"></noscript>
+        <script src="{{ 'modules/locator/scripts/locator.min.js' | asset_url }}" defer></script>
+    {%- endif -%}
+{%- endif -%}

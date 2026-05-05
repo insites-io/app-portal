@@ -107,7 +107,7 @@ metadata: {
                   {% endfor %}
                 </ins-dropdown>
             {%- elsif menu.slug == "faqs" and context.constants.locator_addon == 'true' -%}
-              <a href="#">Find a partner</a>
+              <a href="/find-a-partner">Find a partner</a>
               {%- assign current_path = '/' | append: menu.slug -%}
               <a href="/{{menu.slug}}" {% if context.location.href == current_path %}aria-current="page"{% endif %}>
                 {{menu.label}}
