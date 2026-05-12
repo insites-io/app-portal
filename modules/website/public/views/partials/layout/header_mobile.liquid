@@ -97,6 +97,22 @@ metadata: {
                 {%- assign user_data_default = user_with_token.default | first -%}
 
                 <ins-accordion-link label="My details" link="/my-details"></ins-accordion-link>
+
+                {% comment %} Ecommerce Addon {% endcomment %}
+                {% if context.constants.ecommerce_addon == 'true' %}
+                  <ins-accordion-link label="Order history" link="/order-history"></ins-accordion-link>
+                {% endif %}
+
+                {% comment %} Events Addon {% endcomment %}
+                {% if context.constants.events_addon == 'true' %}
+                  <ins-accordion-link label="My events" link="/itinerary-upcoming"></ins-accordion-link>
+                {% endif %}
+
+                {% comment %} Locator Addon {% endcomment %}
+                {% if context.constants.locator_addon == 'true' %}
+                  <ins-accordion-link label="My locator listings" link="/my-locator-listing"></ins-accordion-link>
+                {% endif %}
+
                 <ins-accordion-link label="Change password" link="/generate-password-token?email={{ user_with_token.email | url_encode }}"></ins-accordion-link>
                 <div class="sign-out-wrapper">
                   {% include_form 'modules/portal/sign_out' %}

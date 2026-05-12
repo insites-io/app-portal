@@ -159,6 +159,13 @@ metadata: {
                   label="My events">
                 </ins-dropdown-item>
               {% endif %}
+
+              {% if context.constants.locator_addon == 'true' %}
+                <ins-dropdown-item
+                  link="/my-locator-listing"
+                  label="My locator listings">
+                </ins-dropdown-item>
+              {% endif %}
             
               <ins-dropdown-item
                 link="/generate-password-token?email={{ user_with_token.email | url_encode }}"
