@@ -85,6 +85,7 @@
     /* 24px divided by 2 */
     --gutter-medium: 20px;
     /* 40px divided by 2 */
+    --gutter-24: 24px;
     /* spacers */
     --container-max-width: 1440px;
     --container-max-width-half: 616px;
@@ -507,6 +508,16 @@ hr {
 .gutter-medium.grid-padding-y>.cell {
     padding-top: var(--gutter-medium);
     padding-bottom: var(--gutter-medium);
+}
+
+.gutter-24.grid-padding-x>.cell {
+    padding-left: var(--gutter-24);
+    padding-right: var(--gutter-24);
+}
+
+.gutter-24.grid-padding-y>.cell {
+    padding-top: var(--gutter-24);
+    padding-bottom: var(--gutter-24);
 }
 
 .grid-container:not(.full) .grid-padding-x.gutter-medium {
@@ -1443,6 +1454,15 @@ ins-card.full {
 ins-toggle-switch .v-switch .ins-switch {
     height: initial;
     margin-bottom: calc(2 * var(--gutter));
+}
+
+ins-toggle-switch .v-switch input:checked+.ins-slider:before,
+ins-toggle-switch .v-switch input:checked+.ins-slider>i:before {
+    background: var(--color-main);
+}
+
+ins-toggle-switch .v-switch input:checked+.ins-slider {
+    background: var(--color-main-hover-light);
 }
 
 .ins-form-field-wrap,
@@ -2532,9 +2552,31 @@ ins-tag span.ins-tag {
 }
 
 #main-header.light-header ins-dropdown .ins-dropdown_menu a:hover,
-#main-header ins-dropdown button:hover {
-    background: var(--Brand---color-main-hover-light, rgba(48, 68, 255, 0.06));
+#main-header ins-dropdown button:hover,
+.signOutCustom button:hover {
+    background: var(--color-main-hover-light);
     color: var(--color-main-hover);
+}
+
+@media screen and (max-width: 1028px) {
+    .signOutCustom button {
+        color: var(--font-color-body) !important;
+    }
+    .signOutCustom button:hover {
+        background: initial !important;
+        color: var(--font-color-body) !important;
+    }
+}    
+
+.signOutCustom button {
+    line-height: 24px !important;
+    height: initial !important;
+    width: 100%;
+    text-align: left;
+}
+
+.signOutCustom button > div {
+    display: block;
 }
 
 #main-header ins-dropdown button:hover span {
@@ -2551,7 +2593,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header.light-header .mobile-menu-toggle #mobile-menu-btn {
-    color: var(--Brand---color-main, #3044FF);
+    color: var(--color-main);
     padding: 8px;
     background: rgba(48, 68, 255, 0.06);
     border-radius: 4px;
@@ -2846,11 +2888,6 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-}
-
-.signOutCustom button:hover {
-    color: var(--font-color-head) !important;
-    background-color: var(--color-ui-02) !important;
 }
 
 @media screen and (max-width: 639px) {
@@ -6293,4 +6330,10 @@ gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item-match)
 .ins-address-lookup-item.is-active {
     background-color: var(--color-main);
     color: #ffffff;
+}
+
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header.active::before,
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header:focus::before,
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before {
+    background: var(--color-main);
 }
