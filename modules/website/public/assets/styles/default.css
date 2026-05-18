@@ -2386,7 +2386,7 @@ ins-tag span.ins-tag {
 
 #main-header ins-dropdown {
     display: inline-block;
-    padding: 8px 24px;
+    padding: 8px 48px 8px 24px;
     font-weight: 700;
 }
 
