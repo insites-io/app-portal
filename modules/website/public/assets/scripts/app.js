@@ -87,6 +87,9 @@ let App = (function () {
                         case 'ins-input-tel':
                             this.validateTel(field);
                             break;
+                        case 'ins-input-select':
+                            this.validateSelect(field);
+                            break;
                         case 'ins-textarea':
                             this.validateInput(field.querySelector('textarea'));
                             break
@@ -134,7 +137,17 @@ let App = (function () {
             async validateTel(field) {
                 (await field.getValues()).phone_number.length < 7 ?
                     field.setAttribute('has-error', true) :
-                    field.removeAttribute('has-error')                                    
+                    field.removeAttribute('has-error')
+            },
+            async validateSelect(field) {
+                // <ins-input-select> doesn't fit the <ins-input> notif helpers — its value
+                // can be a string (single select) or an array (multiple). Treat null,
+                // undefined, "" and [] as empty. Toggling `hasError` re-renders the
+                // component with the .is-invalid class in its light-DOM tree, which
+                // checkInvalidFields then picks up.
+                const value = await field.getValue();
+                const isEmpty = value == null || value === '' || (Array.isArray(value) && value.length === 0);
+                field.hasError = isEmpty;
             },
             validateRadio(wrapper) {                
                 wrapper.querySelectorAll('ins-radio input:checked').length ?

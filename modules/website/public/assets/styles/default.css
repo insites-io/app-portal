@@ -1090,7 +1090,9 @@ label,
 .form-error,
 .ins-form-field-wrap.is-invalid .ins-form-error,
 .form-field-wrapper.error-recaptcha .ins-form-error,
-.list-field-wrap.is-invalid .list-field_error {
+.list-field-wrap.is-invalid .list-field_error,
+.ins-select-wrap.is-invalid .ins-form-error,
+.ins-textarea-wrap.is-invalid .with-counter .ins-textarea-counter {
     font-family: var(--font-family-03);
     font-weight: 400;
     font-size: var(--font-x-small);
