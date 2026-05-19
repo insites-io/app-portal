@@ -2386,7 +2386,7 @@ ins-tag span.ins-tag {
 
 #main-header ins-dropdown {
     display: inline-block;
-    padding: 8px 48px 8px 24px;
+    padding: 8px 41px 8px 24px;
     font-weight: 700;
 }
 
@@ -2457,7 +2457,7 @@ ins-tag span.ins-tag {
 
 #main-header ins-dropdown .ins-dropdown_menu,
 #main-header .ins-dropdown_label .icon-angle-down {
-    right: -24px;
+    right: -16px;
 }
 
 #main-header ins-dropdown:not(.profileNav) .ins-dropdown_menu {
