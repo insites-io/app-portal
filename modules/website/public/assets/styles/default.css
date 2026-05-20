@@ -373,6 +373,10 @@ img {
     width: 100%;
 }
 
+ins-image-picker img {
+    width: initial;
+}
+
 .image-d {
     display: block;
 }
