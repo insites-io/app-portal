@@ -86,7 +86,7 @@ metadata: {
             <ins-accordion-link class="{% if navigation_label == "My details" %} is_hidden {% endif %}" label="My details" link="/my-details" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "My company details" %} is_hidden {% endif %}" label="My company details" link="/my-company-details" link-target="_self"></ins-accordion-link>
             {% if context.constants.locator_addon == 'true' %}
-                <ins-accordion-link class="{% if navigation_label == "My locator listing" %} is_hidden {% endif %}" label="My locator listing" link="/#" link-target="_self"></ins-accordion-link>
+                <ins-accordion-link class="{% if navigation_label == "My locator listing" %} is_hidden {% endif %}" label="My locator listing" link="/my-locator-listing" link-target="_self"></ins-accordion-link>
             {% endif %}
             <ins-accordion-link class="{% if navigation_label == "Feedback" %} is_hidden {% endif %}" label="Feedback" link="/feedback" link-target="_self"></ins-accordion-link>
             <ins-accordion-link class="{% if navigation_label == "Payment methods" %} is_hidden {% endif %}" label="Payment methods" link="/payment-methods" link-target="_self"></ins-accordion-link>

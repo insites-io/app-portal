@@ -6343,3 +6343,7 @@ ins-tab .ins-tab .ins-tab-headers .ins-tab-header:focus::before,
 ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before {
     background: var(--color-main);
 }
+
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header.has-error::before{
+    background: var(--error) !important;
+}
