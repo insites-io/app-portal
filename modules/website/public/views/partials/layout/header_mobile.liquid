@@ -62,11 +62,19 @@ metadata: {
             <li class="mobile-menu-style">
               <ins-accordion menu>
                 <ins-accordion-item class="colorBlack has-subitems" heading="{{menu.label}}" link="#" open-icon="icon-plus" close-icon="icon-minus" link-target="_self">
-                  {% for item in features %} 
+                  {% for item in features %}
                     <ins-accordion-link class="colorBlack" label="{{ item.card_title }}" link="/{{ menu.slug }}/{{ item.slug }}" link-target="_self"></ins-accordion-link>
-                  {% endfor %} 
+                  {% endfor %}
                 </ins-accordion-item>
               </ins-accordion>
+            </li>
+          {%- elsif menu.slug == "faqs" and context.constants.locator_addon == 'true' -%}
+            <li class="no-submenu mobile-menu-style">
+              <a href="/find-a-partner">Find a partner</a>
+            </li>
+            {%- assign current_path = '/' | append: menu.slug -%}
+            <li class="no-submenu mobile-menu-style">
+              <a href="/{{ menu.slug }}" {% if context.location.href == current_path %}aria-current="page"{% endif %}>{{menu.label}}</a>
             </li>
           {% else %}
             {%- assign current_path = '/' | append: menu.slug -%}
@@ -84,12 +92,28 @@ metadata: {
         {% else %}
           <li class="mobile-menu-style">
             <ins-accordion menu>
-              <ins-accordion-item heading="{{ context.current_user.first_name }} {{ context.current_user.last_name }}" link="#" open-icon="icon-plus" close-icon="icon-minus" class="has-subitems">
+              <ins-accordion-item heading="{{ context.current_user.first_name }} {{ context.current_user.last_name }}" open-icon="icon-plus" close-icon="icon-minus" class="has-subitems">
                 {%- graphql user_with_token = 'modules/portal/account/get_user_with_password_token', email: context.current_user.email | dig: 'users','results' | first -%}
                 {%- assign user_data_default = user_with_token.default | first -%}
 
-                <ins-accordion-link label="My details" link="/my-details"></ins-accordion-link>
-                <ins-accordion-link label="Change password" link="/generate-password-token?email={{ user_with_token.email | url_encode }}"></ins-accordion-link>
+                <ins-accordion-link label="My details" link="/my-details" link-target="_self"></ins-accordion-link>
+
+                {% comment %} Ecommerce Addon {% endcomment %}
+                {% if context.constants.ecommerce_addon == 'true' %}
+                  <ins-accordion-link label="Order history" link="/order-history" link-target="_self"></ins-accordion-link>
+                {% endif %}
+
+                {% comment %} Events Addon {% endcomment %}
+                {% if context.constants.events_addon == 'true' %}
+                  <ins-accordion-link label="My events" link="/itinerary-upcoming" link-target="_self"></ins-accordion-link>
+                {% endif %}
+
+                {% comment %} Locator Addon {% endcomment %}
+                {% if context.constants.locator_addon == 'true' %}
+                  <ins-accordion-link label="My locator listings" link="/my-locator-listing" link-target="_self"></ins-accordion-link>
+                {% endif %}
+
+                <ins-accordion-link label="Change password" link="/generate-password-token?email={{ user_with_token.email | url_encode }}" link-target="_self"></ins-accordion-link>
                 <div class="sign-out-wrapper">
                   {% include_form 'modules/portal/sign_out' %}
                 </div>

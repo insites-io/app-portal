@@ -104,8 +104,14 @@ metadata: {
                       link="/{{menu.slug}}/{{ item.slug }}"
                       label="{{ item.card_title }}">
                     </ins-dropdown-item>
-                  {% endfor %} 
+                  {% endfor %}
                 </ins-dropdown>
+            {%- elsif menu.slug == "faqs" and context.constants.locator_addon == 'true' -%}
+              <a href="/find-a-partner">Find a partner</a>
+              {%- assign current_path = '/' | append: menu.slug -%}
+              <a href="/{{menu.slug}}" {% if context.location.href == current_path %}aria-current="page"{% endif %}>
+                {{menu.label}}
+              </a>
             {% else %}
               {%- assign current_path = '/' | append: menu.slug -%}
               <a href="/{{menu.slug}}" {% if context.location.href == current_path %}aria-current="page"{% endif %}>
@@ -151,6 +157,13 @@ metadata: {
                 <ins-dropdown-item
                   link="/itinerary-upcoming"
                   label="My events">
+                </ins-dropdown-item>
+              {% endif %}
+
+              {% if context.constants.locator_addon == 'true' %}
+                <ins-dropdown-item
+                  link="/my-locator-listing"
+                  label="My locator listings">
                 </ins-dropdown-item>
               {% endif %}
             

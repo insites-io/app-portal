@@ -110,12 +110,23 @@ var AddressLookup = (function () {
                 let blurTimer = null;
                 let sessionToken = new places.AutocompleteSessionToken();
 
+                // Per-input region override via `address-lookup-regions` attribute on the host field:
+                //   absent             → defaults to "au" (preserves prior behaviour for sign-up/checkout/billing forms)
+                //   "*"                → no region restriction (worldwide; used by the locator search)
+                //   "au,nz" (csv list) → ISO-2 region codes passed to Places
+                const regionAttr = (field.getAttribute('address-lookup-regions') || 'au').trim().toLowerCase();
+                const regionCodes = regionAttr === '*'
+                    ? null
+                    : regionAttr.split(',').map(s => s.trim()).filter(Boolean);
+
                 const fetchSuggestions = async value => {
                     const request = {
                         input: value,
-                        includedRegionCodes: ["au"],
                         sessionToken
                     };
+                    if (regionCodes && regionCodes.length) {
+                        request.includedRegionCodes = regionCodes;
+                    }
                     const response = await places.AutocompleteSuggestion.fetchAutocompleteSuggestions(request);
                     return response && response.suggestions ? response.suggestions : [];
                 };

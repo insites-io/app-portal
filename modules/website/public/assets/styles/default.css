@@ -2,15 +2,15 @@
     font-size: 16px;
     /* Brand colors */
     --color-main: #3044FF;
-    --color-sub1: #8C1EE3;
+    --color-sub1: #05051D;
     --color-sub2: #E3361E;
     --color-bg1: #05051D;
     /* Buttons & Links */
     --color-main-hover: #3044FF;
-    --color-sub1-hover: #7E16D0;
+    --color-sub1-hover: #040413;
     --color-sub2-hover: #D32F19;
     --color-main-hover-light: rgba(48, 68, 255, 0.06);
-    --color-sub1-hover-light: rgba(126, 22, 208, 0.1);
+    --color-sub1-hover-light: rgba(4, 4, 19, 0.10);
     --color-sub2-hover-light: rgba(211, 47, 25, 0.1);
     --font-color-link-hovered: #FFFFFF99;
     /* Support/Notification Colors */
@@ -85,6 +85,7 @@
     /* 24px divided by 2 */
     --gutter-medium: 20px;
     /* 40px divided by 2 */
+    --gutter-24: 24px;
     /* spacers */
     --container-max-width: 1440px;
     --container-max-width-half: 616px;
@@ -372,6 +373,10 @@ img {
     width: 100%;
 }
 
+ins-image-picker img {
+    width: initial;
+}
+
 .image-d {
     display: block;
 }
@@ -507,6 +512,16 @@ hr {
 .gutter-medium.grid-padding-y>.cell {
     padding-top: var(--gutter-medium);
     padding-bottom: var(--gutter-medium);
+}
+
+.gutter-24.grid-padding-x>.cell {
+    padding-left: var(--gutter-24);
+    padding-right: var(--gutter-24);
+}
+
+.gutter-24.grid-padding-y>.cell {
+    padding-top: var(--gutter-24);
+    padding-bottom: var(--gutter-24);
 }
 
 .grid-container:not(.full) .grid-padding-x.gutter-medium {
@@ -1079,7 +1094,9 @@ label,
 .form-error,
 .ins-form-field-wrap.is-invalid .ins-form-error,
 .form-field-wrapper.error-recaptcha .ins-form-error,
-.list-field-wrap.is-invalid .list-field_error {
+.list-field-wrap.is-invalid .list-field_error,
+.ins-select-wrap.is-invalid .ins-form-error,
+.ins-textarea-wrap.is-invalid .with-counter .ins-textarea-counter {
     font-family: var(--font-family-03);
     font-weight: 400;
     font-size: var(--font-x-small);
@@ -1443,6 +1460,15 @@ ins-card.full {
 ins-toggle-switch .v-switch .ins-switch {
     height: initial;
     margin-bottom: calc(2 * var(--gutter));
+}
+
+ins-toggle-switch .v-switch input:checked+.ins-slider:before,
+ins-toggle-switch .v-switch input:checked+.ins-slider>i:before {
+    background: var(--color-main);
+}
+
+ins-toggle-switch .v-switch input:checked+.ins-slider {
+    background: var(--color-main-hover-light);
 }
 
 .ins-form-field-wrap,
@@ -2364,7 +2390,7 @@ ins-tag span.ins-tag {
 
 #main-header ins-dropdown {
     display: inline-block;
-    padding: 8px 24px;
+    padding: 8px 41px 8px 24px;
     font-weight: 700;
 }
 
@@ -2435,7 +2461,7 @@ ins-tag span.ins-tag {
 
 #main-header ins-dropdown .ins-dropdown_menu,
 #main-header .ins-dropdown_label .icon-angle-down {
-    right: -24px;
+    right: -16px;
 }
 
 #main-header ins-dropdown:not(.profileNav) .ins-dropdown_menu {
@@ -2532,9 +2558,31 @@ ins-tag span.ins-tag {
 }
 
 #main-header.light-header ins-dropdown .ins-dropdown_menu a:hover,
-#main-header ins-dropdown button:hover {
-    background: var(--Brand---color-main-hover-light, rgba(48, 68, 255, 0.06));
+#main-header ins-dropdown button:hover,
+.signOutCustom button:hover {
+    background: var(--color-main-hover-light);
     color: var(--color-main-hover);
+}
+
+@media screen and (max-width: 1028px) {
+    .signOutCustom button {
+        color: var(--font-color-body) !important;
+    }
+    .signOutCustom button:hover {
+        background: initial !important;
+        color: var(--font-color-body) !important;
+    }
+}    
+
+.signOutCustom button {
+    line-height: 24px !important;
+    height: initial !important;
+    width: 100%;
+    text-align: left;
+}
+
+.signOutCustom button > div {
+    display: block;
 }
 
 #main-header ins-dropdown button:hover span {
@@ -2551,7 +2599,7 @@ ins-tag span.ins-tag {
 }
 
 #main-header.light-header .mobile-menu-toggle #mobile-menu-btn {
-    color: var(--Brand---color-main, #3044FF);
+    color: var(--color-main);
     padding: 8px;
     background: rgba(48, 68, 255, 0.06);
     border-radius: 4px;
@@ -2846,11 +2894,6 @@ ins-drawer#mobile-menu .user-info ins-accordion-item ins-button {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-}
-
-.signOutCustom button:hover {
-    color: var(--font-color-head) !important;
-    background-color: var(--color-ui-02) !important;
 }
 
 @media screen and (max-width: 639px) {
@@ -6293,4 +6336,14 @@ gmp-place-autocomplete.ins-place-autocomplete-theme::part(prediction-item-match)
 .ins-address-lookup-item.is-active {
     background-color: var(--color-main);
     color: #ffffff;
+}
+
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header.active::before,
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header:focus::before,
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before {
+    background: var(--color-main);
+}
+
+ins-tab .ins-tab .ins-tab-headers .ins-tab-header.has-error::before{
+    background: var(--error) !important;
 }

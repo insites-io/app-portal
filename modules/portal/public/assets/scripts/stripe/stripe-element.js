@@ -238,7 +238,9 @@ let StripeElement = (() => {
                 stripeCancelBtn.forEach(el => {
                     el.addEventListener('insClick', () => {
                         StripeElement.init.resetForm();
-                        stripeCardModal.close();
+                        if (stripeCardModal) {
+                            stripeCardModal.close();
+                        }
                     });
                 });
 
