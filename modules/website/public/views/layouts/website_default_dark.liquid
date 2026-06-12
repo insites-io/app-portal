@@ -32,9 +32,10 @@ metadata: {
 
         {{ content_for_layout }}
 
-        {% comment %} ? For ecommerce cart drawer {% endcomment %}
+        {% comment %} ? For ecommerce cart drawer + promotional popup {% endcomment %}
         {% if context.constants.ecommerce_addon == 'true' %}
-            {% include 'modules/ecommerce/carts/cart_drawer' %}
+            {% include 'modules/ecommerce/carts/cart_drawer' %}            
+            {% include 'modules/ecommerce/popups/promo_popup' %}
         {% endif %}
     </div>
     
