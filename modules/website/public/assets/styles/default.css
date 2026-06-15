@@ -6348,3 +6348,102 @@ ins-tab .ins-tab .ins-tab-headers .ins-tab-header:hover::before {
 ins-tab .ins-tab .ins-tab-headers .ins-tab-header.has-error::before{
     background: var(--error) !important;
 }
+
+/* ============================================================
+   ins-button "swap" hover animation (global)
+   ------------------------------------------------------------
+   Replaces the instant background change on hover with a
+   left-to-right fill sweep. The fill uses
+   each variant's EXISTING hover colour (--ins-color-*2 for solid,
+   --ins-color-*-10p for outlined), so colours are unchanged —
+   only the motion. The inner <button> already has
+   position: relative + overflow: hidden from the component.
+   ============================================================ */
+
+/* Keep the label / icon / spinner above the sweeping fill. */
+ins-button button.ins-button > div,
+ins-button button.ins-button > .spinner {
+    position: relative;
+    z-index: 1;
+}
+
+/* The sweep: a pseudo-element that grows from 0 to full width behind the content. */
+ins-button button.ins-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    z-index: 0;
+    pointer-events: none;
+    transition: width 0.3s ease;
+}
+ins-button button.ins-button:not([disabled]):not(.is-loading):hover::after {
+    width: 100%;
+}
+
+/* Hold the base background on hover so ONLY the sweep reveals the hover colour
+   (otherwise the component's instant background change would race the sweep).
+   Outlined: base is transparent for every variant. */
+ins-button button.ins-button.outlined:not([disabled]):hover {
+    background: transparent;
+}
+
+/* Sweep fill colour per variant — same tokens the component uses on hover. */
+ins-button button.ins-button.solid.blue::after,
+ins-button button.ins-button.solid.primary::after { background: var(--ins-color-blue2); }
+ins-button button.ins-button.solid.green::after,
+ins-button button.ins-button.solid.positive::after { background: var(--ins-color-green2); }
+ins-button button.ins-button.solid.orange::after,
+ins-button button.ins-button.solid.warning::after { background: var(--ins-color-orange2); }
+ins-button button.ins-button.solid.red::after,
+ins-button button.ins-button.solid.negative::after { background: var(--ins-color-red2); }
+ins-button button.ins-button.solid.pink::after,
+ins-button button.ins-button.solid.information-1::after { background: var(--ins-color-pink2); }
+ins-button button.ins-button.solid.yellow::after,
+ins-button button.ins-button.solid.information-2::after { background: var(--ins-color-yellow2); }
+ins-button button.ins-button.solid.turquoise::after { background: var(--ins-color-turquoise2); }
+ins-button button.ins-button.solid.grey::after,
+ins-button button.ins-button.solid.secondary::after { background: var(--ins-color-grey2); }
+
+/* Hold the solid base background on hover (per variant). */
+ins-button button.ins-button.solid.blue:not([disabled]):hover,
+ins-button button.ins-button.solid.primary:not([disabled]):hover { background: var(--ins-color-blue); }
+ins-button button.ins-button.solid.green:not([disabled]):hover,
+ins-button button.ins-button.solid.positive:not([disabled]):hover { background: var(--ins-color-green); }
+ins-button button.ins-button.solid.orange:not([disabled]):hover,
+ins-button button.ins-button.solid.warning:not([disabled]):hover { background: var(--ins-color-orange); }
+ins-button button.ins-button.solid.red:not([disabled]):hover,
+ins-button button.ins-button.solid.negative:not([disabled]):hover { background: var(--ins-color-red); }
+ins-button button.ins-button.solid.pink:not([disabled]):hover,
+ins-button button.ins-button.solid.information-1:not([disabled]):hover { background: var(--ins-color-pink); }
+ins-button button.ins-button.solid.yellow:not([disabled]):hover,
+ins-button button.ins-button.solid.information-2:not([disabled]):hover { background: var(--ins-color-yellow); }
+ins-button button.ins-button.solid.turquoise:not([disabled]):hover { background: var(--ins-color-turquoise); }
+ins-button button.ins-button.solid.grey:not([disabled]):hover,
+ins-button button.ins-button.solid.secondary:not([disabled]):hover { background: var(--ins-color-grey); }
+
+/* Outlined sweep fill colour per variant (10% tint, same as component hover). */
+ins-button button.ins-button.outlined.blue::after,
+ins-button button.ins-button.outlined.primary::after { background: var(--ins-color-blue-10p); }
+ins-button button.ins-button.outlined.green::after,
+ins-button button.ins-button.outlined.positive::after { background: var(--ins-color-green-10p); }
+ins-button button.ins-button.outlined.orange::after,
+ins-button button.ins-button.outlined.warning::after { background: var(--ins-color-orange-10p); }
+ins-button button.ins-button.outlined.red::after,
+ins-button button.ins-button.outlined.negative::after { background: var(--ins-color-red-10p); }
+ins-button button.ins-button.outlined.pink::after,
+ins-button button.ins-button.outlined.information-1::after { background: var(--ins-color-pink-10p); }
+ins-button button.ins-button.outlined.yellow::after,
+ins-button button.ins-button.outlined.information-2::after { background: var(--ins-color-yellow-10p); }
+ins-button button.ins-button.outlined.turquoise::after { background: var(--ins-color-turquoise-10p); }
+ins-button button.ins-button.outlined.grey::after,
+ins-button button.ins-button.outlined.secondary::after { background: var(--ins-color-grey-10p); }
+
+/* Respect reduced-motion: keep the colour change, drop the sweep animation. */
+@media (prefers-reduced-motion: reduce) {
+    ins-button button.ins-button::after {
+        transition: none;
+    }
+}
