@@ -16,7 +16,12 @@ metadata: {
     {%- endcache -%}
 </head>
 <body>
-    <div class="main-wrap">      
+    <div class="main-wrap">
+        {% comment %} ? Ecommerce promo banner strip — above the header, kept outside the header cache {% endcomment %}
+        {% if context.constants.ecommerce_addon == 'true' %}
+            {% include 'modules/ecommerce/banners/promo_banner' %}
+        {% endif %}
+
         {%- capture header -%} {{ context.current_user.id }}-{{ context.exports.layout_cache_key.cache_key }}-header {%- endcapture -%}
         {% cache header %}
             {% include 'modules/website/layout/header' %} 

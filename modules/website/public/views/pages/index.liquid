@@ -40,6 +40,7 @@ dynamic_cache:
             {% assign models = models | array_add: 'modules/insites_ecommerce/order_item' %}
             {% assign models = models | array_add: 'modules/ecommerce/reviews' %}
             {% assign models = models | array_add: 'modules/ecommerce/popup_modal' %}
+            {% assign models = models | array_add: 'modules/ecommerce/promo_banner' %}
         {% endif %}
         {% if context.constants.events_addon == 'true' %}
             {% assign models = models | array_add: 'modules/insites_events/event' %}
