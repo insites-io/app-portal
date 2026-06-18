@@ -77,7 +77,6 @@ let StripeElement = (() => {
 
                     // Step 2: Stripe confirmed the card — now attempt to save it via the backend.
                     let response = await this.createStripeCardModel(result.token);
-                    console.log('createStripeCardModel response:', response);
 
                     // Step 3: If the backend save failed, surface the error and stop.
                     // Check both response.state AND stripe_card_id — the API can return state: true
