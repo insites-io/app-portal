@@ -10,6 +10,11 @@ metadata: {
 <meta content="{{ context.authenticity_token }}" name="csrf-token">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+{%- comment -%} Flip the <html class="no-js"> flag to "js" before paint so CSS can
+    target the no-JS state (e.g. ecommerce skeleton/sidebar fallbacks) without an
+    in-<body> <noscript><style>, which is invalid HTML (W3C). {%- endcomment -%}
+<script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
+
 <!-- Preconnect to critical origins for LCP and network dependency (fonts in google-fonts/insites-assets, CDN) -->
 <link rel="preconnect" href="https://components.insites.io" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
