@@ -3163,7 +3163,7 @@ footer .menu a {
     line-height: 150%;
 }
 
-.slider-item h6 {
+.slider-item h3 {
     color: var(--font-color-head);
     font-family: var(--font-family-01, "DM Sans");
     font-size: 16px;
@@ -6445,5 +6445,64 @@ ins-button button.ins-button.outlined.secondary::after { background: var(--ins-c
 @media (prefers-reduced-motion: reduce) {
     ins-button button.ins-button::after {
         transition: none;
+    }
+}
+/* Index | Client section logo grid */
+.client-section .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Image sizing */
+.client-section .image-row img,
+.client-section .image-center img {
+    max-width: 150px;
+    max-height: 48px;
+    object-fit: contain;
+}
+
+/* Mobile (default) */
+.client-section .image-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.client-section .image-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Tablet view: allow wrapping */
+@media (min-width: 639px) and (max-width: 1023px) {
+    .client-section .image-container {
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .client-section .image-row,
+    .client-section .image-center {
+        margin: 0;
+        display: contents;
+    }
+}
+
+/* Desktop view: one row, evenly spaced */
+@media (min-width: 1024px) {
+    .client-section .image-container {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .client-section .image-row,
+    .client-section .image-center {
+        display: contents;
+        margin: 0;
     }
 }
