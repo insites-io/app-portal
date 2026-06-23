@@ -342,16 +342,23 @@ let App = (function () {
                             }
 
                             navbar.style.position = 'relative';
+                            // In-flow below the ecommerce promo banner (if shown); no fixed offset needed.
+                            navbar.style.removeProperty('top');
                             navbar.style.transform = 'translateY(0)';
                         }
                         // Scrolling down
                         else if (currentScroll > lastScrollTop && currentScroll > navbar.offsetHeight) {
                             navbar.style.position = 'fixed';
+                            // Pin to the viewport top. Without an explicit top, a fixed header
+                            // inherits its static-flow position — offset down by the promo
+                            // banner's height — which cuts off / gaps the header.
+                            navbar.style.top = '0';
                             navbar.style.transform = 'translateY(-100%)';
                         }
                         // Scrolling up
                         else if (currentScroll < lastScrollTop) {
                             navbar.style.position = 'fixed';
+                            navbar.style.top = '0';
                             navbar.style.transform = 'translateY(0)';
                         }
 
@@ -364,6 +371,7 @@ let App = (function () {
                         // For desktop, navbar should always have a solid background color
                         navbar.style.backgroundColor = '#05051D';
                         navbar.style.position = 'relative'; // Make sure it's not fixed on desktop
+                        navbar.style.removeProperty('top');
                         navbar.style.removeProperty('transform');
                     }
                 }

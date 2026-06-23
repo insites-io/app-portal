@@ -36,9 +36,16 @@ Design & content changes per project as needed
                 <div class="thank-you-img spacer">
                     <i class="icon-number-of-checks"></i>
                 </div>
-                <h1 class="heading-1">Thank you!</h1>
+                {%- if context.params.page == 'write-a-review' -%}
+                    {%- assign heading = heading | default: "Thank you for your review!" -%}
+                    {%- assign subheading = subheading | default: "We really appreciate your feedback. It helps us and other shoppers a lot!" -%}
+                {%- else -%}
+                    {%- assign heading = heading | default: "Thank you!" -%}
+                    {%- assign subheading = subheading | default: "Your enquiry has been received." -%}
+                {%- endif -%}
+                <h1 class="heading-1">{{ heading }}</h1>
                 <div class="spacer"></div>
-                <p class="subHeading">Your enquiry has been received.</p>
+                <p class="subHeading">{{ subheading }}</p>
                 <div class="spacer x-large show-for-small-only"></div>
             </div>
         </div>
