@@ -5980,10 +5980,11 @@ ins-table-row:nth-child(even) {
 
 /* FORM ERROR */
 
-.ins-form-field-wrap.is-invalid .ins-form-error {
-    color: #F24B4B;
-    font-family: var(--font-family-02);
-    font-size: 12px;
+.ins-form-field-wrap.is-invalid .ins-form-error,
+.insites-form.error-recaptcha .g-recaptcha::after {
+    color: #F24B4B !important;
+    font-family: var(--font-family-02) !important;
+    font-size: 12px !important;
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
