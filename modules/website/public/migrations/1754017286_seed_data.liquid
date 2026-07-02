@@ -38,11 +38,11 @@
     {% endparse_json %}
 
     {% for menu_item in menu %}
-        {%- graphql create_menu = "modules/website/migration/create_menu"
-            label: {{menu_item.label}},
-            order: {{menu_item.order}},
-            slug: {{menu_item.slug}},
-            parent: {{ menu_item.parent }}
+        {%- graphql create_menu = "modules/website/migration/create_menu",
+            label: menu_item.label,
+            order: menu_item.order,
+            slug: menu_item.slug,
+            parent: menu_item.parent
         -%}
     {% endfor %}
 {% endif %}
@@ -72,10 +72,10 @@
     {% endparse_json %}
 
     {% for feedback_item in feedback %}
-        {%- graphql create_feedback = "modules/website/migration/create_feedback"
-            full_name: {{feedback_item.full_name}},
-            location: {{feedback_item.location}},
-            message: {{feedback_item.message}}
+        {%- graphql create_feedback = "modules/website/migration/create_feedback",
+            full_name: feedback_item.full_name,
+            location: feedback_item.location,
+            message: feedback_item.message
         -%}
     {% endfor %}
 {% endif %}
@@ -119,9 +119,9 @@
     {% endparse_json %}
 
     {% for business_needs_item in business_needs %}
-        {%- graphql create_business_needs = "modules/website/migration/create_business_needs"
-            business_title: {{business_needs_item.business_title}},
-            business_description: {{business_needs_item.business_description}}
+        {%- graphql create_business_needs = "modules/website/migration/create_business_needs",
+            business_title: business_needs_item.business_title,
+            business_description: business_needs_item.business_description
         -%}
     {% endfor %}
 {% endif %}
@@ -155,10 +155,10 @@
     {% endparse_json %}
 
     {% for our_team_item in our_team %}
-        {%- graphql create_our_team = "modules/website/migration/create_our_team"
-            order: {{our_team_item.order}},
-            name: {{our_team_item.name}},
-            occupation: {{our_team_item.occupation}}
+        {%- graphql create_our_team = "modules/website/migration/create_our_team",
+            order: our_team_item.order,
+            name: our_team_item.name,
+            occupation: our_team_item.occupation
         -%}
     {% endfor %}
 {% endif %}
@@ -178,11 +178,11 @@
     {% endparse_json %}
 
     {% for portal_banner_item in portal_banner %}
-        {%- graphql create_portal_banner = "modules/website/migration/create_portal_banner"
-            main_text: {{portal_banner_item.main_text}},
-            sub_text: {{portal_banner_item.sub_text}},
-            button_label: {{portal_banner_item.button_label}},
-            button_link: {{portal_banner_item.button_link}}
+        {%- graphql create_portal_banner = "modules/website/migration/create_portal_banner",
+            main_text: portal_banner_item.main_text,
+            sub_text: portal_banner_item.sub_text,
+            button_label: portal_banner_item.button_label,
+            button_link: portal_banner_item.button_link
         -%}
     {% endfor %}
 {% endif %}
@@ -225,12 +225,12 @@
 
     {% assign feature_parent_id_holder = '[]' | parse_json -%}
     {% for features_parent_item in features_parent %}
-        {%- graphql create_features_parent = "modules/website/migration/create_features_parent"
-            slug: {{features_parent_item.slug}},
-            card_title: {{features_parent_item.card_title}},
-            card_short_description: {{features_parent_item.card_short_description}},
-            card_order: {{features_parent_item.card_order}},
-            page_description: {{features_parent_item.page_description}}
+        {%- graphql create_features_parent = "modules/website/migration/create_features_parent",
+            slug: features_parent_item.slug,
+            card_title: features_parent_item.card_title,
+            card_short_description: features_parent_item.card_short_description,
+            card_order: features_parent_item.card_order,
+            page_description: features_parent_item.page_description
         -%}
         
         {% assign feature_parent_id_holder = feature_parent_id_holder | add_to_array: create_features_parent.items.id %}
@@ -339,11 +339,11 @@
     {% endparse_json %}
 
     {% for features_details_item in features_details %}
-        {%- graphql create_features_details = "modules/website/migration/create_features_details"
-            parent: {{features_details_item.parent}},
-            heading: {{features_details_item.heading}},
-            short_description: {{features_details_item.short_description}},
-            details_order: {{features_details_item.details_order}}
+        {%- graphql create_features_details = "modules/website/migration/create_features_details",
+            parent: features_details_item.parent,
+            heading: features_details_item.heading,
+            short_description: features_details_item.short_description,
+            details_order: features_details_item.details_order
         -%}
     {% endfor %}
 {% endif %}
@@ -448,19 +448,19 @@
     {% endparse_json %}
 
     {% for faqs_item in faqs %}
-        {%- graphql create_faqs = "modules/website/migration/create_faqs"
-            question: {{faqs_item.question}},
-            slug: {{faqs_item.slug}},
-            answer: {{faqs_item.answer}},
-            sort_order: {{faqs_item.sort_order}},
-            sub_topic_title_1: {{faqs_item.sub_topic_title_1}},
-            sub_topic_details_1: {{faqs_item.sub_topic_details_1}},
-            sub_topic_title_2: {{faqs_item.sub_topic_title_2}},
-            sub_topic_details_2: {{faqs_item.sub_topic_details_2}},
-            sub_topic_title_3: {{faqs_item.sub_topic_title_3}},
-            sub_topic_details_3: {{faqs_item.sub_topic_details_3}},
-            sub_topic_title_4: {{faqs_item.sub_topic_title_4}},
-            sub_topic_details_4: {{faqs_item.sub_topic_details_4}} 
+        {%- graphql create_faqs = "modules/website/migration/create_faqs",
+            question: faqs_item.question,
+            slug: faqs_item.slug,
+            answer: faqs_item.answer,
+            sort_order: faqs_item.sort_order,
+            sub_topic_title_1: faqs_item.sub_topic_title_1,
+            sub_topic_details_1: faqs_item.sub_topic_details_1,
+            sub_topic_title_2: faqs_item.sub_topic_title_2,
+            sub_topic_details_2: faqs_item.sub_topic_details_2,
+            sub_topic_title_3: faqs_item.sub_topic_title_3,
+            sub_topic_details_3: faqs_item.sub_topic_details_3,
+            sub_topic_title_4: faqs_item.sub_topic_title_4,
+            sub_topic_details_4: faqs_item.sub_topic_details_4
         -%}
     {% endfor %}
 {% endif %}
@@ -543,15 +543,15 @@
         ]
     {% endparse_json %}
     {% for news_item in news %}
-        {%- graphql create_news = "modules/website/migration/create_news"
-            status: {{news_item.status}},
-            title: {{news_item.title}},
-            slug: {{news_item.slug}},
-            published_date: {{news_item.published_date}},
-            tag: {{news_item.tag}},
-            list_view_text: {{news_item.list_view_text}},
-            author: {{news_item.author}},
-            content: {{news_item.content}}
+        {%- graphql create_news = "modules/website/migration/create_news",
+            status: news_item.status,
+            title: news_item.title,
+            slug: news_item.slug,
+            published_date: news_item.published_date,
+            tag: news_item.tag,
+            list_view_text: news_item.list_view_text,
+            author: news_item.author,
+            content: news_item.content
         -%}
     {% endfor %}
 {% endif %}
@@ -624,10 +624,10 @@
         ]
     {% endparse_json %}
     {% for request_item in request %}
-        {%- graphql create_request = "modules/website/migration/create_request"
-            description: {{request_item.description}},
-            requested_by: {{request_item.requested_by}},
-            type: {{request_item.type}}
-        -%} 
+        {%- graphql create_request = "modules/website/migration/create_request",
+            description: request_item.description,
+            requested_by: request_item.requested_by,
+            type: request_item.type
+        -%}
     {% endfor %}
 {% endif %}
