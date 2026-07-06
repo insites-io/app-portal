@@ -4,17 +4,35 @@ metadata: {
 }
 ---
 
+{% graphql settings_res = 'modules/insites_ecommerce/stripe/get_stripe_settings', name: "insites_stripe_settings" %}
+{% graphql account_id_res = 'modules/insites_ecommerce/stripe/get_stripe_settings', name: "insites_stripe_account_id" %}
+{% graphql pk_live_res = 'modules/insites_ecommerce/stripe/get_stripe_settings', name: "insites_stripe_pk_live_key" %}
+{% graphql sk_live_res = 'modules/insites_ecommerce/stripe/get_stripe_settings', name: "insites_stripe_sk_live_key" %}
+{% graphql pk_test_res = 'modules/insites_ecommerce/stripe/get_stripe_settings', name: "insites_stripe_pk_test_key" %}
+{% graphql sk_test_res = 'modules/insites_ecommerce/stripe/get_stripe_settings', name: "insites_stripe_sk_test_key" %}
+
+{% parse_json "all_res" %}
+  {
+    "account_id": "{{ account_id_res.constant.value }}",
+    "pk_test_key": "{{ pk_test_res.constant.value }}",
+    "sk_test_key": "{{ sk_test_res.constant.value }}",
+    "pk_live_key": "{{ pk_live_res.constant.value }}",
+    "sk_live_key": "{{ sk_live_res.constant.value  }}",
+    "settings": "{{ settings_res.constant.value }}"
+  }
+{% endparse_json %}
+
 {%  liquid
-    function get_stripe_settings = "ecommerce/controller/stripe/get"
+    # function get_stripe_settings = "ecommerce/controller/stripe/get"
 
     # Insites SK Key must be added via Constants - For Stipe Connect
-    if get_stripe_settings.livemode
-        assign pk_key = get_stripe_settings.pk_live_key
-        assign sk_key = get_stripe_settings.sk_live_key
+    if all_res.settings == "test"
+        assign pk_key = all_res.pk_test_key
+        assign sk_key = all_res.sk_test_key
         assign sk_key_insites = context.constants.insites_stripe_sk_live_key
     else
-        assign pk_key = get_stripe_settings.pk_test_key
-        assign sk_key = get_stripe_settings.sk_test_key
+        assign pk_key = all_res.pk_live_key
+        assign sk_key = all_res.sk_live_key
         assign sk_key_insites = context.constants.insites_stripe_sk_test_key
     endif      
 %}
@@ -22,7 +40,7 @@ metadata: {
 
 {% parse_json data %}
 {
-    "account_id": "{{get_stripe_settings.account_id}}",
+    "account_id": "{{all_res.account_id}}",
     "pk_key": "{{pk_key}}",
     "sk_key": "{{sk_key}}",
     "sk_key_insites": "{{sk_key_insites}}"

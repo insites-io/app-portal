@@ -93,7 +93,7 @@ metadata: {
 {% comment %} GET STRIPE SETTINGS {% endcomment %}
 {% function get_stripe_settings = "modules/portal/stripe/get_stripe_settings" %}
 
-{%- comment -%} STEP 2: Stripe Charge / Payment  {%- endcomment -%}
+{%- comment -%} STEP 2: Stripe Charge / Payment  
 {% parse_json "create_charge" %}
 {
     "idempotency_key": "{{ '' | uuid }}",
@@ -121,7 +121,44 @@ metadata: {
 {% graphql stripe_create_charge = 'modules/website/trigger_api_call', 
     name: "modules/portal/create_charge",
     data: create_charge 
-    | dig: "items" | dig: "response" %}   
+    | dig: "items" | dig: "response" %} 
+    
+{%- endcomment -%}
+
+{% parse_json "create_payment" %}
+{
+    "idempotency_key": "{{ '' | uuid }}",
+    "currency": "AUD",
+    "amount": "{{ amount | advanced_format: '%.0f' }}",
+    "customer": "{{ get_stripe_id.stripe_id }}",
+    "confirm": "true",
+    {% if charge_to_this_card contains 'card_' %}
+            "payment_method": "{{ charge_to_this_card }}",
+    {% endif %}
+    "description": "Insites Order ID: {{ form.id }} (Insites Customer ID: {{ user.uuid }})",
+    "automatic_payment_methods": "enabled",
+    "metadata": {
+        "Insites Order ID": "{{ form.id }}",
+        "Insites Customer ID": "{{ user_id }}",
+        "Insites Company ID": "{{ company_id }}",
+        "Insites Company Name": "{{ company_name }}",
+        "Insites Order": "https://{{ context.location.host }}/admin/insites#/ecommerce/edit-order/{{ form.id }}"
+    },
+    "statement_descriptor": "{{ form.properties.statement_descriptor }}",
+    "sk_key": "{{ get_stripe_settings.sk_key }}",
+    "stripe_account_id": "{{ get_stripe_settings.account_id }}",
+    "sk_key_insites": "{{ get_stripe_settings.sk_key_insites }}"
+}
+{% endparse_json %}
+
+{%- log create_payment, type: "data to be passed" -%}
+
+{% graphql stripe_create_charge = 'modules/website/trigger_api_call', 
+    name: "modules/portal/create_payment_intent",
+    data: create_payment 
+    | dig: "items" | dig: "response" %} 
+
+{% log stripe_create_charge, type: "Stripe react" %}
 
 {%- assign stripe_create_charge = stripe_create_charge.body | parse_json -%}
 

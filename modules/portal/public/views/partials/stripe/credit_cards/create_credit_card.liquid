@@ -7,6 +7,8 @@ metadata: {
 {% graphql stripe_create_card = 'modules/website/trigger_api_call', name: "modules/portal/create_card",
     data: stripe_card | dig: 'items' | dig: 'response' %}
 
+    {%- log stripe_create_card, type: "Create Card response" -%}
+
     {%- assign stripe_response = stripe_create_card.body | parse_json -%}
     {% parse_json credit_card %}
     {
