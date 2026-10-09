@@ -18,7 +18,7 @@ query get_pah_users(
         ]
         profiles: [
           {
-            name: "modules/insites_core/crm_contact"
+            name: "modules/insites_crm/crm_contact"
             properties:[
                   { name: "company_uuid", value: $company_uuid }
                   { name: "is_archived", value_boolean: false }
@@ -47,7 +47,7 @@ query get_pah_users(
         created_at
 
         #Profiles
-       contact: profiles(profile_type: "modules/insites_core/crm_contact"){
+       contact: profiles(profile_type: "modules/insites_crm/crm_contact"){
             id
             profile_type
             company_uuid:property(name:"company_uuid")

@@ -32,7 +32,7 @@ query get_user_by_email (
 
       ## CRM
       crm_contact: profiles(
-        profile_type: "modules/insites_core/crm_contact"
+        profile_type: "modules/insites_crm/crm_contact"
       ) {
         id
         user_uuid: property(name: "uuid")
@@ -40,7 +40,7 @@ query get_user_by_email (
         mobile_phone_country_code: property(name: "mobile_phone_country_code")
         mobile_phone_number: property(name: "mobile_phone_number")
         company: related_record(
-         table: "modules/insites_core/crm_company"
+         table: "modules/insites_crm/crm_company"
           foreign_property: "uuid"
           join_on_property: "company_uuid"
           ) {
