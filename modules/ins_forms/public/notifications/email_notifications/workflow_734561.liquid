@@ -1,6 +1,6 @@
 ---
 from: Insites <notification@insites.io>
-layout: modules/insites_core/insites_internal_email_layout
+layout: modules/insites_crm/internal_email_layout
 metadata:
   type: workflow
   design:
@@ -12,9 +12,9 @@ to: '{%- include "modules/insites_cms/globals" -%} {{- context.exports.global.co
 trigger_condition: 'true'
 unique_args: ''
 ---
-{%- function default = 'modules/insites_core/functions/insites_brand' -%}
+{%- function default = 'modules/insites_crm/functions/insites_brand' -%}
 {%- assign assigned_title = title | default: "Form Submission Received" -%}
-{%- graphql form_record = 'modules/insites_core/utilities/get_record_for_email', 
+{%- graphql form_record = 'modules/insites_crm/utilities/get_record_for_email', 
     id: form.id -%}
 {% capture default_subtitle -%}Log in to {{ default.branding_name }} to view further information about this submission, add comments, and assign it to an administrator.{%- endcapture -%}
 {%- assign assigned_subtitle = subtitle | default: default_subtitle -%}
